@@ -1,8 +1,6 @@
 # BiofrontiersCapstone
 
-Click [here](TODO: provide a link the **this** new repo) to try the most recent exported version. This may not be up to date.
-
-TODO: The rest of this README page is documentation that should be moved to the `docs` folder, and there should be a link to it here. Once we have an actual relase of some sort, maybe embed it here as well?
+Soon there should be an exported version to try online. For now, if you want to try it, you can follow the Setup instructions below to try it out locally.
 
 # Getting Started
 
@@ -21,6 +19,8 @@ To try the game once you've got the project files, you'll need to go to Project/
 ![image](https://github.com/jcourt325/BiofrontiersCapstone/assets/65268611/47f6327b-9051-4bbf-96ea-3f7009dcd14e)
 
 # Documentation
+
+TODO: The rest of this README page is documentation that should be moved to the `docs` folder, and there should be a link to it here.
 
 ## Table of Contents
    [Administrative/Logistical Stuff](#non-code-documentation)
@@ -320,14 +320,8 @@ The GelMixSubstance represents a mixture that can result from mixing two substan
 
 ## Non Code Documentation
 
-### Github
-
-TODO: main and dev branches? github pages? it's public so don't do copyright infringement? make branches for your changes and do pull requests, even if you're not going to do code reviews?
-
-### Releases
-
-TODO: checklist on how to like, release an update? make sure it's legal, manually test everything you changed from beginning to end, pull request into `main`? <- do it on GitHub, not just in your terminal, so that others can easily see what you did?
-
 ### Licensing
 
-TODO: explain this - I think that the current license info and stuff in the About tab on the menu is all we really need? Just really be clear that we can only use art that we're actually allowed to. Say what license this project is available under, etc.
+This project currently has no license, which means that, while you can see it, you currently can't actualy use any of the code on your own, because it belongs to its individual authors.
+
+Soom, there will be a real license.
