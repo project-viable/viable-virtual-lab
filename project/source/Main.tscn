@@ -1,0 +1,410 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/UI/Menu.gd" type="Script" id=1]
+[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/UI/Camera.gd" type="Script" id=3]
+[ext_resource path="res://Images/HamburgerMenu.png" type="Texture" id=4]
+[ext_resource path="res://Images/Gel Electrophoresis Icon.png" type="Texture" id=5]
+[ext_resource path="res://Images/Dot-Blue.png" type="Texture" id=6]
+[ext_resource path="res://Images/Dot-Yellow.png" type="Texture" id=7]
+[ext_resource path="res://Images/Dot-Red.png" type="Texture" id=8]
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Menu" type="CanvasLayer" parent="."]
+layer = 128
+script = ExtResource( 1 )
+
+[node name="MainMenu" type="PanelContainer" parent="Menu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -96.0
+margin_top = -50.0
+margin_right = 96.0
+margin_bottom = 50.0
+
+[node name="Panel" type="VBoxContainer" parent="Menu/MainMenu"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 185.0
+margin_bottom = 93.0
+
+[node name="Title" type="Label" parent="Menu/MainMenu/Panel"]
+margin_right = 178.0
+margin_bottom = 14.0
+text = "VIABLE Freeform Virtual Lab"
+align = 1
+valign = 1
+
+[node name="SelectModuleButton" type="Button" parent="Menu/MainMenu/Panel"]
+margin_top = 18.0
+margin_right = 178.0
+margin_bottom = 38.0
+text = "Select Module"
+
+[node name="OptionsButton" type="Button" parent="Menu/MainMenu/Panel"]
+margin_top = 42.0
+margin_right = 178.0
+margin_bottom = 62.0
+text = "Options"
+
+[node name="AboutButton" type="Button" parent="Menu/MainMenu/Panel"]
+margin_top = 66.0
+margin_right = 178.0
+margin_bottom = 86.0
+text = "About"
+
+[node name="ModuleSelect" type="GridContainer" parent="Menu"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 3
+
+[node name="AboutScreen" type="PanelContainer" parent="Menu"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -307.0
+margin_top = -181.0
+margin_right = 307.0
+margin_bottom = 181.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/AboutScreen"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 607.0
+margin_bottom = 355.0
+
+[node name="Label" type="Label" parent="Menu/AboutScreen/VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+text = "About"
+align = 1
+
+[node name="Text" type="RichTextLabel" parent="Menu/AboutScreen/VBoxContainer"]
+margin_top = 24.0
+margin_right = 600.0
+margin_bottom = 324.0
+rect_min_size = Vector2( 600, 300 )
+bbcode_enabled = true
+bbcode_text = "This project is a web-based simulation framework that intends to provide virtual lab experience to users without access to a physical lab space. The framework is built to allow users the freedom to experiment and make mistakes in a controlled environment, with user mistakes carrying through to future steps and influencing the final result as they would in a real lab environment.
+
+This project was developed by Jonas Courtney, Jeffrey Collins, Conor Harris, Michael Jordan, Tyler Hand, and Justin Astalos as part of the 2023-2024 CS Senior Capstone class, sponsored by Jian Wei Tay and Kristin Moore.
+
+Many of the images used in this project were found online, and are used a placeholders, without attribution or concern for licensing. This means that the project is not currently suitable for release. This version is only intended to demonstrate the technical aspects of the project.
+
+
+
+License Information:
+	Godot:
+		This game uses Godot Engine, available under the following license:
+	    Copyright (c) 2014-present Godot Engine contributors. Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
+
+	    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+	    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+	    THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	FreeType:
+		Portions of this software are copyright © 1996-2019 The FreeType Project (www.freetype.org). All rights reserved.
+
+	ENet:
+	    Copyright (c) 2002-2020 Lee Salzman
+
+	    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+	    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+	    THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	mbed TLS:
+	    Copyright The Mbed TLS Contributors
+
+	    Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+	    http://www.apache.org/licenses/LICENSE-2.0
+
+	    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+"
+text = "This project is a web-based simulation framework that intends to provide virtual lab experience to users without access to a physical lab space. The framework is built to allow users the freedom to experiment and make mistakes in a controlled environment, with user mistakes carrying through to future steps and influencing the final result as they would in a real lab environment.
+
+This project was developed by Jonas Courtney, Jeffrey Collins, Conor Harris, Michael Jordan, Tyler Hand, and Justin Astalos as part of the 2023-2024 CS Senior Capstone class, sponsored by Jian Wei Tay and Kristin Moore.
+
+Many of the images used in this project were found online, and are used a placeholders, without attribution or concern for licensing. This means that the project is not currently suitable for release. This version is only intended to demonstrate the technical aspects of the project.
+
+
+
+License Information:
+	Godot:
+		This game uses Godot Engine, available under the following license:
+	    Copyright (c) 2014-present Godot Engine contributors. Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
+
+	    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+	    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+	    THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	FreeType:
+		Portions of this software are copyright © 1996-2019 The FreeType Project (www.freetype.org). All rights reserved.
+
+	ENet:
+	    Copyright (c) 2002-2020 Lee Salzman
+
+	    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+	    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+	    THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	mbed TLS:
+	    Copyright The Mbed TLS Contributors
+
+	    Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+	    http://www.apache.org/licenses/LICENSE-2.0
+
+	    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+"
+
+[node name="CloseButton" type="Button" parent="Menu/AboutScreen/VBoxContainer"]
+margin_top = 328.0
+margin_right = 600.0
+margin_bottom = 348.0
+text = "Close"
+
+[node name="OptionsScreen" type="PanelContainer" parent="Menu"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -162.5
+margin_top = -51.0
+margin_right = 162.5
+margin_bottom = 51.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/OptionsScreen"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 318.0
+margin_bottom = 95.0
+
+[node name="Label" type="Label" parent="Menu/OptionsScreen/VBoxContainer"]
+margin_right = 311.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+text = "Options"
+align = 1
+
+[node name="MouseDragToggle" type="CheckButton" parent="Menu/OptionsScreen/VBoxContainer"]
+margin_top = 24.0
+margin_right = 311.0
+margin_bottom = 64.0
+text = "Enable Dragging Camera with Mouse"
+
+[node name="CloseButton" type="Button" parent="Menu/OptionsScreen/VBoxContainer"]
+margin_top = 68.0
+margin_right = 311.0
+margin_bottom = 88.0
+text = "Close"
+
+[node name="FinalReport" type="PanelContainer" parent="Menu"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.5
+margin_top = -170.0
+margin_right = 200.5
+margin_bottom = 170.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/FinalReport"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 394.0
+margin_bottom = 333.0
+
+[node name="Label" type="Label" parent="Menu/FinalReport/VBoxContainer"]
+margin_right = 387.0
+margin_bottom = 14.0
+text = "Final Report"
+align = 1
+
+[node name="Spacer2" type="Control" parent="Menu/FinalReport/VBoxContainer"]
+margin_top = 18.0
+margin_right = 387.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="ModuleIcon" type="TextureRect" parent="Menu/FinalReport/VBoxContainer"]
+margin_top = 42.0
+margin_right = 387.0
+margin_bottom = 106.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="ModuleName" type="Label" parent="Menu/FinalReport/VBoxContainer"]
+margin_top = 110.0
+margin_right = 387.0
+margin_bottom = 124.0
+text = "You completed the module \"whatever\"!"
+align = 1
+
+[node name="Spacer1" type="Control" parent="Menu/FinalReport/VBoxContainer"]
+margin_top = 128.0
+margin_right = 387.0
+margin_bottom = 148.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Logs" type="RichTextLabel" parent="Menu/FinalReport/VBoxContainer"]
+margin_top = 152.0
+margin_right = 387.0
+margin_bottom = 302.0
+rect_min_size = Vector2( 0, 150 )
+bbcode_enabled = true
+bbcode_text = "You made some mistakes:
+-You messed up"
+text = "You made some mistakes:
+-You messed up"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/FinalReport/VBoxContainer"]
+margin_top = 306.0
+margin_right = 387.0
+margin_bottom = 326.0
+
+[node name="MainMenuButton" type="Button" parent="Menu/FinalReport/VBoxContainer/HBoxContainer"]
+margin_right = 83.0
+margin_bottom = 20.0
+text = "Main Menu"
+
+[node name="RestartModuleButton" type="Button" parent="Menu/FinalReport/VBoxContainer/HBoxContainer"]
+margin_left = 87.0
+margin_right = 196.0
+margin_bottom = 20.0
+text = "Restart Module"
+
+[node name="ContinueButton" type="Button" parent="Menu/FinalReport/VBoxContainer/HBoxContainer"]
+margin_left = 200.0
+margin_right = 387.0
+margin_bottom = 20.0
+text = "Continue in Freeform Mode"
+
+[node name="LogButton" type="TextureButton" parent="Menu"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -32.0
+margin_bottom = 32.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 4 )
+texture_disabled = ExtResource( 4 )
+texture_focused = ExtResource( 4 )
+
+[node name="Notifications" type="HBoxContainer" parent="Menu/LogButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 2
+
+[node name="Log" type="TextureRect" parent="Menu/LogButton/Notifications"]
+margin_right = 8.0
+margin_bottom = 32.0
+texture = ExtResource( 6 )
+stretch_mode = 3
+
+[node name="Warning" type="TextureRect" parent="Menu/LogButton/Notifications"]
+margin_left = 12.0
+margin_right = 20.0
+margin_bottom = 32.0
+texture = ExtResource( 7 )
+stretch_mode = 3
+
+[node name="Error" type="TextureRect" parent="Menu/LogButton/Notifications"]
+margin_left = 24.0
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 8 )
+stretch_mode = 3
+
+[node name="LogMenu" type="TabContainer" parent="Menu/LogButton"]
+visible = false
+anchor_left = -10.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 10.0
+margin_left = -48.0
+margin_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_min_size = Vector2( 450, 300 )
+tab_align = 2
+
+[node name="Instructions" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+bbcode_enabled = true
+
+[node name="Log" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+bbcode_enabled = true
+
+[node name="Warnings" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+bbcode_enabled = true
+
+[node name="Errors" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+bbcode_enabled = true
+
+[node name="Scene" type="Node2D" parent="."]
+
+[node name="Camera" type="Camera2D" parent="."]
+current = true
+script = ExtResource( 3 )
+
+[connection signal="pressed" from="Menu/MainMenu/Panel/SelectModuleButton" to="Menu" method="_on_SelectModuleButton_pressed"]
+[connection signal="pressed" from="Menu/MainMenu/Panel/OptionsButton" to="Menu" method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="Menu/MainMenu/Panel/AboutButton" to="Menu" method="_on_AboutButton_pressed"]
+[connection signal="pressed" from="Menu/AboutScreen/VBoxContainer/CloseButton" to="Menu" method="_on_About_CloseButton_pressed"]
+[connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
+[connection signal="pressed" from="Menu/OptionsScreen/VBoxContainer/CloseButton" to="Menu" method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/MainMenuButton" to="Menu" method="_on_FinalReport_MainMenuButton_pressed"]
+[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/RestartModuleButton" to="Menu" method="_on_FinalReport_RestartModuleButton_pressed"]
+[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/ContinueButton" to="Menu" method="_on_FinalReport_ContinueButton_pressed"]
+[connection signal="pressed" from="Menu/LogButton" to="Menu" method="_on_LogButton_pressed"]
+[connection signal="tab_changed" from="Menu/LogButton/LogMenu" to="Menu" method="SetLogNotificationCounts"]

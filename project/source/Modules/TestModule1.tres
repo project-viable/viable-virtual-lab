@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/Resources/ModuleData.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Modules/TestModule1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+[resource]
+script = ExtResource( 1 )
+Show = true
+Name = "Test 1"
+Tooltip = "This is a tooltip!"
+Thumbnail = ExtResource( 3 )
+Scene = ExtResource( 2 )
+InstructionsBBCode = "This is a test module, so there's no real instructions.
+
+[color=green]Do whatever you want with these test objects.[/color]"

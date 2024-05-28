@@ -1,0 +1,250 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Images/PipetteNoTip.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Objects/TestPipette.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Objects/SubsceneManager.gd" type="Script" id=3]
+[ext_resource path="res://Images/PipetteClose.png" type="Texture" id=4]
+[ext_resource path="res://Images/ArrowClockwise.png" type="Texture" id=5]
+[ext_resource path="res://Images/ArrowCounterClockwise.png" type="Texture" id=6]
+[ext_resource path="res://Images/ArrowFastCounterClockwise.png" type="Texture" id=7]
+[ext_resource path="res://Images/ArrowFastClockwise.png" type="Texture" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 17.5, 42.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 11.5, 35 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 300, 225 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 0.384314, 0.384314, 1 )
+border_width_left = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.72549, 0.156863, 0.156863, 1 )
+border_width_left = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 1, 0.215686, 0.215686, 1 )
+border_width_left = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 291.5, 186.5 )
+
+[node name="TestPipet" type="RigidBody2D" groups=["LabObjects"]]
+z_index = 2
+collision_layer = 2
+input_pickable = true
+gravity_scale = 0.0
+can_sleep = false
+script = ExtResource( 2 )
+draggable = true
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 6.00002, 14.1088 )
+scale = Vector2( 0.0265625, 0.0681388 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 4.5, 12.5 )
+shape = SubResource( 1 )
+
+[node name="Menu" type="CanvasLayer" parent="."]
+visible = false
+offset = Vector2( 600, 400 )
+transform = Transform2D( 1, 0, 0, 1, 600, 400 )
+
+[node name="PanelContainer" type="PanelContainer" parent="Menu"]
+margin_right = 14.0
+margin_bottom = 14.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 237.0
+margin_bottom = 73.0
+
+[node name="Label" type="Label" parent="Menu/PanelContainer/VBoxContainer"]
+margin_right = 230.0
+margin_bottom = 14.0
+text = "Input desired pipette volume below"
+
+[node name="LineEdit" type="LineEdit" parent="Menu/PanelContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 230.0
+margin_bottom = 42.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/PanelContainer/VBoxContainer"]
+margin_top = 46.0
+margin_right = 230.0
+margin_bottom = 66.0
+
+[node name="Submit" type="Button" parent="Menu/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 62.0
+margin_bottom = 20.0
+text = "Confirm"
+
+[node name="Cancel" type="Button" parent="Menu/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 66.0
+margin_right = 120.0
+margin_bottom = 20.0
+text = "Cancel"
+
+[node name="SubsceneManager" type="RigidBody2D" parent="." groups=["LabObjects", "SubsceneManagers"]]
+collision_layer = 2
+input_pickable = true
+gravity_scale = 0.0
+can_sleep = false
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubsceneManager"]
+position = Vector2( 5.5, 13 )
+shape = SubResource( 2 )
+
+[node name="Subscene2" type="Area2D" parent="SubsceneManager"]
+pause_mode = 1
+visible = false
+z_index = 4096
+collision_layer = 2
+collision_mask = 2
+
+[node name="Boundary" type="CollisionShape2D" parent="SubsceneManager/Subscene2"]
+shape = SubResource( 3 )
+
+[node name="Border" type="ReferenceRect" parent="SubsceneManager/Subscene2"]
+margin_left = -300.0
+margin_top = -225.0
+margin_right = 300.0
+margin_bottom = 225.0
+mouse_filter = 2
+border_color = Color( 1, 1, 1, 1 )
+border_width = 2.0
+editor_only = false
+
+[node name="Background" type="ColorRect" parent="SubsceneManager/Subscene2/Border"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.392157, 0.392157, 0.392157, 1 )
+
+[node name="CloseButton" type="Button" parent="SubsceneManager/Subscene2/Border/Background"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -20.0
+margin_bottom = 20.0
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
+text = "X"
+
+[node name="RigidBody2D" type="RigidBody2D" parent="SubsceneManager/Subscene2"]
+mode = 1
+mass = 0.01
+gravity_scale = 0.0
+
+[node name="Sprite" type="Sprite" parent="SubsceneManager/Subscene2/RigidBody2D"]
+position = Vector2( -1, -17 )
+scale = Vector2( 2.00859, 1.47628 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubsceneManager/Subscene2/RigidBody2D"]
+visible = false
+position = Vector2( -1, -17 )
+shape = SubResource( 7 )
+disabled = true
+
+[node name="Label" type="Label" parent="SubsceneManager/Subscene2"]
+margin_left = -142.0
+margin_top = -20.0
+margin_right = -71.0
+margin_bottom = -4.0
+rect_scale = Vector2( 2, 2 )
+size_flags_horizontal = 3
+size_flags_vertical = 7
+size_flags_stretch_ratio = 0.0
+align = 1
+valign = 1
+
+[node name="Confirm" type="Button" parent="SubsceneManager/Subscene2"]
+modulate = Color( 0, 1, 0.180392, 1 )
+self_modulate = Color( 0.054902, 1, 0, 1 )
+margin_left = -242.0
+margin_top = 94.0
+margin_right = -67.0
+margin_bottom = 130.0
+text = "Confirm"
+
+[node name="Cancel" type="Button" parent="SubsceneManager/Subscene2"]
+modulate = Color( 1, 0, 0, 1 )
+self_modulate = Color( 1, 0, 0, 1 )
+margin_left = 28.0
+margin_top = 98.0
+margin_right = 204.0
+margin_bottom = 133.0
+text = "Cancel"
+
+[node name="ClockSprite" type="Sprite" parent="SubsceneManager/Subscene2"]
+position = Vector2( 262, -28 )
+scale = Vector2( 0.3925, 0.319444 )
+texture = ExtResource( 5 )
+
+[node name="FastClockSprite" type="Sprite" parent="SubsceneManager/Subscene2"]
+position = Vector2( 257, -55 )
+scale = Vector2( 0.41, 0.292857 )
+texture = ExtResource( 8 )
+
+[node name="CounterSprite" type="Sprite" parent="SubsceneManager/Subscene2"]
+position = Vector2( 261, 32 )
+scale = Vector2( 0.395, 0.315 )
+texture = ExtResource( 6 )
+
+[node name="FastCounterSprite" type="Sprite" parent="SubsceneManager/Subscene2"]
+position = Vector2( 253, 57 )
+scale = Vector2( 0.43, 0.294017 )
+texture = ExtResource( 7 )
+
+[node name="VolumeDown" type="TextureButton" parent="SubsceneManager/Subscene2"]
+margin_left = 225.0
+margin_top = 18.0
+margin_right = 296.0
+margin_bottom = 43.0
+
+[node name="VolumeFastDown" type="TextureButton" parent="SubsceneManager/Subscene2"]
+margin_left = 214.0
+margin_top = 48.0
+margin_right = 294.0
+margin_bottom = 74.0
+
+[node name="VolumeUp" type="TextureButton" parent="SubsceneManager/Subscene2"]
+margin_left = 232.0
+margin_top = -39.0
+margin_right = 291.0
+margin_bottom = -17.0
+
+[node name="VolumeFastUp" type="TextureButton" parent="SubsceneManager/Subscene2"]
+margin_left = 224.0
+margin_top = -72.0
+margin_right = 295.0
+margin_bottom = -45.0
+
+[node name="Subscene" type="Area2D" parent="SubsceneManager"]
+visible = false
+z_index = 4096
+
+[connection signal="pressed" from="Menu/PanelContainer/VBoxContainer/HBoxContainer/Submit" to="." method="_on_Submit_pressed"]
+[connection signal="pressed" from="Menu/PanelContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="pressed" from="SubsceneManager/Subscene2/Border/Background/CloseButton" to="SubsceneManager" method="HideSubscene"]
+[connection signal="pressed" from="SubsceneManager/Subscene2/Confirm" to="." method="_on_Confirm_pressed"]
+[connection signal="pressed" from="SubsceneManager/Subscene2/Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="pressed" from="SubsceneManager/Subscene2/VolumeDown" to="." method="_on_VolumeDown_pressed"]
+[connection signal="pressed" from="SubsceneManager/Subscene2/VolumeFastDown" to="." method="_on_VolumeFastDown_pressed"]
+[connection signal="pressed" from="SubsceneManager/Subscene2/VolumeUp" to="." method="_on_VolumeUp_pressed"]
+[connection signal="pressed" from="SubsceneManager/Subscene2/VolumeFastUp" to="." method="_on_VolumeFastUp_pressed"]

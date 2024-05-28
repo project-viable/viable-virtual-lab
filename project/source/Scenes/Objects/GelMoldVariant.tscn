@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Objects/GelMoldVariant.gd" type="Script" id=1]
+[ext_resource path="res://Images/GelBoat.PNG" type="Texture" id=2]
+[ext_resource path="res://Scripts/Objects/ObjectSlot.gd" type="Script" id=3]
+[ext_resource path="res://Images/GelBoat_Full.PNG" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 43, 34 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 42, 33 )
+
+[node name="GelMoldVariant" type="RigidBody2D" groups=["Conductive", "Container", "Gel Boat", "LabObjects"]]
+z_index = 1
+collision_layer = 2
+input_pickable = true
+mode = 3
+gravity_scale = 0.0
+can_sleep = false
+script = ExtResource( 1 )
+filled_image = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.261538, 0.261538 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="CombSlot" type="RigidBody2D" parent="." groups=["LabObjects"]]
+collision_layer = 2
+input_pickable = true
+mode = 3
+gravity_scale = 0.0
+can_sleep = false
+script = ExtResource( 3 )
+allowed_group = "Gel Comb"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CombSlot"]
+shape = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="CombSlot"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombSlot/Area2D"]
+shape = SubResource( 2 )
+
+[node name="FollowMenu" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Button" type="Button" parent="FollowMenu"]
+margin_left = -32.0
+margin_top = 38.0
+margin_right = 32.0
+margin_bottom = 58.0
+text = "Let Cool"
+
+[connection signal="body_exited" from="CombSlot/Area2D" to="CombSlot" method="_on_Area2D_body_exited"]
+[connection signal="pressed" from="FollowMenu/Button" to="." method="_on_Button_pressed"]

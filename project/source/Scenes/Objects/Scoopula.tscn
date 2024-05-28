@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/Objects/Scoopula.gd" type="Script" id=1]
+[ext_resource path="res://Images/Scoopula.jpg" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 26, 24 )
+
+[node name="Scoopula" type="RigidBody2D"]
+z_index = 3
+collision_layer = 2
+gravity_scale = 0.0
+script = ExtResource( 1 )
+draggable = true
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 9.53674e-07, -1.66893e-06 )
+scale = Vector2( 0.135065, 0.125984 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1 )
+shape = SubResource( 1 )
+
+[node name="Menu" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="Menu"]
+anchor_left = 0.098
+anchor_top = 0.067
+anchor_right = 0.225
+anchor_bottom = 0.228
+margin_left = 319.648
+margin_top = 233.8
+margin_right = 313.6
+margin_bottom = 237.2
+rect_scale = Vector2( 1.0047, 1.05987 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 126.0
+margin_bottom = 133.0
+
+[node name="Title" type="Label" parent="Menu/PanelContainer/VBoxContainer"]
+margin_right = 119.0
+margin_bottom = 14.0
+text = "Dispense Mode"
+align = 1
+
+[node name="DumpButton" type="CheckButton" parent="Menu/PanelContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 119.0
+margin_bottom = 58.0
+text = "Dump"
+
+[node name="TapButton" type="CheckButton" parent="Menu/PanelContainer/VBoxContainer"]
+margin_top = 62.0
+margin_right = 119.0
+margin_bottom = 102.0
+text = "Tap"
+
+[node name="CloseButton" type="Button" parent="Menu/PanelContainer/VBoxContainer"]
+margin_top = 106.0
+margin_right = 119.0
+margin_bottom = 126.0
+text = "Close"
+
+[connection signal="toggled" from="Menu/PanelContainer/VBoxContainer/DumpButton" to="." method="_on_DumpButton_toggled"]
+[connection signal="toggled" from="Menu/PanelContainer/VBoxContainer/TapButton" to="." method="_on_TapButton_toggled"]
+[connection signal="pressed" from="Menu/PanelContainer/VBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]

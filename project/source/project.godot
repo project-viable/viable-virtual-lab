@@ -1,0 +1,129 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "ContactWire",
+"language": "GDScript",
+"path": "res://Scripts/Objects/ContactWire.gd"
+}, {
+"base": "Node2D",
+"class": "CurrentConductor",
+"language": "GDScript",
+"path": "res://Scripts/Objects/CurrentConductor.gd"
+}, {
+"base": "Node",
+"class": "DNAsubstance",
+"language": "GDScript",
+"path": "res://Scenes/Substances/GelModule/DNAsubstance.gd"
+}, {
+"base": "LabObject",
+"class": "LabContainer",
+"language": "GDScript",
+"path": "res://Scripts/Objects/LabContainer.gd"
+}, {
+"base": "RigidBody2D",
+"class": "LabObject",
+"language": "GDScript",
+"path": "res://Scripts/Objects/LabObject.gd"
+}, {
+"base": "Resource",
+"class": "ModuleData",
+"language": "GDScript",
+"path": "res://Scripts/Resources/ModuleData.gd"
+}, {
+"base": "LabObject",
+"class": "SubsceneManager",
+"language": "GDScript",
+"path": "res://Scripts/Objects/SubsceneManager.gd"
+}, {
+"base": "Node",
+"class": "Substance",
+"language": "GDScript",
+"path": "res://Scripts/Substances/Substance.gd"
+}, {
+"base": "Node2D",
+"class": "VolumeContainer",
+"language": "GDScript",
+"path": "res://Scripts/Objects/VolumeContainer.gd"
+} ]
+_global_script_class_icons={
+"ContactWire": "",
+"CurrentConductor": "",
+"DNAsubstance": "",
+"LabContainer": "",
+"LabObject": "",
+"ModuleData": "",
+"SubsceneManager": "",
+"Substance": "",
+"VolumeContainer": ""
+}
+
+[application]
+
+config/name="VIABLE-VirtualLab"
+run/main_scene="res://Main.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+LabLog="*res://Scripts/LabLogSingleton.gd"
+GameSettings="*res://Scripts/GameSettingsSingleton.gd"
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[input]
+
+ToggleMenu={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+CameraLeft={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+CameraRight={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+DragLabObject={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+DragCamera={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="Scene"
+2d_physics/layer_2="Objects"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_environment="res://default_env.tres"

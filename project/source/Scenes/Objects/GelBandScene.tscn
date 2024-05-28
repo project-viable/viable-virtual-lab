@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Images/GelBand.png" type="Texture" id=1]
+
+[node name="GelBandScene" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, 5.96046e-08 )
+scale = Vector2( 0.263158, 0.19 )
+texture = ExtResource( 1 )
