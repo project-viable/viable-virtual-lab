@@ -1,6 +1,8 @@
-# BiofrontiersCapstone
+# VIABLE Virtual Lab
 
-Soon there should be an exported version to try online. For now, if you want to try it, you can follow the Setup instructions below to try it out locally.
+To try out our current demo, click [here](https://project-viable.github.io/viable-virtual-lab/export/VirtualLabExport.html). You can also follow the Setup instructions below to try it out locally.
+
+Currently, there's a lot of placeholder images. This is very much an early demo, and it will be improved soon.
 
 # Getting Started
 
