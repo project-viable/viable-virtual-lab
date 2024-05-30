@@ -50,8 +50,12 @@ ModuleData has the following properties:
 
 ### Making a new Module
 
-TODO
-Make a scene, make a moduledata, save the moduledata in the correct folder. See [Main Scene](#main-scene).
+In order to make a module, you need to do a couple things:
+1. Make the scene that contains all of the LabObjects, backgrounds, etc, that make up your new module. Don't worry about adding the Menu or a Camera or anything, because that's handled for you by the [Main Scene](#main-scene). For an example, you can look at the Gel electrophoresis scene. The location of this .tscn file in the project folder doesn't technically matter.
+2. Make a new ModuleData resource in the `"res://Modules"` folder. Simple Godot tutorials might not cover this - right click in the folder, hit "new resource", and find `ModuleData`. It needs to be in that folder so that the game can find it on its own.
+3. Once you've made your new `ModuleData` resource, fill in its properties (listed above) - you can leave most of them blank if you need to, or use a placeholder. Just make sure you've set the `Scene` property to point to the scene you made in step 1 (you don't need to make a new packed scene or anything, hit "Load" and point it directly to the .tscn file).
+
+Now, the game should see the ModuleData you made, and automatically populate the Module Select manu for you. When you click the button for your new module, it will load your new scene. For details on how that works, see [Main Scene](#main-scene).
 
 ## LabObjects
 
@@ -322,6 +326,6 @@ The GelMixSubstance represents a mixture that can result from mixing two substan
 
 ### Licensing
 
-This project currently has no license, which means that, while you can see it, you currently can't actualy use any of the code on your own, because it belongs to its individual authors.
+This project currently has no license, which means that, while you can see it, you currently can't actually use any of the code on your own, because it belongs to its individual authors.
 
 Soom, there will be a real license.
