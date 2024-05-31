@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Objects/TestGraduatedCylinder.gd" type="Script" id=1]
-[ext_resource path="res://Images/Graduted Cylinder.jpg" type="Texture" id=2]
+[ext_resource path="res://Images/Graduated_Cylinder.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Objects/VolumeContainer.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 60 )
+extents = Vector2( 16, 59.5 )
 
-[node name="TestGraduatedCylinder" type="RigidBody2D" groups=["LabObjects"]]
+[node name="GraduatedCylinder" type="RigidBody2D" groups=["LabObjects"]]
 z_index = 1
 collision_layer = 2
 input_pickable = true
@@ -18,10 +18,11 @@ script = ExtResource( 1 )
 draggable = true
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.25, 0.25 )
+scale = Vector2( 0.015707, 0.015707 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 0.5 )
 shape = SubResource( 1 )
 
 [node name="VolumeContainer" type="Node2D" parent="." groups=["VolumeContainers"]]
