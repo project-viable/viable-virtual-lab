@@ -11,7 +11,7 @@
 [ext_resource path="res://Scenes/Objects/TestScale.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Objects/WeighBoat.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Objects/TestPipette.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scenes/Objects/TestGraduatedCylinder.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Objects/GraduatedCylinder.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Substances/GelModule/AgarPowderSubstance.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Scenes/Substances/GelModule/GelMixManager.gd" type="Script" id=15]
 [ext_resource path="res://Scenes/Objects/SharpsDisposal.tscn" type="PackedScene" id=17]
@@ -134,7 +134,7 @@ substance = ExtResource( 6 )
 position = Vector2( 488, 24 )
 draggable = false
 
-[node name="TestGraduatedCylinder" parent="." instance=ExtResource( 13 )]
+[node name="GraduatedCylinder" parent="." instance=ExtResource( 13 )]
 position = Vector2( 413, -198 )
 
 [node name="ElectrolysisSetup" parent="." instance=ExtResource( 21 )]
