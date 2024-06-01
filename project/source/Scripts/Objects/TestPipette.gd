@@ -70,7 +70,7 @@ func dispose():
 	if(hasTip):#If the pipette has a tip, remove it, change the texture to the no-tip version, and empty contents
 		hasTip = false
 		isContaminated = false
-		$Sprite.texture = load("res://Images/PipetteNoTip.png")
+		$Sprite.texture = load("res://Images/Pipette_0.png")
 		contents = []
 	else: #If there is no tip, the user is attempting to throw away the pipette itself
 		self.queue_free()
