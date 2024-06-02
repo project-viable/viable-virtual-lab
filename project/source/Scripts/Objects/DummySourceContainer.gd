@@ -19,10 +19,10 @@ func _ready():
 	var substance_name = substance.instance().name
 	if substance_name == 'AgarPowderSubstance':
 		$Sprite.texture = agarose_texture
-	# Scale container size dimensions
-	# May change to better method following discussion
-	$Sprite.scale.x *= 0.06
-	$Sprite.scale.y *= 0.08
+		# Scale container size dimensions
+		# May change to better method following discussion
+		$Sprite.scale.x *= 0.06
+		$Sprite.scale.y *= 0.08
 
 	contents = substance.instance()
 	if substance_parameters != null:
