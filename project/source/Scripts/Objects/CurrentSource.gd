@@ -9,7 +9,6 @@ func _ready():
 	$Sprite.set_texture($Viewport.get_texture())
 	
 	add_to_group("CurrentConductors", true)
-	$CurrentConductor.SetCurrent(0)
 	$CurrentConductor.SetVolts(0)
 	$CurrentConductor.SetTime(0)
 
@@ -19,9 +18,6 @@ func TryInteract(others):
 func terminal_connected(_terminal, _contact):
 	return $PosTerminal.connected() || $NegTerminal.connected()
 
-func _on_CurrentInput_value_changed(value):
-	$CurrentConductor.SetCurrent(value)
-
 func _on_VoltsInput_value_changed(value):
 	$CurrentConductor.SetVolts(value)
 
@@ -29,7 +25,6 @@ func _on_TimeInput_value_changed(value):
 	$CurrentConductor.SetTime(value)
 	
 func ToggleInputsEditable():
-	$UserInput/CurrentInput.editable = !running
 	$UserInput/VoltsInput.editable = !running
 	$UserInput/TimeInput.editable = !running
 	
@@ -71,7 +66,7 @@ func _on_RunCurrent_pressed():
 		if $PosTerminal.connected() && $NegTerminal.connected():
 			if other_device.has_method("run_current"):
 				
-				other_device.run_current($CurrentConductor.GetVolts(), $CurrentConductor.GetCurrent(), timestep)
+				other_device.run_current($CurrentConductor.GetVolts(), timestep)
 				
 				time_ran += timestep
 				

@@ -29,7 +29,7 @@ func TryInteract(others):
 				
 				fill_requested = false
 
-func run_current(voltage, current, time, print_text = false):
+func run_current(voltage, time, print_text = false):
 	# Check if current is reversed
 	var current_reversed = current_reversed()
 	
@@ -38,7 +38,7 @@ func run_current(voltage, current, time, print_text = false):
 			if(mounted_container != null && mounted_container.is_in_group('Conductive')):
 				# run current through the container
 				var voltage_mod = -1 if (current_reversed) else 1 # this is a weird, Godot-style ternary
-				mounted_container.run_current(voltage * voltage_mod, current, time)
+				mounted_container.run_current(voltage * voltage_mod, time)
 				
 				# update the gel display
 				var content = $GelBoatSlot.get_object()
