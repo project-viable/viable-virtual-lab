@@ -25,7 +25,6 @@ position = Vector2( 0, 32 )
 shape = SubResource( 1 )
 
 [node name="Menu" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="PanelContainer" type="PanelContainer" parent="Menu"]
 anchor_left = 0.5
@@ -64,10 +63,9 @@ Use the color picker below to change the color of the lab object."
 fit_content_height = true
 
 [node name="ColorPicker" type="ColorPicker" parent="Menu/PanelContainer/VBoxContainer"]
-margin_left = 8.0
-margin_top = 135.0
-margin_right = 408.0
-margin_bottom = 597.0
+margin_top = 127.0
+margin_right = 400.0
+margin_bottom = 589.0
 
 [node name="CloseButton" type="Button" parent="Menu/PanelContainer/VBoxContainer"]
 margin_top = 593.0
