@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=2]
 
-[ext_resource path="res://Images/LabCounter.png" type="Texture" id=1]
+[ext_resource path="res://Images/lab_counter.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Trashcan.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Objects/LabContainer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Objects/SourceContainer.tscn" type="PackedScene" id=4]
