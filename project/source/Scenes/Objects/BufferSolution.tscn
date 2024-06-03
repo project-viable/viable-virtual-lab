@@ -21,7 +21,7 @@ position = Vector2( 0, 0.5 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.0575, 0.0575 )
+scale = Vector2( 0.00571875, 0.00571875 )
 texture = ExtResource( 3 )
 
 [node name="VolumeContainer" type="Node2D" parent="." groups=["VolumeContainers"]]
