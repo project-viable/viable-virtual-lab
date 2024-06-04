@@ -112,11 +112,11 @@ func chill(chillTime):
 		if(content.is_in_group("Chillable")):
 			content.chill(chillTime)
 
-func run_current(voltage, current, time):
+func run_current(voltage, time):
 	# pass current along to the container's contents
 	for content in contents:
 		if(content.is_in_group("Conductive")):
-			content.run_current(voltage, current, time)
+			content.run_current(voltage, time)
 
 func mix():
 	# mix together all mixable contents

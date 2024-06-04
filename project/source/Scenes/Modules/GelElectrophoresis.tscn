@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Images/lab_counter.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Trashcan.tscn" type="PackedScene" id=2]
@@ -11,9 +11,11 @@
 [ext_resource path="res://Scenes/Objects/TestScale.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Objects/WeighBoat.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Objects/TestPipette.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Images/ArgosePowder_Closed.png" type="Texture" id=12]
 [ext_resource path="res://Scenes/Objects/GraduatedCylinder.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Substances/GelModule/AgarPowderSubstance.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Scenes/Substances/GelModule/GelMixManager.gd" type="Script" id=15]
+[ext_resource path="res://Images/TAE_Bottle_Closed.png" type="Texture" id=16]
 [ext_resource path="res://Scenes/Objects/SharpsDisposal.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Objects/RecycleBin.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Scenes/Objects/CompostBin.tscn" type="PackedScene" id=19]
@@ -123,12 +125,14 @@ position = Vector2( -570, -168 )
 mode = 1
 object_label = "Agarose"
 substance = ExtResource( 14 )
+image = ExtResource( 12 )
 
 [node name="DummySourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -480, -167 )
 mode = 1
 object_label = "Buffer"
 substance = ExtResource( 6 )
+image = ExtResource( 16 )
 
 [node name="Scale" parent="." instance=ExtResource( 9 )]
 position = Vector2( 488, 24 )
@@ -154,7 +158,6 @@ position = Vector2( -550, 237 )
 
 [node name="CurrentSource" parent="." instance=ExtResource( 24 )]
 position = Vector2( 874, -84 )
-time_delay = 0.005
 
 [node name="ContactWire" parent="." instance=ExtResource( 23 )]
 position = Vector2( 804, -35 )

@@ -11,8 +11,8 @@ var dna_contents = []
 var gel_has_wells = false
 
 func _ready():
-	empty_comb_img = preload('res://Images/GelBoatComb.PNG')
-	filled_comb_img = preload('res://Images/GelBoatComb_Full.PNG')
+	empty_comb_img = preload('res://Images/Gel_Tray_comb_empty.png')
+	filled_comb_img = preload('res://Images/Gel_Tray_comb_gel.png')
 
 func update_display():
 	# static change from "empty" to "filled" for now
