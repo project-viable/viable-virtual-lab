@@ -120,14 +120,14 @@ draggable = true
 position = Vector2( 510, -168 )
 draggable = true
 
-[node name="DummySourceContainer2" parent="." instance=ExtResource( 4 )]
+[node name="AgaroseSourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -570, -168 )
 mode = 1
 object_label = "Agarose"
 substance = ExtResource( 14 )
 image = ExtResource( 12 )
 
-[node name="DummySourceContainer" parent="." instance=ExtResource( 4 )]
+[node name="TAESourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -480, -167 )
 mode = 1
 object_label = "Buffer"
