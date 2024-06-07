@@ -23,6 +23,12 @@ func _get_configuration_warning():
 			return ""
 	return "LabObject requires at least one CollisionShape2D or CollisionPolygon2D or it can't work."
 
+func _enter_tree():
+	self.LabObjectEnterTree()
+
+func _exit_tree():
+	self.LabObjectExitTree()
+
 func _ready():
 	#These things happen when you create a LabObject in the editor, because it's a tool class.
 	#This is just a way of overriding rigidbody's default properties to be how we need.
@@ -31,6 +37,11 @@ func _ready():
 	collision_mask = 1 #Scene layer, no others
 	can_sleep = false
 	input_pickable = true
+	
+	self.LabObjectReady()
+
+func _physics_process(delta):
+	self.LabObjectPhysicsProcess(delta)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -60,6 +71,8 @@ func _process(delta):
 		#see if we should continue dragging
 		if Input.is_action_just_released("DragLabObject"):
 			StopDragging()
+	
+	self.LabObjectProcess(delta)
 
 #LabObject does not do this on it's own. When input happens, Main decides which if any objects should start dragging.
 func StartDragging():
@@ -123,7 +136,32 @@ func GetSubsceneManagerParent():
 	
 	#If we've made it here, we ran out of ancestors before finding one
 	return null
-	
+
+######## Convenience Functions ########
+#Use these instead of the corresponding Godot functions (like _ready()).
+#Those Godot functions call them.
+#You probably only need LabObjectReady() and LabObjectProcess(), but others are here if you need.
+#These exist because we've had issues with people forgetting to call super() when they use _ready() and _process().
+
+func LabObjectEnterTree():
+	pass
+
+func LabObjectExitTree():
+	pass
+
+func LabObjectPhysicsProcess(delta: float):
+	pass
+
+func LabObjectProcess(delta: float):
+	pass
+
+func LabObjectReady():
+	pass
+
+######## Simulation Functionality Functions ########
+#See the documentation for what all of these do, and when you should use each one.
+#Chances are you only need TryInteract() and TryActIndependently()
+
 #Called when attempting to throw away an object, can be overwritten by subclasses for specialized deletion 
 func dispose(): 
 	self.queue_free()
@@ -154,7 +192,6 @@ func OnUserAction():
 	
 	if not dragStartGlobalPos or not draggable or global_position.distance_to(dragStartGlobalPos) <= maxMovementForActIndependently:
 		self.TryActIndependently()
-
 
 #This should be overriden by things that extend this class.
 #You should never need to call this on your own - LabObject and Main do it.

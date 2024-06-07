@@ -1,7 +1,6 @@
 extends LabObject
 
-func _ready():
-	._ready() #like super() in other languages
+func LabObjectReady():
 	$Menu.hide()
 
 func TryActIndependently():

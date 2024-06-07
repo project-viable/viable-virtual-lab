@@ -12,9 +12,12 @@ export (Texture) var image = null
 # var agarose_texture = load('res://Images/ArgosePowder_Closed.png')
 
 func _ready():
-	$Sprite.texture = image
-	$Sprite.scale.x *= 0.08
-	$Sprite.scale.y *= 0.08
+	if image != null:
+		$Sprite.texture = image
+		$Sprite.scale.x *= 0.08
+		$Sprite.scale.y *= 0.08
+	else:
+		$Sprite.texture = load('res://Images/Full Erlenmeyer Flask Clipart.png')
 	
 	$ObjectLabel.text = object_label
 	if substance == null:

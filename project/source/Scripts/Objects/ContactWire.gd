@@ -23,16 +23,20 @@ func _ready():
 		point2 = $Contact2.position
 
 func _process(delta):
-	var contact1_position = $Contact1.position
-	var contact2_position = $Contact2.position
-	
-	if point1 != contact1_position or point2 != contact2_position:
-		point1 = contact1_position
-		point2 = contact2_position
-		update()
+	if $Contact1 and $Contact2:
+		var contact1_position = $Contact1.position
+		var contact2_position = $Contact2.position
+		
+		if point1 != contact1_position or point2 != contact2_position:
+			point1 = contact1_position
+			point2 = contact2_position
+			update()
 
 func _draw():
 	draw_line(point1, point2, color, width)
 
 func is_positive():
 	return positive
+
+func dispose():
+	self.queue_free()
