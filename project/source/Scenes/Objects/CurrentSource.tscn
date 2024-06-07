@@ -43,26 +43,26 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="VoltsInput" type="SpinBox" parent="UserInput"]
-margin_left = 122.0
+margin_left = 99.0
 margin_top = 43.0
-margin_right = 196.0
+margin_right = 173.0
 margin_bottom = 67.0
 rect_scale = Vector2( 1, 0.75 )
 max_value = 1000.0
 
 [node name="TimeInput" type="SpinBox" parent="UserInput"]
-margin_left = 122.0
+margin_left = 99.0
 margin_top = 81.0
-margin_right = 196.0
+margin_right = 173.0
 margin_bottom = 105.0
 rect_scale = Vector2( 1, 0.75 )
 max_value = 1000.0
 
 [node name="RunCurrent" type="Button" parent="UserInput"]
-margin_left = 25.0
-margin_top = 82.0
-margin_right = 78.0
-margin_bottom = 108.0
+margin_left = 329.0
+margin_top = 87.0
+margin_right = 382.0
+margin_bottom = 113.0
 text = "START"
 
 [node name="Viewport" type="Viewport" parent="."]
@@ -75,9 +75,8 @@ margin_bottom = 137.0
 color = Color( 0.211765, 0.176471, 0.176471, 1 )
 
 [node name="Title" type="Label" parent="Viewport/ColorRect"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 62.0
+margin_top = 28.0
+margin_right = 484.0
 margin_bottom = 51.0
 rect_scale = Vector2( 1.5, 1.5 )
 text = "Power
@@ -85,16 +84,16 @@ Supply"
 align = 1
 
 [node name="UserInputPanel" type="Panel" parent="Viewport/ColorRect"]
-margin_left = 106.0
+margin_left = 80.0
 margin_top = 25.0
-margin_right = 329.0
+margin_right = 317.0
 margin_bottom = 114.0
 custom_styles/panel = SubResource( 1 )
 
 [node name="VoltsLabel" type="Label" parent="Viewport/ColorRect/UserInputPanel"]
-margin_left = 112.0
+margin_left = -358.0
 margin_top = 17.0
-margin_right = 152.0
+margin_right = 196.0
 margin_bottom = 69.0
 rect_scale = Vector2( 1.75, 1.5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -112,7 +111,7 @@ text = "Time (min)"
 align = 1
 
 [node name="PosTerminal" type="RigidBody2D" parent="."]
-position = Vector2( 366, 46 )
+position = Vector2( 46, 45 )
 gravity_scale = 0.0
 script = ExtResource( 3 )
 __meta__ = {
@@ -156,7 +155,7 @@ position = Vector2( 0, 2 )
 shape = SubResource( 3 )
 
 [node name="NegTerminal" type="RigidBody2D" parent="."]
-position = Vector2( 367, 95 )
+position = Vector2( 47, 94 )
 gravity_scale = 0.0
 script = ExtResource( 3 )
 __meta__ = {
