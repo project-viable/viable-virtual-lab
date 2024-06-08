@@ -1,7 +1,6 @@
 extends LabObject
 
 var contents = []
-#var allowedGroups = ["Buffer Solution Container", "Source Container"]
 var allowedGroups = ["Source Container"]
 
 func _ready():
@@ -10,8 +9,6 @@ func _ready():
 	var maxVolume = 50
 	# Initialize volume to 0mL
 	var volume = 0
-	
-	#contents.volume = volume
 	
 	$VolumeContainer.SetMaxVolume(maxVolume)
 	$VolumeContainer.SetVolume(volume)
