@@ -142,7 +142,7 @@ draggable = false
 position = Vector2( 413, -198 )
 
 [node name="ElectrolysisSetup" parent="." instance=ExtResource( 21 )]
-position = Vector2( 653, 3 )
+position = Vector2( 663, 37 )
 
 [node name="Trashcan" parent="." instance=ExtResource( 2 )]
 position = Vector2( -1000, 237 )
