@@ -14,7 +14,7 @@ func _ready():
 func TryInteract(others):
 	for other in others:#If interacting with container then we want to dispense or pick up
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
-			if len(contents) == 0 and other.CheckContents("Liquid Substance"):
+			if len(contents) == 0 and other.CheckContents("Solid Substance"):
 				contents.append_array(other.TakeContents())
 				if(other.is_in_group("Scale")):
 					other.UpdateWeight()
