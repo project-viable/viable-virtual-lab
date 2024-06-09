@@ -67,6 +67,16 @@ func TryInteract(others):
 
 	return false
 
+func TakeContents():
+	if($VolumeContainer.GetVolume() != 50):
+		LabLog.Warn("Less than 50 ml dispensed, this might not be enough TAE", false, false)
+	var content = contents
+	contents.clear()
+	$VolumeContainer.DumpContents()
+	ResetMenu()
+	print("Graduated cylinder has ", $VolumeContainer.GetVolume(), "mL of liquid")
+	return content
+
 # Reset values in menu
 func ResetMenu():
 	$Menu/PanelContainer/VBoxContainer/Description.text = "Graduated Cylinder currently has a " \

@@ -28,6 +28,24 @@ func TryInteract(others):
 					print('The setup cannot be filled with that.')
 				
 				fill_requested = false
+				
+		elif other.is_in_group("GraduatedCylinder"):
+			# Open substance menu
+			$FollowMenu/SubstanceMenu.visible = true
+			
+			yield(self, "menu_closed")
+			
+			if(fill_requested):
+				# fill the setup with the container contents
+				if(fill_substance == null):
+					fill_substance = other.TakeContents()
+					$FollowMenu/SubstanceMenu.visible = false
+				elif(other.CheckContents("Liquid Substance")):
+					print('The setup is already filled.')
+				else:
+					print('The setup cannot be filled with that.')
+				
+				fill_requested = false
 
 func run_current(voltage, time, print_text = false):
 	# Check if current is reversed
