@@ -19,7 +19,7 @@ func update_display():
 	if($CombSlot.filled()):
 		# variants with the gel comb
 		if(len(contents) > 0):
-			if(filled_image != null):
+			if(filled_comb_img != null):
 				$Sprite.texture = filled_comb_img
 		else:
 			$Sprite.texture = empty_comb_img
