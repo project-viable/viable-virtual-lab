@@ -116,30 +116,35 @@ func AddContents(new_contents):
 				print("Final volume is "+str(chk_content.volume))
 				
 				break
-		
-		if new_content.is_in_group('DNA'):
-			if not $CombSlot.filled():
-				if contents != []:
-					if contents[0].is_in_group('Gel'):
-						if contents[0].cooled:
-							if gel_has_wells:
-								if dna_contents.size() < comb_slots:
-									add_dna(new_content)
-								else:
-									print("All comb slots are full")
-							else:
-								print("There are no comb slots in the gel")
-						else:
-							print("Gel has not been cooled")
-					else:
-						print("A substance that is not gel is in the mold")
-				else:
-					print("There is not gel in the mold")
-			else:
-				print("The comb is in the way of the slots")
-		elif(!match_found):
+			
+		if(!match_found):
 			contents.append(new_content)
-	
+		
+		if not new_content.is_in_group('DNA'):
+			continue
+			
+		if $CombSlot.filled():
+			print("The comb is in the way of the slots")
+			continue
+		
+		if contents == []:
+			print("There is not gel in the mold")
+			continue
+			
+		if not contents[0].is_in_group('Gel'):
+			print("A substance that is not gel is in the mold")
+			continue
+			
+		if !contents[0].cooled:
+			print("Gel has not been cooled")
+			continue
+			
+		if not gel_has_wells:
+			print("There are no comb slots in the gel")
+			continue
+			
+		if dna_contents.size() < comb_slots:
+			add_dna(new_content)
 	print("Added contents "+str(contents)+" to container")
 	update_weight()
 	update_display()
