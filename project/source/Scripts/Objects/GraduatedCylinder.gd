@@ -1,12 +1,12 @@
-extends LabObject
+extends LabContainer
 
-var contents = []
+export (int) var maxVolume
+
 var allowedGroups = ["Source Container"]
 
 func _ready():
-	# Volume container
-	# Needs a max volume of 50mL or greater
-	var maxVolume = 50
+	if maxVolume == 0:
+		print("Warning: Graduated Cylinder has a max volume of 0mL")
 	# Initialize volume to 0mL
 	var volume = 0
 	
@@ -24,7 +24,6 @@ func TryInteract(others):
 				# Add contents to grad cylinder if it has nothing and the other container has a liquid substance
 				# Or if adding more of same liquid substance
 				# Set volume of grad cylinder to its max until a menu is created to specify volume
-				
 				if len(contents) == 0 and other.CheckContents("Liquid Substance") \
 				or len(contents) > 0 and other == contents[0]:
 					$Menu.visible = true
@@ -48,14 +47,14 @@ func TryInteract(others):
 					return false
 				print("Graduated cylinder has ", $VolumeContainer.GetVolume(), "mL of liquid")
 				return true
+
 			elif other.is_in_group("Container"):
 				# Add contents to container
 				# Set grad cylinder volume to 0mL
 				if len(contents) > 0:
 					other.AddContents(contents)
 					print($VolumeContainer.GetVolume())
-					if($VolumeContainer.GetVolume() != 50): 
-						print("Warn Test")
+					if($VolumeContainer.GetVolume() != 50):
 						LabLog.Warn("Less than 50 ml dispensed, this might not be enough TAE", false, false)
 					contents.clear()
 					$VolumeContainer.DumpContents()
@@ -64,19 +63,39 @@ func TryInteract(others):
 					return true
 				else:
 					return false
-
 	return false
 
-func TakeContents():
+func TryActIndependently():
+	pass
+
+func CheckContents(group):
+	print('check contents')
+
+func TakeContents(volume=-1):
 	if($VolumeContainer.GetVolume() != 50):
 		LabLog.Warn("Less than 50 ml dispensed, this might not be enough TAE", false, false)
-	var content = contents
+	var content = contents.duplicate(true)
 	contents.clear()
 	$VolumeContainer.DumpContents()
 	ResetMenu()
 	print("Graduated cylinder has ", $VolumeContainer.GetVolume(), "mL of liquid")
 	return content
 
+func AddContents(new_contents):
+	print('add contents')
+
+func dispose():
+	contents.clear()
+	update_display()
+
+func update_display():
+	# static change from "empty" to "filled" for now
+	if(len(contents) > 0):
+		if(filled_image != null):
+			$Sprite.texture = filled_image
+	else:
+		$Sprite.texture = empty_image
+		
 # Reset values in menu
 func ResetMenu():
 	$Menu/PanelContainer/VBoxContainer/Description.text = "Graduated Cylinder currently has a " \
