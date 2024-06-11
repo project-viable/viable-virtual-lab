@@ -108,26 +108,26 @@ shape = SubResource( 3 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
 
-[node name="DummyHeater" parent="." instance=ExtResource( 7 )]
+[node name="Microwave" parent="." instance=ExtResource( 7 )]
 position = Vector2( -757, -181 )
 mode = 1
 
-[node name="DummyContainer" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
+[node name="Flask1" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
 position = Vector2( 464, -168 )
 draggable = true
 
-[node name="DummyContainer2" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
+[node name="Flask2" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
 position = Vector2( 510, -168 )
 draggable = true
 
-[node name="DummySourceContainer2" parent="." instance=ExtResource( 4 )]
+[node name="AgaroseContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -570, -168 )
 mode = 1
 object_label = "Agarose"
 substance = ExtResource( 14 )
 image = ExtResource( 12 )
 
-[node name="DummySourceContainer" parent="." instance=ExtResource( 4 )]
+[node name="TAEContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -480, -167 )
 mode = 1
 object_label = "Buffer"
@@ -190,7 +190,7 @@ draggable = true
 position = Vector2( 134, 29 )
 gravity_scale = 0.0
 
-[node name="TestPipet" parent="." instance=ExtResource( 11 )]
+[node name="Pipette" parent="." instance=ExtResource( 11 )]
 position = Vector2( 76, -1 )
 
 [node name="DNAContainer" parent="." instance=ExtResource( 4 )]
