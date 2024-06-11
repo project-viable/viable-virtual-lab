@@ -57,6 +57,11 @@ func _unhandled_input(event):
 				return
 	
 	#If we've made it here, then we didn't need to do something with a LabObject
-	###Now see if we should move the camera
+	###Now see if we should do something to the camera
 	if event.is_action_pressed("DragCamera") and GameSettings.mouseCameraDrag:
 		$Camera.StartDragging()
+	
+	if event.is_action_pressed("CameraZoomIn"):
+		$Camera.ZoomIn()
+	if event.is_action_pressed("CameraZoomOut"):
+		$Camera.ZoomOut()
