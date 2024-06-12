@@ -138,8 +138,9 @@ image = ExtResource( 16 )
 position = Vector2( 488, 24 )
 draggable = false
 
-[node name="GraduatedCylinder" parent="." instance=ExtResource( 13 )]
-position = Vector2( 413, -198 )
+[node name="GraduatedCylinder2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 315, -197 )
+maxVolume = 50
 
 [node name="ElectrolysisSetup" parent="." instance=ExtResource( 21 )]
 position = Vector2( 663, 37 )

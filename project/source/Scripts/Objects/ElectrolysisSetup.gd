@@ -22,7 +22,8 @@ func TryInteract(others):
 			if(fill_requested):
 				# fill the setup with the container contents
 				if(fill_substance == null):
-					fill_substance = other.TakeContents()[0]
+					fill_substance = other.TakeContents()
+					print(fill_substance)
 					$FollowMenu/SubstanceMenu.visible = false
 					# Update the Electrolysis setup to show that it is filled
 					$Sprite.texture = filled_texture
@@ -38,6 +39,8 @@ func run_current(voltage, time, print_text = false):
 	var current_reversed = current_reversed()
 	
 	if(current_source != null && $PosTerminal.connected() && $NegTerminal.connected()):
+		if(typeof(fill_substance) == 19): # if the fill_substance is an array, set it equal to first index value
+			fill_substance = fill_substance[0]
 		if(fill_substance != null && fill_substance.is_in_group('Conductive')):
 			if(mounted_container != null && mounted_container.is_in_group('Conductive')):
 				# run current through the container
