@@ -32,7 +32,6 @@ func CheckContents(group):
 	return check_results
 
 func TakeContents(volume = -1):
-	print(contents)
 	# check for whether we can distribute the contents by volume
 	if(volume != -1 && len(contents) == 1):
 		if(volume >= contents[0].volume):
