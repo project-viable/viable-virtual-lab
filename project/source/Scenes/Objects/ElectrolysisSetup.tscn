@@ -4,21 +4,22 @@
 [ext_resource path="res://Scripts/Objects/ObjectSlot.gd" type="Script" id=2]
 [ext_resource path="res://Images/PositiveTerminal.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/UI/GelDisplay.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Images/Electrolysis Rig.PNG" type="Texture" id=5]
+[ext_resource path="res://Images/Gel_Rig.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/Objects/ElectrolysisSetup.gd" type="Script" id=6]
 [ext_resource path="res://Scripts/Objects/ElectrodeTerminal.gd" type="Script" id=7]
 [ext_resource path="res://Images/redX.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 50, 15.5 )
+extents = Vector2( 50, 17 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 18, 18 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 50, 51.5 )
+extents = Vector2( 42.5, 12 )
 
 [node name="ElectrolysisSetup" type="RigidBody2D"]
+position = Vector2( -3, 35 )
 gravity_scale = 0.0
 script = ExtResource( 6 )
 
@@ -43,12 +44,12 @@ text = "Fill"
 align = 1
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, 7.62939e-06 )
-scale = Vector2( 0.257732, 0.257732 )
+position = Vector2( 1, -33 )
+scale = Vector2( 0.0199291, 0.0199291 )
 texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -67.5 )
+position = Vector2( 0, -66 )
 shape = SubResource( 1 )
 
 [node name="FollowMenu" type="Control" parent="."]
@@ -82,9 +83,12 @@ margin_bottom = 47.0
 text = "Close"
 
 [node name="PosTerminal" type="RigidBody2D" parent="."]
-position = Vector2( -70, -32 )
+position = Vector2( -66, -29 )
 gravity_scale = 0.0
 script = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Panel" type="Panel" parent="PosTerminal"]
 margin_left = -20.0
@@ -123,9 +127,12 @@ position = Vector2( 0, 2 )
 shape = SubResource( 2 )
 
 [node name="NegTerminal" type="RigidBody2D" parent="."]
-position = Vector2( 70, -32 )
+position = Vector2( 68, -28 )
 gravity_scale = 0.0
 script = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Panel" type="Panel" parent="NegTerminal"]
 margin_left = -20.0
@@ -168,6 +175,7 @@ gravity_scale = 0.0
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="GelBoatSlot"]
+position = Vector2( 3, -36 )
 shape = SubResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="GelBoatSlot"]
@@ -175,6 +183,7 @@ input_pickable = false
 monitorable = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="GelBoatSlot/Area2D"]
+position = Vector2( 3.5, -36 )
 shape = SubResource( 3 )
 
 [node name="GelButton" type="Button" parent="."]

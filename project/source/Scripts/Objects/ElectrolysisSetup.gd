@@ -9,6 +9,8 @@ var fill_requested = false
 
 signal menu_closed
 
+var filled_texture = load('res://Images/Gel_Rig_filled.png')
+
 func TryInteract(others):
 	for other in others:
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
@@ -22,6 +24,8 @@ func TryInteract(others):
 				if(fill_substance == null):
 					fill_substance = other.TakeContents()[0]
 					$FollowMenu/SubstanceMenu.visible = false
+					# Update the Electrolysis setup to show that it is filled
+					$Sprite.texture = filled_texture
 				elif(other.CheckContents("Liquid Substance")):
 					print('The setup is already filled.')
 				else:
@@ -68,10 +72,12 @@ func current_reversed():
 func slot_filled(slot, object):
 	if(object.is_in_group('Gel Boat')):
 		mounted_container = object
+		mounted_container.visible = false
 		var init_data = mounted_container.gel_status()
 		$GelSimMenu/GelDisplay.init(init_data[0], init_data[1])
 
 func slot_emptied(slot, object):
+	mounted_container.visible = true
 	mounted_container = null
 
 func _on_SubstanceCloseButton_pressed():
