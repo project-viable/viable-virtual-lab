@@ -46,45 +46,45 @@ func _on_RunCurrent_pressed():
 	if $CurrentConductor.GetTime() == 0:
 		return
 	
-	var time_ran = 0
-	var voltage_mod = -1 if (current_reversed()) else 1
-	
-	# Update running state and button text
-	running = !running
-	ToggleRunCurrentText()
-	ToggleInputsEditable()
-	
 	var other_device = get_other_device()
+	if other_device.has_method('able_to_run_current'):
+		if other_device.able_to_run_current():
+			var time_ran = 0
+			var voltage_mod = -1 if (current_reversed()) else 1
+			# Notify of potential errors only once
+			get_parent().RunCurrentMistakeChecker([$CurrentConductor.GetVolts() * voltage_mod, \
+				$CurrentConductor.GetTime()])
+			
+			# Update running state and button text
+			running = !running
+			ToggleRunCurrentText()
+			ToggleInputsEditable()
 	
-	# Notify of errors only once
-	get_parent().RunCurrentMistakeChecker([$CurrentConductor.GetVolts() * voltage_mod, \
-		$CurrentConductor.GetTime()])
-	
-	# This calls run_current on the designated device at an equally timed interval
-	while time_ran <= $CurrentConductor.GetTime():
-		var timestep = get_physics_process_delta_time()
-		# Get the connection
-		if $PosTerminal.connected() && $NegTerminal.connected():
-			if other_device.has_method("run_current"):
-				
-				other_device.run_current($CurrentConductor.GetVolts() * voltage_mod, timestep)
-				
-				time_ran += timestep
-				
-				yield(get_tree().create_timer(time_delay), "timeout")
-				
-				
-			else:
-				print("Other device ", other_device, " needs a run_current() method")
-				break
-		else:
-			print("At least one terminal is disconnected")
-			break
-	
-	running = !running
-	ToggleRunCurrentText()
-	ToggleInputsEditable()
-	print(time_ran, " ", $CurrentConductor.GetTime())
+			# This calls run_current on the designated device at an equally timed interval
+			while time_ran <= $CurrentConductor.GetTime():
+				var timestep = get_physics_process_delta_time()
+				# Get the connection
+				if $PosTerminal.connected() && $NegTerminal.connected():
+					if other_device.has_method("run_current"):
+						
+						other_device.run_current($CurrentConductor.GetVolts() * voltage_mod, timestep)
+						
+						time_ran += timestep
+						
+						yield(get_tree().create_timer(time_delay), "timeout")
+						
+						
+					else:
+						print("Other device ", other_device, " needs a run_current() method")
+						break
+				else:
+					print("At least one terminal is disconnected")
+					break
+			
+			running = !running
+			ToggleRunCurrentText()
+			ToggleInputsEditable()
+			print(time_ran, " ", $CurrentConductor.GetTime())
 
 func get_other_device():
 	var pos_parent = $PosTerminal.plugged_electrode.get_parent()
