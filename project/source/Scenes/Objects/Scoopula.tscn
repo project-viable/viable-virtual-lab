@@ -4,7 +4,7 @@
 [ext_resource path="res://Images/Spatula.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 26, 49 )
+extents = Vector2( 10, 49 )
 
 [node name="Scoopula" type="RigidBody2D"]
 z_index = 3

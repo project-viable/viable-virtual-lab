@@ -4,7 +4,7 @@
 [ext_resource path="res://Images/comb.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 35, 18 )
+extents = Vector2( 42, 12 )
 
 [node name="GelComb" type="RigidBody2D" groups=["Gel Comb", "LabObjects"]]
 z_index = 2
@@ -20,4 +20,5 @@ scale = Vector2( 0.106742, 0.106741 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 6 )
 shape = SubResource( 1 )
