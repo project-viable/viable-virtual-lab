@@ -83,7 +83,6 @@ func _on_RunCurrent_pressed():
 			running = !running
 			ToggleRunCurrentText()
 			ToggleInputsEditable()
-			print(time_ran, " ", $CurrentConductor.GetTime())
 
 func get_other_device():
 	if $PosTerminal == null || $NegTerminal == null:
