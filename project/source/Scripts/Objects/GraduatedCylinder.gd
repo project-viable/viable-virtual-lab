@@ -68,9 +68,6 @@ func TryInteract(others):
 func TryActIndependently():
 	pass
 
-func CheckContents(group):
-	print('check contents')
-
 func TakeContents(volume=-1):
 	if($VolumeContainer.GetVolume() != 50):
 		LabLog.Warn("Less than 50 ml dispensed, this might not be enough TAE", false, false)
