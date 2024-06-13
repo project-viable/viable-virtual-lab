@@ -52,8 +52,7 @@ func _on_RunCurrent_pressed():
 			var time_ran = 0
 			var voltage_mod = -1 if (current_reversed()) else 1
 			# Notify of potential errors only once
-			get_parent().CurrentReveresedChecker([$CurrentConductor.GetVolts() * voltage_mod, \
-				$CurrentConductor.GetTime()])
+			get_parent().CurrentReveresedChecker([$CurrentConductor.GetVolts() * voltage_mod])
 			
 			# Update running state and button text
 			running = !running
