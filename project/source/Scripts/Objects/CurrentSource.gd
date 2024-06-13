@@ -35,6 +35,9 @@ func ToggleRunCurrentText():
 		$UserInput/RunCurrent.text = "RUNNING"
 	else:
 		$UserInput/RunCurrent.text = "START"
+		
+func current_reversed():
+	return true if ($PosTerminal.plugged_electrode.get_parent().current_direction == 0) else false
 
 func _on_RunCurrent_pressed():
 	if running:
@@ -44,20 +47,18 @@ func _on_RunCurrent_pressed():
 		return
 	
 	var time_ran = 0
+	var voltage_mod = -1 if (current_reversed()) else 1
 	
 	# Update running state and button text
 	running = !running
 	ToggleRunCurrentText()
 	ToggleInputsEditable()
 	
-	# Notify of errors only once
 	var other_device = get_other_device()
-	if(other_device.current_reversed()):
-		LabLog.Warn("You reversed the currents. Running the gel like this will run the substance off the gel.")
-	if($CurrentConductor.GetVolts() < 120):
-		LabLog.Warn("The voltage was set too low. This made the gel run slower. Set it to 120V for this lab.")
-	if($CurrentConductor.GetVolts() > 120):
-		LabLog.Warn("The voltage was set too high. This made the gel run faster. Set it to 120V for this lab.")
+	
+	# Notify of errors only once
+	get_parent().RunCurrentMistakeChecker([$CurrentConductor.GetVolts() * voltage_mod, \
+		$CurrentConductor.GetTime()])
 	
 	# This calls run_current on the designated device at an equally timed interval
 	while time_ran <= $CurrentConductor.GetTime():
@@ -66,7 +67,7 @@ func _on_RunCurrent_pressed():
 		if $PosTerminal.connected() && $NegTerminal.connected():
 			if other_device.has_method("run_current"):
 				
-				other_device.run_current($CurrentConductor.GetVolts(), timestep)
+				other_device.run_current($CurrentConductor.GetVolts() * voltage_mod, timestep)
 				
 				time_ran += timestep
 				

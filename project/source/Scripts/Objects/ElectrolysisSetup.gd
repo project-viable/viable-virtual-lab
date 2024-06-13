@@ -4,7 +4,6 @@ var fill_substance = null
 var current_source = null
 var mounted_container = null # This container reference should contain the substance to run
 
-var current_reversed = false
 var fill_requested = false
 
 signal menu_closed
@@ -14,6 +13,10 @@ var filled_texture = load('res://Images/Gel_Rig_filled.png')
 func TryInteract(others):
 	for other in others:
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
+			var solid_substance = !other.CheckContents("Liquid Substance")
+			print(solid_substance)
+			if(!other.CheckContents("Liquid Substance")[0]):
+				return
 			# Open substance menu
 			$FollowMenu/SubstanceMenu.visible = true
 			
@@ -35,17 +38,13 @@ func TryInteract(others):
 				fill_requested = false
 
 func run_current(voltage, time, print_text = false):
-	# Check if current is reversed
-	var current_reversed = current_reversed()
-	
 	if(current_source != null && $PosTerminal.connected() && $NegTerminal.connected()):
 		if(typeof(fill_substance) == 19): # if the fill_substance is an array, set it equal to first index value
 			fill_substance = fill_substance[0]
 		if(fill_substance != null && fill_substance.is_in_group('Conductive')):
 			if(mounted_container != null && mounted_container.is_in_group('Conductive')):
 				# run current through the container
-				var voltage_mod = -1 if (current_reversed) else 1 # this is a weird, Godot-style ternary
-				mounted_container.run_current(voltage * voltage_mod, time)
+				mounted_container.run_current(voltage, time)
 				
 				# update the gel display
 				var content = $GelBoatSlot.get_object()
@@ -68,9 +67,6 @@ func run_current(voltage, time, print_text = false):
 
 func terminal_connected(terminal, contact):
 	return $PosTerminal.connected() || $NegTerminal.connected()
-
-func current_reversed():
-	return true if ($PosTerminal.plugged_electrode.get_parent().current_direction == 0) else false
 
 func slot_filled(slot, object):
 	if(object.is_in_group('Gel Boat')):

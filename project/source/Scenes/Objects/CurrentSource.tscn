@@ -25,7 +25,6 @@ input_pickable = true
 mode = 3
 can_sleep = false
 script = ExtResource( 1 )
-time_delay = 0.005
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 207, 69 )
