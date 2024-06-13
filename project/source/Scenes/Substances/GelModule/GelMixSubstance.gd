@@ -63,7 +63,6 @@ func chill(chillTime):
 		
 		self.remove_from_group("Liquid Substance")
 		self.add_to_group("Solid Substance")
-		print(self.is_in_group("Liquid Substance"))
 	else:
 		print("Gel has not been heated enough to be cooled")
 	
