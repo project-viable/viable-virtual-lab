@@ -2,9 +2,6 @@ tool
 extends Node2D
 class_name MistakeChecker
 
-func _ready():
-	print('Initialized MistakeChecker')
-
 func MixMistakeChecker(params: Array) -> void:
 	pass
 
