@@ -2,17 +2,17 @@ tool
 extends Node2D
 class_name MistakeChecker
 
-func MixMistakeChecker(params: Array) -> void:
+func MixChecker(params: Array) -> void:
 	pass
 
-func HeatingMistakeChecker(params: Array) -> void:
+func HeatingChecker(params: Array) -> void:
 	pass
 	
-func ChillMistakeChecker(params: Array) -> void:
+func ChillChecker(params: Array) -> void:
 	pass
 
-func RunCurrentMistakeChecker(params: Array) -> void:
+func CurrentReveresedChecker(params: Array) -> void:
 	pass
 	
-func DisposeMistakeChecker(params: Array) -> void:
+func DisposeChecker(params: Array) -> void:
 	pass
