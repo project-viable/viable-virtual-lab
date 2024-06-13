@@ -41,7 +41,7 @@ func update_bands(band_positions_in):
 			# handle an individual band position
 			var move_vec = Vector2(0, $EndPosition.position.y - $StartPositions.position.y)
 			var band_pos_factor = well[j]
-			if start_pos.get_children() == []:
+			if start_pos.get_children() == [] || j == len(start_pos.get_children()):
 				return
 			var band_obj = start_pos.get_child(j)
 			if(band_obj != null):
@@ -135,16 +135,17 @@ func _on_BottomRunoffArea_body_entered(body):
 		# check if this band has already triggered an error
 		var already_errored = false
 		for error in cached_band_errors:
-			if(body.is_same_band(error)):
+			if(body.is_same_well(error)):
 				already_errored = true
 				#print('Band ['+str(body.well_index)+','+str(body.band_index)+'] has already errored, refusing to error again')
 				break
 
 		if(!already_errored):
 			#print('Sending error for band ['+str(body.well_index)+','+str(body.band_index)+']')
-			cached_band_errors.append([body.well_index, body.band_index])
 			LabLog.Error("A gel band has run off the bottom of the gel. You may have run the gel for too long, or the gel ratio is too small.")
-			delete_band(body)
+		
+		cached_band_errors.append([body.well_index, body.band_index])	
+		delete_band(body)
 
 func _on_CloseButton_pressed():
 	close()
