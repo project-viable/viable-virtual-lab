@@ -121,14 +121,14 @@ draggable = true
 position = Vector2( 510, -168 )
 draggable = true
 
-[node name="AgaroseContainer" parent="." instance=ExtResource( 4 )]
+[node name="AgaroseSourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -570, -168 )
 mode = 1
 object_label = "Agarose"
 substance = ExtResource( 14 )
 image = ExtResource( 12 )
 
-[node name="TAEContainer" parent="." instance=ExtResource( 4 )]
+[node name="TAESourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -480, -167 )
 mode = 1
 object_label = "Buffer"
@@ -139,11 +139,12 @@ image = ExtResource( 16 )
 position = Vector2( 488, 24 )
 draggable = false
 
-[node name="GraduatedCylinder" parent="." instance=ExtResource( 13 )]
-position = Vector2( 413, -198 )
+[node name="GraduatedCylinder2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 315, -197 )
+maxVolume = 50
 
 [node name="ElectrolysisSetup" parent="." instance=ExtResource( 21 )]
-position = Vector2( 653, 3 )
+position = Vector2( 663, 37 )
 
 [node name="Trashcan" parent="." instance=ExtResource( 2 )]
 position = Vector2( -1000, 237 )

@@ -60,16 +60,12 @@ func chill(chillTime):
 	if totalHeatTime > 30 and totalHeatTime < 70:
 		cooled = true
 		totalHeatTime -= chillTime
+		
+		self.remove_from_group("Liquid Substance")
+		self.add_to_group("Solid Substance")
+		print(self.is_in_group("Liquid Substance"))
 	else:
 		print("Gel has not been heated enough to be cooled")
-	
-	if(totalHeatTime <= 0):
-		totalHeatTime = 0
-		
-		# solidify the gel
-		if(self.is_in_group("Liquid Substance")):
-			self.remove_from_group("Liquid Substance")
-			self.add_to_group("Solid Substance")
 	
 func determine_accuracy(ideal, actual):
 	return 1 + (abs(actual) - ideal) / float(ideal)

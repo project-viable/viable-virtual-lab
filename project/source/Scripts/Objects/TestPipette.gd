@@ -38,7 +38,7 @@ func TryInteract(others):
 			return true
 		elif other.is_in_group("Tip Box"):
 			hasTip = true
-			$Sprite.texture = load("res://Images/PipetteYesTip.png")
+			$Sprite.texture = load("res://Images/PipetteYesTip (3).png")
 			return true
 	
 	return false
