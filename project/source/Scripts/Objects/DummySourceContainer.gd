@@ -7,11 +7,18 @@ extends LabObject
 export (PackedScene) var substance = null
 export (Array) var substance_parameters = null
 var contents = null
+export (Texture) var image = null
 
 func _ready():
+	if image != null:
+		$Sprite.texture = image
+	else:
+		$Sprite.texture = load('res://Images/Erlenmeyer_full_flask.png')
+	
 	$ObjectLabel.text = object_label
 	if substance == null:
 		substance = load('res://Scenes/Objects/DummyLiquidSubstance.tscn')
+	
 	contents = substance.instance()
 	if substance_parameters != null:
 		contents.initialize(substance_parameters)

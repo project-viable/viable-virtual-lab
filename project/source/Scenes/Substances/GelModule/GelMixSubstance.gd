@@ -60,33 +60,28 @@ func chill(chillTime):
 	if totalHeatTime > 30 and totalHeatTime < 70:
 		cooled = true
 		totalHeatTime -= chillTime
+		
+		self.remove_from_group("Liquid Substance")
+		self.add_to_group("Solid Substance")
+		print(self.is_in_group("Liquid Substance"))
 	else:
 		print("Gel has not been heated enough to be cooled")
-	
-	if(totalHeatTime <= 0):
-		totalHeatTime = 0
-		
-		# solidify the gel
-		if(self.is_in_group("Liquid Substance")):
-			self.remove_from_group("Liquid Substance")
-			self.add_to_group("Solid Substance")
 	
 func determine_accuracy(ideal, actual):
 	return 1 + (abs(actual) - ideal) / float(ideal)
 
-func run_current(voltage, current, time):
-	# The ideal scenario is 120V, about 400mA, and around 60 minutes
+func run_current(voltage, time):
+	# The ideal scenario is 120V and around 60 minutes
 	# So, total_run_time should equal approximately 60 at the end in the correct scenario
 	
 	# These time modifiers below will make the total_run_time increase at a different rate based on how
 	# the current and voltage differ from their ideal values
 	
-	# Multiply the time variable passed from the CurrentSource by two different modifiers
+	# Multiply the time variable passed from the CurrentSource by voltage modifier
 	# These values are subject to change and are thus placeholders for now
 	var voltage_modifier = determine_accuracy(120, voltage)
-	var current_modifier = determine_accuracy(400, current)
 	
-	time = time * voltage_modifier * current_modifier
+	time = time * voltage_modifier
 	total_run_time += (time * sign(voltage))
 
 func get_properties():

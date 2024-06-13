@@ -1,12 +1,12 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Objects/GelMoldVariant.gd" type="Script" id=1]
-[ext_resource path="res://Images/GelBoat.PNG" type="Texture" id=2]
+[ext_resource path="res://Images/Gel_Tray_empty.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Objects/ObjectSlot.gd" type="Script" id=3]
-[ext_resource path="res://Images/GelBoat_Full.PNG" type="Texture" id=4]
+[ext_resource path="res://Images/Gel_Tray_filled.png" type="Texture" id=4]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 43, 34 )
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 71.5, 28.5 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 42, 33 )
@@ -22,11 +22,12 @@ script = ExtResource( 1 )
 filled_image = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.261538, 0.261538 )
+scale = Vector2( 0.01525, 0.01525 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+position = Vector2( 1.5, 2.5 )
+shape = SubResource( 3 )
 
 [node name="CombSlot" type="RigidBody2D" parent="." groups=["LabObjects"]]
 collision_layer = 2

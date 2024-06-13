@@ -1,6 +1,6 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=32 format=2]
 
-[ext_resource path="res://Images/LabCounter.png" type="Texture" id=1]
+[ext_resource path="res://Images/lab_counter.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Trashcan.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Objects/LabContainer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Objects/SourceContainer.tscn" type="PackedScene" id=4]
@@ -11,9 +11,11 @@
 [ext_resource path="res://Scenes/Objects/TestScale.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Objects/WeighBoat.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Objects/TestPipette.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scenes/Objects/TestGraduatedCylinder.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Images/ArgosePowder_Closed.png" type="Texture" id=12]
+[ext_resource path="res://Scenes/Objects/GraduatedCylinder.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Substances/GelModule/AgarPowderSubstance.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Scenes/Substances/GelModule/GelMixManager.gd" type="Script" id=15]
+[ext_resource path="res://Images/TAE_Bottle_Closed.png" type="Texture" id=16]
 [ext_resource path="res://Scenes/Objects/SharpsDisposal.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Objects/RecycleBin.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Scenes/Objects/CompostBin.tscn" type="PackedScene" id=19]
@@ -25,6 +27,7 @@
 [ext_resource path="res://Scenes/Objects/GelMoldVariant.tscn" type="PackedScene" id=25]
 [ext_resource path="res://Scenes/Objects/GelComb.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Scenes/Objects/GelImager.tscn" type="PackedScene" id=27]
+[ext_resource path="res://Images/Erlenmeyer_full_flask.png" type="Texture" id=28]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1305, 4.5 )
@@ -106,39 +109,42 @@ shape = SubResource( 3 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
 
-[node name="DummyHeater" parent="." instance=ExtResource( 7 )]
+[node name="Microwave" parent="." instance=ExtResource( 7 )]
 position = Vector2( -757, -181 )
 mode = 1
 
-[node name="DummyContainer" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
+[node name="Flask1" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
 position = Vector2( 464, -168 )
 draggable = true
 
-[node name="DummyContainer2" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
+[node name="Flask2" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
 position = Vector2( 510, -168 )
 draggable = true
 
-[node name="DummySourceContainer2" parent="." instance=ExtResource( 4 )]
+[node name="AgaroseSourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -570, -168 )
 mode = 1
 object_label = "Agarose"
 substance = ExtResource( 14 )
+image = ExtResource( 12 )
 
-[node name="DummySourceContainer" parent="." instance=ExtResource( 4 )]
+[node name="TAESourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -480, -167 )
 mode = 1
 object_label = "Buffer"
 substance = ExtResource( 6 )
+image = ExtResource( 16 )
 
 [node name="Scale" parent="." instance=ExtResource( 9 )]
 position = Vector2( 488, 24 )
 draggable = false
 
-[node name="TestGraduatedCylinder" parent="." instance=ExtResource( 13 )]
-position = Vector2( 413, -198 )
+[node name="GraduatedCylinder2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 315, -197 )
+maxVolume = 50
 
 [node name="ElectrolysisSetup" parent="." instance=ExtResource( 21 )]
-position = Vector2( 653, 3 )
+position = Vector2( 663, 37 )
 
 [node name="Trashcan" parent="." instance=ExtResource( 2 )]
 position = Vector2( -1000, 237 )
@@ -154,7 +160,6 @@ position = Vector2( -550, 237 )
 
 [node name="CurrentSource" parent="." instance=ExtResource( 24 )]
 position = Vector2( 874, -84 )
-time_delay = 0.005
 
 [node name="ContactWire" parent="." instance=ExtResource( 23 )]
 position = Vector2( 804, -35 )
@@ -179,7 +184,7 @@ draggable = true
 position = Vector2( 354, 29 )
 
 [node name="WeighBoat" parent="." instance=ExtResource( 10 )]
-position = Vector2( 412, 25 )
+position = Vector2( 414, 52 )
 gravity_scale = 0.0
 draggable = true
 
@@ -187,7 +192,7 @@ draggable = true
 position = Vector2( 134, 29 )
 gravity_scale = 0.0
 
-[node name="TestPipet" parent="." instance=ExtResource( 11 )]
+[node name="Pipette" parent="." instance=ExtResource( 11 )]
 position = Vector2( 76, -1 )
 
 [node name="DNAContainer" parent="." instance=ExtResource( 4 )]
@@ -196,6 +201,7 @@ mode = 1
 object_label = "DNA 1"
 substance = SubResource( 2 )
 substance_parameters = [ 1.0, 2.0, 3.0 ]
+image = ExtResource( 28 )
 
 [node name="DNAContainer2" parent="." instance=ExtResource( 4 )]
 position = Vector2( -886, 27 )
@@ -203,6 +209,7 @@ mode = 1
 object_label = "DNA 2"
 substance = SubResource( 2 )
 substance_parameters = [ 1.0, 2.2, 1.7 ]
+image = ExtResource( 28 )
 
 [node name="DNAContainer3" parent="." instance=ExtResource( 4 )]
 position = Vector2( -835, 27 )
@@ -210,6 +217,7 @@ mode = 1
 object_label = "DNA 3"
 substance = SubResource( 2 )
 substance_parameters = [ 2.3, 2.7, 1.0 ]
+image = ExtResource( 28 )
 
 [node name="DNAContainer4" parent="." instance=ExtResource( 4 )]
 position = Vector2( -783, 27 )
@@ -217,3 +225,4 @@ mode = 1
 object_label = "DNA 4"
 substance = SubResource( 2 )
 substance_parameters = [ 1.3, 1.9, 2.6 ]
+image = ExtResource( 28 )

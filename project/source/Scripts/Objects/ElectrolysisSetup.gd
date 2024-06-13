@@ -9,6 +9,8 @@ var fill_requested = false
 
 signal menu_closed
 
+var filled_texture = load('res://Images/Gel_Rig_filled.png')
+
 func TryInteract(others):
 	for other in others:
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
@@ -20,8 +22,11 @@ func TryInteract(others):
 			if(fill_requested):
 				# fill the setup with the container contents
 				if(fill_substance == null):
-					fill_substance = other.TakeContents()[0]
+					fill_substance = other.TakeContents()
+					print(fill_substance)
 					$FollowMenu/SubstanceMenu.visible = false
+					# Update the Electrolysis setup to show that it is filled
+					$Sprite.texture = filled_texture
 				elif(other.CheckContents("Liquid Substance")):
 					print('The setup is already filled.')
 				else:
@@ -29,16 +34,18 @@ func TryInteract(others):
 				
 				fill_requested = false
 
-func run_current(voltage, current, time, print_text = false):
+func run_current(voltage, time, print_text = false):
 	# Check if current is reversed
 	var current_reversed = current_reversed()
 	
 	if(current_source != null && $PosTerminal.connected() && $NegTerminal.connected()):
+		if(typeof(fill_substance) == 19): # if the fill_substance is an array, set it equal to first index value
+			fill_substance = fill_substance[0]
 		if(fill_substance != null && fill_substance.is_in_group('Conductive')):
 			if(mounted_container != null && mounted_container.is_in_group('Conductive')):
 				# run current through the container
 				var voltage_mod = -1 if (current_reversed) else 1 # this is a weird, Godot-style ternary
-				mounted_container.run_current(voltage * voltage_mod, current, time)
+				mounted_container.run_current(voltage * voltage_mod, time)
 				
 				# update the gel display
 				var content = $GelBoatSlot.get_object()
@@ -68,10 +75,12 @@ func current_reversed():
 func slot_filled(slot, object):
 	if(object.is_in_group('Gel Boat')):
 		mounted_container = object
+		mounted_container.visible = false
 		var init_data = mounted_container.gel_status()
 		$GelSimMenu/GelDisplay.init(init_data[0], init_data[1])
 
 func slot_emptied(slot, object):
+	mounted_container.visible = true
 	mounted_container = null
 
 func _on_SubstanceCloseButton_pressed():

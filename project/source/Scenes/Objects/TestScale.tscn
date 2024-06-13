@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Objects/TestScale.gd" type="Script" id=1]
-[ext_resource path="res://Images/Scale.jpg" type="Texture" id=2]
+[ext_resource path="res://Images/Scale_0.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 42.5, 33 )
+extents = Vector2( 63, 33 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 42.5, 33 )
@@ -17,11 +17,12 @@ script = ExtResource( 1 )
 draggable = true
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.1925, 0.233202 )
+position = Vector2( -1, -11 )
+scale = Vector2( 0.0159648, 0.0159648 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 1 )
+position = Vector2( -1, 1 )
 shape = SubResource( 1 )
 
 [node name="Control" type="Control" parent="."]
