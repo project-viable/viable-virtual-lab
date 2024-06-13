@@ -87,6 +87,8 @@ func _on_RunCurrent_pressed():
 			print(time_ran, " ", $CurrentConductor.GetTime())
 
 func get_other_device():
+	if $PosTerminal == null || $NegTerminal == null:
+		return
 	var pos_parent = $PosTerminal.plugged_electrode.get_parent()
 	var neg_parent = $NegTerminal.plugged_electrode.get_parent()
 	
