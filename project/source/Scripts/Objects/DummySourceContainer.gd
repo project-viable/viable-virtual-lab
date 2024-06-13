@@ -9,8 +9,6 @@ export (Array) var substance_parameters = null
 var contents = null
 export (Texture) var image = null
 
-# var agarose_texture = load('res://Images/ArgosePowder_Closed.png')
-
 func _ready():
 	if image != null:
 		$Sprite.texture = image
