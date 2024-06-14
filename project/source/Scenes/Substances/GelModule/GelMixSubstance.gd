@@ -22,14 +22,18 @@ func _init():
 
 func init_mixed(parent_substances):
 	# determine the gel ratio from the parent masses
-	var agar_props = parent_substances[0].get_properties()
-	var binder_props = parent_substances[1].get_properties()
+	var agar_props = parent_substances[0].get_properties() if parent_substances[0].name == "AgarPowderSubstance" \
+		else parent_substances[1].get_properties()
+	var binder_props = parent_substances[0].get_properties() if parent_substances[1].name == "AgarPowderSubstance" \
+		else parent_substances[1].get_properties()
 	gel_ratio = agar_props['volume'] / binder_props['volume']
 	print('Got gel ratio '+str(gel_ratio))
 	
 	volume = agar_props['volume'] + binder_props['volume']
 	
 	parent = get_parent().get_parent()
+	
+	parent.MixChecker([agar_props['volume'], binder_props['volume']])
 
 func init_created(properties):
 	if(properties.has('gel ratio')):
