@@ -53,9 +53,6 @@ func TryInteract(others):
 				# Set grad cylinder volume to 0mL
 				if len(contents) > 0:
 					other.AddContents(contents)
-					print($VolumeContainer.GetVolume())
-					if($VolumeContainer.GetVolume() != 50):
-						LabLog.Warn("Less than 50 ml dispensed, this might not be enough TAE", false, false)
 					contents.clear()
 					$VolumeContainer.DumpContents()
 					ResetMenu()
@@ -69,8 +66,6 @@ func TryActIndependently():
 	pass
 
 func TakeContents(volume=-1):
-	if($VolumeContainer.GetVolume() != 50):
-		LabLog.Warn("Less than 50 ml dispensed, this might not be enough TAE", false, false)
 	var content = contents.duplicate(true)
 	contents.clear()
 	$VolumeContainer.DumpContents()

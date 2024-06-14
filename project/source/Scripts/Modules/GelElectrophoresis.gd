@@ -25,3 +25,19 @@ func HeatingChecker(params: Array) -> void:
 		LabLog.Warn("Gel Mixture was heated up for less than one minute, substance may not combine properly")
 	if(totalHeatTime > 60):
 		LabLog.Warn("Gel Mixture was heated up for more than one minute, substance may not combine properly")
+
+func MixChecker(params: Array) -> void:
+	var agarVolume: float
+	var binderVolume: float
+	agarVolume = params[0]
+	binderVolume = params[1]
+	print(agarVolume, ": binder: ", binderVolume)
+	if (agarVolume > 1):
+		LabLog.Warn("Used too much agarose")
+	elif (agarVolume < 1):
+		LabLog.Warn("Used too little agarose")
+	
+	if (binderVolume > 50):
+		LabLog.Warn("Used too much TAE Buffer Solution")
+	elif (binderVolume < 50):
+		LabLog.Warn("Used too little TAE Buffer Solution")
