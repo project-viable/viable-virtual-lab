@@ -10,6 +10,7 @@ var drawFastIncrement = 1.0
 var temp = 0.0
 var hasTip = false
 var isContaminated = false
+var parent: Node2D
 
 func _ready():
 	$Menu.hide()
@@ -18,6 +19,8 @@ func _ready():
 	#add_to_group("SubsceneManagers", true)
 	#$SubsceneManager.subscene.z_index = VisualServer.CANVAS_ITEM_Z_MAX #to make this subscene draw above ones above it in the tree
 	#if not Engine.editor_hint: $SubsceneManager.HideSubscene()
+	
+	parent = get_parent()
 
 func TryInteract(others):
 	for other in others:
@@ -26,11 +29,10 @@ func TryInteract(others):
 				if len(contents) == 0 and other.CheckContents("Liquid Substance"):
 					if(isContaminated):
 						LabLog.Warn("The pipette tip was already used. If it was for a different substance than this source, dispose the tip and attach a new one to avoid contaminating your substances.")
-					contents.append_array(other.TakeContents())
+					contents.append_array(other.TakeContents(drawVolume))
 					isContaminated = true
 				else:
-					if(drawVolume != 5.0):
-						LabLog.Warn("Pipette not dispensing 5uL, this may not be a proper amount", false, false)
+					parent.PipetteDispenseChecker([drawVolume, contents])
 					other.AddContents(contents)
 					contents.clear()
 			else:

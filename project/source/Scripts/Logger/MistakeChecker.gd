@@ -14,5 +14,8 @@ func ChillChecker(params: Array) -> void:
 func CurrentReveresedChecker(params: Array) -> void:
 	pass
 	
+func PipetteDispenseChecker(params: Array) -> void:
+	pass
+	
 func DisposeChecker(params: Array) -> void:
 	pass

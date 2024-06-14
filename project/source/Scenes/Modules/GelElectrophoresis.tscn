@@ -21,7 +21,7 @@
 [ext_resource path="res://Scenes/Objects/CompostBin.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Scenes/Objects/TipBox.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Scenes/Objects/ElectrolysisSetup.tscn" type="PackedScene" id=21]
-[ext_resource path="res://Scenes/Substances/GelModule/DNAsubstance.gd" type="Script" id=22]
+[ext_resource path="res://Scenes/Substances/GelModule/DNASubstance.gd" type="Script" id=22]
 [ext_resource path="res://Scenes/Objects/ContactWire.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Scenes/Objects/CurrentSource.tscn" type="PackedScene" id=24]
 [ext_resource path="res://Scenes/Objects/GelMoldVariant.tscn" type="PackedScene" id=25]
@@ -41,7 +41,7 @@ _bundled = {
 "conn_count": 0,
 "conns": PoolIntArray(  ),
 "editable_instances": [  ],
-"names": PoolStringArray( "DNAsubstance", "script", "DNA", "Liquid Substance", "Node2D" ),
+"names": PoolStringArray( "DNASubstance", "script", "DNA", "Liquid Substance", "Node2D" ),
 "node_count": 1,
 "node_paths": [  ],
 "nodes": PoolIntArray( -1, -1, 4, 0, -1, 1, 1, 0, 2, 2, 3 ),

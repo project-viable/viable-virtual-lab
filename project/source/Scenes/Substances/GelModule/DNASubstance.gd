@@ -1,5 +1,5 @@
 extends "res://Scripts/Substances/Substance.gd"
-class_name DNAsubstance
+class_name DNASubstance
 
 #export (Array) var particle_sizes = [1,1.3,1.7,3]
 var particle_sizes = [1,1.3,1.7,3]

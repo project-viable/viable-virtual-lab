@@ -31,7 +31,6 @@ func MixChecker(params: Array) -> void:
 	var binderVolume: float
 	agarVolume = params[0]
 	binderVolume = params[1]
-	print(agarVolume, ": binder: ", binderVolume)
 	if (agarVolume > 1):
 		LabLog.Warn("Used too much agarose")
 	elif (agarVolume < 1):
@@ -41,3 +40,17 @@ func MixChecker(params: Array) -> void:
 		LabLog.Warn("Used too much TAE Buffer Solution")
 	elif (binderVolume < 50):
 		LabLog.Warn("Used too little TAE Buffer Solution")
+		
+func PipetteDispenseChecker(params: Array) -> void:
+	var drawVolume: int
+	var contents: Array
+	drawVolume = params[0]
+	contents = params[1]
+	
+	for content in contents:
+		print(content.name)
+		if content.name == "DNASubstance":
+			if drawVolume < 5:
+				LabLog.Warn("Pipette dispensing less than 5uL of DNA sample")
+			elif drawVolume > 5:
+				LabLog.Warn("Pipette dispensing more than 5uL of DNA sample")
