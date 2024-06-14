@@ -1,6 +1,6 @@
 extends MistakeChecker
 
-func CurrentReveresedChecker(params: Array) -> void:
+func CurrentChecker(params: Array) -> void:
 	var voltage: int
 	voltage = params[0]
 	if voltage < 0:
@@ -16,3 +16,12 @@ func CurrentReveresedChecker(params: Array) -> void:
 	if voltage < 120:
 		LabLog.Warn("The voltage was set too low. This made the gel run slower. Set it to 120V for this lab.")
 	return
+
+func HeatingChecker(params: Array) -> void:
+	var totalHeatTime: int
+	totalHeatTime = params[0]
+	
+	if(totalHeatTime < 60):
+		LabLog.Warn("Gel Mixture was heated up for less than one minute, substance may not combine properly")
+	if(totalHeatTime > 60):
+		LabLog.Warn("Gel Mixture was heated up for more than one minute, substance may not combine properly")
