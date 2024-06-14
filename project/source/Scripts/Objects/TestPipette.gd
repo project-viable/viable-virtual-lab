@@ -10,7 +10,6 @@ var drawFastIncrement = 0.001
 var temp = 0.0
 var hasTip = false
 var isContaminated = false
-var parent: Node2D
 
 func _ready():
 	$Menu.hide()
@@ -19,8 +18,6 @@ func _ready():
 	#add_to_group("SubsceneManagers", true)
 	#$SubsceneManager.subscene.z_index = VisualServer.CANVAS_ITEM_Z_MAX #to make this subscene draw above ones above it in the tree
 	#if not Engine.editor_hint: $SubsceneManager.HideSubscene()
-	
-	parent = get_parent()
 
 func TryInteract(others):
 	for other in others:
@@ -32,7 +29,7 @@ func TryInteract(others):
 					contents.append_array(other.TakeContents(drawVolume))
 					isContaminated = true
 				else:
-					parent.PipetteDispenseChecker([contents])
+					currentScene.PipetteDispenseChecker([contents])
 					other.AddContents(contents)
 					contents.clear()
 			else:

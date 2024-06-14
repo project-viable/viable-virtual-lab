@@ -10,8 +10,6 @@ var viscosity = 0
 var total_run_time = 0
 var cooled = false
 
-var parent: Node2D
-
 func _init():
 	var properties = {
 		'density': 1.1
@@ -31,9 +29,7 @@ func init_mixed(parent_substances):
 	
 	volume = agar_props['volume'] + binder_props['volume']
 	
-	parent = get_parent().get_parent()
-	
-	parent.MixChecker([agar_props['volume'], binder_props['volume']])
+	currentScene.MixChecker([agar_props['volume'], binder_props['volume']])
 
 func init_created(properties):
 	if(properties.has('gel ratio')):
@@ -59,7 +55,7 @@ func heat(heatTime):
 	# 40 is currently a placeholder value for the ideal heating time for the lab
 	viscosity = 1 + ((totalHeatTime - 40)/40)
 	print("Gel viscosity after heating: " + str(viscosity))
-	parent.HeatingChecker([totalHeatTime])
+	currentScene.HeatingChecker([totalHeatTime])
 
 func chill(chillTime):
 	if totalHeatTime > 30 and totalHeatTime < 70:

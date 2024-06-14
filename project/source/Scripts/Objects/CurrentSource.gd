@@ -3,7 +3,6 @@ extends LabObject
 
 var running = false
 export (int) var time_delay = 0.005
-var parent: Node2D
 
 func _ready():
 	# Set the Sprite image
@@ -12,8 +11,6 @@ func _ready():
 	add_to_group("CurrentConductors", true)
 	$CurrentConductor.SetVolts(0)
 	$CurrentConductor.SetTime(0)
-
-	parent = get_parent()
 
 func TryInteract(others):
 	pass
@@ -55,7 +52,7 @@ func _on_RunCurrent_pressed():
 			var time_ran = 0
 			var voltage_mod = -1 if (current_reversed()) else 1
 			# Notify of potential errors only once
-			parent.CurrentChecker([$CurrentConductor.GetVolts() * voltage_mod])
+			currentScene.CurrentChecker([$CurrentConductor.GetVolts() * voltage_mod])
 			
 			# Update running state and button text
 			running = !running
