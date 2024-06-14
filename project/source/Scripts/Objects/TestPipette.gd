@@ -2,11 +2,11 @@ extends LabObject
 
 var contents = []
 
-var minVolume = 2.0
-var maxVolume = 20.0
-var drawVolume = (minVolume + maxVolume)/2
-var drawIncrement = 0.1
-var drawFastIncrement = 1.0
+var minVolume = 0.002
+var maxVolume = 0.02
+var drawVolume = (minVolume + maxVolume) / 2
+var drawIncrement = 0.0001
+var drawFastIncrement = 0.001
 var temp = 0.0
 var hasTip = false
 var isContaminated = false
@@ -32,7 +32,7 @@ func TryInteract(others):
 					contents.append_array(other.TakeContents(drawVolume))
 					isContaminated = true
 				else:
-					parent.PipetteDispenseChecker([drawVolume, contents])
+					parent.PipetteDispenseChecker([contents])
 					other.AddContents(contents)
 					contents.clear()
 			else:
@@ -49,17 +49,17 @@ func TryActIndependently():
 	#$Menu.visible = !$Menu.visible #show popup menu
 	temp = drawVolume
 	$SubsceneManager.TryActIndependently()
-	$SubsceneManager/Subscene2/Label.text = str(temp).pad_decimals(1)
+	$SubsceneManager/Subscene2/Label.text = str(temp * 1000).pad_decimals(1)
 
 
 func _on_Submit_pressed():
-	var temp = $Menu/PanelContainer/VBoxContainer/LineEdit.text
+	temp = $Menu/PanelContainer/VBoxContainer/LineEdit.text
 	temp = temp.to_float()
 	if (temp < minVolume):
 		temp = minVolume
 	if (temp > maxVolume):
 		temp = maxVolume
-	drawVolume = temp
+	drawVolume = temp / 1000
 	print("Draw volume = " + str(drawVolume))
 	$Menu.hide()
 
@@ -87,22 +87,22 @@ func _on_Confirm_pressed():
 func _on_VolumeUp_pressed():
 	temp += drawIncrement
 	if(temp > maxVolume): temp = maxVolume
-	$SubsceneManager/Subscene2/Label.text = str(temp).pad_decimals(1)
+	$SubsceneManager/Subscene2/Label.text = str(temp * 1000).pad_decimals(1)
 
 
 func _on_VolumeDown_pressed():
 	temp -= drawIncrement
 	if(temp < minVolume): temp = minVolume
-	$SubsceneManager/Subscene2/Label.text = str(temp).pad_decimals(1)
+	$SubsceneManager/Subscene2/Label.text = str(temp * 1000).pad_decimals(1)
 
 
 func _on_VolumeFastUp_pressed():
 	temp += drawFastIncrement
 	if(temp > maxVolume): temp = maxVolume
-	$SubsceneManager/Subscene2/Label.text = str(temp).pad_decimals(1)
+	$SubsceneManager/Subscene2/Label.text = str(temp * 1000).pad_decimals(1)
 
 
 func _on_VolumeFastDown_pressed():
 	temp -= drawFastIncrement
 	if(temp < minVolume): temp = minVolume
-	$SubsceneManager/Subscene2/Label.text = str(temp).pad_decimals(1)
+	$SubsceneManager/Subscene2/Label.text = str(temp * 1000).pad_decimals(1)
