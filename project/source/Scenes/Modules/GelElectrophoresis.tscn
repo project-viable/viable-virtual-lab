@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Images/lab_counter.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Trashcan.tscn" type="PackedScene" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://Scenes/Objects/GelMoldVariant.tscn" type="PackedScene" id=25]
 [ext_resource path="res://Scenes/Objects/GelComb.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Scenes/Objects/GelImager.tscn" type="PackedScene" id=27]
+[ext_resource path="res://Images/Erlenmeyer_full_flask.png" type="Texture" id=28]
 [ext_resource path="res://Scripts/Modules/GelElectrophoresis.gd" type="Script" id=29]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -110,15 +111,15 @@ shape = SubResource( 3 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
 
-[node name="DummyHeater" parent="." instance=ExtResource( 7 )]
+[node name="Microwave" parent="." instance=ExtResource( 7 )]
 position = Vector2( -757, -181 )
 mode = 1
 
-[node name="DummyContainer" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
+[node name="Flask1" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
 position = Vector2( 464, -168 )
 draggable = true
 
-[node name="DummyContainer2" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
+[node name="Flask2" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
 position = Vector2( 510, -168 )
 draggable = true
 
@@ -194,7 +195,7 @@ draggable = true
 position = Vector2( 134, 29 )
 gravity_scale = 0.0
 
-[node name="TestPipet" parent="." instance=ExtResource( 11 )]
+[node name="Pipette" parent="." instance=ExtResource( 11 )]
 position = Vector2( 76, -1 )
 
 [node name="DNAContainer" parent="." instance=ExtResource( 4 )]
@@ -203,6 +204,7 @@ mode = 1
 object_label = "DNA 1"
 substance = SubResource( 2 )
 substance_parameters = [ 1.0, 2.0, 3.0 ]
+image = ExtResource( 28 )
 
 [node name="DNAContainer2" parent="." instance=ExtResource( 4 )]
 position = Vector2( -886, 27 )
@@ -210,6 +212,7 @@ mode = 1
 object_label = "DNA 2"
 substance = SubResource( 2 )
 substance_parameters = [ 1.0, 2.2, 1.7 ]
+image = ExtResource( 28 )
 
 [node name="DNAContainer3" parent="." instance=ExtResource( 4 )]
 position = Vector2( -835, 27 )
@@ -217,6 +220,7 @@ mode = 1
 object_label = "DNA 3"
 substance = SubResource( 2 )
 substance_parameters = [ 2.3, 2.7, 1.0 ]
+image = ExtResource( 28 )
 
 [node name="DNAContainer4" parent="." instance=ExtResource( 4 )]
 position = Vector2( -783, 27 )
@@ -224,3 +228,4 @@ mode = 1
 object_label = "DNA 4"
 substance = SubResource( 2 )
 substance_parameters = [ 1.3, 1.9, 2.6 ]
+image = ExtResource( 28 )

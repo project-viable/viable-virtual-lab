@@ -10,7 +10,7 @@
 [ext_resource path="res://Images/ArrowFastClockwise.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 17.5, 42.5 )
+extents = Vector2( 11, 47 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 11.5, 35 )
@@ -54,7 +54,7 @@ scale = Vector2( 0.142514, 0.142514 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 4.5, 12.5 )
+position = Vector2( 3, 1 )
 shape = SubResource( 1 )
 
 [node name="Menu" type="CanvasLayer" parent="."]
