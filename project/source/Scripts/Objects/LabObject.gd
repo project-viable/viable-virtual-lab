@@ -17,6 +17,8 @@ onready var defaultMode = mode
 onready var defaultZIndex = z_index
 onready var defaultZAsRelative = z_as_relative
 
+var currentScene
+
 func _get_configuration_warning():
 	for child in get_children():
 		if child is CollisionShape2D or child is CollisionPolygon2D:
@@ -37,6 +39,8 @@ func _ready():
 	collision_mask = 1 #Scene layer, no others
 	can_sleep = false
 	input_pickable = true
+	
+	currentScene = get_tree().current_scene.get_children()[1].get_children()[0]
 	
 	self.LabObjectReady()
 
