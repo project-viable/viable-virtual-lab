@@ -1,10 +1,10 @@
 extends MistakeChecker
 
-var idealVoltage = 120
-var idealHeatTime = 60
-var idealAgarVolume = 1
-var idealBinderVolume = 50
-var idealDNAVolume = 0.005
+var idealVoltage =		120 # volts
+var idealHeatTime =		60 # minutes
+var idealAgarVolume =	1 # N/A as of now
+var idealBinderVolume = 50 # mililiters
+var idealDNAVolume =	0.005 # mililiters
 
 func CurrentChecker(params: Array) -> void:
 	var voltage: int
