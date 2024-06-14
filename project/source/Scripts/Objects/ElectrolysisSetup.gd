@@ -14,8 +14,7 @@ func TryInteract(others):
 	for other in others:
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
 			var solid_substance = !other.CheckContents("Liquid Substance")
-			print(solid_substance)
-			if(!other.CheckContents("Liquid Substance")[0]):
+			if(solid_substance):
 				return
 			# Open substance menu
 			$FollowMenu/SubstanceMenu.visible = true
