@@ -12,7 +12,7 @@ var filled_texture = load('res://Images/Gel_Rig_filled.png')
 
 func TryInteract(others):
 	for other in others:
-		if other.is_in_group("Container") or other.is_in_group("Source Container"):
+		if other.is_in_group("Container") or other.is_in_group("Liquid Container") or other.is_in_group("Source Container"):
 			var liquid_substance = other.CheckContents("Liquid Substance")
 			if len(liquid_substance) > 1:
 				liquid_substance = liquid_substance[0]
