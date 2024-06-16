@@ -28,7 +28,7 @@ func TryInteract(others):
 						LabLog.Warn("The pipette tip was already used. If it was for a different substance than this source, dispose the tip and attach a new one to avoid contaminating your substances.")
 					contents.append_array(other.TakeContents(drawVolume))
 					isContaminated = true
-				else:
+				elif len(contents) > 0:
 					currentScene.PipetteDispenseChecker([contents])
 					other.AddContents(contents)
 					contents.clear()
