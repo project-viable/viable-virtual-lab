@@ -17,4 +17,4 @@ func get_properties():
 		"volume": volume
 	}
 func heat(heatTime):
-	LabLog.Warn("You didn't mix in some of the Agar after adding it to the flask. Gel won't form properly when heating.", false, false)
+	pass

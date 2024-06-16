@@ -18,4 +18,4 @@ func get_properties():
 	}
 
 func heat(heatTime):
-	LabLog.Warn("You didn't mix in some of the Binder after adding it to the flask. Gel won't form properly when heating.", false, false)
+	pass

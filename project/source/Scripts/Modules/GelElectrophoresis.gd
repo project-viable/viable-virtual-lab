@@ -26,6 +26,15 @@ func HeatingChecker(params: Array) -> void:
 	if(totalHeatTime > idealHeatTime):
 		LabLog.Warn("Gel Mixture was heated up for more than one minute, substance may not combine properly")
 
+func HeatingContentChecker(params: Array) -> void:
+	if len(params) == 1:
+		if params[0].name == "AgarPowderSubstance":
+			LabLog.Warn("You didn't mix in some of the Binder after adding it to the flask. Gel won't form properly when heating.")
+		elif params[0].name == "BinderSubstance":
+			LabLog.Warn("You didn't mix in some of the Agar after adding it to the flask. Gel won't form properly when heating.")
+	else:
+		LabLog.Warn("You did not mix the Agar substance and Binder before heating. Gel won't form properly without mixing.")
+
 func MixChecker(params: Array) -> void:
 	var agarVolume: float
 	var binderVolume: float
