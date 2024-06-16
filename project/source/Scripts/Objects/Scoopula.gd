@@ -14,7 +14,11 @@ func _ready():
 func TryInteract(others):
 	for other in others:#If interacting with container then we want to dispense or pick up
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
-			if len(contents) == 0 and other.CheckContents("Solid Substance"):
+			var granularSubstance = other.CheckContents("Granular Substance")
+			if typeof(granularSubstance) == 19:
+				if len(granularSubstance) > 0:
+					granularSubstance = granularSubstance[0]
+			if len(contents) == 0 and granularSubstance:
 				contents.append_array(other.TakeContents())
 				if(other.is_in_group("Scale")):
 					other.UpdateWeight()
@@ -61,16 +65,11 @@ func SplitContents():
 		return split
 
 func TryActIndependently():
-	print("independent")
 	$Menu.visible = true
 	self.draggable = false
 	yield($Menu/PanelContainer/VBoxContainer/CloseButton, "pressed")
 	self.draggable = true
-	
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
 
 func _on_CloseButton_pressed():
 	$Menu.hide()
