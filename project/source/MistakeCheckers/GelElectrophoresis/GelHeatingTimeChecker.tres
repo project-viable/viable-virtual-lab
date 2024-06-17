@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Logger/HeatingTimeChecker.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+TooLongMessage = "You microwaved it too long! The viscosity could be too high."
+TooShortMessage = "You didn't microwave it long enough! The viscosity could be too low."
