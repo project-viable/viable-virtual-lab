@@ -3,7 +3,7 @@
 [ext_resource path="res://Images/Pipette_20.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Objects/TestPipette.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/Objects/SubsceneManager.gd" type="Script" id=3]
-[ext_resource path="res://Images/PipetteClose.png" type="Texture" id=4]
+[ext_resource path="res://Images/Pipette_closeup.png" type="Texture" id=4]
 [ext_resource path="res://Images/ArrowClockwise.png" type="Texture" id=5]
 [ext_resource path="res://Images/ArrowCounterClockwise.png" type="Texture" id=6]
 [ext_resource path="res://Images/ArrowFastCounterClockwise.png" type="Texture" id=7]
@@ -151,8 +151,8 @@ mass = 0.01
 gravity_scale = 0.0
 
 [node name="Sprite" type="Sprite" parent="SubsceneManager/Subscene2/RigidBody2D"]
-position = Vector2( -1, -17 )
-scale = Vector2( 2.00859, 1.47628 )
+position = Vector2( 6, 7 )
+scale = Vector2( 0.08, 0.08 )
 texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SubsceneManager/Subscene2/RigidBody2D"]
@@ -162,14 +162,15 @@ shape = SubResource( 7 )
 disabled = true
 
 [node name="Label" type="Label" parent="SubsceneManager/Subscene2"]
-margin_left = -142.0
-margin_top = -20.0
-margin_right = -71.0
-margin_bottom = -4.0
+margin_left = -24.0
+margin_top = -41.0
+margin_right = 17.0
+margin_bottom = -25.0
 rect_scale = Vector2( 2, 2 )
 size_flags_horizontal = 3
 size_flags_vertical = 7
 size_flags_stretch_ratio = 0.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 align = 1
 valign = 1
 
@@ -192,48 +193,48 @@ margin_bottom = 133.0
 text = "Cancel"
 
 [node name="ClockSprite" type="Sprite" parent="SubsceneManager/Subscene2"]
-position = Vector2( 262, -28 )
+position = Vector2( 168, -81.7143 )
 scale = Vector2( 0.3925, 0.319444 )
 texture = ExtResource( 5 )
 
 [node name="FastClockSprite" type="Sprite" parent="SubsceneManager/Subscene2"]
-position = Vector2( 257, -55 )
+position = Vector2( 163, -108.714 )
 scale = Vector2( 0.41, 0.292857 )
 texture = ExtResource( 8 )
 
 [node name="CounterSprite" type="Sprite" parent="SubsceneManager/Subscene2"]
-position = Vector2( 261, 32 )
+position = Vector2( 170, 32.5 )
 scale = Vector2( 0.395, 0.315 )
 texture = ExtResource( 6 )
 
 [node name="FastCounterSprite" type="Sprite" parent="SubsceneManager/Subscene2"]
-position = Vector2( 253, 57 )
+position = Vector2( 162, 57.5 )
 scale = Vector2( 0.43, 0.294017 )
 texture = ExtResource( 7 )
 
 [node name="VolumeDown" type="TextureButton" parent="SubsceneManager/Subscene2"]
-margin_left = 225.0
-margin_top = 18.0
-margin_right = 296.0
-margin_bottom = 43.0
+margin_left = 134.0
+margin_top = 18.5
+margin_right = 205.0
+margin_bottom = 43.5
 
 [node name="VolumeFastDown" type="TextureButton" parent="SubsceneManager/Subscene2"]
-margin_left = 214.0
-margin_top = 48.0
-margin_right = 294.0
-margin_bottom = 74.0
+margin_left = 123.0
+margin_top = 48.5
+margin_right = 203.0
+margin_bottom = 74.5
 
 [node name="VolumeUp" type="TextureButton" parent="SubsceneManager/Subscene2"]
-margin_left = 232.0
-margin_top = -39.0
-margin_right = 291.0
-margin_bottom = -17.0
+margin_left = 138.0
+margin_top = -92.7143
+margin_right = 197.0
+margin_bottom = -70.7143
 
 [node name="VolumeFastUp" type="TextureButton" parent="SubsceneManager/Subscene2"]
-margin_left = 224.0
-margin_top = -72.0
-margin_right = 295.0
-margin_bottom = -45.0
+margin_left = 130.0
+margin_top = -125.714
+margin_right = 201.0
+margin_bottom = -98.7143
 
 [node name="Subscene" type="Area2D" parent="SubsceneManager"]
 visible = false

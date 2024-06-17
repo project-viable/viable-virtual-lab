@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PipetteClose.png-195c3e400a34842b0b22c4535883e28c.stex"
+path="res://.import/Pipette_closeup.png-adf270de36f4f9b4288b8406ef46c7b4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/PipetteClose.png"
-dest_files=[ "res://.import/PipetteClose.png-195c3e400a34842b0b22c4535883e28c.stex" ]
+source_file="res://Images/Pipette_closeup.png"
+dest_files=[ "res://.import/Pipette_closeup.png-adf270de36f4f9b4288b8406ef46c7b4.stex" ]
 
 [params]
 
