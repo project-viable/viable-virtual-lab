@@ -54,5 +54,5 @@ func get_properties():
 		"density": density
 	}
 
-func GetCurrentScene():
-	return get_tree().root.currentModuleScene
+func GetCurrentModuleScene():
+	return get_tree().current_scene.currentModuleScene

@@ -29,9 +29,10 @@ func TryInteract(others):
 					contents.append_array(other.TakeContents(drawVolume))
 					isContaminated = true
 				elif len(contents) > 0:
-					GetCurrentScene().PipetteDispenseChecker([contents])
+					ReportAction([self] + contents, "dispense", [contents])
 					other.AddContents(contents)
 					contents.clear()
+					return true
 			else:
 				LabLog.Warn("Attempted to use pipette without a pipette tip", false, false)
 			return true
