@@ -29,7 +29,7 @@ func TryInteract(others):
 					contents.append_array(other.TakeContents(drawVolume))
 					isContaminated = true
 				elif len(contents) > 0:
-					currentScene.PipetteDispenseChecker([contents])
+					GetCurrentScene().PipetteDispenseChecker([contents])
 					other.AddContents(contents)
 					contents.clear()
 			else:

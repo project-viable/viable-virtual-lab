@@ -7,10 +7,6 @@ class_name Substance
 var color = Color('#4bd87e') # dictates what color to display in the substance's container
 var volume = 1 # volume is used as the default measure to keep consistency between solids and liquids
 var density = 1.0 # used for calculating mass based on the volume
-var currentScene
-
-func _ready():
-	currentScene = get_tree().current_scene.get_children()[1].get_children()[0]
 
 func init_mixed(parent_substances):
 	# this function is called when the substance is created by mixing 
@@ -58,4 +54,5 @@ func get_properties():
 		"density": density
 	}
 
-
+func GetCurrentScene():
+	return get_tree().root.currentModuleScene

@@ -100,7 +100,7 @@ func update_weight():
 
 func heat(heatTime):
 	print("LabContainer is being heated")
-	currentScene.HeatingContentChecker(contents)
+	GetCurrentScene().HeatingContentChecker(contents)
 	# pass heating along to the container's contents
 	for content in contents:
 		if(content.is_in_group("Heatable")):

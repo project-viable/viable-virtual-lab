@@ -1,5 +1,7 @@
 extends Node2D
 
+var currentModuleScene = null
+
 #instanciates scene and adds it as a child of $Scene. Gets rid of any scene that's already been loaded, and hides the menu.
 func SetScene(scene: PackedScene):
 	LabLog.ClearLogs()
@@ -8,6 +10,7 @@ func SetScene(scene: PackedScene):
 	
 	var newScene = scene.instance()
 	$Scene.add_child(newScene)
+	currentModuleScene = newScene
 	$Camera.Reset()
 
 func GetDeepestSubsceneAt(pos: Vector2):
