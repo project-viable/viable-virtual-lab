@@ -227,6 +227,10 @@ func TryActIndependently():
 	return false
 
 #Call this whenever you do something (like in TryInteract or TryActIndependently), so that the module code knows to check if the user made a mistake.
-func ReportAction(objectsInvolved: Array, actionType: String, params: Array):
+func ReportAction(objectsInvolved: Array, actionType: String, params: Dictionary):
 	print("Reporting and action of type " + actionType + " involving " + str(objectsInvolved) + ". Params are " + str(params))
+	
+	#This function asks for these as arguments, and then manually adds them here, to remind/force you to provide them
+	params['objectsInvolved'] = objectsInvolved
+	params['actionType'] = actionType
 	GetCurrentModuleScene().CheckAction(params)

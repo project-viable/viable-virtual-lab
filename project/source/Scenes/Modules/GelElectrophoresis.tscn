@@ -28,7 +28,7 @@
 [ext_resource path="res://Scenes/Objects/GelComb.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Scenes/Objects/GelImager.tscn" type="PackedScene" id=27]
 [ext_resource path="res://Images/Erlenmeyer_full_flask.png" type="Texture" id=28]
-[ext_resource path="res://Scripts/Modules/GelElectrophoresis.gd" type="Script" id=29]
+[ext_resource path="res://Scripts/Logger/ProcedureChecker.gd" type="Script" id=29]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1305, 4.5 )

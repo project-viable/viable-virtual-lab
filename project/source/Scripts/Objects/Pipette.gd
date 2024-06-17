@@ -29,7 +29,7 @@ func TryInteract(others):
 					contents.append_array(other.TakeContents(drawVolume))
 					isContaminated = true
 				elif len(contents) > 0:
-					ReportAction([self] + contents, "dispense", [contents])
+					ReportAction([self] + contents, "transferSubstance", {'substances': contents})
 					other.AddContents(contents)
 					contents.clear()
 					return true
