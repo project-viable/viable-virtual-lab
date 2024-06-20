@@ -16,7 +16,7 @@ func TryInteract(others):
 			var liquid_substance = other.CheckContents("Liquid Substance")
 			if len(liquid_substance) > 1:
 				liquid_substance = liquid_substance[0]
-			if(!(liquid_substance[0])):
+			if(!(liquid_substance)):
 				return
 			# Open substance menu
 			$FollowMenu/SubstanceMenu.visible = true
