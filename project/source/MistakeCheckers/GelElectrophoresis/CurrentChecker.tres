@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Logger/CurrentChecker.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+CorrectVoltage = 120.0
+TooHighMessage = "The voltage was set too high. This made the gel run faster. Set it to 120V for this lab."
+TooLowMessage = "The voltage was set too low. This made the gel run slower. Set it to 120V for this lab."
+ReversedMessage = "You reversed the currents. Running the gel like this will run the substance off the gel."
