@@ -29,7 +29,13 @@ func init_mixed(parent_substances):
 	
 	volume = agar_props['volume'] + binder_props['volume']
 	
-	GetCurrentModuleScene().MixChecker([agar_props['volume'], binder_props['volume']])
+	var substances: Dictionary = {
+		'substances': {
+			'agar': agar_props,
+			'binder': binder_props
+		}
+	}
+	ReportAction([self], 'mixSubstance', substances)
 
 func init_created(properties):
 	if(properties.has('gel ratio')):
@@ -55,7 +61,7 @@ func heat(heatTime):
 	# 40 is currently a placeholder value for the ideal heating time for the lab
 	viscosity = 1 + ((totalHeatTime - 40)/40)
 	print("Gel viscosity after heating: " + str(viscosity))
-	GetCurrentModuleScene().HeatingChecker([totalHeatTime])
+	#GetCurrentModuleScene().HeatingChecker([totalHeatTime])
 
 func chill(chillTime):
 	if totalHeatTime > 30 and totalHeatTime < 70:

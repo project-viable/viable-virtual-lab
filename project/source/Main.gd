@@ -2,6 +2,20 @@ extends Node2D
 
 var currentModuleScene = null
 
+export(Array, Resource) var CheckStrategies setget SetCheckStrategies
+
+func CheckAction(params: Dictionary):
+	for strategy in CheckStrategies:
+		strategy.CheckAction(params)
+
+func SetCheckStrategies(newVal):
+	for item in newVal.duplicate(false):
+		if not (item is MistakeChecker) and item != null:
+			print("CheckStrategies should only contain MistakeCheckers. " + str(item) + " is not one.")
+			newVal.erase(item)
+	
+	CheckStrategies = newVal
+
 #instanciates scene and adds it as a child of $Scene. Gets rid of any scene that's already been loaded, and hides the menu.
 func SetScene(scene: PackedScene):
 	LabLog.ClearLogs()

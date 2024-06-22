@@ -1,0 +1,12 @@
+{
+  "GelMixSubstance": {
+    "substances": {
+      "agar": {
+        "volume": 1
+      },
+      "binder": {
+        "volume": 50
+      }
+    }
+  }
+}

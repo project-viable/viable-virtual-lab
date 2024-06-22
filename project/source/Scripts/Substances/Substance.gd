@@ -54,5 +54,17 @@ func get_properties():
 		"density": density
 	}
 
+func GetMain():
+	return get_tree().current_scene
+
 func GetCurrentModuleScene():
 	return get_tree().current_scene.currentModuleScene
+
+func ReportAction(objectsInvolved: Array, actionType: String, params: Dictionary):
+	print("Reporting an action of type " + actionType + " involving " + str(objectsInvolved) + ". Params are " + str(params))
+	
+	#This function asks for these as arguments, and then manually adds them here, to remind/force you to provide them
+	params['objectsInvolved'] = objectsInvolved
+	params['actionType'] = actionType
+	GetMain().CheckAction(params)
+	GetCurrentModuleScene().CheckAction(params)
