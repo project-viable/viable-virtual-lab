@@ -59,6 +59,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Resources/ModuleData.gd"
 }, {
+"base": "MistakeChecker",
+"class": "PipetteDispenseChecker",
+"language": "GDScript",
+"path": "res://Scripts/Logger/PipetteDispenseChecker.gd"
+}, {
 "base": "LabObject",
 "class": "SubsceneManager",
 "language": "GDScript",
@@ -85,6 +90,7 @@ _global_script_class_icons={
 "LabObject": "",
 "MistakeChecker": "",
 "ModuleData": "",
+"PipetteDispenseChecker": "",
 "SubsceneManager": "",
 "Substance": "",
 "VolumeContainer": ""

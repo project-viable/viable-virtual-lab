@@ -18,6 +18,7 @@
 [ext_resource path="res://Images/TAE_Bottle_Closed.png" type="Texture" id=16]
 [ext_resource path="res://Scenes/Objects/SharpsDisposal.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Objects/RecycleBin.tscn" type="PackedScene" id=18]
+[ext_resource path="res://MistakeCheckers/GelElectrophoresis/PipetteDispenseChecker.tres" type="Resource" id=19]
 [ext_resource path="res://Scenes/Objects/TipBox.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Scenes/Objects/ElectrolysisSetup.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Scenes/Substances/GelModule/DNASubstance.gd" type="Script" id=22]
@@ -52,7 +53,7 @@ _bundled = {
 
 [node name="GelElectrophoresis" type="Node2D"]
 script = ExtResource( 29 )
-CheckStrategies = [ ExtResource( 30 ), ExtResource( 31 ) ]
+CheckStrategies = [ ExtResource( 30 ), ExtResource( 31 ), ExtResource( 19 ) ]
 
 [node name="MixManager" type="Node2D" parent="."]
 script = ExtResource( 15 )
