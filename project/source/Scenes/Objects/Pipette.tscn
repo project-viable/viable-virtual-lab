@@ -39,7 +39,7 @@ border_color = Color( 1, 1, 1, 1 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 291.5, 186.5 )
 
-[node name="TestPipet" type="RigidBody2D" groups=["LabObjects"]]
+[node name="Pipette" type="RigidBody2D" groups=["LabObjects"]]
 z_index = 2
 collision_layer = 2
 input_pickable = true
