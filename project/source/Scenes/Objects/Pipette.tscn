@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/DimensionSprite.gd" type="Script" id=1]
-[ext_resource path="res://Scripts/Objects/TestPipette.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Objects/Pipette.gd" type="Script" id=2]
 [ext_resource path="res://Images/Pipette_Base.png" type="Texture" id=3]
 [ext_resource path="res://Images/Pipette_With_Tip.png" type="Texture" id=4]
 
