@@ -1,108 +1,58 @@
 extends LabObject
 
-var contents = []
+export var minCapacity: float #microliters
+export var maxCapacity: float #microliters
 
-var minVolume = 2.0
-var maxVolume = 20.0
-var drawVolume = (minVolume + maxVolume)/2
-var drawIncrement = 0.1
-var drawFastIncrement = 1.0
-var temp = 0.0
-var hasTip = false
-var isContaminated = false
-var parent: Node2D
+export var displayIncrementTop: float #microliters
+export var displayIncrementMiddle: float #microliters
+export var displayIncrementBottom: float #microliters
 
-func _ready():
-	$Menu.hide()
-	#print_tree_pretty()
-	$SubsceneManager.subscene = $SubsceneManager/Subscene2
-	#add_to_group("SubsceneManagers", true)
-	#$SubsceneManager.subscene.z_index = VisualServer.CANVAS_ITEM_Z_MAX #to make this subscene draw above ones above it in the tree
-	#if not Engine.editor_hint: $SubsceneManager.HideSubscene()
+export var hasTip: bool = false setget SetHasTip
+var drawVolume: float #microliters
+var contents = [] #current contents
+var tipContaminants = [] #stores what the pipette has drawn in since the last time the tip was replaced
+
+func SetHasTip(newVal):
+	hasTip = newVal
+	tipContaminants = []
 	
-	parent = get_parent()
+	$BaseSprite.visible = !hasTip
+	$TipSprite.visible = hasTip
+	
+	if !hasTip:
+		#If the tip has been removed, and had something in it, whatever was in it is now also gone.
+		contents = []
+
+func DrawSubstance(from: LabObject):
+	if hasTip: #Pipette needs a tip to dispense or take in substances
+		if len(contents) == 0 and from.CheckContents("Liquid Substance"):
+			if(len(tipContaminants) > 0):
+				LabLog.Warn("The pipette tip was already used. If it was for a different substance than this source, dispose the tip and attach a new one to avoid contaminating your substances.")
+			contents.append_array(from.TakeContents(drawVolume))
+			tipContaminants.append_array(contents)
+
+func DispenseSubstance(to: LabObject):
+	if hasTip: #Pipette needs a tip to dispense or take in substances
+		to.AddContents(contents)
+		contents.clear()
 
 func TryInteract(others):
 	for other in others:
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
-			if hasTip: #Pipette needs a tip to dispense or take in substances
-				if len(contents) == 0 and other.CheckContents("Liquid Substance"):
-					if(isContaminated):
-						LabLog.Warn("The pipette tip was already used. If it was for a different substance than this source, dispose the tip and attach a new one to avoid contaminating your substances.")
-					contents.append_array(other.TakeContents(drawVolume))
-					isContaminated = true
-				else:
-					parent.PipetteDispenseChecker([drawVolume, contents])
-					other.AddContents(contents)
-					contents.clear()
-			else:
-				LabLog.Warn("Attempted to use pipette without a pipette tip", false, false)
+			#TODO: Open the menu
 			return true
 		elif other.is_in_group("Tip Box"):
-			hasTip = true
-			$Sprite.texture = load("res://Images/PipetteYesTip (3).png")
+			SetHasTip(true)
 			return true
 	
 	return false
 
 func TryActIndependently():
-	#$Menu.visible = !$Menu.visible #show popup menu
-	temp = drawVolume
-	$SubsceneManager.TryActIndependently()
-	$SubsceneManager/Subscene2/Label.text = str(temp).pad_decimals(1)
-
-
-func _on_Submit_pressed():
-	var temp = $Menu/PanelContainer/VBoxContainer/LineEdit.text
-	temp = temp.to_float()
-	if (temp < minVolume):
-		temp = minVolume
-	if (temp > maxVolume):
-		temp = maxVolume
-	drawVolume = temp
-	print("Draw volume = " + str(drawVolume))
-	$Menu.hide()
-
-
-func _on_Cancel_pressed():
-	#$Menu.hide()
-	$SubsceneManager.HideSubscene()
+	#Show popup
+	pass
 
 func dispose():
-	if(hasTip):#If the pipette has a tip, remove it, change the texture to the no-tip version, and empty contents
-		hasTip = false
-		isContaminated = false
-		$Sprite.texture = load("res://Images/Pipette_20.png")
-		contents = []
+	if(hasTip): #If the pipette has a tip, remove it.
+		SetHasTip(false)
 	else: #If there is no tip, the user is attempting to throw away the pipette itself
 		self.queue_free()
-
-
-func _on_Confirm_pressed():
-	drawVolume = temp
-	print("Draw Volume: " + str(drawVolume))
-	$SubsceneManager.HideSubscene()
-
-
-func _on_VolumeUp_pressed():
-	temp += drawIncrement
-	if(temp > maxVolume): temp = maxVolume
-	$SubsceneManager/Subscene2/Label.text = str(temp).pad_decimals(1)
-
-
-func _on_VolumeDown_pressed():
-	temp -= drawIncrement
-	if(temp < minVolume): temp = minVolume
-	$SubsceneManager/Subscene2/Label.text = str(temp).pad_decimals(1)
-
-
-func _on_VolumeFastUp_pressed():
-	temp += drawFastIncrement
-	if(temp > maxVolume): temp = maxVolume
-	$SubsceneManager/Subscene2/Label.text = str(temp).pad_decimals(1)
-
-
-func _on_VolumeFastDown_pressed():
-	temp -= drawFastIncrement
-	if(temp < minVolume): temp = minVolume
-	$SubsceneManager/Subscene2/Label.text = str(temp).pad_decimals(1)
