@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Objects/Scoopula.gd" type="Script" id=1]
 [ext_resource path="res://Images/Spatula.png" type="Texture" id=2]
+[ext_resource path="res://Images/Spatula_filled.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 49 )
@@ -12,6 +13,7 @@ collision_layer = 2
 gravity_scale = 0.0
 script = ExtResource( 1 )
 draggable = true
+filled_image = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -9.53674e-07, -2.38419e-07 )

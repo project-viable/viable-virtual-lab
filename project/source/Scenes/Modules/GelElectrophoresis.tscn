@@ -179,7 +179,7 @@ position = Vector2( -342, 39 )
 draggable = true
 
 [node name="Scoopula" parent="." instance=ExtResource( 5 )]
-position = Vector2( 354, 29 )
+position = Vector2( 321, -7 )
 
 [node name="WeighBoat" parent="." instance=ExtResource( 10 )]
 position = Vector2( 414, 52 )
