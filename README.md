@@ -70,6 +70,7 @@ Now, the game should see the ModuleData you made, and automatically populate the
 
 - `draggable` tells a `LabObject` whether it should be possible to drag it around the screen.
 - `canChangeSubscenes` controls whether this object can be dragged from one subscene (see SubsceneManagers) to another. If false, this object will stop dragging when the mouse leaves the subscene that it is a child of (they will not act independently or interact when this happens, i.e. `OnUserAction()` is not called).
+- `DisplayName` should contain the name of the object that should be shown to the user. If this is not empty, the base class will automatically create and manage a tooltip with this as its text.
 - `mode` (listed under `RigidBody2D` in the editor) tells the object what kind of physics object it should act like. If you want the object to be affected by gravity, this should be `Rigid`. Non draggable `LabObject`s don't need to be `Static`, but probably should be.
 
 If a `LabObject` is `draggable`, it will try to interact with any objects it's overlapping with when it is released. If it is not draggable, it will try to interact when it is clicked.
