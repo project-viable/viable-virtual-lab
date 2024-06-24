@@ -18,7 +18,7 @@ draggable = true
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -1, -11 )
-scale = Vector2( 0.0159648, 0.0159648 )
+scale = Vector2( 0.032, 0.032 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
