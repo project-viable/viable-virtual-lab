@@ -61,7 +61,7 @@ func _physics_process(delta):
 func _process(delta):
 	#tooltip visibility
 	if tooltip:
-		tooltip.visible = (global_position.distance_squared_to(get_global_mouse_position()) < pow(tooltipDisplayDistance, 2))
+		tooltip.visible = (GameSettings.objectTooltips and global_position.distance_squared_to(get_global_mouse_position()) < pow(tooltipDisplayDistance, 2))
 	
 	#Dragging control
 	if dragging:
