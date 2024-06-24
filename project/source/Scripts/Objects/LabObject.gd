@@ -45,6 +45,9 @@ func _ready():
 		tooltip = Label.new()
 		tooltip.text = DisplayName
 		tooltip.name = "labobject_auto_tooltip"
+		var tooltipStylebox = StyleBoxFlat.new()
+		tooltipStylebox.bg_color = Color(0.2, 0.2, 0.2, 0.8)
+		tooltip.add_stylebox_override('normal', tooltipStylebox)
 		add_child(tooltip)
 		tooltip.hide()
 	
