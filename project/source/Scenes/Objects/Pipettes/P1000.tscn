@@ -1,11 +1,14 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/Objects/Pipettes/Pipette.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Images/Label_P20.png" type="Texture" id=2]
+[ext_resource path="res://Images/Label_P1000.png" type="Texture" id=2]
 
-[node name="P20" instance=ExtResource( 1 )]
-minCapacity = 2.0
-maxCapacity = 20.0
+[node name="P1000" instance=ExtResource( 1 )]
+minCapacity = 200.0
+maxCapacity = 1000.0
+displayIncrementTop = 1000.0
+displayIncrementMiddle = 100.0
+displayIncrementBottom = 10.0
 
 [node name="BaseSprite" parent="." index="0"]
 scale = Vector2( 0.157895, 0.157274 )
