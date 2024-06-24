@@ -5,9 +5,6 @@
 [node name="P20" instance=ExtResource( 1 )]
 minCapacity = 2.0
 maxCapacity = 20.0
-displayIncrementTop = 10.0
-displayIncrementMiddle = 1.0
-displayIncrementBottom = 0.1
 
 [node name="BaseSprite" parent="." index="0"]
 scale = Vector2( 0.157895, 0.157274 )

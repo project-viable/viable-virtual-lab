@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/DimensionSprite.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Objects/Pipette.gd" type="Script" id=2]
@@ -46,6 +46,12 @@ bg_color = Color( 0.6, 0.6, 0.6, 0 )
 [sub_resource type="StyleBoxTexture" id=8]
 texture = ExtResource( 7 )
 region_rect = Rect2( 0, 0, 218, 98 )
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="ImageTexture" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=13]
 
 [node name="Pipette" type="RigidBody2D" groups=["LabObjects"]]
 z_index = 2
@@ -136,7 +142,13 @@ scrollable = false
 tick_count = 1
 ticks_on_borders = true
 
-[node name="TextureRect" type="TextureRect" parent="Menu/Border"]
+[node name="ReferenceRect" type="ReferenceRect" parent="Menu/Border/PlungerSlider"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+editor_only = false
+
+[node name="PipetteBackground" type="TextureRect" parent="Menu/Border"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -144,3 +156,84 @@ margin_top = -400.0
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 5
+
+[node name="EjectTipButton" type="Button" parent="Menu/Border"]
+margin_left = 272.0
+margin_top = 102.0
+margin_right = 306.0
+margin_bottom = 163.0
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 10 )
+custom_styles/disabled = SubResource( 10 )
+custom_styles/normal = SubResource( 10 )
+
+[node name="ReferenceRect" type="ReferenceRect" parent="Menu/Border/EjectTipButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+editor_only = false
+
+[node name="VolumeSlider" type="HSlider" parent="Menu/Border"]
+anchor_left = 0.755
+anchor_top = 0.393
+anchor_right = 0.755
+anchor_bottom = 0.393
+margin_left = -25.05
+margin_top = -24.5
+margin_right = 24.95
+margin_bottom = 24.5
+grow_horizontal = 2
+rect_min_size = Vector2( 150, 0 )
+custom_icons/grabber_disabled = SubResource( 12 )
+custom_icons/grabber_highlight = SubResource( 12 )
+custom_icons/grabber = SubResource( 12 )
+custom_styles/slider = SubResource( 13 )
+max_value = 20.0
+step = 0.1
+
+[node name="ReferenceRect" type="ReferenceRect" parent="Menu/Border/VolumeSlider"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+editor_only = false
+
+[node name="VolumeDialLabels" type="Control" parent="Menu/Border"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Top" type="Label" parent="Menu/Border/VolumeDialLabels"]
+margin_left = 24.0
+margin_top = 300.0
+margin_right = 60.0
+margin_bottom = 327.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "0"
+align = 1
+valign = 1
+
+[node name="Middle" type="Label" parent="Menu/Border/VolumeDialLabels"]
+margin_left = 24.0
+margin_top = 328.0
+margin_right = 60.0
+margin_bottom = 358.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "0"
+align = 1
+valign = 1
+
+[node name="Bottom" type="Label" parent="Menu/Border/VolumeDialLabels"]
+margin_left = 24.0
+margin_top = 359.0
+margin_right = 60.0
+margin_bottom = 387.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "0"
+align = 1
+valign = 1
+
+[connection signal="pressed" from="Menu/Border/Background/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="value_changed" from="Menu/Border/PlungerSlider" to="." method="_on_PlungerSlider_value_changed"]
+[connection signal="pressed" from="Menu/Border/EjectTipButton" to="." method="_on_EjectTipButton_pressed"]
+[connection signal="drag_ended" from="Menu/Border/VolumeSlider" to="." method="_on_VolumeSlider_drag_ended"]
+[connection signal="value_changed" from="Menu/Border/VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
