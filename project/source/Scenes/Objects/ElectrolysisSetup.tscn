@@ -45,7 +45,7 @@ align = 1
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 1, -33 )
-scale = Vector2( 0.0199291, 0.0199291 )
+scale = Vector2( 0.04, 0.04 )
 texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

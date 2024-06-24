@@ -9,7 +9,7 @@ export var displayIncrementBottom: float = 0.1 #microliters
 onready var volumeSliderWidth = displayIncrementMiddle * 2
 onready var volumeSliderStep = displayIncrementBottom
 
-onready var previousPlungerSliderVal = $Menu/Border/PlungerSlider.value
+onready var plungerPressExtent = 2 #Stores the lowest value the plunger slider has reached since being reset to the top.
 
 export var hasTip: bool = false setget SetHasTip
 onready var drawVolume: float = stepify((maxCapacity - minCapacity)/2, displayIncrementBottom) setget SetDrawVolume #microliters. onready set to the halfway point, rounded to the nearest unit the display can show.
@@ -124,15 +124,29 @@ func _on_VolumeSlider_drag_ended(value_changed):
 	SetupVolumeSlider()
 
 func _on_PlungerSlider_value_changed(value):
+	if plungerPressExtent > value:
+		plungerPressExtent = value
+	
 	if value == 0:
 		#all the way down
 		DispenseSubstance(SelectTarget())
 		HideMenu()
-	elif value == 2 and previousPlungerSliderVal == 1:
+	elif value == 2 and plungerPressExtent == 1:
 		#just ended a half press
 		var otherObject = SelectTarget()
 		if otherObject:
 			DrawSubstance(otherObject)
 			HideMenu()
 	
-	previousPlungerSliderVal = value
+	if value == 2:
+		#We've reset the plunger to the top, so anything that happens in the future is a different press of the button.
+		plungerPressExtent = 2
+
+func _on_PlungerSlider_drag_ended(value_changed):
+	#Make the plunger spring back
+	if $Menu/Border/PlungerSlider.value == 1 and plungerPressExtent == 1:
+		#It has just been released, it's half pressed, and it was previously not pressed at all
+		#That^ means we've just half pressed and released
+		#So we go ahead and make it go back up
+		$Menu/Border/PlungerSlider.value = 2 #This does trigger the slider's value_changed signal.
+		

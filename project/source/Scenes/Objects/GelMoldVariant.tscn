@@ -22,7 +22,7 @@ script = ExtResource( 1 )
 filled_image = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.01525, 0.01525 )
+scale = Vector2( 0.03, 0.03 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

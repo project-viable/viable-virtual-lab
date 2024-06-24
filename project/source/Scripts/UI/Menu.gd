@@ -184,9 +184,13 @@ func _on_About_CloseButton_pressed():
 func _on_OptionsButton_pressed():
 	$OptionsScreen.show()
 	$OptionsScreen/VBoxContainer/MouseDragToggle.pressed = GameSettings.mouseCameraDrag
+	$OptionsScreen/VBoxContainer/ObjectTooltipsToggle.pressed = GameSettings.objectTooltips
 
 func _on_CloseButton_pressed():
 	$OptionsScreen.hide()
 
 func _on_MouseDragToggle_toggled(button_pressed):
 	GameSettings.mouseCameraDrag = button_pressed
+
+func _on_ObjectTooltipsToggle_toggled(button_pressed):
+	GameSettings.objectTooltips = button_pressed
