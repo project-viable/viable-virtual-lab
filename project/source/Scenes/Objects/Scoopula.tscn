@@ -8,10 +8,14 @@
 extents = Vector2( 10, 49 )
 
 [node name="Scoopula" type="RigidBody2D"]
+rotation = 0.691082
 z_index = 3
 collision_layer = 2
 gravity_scale = 0.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 draggable = true
 filled_image = ExtResource( 3 )
 
