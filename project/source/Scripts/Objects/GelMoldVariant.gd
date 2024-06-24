@@ -40,20 +40,12 @@ func slot_emptied(slot, object):
 	call_deferred("update_display")
 
 func _on_Button_pressed():
-	chill(1)
+	if contents:
+		chill(1)
+		gel_has_wells = $CombSlot.filled()
 	$FollowMenu.visible = false
-	
-	gel_has_wells = $CombSlot.filled()
 
 func add_dna(dna):
-	# we can only add DNA if the gel has wells in it
-	if(!gel_has_wells):
-		LabLog.Warn("You tried to add a DNA sample to a gel with no wells. Make sure a gel comb is placed into the gel while it cools so the wells can form.")
-		return
-	
-	if($CombSlot.filled()):
-		LabLog.Warn("You tried to add a DNA sample to a gel while the comb is still in place. Make sure the comb has been removed before adding samples.")
-		return
 	
 	print("Added DNA to gel boat")
 	dna_contents.append(dna)
@@ -125,6 +117,7 @@ func AddContents(new_contents):
 			
 		if $CombSlot.filled():
 			print("The comb is in the way of the slots")
+			LabLog.Warn("You tried to add a DNA sample to a gel while the comb is still in place. Make sure the comb has been removed before adding samples.")
 			continue
 		
 		if contents == []:
@@ -141,8 +134,8 @@ func AddContents(new_contents):
 			
 		if not gel_has_wells:
 			print("There are no comb slots in the gel")
+			LabLog.Warn("You tried to add a DNA sample to a gel with no wells. Make sure a gel comb is placed into the gel while it cools so the wells can form.")
 			continue
-			
 		if dna_contents.size() < comb_slots:
 			add_dna(new_content)
 	print("Added contents "+str(contents)+" to container")
