@@ -3,6 +3,7 @@ extends LabObject
 
 var running = false
 export (int) var time_delay = 0.005
+var parent: Node2D
 
 func _ready():
 	# Set the Sprite image
@@ -11,6 +12,8 @@ func _ready():
 	add_to_group("CurrentConductors", true)
 	$CurrentConductor.SetVolts(0)
 	$CurrentConductor.SetTime(0)
+
+	parent = get_parent()
 
 func TryInteract(others):
 	pass
@@ -35,6 +38,9 @@ func ToggleRunCurrentText():
 		$UserInput/RunCurrent.text = "RUNNING"
 	else:
 		$UserInput/RunCurrent.text = "START"
+		
+func current_reversed():
+	return true if ($PosTerminal.plugged_electrode.get_parent().current_direction == 0) else false
 
 func _on_RunCurrent_pressed():
 	if running:
@@ -43,49 +49,47 @@ func _on_RunCurrent_pressed():
 	if $CurrentConductor.GetTime() == 0:
 		return
 	
-	var time_ran = 0
-	
-	# Update running state and button text
-	running = !running
-	ToggleRunCurrentText()
-	ToggleInputsEditable()
-	
-	# Notify of errors only once
 	var other_device = get_other_device()
-	if(other_device.current_reversed()):
-		LabLog.Warn("You reversed the currents. Running the gel like this will run the substance off the gel.")
-	if($CurrentConductor.GetVolts() < 120):
-		LabLog.Warn("The voltage was set too low. This made the gel run slower. Set it to 120V for this lab.")
-	if($CurrentConductor.GetVolts() > 120):
-		LabLog.Warn("The voltage was set too high. This made the gel run faster. Set it to 120V for this lab.")
+	if other_device.has_method('able_to_run_current'):
+		if other_device.able_to_run_current():
+			var time_ran = 0
+			var voltage_mod = -1 if (current_reversed()) else 1
+			# Notify of potential errors only once
+			parent.CurrentChecker([$CurrentConductor.GetVolts() * voltage_mod])
+			
+			# Update running state and button text
+			running = !running
+			ToggleRunCurrentText()
+			ToggleInputsEditable()
 	
-	# This calls run_current on the designated device at an equally timed interval
-	while time_ran <= $CurrentConductor.GetTime():
-		var timestep = get_physics_process_delta_time()
-		# Get the connection
-		if $PosTerminal.connected() && $NegTerminal.connected():
-			if other_device.has_method("run_current"):
-				
-				other_device.run_current($CurrentConductor.GetVolts(), timestep)
-				
-				time_ran += timestep
-				
-				yield(get_tree().create_timer(time_delay), "timeout")
-				
-				
-			else:
-				print("Other device ", other_device, " needs a run_current() method")
-				break
-		else:
-			print("At least one terminal is disconnected")
-			break
-	
-	running = !running
-	ToggleRunCurrentText()
-	ToggleInputsEditable()
-	print(time_ran, " ", $CurrentConductor.GetTime())
+			# This calls run_current on the designated device at an equally timed interval
+			while time_ran <= $CurrentConductor.GetTime():
+				var timestep = get_physics_process_delta_time()
+				# Get the connection
+				if $PosTerminal.connected() && $NegTerminal.connected():
+					if other_device.has_method("run_current"):
+						
+						other_device.run_current($CurrentConductor.GetVolts() * voltage_mod, timestep)
+						
+						time_ran += timestep
+						
+						yield(get_tree().create_timer(time_delay), "timeout")
+						
+						
+					else:
+						print("Other device ", other_device, " needs a run_current() method")
+						break
+				else:
+					print("At least one terminal is disconnected")
+					break
+			
+			running = !running
+			ToggleRunCurrentText()
+			ToggleInputsEditable()
 
 func get_other_device():
+	if $PosTerminal == null || $NegTerminal == null:
+		return
 	var pos_parent = $PosTerminal.plugged_electrode.get_parent()
 	var neg_parent = $NegTerminal.plugged_electrode.get_parent()
 	

@@ -10,6 +10,8 @@ var viscosity = 0
 var total_run_time = 0
 var cooled = false
 
+var parent: Node2D
+
 func _init():
 	var properties = {
 		'density': 1.1
@@ -20,12 +22,18 @@ func _init():
 
 func init_mixed(parent_substances):
 	# determine the gel ratio from the parent masses
-	var agar_props = parent_substances[0].get_properties()
-	var binder_props = parent_substances[1].get_properties()
+	var agar_props = parent_substances[0].get_properties() if parent_substances[0].name == "AgarPowderSubstance" \
+		else parent_substances[1].get_properties()
+	var binder_props = parent_substances[0].get_properties() if parent_substances[1].name == "AgarPowderSubstance" \
+		else parent_substances[1].get_properties()
 	gel_ratio = agar_props['volume'] / binder_props['volume']
 	print('Got gel ratio '+str(gel_ratio))
 	
 	volume = agar_props['volume'] + binder_props['volume']
+	
+	parent = get_parent().get_parent()
+	
+	parent.MixChecker([agar_props['volume'], binder_props['volume']])
 
 func init_created(properties):
 	if(properties.has('gel ratio')):
@@ -51,10 +59,7 @@ func heat(heatTime):
 	# 40 is currently a placeholder value for the ideal heating time for the lab
 	viscosity = 1 + ((totalHeatTime - 40)/40)
 	print("Gel viscosity after heating: " + str(viscosity))
-	if(totalHeatTime < 60):
-		LabLog.Warn("Gel Mixture was heated up for less than one minute, substance may not combine properly", false, false)
-	if(totalHeatTime > 60):
-		LabLog.Warn("Gel Mixture was heated up for more than one minute, substance may not combine properly", false, false)
+	parent.HeatingChecker([totalHeatTime])
 
 func chill(chillTime):
 	if totalHeatTime > 30 and totalHeatTime < 70:
@@ -63,7 +68,6 @@ func chill(chillTime):
 		
 		self.remove_from_group("Liquid Substance")
 		self.add_to_group("Solid Substance")
-		print(self.is_in_group("Liquid Substance"))
 	else:
 		print("Gel has not been heated enough to be cooled")
 	

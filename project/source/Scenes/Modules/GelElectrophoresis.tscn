@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Images/lab_counter.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Trashcan.tscn" type="PackedScene" id=2]
@@ -10,7 +10,7 @@
 [ext_resource path="res://Images/LabShelf.png" type="Texture" id=8]
 [ext_resource path="res://Scenes/Objects/TestScale.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Objects/WeighBoat.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scenes/Objects/TestPipette.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Objects/Pipettes/P1000.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Images/ArgosePowder_Closed.png" type="Texture" id=12]
 [ext_resource path="res://Scenes/Objects/GraduatedCylinder.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Substances/GelModule/AgarPowderSubstance.tscn" type="PackedScene" id=14]
@@ -18,16 +18,18 @@
 [ext_resource path="res://Images/TAE_Bottle_Closed.png" type="Texture" id=16]
 [ext_resource path="res://Scenes/Objects/SharpsDisposal.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Objects/RecycleBin.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Scenes/Objects/CompostBin.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Scenes/Objects/TipBox.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Scenes/Objects/ElectrolysisSetup.tscn" type="PackedScene" id=21]
-[ext_resource path="res://Scenes/Substances/GelModule/DNAsubstance.gd" type="Script" id=22]
+[ext_resource path="res://Scenes/Substances/GelModule/DNASubstance.gd" type="Script" id=22]
 [ext_resource path="res://Scenes/Objects/ContactWire.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Scenes/Objects/CurrentSource.tscn" type="PackedScene" id=24]
 [ext_resource path="res://Scenes/Objects/GelMoldVariant.tscn" type="PackedScene" id=25]
 [ext_resource path="res://Scenes/Objects/GelComb.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Scenes/Objects/GelImager.tscn" type="PackedScene" id=27]
 [ext_resource path="res://Images/Erlenmeyer_full_flask.png" type="Texture" id=28]
+[ext_resource path="res://Scripts/Modules/GelElectrophoresis.gd" type="Script" id=29]
+[ext_resource path="res://Scenes/Objects/Pipettes/P200.tscn" type="PackedScene" id=30]
+[ext_resource path="res://Scenes/Objects/Pipettes/P20.tscn" type="PackedScene" id=31]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1305, 4.5 )
@@ -40,7 +42,7 @@ _bundled = {
 "conn_count": 0,
 "conns": PoolIntArray(  ),
 "editable_instances": [  ],
-"names": PoolStringArray( "DNAsubstance", "script", "DNA", "Liquid Substance", "Node2D" ),
+"names": PoolStringArray( "DNASubstance", "script", "DNA", "Liquid Substance", "Node2D" ),
 "node_count": 1,
 "node_paths": [  ],
 "nodes": PoolIntArray( -1, -1, 4, 0, -1, 1, 1, 0, 2, 2, 3 ),
@@ -49,6 +51,7 @@ _bundled = {
 }
 
 [node name="GelElectrophoresis" type="Node2D"]
+script = ExtResource( 29 )
 
 [node name="MixManager" type="Node2D" parent="."]
 script = ExtResource( 15 )
@@ -124,14 +127,12 @@ draggable = true
 [node name="AgaroseSourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -570, -168 )
 mode = 1
-object_label = "Agarose"
 substance = ExtResource( 14 )
 image = ExtResource( 12 )
 
 [node name="TAESourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -480, -167 )
 mode = 1
-object_label = "Buffer"
 substance = ExtResource( 6 )
 image = ExtResource( 16 )
 
@@ -152,11 +153,8 @@ position = Vector2( -1000, 237 )
 [node name="RecycleBin" parent="." instance=ExtResource( 18 )]
 position = Vector2( -850, 237 )
 
-[node name="CompostBin" parent="." instance=ExtResource( 19 )]
-position = Vector2( -700, 237 )
-
 [node name="SharpsDisposal" parent="." instance=ExtResource( 17 )]
-position = Vector2( -550, 237 )
+position = Vector2( -697, 238 )
 
 [node name="CurrentSource" parent="." instance=ExtResource( 24 )]
 position = Vector2( 874, -84 )
@@ -181,7 +179,7 @@ position = Vector2( -342, 39 )
 draggable = true
 
 [node name="Scoopula" parent="." instance=ExtResource( 5 )]
-position = Vector2( 354, 29 )
+position = Vector2( 321, -7 )
 
 [node name="WeighBoat" parent="." instance=ExtResource( 10 )]
 position = Vector2( 414, 52 )
@@ -192,13 +190,10 @@ draggable = true
 position = Vector2( 134, 29 )
 gravity_scale = 0.0
 
-[node name="Pipette" parent="." instance=ExtResource( 11 )]
-position = Vector2( 76, -1 )
-
 [node name="DNAContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -938, 27 )
 mode = 1
-object_label = "DNA 1"
+DisplayName = "DNA 1"
 substance = SubResource( 2 )
 substance_parameters = [ 1.0, 2.0, 3.0 ]
 image = ExtResource( 28 )
@@ -206,7 +201,7 @@ image = ExtResource( 28 )
 [node name="DNAContainer2" parent="." instance=ExtResource( 4 )]
 position = Vector2( -886, 27 )
 mode = 1
-object_label = "DNA 2"
+DisplayName = "DNA 2"
 substance = SubResource( 2 )
 substance_parameters = [ 1.0, 2.2, 1.7 ]
 image = ExtResource( 28 )
@@ -214,7 +209,7 @@ image = ExtResource( 28 )
 [node name="DNAContainer3" parent="." instance=ExtResource( 4 )]
 position = Vector2( -835, 27 )
 mode = 1
-object_label = "DNA 3"
+DisplayName = "DNA 3"
 substance = SubResource( 2 )
 substance_parameters = [ 2.3, 2.7, 1.0 ]
 image = ExtResource( 28 )
@@ -222,7 +217,16 @@ image = ExtResource( 28 )
 [node name="DNAContainer4" parent="." instance=ExtResource( 4 )]
 position = Vector2( -783, 27 )
 mode = 1
-object_label = "DNA 4"
+DisplayName = "DNA 4"
 substance = SubResource( 2 )
 substance_parameters = [ 1.3, 1.9, 2.6 ]
 image = ExtResource( 28 )
+
+[node name="P20" parent="." instance=ExtResource( 31 )]
+position = Vector2( 592, -208 )
+
+[node name="P200" parent="." instance=ExtResource( 30 )]
+position = Vector2( 642, -208 )
+
+[node name="P1000" parent="." instance=ExtResource( 11 )]
+position = Vector2( 698, -208 )
