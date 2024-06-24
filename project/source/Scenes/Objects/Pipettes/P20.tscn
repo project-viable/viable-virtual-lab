@@ -4,11 +4,9 @@
 [ext_resource path="res://Images/Label_P20.png" type="Texture" id=2]
 
 [node name="P20" instance=ExtResource( 1 )]
+DisplayName = "P20 Pipette"
 minCapacity = 2.0
 maxCapacity = 20.0
-
-[node name="BaseSprite" parent="." index="0"]
-scale = Vector2( 0.157895, 0.157274 )
 
 [node name="PipetteSizeLabel" type="TextureRect" parent="Menu/Border" index="6"]
 margin_left = 220.0
