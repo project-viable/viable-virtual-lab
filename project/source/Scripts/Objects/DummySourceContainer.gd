@@ -15,7 +15,6 @@ func _ready():
 	else:
 		$Sprite.texture = load('res://Images/Erlenmeyer_full_flask.png')
 	
-	$ObjectLabel.text = object_label
 	if substance == null:
 		substance = load('res://Scenes/Objects/DummyLiquidSubstance.tscn')
 	

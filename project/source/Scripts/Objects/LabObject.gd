@@ -6,7 +6,9 @@ class_name LabObject
 #when not being dragged, it will be set to whatever it's rigidbody2d mode is set to (rigid, static, etc.)
 export(bool) var draggable
 export(bool) var canChangeSubscenes = true
-export(String) var object_label = ""
+export(String) var DisplayName = ""
+export(int) var tooltipDisplayDistance = 50
+var tooltip: Label #Set when it's created
 
 #these variables are used internally to handle clicking and dragging:
 var dragging = false
@@ -38,6 +40,18 @@ func _ready():
 	can_sleep = false
 	input_pickable = true
 	
+	#Set up the tooltip node, if we're not in the editor
+	if not Engine.editor_hint and len(DisplayName) > 1:
+		tooltip = Label.new()
+		tooltip.text = DisplayName
+		tooltip.name = "labobject_auto_tooltip"
+		tooltip.set_anchors_and_margins_preset(Control.PRESET_CENTER)
+		var tooltipStylebox = StyleBoxFlat.new()
+		tooltipStylebox.bg_color = Color(0.2, 0.2, 0.2, 1)
+		tooltip.add_stylebox_override('normal', tooltipStylebox)
+		add_child(tooltip)
+		tooltip.hide()
+	
 	self.LabObjectReady()
 
 func _physics_process(delta):
@@ -45,6 +59,11 @@ func _physics_process(delta):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	#tooltip visibility
+	if tooltip:
+		tooltip.visible = (global_position.distance_squared_to(get_global_mouse_position()) < pow(tooltipDisplayDistance, 2))
+	
+	#Dragging control
 	if dragging:
 		#move
 		if (canChangeSubscenes or get_node("/root/Main").GetDeepestSubsceneAt(get_global_mouse_position()) == GetSubsceneManagerParent()):
@@ -72,6 +91,7 @@ func _process(delta):
 		if Input.is_action_just_released("DragLabObject"):
 			StopDragging()
 	
+	#For child classes
 	self.LabObjectProcess(delta)
 
 #LabObject does not do this on it's own. When input happens, Main decides which if any objects should start dragging.
