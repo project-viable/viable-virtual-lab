@@ -187,7 +187,6 @@ margin_bottom = 348.0
 text = "Close"
 
 [node name="OptionsScreen" type="PanelContainer" parent="Menu"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -201,7 +200,7 @@ margin_bottom = 51.0
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 318.0
-margin_bottom = 95.0
+margin_bottom = 139.0
 
 [node name="Label" type="Label" parent="Menu/OptionsScreen/VBoxContainer"]
 margin_right = 311.0
@@ -216,10 +215,16 @@ margin_right = 311.0
 margin_bottom = 64.0
 text = "Enable Dragging Camera with Mouse"
 
-[node name="CloseButton" type="Button" parent="Menu/OptionsScreen/VBoxContainer"]
+[node name="ObjectTooltipsToggle" type="CheckButton" parent="Menu/OptionsScreen/VBoxContainer"]
 margin_top = 68.0
 margin_right = 311.0
-margin_bottom = 88.0
+margin_bottom = 108.0
+text = "Object Tooltips"
+
+[node name="CloseButton" type="Button" parent="Menu/OptionsScreen/VBoxContainer"]
+margin_top = 112.0
+margin_right = 311.0
+margin_bottom = 132.0
 text = "Close"
 
 [node name="FinalReport" type="PanelContainer" parent="Menu"]
@@ -408,6 +413,7 @@ script = ExtResource( 10 )
 [connection signal="pressed" from="Menu/MainMenu/Panel/AboutButton" to="Menu" method="_on_AboutButton_pressed"]
 [connection signal="pressed" from="Menu/AboutScreen/VBoxContainer/CloseButton" to="Menu" method="_on_About_CloseButton_pressed"]
 [connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
+[connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="Menu" method="_on_ObjectTooltipsToggle_toggled"]
 [connection signal="pressed" from="Menu/OptionsScreen/VBoxContainer/CloseButton" to="Menu" method="_on_CloseButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/MainMenuButton" to="Menu" method="_on_FinalReport_MainMenuButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/RestartModuleButton" to="Menu" method="_on_FinalReport_RestartModuleButton_pressed"]

@@ -1,106 +1,153 @@
 extends LabObject
 
-var contents = []
+export var minCapacity: float = 1 #microliters
+export var maxCapacity: float = 10 #microliters
 
-var minVolume = 0.002
-var maxVolume = 0.02
-var drawVolume = (minVolume + maxVolume) / 2
-var drawIncrement = 0.0001
-var drawFastIncrement = 0.001
-var temp = 0.0
-var hasTip = false
-var isContaminated = false
+export var displayIncrementTop: float = 10 #microliters
+export var displayIncrementMiddle: float = 1 #microliters
+export var displayIncrementBottom: float = 0.1 #microliters
+onready var volumeSliderWidth = displayIncrementMiddle * 2
+onready var volumeSliderStep = displayIncrementBottom
 
-func _ready():
-	$Menu.hide()
-	#print_tree_pretty()
-	$SubsceneManager.subscene = $SubsceneManager/Subscene2
-	#add_to_group("SubsceneManagers", true)
-	#$SubsceneManager.subscene.z_index = VisualServer.CANVAS_ITEM_Z_MAX #to make this subscene draw above ones above it in the tree
-	#if not Engine.editor_hint: $SubsceneManager.HideSubscene()
+onready var plungerPressExtent = 2 #Stores the lowest value the plunger slider has reached since being reset to the top.
+
+export var hasTip: bool = false setget SetHasTip
+onready var drawVolume: float = stepify((maxCapacity - minCapacity)/2, displayIncrementBottom) setget SetDrawVolume #microliters. onready set to the halfway point, rounded to the nearest unit the display can show.
+var contents = [] #current contents
+var tipContaminants = [] #stores what the pipette has drawn in since the last time the tip was replaced
+
+func SetHasTip(newVal):
+	hasTip = newVal
+	tipContaminants = []
+	
+	$BaseSprite.visible = !hasTip
+	$TipSprite.visible = hasTip
+	
+	if !hasTip:
+		#If the tip has been removed, and had something in it, whatever was in it is now also gone.
+		contents = []
+
+func SetDrawVolume(newVal):
+	drawVolume = newVal
+	
+	if drawVolume < minCapacity:
+		LabLog.Warn("Setting this micropipette to a volume lower than its minimum (" + str(minCapacity) + ") could break it!")
+	elif drawVolume > maxCapacity:
+		LabLog.Warn("Setting this micropipette to a volume higher than its maximum (" + str(maxCapacity) + ") could break it!")
+	
+	SetupVolumeDisplay()
+
+func DrawSubstance(from: LabObject):
+	if hasTip: #Pipette needs a tip to dispense or take in substances
+		if len(contents) == 0 and from.CheckContents("Liquid Substance"):
+			if(len(tipContaminants) > 0):
+				LabLog.Warn("The pipette tip was already used. If it was for a different substance than this source, dispose the tip and attach a new one to avoid contaminating your substances.")
+			contents.append_array(from.TakeContents(drawVolume))
+			tipContaminants.append_array(contents)
+
+func DispenseSubstance(to: LabObject):
+	if hasTip and to: #Pipette needs a tip to dispense or take in substances
+		to.AddContents(contents)
+		ReportAction([self] + contents, "transferSubstance", {'substances': contents})
+	
+	contents.clear()
+
+#Returns the other object that the pipette should get or send liquid from at the moment
+func SelectTarget():
+	var others = GetIntersectingLabObjects()
+	
+	for other in others:
+		if other.is_in_group("Container") or other.is_in_group("Source Container"):
+			return other
+	
+	return null
+
+func LabObjectReady():
+	HideMenu()
 
 func TryInteract(others):
 	for other in others:
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
-			if hasTip: #Pipette needs a tip to dispense or take in substances
-				if len(contents) == 0 and other.CheckContents("Liquid Substance"):
-					if(isContaminated):
-						LabLog.Warn("The pipette tip was already used. If it was for a different substance than this source, dispose the tip and attach a new one to avoid contaminating your substances.")
-					contents.append_array(other.TakeContents(drawVolume))
-					isContaminated = true
-				elif len(contents) > 0:
-					ReportAction([self] + contents, "transferSubstance", {'substances': contents})
-					other.AddContents(contents)
-					contents.clear()
-					return true
-			else:
-				LabLog.Warn("Attempted to use pipette without a pipette tip", false, false)
+			ShowMenu()
 			return true
 		elif other.is_in_group("Tip Box"):
-			hasTip = true
-			$Sprite.texture = load("res://Images/PipetteYesTip (3).png")
+			SetHasTip(true)
 			return true
 	
 	return false
 
 func TryActIndependently():
-	#$Menu.visible = !$Menu.visible #show popup menu
-	temp = drawVolume
-	$SubsceneManager.TryActIndependently()
-	$SubsceneManager/Subscene2/Label.text = str(temp * 1000).pad_decimals(1)
-
-
-func _on_Submit_pressed():
-	temp = $Menu/PanelContainer/VBoxContainer/LineEdit.text
-	temp = temp.to_float()
-	if (temp < minVolume):
-		temp = minVolume
-	if (temp > maxVolume):
-		temp = maxVolume
-	drawVolume = temp / 1000
-	print("Draw volume = " + str(drawVolume))
-	$Menu.hide()
-
-
-func _on_Cancel_pressed():
-	#$Menu.hide()
-	$SubsceneManager.HideSubscene()
+	ShowMenu()
+	return true
 
 func dispose():
-	if(hasTip):#If the pipette has a tip, remove it, change the texture to the no-tip version, and empty contents
-		hasTip = false
-		isContaminated = false
-		$Sprite.texture = load("res://Images/Pipette_20.png")
-		contents = []
+	if(hasTip): #If the pipette has a tip, remove it.
+		SetHasTip(false)
 	else: #If there is no tip, the user is attempting to throw away the pipette itself
 		self.queue_free()
 
+func ShowMenu():
+	$Menu.show()
+	$Menu/Border/PlungerSlider.value = 2
+	
+	SetupVolumeSlider()
+	$Menu/Border/VolumeSlider.value = drawVolume #this is not in SetupVolumeSlider() so we don't create a loop with the signal
+	
+	SetupVolumeDisplay()
 
-func _on_Confirm_pressed():
-	drawVolume = temp
-	print("Draw Volume: " + str(drawVolume))
-	$SubsceneManager.HideSubscene()
+func HideMenu():
+	$Menu.hide()
 
+func SetupVolumeSlider():
+	$Menu/Border/VolumeSlider.step = volumeSliderStep
+	$Menu/Border/VolumeSlider.min_value = drawVolume - (volumeSliderWidth/2)
+	$Menu/Border/VolumeSlider.max_value = drawVolume + (volumeSliderWidth/2)
 
-func _on_VolumeUp_pressed():
-	temp += drawIncrement
-	if(temp > maxVolume): temp = maxVolume
-	$SubsceneManager/Subscene2/Label.text = str(temp * 1000).pad_decimals(1)
+func SetupVolumeDisplay():
+	var remaining = drawVolume
+	$Menu/Border/VolumeDialLabels/Top.text = str(int(remaining/displayIncrementTop))
+	remaining = fmod(remaining, displayIncrementTop)
+	$Menu/Border/VolumeDialLabels/Middle.text = str(int(remaining/displayIncrementMiddle))
+	remaining = fmod(remaining, displayIncrementMiddle)
+	$Menu/Border/VolumeDialLabels/Bottom.text = str(int(remaining/displayIncrementBottom))
 
+func _on_CloseButton_pressed():
+	HideMenu()
 
-func _on_VolumeDown_pressed():
-	temp -= drawIncrement
-	if(temp < minVolume): temp = minVolume
-	$SubsceneManager/Subscene2/Label.text = str(temp * 1000).pad_decimals(1)
+func _on_EjectTipButton_pressed():
+	SetHasTip(false)
+	HideMenu()
 
+func _on_VolumeSlider_value_changed(value):
+	SetDrawVolume(value)
 
-func _on_VolumeFastUp_pressed():
-	temp += drawFastIncrement
-	if(temp > maxVolume): temp = maxVolume
-	$SubsceneManager/Subscene2/Label.text = str(temp * 1000).pad_decimals(1)
+func _on_VolumeSlider_drag_ended(value_changed):
+	SetupVolumeSlider()
 
+func _on_PlungerSlider_value_changed(value):
+	if plungerPressExtent > value:
+		plungerPressExtent = value
+	
+	if value == 0:
+		#all the way down
+		DispenseSubstance(SelectTarget())
+		HideMenu()
+	elif value == 2 and plungerPressExtent == 1:
+		#just ended a half press
+		var otherObject = SelectTarget()
+		if otherObject:
+			DrawSubstance(otherObject)
+			HideMenu()
+	
+	if value == 2:
+		#We've reset the plunger to the top, so anything that happens in the future is a different press of the button.
+		plungerPressExtent = 2
 
-func _on_VolumeFastDown_pressed():
-	temp -= drawFastIncrement
-	if(temp < minVolume): temp = minVolume
-	$SubsceneManager/Subscene2/Label.text = str(temp * 1000).pad_decimals(1)
+func _on_PlungerSlider_drag_ended(value_changed):
+	#Make the plunger spring back
+	if $Menu/Border/PlungerSlider.value == 1 and plungerPressExtent == 1:
+		#It has just been released, it's half pressed, and it was previously not pressed at all
+		#That^ means we've just half pressed and released
+		#So we go ahead and make it go back up
+		$Menu/Border/PlungerSlider.value = 2 #This does trigger the slider's value_changed signal.
+		

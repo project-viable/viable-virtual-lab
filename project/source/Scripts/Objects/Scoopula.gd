@@ -1,7 +1,5 @@
 extends LabContainer
 
-
-#var contents = []
 var dispense_mode = 0
 var split_substance = [] 
 
@@ -23,6 +21,7 @@ func TryInteract(others):
 				if(other.is_in_group("Scale")):
 					other.UpdateWeight()
 				print("Added contents")
+				update_display()
 				return true
 			else:
 				if(!contents.empty()):
@@ -42,6 +41,7 @@ func TryInteract(others):
 						print("emptied part of scoopula")
 					else:
 						print("Not dispensing")
+				update_display()
 				return true
 	return false
 

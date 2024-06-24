@@ -18,7 +18,7 @@ filled_image = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 2.38419e-07, -7.45058e-09 )
-scale = Vector2( 0.00821875, 0.00821875 )
+scale = Vector2( 0.016, 0.016 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

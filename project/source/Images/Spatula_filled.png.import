@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PipetteYesTip.png-b537fd0d4f911749e453b3c163777cca.stex"
+path="res://.import/Spatula_filled.png-f4ac7d064d583fd1dee86e7f58ed1c8f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/PipetteYesTip.png"
-dest_files=[ "res://.import/PipetteYesTip.png-b537fd0d4f911749e453b3c163777cca.stex" ]
+source_file="res://Images/Spatula_filled.png"
+dest_files=[ "res://.import/Spatula_filled.png-f4ac7d064d583fd1dee86e7f58ed1c8f.stex" ]
 
 [params]
 
