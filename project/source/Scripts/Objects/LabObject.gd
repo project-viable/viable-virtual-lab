@@ -41,10 +41,10 @@ func _ready():
 	input_pickable = true
 	
 	#Set up the tooltip node, if we're not in the editor
-	if not Engine.editor_hint:
+	if not Engine.editor_hint and len(DisplayName) > 1:
 		tooltip = Label.new()
 		tooltip.text = DisplayName
-		tooltip.name = "Tooltip"
+		tooltip.name = "labobject_auto_tooltip"
 		add_child(tooltip)
 		tooltip.hide()
 	
