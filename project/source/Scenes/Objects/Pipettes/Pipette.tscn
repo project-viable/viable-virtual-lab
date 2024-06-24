@@ -233,6 +233,7 @@ align = 1
 valign = 1
 
 [connection signal="pressed" from="Menu/Border/Background/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="drag_ended" from="Menu/Border/PlungerSlider" to="." method="_on_PlungerSlider_drag_ended"]
 [connection signal="value_changed" from="Menu/Border/PlungerSlider" to="." method="_on_PlungerSlider_value_changed"]
 [connection signal="pressed" from="Menu/Border/EjectTipButton" to="." method="_on_EjectTipButton_pressed"]
 [connection signal="drag_ended" from="Menu/Border/VolumeSlider" to="." method="_on_VolumeSlider_drag_ended"]
