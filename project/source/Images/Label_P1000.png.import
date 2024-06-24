@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PipetteYesTip (3).png-2e1d9c57a944ba9a2e4451aec8ad3c5a.stex"
+path="res://.import/Label_P1000.png-8de2a2f05fadeb7845a7c7715017f5a0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/PipetteYesTip (3).png"
-dest_files=[ "res://.import/PipetteYesTip (3).png-2e1d9c57a944ba9a2e4451aec8ad3c5a.stex" ]
+source_file="res://Images/Label_P1000.png"
+dest_files=[ "res://.import/Label_P1000.png-8de2a2f05fadeb7845a7c7715017f5a0.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Pipette_tip_2.png-0b17a59afcca1e62a1251bae0874b598.stex"
+path="res://.import/Label_P20.png-2e896822c1978e0bbe5d98c9061fbfc4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Pipette_tip_2.png"
-dest_files=[ "res://.import/Pipette_tip_2.png-0b17a59afcca1e62a1251bae0874b598.stex" ]
+source_file="res://Images/Label_P20.png"
+dest_files=[ "res://.import/Label_P20.png-2e896822c1978e0bbe5d98c9061fbfc4.stex" ]
 
 [params]
 
