@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Logger/PipetteDispenseChecker.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+CorrectDNAVolume = 0.005
+TooLowMessage = "Pipette dispensing less than 5µL of DNA sample"
+TooHighMessage = "Pipette dispensing more than 5µL of DNA sample"

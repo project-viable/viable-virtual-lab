@@ -103,7 +103,6 @@ func heat(heatTime):
 	# pass heating along to the container's contents
 	for content in contents:
 		if(content.is_in_group("Heatable")):
-			print("content is heatable")
 			content.heat(heatTime)
 
 func chill(chillTime):

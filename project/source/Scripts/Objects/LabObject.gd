@@ -157,6 +157,9 @@ func GetSubsceneManagerParent():
 	#If we've made it here, we ran out of ancestors before finding one
 	return null
 
+func GetCurrentModuleScene():
+	return get_tree().current_scene.currentModuleScene
+
 ######## Convenience Functions ########
 #Use these instead of the corresponding Godot functions (like _ready()).
 #Those Godot functions call them.
@@ -200,18 +203,28 @@ func OnUserAction():
 		if other.GetSubsceneManagerParent() == thisLabObjectSubscene:
 			interactOptions.append(other)
 	
+	####Interactions
 	if interactOptions:
-		var interacted = self.TryInteract(interactOptions)
+		#First, see if we want to do something.
+		var result = self.TryInteract(interactOptions)
 		
-		if interacted:
+		if result:
+			#We chose to interact with something, so now we need to have the module make sure that wasn't a user mistake.
 			return
 		else:
+			#If not, see if the other objects want to do something
 			for other in interactOptions:
-				if other.TryInteract([self]):
+				result = other.TryInteract([self])
+				if result:
+					#It chose to interact with us, so now we need to have the module make sure that wasn't a user mistake.
 					return
 	
+	####Independent Actions
 	if not dragStartGlobalPos or not draggable or global_position.distance_to(dragStartGlobalPos) <= maxMovementForActIndependently:
-		self.TryActIndependently()
+		var result = self.TryActIndependently()
+		if result:
+			#We chose to do something!
+			return
 
 #This should be overriden by things that extend this class.
 #You should never need to call this on your own - LabObject and Main do it.
@@ -232,3 +245,12 @@ func TryInteract(others):
 func TryActIndependently():
 	#The base class doesn't do anything.
 	return false
+
+#Call this whenever you do something (like in TryInteract or TryActIndependently), so that the module code knows to check if the user made a mistake.
+func ReportAction(objectsInvolved: Array, actionType: String, params: Dictionary):
+	print("Reporting an action of type " + actionType + " involving " + str(objectsInvolved) + ". Params are " + str(params))
+	
+	#This function asks for these as arguments, and then manually adds them here, to remind/force you to provide them
+	params['objectsInvolved'] = objectsInvolved
+	params['actionType'] = actionType
+	GetCurrentModuleScene().CheckAction(params)
