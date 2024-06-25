@@ -22,7 +22,8 @@ func CheckAction(params: Dictionary):
 					continue
 				var volume = substance['volume']
 				var targetVolume = targetSubstance.get(substanceName)['volume']
-				if volume < targetVolume:
-					LabLog.Warn('Used too little ' + substanceName)
-				elif volume > targetVolume:
-					LabLog.Warn('Used too much ' + substanceName)
+				if not is_equal_approx(volume, targetVolume):
+					if volume < targetVolume:
+						LabLog.Warn('Used too little ' + substanceName)
+					elif volume > targetVolume:
+						LabLog.Warn('Used too much ' + substanceName)

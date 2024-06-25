@@ -17,7 +17,9 @@ func TryInteract(others):
 				if len(granularSubstance) > 0:
 					granularSubstance = granularSubstance[0]
 			if len(contents) == 0 and granularSubstance:
-				contents.append_array(other.TakeContents())
+				# get density to determine volume taken
+				var density = other.TakeContents()[0].get_properties()['density']
+				contents.append_array(other.TakeContents(0.6 / density)) # roughly 0.6 grams taken
 				if(other.is_in_group("Scale")):
 					other.UpdateWeight()
 				print("Added contents")

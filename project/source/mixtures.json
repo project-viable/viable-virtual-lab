@@ -2,7 +2,7 @@
   "GelMixSubstance": {
     "substances": {
       "agar": {
-        "volume": 1
+        "volume": 0.75
       },
       "binder": {
         "volume": 50
