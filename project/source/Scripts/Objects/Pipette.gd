@@ -48,6 +48,7 @@ func DrawSubstance(from: LabObject):
 func DispenseSubstance(to: LabObject):
 	if hasTip and to: #Pipette needs a tip to dispense or take in substances
 		to.AddContents(contents)
+		ReportAction([self] + contents, "transferSubstance", {'substances': contents})
 	
 	contents.clear()
 

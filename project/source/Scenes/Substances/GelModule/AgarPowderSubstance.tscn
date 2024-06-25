@@ -2,5 +2,5 @@
 
 [ext_resource path="res://Scenes/Substances/GelModule/AgarPowderSubstance.gd" type="Script" id=1]
 
-[node name="AgarPowderSubstance" type="Node2D" groups=["Chillable", "Heatable", "Mixable", "Solid Substance", "Weighable"]]
+[node name="AgarPowderSubstance" type="Node2D" groups=["Chillable", "Granular Substance", "Heatable", "Mixable", "Solid Substance", "Weighable"]]
 script = ExtResource( 1 )

@@ -74,7 +74,7 @@ func TakeContents(volume=-1):
 	return content
 
 func AddContents(new_contents):
-	print('add contents')
+	pass
 
 func dispose():
 	contents.clear()
