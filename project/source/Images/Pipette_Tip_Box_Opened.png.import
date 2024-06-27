@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Pipette_Tip_Box_Opened.png-a40f5011afa9fe66e6b1ddd2c36c63b5.stex"
+path="res://.import/Pipette_tip_box_opened.png-76545c68c50a977c60a022c88b136ba1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Pipette_Tip_Box_Opened.png"
-dest_files=[ "res://.import/Pipette_Tip_Box_Opened.png-a40f5011afa9fe66e6b1ddd2c36c63b5.stex" ]
+source_file="res://Images/Pipette_tip_box_opened.png"
+dest_files=[ "res://.import/Pipette_tip_box_opened.png-76545c68c50a977c60a022c88b136ba1.stex" ]
 
 [params]
 
