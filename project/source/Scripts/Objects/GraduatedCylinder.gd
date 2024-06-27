@@ -41,10 +41,11 @@ func TryInteract(others):
 						
 						# Update the volume of the contents
 						contents[0].set_volume($VolumeContainer.GetVolume())
-						
+					update_display()
 				# Other is a container with a liquid substance and grad cylinder already has liquid, so do nothing
 				else:
 					return false
+				update_display()
 				print("Graduated cylinder has ", $VolumeContainer.GetVolume(), "mL of liquid")
 				return true
 
@@ -56,6 +57,7 @@ func TryInteract(others):
 					contents.clear()
 					$VolumeContainer.DumpContents()
 					ResetMenu()
+					update_display()
 					print("Graduated cylinder has ", $VolumeContainer.GetVolume(), "mL of liquid")
 					return true
 				else:
@@ -70,6 +72,7 @@ func TakeContents(volume=-1):
 	contents.clear()
 	$VolumeContainer.DumpContents()
 	ResetMenu()
+	update_display()
 	print("Graduated cylinder has ", $VolumeContainer.GetVolume(), "mL of liquid")
 	return content
 
