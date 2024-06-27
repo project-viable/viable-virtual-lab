@@ -254,3 +254,6 @@ func ReportAction(objectsInvolved: Array, actionType: String, params: Dictionary
 	params['objectsInvolved'] = objectsInvolved
 	params['actionType'] = actionType
 	GetCurrentModuleScene().CheckAction(params)
+
+func _integrate_forces(state):
+	self.rotation_degrees = 0
