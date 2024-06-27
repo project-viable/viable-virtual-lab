@@ -35,7 +35,7 @@
 [ext_resource path="res://MistakeCheckers/GelElectrophoresis/CurrentChecker.tres" type="Resource" id=33]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1305, 4.5 )
+extents = Vector2( 1305, 180.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 128, 8 )
@@ -91,7 +91,7 @@ texture = ExtResource( 1 )
 position = Vector2( 0, 67 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Countertop"]
-position = Vector2( 0, -5.5 )
+position = Vector2( 0, 170.5 )
 shape = SubResource( 1 )
 
 [node name="Shelf1" type="StaticBody2D" parent="Background"]
