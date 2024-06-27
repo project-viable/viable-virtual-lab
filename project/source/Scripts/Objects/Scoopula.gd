@@ -93,6 +93,3 @@ func _on_TapButton_toggled(button_pressed):
 	else:
 		get_node("Menu/PanelContainer/VBoxContainer/DumpButton").disabled = false
 		dispense_mode = 0
-
-func _integrate_forces(state):
-	self.rotation_degrees = 39.6

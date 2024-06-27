@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Images/lab_counter.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Trashcan.tscn" type="PackedScene" id=2]
@@ -34,8 +34,11 @@
 [ext_resource path="res://MistakeCheckers/GelElectrophoresis/GelHeatingTimeChecker.tres" type="Resource" id=32]
 [ext_resource path="res://MistakeCheckers/GelElectrophoresis/CurrentChecker.tres" type="Resource" id=33]
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 3973.5, 1055 )
+
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1305, 180.5 )
+extents = Vector2( 1305, 6.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 128, 8 )
@@ -59,6 +62,13 @@ CheckStrategies = [ ExtResource( 33 ), ExtResource( 32 ), ExtResource( 19 ) ]
 
 [node name="MixManager" type="Node2D" parent="."]
 script = ExtResource( 15 )
+
+[node name="LabObjectBarrier" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LabObjectBarrier"]
+position = Vector2( 0, 1112 )
+shape = SubResource( 4 )
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -91,7 +101,7 @@ texture = ExtResource( 1 )
 position = Vector2( 0, 67 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Countertop"]
-position = Vector2( 0, 170.5 )
+position = Vector2( 0, -3.5 )
 shape = SubResource( 1 )
 
 [node name="Shelf1" type="StaticBody2D" parent="Background"]
@@ -123,10 +133,14 @@ mode = 1
 [node name="Flask1" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
 position = Vector2( 464, -168 )
 draggable = true
+objectRotationDegrees = null
+filled_image = true
 
 [node name="Flask2" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
 position = Vector2( 510, -168 )
 draggable = true
+objectRotationDegrees = null
+filled_image = true
 
 [node name="AgaroseSourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -570, -168 )
@@ -162,6 +176,7 @@ position = Vector2( -697, 238 )
 
 [node name="CurrentSource" parent="." instance=ExtResource( 24 )]
 position = Vector2( 874, -84 )
+objectRotationDegrees = 0
 
 [node name="ContactWire" parent="." instance=ExtResource( 23 )]
 position = Vector2( 804, -35 )
@@ -193,6 +208,7 @@ draggable = true
 [node name="TipBox" parent="." groups=["Tip Box"] instance=ExtResource( 20 )]
 position = Vector2( 134, 29 )
 gravity_scale = 0.0
+objectRotationDegrees = 0
 
 [node name="DNAContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -938, 27 )

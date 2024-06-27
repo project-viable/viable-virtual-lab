@@ -17,6 +17,7 @@ __meta__ = {
 "_edit_group_": true
 }
 draggable = true
+objectRotationDegrees = 39.6
 filled_image = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
