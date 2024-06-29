@@ -94,6 +94,10 @@ shape = SubResource( 4 )
 
 [node name="Menu" type="CanvasLayer" parent="."]
 
+[node name="AutoCloseTimer" type="Timer" parent="Menu"]
+wait_time = 0.5
+one_shot = true
+
 [node name="Border" type="ReferenceRect" parent="Menu"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -232,6 +236,16 @@ text = "0"
 align = 1
 valign = 1
 
+[node name="ActionLabel" type="Label" parent="Menu/Border"]
+margin_left = 36.0
+margin_top = 46.0
+margin_right = 169.0
+margin_bottom = 60.0
+text = "Dispensed contents!"
+align = 2
+autowrap = true
+
+[connection signal="timeout" from="Menu/AutoCloseTimer" to="." method="_on_AutoCloseTimer_timeout"]
 [connection signal="pressed" from="Menu/Border/Background/CloseButton" to="." method="_on_CloseButton_pressed"]
 [connection signal="drag_ended" from="Menu/Border/PlungerSlider" to="." method="_on_PlungerSlider_drag_ended"]
 [connection signal="value_changed" from="Menu/Border/PlungerSlider" to="." method="_on_PlungerSlider_value_changed"]
