@@ -94,8 +94,11 @@ func ShowMenu():
 	$Menu/Border/VolumeSlider.value = drawVolume #this is not in SetupVolumeSlider() so we don't create a loop with the signal
 	
 	SetupVolumeDisplay()
+	
+	$Menu/Border/ActionLabel.text = ""
 
 func HideMenu():
+	$Menu/Border/ActionLabel.text = ""
 	$Menu.hide()
 
 func SetupVolumeSlider():
@@ -116,6 +119,7 @@ func _on_CloseButton_pressed():
 
 func _on_EjectTipButton_pressed():
 	SetHasTip(false)
+	$Menu/Border/ActionLabel.text = "Ejected Tip!"
 	$Menu/AutoCloseTimer.start()
 
 func _on_VolumeSlider_value_changed(value):
@@ -131,12 +135,14 @@ func _on_PlungerSlider_value_changed(value):
 	if value == 0:
 		#all the way down
 		DispenseSubstance(SelectTarget())
+		$Menu/Border/ActionLabel.text = "Dispensed contents!"
 		$Menu/AutoCloseTimer.start()
 	elif value == 2 and plungerPressExtent == 1:
 		#just ended a half press
 		var otherObject = SelectTarget()
 		if otherObject:
 			DrawSubstance(otherObject)
+			$Menu/Border/ActionLabel.text = "Drew " + str(drawVolume) + "uL!"
 			$Menu/AutoCloseTimer.start()
 	
 	if value == 2:
