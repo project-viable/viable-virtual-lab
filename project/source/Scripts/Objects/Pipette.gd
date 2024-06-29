@@ -116,7 +116,7 @@ func _on_CloseButton_pressed():
 
 func _on_EjectTipButton_pressed():
 	SetHasTip(false)
-	HideMenu()
+	$Menu/AutoCloseTimer.start()
 
 func _on_VolumeSlider_value_changed(value):
 	SetDrawVolume(value)
@@ -131,13 +131,13 @@ func _on_PlungerSlider_value_changed(value):
 	if value == 0:
 		#all the way down
 		DispenseSubstance(SelectTarget())
-		HideMenu()
+		$Menu/AutoCloseTimer.start()
 	elif value == 2 and plungerPressExtent == 1:
 		#just ended a half press
 		var otherObject = SelectTarget()
 		if otherObject:
 			DrawSubstance(otherObject)
-			HideMenu()
+			$Menu/AutoCloseTimer.start()
 	
 	if value == 2:
 		#We've reset the plunger to the top, so anything that happens in the future is a different press of the button.
@@ -151,3 +151,7 @@ func _on_PlungerSlider_drag_ended(value_changed):
 		#So we go ahead and make it go back up
 		$Menu/Border/PlungerSlider.value = 2 #This does trigger the slider's value_changed signal.
 		
+
+func _on_AutoCloseTimer_timeout():
+	#Make it exactly the same as if you hit the X:
+	_on_CloseButton_pressed()

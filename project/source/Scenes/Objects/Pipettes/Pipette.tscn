@@ -94,6 +94,10 @@ shape = SubResource( 4 )
 
 [node name="Menu" type="CanvasLayer" parent="."]
 
+[node name="AutoCloseTimer" type="Timer" parent="Menu"]
+wait_time = 0.35
+one_shot = true
+
 [node name="Border" type="ReferenceRect" parent="Menu"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -232,6 +236,7 @@ text = "0"
 align = 1
 valign = 1
 
+[connection signal="timeout" from="Menu/AutoCloseTimer" to="." method="_on_AutoCloseTimer_timeout"]
 [connection signal="pressed" from="Menu/Border/Background/CloseButton" to="." method="_on_CloseButton_pressed"]
 [connection signal="drag_ended" from="Menu/Border/PlungerSlider" to="." method="_on_PlungerSlider_drag_ended"]
 [connection signal="value_changed" from="Menu/Border/PlungerSlider" to="." method="_on_PlungerSlider_value_changed"]
