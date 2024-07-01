@@ -133,12 +133,10 @@ mode = 1
 [node name="Flask1" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
 position = Vector2( 464, -168 )
 draggable = true
-filled_image = true
 
 [node name="Flask2" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
 position = Vector2( 510, -168 )
 draggable = true
-filled_image = true
 
 [node name="AgaroseSourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -570, -168 )
