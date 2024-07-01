@@ -35,8 +35,9 @@ margin_top = -250.0
 margin_right = 320.0
 margin_bottom = 250.0
 
-[node name="Background" type="Sprite" parent="Subscene" index="2"]
-scale = Vector2( 0.124902, 0.125 )
+[node name="Background2" type="TextureRect" parent="Subscene/Border" index="1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 5 )
+expand = true
 script = ExtResource( 4 )
-SpriteDimensions = Vector2( 640, 500 )
