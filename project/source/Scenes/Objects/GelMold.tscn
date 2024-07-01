@@ -11,7 +11,7 @@ extents = Vector2( 71.5, 28.5 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 42, 33 )
 
-[node name="GelMoldVariant" type="RigidBody2D" groups=["Conductive", "Container", "Gel Boat", "LabObjects"]]
+[node name="GelMold" type="RigidBody2D" groups=["Conductive", "Container", "Gel Boat", "LabObjects"]]
 z_index = 1
 collision_layer = 2
 input_pickable = true

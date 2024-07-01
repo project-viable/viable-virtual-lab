@@ -24,7 +24,7 @@
 [ext_resource path="res://Scenes/Substances/GelModule/DNASubstance.gd" type="Script" id=22]
 [ext_resource path="res://Scenes/Objects/ContactWire.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Scenes/Objects/CurrentSource.tscn" type="PackedScene" id=24]
-[ext_resource path="res://Scenes/Objects/GelMoldVariant.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Scenes/Objects/GelMold.tscn" type="PackedScene" id=25]
 [ext_resource path="res://Scenes/Objects/GelComb.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Scenes/Objects/GelImager.tscn" type="PackedScene" id=27]
 [ext_resource path="res://Images/Erlenmeyer_full_flask.png" type="Texture" id=28]
@@ -174,7 +174,7 @@ position = Vector2( 804, -71 )
 position = Vector2( -538, 8 )
 z_index = -1
 
-[node name="GelMoldVariant" parent="." instance=ExtResource( 25 )]
+[node name="GelMold" parent="." instance=ExtResource( 25 )]
 position = Vector2( -263, 23 )
 draggable = true
 
