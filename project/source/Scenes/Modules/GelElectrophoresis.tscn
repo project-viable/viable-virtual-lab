@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Images/lab_counter.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Trashcan.tscn" type="PackedScene" id=2]
@@ -34,8 +34,11 @@
 [ext_resource path="res://MistakeCheckers/GelElectrophoresis/GelHeatingTimeChecker.tres" type="Resource" id=32]
 [ext_resource path="res://MistakeCheckers/GelElectrophoresis/CurrentChecker.tres" type="Resource" id=33]
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 3973.5, 1055 )
+
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1305, 4.5 )
+extents = Vector2( 1305, 6.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 128, 8 )
@@ -59,6 +62,13 @@ CheckStrategies = [ ExtResource( 33 ), ExtResource( 32 ), ExtResource( 19 ) ]
 
 [node name="MixManager" type="Node2D" parent="."]
 script = ExtResource( 15 )
+
+[node name="LabObjectBarrier" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LabObjectBarrier"]
+position = Vector2( 0, 1112 )
+shape = SubResource( 4 )
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -91,7 +101,7 @@ texture = ExtResource( 1 )
 position = Vector2( 0, 67 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Countertop"]
-position = Vector2( 0, -5.5 )
+position = Vector2( 0, -3.5 )
 shape = SubResource( 1 )
 
 [node name="Shelf1" type="StaticBody2D" parent="Background"]
@@ -144,7 +154,7 @@ image = ExtResource( 16 )
 position = Vector2( 488, 24 )
 draggable = false
 
-[node name="GraduatedCylinder2" parent="." instance=ExtResource( 13 )]
+[node name="GraduatedCylinder" parent="." instance=ExtResource( 13 )]
 position = Vector2( 315, -197 )
 maxVolume = 50
 
@@ -181,6 +191,7 @@ draggable = true
 [node name="GelComb" parent="." instance=ExtResource( 26 )]
 position = Vector2( -342, 39 )
 draggable = true
+objectRotationDegrees = 0.0
 
 [node name="Scoopula" parent="." instance=ExtResource( 5 )]
 position = Vector2( 321, -7 )
