@@ -47,7 +47,7 @@ func _ready():
 		tooltip.name = "labobject_auto_tooltip"
 		tooltip.set_anchors_and_margins_preset(Control.PRESET_CENTER)
 		var tooltipStylebox = StyleBoxFlat.new()
-		tooltipStylebox.bg_color = Color(0.2, 0.2, 0.2, 1)
+		tooltipStylebox.bg_color = Color(0.2, 0.2, 0.2, 0.7)
 		tooltip.add_stylebox_override('normal', tooltipStylebox)
 		add_child(tooltip)
 		tooltip.hide()
