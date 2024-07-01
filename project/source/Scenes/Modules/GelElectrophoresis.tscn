@@ -196,6 +196,7 @@ tooltipDisplayDistance = 50
 [node name="DNAContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -938, 27 )
 mode = 1
+DisplayName = "DNA 1"
 substance = SubResource( 2 )
 substance_parameters = [ 1.0, 2.0, 3.0 ]
 image = ExtResource( 28 )
@@ -203,6 +204,7 @@ image = ExtResource( 28 )
 [node name="DNAContainer2" parent="." instance=ExtResource( 4 )]
 position = Vector2( -886, 27 )
 mode = 1
+DisplayName = "DNA 2"
 substance = SubResource( 2 )
 substance_parameters = [ 1.0, 2.2, 1.7 ]
 image = ExtResource( 28 )
@@ -210,6 +212,7 @@ image = ExtResource( 28 )
 [node name="DNAContainer3" parent="." instance=ExtResource( 4 )]
 position = Vector2( -835, 27 )
 mode = 1
+DisplayName = "DNA 3"
 substance = SubResource( 2 )
 substance_parameters = [ 2.3, 2.7, 1.0 ]
 image = ExtResource( 28 )
@@ -217,6 +220,7 @@ image = ExtResource( 28 )
 [node name="DNAContainer4" parent="." instance=ExtResource( 4 )]
 position = Vector2( -783, 27 )
 mode = 1
+DisplayName = "DNA 4"
 substance = SubResource( 2 )
 substance_parameters = [ 1.3, 1.9, 2.6 ]
 image = ExtResource( 28 )

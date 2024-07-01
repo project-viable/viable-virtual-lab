@@ -19,6 +19,7 @@ mode = 3
 gravity_scale = 0.0
 can_sleep = false
 script = ExtResource( 1 )
+DisplayName = "Gel Mold"
 filled_image = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
