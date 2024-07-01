@@ -8,7 +8,7 @@ export(bool) var draggable
 export(bool) var canChangeSubscenes = true
 export(String) var DisplayName = ""
 export(int) var tooltipDisplayDistance = 50
-export(float) var objectRotationDegrees = 0
+export(float) var objectRotationDegrees = 0.0
 var tooltip: Label #Set when it's created
 
 #these variables are used internally to handle clicking and dragging:
@@ -91,7 +91,8 @@ func _process(delta):
 		#see if we should continue dragging
 		if Input.is_action_just_released("DragLabObject"):
 			StopDragging()
-	
+#	if objectRotationDegrees != null:
+#		set_rotation_degrees(objectRotationDegrees)
 	#For child classes
 	self.LabObjectProcess(delta)
 
@@ -257,5 +258,5 @@ func ReportAction(objectsInvolved: Array, actionType: String, params: Dictionary
 	GetCurrentModuleScene().CheckAction(params)
 
 func _integrate_forces(state):
-	if objectRotationDegrees:
-		self.rotation_degrees = objectRotationDegrees
+	if objectRotationDegrees != null:
+		set_rotation_degrees(objectRotationDegrees)

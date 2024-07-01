@@ -133,13 +133,11 @@ mode = 1
 [node name="Flask1" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
 position = Vector2( 464, -168 )
 draggable = true
-objectRotationDegrees = null
 filled_image = true
 
 [node name="Flask2" parent="." groups=["Conductive", "Heatable"] instance=ExtResource( 3 )]
 position = Vector2( 510, -168 )
 draggable = true
-objectRotationDegrees = null
 filled_image = true
 
 [node name="AgaroseSourceContainer" parent="." instance=ExtResource( 4 )]
@@ -158,7 +156,7 @@ image = ExtResource( 16 )
 position = Vector2( 488, 24 )
 draggable = false
 
-[node name="GraduatedCylinder2" parent="." instance=ExtResource( 13 )]
+[node name="GraduatedCylinder" parent="." instance=ExtResource( 13 )]
 position = Vector2( 315, -197 )
 maxVolume = 50
 
@@ -176,7 +174,6 @@ position = Vector2( -697, 238 )
 
 [node name="CurrentSource" parent="." instance=ExtResource( 24 )]
 position = Vector2( 874, -84 )
-objectRotationDegrees = 0
 
 [node name="ContactWire" parent="." instance=ExtResource( 23 )]
 position = Vector2( 804, -35 )
@@ -196,6 +193,7 @@ draggable = true
 [node name="GelComb" parent="." instance=ExtResource( 26 )]
 position = Vector2( -342, 39 )
 draggable = true
+objectRotationDegrees = 0.0
 
 [node name="Scoopula" parent="." instance=ExtResource( 5 )]
 position = Vector2( 321, -7 )
@@ -208,7 +206,6 @@ draggable = true
 [node name="TipBox" parent="." groups=["Tip Box"] instance=ExtResource( 20 )]
 position = Vector2( 134, 29 )
 gravity_scale = 0.0
-objectRotationDegrees = 0
 
 [node name="DNAContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -938, 27 )
