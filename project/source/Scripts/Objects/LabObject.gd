@@ -7,7 +7,7 @@ class_name LabObject
 export(bool) var draggable
 export(bool) var canChangeSubscenes = true
 export(String) var DisplayName = ""
-export(int) var tooltipDisplayDistance = 50
+export(int) var tooltipDisplayDistance = 35
 var tooltip: Label #Set when it's created
 
 #these variables are used internally to handle clicking and dragging:
