@@ -184,7 +184,7 @@ draggable = true
 position = Vector2( 321, -7 )
 
 [node name="WeighBoat" parent="." instance=ExtResource( 10 )]
-position = Vector2( 414, 52 )
+position = Vector2( 325, 52 )
 gravity_scale = 0.0
 draggable = true
 
