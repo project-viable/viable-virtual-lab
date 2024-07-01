@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scenes/Objects/SubsceneManager.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Images/Gel_Tray_empty.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Objects/GelMoldSubsceneManager.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/DimensionSprite.gd" type="Script" id=4]
+[ext_resource path="res://Images/Gel_Tray_comb_gel.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 71.5, 28.5 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 320, 250 )
+
+[node name="GelMoldSubscene" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+draggable = true
+DisplayName = "Gel Mold"
+dimensions = Vector2( 640, 500 )
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+scale = Vector2( 0.03, 0.03 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+position = Vector2( 1.5, 2.5 )
+shape = SubResource( 3 )
+
+[node name="Boundary" parent="Subscene" index="0"]
+shape = SubResource( 4 )
+
+[node name="Border" parent="Subscene" index="1"]
+margin_left = -320.0
+margin_top = -250.0
+margin_right = 320.0
+margin_bottom = 250.0
+
+[node name="Background" type="Sprite" parent="Subscene" index="2"]
+scale = Vector2( 0.124902, 0.125 )
+texture = ExtResource( 5 )
+script = ExtResource( 4 )
+SpriteDimensions = Vector2( 640, 500 )

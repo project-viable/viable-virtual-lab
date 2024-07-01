@@ -31,14 +31,6 @@ func update_display():
 		else:
 			$Sprite.texture = empty_image
 
-func slot_filled(slot, object):
-	update_display()
-	object.visible = false
-
-func slot_emptied(slot, object):
-	object.visible = true
-	call_deferred("update_display")
-
 func _on_Button_pressed():
 	if contents:
 		chill(1)
@@ -79,6 +71,11 @@ func TryInteract(others):
 		elif(other.is_in_group('Container')):
 			# transfer contents to another container
 			other.AddContents(TakeContents())
+			return true
+		#If it's a pipette:
+		elif other.get_script().resource_path.ends_with("Pipette.gd"):
+			$GelMoldSubscene.AdoptNode(other)
+			$GelMoldSubscene.ShowSubscene()
 			return true
 
 func TryActIndependently():
