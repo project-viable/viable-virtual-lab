@@ -28,7 +28,7 @@ func TryInteract(others):
 				# Or if adding more of same liquid substance
 				# Set volume of grad cylinder to its max until a menu is created to specify volume
 				if len(contents) == 0 and other.CheckContents("Liquid Substance") \
-				or len(contents) > 0 and other == contents[0]:
+				or len(contents) > 0 and other.contents.name == contents[0].name:
 					$Menu.visible = true
 					var oldVolume = $VolumeContainer.GetVolume()
 					
