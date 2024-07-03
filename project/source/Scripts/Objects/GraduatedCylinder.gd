@@ -87,12 +87,6 @@ func dispose():
 	update_display()
 
 func update_display():
-	# static change from "empty" to "filled" for now
-#	if(len(contents) > 0):
-#		if(filled_image != null):
-#			$Sprite.texture = filled_image
-#	else:
-#		$Sprite.texture = empty_image
 	var maxHeight = $ColorRect.rect_size.y
 	var fillPercentage = $VolumeContainer.GetVolume() / $VolumeContainer.GetMaxVolume()
 	var fillHeight = maxHeight * fillPercentage
