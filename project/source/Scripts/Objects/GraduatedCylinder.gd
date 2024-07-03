@@ -1,6 +1,7 @@
 extends LabContainer
 
 export (int) var maxVolume
+export (Color) var fillColor = Color(0, 0, 1)
 
 var allowedGroups = ["Source Container"]
 
@@ -16,6 +17,8 @@ func _ready():
 	# Menu hidden by default
 	$Menu.hide()
 	ResetMenu()
+	
+	$FillProgress.color = fillColor
 
 func TryInteract(others):
 	for other in others:
@@ -84,13 +87,10 @@ func dispose():
 	update_display()
 
 func update_display():
-	# static change from "empty" to "filled" for now
-	if(len(contents) > 0):
-		if(filled_image != null):
-			$Sprite.texture = filled_image
-	else:
-		$Sprite.texture = empty_image
-		
+	var maxHeight = $ColorRect.rect_size.y
+	var fillPercentage = $VolumeContainer.GetVolume() / $VolumeContainer.GetMaxVolume()
+	var fillHeight = maxHeight * fillPercentage
+	$FillProgress.rect_size = Vector2($FillProgress.rect_size.x, fillHeight)
 # Reset values in menu
 func ResetMenu():
 	$Menu/PanelContainer/VBoxContainer/Description.text = "Graduated Cylinder currently has a " \
@@ -108,3 +108,6 @@ func _on_DispenseButton_pressed():
 		+ String(substanceVolume) + "mL to container"
 	else:
 		ResetMenu()
+
+func draw():
+	pass
