@@ -13,7 +13,7 @@ func TryInteract(others):
 	for other in others:#If interacting with container then we want to dispense or pick up
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
 			var granularSubstance = other.CheckContents("Granular Substance")
-			if typeof(granularSubstance) == 19:
+			if typeof(granularSubstance) == TYPE_ARRAY:
 				if len(granularSubstance) > 0:
 					granularSubstance = granularSubstance[0]
 			if len(contents) == 0 and granularSubstance:
