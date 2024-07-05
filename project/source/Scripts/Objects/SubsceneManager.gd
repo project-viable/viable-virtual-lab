@@ -2,7 +2,14 @@ tool
 extends LabObject
 class_name SubsceneManager
 
+export (bool) var isMainSubscene = false # parent subscene aka a lab module
 export(Vector2) var dimensions = Vector2(300, 300) setget SetDimensions #setget so it updates in the editor
+# Clamping values for lab objects
+var minX: float
+var maxX: float
+var minY: float
+var maxY: float
+
 var subsceneActive: bool
 var subscene = null #We keep a reference to the subscene so we can remove it from the tree entirely when it's hidden. This is how we "pause" the subscene when it isn't active
 
@@ -11,7 +18,19 @@ func _ready():
 	subscene = $Subscene
 	add_to_group("SubsceneManagers", true)
 	subscene.z_index = VisualServer.CANVAS_ITEM_Z_MAX #to make this subscene draw above ones above it in the tree
-	if not Engine.editor_hint: HideSubscene()
+	if isMainSubscene:
+		ShowSubscene()
+	elif not Engine.editor_hint: 
+		HideSubscene()
+
+	if $Subscene/Boundary != null:
+		var extents = $Subscene/Boundary.shape.extents
+		var position = $Subscene/Boundary.global_position
+		minX = -extents.x + position.x
+		maxX = extents.x + position.x
+		minY = -extents.y + position.y
+		# maxY is set to 50 as that seems roughly the best value for now
+		maxY = 50
 
 #Gets the depth of this subscene (ie how many ancestors it has that are also SubsceneManagers)
 #This is used by main when picking which object should recieve a user action (mouse click)

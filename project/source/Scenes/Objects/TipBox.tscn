@@ -12,6 +12,7 @@ collision_layer = 2
 input_pickable = true
 can_sleep = false
 script = ExtResource( 1 )
+draggable = true
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.111032, 0.111032 )

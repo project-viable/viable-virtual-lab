@@ -125,8 +125,8 @@ func mix():
 		if(contents[i].is_in_group("Mixable")):
 			mixable_contents.append(contents[i])
 			removal_indices.append(i)
-	
-	var mix_result = get_node('../MixManager').mix(mixable_contents)
+
+	var mix_result = get_node('../../MixManager').mix(mixable_contents)
 	if(mix_result != null):
 		# prevent index-shifting by resolving removals in reverse-sorted order
 		removal_indices.sort()

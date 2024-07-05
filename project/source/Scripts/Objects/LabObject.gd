@@ -74,11 +74,16 @@ func _process(delta):
 		
 		if canChangeSubscenes:
 			#make sure we're in the correct subscene
+			var currentSubscene = GetSubsceneManagerParent()
+			var isInMainSubscene = currentSubscene.isMainSubscene
+			if isInMainSubscene:
+				# We need to clamp it to be within the bounds of the lab scene
+				ClampObject(currentSubscene)
 			var desiredSubscene = get_node("/root/Main").GetDeepestSubsceneAt(global_position)
-			if GetSubsceneManagerParent() != desiredSubscene:
+			if !isInMainSubscene and currentSubscene != desiredSubscene:
 				if desiredSubscene == null:
 					#we're in a subscene, but need to not be in any (null)
-					var newParent = GetSubsceneManagerParent().get_parent()
+					var newParent = currentSubscene.get_parent()
 					var globalPos = global_position
 					get_parent().remove_child(self)
 					newParent.add_child(self)
@@ -91,8 +96,6 @@ func _process(delta):
 		#see if we should continue dragging
 		if Input.is_action_just_released("DragLabObject"):
 			StopDragging()
-#	if objectRotationDegrees != null:
-#		set_rotation_degrees(objectRotationDegrees)
 	#For child classes
 	self.LabObjectProcess(delta)
 
@@ -119,6 +122,10 @@ func StopDragging(action: bool = true):
 	z_index = defaultZIndex
 	z_as_relative = defaultZAsRelative
 	if action: OnUserAction()
+
+func ClampObject(subscene: Node2D) -> void:
+	global_position.x = clamp(global_position.x, subscene.minX, subscene.maxX)
+	global_position.y = clamp(global_position.y, subscene.minY, subscene.maxY)
 
 func GetIntersectingLabObjects():
 	var spaceState = get_world_2d().direct_space_state

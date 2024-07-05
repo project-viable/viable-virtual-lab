@@ -15,7 +15,6 @@ extents = Vector2( 42, 33 )
 z_index = 1
 collision_layer = 2
 input_pickable = true
-mode = 3
 gravity_scale = 0.0
 can_sleep = false
 script = ExtResource( 1 )
