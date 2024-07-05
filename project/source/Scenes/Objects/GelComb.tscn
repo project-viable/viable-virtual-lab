@@ -14,6 +14,7 @@ gravity_scale = 0.0
 can_sleep = false
 script = ExtResource( 1 )
 objectRotationDegrees = 0
+DisplayName = "Gel Comb"
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, 18 )

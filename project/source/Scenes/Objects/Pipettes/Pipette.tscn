@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scripts/DimensionSprite.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Objects/Pipette.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Images/Pipette_Closeup_Background.png" type="Texture" id=5]
 [ext_resource path="res://Images/Pipette_Closeup_Plunger.png" type="Texture" id=6]
 [ext_resource path="res://Images/Pipette_Closeup_Plunger_Stick.png" type="Texture" id=7]
+[ext_resource path="res://Images/RedArrow.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.5, 33 )
@@ -95,7 +96,7 @@ shape = SubResource( 4 )
 [node name="Menu" type="CanvasLayer" parent="."]
 
 [node name="AutoCloseTimer" type="Timer" parent="Menu"]
-wait_time = 0.5
+wait_time = 0.6
 one_shot = true
 
 [node name="Border" type="ReferenceRect" parent="Menu"]
@@ -201,6 +202,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 1
 editor_only = false
+
+[node name="Arrow1" type="TextureRect" parent="Menu/Border/VolumeSlider/ReferenceRect"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 5.0
+margin_top = -12.0
+margin_right = 29.0
+margin_bottom = 12.0
+texture = ExtResource( 8 )
+expand = true
+flip_h = true
+
+[node name="Arrow2" type="TextureRect" parent="Menu/Border/VolumeSlider/ReferenceRect"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -29.0
+margin_top = -12.0
+margin_right = -5.0
+margin_bottom = 12.0
+texture = ExtResource( 8 )
+expand = true
 
 [node name="VolumeDialLabels" type="Control" parent="Menu/Border"]
 margin_right = 40.0

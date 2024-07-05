@@ -16,6 +16,7 @@ extents = Vector2( 100, 10 )
 
 [node name="SubsceneManagerTest" instance=ExtResource( 1 )]
 draggable = true
+tooltipDisplayDistance = 50
 dimensions = Vector2( 600, 450 )
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
