@@ -7,7 +7,7 @@ var currentModule: ModuleData = null
 
 var unreadLogs = {'log': 0, 'warning': 0, 'error': 0}
 
-export(float) var popupTimeout = 3
+export(float) var popupTimeout = 5
 
 #This function is mostly copied from online.
 #It seems like godot 3.5 does not have a convenient function for this.
@@ -104,6 +104,8 @@ func _on_Popup_Log(category, newLog):
 	# Setup the title and description
 	# Then set the border color
 	# Popup for the popupTimeout amount then return to invisible
+	if $LabLogPopup.visible:
+		popupTimeout *= 2
 	$LabLogPopup/Panel/VBoxContainer/Type.text = category.capitalize()
 	$LabLogPopup/Panel/VBoxContainer/Description.text = newLog['message'][0].to_upper() + newLog['message'].substr(1, -1)
 	var color
