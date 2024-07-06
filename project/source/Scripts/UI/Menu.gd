@@ -7,6 +7,8 @@ var currentModule: ModuleData = null
 
 var unreadLogs = {'log': 0, 'warning': 0, 'error': 0}
 
+export(float) var popupTimeout = 3
+
 #This function is mostly copied from online.
 #It seems like godot 3.5 does not have a convenient function for this.
 func GetAllFilesInFolder(path):
@@ -32,6 +34,7 @@ func _ready():
 	$LogButton.hide() #until we load a module
 	$LogButton/LogMenu.hide()
 	$FinalReport.hide()
+	$LabLogPopup.hide()
 	
 	#Set up the module select buttons
 	for file in GetAllFilesInFolder(ModuleDirectory):
@@ -98,13 +101,35 @@ func _on_New_Log_Message(category, newLog):
 	SetLogNotificationCounts()
 
 func _on_Popup_Log(category, newLog):
-	#we create the popup on the fly so that there can be multiple at once.
-	var popup = AcceptDialog.new()
-	popup.window_title = category.to_upper()
-	popup.dialog_text = newLog['message']
-	add_child(popup)
-	popup.connect("confirmed", popup, "queue_free")
-	popup.popup_centered_ratio(0.25)
+	# Setup the title and description
+	# Then set the border color
+	# Popup for the popupTimeout amount then return to invisible
+	$LabLogPopup/Panel/VBoxContainer/Type.text = category.capitalize()
+	$LabLogPopup/Panel/VBoxContainer/Description.text = newLog['message'][0].to_upper() + newLog['message'].substr(1, -1)
+	var color
+	match category:
+		"log":
+			color = Color(0.0, 0.0, 1.0, 1.0)
+		"warning":
+			color = Color(1.0, 1.0, 0.0, 1.0)
+		"error":
+			color = Color(1.0, 0.0, 0.0, 1.0)
+		_:
+			color = Color(0.0, 0.0, 0.0, 0.0)
+	SetPopupBorderColor(color)
+	$LabLogPopup.visible = true
+	yield(get_tree().create_timer(popupTimeout), "timeout")
+	$LabLogPopup.visible = false
+
+func SetPopupBorderColor(color: Color) -> void:
+	var border1 = $LabLogPopup/ColorRect
+	var border2 = $LabLogPopup/ColorRect2
+	var border3 = $LabLogPopup/ColorRect3
+	var border4 = $LabLogPopup/ColorRect4
+	border1.color = color
+	border2.color = color
+	border3.color = color
+	border4.color = color
 
 func _on_Logs_Cleared():
 	unreadLogs['log'] = 0

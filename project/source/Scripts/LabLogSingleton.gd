@@ -44,10 +44,10 @@ func ShowReport():
 #all of these are just prettier ways of calling AddLogMessage
 #the intent is that you should only ever have to call these
 
-func Log(message: String, hidden: bool = false, popup: bool = false):
+func Log(message: String, hidden: bool = false, popup: bool = true):
 	AddLogMessage("log", message, hidden, popup)
 
-func Warn(message: String, hidden: bool = false, popup: bool = false):
+func Warn(message: String, hidden: bool = false, popup: bool = true):
 	AddLogMessage("warning", message, hidden, popup)
 
 #errors should generally always popup, and should not be hidden.
