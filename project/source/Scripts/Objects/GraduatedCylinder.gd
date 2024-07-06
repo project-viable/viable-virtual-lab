@@ -39,11 +39,11 @@ func TryInteract(others):
 					self.draggable = true
 					# Check if the grad cylinder's substance volume has changed
 					if oldVolume != $VolumeContainer.GetVolume() and len(contents) < 1:
-						#contents.append(other)
 						contents.append_array(other.TakeContents($VolumeContainer.GetVolume()))
 						
 						# Update the volume of the contents
 						contents[0].set_volume($VolumeContainer.GetVolume())
+						LabLog.Log("Added " + str(contents[0].get_volume()) + "mL of " + contents[0].name + " to graduated cylinder.")
 					update_display()
 				# Other is a container with a liquid substance and grad cylinder already has liquid, so do nothing
 				else:
@@ -61,6 +61,7 @@ func TryInteract(others):
 					$VolumeContainer.DumpContents()
 					ResetMenu()
 					update_display()
+					LabLog.Log("Removed all contents from graduated cylinder.")
 					print("Graduated cylinder has ", $VolumeContainer.GetVolume(), "mL of liquid")
 					return true
 				else:

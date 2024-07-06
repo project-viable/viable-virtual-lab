@@ -23,10 +23,13 @@ func TryInteract(others):
 				if(other.is_in_group("Scale")):
 					other.UpdateWeight()
 				print("Added contents")
+				if contents != []:
+					LabLog.Log("Added " + contents[0].name + " to scoopula.")
 				update_display()
 				return true
 			else:
 				if(!contents.empty()):
+					var contentName = contents[0].name
 					if(dispense_mode == 0):#Mode 0 means there is no active mode and a mode needs to be selected
 						$Menu.visible = true
 						self.draggable = false
@@ -35,11 +38,13 @@ func TryInteract(others):
 					elif(dispense_mode == 1):#Mode 1 is dump mode so this adds all of scoopula contents to other container
 						other.AddContents(contents)
 						print("emptied scoopula")
+						LabLog.Log("Emptied " + contentName + " from scoopula.")
 						contents.clear()
 					elif(dispense_mode == 2):#Mode 2 is tap mode so this adds a small amount to outher container
 						split_substance.append(SplitContents())
 						other.AddContents(split_substance)
 						split_substance.clear()
+						LabLog.Log("Emptied a portion of " + contentName + " from scoopula.")
 						print("emptied part of scoopula")
 					else:
 						print("Not dispensing")
