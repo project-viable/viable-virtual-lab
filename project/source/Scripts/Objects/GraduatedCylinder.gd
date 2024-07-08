@@ -1,6 +1,7 @@
 extends LabContainer
 
 export (int) var maxVolume
+export (Color) var fillColor = Color(0, 0, 1)
 
 var allowedGroups = ["Source Container"]
 
@@ -16,6 +17,8 @@ func _ready():
 	# Menu hidden by default
 	$Menu.hide()
 	ResetMenu()
+	
+	$FillProgress.color = fillColor
 
 func TryInteract(others):
 	for other in others:
@@ -25,7 +28,7 @@ func TryInteract(others):
 				# Or if adding more of same liquid substance
 				# Set volume of grad cylinder to its max until a menu is created to specify volume
 				if len(contents) == 0 and other.CheckContents("Liquid Substance") \
-				or len(contents) > 0 and other == contents[0]:
+				or len(contents) > 0 and other.contents.name == contents[0].name:
 					$Menu.visible = true
 					var oldVolume = $VolumeContainer.GetVolume()
 					
@@ -36,15 +39,16 @@ func TryInteract(others):
 					self.draggable = true
 					# Check if the grad cylinder's substance volume has changed
 					if oldVolume != $VolumeContainer.GetVolume() and len(contents) < 1:
-						#contents.append(other)
 						contents.append_array(other.TakeContents($VolumeContainer.GetVolume()))
 						
 						# Update the volume of the contents
 						contents[0].set_volume($VolumeContainer.GetVolume())
-						
+						LabLog.Log("Added " + str(contents[0].get_volume()) + "mL of " + contents[0].name + " to graduated cylinder.")
+					update_display()
 				# Other is a container with a liquid substance and grad cylinder already has liquid, so do nothing
 				else:
 					return false
+				update_display()
 				print("Graduated cylinder has ", $VolumeContainer.GetVolume(), "mL of liquid")
 				return true
 
@@ -56,6 +60,8 @@ func TryInteract(others):
 					contents.clear()
 					$VolumeContainer.DumpContents()
 					ResetMenu()
+					update_display()
+					LabLog.Log("Removed all contents from graduated cylinder.")
 					print("Graduated cylinder has ", $VolumeContainer.GetVolume(), "mL of liquid")
 					return true
 				else:
@@ -70,24 +76,22 @@ func TakeContents(volume=-1):
 	contents.clear()
 	$VolumeContainer.DumpContents()
 	ResetMenu()
+	update_display()
 	print("Graduated cylinder has ", $VolumeContainer.GetVolume(), "mL of liquid")
 	return content
 
 func AddContents(new_contents):
-	print('add contents')
+	pass
 
 func dispose():
 	contents.clear()
 	update_display()
 
 func update_display():
-	# static change from "empty" to "filled" for now
-	if(len(contents) > 0):
-		if(filled_image != null):
-			$Sprite.texture = filled_image
-	else:
-		$Sprite.texture = empty_image
-		
+	var maxHeight = $ColorRect.rect_size.y
+	var fillPercentage = $VolumeContainer.GetVolume() / $VolumeContainer.GetMaxVolume()
+	var fillHeight = maxHeight * fillPercentage
+	$FillProgress.rect_size = Vector2($FillProgress.rect_size.x, fillHeight)
 # Reset values in menu
 func ResetMenu():
 	$Menu/PanelContainer/VBoxContainer/Description.text = "Graduated Cylinder currently has a " \
@@ -105,3 +109,6 @@ func _on_DispenseButton_pressed():
 		+ String(substanceVolume) + "mL to container"
 	else:
 		ResetMenu()
+
+func draw():
+	pass

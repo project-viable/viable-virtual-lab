@@ -1,19 +1,37 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Objects/GraduatedCylinder.gd" type="Script" id=1]
 [ext_resource path="res://Images/Graduated_Cylinder.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Objects/VolumeContainer.gd" type="Script" id=3]
+[ext_resource path="res://Images/Graduated_Cylinder_Filled.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 59.5 )
 
-[node name="GraduatedCylinder2" type="RigidBody2D" groups=["Container", "LabObjects"]]
+[node name="GraduatedCylinder2" type="RigidBody2D" groups=["LabObjects", "Liquid Container"]]
 collision_layer = 2
 input_pickable = true
 gravity_scale = 0.0
 can_sleep = false
 script = ExtResource( 1 )
 draggable = true
+filled_image = ExtResource( 4 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -7.0
+margin_top = -54.0
+margin_right = 7.0
+margin_bottom = 51.0
+mouse_filter = 2
+color = Color( 1, 1, 1, 0 )
+
+[node name="FillProgress" type="ColorRect" parent="."]
+margin_left = 7.0
+margin_top = 51.0
+margin_right = 21.0
+margin_bottom = 51.0
+rect_rotation = 180.0
+mouse_filter = 2
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.016, 0.016 )
@@ -27,7 +45,6 @@ shape = SubResource( 1 )
 script = ExtResource( 3 )
 
 [node name="Menu" type="CanvasLayer" parent="."]
-visible = false
 offset = Vector2( 600, 400 )
 transform = Transform2D( 1, 0, 0, 1, 600, 400 )
 

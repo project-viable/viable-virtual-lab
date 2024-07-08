@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/UI/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Images/Dot-Blue.png" type="Texture" id=6]
 [ext_resource path="res://Images/Dot-Yellow.png" type="Texture" id=7]
 [ext_resource path="res://Images/Dot-Red.png" type="Texture" id=8]
+[ext_resource path="res://Mixtures.gd" type="Script" id=10]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
@@ -184,6 +185,7 @@ margin_bottom = 348.0
 text = "Close"
 
 [node name="OptionsScreen" type="PanelContainer" parent="Menu"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -396,11 +398,58 @@ margin_right = -4.0
 margin_bottom = -4.0
 bbcode_enabled = true
 
+[node name="LabLogPopup" type="Control" parent="Menu"]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -371.0
+margin_top = -121.0
+margin_right = -5.0
+margin_bottom = -5.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Menu/LabLogPopup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/LabLogPopup/Panel"]
+margin_left = 9.0
+margin_top = 9.0
+margin_right = 363.0
+margin_bottom = 113.0
+grow_horizontal = 2
+
+[node name="Type" type="Label" parent="Menu/LabLogPopup/Panel/VBoxContainer"]
+margin_right = 354.0
+margin_bottom = 14.0
+align = 1
+uppercase = true
+
+[node name="Description" type="RichTextLabel" parent="Menu/LabLogPopup/Panel/VBoxContainer"]
+margin_top = 18.0
+margin_right = 354.0
+margin_bottom = 33.0
+fit_content_height = true
+
+[node name="Border" type="ReferenceRect" parent="Menu/LabLogPopup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+border_color = Color( 1, 1, 1, 1 )
+border_width = 5.0
+editor_only = false
+
 [node name="Scene" type="Node2D" parent="."]
 
 [node name="Camera" type="Camera2D" parent="."]
 current = true
 script = ExtResource( 3 )
+
+[node name="Mixtures" type="Node2D" parent="."]
+script = ExtResource( 10 )
 
 [connection signal="pressed" from="Menu/MainMenu/Panel/SelectModuleButton" to="Menu" method="_on_SelectModuleButton_pressed"]
 [connection signal="pressed" from="Menu/MainMenu/Panel/OptionsButton" to="Menu" method="_on_OptionsButton_pressed"]

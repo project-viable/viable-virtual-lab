@@ -37,7 +37,7 @@ func _on_Area2D_body_exited(body):
 		held_object.gravity_scale = saved_grav_scale
 		held_object.mode = saved_phys_mode
 		
-		self.remove_child(held_object)
+		self.call_deferred("remove_child", held_object)
 		get_parent().get_parent().add_child(held_object)
 		
 		get_parent().slot_emptied(self, held_object)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Images/lab_counter.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Trashcan.tscn" type="PackedScene" id=2]
@@ -8,7 +8,7 @@
 [ext_resource path="res://Scenes/Substances/GelModule/BinderSubstance.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Objects/DummyHeater.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Images/LabShelf.png" type="Texture" id=8]
-[ext_resource path="res://Scenes/Objects/TestScale.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Objects/Scale.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Objects/WeighBoat.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Objects/Pipettes/P1000.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Images/ArgosePowder_Closed.png" type="Texture" id=12]
@@ -18,6 +18,7 @@
 [ext_resource path="res://Images/TAE_Bottle_Closed.png" type="Texture" id=16]
 [ext_resource path="res://Scenes/Objects/SharpsDisposal.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Objects/RecycleBin.tscn" type="PackedScene" id=18]
+[ext_resource path="res://MistakeCheckers/GelElectrophoresis/PipetteDispenseChecker.tres" type="Resource" id=19]
 [ext_resource path="res://Scenes/Objects/TipBox.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Scenes/Objects/ElectrolysisSetup.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Scenes/Substances/GelModule/DNASubstance.gd" type="Script" id=22]
@@ -27,9 +28,11 @@
 [ext_resource path="res://Scenes/Objects/GelComb.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Scenes/Objects/GelImager.tscn" type="PackedScene" id=27]
 [ext_resource path="res://Images/Erlenmeyer_full_flask.png" type="Texture" id=28]
-[ext_resource path="res://Scripts/Modules/GelElectrophoresis.gd" type="Script" id=29]
+[ext_resource path="res://Scripts/Logger/ProcedureChecker.gd" type="Script" id=29]
 [ext_resource path="res://Scenes/Objects/Pipettes/P200.tscn" type="PackedScene" id=30]
 [ext_resource path="res://Scenes/Objects/Pipettes/P20.tscn" type="PackedScene" id=31]
+[ext_resource path="res://MistakeCheckers/GelElectrophoresis/GelHeatingTimeChecker.tres" type="Resource" id=32]
+[ext_resource path="res://MistakeCheckers/GelElectrophoresis/CurrentChecker.tres" type="Resource" id=33]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1305, 4.5 )
@@ -52,6 +55,7 @@ _bundled = {
 
 [node name="GelElectrophoresis" type="Node2D"]
 script = ExtResource( 29 )
+CheckStrategies = [ ExtResource( 33 ), ExtResource( 32 ), ExtResource( 19 ) ]
 
 [node name="MixManager" type="Node2D" parent="."]
 script = ExtResource( 15 )
@@ -182,13 +186,14 @@ draggable = true
 position = Vector2( 321, -7 )
 
 [node name="WeighBoat" parent="." instance=ExtResource( 10 )]
-position = Vector2( 414, 52 )
+position = Vector2( 325, 52 )
 gravity_scale = 0.0
 draggable = true
 
 [node name="TipBox" parent="." groups=["Tip Box"] instance=ExtResource( 20 )]
 position = Vector2( 134, 29 )
 gravity_scale = 0.0
+tooltipDisplayDistance = 50
 
 [node name="DNAContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -938, 27 )
