@@ -124,14 +124,7 @@ func _on_Popup_Log(category, newLog):
 	$LabLogPopup.visible = false
 
 func SetPopupBorderColor(color: Color) -> void:
-	var border1 = $LabLogPopup/ColorRect
-	var border2 = $LabLogPopup/ColorRect2
-	var border3 = $LabLogPopup/ColorRect3
-	var border4 = $LabLogPopup/ColorRect4
-	border1.color = color
-	border2.color = color
-	border3.color = color
-	border4.color = color
+	$LabLogPopup/Border.border_color = color
 
 func _on_Logs_Cleared():
 	unreadLogs['log'] = 0
