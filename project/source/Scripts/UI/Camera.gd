@@ -28,7 +28,7 @@ func _process(delta):
 	if dragging:
 		#adjust our position so the mouse is still at the same global coordinate in the scene
 		var currentOffset = get_global_mouse_position() - dragMousePosition
-		global_position -= currentOffset
+		global_position = FixPosition(-currentOffset)
 		
 		if Input.is_action_just_released("DragCamera"):
 			StopDragging()
@@ -51,7 +51,7 @@ func GetAllowedRect():
 #converts the edges of the viewport to world coordinates, and then zooms/moves the camera to make sure the viewport rect is entirely within the allowed area
 func FixToAllowedArea():
 	FixZoom()
-	FixPosition()
+	global_position = FixPosition()
 
 func FixZoom():
 	var allowedArea = GetAllowedRect()
@@ -59,11 +59,6 @@ func FixZoom():
 	var viewportStart = get_canvas_transform().affine_inverse() * get_viewport_rect().position
 	var viewportSize = (get_canvas_transform().affine_inverse() * get_viewport_rect().end) - viewportStart
 	var visibleWorldRect = Rect2(viewportStart, viewportSize)
-	
-	#print("allowed area: ")
-	#print(allowedArea)
-	#print("visible rect: ")
-	#print(visibleWorldRect)
 	
 	#first adjust zoom, by checking that the siezes make it posible to fit within the allowed area
 	var yScaleFactor = visibleWorldRect.size.y / allowedArea.size.y
@@ -73,12 +68,15 @@ func FixZoom():
 	if worstScaleFactor > 1:
 		Zoom(1.0/worstScaleFactor)
 
-func FixPosition():
+func FixPosition(offsetFromCurrentGlobalPos = Vector2(0, 0)):
+	#call with no (or default) argument to get the adjustment for the current position
+	#call with other arguments to get the adjustment that would need to be made for a hypothetical global position.
+	
 	var allowedArea = GetAllowedRect()
 	
 	var viewportStart = get_canvas_transform().affine_inverse() * get_viewport_rect().position
 	var viewportSize = (get_canvas_transform().affine_inverse() * get_viewport_rect().end) - viewportStart
-	var visibleWorldRect = Rect2(viewportStart, viewportSize)
+	var visibleWorldRect = Rect2(viewportStart + offsetFromCurrentGlobalPos, viewportSize)
 	
 	var xAdjustment = 0
 	if visibleWorldRect.end.x > allowedArea.end.x:
@@ -92,7 +90,7 @@ func FixPosition():
 	elif visibleWorldRect.position.y < allowedArea.position.y:
 		yAdjustment = allowedArea.position.y - visibleWorldRect.position.y
 	
-	global_position += Vector2(xAdjustment, yAdjustment)
+	return global_position + offsetFromCurrentGlobalPos + Vector2(xAdjustment, yAdjustment)
 
 func Reset():
 	position = Vector2(0, 0)
