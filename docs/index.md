@@ -12,13 +12,13 @@ If you're here for the first time, go \[here](TODO). Do make sure to look at the
 5. \[Using Subscenes](TODO: Separate out of the SubsceneManager reference)
 
 ## Reference
-1. [Modules](/reference/modules.md)
-2. [LabObjects](/reference/labobject.md)
-3. [SubsceneManagers](/reference/subscenemanagers.md)
-4. [Substances](/reference/substances.md)
-5. [Lab Logs](/reference/lablogs.md)
-6. [Main Scene](/reference/mainscene.md)
-7. [DimensionSprites](/reference/dimensionsprite.md)
+1. [Modules](/docs/reference/modules.md)
+2. [LabObjects](/docs/reference/labobject.md)
+3. [SubsceneManagers](/docs/reference/subscenemanagers.md)
+4. [Substances](/docs/reference/substances.md)
+5. [Lab Logs](/docs/reference/lablogs.md)
+6. [Main Scene](/docs/reference/mainscene.md)
+7. [DimensionSprites](/docs/reference/dimensionsprite.md)
 
 ## Examples
 1. TODO
