@@ -7,7 +7,9 @@ var currentModule: ModuleData = null
 
 var unreadLogs = {'log': 0, 'warning': 0, 'error': 0}
 
-export(float) var popupTimeout = 5
+export(float) var popupTimeout = 2.0
+var popupActive: bool = false
+var logs: Array = []
 
 #This function is mostly copied from online.
 #It seems like godot 3.5 does not have a convenient function for this.
@@ -47,7 +49,6 @@ func _ready():
 	
 	#connect the log signals
 	LabLog.connect("NewMessage", self, "_on_New_Log_Message")
-	LabLog.connect("PopupLog", self, "_on_Popup_Log")
 	LabLog.connect("ReportShown", self, "_on_LabLog_Report_Shown")
 	LabLog.connect("LogsCleared", self, "_on_Logs_Cleared")
 	
@@ -55,6 +56,9 @@ func _ready():
 	$LogButton/LogMenu.set_tab_icon(1, load("res://Images/Dot-Blue.png"))
 	$LogButton/LogMenu.set_tab_icon(2, load("res://Images/Dot-Yellow.png"))
 	$LogButton/LogMenu.set_tab_icon(3, load("res://Images/Dot-Red.png"))
+	
+	$OptionsScreen/VBoxContainer/PopupDurationTitle.text = "Popup Duration (s) : Currently " + str(popupTimeout)
+	$OptionsScreen/VBoxContainer/PopupTimeout.value = popupTimeout
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -67,6 +71,13 @@ func _process(delta):
 			$AboutScreen.hide()
 			$LogButton/LogMenu.hide()
 			$OptionsScreen.hide()
+			
+	if logs != []:
+		# Need to display log message(s)
+		if !popupActive:
+			if logs[0]['newLog']['popup']:
+				ShowPopup(logs[0]['category'], logs[0]['newLog'])
+			logs.remove(0)
 
 func ModuleSelectButtonClicked(module: ModuleData):
 	get_parent().SetScene(module.Scene)
@@ -97,15 +108,13 @@ func _on_New_Log_Message(category, newLog):
 		elif category == 'error':
 			unreadLogs['error'] += 1
 			$LogButton/LogMenu/Errors.bbcode_text += ("[color=red]-" + newLog['message'] + "[/color]\n")
-	
+	logs.append({
+		'category': category, 
+		'newLog': newLog
+	})
 	SetLogNotificationCounts()
 
-func _on_Popup_Log(category, newLog):
-	# Setup the title and description
-	# Then set the border color
-	# Popup for the popupTimeout amount then return to invisible
-	if $LabLogPopup.visible:
-		popupTimeout *= 2
+func ShowPopup(category: String, newLog: Dictionary) -> void:
 	$LabLogPopup/Panel/VBoxContainer/Type.text = category.capitalize()
 	$LabLogPopup/Panel/VBoxContainer/Description.text = newLog['message'][0].to_upper() + newLog['message'].substr(1, -1)
 	var color
@@ -119,19 +128,17 @@ func _on_Popup_Log(category, newLog):
 		_:
 			color = Color(0.0, 0.0, 0.0, 0.0)
 	SetPopupBorderColor(color)
+	popupActive = true
 	$LabLogPopup.visible = true
 	yield(get_tree().create_timer(popupTimeout), "timeout")
-	$LabLogPopup.visible = false
+	popupActive = false
+	$LabLogPopup.visible = false if logs.size() == 0 else true
 
 func SetPopupBorderColor(color: Color) -> void:
-	var border1 = $LabLogPopup/ColorRect
-	var border2 = $LabLogPopup/ColorRect2
-	var border3 = $LabLogPopup/ColorRect3
-	var border4 = $LabLogPopup/ColorRect4
-	border1.color = color
-	border2.color = color
-	border3.color = color
-	border4.color = color
+	$LabLogPopup/ColorRect.color = color
+	$LabLogPopup/ColorRect2.color = color
+	$LabLogPopup/ColorRect3.color = color
+	$LabLogPopup/ColorRect4.color = color
 
 func _on_Logs_Cleared():
 	unreadLogs['log'] = 0
@@ -221,3 +228,7 @@ func _on_MouseDragToggle_toggled(button_pressed):
 
 func _on_ObjectTooltipsToggle_toggled(button_pressed):
 	GameSettings.objectTooltips = button_pressed
+
+func _on_PopupTimeout_value_changed(value: float):
+	popupTimeout = value
+	$OptionsScreen/VBoxContainer/PopupDurationTitle.text = "Popup Duration (s) : Currently " + str(popupTimeout)

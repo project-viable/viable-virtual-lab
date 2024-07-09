@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/UI/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -8,10 +8,12 @@
 [ext_resource path="res://Images/Dot-Blue.png" type="Texture" id=6]
 [ext_resource path="res://Images/Dot-Yellow.png" type="Texture" id=7]
 [ext_resource path="res://Images/Dot-Red.png" type="Texture" id=8]
+[ext_resource path="res://MistakeCheckers/MixtureChecker.tres" type="Resource" id=9]
 [ext_resource path="res://Mixtures.gd" type="Script" id=10]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
+CheckStrategies = [ ExtResource( 9 ) ]
 
 [node name="Menu" type="CanvasLayer" parent="."]
 layer = 128
@@ -189,16 +191,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -162.5
+margin_left = -162.0
 margin_top = -51.0
-margin_right = 162.5
-margin_bottom = 51.0
+margin_right = 163.0
+margin_bottom = 145.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/OptionsScreen"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 318.0
-margin_bottom = 139.0
+margin_bottom = 189.0
 
 [node name="Label" type="Label" parent="Menu/OptionsScreen/VBoxContainer"]
 margin_right = 311.0
@@ -219,10 +221,24 @@ margin_right = 311.0
 margin_bottom = 108.0
 text = "Object Tooltips"
 
-[node name="CloseButton" type="Button" parent="Menu/OptionsScreen/VBoxContainer"]
+[node name="PopupDurationTitle" type="Label" parent="Menu/OptionsScreen/VBoxContainer"]
 margin_top = 112.0
 margin_right = 311.0
-margin_bottom = 132.0
+margin_bottom = 126.0
+grow_horizontal = 0
+text = "Popup Duration (s) : Currently"
+
+[node name="PopupTimeout" type="SpinBox" parent="Menu/OptionsScreen/VBoxContainer"]
+margin_top = 130.0
+margin_right = 311.0
+margin_bottom = 154.0
+max_value = 5.0
+step = 0.5
+
+[node name="CloseButton" type="Button" parent="Menu/OptionsScreen/VBoxContainer"]
+margin_top = 158.0
+margin_right = 311.0
+margin_bottom = 178.0
 text = "Close"
 
 [node name="FinalReport" type="PanelContainer" parent="Menu"]
@@ -398,6 +414,7 @@ margin_bottom = -4.0
 bbcode_enabled = true
 
 [node name="LabLogPopup" type="Control" parent="Menu"]
+visible = false
 margin_left = 643.0
 margin_top = 466.0
 margin_right = 1014.0
@@ -466,6 +483,7 @@ script = ExtResource( 10 )
 [connection signal="pressed" from="Menu/AboutScreen/VBoxContainer/CloseButton" to="Menu" method="_on_About_CloseButton_pressed"]
 [connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
 [connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="Menu" method="_on_ObjectTooltipsToggle_toggled"]
+[connection signal="value_changed" from="Menu/OptionsScreen/VBoxContainer/PopupTimeout" to="Menu" method="_on_PopupTimeout_value_changed"]
 [connection signal="pressed" from="Menu/OptionsScreen/VBoxContainer/CloseButton" to="Menu" method="_on_CloseButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/MainMenuButton" to="Menu" method="_on_FinalReport_MainMenuButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/RestartModuleButton" to="Menu" method="_on_FinalReport_RestartModuleButton_pressed"]
