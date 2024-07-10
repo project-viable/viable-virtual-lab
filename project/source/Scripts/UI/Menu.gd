@@ -135,10 +135,7 @@ func ShowPopup(category: String, newLog: Dictionary) -> void:
 	$LabLogPopup.visible = false if logs.size() == 0 else true
 
 func SetPopupBorderColor(color: Color) -> void:
-	$LabLogPopup/ColorRect.color = color
-	$LabLogPopup/ColorRect2.color = color
-	$LabLogPopup/ColorRect3.color = color
-	$LabLogPopup/ColorRect4.color = color
+	$LabLogPopup/Border.border_color = color
 
 func _on_Logs_Cleared():
 	unreadLogs['log'] = 0
