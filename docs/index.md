@@ -14,11 +14,12 @@ If you're here for the first time, go \[here](TODO). Do make sure to look at the
 ## Reference
 1. [Modules](/docs/reference/modules.md)
 2. [LabObjects](/docs/reference/labobject.md)
-3. [SubsceneManagers](/docs/reference/subscenemanagers.md)
-4. [Substances](/docs/reference/substances.md)
-5. [Lab Logs](/docs/reference/lablogs.md)
-6. [Main Scene](/docs/reference/mainscene.md)
-7. [DimensionSprites](/docs/reference/dimensionsprite.md)
+3. [LabBoundaries](/docs/reference/labboundary.md)
+4. [SubsceneManagers](/docs/reference/subscenemanagers.md)
+5. [Substances](/docs/reference/substances.md)
+6. [Lab Logs](/docs/reference/lablogs.md)
+7. [Main Scene](/docs/reference/mainscene.md)
+8. [DimensionSprites](/docs/reference/dimensionsprite.md)
 
 ## Examples
 1. TODO
