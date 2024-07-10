@@ -36,7 +36,6 @@ func init_mixed(parent_substances):
 		}
 	}
 	ReportAction([self], 'mixSubstance', substances)
-	LabLog.Log("Created gel mix substance")
 
 func init_created(properties):
 	if(properties.has('gel ratio')):

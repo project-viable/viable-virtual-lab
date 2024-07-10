@@ -49,10 +49,10 @@ offset = Vector2( 600, 400 )
 transform = Transform2D( 1, 0, 0, 1, 600, 400 )
 
 [node name="PanelContainer" type="PanelContainer" parent="Menu"]
-margin_left = 84.0
-margin_top = 35.0
-margin_right = 306.0
-margin_bottom = 158.0
+margin_left = -182.0
+margin_top = -133.0
+margin_right = 40.0
+margin_bottom = -10.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/PanelContainer"]
 margin_left = 7.0

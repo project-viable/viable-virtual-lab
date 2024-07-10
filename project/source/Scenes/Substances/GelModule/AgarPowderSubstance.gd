@@ -10,6 +10,3 @@ func _init():
 	
 	# call the superclass init
 	init_created(properties)
-
-func heat(heatTime):
-	pass
