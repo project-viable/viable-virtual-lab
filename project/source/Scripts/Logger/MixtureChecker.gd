@@ -5,6 +5,7 @@ var Mixtures: Dictionary
 
 func CheckAction(params: Dictionary):
 	if params['actionType'] == 'mixSubstance' and params.get('substances'):
+		var hasError: bool = false
 		var substances = params.get('substances')
 		if Mixtures == {}:
 			return
@@ -22,11 +23,13 @@ func CheckAction(params: Dictionary):
 					continue
 				var volume = substance['volume']
 				var targetVolume = targetSubstance.get(substanceName)['volume']
+				print('volume: ', volume, ', target volume: ', targetVolume)
 				if not is_equal_approx(volume, targetVolume):
+					hasError = true
 					if volume < targetVolume:
 						LabLog.Warn('Used too little ' + substanceName + ' for making ' + combinedSubstanceName)
 					elif volume > targetVolume:
 						LabLog.Warn('Used too much ' + substanceName + ' for making ' + combinedSubstanceName)
-				else:
-					LabLog.Log('Created ' + combinedSubstanceName)
-					return
+			if not hasError:
+				LabLog.Log('Created ' + combinedSubstanceName)
+				return
