@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/DimensionSprite.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Objects/Pipette.gd" type="Script" id=2]
@@ -51,6 +51,35 @@ region_rect = Rect2( 0, 0, 218, 98 )
 
 [sub_resource type="StyleBoxEmpty" id=13]
 
+[sub_resource type="Animation" id=15]
+resource_name = "MoveArrows"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Arrow1:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 20, 12.5 ), Vector2( 10, 12.5 ), Vector2( 20, 12.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Arrow2:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 106, 12.5 ), Vector2( 116, 12.5 ), Vector2( 106, 12.5 ) ]
+}
+
 [sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 3.5, 32.5 )
 
@@ -92,7 +121,6 @@ shape = SubResource( 4 )
 [node name="Menu" type="CanvasLayer" parent="."]
 
 [node name="AutoCloseTimer" type="Timer" parent="Menu"]
-wait_time = 0.6
 one_shot = true
 
 [node name="Border" type="ReferenceRect" parent="Menu"]
@@ -202,9 +230,9 @@ editor_only = false
 [node name="Arrow1" type="TextureRect" parent="Menu/Border/VolumeSlider/ReferenceRect"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 5.0
+margin_left = 20.0
 margin_top = -12.0
-margin_right = 29.0
+margin_right = 43.9999
 margin_bottom = 12.0
 texture = ExtResource( 8 )
 expand = true
@@ -215,12 +243,16 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -29.0
+margin_left = -44.0
 margin_top = -12.0
-margin_right = -5.0
+margin_right = -20.0002
 margin_bottom = 12.0
 texture = ExtResource( 8 )
 expand = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Menu/Border/VolumeSlider/ReferenceRect"]
+autoplay = "MoveArrows"
+anims/MoveArrows = SubResource( 15 )
 
 [node name="VolumeDialLabels" type="Control" parent="Menu/Border"]
 margin_right = 40.0
