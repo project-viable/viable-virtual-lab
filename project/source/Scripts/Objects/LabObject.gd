@@ -7,7 +7,7 @@ class_name LabObject
 export(bool) var draggable
 export(bool) var canChangeSubscenes = true
 export(String) var DisplayName = ""
-export(int) var tooltipDisplayDistance = 50
+export(int) var tooltipDisplayDistance = 35
 var tooltip: Label #Set when it's created
 
 #these variables are used internally to handle clicking and dragging:
@@ -47,7 +47,7 @@ func _ready():
 		tooltip.name = "labobject_auto_tooltip"
 		tooltip.set_anchors_and_margins_preset(Control.PRESET_CENTER)
 		var tooltipStylebox = StyleBoxFlat.new()
-		tooltipStylebox.bg_color = Color(0.2, 0.2, 0.2, 1)
+		tooltipStylebox.bg_color = Color(0.2, 0.2, 0.2, 0.7)
 		tooltip.add_stylebox_override('normal', tooltipStylebox)
 		add_child(tooltip)
 		tooltip.hide()
@@ -68,6 +68,7 @@ func _process(delta):
 		#move
 		if (canChangeSubscenes or get_node("/root/Main").GetDeepestSubsceneAt(get_global_mouse_position()) == GetSubsceneManagerParent()):
 			DragMove()
+			ClampObjectPosition()
 		else:
 			StopDragging(false)
 		
@@ -120,6 +121,16 @@ func StopDragging(action: bool = true):
 
 func DragMove():
 	global_position = get_global_mouse_position() - dragOffset
+
+func ClampObjectPosition() -> void:
+	var currentModule = GetCurrentModuleScene()
+	var labBoundary = ""
+	for child in currentModule.get_children():
+		if child.name == "LabBoundary":
+			labBoundary = child
+	if typeof(labBoundary) != TYPE_STRING:
+		global_position.x = clamp(global_position.x, labBoundary.xBounds[0], labBoundary.xBounds[1])
+		global_position.y = clamp(global_position.y, labBoundary.yBounds[0], labBoundary.yBounds[1])
 
 func GetIntersectingLabObjects():
 	var spaceState = get_world_2d().direct_space_state

@@ -5,10 +5,9 @@
 [ext_resource path="res://Images/Spatula_filled.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 49 )
+extents = Vector2( 8, 49.5 )
 
 [node name="Scoopula" type="RigidBody2D"]
-rotation = 0.691082
 z_index = 3
 collision_layer = 2
 gravity_scale = 0.0
@@ -17,15 +16,18 @@ __meta__ = {
 "_edit_group_": true
 }
 draggable = true
+DisplayName = "Scoopula"
 filled_image = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -9.53674e-07, -2.38419e-07 )
+rotation = 1.57079
 scale = Vector2( 0.0135876, 0.012674 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 1 )
+position = Vector2( 0.5, -1.11063e-06 )
+rotation = 1.57079
 shape = SubResource( 1 )
 
 [node name="Menu" type="CanvasLayer" parent="."]

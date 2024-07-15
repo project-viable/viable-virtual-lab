@@ -187,20 +187,21 @@ margin_bottom = 348.0
 text = "Close"
 
 [node name="OptionsScreen" type="PanelContainer" parent="Menu"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -162.5
+margin_left = -162.0
 margin_top = -51.0
-margin_right = 162.5
-margin_bottom = 51.0
+margin_right = 163.0
+margin_bottom = 145.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/OptionsScreen"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 318.0
-margin_bottom = 139.0
+margin_bottom = 189.0
 
 [node name="Label" type="Label" parent="Menu/OptionsScreen/VBoxContainer"]
 margin_right = 311.0
@@ -221,10 +222,24 @@ margin_right = 311.0
 margin_bottom = 108.0
 text = "Object Tooltips"
 
-[node name="CloseButton" type="Button" parent="Menu/OptionsScreen/VBoxContainer"]
+[node name="PopupDurationTitle" type="Label" parent="Menu/OptionsScreen/VBoxContainer"]
 margin_top = 112.0
 margin_right = 311.0
-margin_bottom = 132.0
+margin_bottom = 126.0
+grow_horizontal = 0
+text = "Popup Duration (s) : Currently"
+
+[node name="PopupTimeout" type="SpinBox" parent="Menu/OptionsScreen/VBoxContainer"]
+margin_top = 130.0
+margin_right = 311.0
+margin_bottom = 154.0
+max_value = 5.0
+step = 0.5
+
+[node name="CloseButton" type="Button" parent="Menu/OptionsScreen/VBoxContainer"]
+margin_top = 158.0
+margin_right = 311.0
+margin_bottom = 178.0
 text = "Close"
 
 [node name="FinalReport" type="PanelContainer" parent="Menu"]
@@ -399,6 +414,50 @@ margin_right = -4.0
 margin_bottom = -4.0
 bbcode_enabled = true
 
+[node name="LabLogPopup" type="Control" parent="Menu"]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -371.0
+margin_top = -121.0
+margin_right = -5.0
+margin_bottom = -5.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Menu/LabLogPopup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/LabLogPopup/Panel"]
+margin_left = 9.0
+margin_top = 9.0
+margin_right = 363.0
+margin_bottom = 113.0
+grow_horizontal = 2
+
+[node name="Type" type="Label" parent="Menu/LabLogPopup/Panel/VBoxContainer"]
+margin_right = 354.0
+margin_bottom = 14.0
+align = 1
+uppercase = true
+
+[node name="Description" type="RichTextLabel" parent="Menu/LabLogPopup/Panel/VBoxContainer"]
+margin_top = 18.0
+margin_right = 354.0
+margin_bottom = 33.0
+fit_content_height = true
+
+[node name="Border" type="ReferenceRect" parent="Menu/LabLogPopup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+border_color = Color( 1, 1, 1, 1 )
+border_width = 5.0
+editor_only = false
+
 [node name="Scene" type="Node2D" parent="."]
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -414,6 +473,7 @@ script = ExtResource( 10 )
 [connection signal="pressed" from="Menu/AboutScreen/VBoxContainer/CloseButton" to="Menu" method="_on_About_CloseButton_pressed"]
 [connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
 [connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="Menu" method="_on_ObjectTooltipsToggle_toggled"]
+[connection signal="value_changed" from="Menu/OptionsScreen/VBoxContainer/PopupTimeout" to="Menu" method="_on_PopupTimeout_value_changed"]
 [connection signal="pressed" from="Menu/OptionsScreen/VBoxContainer/CloseButton" to="Menu" method="_on_CloseButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/MainMenuButton" to="Menu" method="_on_FinalReport_MainMenuButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/RestartModuleButton" to="Menu" method="_on_FinalReport_RestartModuleButton_pressed"]

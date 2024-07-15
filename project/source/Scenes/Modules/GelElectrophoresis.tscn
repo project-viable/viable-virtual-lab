@@ -18,7 +18,7 @@
 [ext_resource path="res://Images/TAE_Bottle_Closed.png" type="Texture" id=16]
 [ext_resource path="res://Scenes/Objects/SharpsDisposal.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Objects/RecycleBin.tscn" type="PackedScene" id=18]
-[ext_resource path="res://MistakeCheckers/GelElectrophoresis/PipetteDispenseChecker.tres" type="Resource" id=19]
+[ext_resource path="res://Scenes/Objects/GelMoldSubsceneManager.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Scenes/Objects/TipBox.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Scenes/Objects/ElectrolysisSetup.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Scenes/Substances/GelModule/DNASubstance.gd" type="Script" id=22]
@@ -26,16 +26,18 @@
 [ext_resource path="res://Scenes/Objects/CurrentSource.tscn" type="PackedScene" id=24]
 [ext_resource path="res://Scenes/Objects/GelComb.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Scenes/Objects/GelImager.tscn" type="PackedScene" id=27]
-[ext_resource path="res://Images/Erlenmeyer_full_flask.png" type="Texture" id=28]
 [ext_resource path="res://Scripts/Logger/ProcedureChecker.gd" type="Script" id=29]
 [ext_resource path="res://Scenes/Objects/Pipettes/P200.tscn" type="PackedScene" id=30]
 [ext_resource path="res://Scenes/Objects/Pipettes/P20.tscn" type="PackedScene" id=31]
-[ext_resource path="res://MistakeCheckers/GelElectrophoresis/GelHeatingTimeChecker.tres" type="Resource" id=32]
-[ext_resource path="res://MistakeCheckers/GelElectrophoresis/CurrentChecker.tres" type="Resource" id=33]
-[ext_resource path="res://Scenes/Objects/GelMoldSubsceneManager.tscn" type="PackedScene" id=34]
+[ext_resource path="res://Scripts/Boundaries/LabBoundary.gd" type="Script" id=34]
+[ext_resource path="res://Images/microcentrifuge_rack_piece1.png" type="Texture" id=36]
+[ext_resource path="res://Images/microcentrifuge_rack_piece2.png" type="Texture" id=37]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 1566, 217 )
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1305, 4.5 )
+extents = Vector2( 1566, 131.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 128, 8 )
@@ -55,10 +57,17 @@ _bundled = {
 
 [node name="GelElectrophoresis" type="Node2D"]
 script = ExtResource( 29 )
-CheckStrategies = [ ExtResource( 33 ), ExtResource( 32 ), ExtResource( 19 ) ]
 
 [node name="MixManager" type="Node2D" parent="."]
 script = ExtResource( 15 )
+
+[node name="LabBoundary" type="Area2D" parent="."]
+script = ExtResource( 34 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LabBoundary"]
+position = Vector2( -262, -148 )
+shape = SubResource( 4 )
+disabled = true
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -77,6 +86,11 @@ position = Vector2( -1044, 188 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 
+[node name="LabCounter6" type="Sprite" parent="Background"]
+position = Vector2( -1566, 188 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+
 [node name="LabCounter4" type="Sprite" parent="Background"]
 position = Vector2( 522, 188 )
 scale = Vector2( 2, 2 )
@@ -91,7 +105,7 @@ texture = ExtResource( 1 )
 position = Vector2( 0, 67 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Countertop"]
-position = Vector2( 0, -5.5 )
+position = Vector2( -261, 121.5 )
 shape = SubResource( 1 )
 
 [node name="Shelf1" type="StaticBody2D" parent="Background"]
@@ -131,12 +145,14 @@ draggable = true
 [node name="AgaroseSourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -570, -168 )
 mode = 1
+DisplayName = "Agarose"
 substance = ExtResource( 14 )
 image = ExtResource( 12 )
 
 [node name="TAESourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( -480, -167 )
 mode = 1
+DisplayName = "TAE Buffer"
 substance = ExtResource( 6 )
 image = ExtResource( 16 )
 
@@ -152,13 +168,13 @@ maxVolume = 50
 position = Vector2( 663, 37 )
 
 [node name="Trashcan" parent="." instance=ExtResource( 2 )]
-position = Vector2( -1000, 237 )
+position = Vector2( -1616, -20 )
 
 [node name="RecycleBin" parent="." instance=ExtResource( 18 )]
-position = Vector2( -850, 237 )
+position = Vector2( -1466, -20 )
 
 [node name="SharpsDisposal" parent="." instance=ExtResource( 17 )]
-position = Vector2( -697, 238 )
+position = Vector2( -1313, -19 )
 
 [node name="CurrentSource" parent="." instance=ExtResource( 24 )]
 position = Vector2( 874, -84 )
@@ -182,50 +198,77 @@ draggable = true
 position = Vector2( 321, -7 )
 
 [node name="WeighBoat" parent="." instance=ExtResource( 10 )]
-position = Vector2( 414, 52 )
+position = Vector2( 320, 59 )
 gravity_scale = 0.0
 draggable = true
 
 [node name="TipBox" parent="." groups=["Tip Box"] instance=ExtResource( 20 )]
-position = Vector2( 134, 29 )
+position = Vector2( 134, 34 )
 gravity_scale = 0.0
+tooltipDisplayDistance = 50
 
-[node name="DNAContainer" parent="." instance=ExtResource( 4 )]
-position = Vector2( -938, 27 )
+[node name="DNA Containers" type="Node2D" parent="."]
+position = Vector2( -8, 81 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="DNAContainer" parent="DNA Containers" instance=ExtResource( 4 )]
+position = Vector2( -932, -56 )
 mode = 1
+DisplayName = "DNA 1"
+containerType = 1
 substance = SubResource( 2 )
 substance_parameters = [ 1.0, 2.0, 3.0 ]
-image = ExtResource( 28 )
 
-[node name="DNAContainer2" parent="." instance=ExtResource( 4 )]
-position = Vector2( -886, 27 )
+[node name="DNAContainer2" parent="DNA Containers" instance=ExtResource( 4 )]
+position = Vector2( -890, -56 )
 mode = 1
+DisplayName = "DNA 2"
+containerType = 1
 substance = SubResource( 2 )
 substance_parameters = [ 1.0, 2.2, 1.7 ]
-image = ExtResource( 28 )
 
-[node name="DNAContainer3" parent="." instance=ExtResource( 4 )]
-position = Vector2( -835, 27 )
+[node name="DNAContainer3" parent="DNA Containers" instance=ExtResource( 4 )]
+position = Vector2( -849, -56 )
 mode = 1
+DisplayName = "DNA 3"
+containerType = 1
 substance = SubResource( 2 )
 substance_parameters = [ 2.3, 2.7, 1.0 ]
-image = ExtResource( 28 )
 
-[node name="DNAContainer4" parent="." instance=ExtResource( 4 )]
-position = Vector2( -783, 27 )
+[node name="DNAContainer4" parent="DNA Containers" instance=ExtResource( 4 )]
+position = Vector2( -808, -56 )
 mode = 1
+DisplayName = "DNA 4"
+containerType = 1
 substance = SubResource( 2 )
 substance_parameters = [ 1.3, 1.9, 2.6 ]
-image = ExtResource( 28 )
+
+[node name="MicrocentrifugeBack" type="Sprite" parent="DNA Containers"]
+position = Vector2( -871, -62 )
+scale = Vector2( 0.0294018, 0.0294018 )
+texture = ExtResource( 37 )
+
+[node name="MicrocentrifugeFront" type="Sprite" parent="DNA Containers"]
+position = Vector2( -871, -62 )
+scale = Vector2( 0.0294018, 0.0294018 )
+texture = ExtResource( 36 )
 
 [node name="P20" parent="." instance=ExtResource( 31 )]
 position = Vector2( 592, -208 )
+mode = 3
+gravity_scale = 1.0
 
 [node name="P200" parent="." instance=ExtResource( 30 )]
 position = Vector2( 642, -208 )
+mode = 3
+gravity_scale = 1.0
 
 [node name="P1000" parent="." instance=ExtResource( 11 )]
 position = Vector2( 698, -208 )
+mode = 3
+gravity_scale = 1.0
 
-[node name="GelMoldSubscene" parent="." instance=ExtResource( 34 )]
-position = Vector2( -163, -6 )
+[node name="GelMoldSubscene" parent="." instance=ExtResource( 19 )]
+position = Vector2( -133, 33 )

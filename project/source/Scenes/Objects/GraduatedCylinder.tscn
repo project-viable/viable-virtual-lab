@@ -17,6 +17,22 @@ script = ExtResource( 1 )
 draggable = true
 filled_image = ExtResource( 4 )
 
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -7.0
+margin_top = -54.0
+margin_right = 7.0
+margin_bottom = 51.0
+mouse_filter = 2
+color = Color( 1, 1, 1, 0 )
+
+[node name="FillProgress" type="ColorRect" parent="."]
+margin_left = 7.0
+margin_top = 51.0
+margin_right = 21.0
+margin_bottom = 51.0
+rect_rotation = 180.0
+mouse_filter = 2
+
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.016, 0.016 )
 texture = ExtResource( 2 )
@@ -29,15 +45,14 @@ shape = SubResource( 1 )
 script = ExtResource( 3 )
 
 [node name="Menu" type="CanvasLayer" parent="."]
-visible = false
 offset = Vector2( 600, 400 )
 transform = Transform2D( 1, 0, 0, 1, 600, 400 )
 
 [node name="PanelContainer" type="PanelContainer" parent="Menu"]
-margin_left = 84.0
-margin_top = 35.0
-margin_right = 306.0
-margin_bottom = 158.0
+margin_left = -182.0
+margin_top = -133.0
+margin_right = 40.0
+margin_bottom = -10.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/PanelContainer"]
 margin_left = 7.0

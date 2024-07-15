@@ -13,7 +13,6 @@ extends Node
 #log data will be used by other things. This node just stores them and notifies others when they change.
 var logs = {}
 signal NewMessage(category, newLog)
-signal PopupLog(category, newLog)
 signal LogsCleared()
 signal ReportShown()
 
@@ -25,7 +24,6 @@ func AddLogMessage(category: String, message: String, hidden: bool = false, popu
 	logs[category].append(newLog)
 	
 	emit_signal("NewMessage", category, newLog)
-	if popup: emit_signal("PopupLog", category, newLog)
 
 #returns the entire logs structure, defined above.
 func GetLogs():
@@ -44,10 +42,10 @@ func ShowReport():
 #all of these are just prettier ways of calling AddLogMessage
 #the intent is that you should only ever have to call these
 
-func Log(message: String, hidden: bool = false, popup: bool = false):
+func Log(message: String, hidden: bool = false, popup: bool = true):
 	AddLogMessage("log", message, hidden, popup)
 
-func Warn(message: String, hidden: bool = false, popup: bool = false):
+func Warn(message: String, hidden: bool = false, popup: bool = true):
 	AddLogMessage("warning", message, hidden, popup)
 
 #errors should generally always popup, and should not be hidden.

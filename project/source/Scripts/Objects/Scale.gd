@@ -55,7 +55,7 @@ func _on_Tare_Button_pressed():
 			if(object.is_in_group("Weighable")):
 				if(object.is_in_group("WeighBoat")):
 					if(!object.contents.empty()):
-						LabLog.Warn("Scale was tared while substances were being weighed, so final measurements may be incorrect", false, false)
+						LabLog.Warn("Scale was tared while substances were being weighed, so final measurements may be incorrect")
 	else:
 		print("No overlap")
 		Tare = false
@@ -69,7 +69,7 @@ func _on_Area2D_body_exited(body):
 		if(body.is_in_group("WeighBoat")):
 			if(!body.contents.empty()):
 				if(Tare == false):
-					LabLog.Warn("Scale was not tared when weighing, so substance weights may be incorrect", false, false)
+					LabLog.Warn("Scale was not tared when weighing, so substance weights may be incorrect")
 		if(objects.has(body)):
 			objects.erase(body)
 			UpdateWeight()
