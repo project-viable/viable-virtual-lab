@@ -1,4 +1,5 @@
 extends LabObject
+class_name Pipette
 
 export var minCapacity: float = 1 #microliters
 export var maxCapacity: float = 10 #microliters
