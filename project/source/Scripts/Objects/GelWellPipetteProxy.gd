@@ -29,9 +29,7 @@ func ReleasePipette():
 	adoptedObject.draggable = true
 	
 	#set ourselves up
-	draggable = false
-	adoptedObject = null
-	global_position = startPos
+	queue_free()
 
 func DragMove():
 	global_position = Vector2(global_position.x, (get_global_mouse_position() - dragOffset).y)

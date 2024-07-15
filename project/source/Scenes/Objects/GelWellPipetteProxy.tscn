@@ -2,13 +2,13 @@
 
 [ext_resource path="res://Scripts/Objects/LabObject.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/DimensionSprite.gd" type="Script" id=2]
-[ext_resource path="res://Images/Pipette_Base.png" type="Texture" id=3]
+[ext_resource path="res://Images/Pipette_With_Tip.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.5, 33 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 3.5, 23.5 )
+extents = Vector2( 3.5, 32.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 4.5, 3 )
@@ -26,6 +26,7 @@ canChangeSubscenes = false
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 0, 9 )
 scale = Vector2( 0.157895, 0.157274 )
 texture = ExtResource( 3 )
 script = ExtResource( 2 )
@@ -37,7 +38,7 @@ position = Vector2( 4.5, -20 )
 shape = SubResource( 1 )
 
 [node name="Collision2" type="CollisionShape2D" parent="."]
-position = Vector2( 2.5, 36.5 )
+position = Vector2( 2.5, 45.5 )
 shape = SubResource( 2 )
 
 [node name="Collision3" type="CollisionShape2D" parent="."]

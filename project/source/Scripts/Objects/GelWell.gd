@@ -29,13 +29,16 @@ func AddContents(new_contents):
 
 func AddHigh(new_contents):
 	LabLog.Warn("Added too High")
+	$HighArea/AddedHighVisual.show()
 	#TODO: the contents go nowhere. Is this correct?
 
 func AddMid(new_contents):
 	LabLog.Log("Added a substance to the gel well")
 	GetSubsceneManagerParent().AddContents(new_contents)
+	$MidArea/AddedMidVisual.show()
 
 func AddLow(new_contents):
 	broken = true
 	LabLog.Warn("Added too Low")
+	$LowArea/AddedLowVisual.show()
 	#TODO: the contents go nowhere. Is this correct?

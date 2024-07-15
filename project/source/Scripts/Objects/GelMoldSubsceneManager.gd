@@ -15,13 +15,18 @@ export (Texture) var filled_image = null
 var empty_image = null
 var contents = []
 
+var hasComb = false
+var combObject = null
+
 func LabObjectReady():
 	empty_comb_img = preload('res://Images/Gel_Tray_comb_empty.png')
 	filled_comb_img = preload('res://Images/Gel_Tray_comb_gel.png')
+	filled_image = preload('res://Images/Gel_Tray_filled.png')
+	empty_image = preload('res://Images/Gel_Tray_empty.png')
 
 func update_display():
 	# static change from "empty" to "filled" for now
-	if($CombSlot.filled()):
+	if(hasComb):
 		# variants with the gel comb
 		if(len(contents) > 0):
 			if(filled_comb_img != null):
@@ -39,11 +44,16 @@ func update_display():
 func _on_ChillButton_pressed():
 	if contents:
 		chill(1)
-		gel_has_wells = $CombSlot.filled()
+		gel_has_wells = hasComb
+		
+		#spit the comb back out
+		get_parent().add_child(combObject)
+		hasComb = false
+		
 		LabLog.Log("Chilled", false, true)
+		$Subscene/Border/ChillButton.hide() #TODO: Make it possible to hit the button mroe than once?
 
 func add_dna(dna):
-	
 	print("Added DNA to gel boat")
 	dna_contents.append(dna)
 	print("DNA functions: " + str(dna.get_class()))
@@ -93,7 +103,7 @@ func AddContents(new_contents):
 		if not new_content.is_in_group('DNA'):
 			continue
 			
-		if $CombSlot.filled():
+		if hasComb:
 			print("The comb is in the way of the slots")
 			LabLog.Warn("You tried to add a DNA sample to a gel while the comb is still in place. Make sure the comb has been removed before adding samples.")
 			continue
@@ -134,6 +144,12 @@ func chill(chillTime):
 		if(content.is_in_group("Chillable")):
 			content.chill(chillTime)
 
+func run_current(voltage, time):
+	# pass current along to the container's contents
+	for content in contents:
+		if(content.is_in_group("Conductive")):
+			content.run_current(voltage, time)
+
 func update_weight():
 	var overall_weight = 9.8 #self.mass
 	for content in contents:
@@ -173,10 +189,22 @@ func TakeContents(volume = -1):
 	update_display()
 	return all_contents
 
+func CheckContents(group):
+	print('Checking for '+group)
+	var check_results = []
+	for content in contents:
+		check_results.append(content.is_in_group(group))
+	return check_results
+
 func TryInteract(others):
 	for other in others:
-		if other.is_in_group('GelImager'):
-			if($CombSlot.filled()):
+		if other.is_in_group("Gel Comb"):
+			combObject = other
+			combObject.get_parent().remove_child(combObject)
+			hasComb = true
+			return true
+		elif other.is_in_group('GelImager'):
+			if(hasComb):
 				LabLog.Warn("You didn't remove the comb from the gel before imaging the gel. The experiment can't continue.")
 			else:
 				other.AddContents(self)
@@ -184,7 +212,7 @@ func TryInteract(others):
 			# transfer contents to another container
 			other.AddContents(TakeContents())
 			return true
-		else:
+		elif other is Pipette:
 			AdoptNode(others[0])
 			ShowSubscene()
 			return true

@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Objects/GelWell.gd" type="Script" id=1]
+[ext_resource path="res://Images/Not Allowed Symbol.png" type="Texture" id=2]
+[ext_resource path="res://Images/Green Gunk.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 11, 15 )
@@ -15,7 +17,6 @@ extents = Vector2( 11, 5 )
 extents = Vector2( 11, 5.5 )
 
 [node name="GelWell" type="RigidBody2D" groups=["Container", "GelWell", "LabObjects"]]
-position = Vector2( -95, 9 )
 collision_layer = 2
 input_pickable = true
 mode = 3
@@ -31,14 +32,41 @@ position = Vector2( 0, -10.5 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HighArea"]
 shape = SubResource( 6 )
 
+[node name="AddedHighVisual" type="Node2D" parent="HighArea"]
+visible = false
+
+[node name="Sprite2" type="Sprite" parent="HighArea/AddedHighVisual"]
+position = Vector2( 1, -20.5 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
 [node name="MidArea" type="Area2D" parent="."]
 position = Vector2( 0, -1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MidArea"]
 shape = SubResource( 8 )
 
+[node name="AddedMidVisual" type="Node2D" parent="MidArea"]
+visible = false
+
+[node name="Sprite2" type="Sprite" parent="MidArea/AddedMidVisual"]
+position = Vector2( 0, -10 )
+scale = Vector2( 0.2, 0.3 )
+texture = ExtResource( 3 )
+
 [node name="LowArea" type="Area2D" parent="."]
 position = Vector2( 0, 9.5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LowArea"]
 shape = SubResource( 7 )
+
+[node name="AddedLowVisual" type="Node2D" parent="LowArea"]
+visible = false
+
+[node name="Sprite" type="Sprite" parent="LowArea/AddedLowVisual"]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+
+[node name="Sprite2" type="Sprite" parent="LowArea/AddedLowVisual"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
