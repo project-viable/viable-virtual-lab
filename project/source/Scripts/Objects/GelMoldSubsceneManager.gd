@@ -49,6 +49,7 @@ func _on_ChillButton_pressed():
 		#spit the comb back out
 		get_parent().add_child(combObject)
 		hasComb = false
+		update_display()
 		
 		LabLog.Log("Chilled", false, true)
 		$Subscene/Border/ChillButton.hide() #TODO: Make it possible to hit the button mroe than once?
@@ -202,6 +203,7 @@ func TryInteract(others):
 			combObject = other
 			combObject.get_parent().remove_child(combObject)
 			hasComb = true
+			update_display()
 			return true
 		elif other.is_in_group('GelImager'):
 			if(hasComb):
