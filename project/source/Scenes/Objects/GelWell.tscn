@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Objects/GelWell.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 11, 15 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 11, 4.5 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 11, 5 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 11, 5.5 )
+
+[node name="GelWell" type="RigidBody2D" groups=["Container", "GelWell", "LabObjects"]]
+position = Vector2( -95, 9 )
+collision_layer = 2
+input_pickable = true
+mode = 3
+can_sleep = false
+script = ExtResource( 1 )
+
+[node name="OverallCollision" type="CollisionShape2D" parent="."]
+shape = SubResource( 5 )
+
+[node name="HighArea" type="Area2D" parent="."]
+position = Vector2( 0, -10.5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HighArea"]
+shape = SubResource( 6 )
+
+[node name="MidArea" type="Area2D" parent="."]
+position = Vector2( 0, -1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MidArea"]
+shape = SubResource( 8 )
+
+[node name="LowArea" type="Area2D" parent="."]
+position = Vector2( 0, 9.5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LowArea"]
+shape = SubResource( 7 )

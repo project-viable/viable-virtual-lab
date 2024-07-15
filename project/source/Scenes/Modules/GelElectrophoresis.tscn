@@ -229,3 +229,4 @@ position = Vector2( 698, -208 )
 
 [node name="GelMoldSubscene" parent="." instance=ExtResource( 34 )]
 position = Vector2( -163, -6 )
+filled_image = null
