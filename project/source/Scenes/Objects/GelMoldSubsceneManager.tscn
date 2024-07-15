@@ -63,46 +63,51 @@ margin_right = 32.0
 margin_bottom = -30.0
 text = "Let Cool"
 
-[node name="GelWellPipetteProxy1" parent="Subscene" index="2" instance=ExtResource( 7 )]
+[node name="Wells" type="Node2D" parent="Subscene" index="2"]
+
+[node name="GelWell1" parent="Subscene/Wells" index="0" instance=ExtResource( 5 )]
+position = Vector2( -95, 34 )
+
+[node name="GelWell2" parent="Subscene/Wells" index="1" instance=ExtResource( 5 )]
+position = Vector2( -56, 34 )
+
+[node name="GelWell3" parent="Subscene/Wells" index="2" instance=ExtResource( 5 )]
+position = Vector2( -19, 34 )
+
+[node name="GelWell4" parent="Subscene/Wells" index="3" instance=ExtResource( 5 )]
+position = Vector2( 20, 34 )
+
+[node name="GelWell5" parent="Subscene/Wells" index="4" instance=ExtResource( 5 )]
+position = Vector2( 56, 34 )
+
+[node name="GelWell6" parent="Subscene/Wells" index="5" instance=ExtResource( 5 )]
+position = Vector2( 95, 34 )
+
+[node name="PipetteProxies" type="Node2D" parent="Subscene" index="3"]
+visible = false
+
+[node name="GelWellPipetteProxy1" parent="Subscene/PipetteProxies" index="0" instance=ExtResource( 7 )]
 position = Vector2( -98, -101 )
 script = ExtResource( 6 )
 
-[node name="GelWell1" parent="Subscene" index="3" instance=ExtResource( 5 )]
-position = Vector2( -95, 34 )
-
-[node name="GelWellPipetteProxy2" parent="Subscene" index="4" instance=ExtResource( 7 )]
+[node name="GelWellPipetteProxy2" parent="Subscene/PipetteProxies" index="1" instance=ExtResource( 7 )]
 position = Vector2( -59, -101 )
 script = ExtResource( 6 )
 
-[node name="GelWell2" parent="Subscene" index="5" instance=ExtResource( 5 )]
-position = Vector2( -56, 34 )
-
-[node name="GelWellPipetteProxy3" parent="Subscene" index="6" instance=ExtResource( 7 )]
+[node name="GelWellPipetteProxy3" parent="Subscene/PipetteProxies" index="2" instance=ExtResource( 7 )]
 position = Vector2( -22, -101 )
 script = ExtResource( 6 )
 
-[node name="GelWell3" parent="Subscene" index="7" instance=ExtResource( 5 )]
-position = Vector2( -19, 34 )
-
-[node name="GelWellPipetteProxy4" parent="Subscene" index="8" instance=ExtResource( 7 )]
+[node name="GelWellPipetteProxy4" parent="Subscene/PipetteProxies" index="3" instance=ExtResource( 7 )]
 position = Vector2( 17, -101 )
 script = ExtResource( 6 )
 
-[node name="GelWell4" parent="Subscene" index="9" instance=ExtResource( 5 )]
-position = Vector2( 20, 34 )
-
-[node name="GelWellPipetteProxy5" parent="Subscene" index="10" instance=ExtResource( 7 )]
+[node name="GelWellPipetteProxy5" parent="Subscene/PipetteProxies" index="4" instance=ExtResource( 7 )]
 position = Vector2( 53, -101 )
 script = ExtResource( 6 )
 
-[node name="GelWell5" parent="Subscene" index="11" instance=ExtResource( 5 )]
-position = Vector2( 56, 34 )
-
-[node name="GelWellPipetteProxy6" parent="Subscene" index="12" instance=ExtResource( 7 )]
+[node name="GelWellPipetteProxy6" parent="Subscene/PipetteProxies" index="5" instance=ExtResource( 7 )]
 position = Vector2( 92, -101 )
 script = ExtResource( 6 )
-
-[node name="GelWell6" parent="Subscene" index="13" instance=ExtResource( 5 )]
-position = Vector2( 95, 34 )
 
 [connection signal="pressed" from="Subscene/Border/ChillButton" to="." method="_on_ChillButton_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Images/lab_counter.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Trashcan.tscn" type="PackedScene" id=2]
@@ -24,7 +24,6 @@
 [ext_resource path="res://Scenes/Substances/GelModule/DNASubstance.gd" type="Script" id=22]
 [ext_resource path="res://Scenes/Objects/ContactWire.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Scenes/Objects/CurrentSource.tscn" type="PackedScene" id=24]
-[ext_resource path="res://Images/Gel_Tray_filled.png" type="Texture" id=25]
 [ext_resource path="res://Scenes/Objects/GelComb.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Scenes/Objects/GelImager.tscn" type="PackedScene" id=27]
 [ext_resource path="res://Images/Erlenmeyer_full_flask.png" type="Texture" id=28]
@@ -230,4 +229,3 @@ position = Vector2( 698, -208 )
 
 [node name="GelMoldSubscene" parent="." instance=ExtResource( 34 )]
 position = Vector2( -163, -6 )
-filled_image = ExtResource( 25 )

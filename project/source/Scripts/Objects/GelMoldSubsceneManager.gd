@@ -53,6 +53,7 @@ func _on_ChillButton_pressed():
 		
 		LabLog.Log("Chilled", false, true)
 		$Subscene/Border/ChillButton.hide() #TODO: Make it possible to hit the button mroe than once?
+		$Subscene/PipetteProxies.show()
 
 func add_dna(dna):
 	print("Added DNA to gel boat")
