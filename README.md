@@ -2,7 +2,7 @@
 
 To try out our current demo, click [here](https://project-viable.github.io/viable-virtual-lab/export/VirtualLabExport.html). You can also follow the Setup instructions below to try it out locally.
 
-Currently, there's a lot of placeholder images. This is very much an early demo, and it will be improved soon.
+This is very much an early demo, and it will be improved soon.
 
 # Getting Started
 
