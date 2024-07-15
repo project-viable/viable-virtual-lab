@@ -67,7 +67,7 @@ func _process(delta):
 	if dragging:
 		#move
 		if (canChangeSubscenes or get_node("/root/Main").GetDeepestSubsceneAt(get_global_mouse_position()) == GetSubsceneManagerParent()):
-			global_position = get_global_mouse_position() - dragOffset
+			DragMove()
 		else:
 			StopDragging(false)
 		
@@ -117,6 +117,9 @@ func StopDragging(action: bool = true):
 	z_index = defaultZIndex
 	z_as_relative = defaultZAsRelative
 	if action: OnUserAction()
+
+func DragMove():
+	global_position = get_global_mouse_position() - dragOffset
 
 func GetIntersectingLabObjects():
 	var spaceState = get_world_2d().direct_space_state
