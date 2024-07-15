@@ -92,7 +92,6 @@ shape = SubResource( 4 )
 [node name="Menu" type="CanvasLayer" parent="."]
 
 [node name="AutoCloseTimer" type="Timer" parent="Menu"]
-wait_time = 0.6
 one_shot = true
 
 [node name="Border" type="ReferenceRect" parent="Menu"]
