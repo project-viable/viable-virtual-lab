@@ -53,6 +53,15 @@ func get_properties():
 		"volume": volume,
 		"density": density
 	}
+	
+func heat(heatTime):
+	pass
+
+func chill(chillTime):
+	pass
+	
+func run_current(voltage, time):
+	pass
 
 func GetMain():
 	return get_tree().current_scene

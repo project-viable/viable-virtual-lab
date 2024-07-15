@@ -54,7 +54,7 @@ func _unhandled_input(event):
 			
 			var pickOptions = []
 			for result in castResult:
-				if result['collider'] is LabObject and (result['collider'].GetSubsceneManagerParent() == deepestSubscene or (result['collider'] == deepestSubscene) and not result['collider'].subsceneActive):
+				if result['collider'] is LabObject and (result['collider'].GetSubsceneManagerParent() == deepestSubscene or (result['collider'] == deepestSubscene and not result['collider'].subsceneActive)):
 					pickOptions.append(result['collider'])
 			
 			var bestPick = null
@@ -62,7 +62,7 @@ func _unhandled_input(event):
 				#draggables are better than non draggables, and high z indexes are tie breakers
 				if bestPick == null or (
 					object.draggable and not bestPick.draggable) or (
-					object.z_index > bestPick.z_index):
+					object.z_index > bestPick.z_index and object.draggable == bestPick.draggable):
 						bestPick = object
 			
 			if bestPick:

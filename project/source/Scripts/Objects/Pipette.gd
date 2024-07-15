@@ -1,4 +1,5 @@
 extends LabObject
+class_name Pipette
 
 export var minCapacity: float = 1 #microliters
 export var maxCapacity: float = 10 #microliters
@@ -57,7 +58,9 @@ func SelectTarget():
 	var others = GetIntersectingLabObjects()
 	
 	for other in others:
-		if other.is_in_group("Container") or other.is_in_group("Source Container"):
+		if (other.is_in_group("Container") or other.is_in_group("Source Container")) and (
+			other.GetSubsceneManagerParent() == GetSubsceneManagerParent()
+		):
 			return other
 	
 	return null
