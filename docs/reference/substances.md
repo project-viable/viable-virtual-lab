@@ -1,4 +1,4 @@
-## Substances
+## Substances ([see examples](../examples/examples-substances.md))
 
 ### 1 - Purpose and Node Groups
 

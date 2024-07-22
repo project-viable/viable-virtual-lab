@@ -1,4 +1,4 @@
-## SubsceneManagers
+## SubsceneManagers ([see examples](../examples/examples-subscenes.md))
 
 `SubsceneManager` is a subclass of LabObject that handles a subscene (a popup that contains other LabObjects, like a zoomed in view, or maybe a fancy menu). Any time you need to create a subscene, you should make a new `SubsceneManager`. You can also `extend` it, but you often won't have to.
 
