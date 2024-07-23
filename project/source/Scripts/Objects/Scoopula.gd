@@ -62,30 +62,27 @@ func SplitContents():
 		return split
 
 func TryActIndependently():
-	$Menu.visible = true
-	self.draggable = false
-	yield($Menu/PanelContainer/VBoxContainer/CloseButton, "pressed")
-	self.draggable = true
+	pass
+
 
 func _on_btnDispense_pressed():
 	
-	var volDispensed = $ScoopulaMenu/PanelContainer/sliderDispenseQty.value
+	var volDispensed = $ScoopulaMenu/PanelContainer/sliderDispenseQty.value / contents[0].density
 	
 	#Add contents to receiving object
 	var contentToDispense = contents[0].duplicate()
-	
 	var contentArray = []
 		
 	contentToDispense.set_volume(volDispensed)
 	contentArray.append(contentToDispense)
 	targetObj.AddContents(contentArray)
 	
-	#Update current volume
+	#Update current volume remaining
 	contents[0].volume -= volDispensed
-	
-	if contents[0].volume == 0:
+		
+	if contents[0].volume <= 0.01:
 		contents.clear()
 	
-	LabLog.Log("Dispensed " + str(volDispensed) + " from scoopula")
+	LabLog.Log("Dispensed " + str(volDispensed * contentArray[0].density) + " g from scoopula")
 	update_display()
 	$ScoopulaMenu.hide()

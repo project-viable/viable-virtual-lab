@@ -31,6 +31,7 @@ func AddContents(new_contents):
 	
 	print("Added contents "+str(contents)+" to container")
 	update_weight()
+	print("Current weight " + str(mass))
 	update_display()
 	scale_check()
 	
@@ -76,7 +77,7 @@ func scale_check():
 	return false
 			
 func update_weight():
-	mass = .4 #self mass
+	weight = .4 #self mass
 	for object in contents:
-		mass += object.get_mass()
+		weight += object.get_mass()
 
