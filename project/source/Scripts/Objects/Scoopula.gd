@@ -3,11 +3,10 @@ extends LabContainer
 var dispense_mode = 0
 var split_substance = [] 
 
-func _ready(): 
-	get_node("Menu/PanelContainer/VBoxContainer/DumpButton").pressed = true 
-	get_node("Menu/PanelContainer/VBoxContainer/TapButton").disabled = true
-	dispense_mode = 1
-	$Menu.hide()
+var targetObj = null
+
+func _ready():
+	pass
 
 func TryInteract(others):
 	for other in others:#If interacting with container then we want to dispense or pick up
@@ -19,7 +18,8 @@ func TryInteract(others):
 			if len(contents) == 0 and granularSubstance:
 				# get density to determine volume taken
 				var density = other.TakeContents()[0].get_properties()['density']
-				contents.append_array(other.TakeContents(0.6 / density)) # roughly 0.6 grams taken
+				
+				contents.append_array(other.TakeContents(1 / density)) # Take 1g of material
 				if(other.is_in_group("Scale")):
 					other.UpdateWeight()
 				print("Added contents")
@@ -30,24 +30,14 @@ func TryInteract(others):
 			else:
 				if(!contents.empty()):
 					var contentName = contents[0].name
-					if(dispense_mode == 0):#Mode 0 means there is no active mode and a mode needs to be selected
-						$Menu.visible = true
-						self.draggable = false
-						yield($Menu/PanelContainer/VBoxContainer/CloseButton, "pressed")
-						self.draggable = true
-					elif(dispense_mode == 1):#Mode 1 is dump mode so this adds all of scoopula contents to other container
-						other.AddContents(contents)
-						print("emptied scoopula")
-						LabLog.Log("Emptied " + contentName + " from scoopula.")
-						contents.clear()
-					elif(dispense_mode == 2):#Mode 2 is tap mode so this adds a small amount to outher container
-						split_substance.append(SplitContents())
-						other.AddContents(split_substance)
-						split_substance.clear()
-						LabLog.Log("Emptied a portion of " + contentName + " from scoopula.")
-						print("emptied part of scoopula")
-					else:
-						print("Not dispensing")
+					
+					#Show menu
+					$ScoopulaMenu.popup()
+					$ScoopulaMenu/PanelContainer/sliderDispenseQty.max_value = contents[0].volume
+					
+					targetObj = other
+						#split_substance.append(SplitContents())
+						#other.AddContents(split_substance)
 				update_display()
 				return true
 	return false
@@ -77,24 +67,25 @@ func TryActIndependently():
 	yield($Menu/PanelContainer/VBoxContainer/CloseButton, "pressed")
 	self.draggable = true
 
-
-func _on_CloseButton_pressed():
-	$Menu.hide()
-
-func _on_DumpButton_toggled(button_pressed):
-	if(button_pressed == true):
-		print(dispense_mode)
-		get_node("Menu/PanelContainer/VBoxContainer/TapButton").disabled = true
-		dispense_mode = 1
-	else:
-		get_node("Menu/PanelContainer/VBoxContainer/TapButton").disabled = false
-		dispense_mode = 0
-
-func _on_TapButton_toggled(button_pressed):
-	if(button_pressed == true):
-		print(dispense_mode)
-		get_node("Menu/PanelContainer/VBoxContainer/DumpButton").disabled = true
-		dispense_mode = 2
-	else:
-		get_node("Menu/PanelContainer/VBoxContainer/DumpButton").disabled = false
-		dispense_mode = 0
+func _on_btnDispense_pressed():
+	
+	var volDispensed = $ScoopulaMenu/PanelContainer/sliderDispenseQty.value
+	
+	#Add contents to receiving object
+	var contentToDispense = contents[0].duplicate()
+	
+	var contentArray = []
+		
+	contentToDispense.set_volume(volDispensed)
+	contentArray.append(contentToDispense)
+	targetObj.AddContents(contentArray)
+	
+	#Update current volume
+	contents[0].volume -= volDispensed
+	
+	if contents[0].volume == 0:
+		contents.clear()
+	
+	LabLog.Log("Dispensed " + str(volDispensed) + " from scoopula")
+	update_display()
+	$ScoopulaMenu.hide()
