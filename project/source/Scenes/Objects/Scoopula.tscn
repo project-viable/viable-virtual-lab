@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/Objects/Scoopula.gd" type="Script" id=1]
 [ext_resource path="res://Images/Spatula.png" type="Texture" id=2]
 [ext_resource path="res://Images/Spatula_filled.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/Objects/ScoopulaMenu.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Objects/UI/ScoopulaMenu.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 49.5 )
