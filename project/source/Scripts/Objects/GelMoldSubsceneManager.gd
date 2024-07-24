@@ -45,10 +45,7 @@ func _on_ChillButton_pressed():
 	if contents:
 		chill(1)
 		gel_has_wells = hasComb
-		
-		#spit the comb back out
-		get_parent().add_child(combObject)
-		hasComb = false
+
 		update_display()
 		
 		LabLog.Log("Chilled", false, true)
@@ -222,4 +219,16 @@ func TryInteract(others):
 
 func TryActIndependently():
 	if not subsceneActive: ShowSubscene()
+	if hasComb:
+		$Subscene/Border/RemoveComb.show()
+	else:
+		$Subscene/Border/RemoveComb.hide()
 	return true
+
+func _on_RemoveComb_pressed():
+	if hasComb:
+		get_parent().add_child(combObject)
+		combObject.position.x -= 100
+		hasComb = false
+		update_display()
+		$Subscene/Border/RemoveComb.hide()
