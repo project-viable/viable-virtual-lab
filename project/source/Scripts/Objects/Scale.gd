@@ -1,6 +1,5 @@
 extends "res://Scripts/Objects/LabObject.gd"
 
-#var vis = get_node("Control").visible
 var Tare = false
 var Weighing = false
 var tare_weight = 0.0
@@ -16,9 +15,6 @@ func TryInteract(others):
 				Weighing = true
 				UpdateWeight()
 				
-			#objects.append(other)
-			print(current_weight)
-			#update_display()
 			get_node("Control").visible = true
 			return true
 		else:
@@ -29,13 +25,12 @@ func UpdateWeight():
 	var test_weight = 0.0
 	for object in objects:
 		print(object.get_name() + str(object.weight))
-		test_weight += object.weight		
+		test_weight += object.weight
 	current_weight = test_weight
 	
 	update_display()
 
 func TryActIndependently():
-	print("interact test")
 	get_node("Control").visible = true
 	return true
 
@@ -65,7 +60,6 @@ func _on_Tare_Button_pressed():
 		update_display()
 
 func _on_Area2D_body_exited(body):
-	#objects.remove(body)
 	if(body.is_in_group("Weighable")):
 		if(body.is_in_group("WeighBoat")):
 			if(!body.contents.empty()):
@@ -77,10 +71,9 @@ func _on_Area2D_body_exited(body):
 			update_display()
 	if(objects.empty()):
 		Weighing = false
-	#print("test")
 
 func update_display():
 	if(Tare == false):
 		get_node("Control/PanelContainer/VBoxContainer/Weight_Value").text = "%.2f" % current_weight
 	else:
-		get_node("Control/PanelContainer/VBoxContainer/Weight_Value").text = "%.2f" % (current_weight-tare_weight)
+		get_node("Control/PanelContainer/VBoxContainer/Weight_Value").text = "%.2f" % (current_weight - tare_weight)

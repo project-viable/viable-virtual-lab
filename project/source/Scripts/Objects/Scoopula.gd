@@ -5,9 +5,6 @@ var split_substance = []
 
 var targetObj = null
 
-func _ready():
-	pass
-
 func TryInteract(others):
 	for other in others:#If interacting with container then we want to dispense or pick up
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
@@ -63,7 +60,6 @@ func SplitContents():
 
 func TryActIndependently():
 	pass
-
 
 func _on_btnDispense_pressed():
 	
