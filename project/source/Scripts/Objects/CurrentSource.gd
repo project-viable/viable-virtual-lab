@@ -40,6 +40,7 @@ func current_reversed():
 	return true if ($PosTerminal.plugged_electrode.get_parent().current_direction == 0) else false
 
 func _on_RunCurrent_pressed():
+
 	if running:
 		return
 		
@@ -47,6 +48,8 @@ func _on_RunCurrent_pressed():
 		return
 	
 	var other_device = get_other_device()
+
+	
 	if other_device.has_method('able_to_run_current'):
 		if other_device.able_to_run_current():
 			var time_ran = 0
@@ -83,6 +86,8 @@ func _on_RunCurrent_pressed():
 			running = !running
 			ToggleRunCurrentText()
 			ToggleInputsEditable()
+	else:
+		print("Device cannot run current")
 
 func get_other_device():
 	if $PosTerminal == null || $NegTerminal == null:

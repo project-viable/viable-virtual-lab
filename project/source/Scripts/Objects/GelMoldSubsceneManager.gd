@@ -69,7 +69,10 @@ func calculate_positions():
 			var temp_array = []
 			for size in dna.get_particle_sizes():
 				# Multiply total run time/ideal run time + extra to make percentage, multiply by viscosity and gel ratio, divide by size
-				var distance = ((contents[0].total_run_time/(40)) * (contents[0].viscosity) * (contents[0].gel_ratio * gel_ratio_conv_const))/size
+				#var distance = ((contents[0].total_run_time/(40)) * (contents[0].viscosity) * (contents[0].gel_ratio * gel_ratio_conv_const))/(size / 300)
+
+				var distance =  (contents[0].total_run_time/(20)) * (673.6 * pow(2.7183, -0.000773 * size) + 480.6 * pow(2.7186, -0.00002189 * size)) / 1500				
+				
 				temp_array.append(distance)
 			band_positions.append(temp_array)
 			slot = slot + 1
