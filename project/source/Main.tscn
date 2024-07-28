@@ -30,13 +30,13 @@ margin_right = 96.0
 margin_bottom = 50.0
 
 [node name="Panel" type="VBoxContainer" parent="Menu/MainMenu"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 185.0
-margin_bottom = 93.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 188.0
+margin_bottom = 96.0
 
 [node name="Title" type="Label" parent="Menu/MainMenu/Panel"]
-margin_right = 178.0
+margin_right = 184.0
 margin_bottom = 14.0
 text = "VIABLE Freeform Virtual Lab"
 align = 1
@@ -44,20 +44,20 @@ valign = 1
 
 [node name="SelectModuleButton" type="Button" parent="Menu/MainMenu/Panel"]
 margin_top = 18.0
-margin_right = 178.0
-margin_bottom = 38.0
+margin_right = 184.0
+margin_bottom = 40.0
 text = "Select Module"
 
 [node name="OptionsButton" type="Button" parent="Menu/MainMenu/Panel"]
-margin_top = 42.0
-margin_right = 178.0
-margin_bottom = 62.0
+margin_top = 44.0
+margin_right = 184.0
+margin_bottom = 66.0
 text = "Options"
 
 [node name="AboutButton" type="Button" parent="Menu/MainMenu/Panel"]
-margin_top = 66.0
-margin_right = 178.0
-margin_bottom = 86.0
+margin_top = 70.0
+margin_right = 184.0
+margin_bottom = 92.0
 text = "About"
 
 [node name="ModuleSelect" type="GridContainer" parent="Menu"]

@@ -128,6 +128,7 @@ GameSettings="*res://Scripts/GameSettingsSingleton.gd"
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+theme/custom="res://UI/MainUITheme.tres"
 
 [input]
 
