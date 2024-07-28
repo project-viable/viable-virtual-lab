@@ -1,21 +1,39 @@
-[gd_resource type="Theme" load_steps=10 format=2]
+[gd_resource type="Theme" load_steps=14 format=2]
 
 [ext_resource path="res://UI/BackgroundStylebox.tres" type="StyleBox" id=1]
 [ext_resource path="res://UI/ButtonNormalStylebox.tres" type="StyleBox" id=2]
 [ext_resource path="res://UI/ButtonDisabledStylebox.tres" type="StyleBox" id=3]
 [ext_resource path="res://UI/ButtonPressedStylebox.tres" type="StyleBox" id=4]
 [ext_resource path="res://UI/ButtonFocusStylebox.tres" type="StyleBox" id=5]
+[ext_resource path="res://UI/ButtonHoverStylebox.tres" type="StyleBox" id=6]
 
-[sub_resource type="StyleBoxFlat" id=3]
-content_margin_left = 4.0
-content_margin_right = 4.0
-content_margin_top = 4.0
-content_margin_bottom = 4.0
-bg_color = Color( 0.0823529, 0.203922, 0.423529, 1 )
+[sub_resource type="StyleBoxFlat" id=9]
+content_margin_left = 0.0
+content_margin_right = 0.0
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+bg_color = Color( 0.036499, 0.0874411, 0.179688, 1 )
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
+border_color = Color( 0.490196, 0.490196, 0.490196, 1 )
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id=10]
+content_margin_left = 0.0
+content_margin_right = 0.0
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+bg_color = Color( 0.036499, 0.0874411, 0.179688, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.152941, 0.462745, 1, 1 )
 corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
@@ -67,12 +85,49 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
+[sub_resource type="StyleBoxFlat" id=7]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
+bg_color = Color( 0.036499, 0.0874411, 0.179688, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.490196, 0.490196, 0.490196, 1 )
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id=8]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 0.0
+content_margin_bottom = 0.0
+bg_color = Color( 0.036499, 0.0874411, 0.179688, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.152941, 0.462745, 1, 1 )
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
 [resource]
 Button/styles/disabled = ExtResource( 3 )
 Button/styles/focus = ExtResource( 5 )
-Button/styles/hover = SubResource( 3 )
+Button/styles/hover = ExtResource( 6 )
 Button/styles/normal = ExtResource( 2 )
 Button/styles/pressed = ExtResource( 4 )
+HScrollBar/styles/grabber = ExtResource( 2 )
+HScrollBar/styles/grabber_highlight = ExtResource( 6 )
+HScrollBar/styles/grabber_pressed = ExtResource( 4 )
+HScrollBar/styles/scroll = SubResource( 9 )
+HScrollBar/styles/scroll_focus = SubResource( 10 )
 LineEdit/styles/focus = ExtResource( 5 )
 LineEdit/styles/normal = ExtResource( 2 )
 LineEdit/styles/read_only = ExtResource( 3 )
@@ -82,3 +137,8 @@ TabContainer/styles/panel = ExtResource( 1 )
 TabContainer/styles/tab_bg = SubResource( 4 )
 TabContainer/styles/tab_disabled = SubResource( 5 )
 TabContainer/styles/tab_fg = SubResource( 6 )
+VScrollBar/styles/grabber = ExtResource( 2 )
+VScrollBar/styles/grabber_highlight = ExtResource( 6 )
+VScrollBar/styles/grabber_pressed = ExtResource( 4 )
+VScrollBar/styles/scroll = SubResource( 7 )
+VScrollBar/styles/scroll_focus = SubResource( 8 )
