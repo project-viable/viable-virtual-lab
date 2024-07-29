@@ -92,7 +92,7 @@ func AddContents(new_contents):
 	update_display()
 
 func update_weight():
-	var overall_weight = 9.8 #self.mass
+	var overall_weight = 0 #self.mass
 	for content in contents:
 		if(content.is_in_group("Weighable")):
 			overall_weight += content.get_mass()

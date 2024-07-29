@@ -11,7 +11,7 @@ extents = Vector2( 30, 4 )
 
 [node name="WeighBoat" type="RigidBody2D" groups=["Container", "WeighBoat", "Weighable"]]
 z_index = 2
-mass = 0.4
+mass = 0.0408163
 script = ExtResource( 2 )
 DisplayName = "Weigh Boat"
 filled_image = ExtResource( 1 )
