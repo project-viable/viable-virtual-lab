@@ -18,11 +18,22 @@ var contents = []
 var hasComb = false
 var combObject = null
 
+var subsceneEmptyImg = preload("res://Images/Gel_Tray_empty_zoomed.png")
+var subsceneFullImg = preload('res://Images/Gel_Tray_filled_zoomed.png')
+var subsceneFullWellsImg = preload('res://Images/Gel_Tray_filled_wells_zoomed.png')
+var subsceneFullCombImg = preload('res://Images/Gel_Tray_comb_gel_zoomed.png')
+var subsceneEmptyCombImg = preload('res://Images/Gel_Tray_comb_empty_zoomed.png')
+var subsceneGelBg
+
 func LabObjectReady():
 	empty_comb_img = preload('res://Images/Gel_Tray_comb_empty.png')
 	filled_comb_img = preload('res://Images/Gel_Tray_comb_gel.png')
 	filled_image = preload('res://Images/Gel_Tray_filled.png')
 	empty_image = preload('res://Images/Gel_Tray_empty.png')
+	
+	subsceneGelBg = $Subscene/Border/Background2
+	$Subscene/PipetteProxies.hide()
+	update_display()
 
 func update_display():
 	# static change from "empty" to "filled" for now
@@ -31,15 +42,23 @@ func update_display():
 		if(len(contents) > 0):
 			if(filled_comb_img != null):
 				$Sprite.texture = filled_comb_img
+			subsceneGelBg.texture = subsceneFullCombImg
 		else:
 			$Sprite.texture = empty_comb_img
+			subsceneGelBg.texture = subsceneEmptyCombImg
 	else:
 		# variants without the gel comb
 		if(len(contents) > 0):
 			if(filled_image != null):
 				$Sprite.texture = filled_image
+			
+			if gel_has_wells:
+				subsceneGelBg.texture = subsceneFullWellsImg
+			else:
+				subsceneGelBg.texture = subsceneFullImg
 		else:
 			$Sprite.texture = empty_image
+			subsceneGelBg.texture = subsceneEmptyImg
 
 func _on_ChillButton_pressed():
 	if contents:
@@ -50,7 +69,7 @@ func _on_ChillButton_pressed():
 		
 		LabLog.Log("Chilled", false, true)
 		$Subscene/Border/ChillButton.hide() #TODO: Make it possible to hit the button mroe than once?
-		$Subscene/PipetteProxies.show()
+		if gel_has_wells: $Subscene/PipetteProxies.show()
 
 func add_dna(dna, well):
 	print("Added DNA to gel boat")
