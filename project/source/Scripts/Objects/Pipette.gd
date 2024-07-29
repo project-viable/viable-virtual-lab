@@ -137,9 +137,10 @@ func _on_PlungerSlider_value_changed(value):
 	
 	if value == 0:
 		#all the way down
-		DispenseSubstance(SelectTarget())
-		$Menu/Border/ActionLabel.text = "Dispensed contents!"
-		$Menu/AutoCloseTimer.start()
+		if len(contents) > 0:
+			DispenseSubstance(SelectTarget())
+			$Menu/Border/ActionLabel.text = "Dispensed contents!"
+			$Menu/AutoCloseTimer.start()
 	elif value == 2 and plungerPressExtent == 1:
 		#just ended a half press
 		var otherObject = SelectTarget()

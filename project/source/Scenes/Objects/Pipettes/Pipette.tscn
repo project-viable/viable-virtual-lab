@@ -294,7 +294,6 @@ margin_top = 46.0
 margin_right = 169.0
 margin_bottom = 60.0
 text = "Dispensed contents!"
-align = 2
 autowrap = true
 
 [node name="Collision2" type="CollisionShape2D" parent="."]
