@@ -91,22 +91,23 @@ func update_display():
 	$FillProgress.rect_size = Vector2($FillProgress.rect_size.x, fillHeight)
 	
 	###Now we need to calculate the average color of our contents:
-	var r = 0
-	var g = 0
-	var b = 0
-	var volume = 0
-	
-	for content in contents:
-		r += Color(content.color).r * content.volume
-		g += Color(content.color).g * content.volume
-		b += Color(content.color).b * content.volume
-		volume += content.volume
-	
-	r = r/volume
-	g = g/volume
-	b = b/volume
-	
-	$FillProgress.color = Color(r, g, b)
+	if len(contents) > 0:
+		var r = 0
+		var g = 0
+		var b = 0
+		var volume = 0
+		
+		for content in contents:
+			r += Color(content.color).r * content.volume
+			g += Color(content.color).g * content.volume
+			b += Color(content.color).b * content.volume
+			volume += content.volume
+		
+		r = r/volume
+		g = g/volume
+		b = b/volume
+		
+		$FillProgress.color = Color(r, g, b)
 
 # Reset values in menu
 func ResetMenu():
