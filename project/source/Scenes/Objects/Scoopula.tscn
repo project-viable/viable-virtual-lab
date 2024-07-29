@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Objects/Scoopula.gd" type="Script" id=1]
 [ext_resource path="res://Images/Spatula.png" type="Texture" id=2]
-[ext_resource path="res://Images/Spatula_filled.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/DimensionSprite.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/Objects/UI/ScoopulaMenu.gd" type="Script" id=4]
+[ext_resource path="res://Images/FillSprites/scoopula_fill.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 49.5 )
@@ -15,13 +16,18 @@ gravity_scale = 0.0
 script = ExtResource( 1 )
 draggable = true
 DisplayName = "Scoopula"
-filled_image = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -9.53674e-07, -2.38419e-07 )
 rotation = 1.57079
 scale = Vector2( 0.0135876, 0.012674 )
 texture = ExtResource( 2 )
+
+[node name="FillSprite" type="Sprite" parent="."]
+position = Vector2( -44, 0 )
+scale = Vector2( 0.25, 0.1875 )
+texture = ExtResource( 5 )
+script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.5, -1.11063e-06 )
