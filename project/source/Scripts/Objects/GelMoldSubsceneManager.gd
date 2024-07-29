@@ -54,6 +54,7 @@ func update_display():
 			
 			if gel_has_wells:
 				subsceneGelBg.texture = subsceneFullWellsImg
+				$Subscene/PipetteProxies.show()
 			else:
 				subsceneGelBg.texture = subsceneFullImg
 		else:
@@ -69,7 +70,6 @@ func _on_ChillButton_pressed():
 		
 		LabLog.Log("Chilled", false, true)
 		$Subscene/Border/ChillButton.hide() #TODO: Make it possible to hit the button mroe than once?
-		if gel_has_wells: $Subscene/PipetteProxies.show()
 
 func add_dna(dna, well):
 	print("Added DNA to gel boat")
