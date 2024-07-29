@@ -160,7 +160,10 @@ func _on_PlungerSlider_drag_ended(value_changed):
 		#That^ means we've just half pressed and released
 		#So we go ahead and make it go back up
 		$Menu/Border/PlungerSlider.value = 2 #This does trigger the slider's value_changed signal.
-		
+	
+	if $Menu/Border/PlungerSlider.value == 0:
+		#similar to above
+		$Menu/Border/PlungerSlider.value = 2
 
 func _on_AutoCloseTimer_timeout():
 	#Make it exactly the same as if you hit the X:
