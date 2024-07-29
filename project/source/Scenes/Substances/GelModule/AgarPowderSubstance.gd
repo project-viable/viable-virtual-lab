@@ -5,7 +5,7 @@ extends "res://Scripts/Substances/Substance.gd"
 func _init():
 	var properties = {
 		'density': 1,
-		'color': '#ccffdd'
+		'color': '#ffffff'
 	}
 	
 	# call the superclass init
