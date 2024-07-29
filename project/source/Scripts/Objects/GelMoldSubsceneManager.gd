@@ -8,7 +8,7 @@ const gel_ratio_conv_const = 30 #26.6666667
 var empty_comb_img = null
 var filled_comb_img = null
 var comb_slots = 5
-var dna_contents = []
+onready var dna_contents = [null, null, null, null, null, null]
 var gel_has_wells = false
 
 export (Texture) var filled_image = null
@@ -52,9 +52,9 @@ func _on_ChillButton_pressed():
 		$Subscene/Border/ChillButton.hide() #TODO: Make it possible to hit the button mroe than once?
 		$Subscene/PipetteProxies.show()
 
-func add_dna(dna):
+func add_dna(dna, well):
 	print("Added DNA to gel boat")
-	dna_contents.append(dna)
+	dna_contents[well] = dna
 	print("DNA functions: " + str(dna.get_class()))
 	print("New DNA contents: " + str(dna_contents))
 
@@ -62,8 +62,8 @@ func calculate_positions():
 	var band_positions = []
 	var slot = 0
 	for dna in dna_contents:
-		if dna.is_in_group('DNA'):
-			var temp_array = []
+		var temp_array = []
+		if dna and dna.is_in_group('DNA'):
 			for size in dna.get_particle_sizes():
 				# Multiply total run time/ideal run time + extra to make percentage, multiply by viscosity and gel ratio, divide by size
 				#var distance = ((contents[0].total_run_time/(40)) * (contents[0].viscosity) * (contents[0].gel_ratio * gel_ratio_conv_const))/(size / 300)
@@ -71,8 +71,8 @@ func calculate_positions():
 				var distance =  (contents[0].total_run_time/(20)) * (673.6 * pow(2.7183, -0.000773 * size) + 480.6 * pow(2.7186, -0.00002189 * size)) / 1500				
 				
 				temp_array.append(distance)
-			band_positions.append(temp_array)
-			slot = slot + 1
+		band_positions.append(temp_array)
+		slot = slot + 1
 	return band_positions
 
 func gel_status():
@@ -126,8 +126,6 @@ func AddContents(new_contents):
 			print("There are no comb slots in the gel")
 			LabLog.Warn("You tried to add a DNA sample to a gel with no wells. Make sure a gel comb is placed into the gel while it cools so the wells can form.")
 			continue
-		if dna_contents.size() < comb_slots:
-			add_dna(new_content)
 	print("Added contents "+str(contents)+" to container")
 	update_weight()
 	update_display()
