@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lab_counter.png-ce57a77bf07c5fb598cfbc279f4af100.stex"
+path="res://.import/Gel_Tray_comb_empty_zoomed.png-f8a321a022deca58639a83cd1ec9962e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/lab_counter.png"
-dest_files=[ "res://.import/lab_counter.png-ce57a77bf07c5fb598cfbc279f4af100.stex" ]
+source_file="res://Images/Gel_Tray_comb_empty_zoomed.png"
+dest_files=[ "res://.import/Gel_Tray_comb_empty_zoomed.png-f8a321a022deca58639a83cd1ec9962e.stex" ]
 
 [params]
 

@@ -8,6 +8,12 @@ DisplayName = "P20 Pipette"
 minCapacity = 2.0
 maxCapacity = 20.0
 
+[node name="BaseSprite" parent="." index="0"]
+scale = Vector2( 0.157895, 0.157274 )
+
+[node name="Bottom" parent="Menu/Border/VolumeDialLabels" index="2"]
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+
 [node name="PipetteSizeLabel" type="TextureRect" parent="Menu/Border" index="6"]
 margin_left = 220.0
 margin_top = 440.0
