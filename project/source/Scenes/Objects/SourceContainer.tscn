@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Objects/SourceContainer.gd" type="Script" id=1]
-[ext_resource path="res://Images/Erlenmeyer_full_flask.png" type="Texture" id=2]
+[ext_resource path="res://Images/Resized_Images/Erlenmeyerflask_container.png" type="Texture" id=2]
 [ext_resource path="res://Images/microcentrifuge_tube_closed.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -19,7 +19,6 @@ scale = Vector2( 0.0350926, 0.0350926 )
 texture = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.016, 0.016 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

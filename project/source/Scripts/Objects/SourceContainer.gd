@@ -12,7 +12,7 @@ var contents = null
 export (Texture) var image = null
 
 func _ready():
-	if image != null:
+	if image:
 		$Sprite.texture = image
 	else:
 		match containerType:

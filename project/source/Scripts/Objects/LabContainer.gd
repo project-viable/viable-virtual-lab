@@ -149,6 +149,7 @@ func update_display():
 		var r = 0
 		var g = 0
 		var b = 0
+		var a = 0
 		var volume = 0
 		
 		for content in contents:
@@ -156,12 +157,17 @@ func update_display():
 			g += Color(content.color).g * content.volume
 			b += Color(content.color).b * content.volume
 			volume += content.volume
+				
+		if volume > 0:
+			r = r/volume
+			g = g/volume
+			b = b/volume
+			a = 1
+		else:
+			a = 0	
 		
-		r = r/volume
-		g = g/volume
-		b = b/volume
 		
-		$FillSprite.modulate = Color(r, g, b)
+		$FillSprite.modulate = Color(r, g, b, a)
 
 func _on_Button_pressed():
 	mix()

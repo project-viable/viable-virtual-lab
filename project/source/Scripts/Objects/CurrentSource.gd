@@ -6,7 +6,7 @@ export (int) var time_delay = 0.005
 
 func _ready():
 	# Set the Sprite image
-	$Sprite.set_texture($Viewport.get_texture())
+	#$Sprite.set_texture($Viewport.get_texture())
 	
 	add_to_group("CurrentConductors", true)
 	$CurrentConductor.SetVolts(0)

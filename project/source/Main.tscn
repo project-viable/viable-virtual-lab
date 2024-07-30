@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/UI/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
-[ext_resource path="res://Scripts/UI/Camera.gd" type="Script" id=3]
 [ext_resource path="res://Images/HamburgerMenu.png" type="Texture" id=4]
 [ext_resource path="res://Images/Gel Electrophoresis Icon.png" type="Texture" id=5]
 [ext_resource path="res://Images/Dot-Blue.png" type="Texture" id=6]
@@ -862,11 +861,8 @@ editor_only = false
 
 [node name="Scene" type="Node2D" parent="."]
 
-[node name="Camera" type="Camera2D" parent="."]
-current = true
-script = ExtResource( 3 )
-
 [node name="Mixtures" type="Node2D" parent="."]
+position = Vector2( -2, -2 )
 script = ExtResource( 10 )
 
 [connection signal="pressed" from="Menu/MainMenu/Panel/SelectModuleButton" to="Menu" method="_on_SelectModuleButton_pressed"]

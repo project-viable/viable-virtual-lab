@@ -66,6 +66,7 @@ func SelectTarget():
 	return null
 
 func LabObjectReady():
+	$TipSprite.hide()
 	HideMenu()
 
 func TryInteract(others):
