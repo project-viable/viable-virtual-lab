@@ -31,7 +31,7 @@ func TryInteract(others):
 					
 					# Disable dragging while menu open
 					self.draggable = false
-					yield($Menu/PanelContainer/VBoxContainer/CloseButton, "pressed")
+					yield($Menu/PanelContainer/VBoxContainer/DispenseButton, "pressed")
 					# Reenable dragging
 					self.draggable = true
 					# Check if the grad cylinder's substance volume has changed
@@ -89,7 +89,7 @@ func update_display():
 	var fillPercentage = $VolumeContainer.GetVolume() / $VolumeContainer.GetMaxVolume()
 	var fillHeight = maxHeight * fillPercentage
 	$FillProgress.rect_size = Vector2($FillProgress.rect_size.x, fillHeight)
-	
+	print("Display updated")
 	###Now we need to calculate the average color of our contents:
 	if len(contents) > 0:
 		var r = 0
@@ -108,12 +108,14 @@ func update_display():
 		b = b/volume
 		
 		$FillProgress.color = Color(r, g, b)
+		print("color updated")
 
 # Reset values in menu
 func ResetMenu():
 	$Menu/PanelContainer/VBoxContainer/Description.text = "Graduated Cylinder currently has a " \
 	+ "volume of " + String($VolumeContainer.GetVolume()) + "mL"
 	$Menu/PanelContainer/VBoxContainer/SpinBox.set_value(0)
+	update_display()
 
 func _on_CloseButton_pressed():
 	$Menu.hide()

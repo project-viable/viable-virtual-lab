@@ -20,9 +20,6 @@ position = Vector2( 0, 17 )
 scale = Vector2( 1, 1 )
 texture = ExtResource( 4 )
 
-[node name="Menu" parent="." index="5"]
-visible = false
-
 [node name="Border" parent="Menu" index="1"]
 anchor_left = 0.379
 margin_left = 307.88

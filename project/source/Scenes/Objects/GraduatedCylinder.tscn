@@ -25,9 +25,9 @@ color = Color( 1, 1, 1, 0 )
 
 [node name="FillProgress" type="ColorRect" parent="."]
 margin_left = 10.0
-margin_top = 51.0
+margin_top = 73.0
 margin_right = 30.0
-margin_bottom = 51.0
+margin_bottom = 73.0
 rect_rotation = 180.0
 mouse_filter = 2
 
@@ -35,6 +35,7 @@ mouse_filter = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 

@@ -100,7 +100,6 @@ position = Vector2( 95, 34 )
 wellNumber = 5
 
 [node name="PipetteProxies" type="Node2D" parent="Subscene" index="3"]
-visible = false
 
 [node name="GelWellPipetteProxy1" parent="Subscene/PipetteProxies" index="0" instance=ExtResource( 7 )]
 position = Vector2( -98, -101 )
