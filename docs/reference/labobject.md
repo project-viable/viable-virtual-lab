@@ -1,4 +1,4 @@
-## LabObjects
+## LabObjects ([see examples](../examples/examples-labobjects.md))
 
 `LabObject` is the base class for any objects that need to interact with others or be moved around the scene. For example, pipettes, containers, and anything else that exists in the lab should inherit from `LabObject`.
 
