@@ -27,10 +27,13 @@ https://docs.godotengine.org/en/3.5/
 3. [LabBoundaries](/docs/reference/labboundary.md)
 4. [SubsceneManagers](/docs/reference/subscenemanagers.md)
 5. [Substances](/docs/reference/substances.md)
-6. [Lab Logs](/docs/reference/lablogs.md)
-7. [Main Scene](/docs/reference/mainscene.md)
-8. [Game Settings](/docs/reference/gamesettings.md)
-9. [DimensionSprites](/docs/reference/dimensionsprite.md)
+6. [Groups](/docs/reference/groups/index.md)
+7. [Lab Logs](/docs/reference/lablogs.md)
+8. [Main Scene](/docs/reference/mainscene.md)
+8. [Lab Logs](/docs/reference/lablogs.md)
+9. [Main Scene](/docs/reference/mainscene.md)
+10. [Game Settings](/docs/reference/gamesettings.md)
+11. [DimensionSprites](/docs/reference/dimensionsprite.md)
 
 ## Examples
 1. [LabObject Examples](/docs/examples/examples-labobjects.md)
