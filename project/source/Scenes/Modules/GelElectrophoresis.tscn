@@ -129,14 +129,14 @@ position = Vector2( 495, 850 )
 draggable = true
 
 [node name="AgaroseSourceContainer" parent="." instance=ExtResource( 4 )]
-position = Vector2( 671, 865 )
+position = Vector2( 671, 858 )
 mode = 1
 DisplayName = "Agarose"
 substance = ExtResource( 14 )
 image = ExtResource( 12 )
 
 [node name="TAESourceContainer" parent="." instance=ExtResource( 4 )]
-position = Vector2( 735, 865 )
+position = Vector2( 735, 857 )
 mode = 1
 DisplayName = "TAE Buffer"
 substance = ExtResource( 6 )
@@ -188,7 +188,7 @@ gravity_scale = 0.0
 tooltipDisplayDistance = 50
 
 [node name="DNA Containers" type="Node2D" parent="."]
-position = Vector2( 423, 1083 )
+position = Vector2( 400, 1083 )
 
 [node name="DNAContainer" parent="DNA Containers" instance=ExtResource( 4 )]
 position = Vector2( -60.7385, 1.25006 )
