@@ -120,6 +120,7 @@ corner_radius_bottom_left = 1
 
 [resource]
 default_font = ExtResource( 7 )
+Button/colors/font_color = Color( 0, 0, 0, 1 )
 Button/styles/disabled = ExtResource( 3 )
 Button/styles/focus = ExtResource( 5 )
 Button/styles/hover = ExtResource( 6 )
