@@ -247,5 +247,5 @@ position = Vector2( 143, 806 )
 mode = 3
 gravity_scale = 1.0
 
-[node name="GelMoldSubscene" parent="." instance=ExtResource( 19 )]
+[node name="GelMold" parent="." instance=ExtResource( 19 )]
 position = Vector2( 607, 1091 )

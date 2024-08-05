@@ -14,7 +14,7 @@ extents = Vector2( 71.5, 28.5 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 160, 175 )
 
-[node name="GelMoldSubscene" groups=["Conductive", "Container", "Gel Boat"] instance=ExtResource( 1 )]
+[node name="GelMold" groups=["Conductive", "Container", "Gel Boat"] instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 draggable = true
 DisplayName = "Gel Mold"
@@ -100,6 +100,7 @@ position = Vector2( 95, 34 )
 wellNumber = 5
 
 [node name="PipetteProxies" type="Node2D" parent="Subscene" index="3"]
+visible = false
 
 [node name="GelWellPipetteProxy1" parent="Subscene/PipetteProxies" index="0" instance=ExtResource( 7 )]
 position = Vector2( -98, -101 )

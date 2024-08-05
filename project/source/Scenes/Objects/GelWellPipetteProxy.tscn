@@ -30,7 +30,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.158, 0.157 ), Vector2( 0.174, 0.173 ), Vector2( 0.158, 0.157 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
 }
 
 [node name="GelWellPipetteProxy" type="RigidBody2D" groups=["LabObjects"]]
