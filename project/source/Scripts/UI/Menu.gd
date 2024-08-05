@@ -37,6 +37,7 @@ func _ready():
 	$LogButton/LogMenu.hide()
 	$FinalReport.hide()
 	$LabLogPopup.hide()
+	$MainMenu/Content/Logo.hide()
 	
 	#Set up the module select buttons
 	for file in GetAllFilesInFolder(ModuleDirectory):
@@ -71,6 +72,8 @@ func _process(delta):
 			$AboutScreen.hide()
 			$LogButton/LogMenu.hide()
 			$OptionsScreen.hide()
+			$MainMenu/Background.visible = (get_parent().currentModuleScene == null)
+			$MainMenu/Content/Logo.visible = not (get_parent().currentModuleScene == null)
 			
 	if logs != []:
 		# Need to display log message(s)

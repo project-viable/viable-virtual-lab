@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lab_counter.png-ce57a77bf07c5fb598cfbc279f4af100.stex"
+path="res://.import/Background.png-96ca3b373bab9e7906ddf19aef4dbe1b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/lab_counter.png"
-dest_files=[ "res://.import/lab_counter.png-ce57a77bf07c5fb598cfbc279f4af100.stex" ]
+source_file="res://Images/Resized_Images/Background.png"
+dest_files=[ "res://.import/Background.png-96ca3b373bab9e7906ddf19aef4dbe1b.stex" ]
 
 [params]
 

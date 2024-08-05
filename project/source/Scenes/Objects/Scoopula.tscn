@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Objects/Scoopula.gd" type="Script" id=1]
-[ext_resource path="res://Images/Spatula.png" type="Texture" id=2]
-[ext_resource path="res://Images/Spatula_filled.png" type="Texture" id=3]
+[ext_resource path="res://Images/Resized_Images/Spatula.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/DimensionSprite.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/Objects/UI/ScoopulaMenu.gd" type="Script" id=4]
+[ext_resource path="res://Images/FillSprites/scoopula_fill.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 49.5 )
+extents = Vector2( 55.4946, 6.18365 )
 
 [node name="Scoopula" type="RigidBody2D"]
 z_index = 3
@@ -15,31 +16,35 @@ gravity_scale = 0.0
 script = ExtResource( 1 )
 draggable = true
 DisplayName = "Scoopula"
-filled_image = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -9.53674e-07, -2.38419e-07 )
-rotation = 1.57079
-scale = Vector2( 0.0135876, 0.012674 )
 texture = ExtResource( 2 )
 
+[node name="FillSprite" type="Sprite" parent="."]
+position = Vector2( -9.83013, 49.2502 )
+rotation = -1.31423
+scale = Vector2( 0.298025, 0.259101 )
+texture = ExtResource( 5 )
+script = ExtResource( 3 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.5, -1.11063e-06 )
-rotation = 1.57079
+position = Vector2( 1.17049, -0.238485 )
+rotation = -1.3439
 shape = SubResource( 1 )
 
 [node name="ScoopulaMenu" type="PopupMenu" parent="."]
 margin_left = 107.0
 margin_top = 43.0
-margin_right = 202.0
-margin_bottom = 163.0
+margin_right = 241.0
+margin_bottom = 180.0
 script = ExtResource( 4 )
 
 [node name="PanelContainer" type="GridContainer" parent="ScoopulaMenu"]
 margin_left = 9.0
 margin_top = 8.0
-margin_right = 93.0
-margin_bottom = 90.0
+margin_right = 127.0
+margin_bottom = 131.0
 
 [node name="sliderDispenseQty" type="HSlider" parent="ScoopulaMenu/PanelContainer"]
 margin_right = 74.0

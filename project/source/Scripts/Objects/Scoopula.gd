@@ -30,6 +30,7 @@ func TryInteract(others):
 					
 					#Show menu
 					$ScoopulaMenu.popup()
+					$ScoopulaMenu.rect_global_position = global_position
 					$ScoopulaMenu/PanelContainer/sliderDispenseQty.max_value = contents[0].volume
 					
 					targetObj = other

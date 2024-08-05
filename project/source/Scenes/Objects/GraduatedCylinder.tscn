@@ -1,12 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Objects/GraduatedCylinder.gd" type="Script" id=1]
-[ext_resource path="res://Images/Graduated_Cylinder.png" type="Texture" id=2]
+[ext_resource path="res://Images/Resized_Images/graduated_cylinder_container.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Objects/VolumeContainer.gd" type="Script" id=3]
-[ext_resource path="res://Images/Graduated_Cylinder_Filled.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 59.5 )
+extents = Vector2( 16, 85 )
 
 [node name="GraduatedCylinder2" type="RigidBody2D" groups=["LabObjects", "Liquid Container"]]
 collision_layer = 2
@@ -15,36 +14,36 @@ gravity_scale = 0.0
 can_sleep = false
 script = ExtResource( 1 )
 draggable = true
-filled_image = ExtResource( 4 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -7.0
-margin_top = -54.0
-margin_right = 7.0
-margin_bottom = 51.0
+margin_left = -10.0
+margin_top = -75.0
+margin_right = 9.0
+margin_bottom = 73.0
 mouse_filter = 2
 color = Color( 1, 1, 1, 0 )
 
 [node name="FillProgress" type="ColorRect" parent="."]
-margin_left = 7.0
-margin_top = 51.0
-margin_right = 21.0
-margin_bottom = 51.0
+margin_left = 10.0
+margin_top = 73.0
+margin_right = 30.0
+margin_bottom = 73.0
 rect_rotation = 180.0
 mouse_filter = 2
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.016, 0.016 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 0.5 )
+visible = false
+position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 
 [node name="VolumeContainer" type="Node2D" parent="." groups=["VolumeContainers"]]
 script = ExtResource( 3 )
 
 [node name="Menu" type="CanvasLayer" parent="."]
+visible = false
 offset = Vector2( 600, 400 )
 transform = Transform2D( 1, 0, 0, 1, 600, 400 )
 
@@ -55,40 +54,40 @@ margin_right = 40.0
 margin_bottom = -10.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 215.0
-margin_bottom = 116.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 234.0
+margin_bottom = 166.0
 
 [node name="Title" type="Label" parent="Menu/PanelContainer/VBoxContainer"]
-margin_right = 208.0
-margin_bottom = 14.0
+margin_right = 224.0
+margin_bottom = 19.0
 text = "Set Graduated Cylinder Volume"
 
 [node name="Description" type="RichTextLabel" parent="Menu/PanelContainer/VBoxContainer"]
-margin_top = 18.0
-margin_right = 208.0
-margin_bottom = 33.0
+margin_top = 23.0
+margin_right = 224.0
+margin_bottom = 63.0
 text = "Specify the volume to add in mL"
 fit_content_height = true
 
 [node name="SpinBox" type="SpinBox" parent="Menu/PanelContainer/VBoxContainer"]
-margin_top = 37.0
-margin_right = 208.0
-margin_bottom = 61.0
+margin_top = 67.0
+margin_right = 224.0
+margin_bottom = 94.0
 step = 5.0
 align = 2
 
 [node name="DispenseButton" type="Button" parent="Menu/PanelContainer/VBoxContainer"]
-margin_top = 65.0
-margin_right = 208.0
-margin_bottom = 85.0
+margin_top = 98.0
+margin_right = 224.0
+margin_bottom = 125.0
 text = "Add liquid"
 
 [node name="CloseButton" type="Button" parent="Menu/PanelContainer/VBoxContainer"]
-margin_top = 89.0
-margin_right = 208.0
-margin_bottom = 109.0
+margin_top = 129.0
+margin_right = 224.0
+margin_bottom = 156.0
 text = "Close"
 
 [connection signal="pressed" from="Menu/PanelContainer/VBoxContainer/DispenseButton" to="." method="_on_DispenseButton_pressed"]

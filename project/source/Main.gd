@@ -25,7 +25,7 @@ func SetScene(scene: PackedScene):
 	var newScene = scene.instance()
 	$Scene.add_child(newScene)
 	currentModuleScene = newScene
-	$Camera.Reset()
+	#$Camera.Reset()
 
 func GetDeepestSubsceneAt(pos: Vector2):
 	var result = null
@@ -75,10 +75,10 @@ func _unhandled_input(event):
 	
 	#If we've made it here, then we didn't need to do something with a LabObject
 	###Now see if we should do something to the camera
-	if event.is_action_pressed("DragCamera") and GameSettings.mouseCameraDrag:
-		$Camera.StartDragging()
-	
-	if event.is_action_pressed("CameraZoomIn"):
-		$Camera.ZoomIn()
-	if event.is_action_pressed("CameraZoomOut"):
-		$Camera.ZoomOut()
+#	if event.is_action_pressed("DragCamera") and GameSettings.mouseCameraDrag:
+#		$Camera.StartDragging()
+#
+#	if event.is_action_pressed("CameraZoomIn"):
+#		$Camera.ZoomIn()
+#	if event.is_action_pressed("CameraZoomOut"):
+#		$Camera.ZoomOut()

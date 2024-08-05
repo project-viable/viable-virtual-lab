@@ -5,19 +5,18 @@
 [ext_resource path="res://Scripts/Objects/ElectrodeTerminal.gd" type="Script" id=3]
 [ext_resource path="res://Images/PositiveTerminal.png" type="Texture" id=4]
 [ext_resource path="res://Images/NegativeTerminal.png" type="Texture" id=5]
+[ext_resource path="res://Images/Resized_Images/Power_Box.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 207, 69 )
-
-[sub_resource type="ViewportTexture" id=6]
+extents = Vector2( 81, 31 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 18, 18 )
+extents = Vector2( 9, 9 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 18, 18 )
+extents = Vector2( 9, 8.25 )
 
 [node name="CurrentSource" type="RigidBody2D" groups=["CurrentConductors", "LabObjects"]]
 collision_layer = 2
@@ -28,41 +27,39 @@ script = ExtResource( 1 )
 time_delay = 0.005
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 207, 69 )
+position = Vector2( 0, -0.5 )
 shape = SubResource( 5 )
 
 [node name="CurrentConductor" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 207, 69 )
-texture = SubResource( 6 )
+position = Vector2( 0, 0.5 )
+texture = ExtResource( 6 )
 
 [node name="UserInput" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = -47.0
+margin_top = -12.5
+margin_right = 25.0
+margin_bottom = 7.5
+rect_scale = Vector2( 0.5, 0.5 )
 
 [node name="VoltsInput" type="SpinBox" parent="UserInput"]
-margin_left = 99.0
-margin_top = 43.0
-margin_right = 173.0
-margin_bottom = 67.0
-rect_scale = Vector2( 1, 0.75 )
+margin_right = 74.0
+margin_bottom = 27.0
 max_value = 1000.0
 
 [node name="TimeInput" type="SpinBox" parent="UserInput"]
-margin_left = 99.0
-margin_top = 81.0
-margin_right = 173.0
-margin_bottom = 105.0
-rect_scale = Vector2( 1, 0.75 )
+margin_top = 36.0
+margin_right = 74.0
+margin_bottom = 63.0
 max_value = 1000.0
 
 [node name="RunCurrent" type="Button" parent="UserInput"]
-margin_left = 329.0
-margin_top = 87.0
-margin_right = 382.0
-margin_bottom = 113.0
+margin_left = 186.0
+margin_top = 36.0
+margin_right = 244.0
+margin_bottom = 63.0
 text = "START"
 
 [node name="Viewport" type="Viewport" parent="."]
@@ -111,7 +108,7 @@ text = "Time (min)"
 align = 1
 
 [node name="PosTerminal" type="RigidBody2D" parent="."]
-position = Vector2( 46, 45 )
+position = Vector2( -63, -8 )
 gravity_scale = 0.0
 script = ExtResource( 3 )
 __meta__ = {
@@ -119,10 +116,10 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="PosTerminal"]
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
+margin_left = -9.0
+margin_top = -7.0
+margin_right = 9.0
+margin_bottom = 11.0
 mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="PosTerminal"]
@@ -139,7 +136,8 @@ mouse_filter = 1
 color = Color( 0.352941, 0.352941, 0.392157, 1 )
 
 [node name="TerminalImg" type="Sprite" parent="PosTerminal"]
-scale = Vector2( 0.20625, 0.20625 )
+position = Vector2( 0, 2 )
+scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 4 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="PosTerminal"]
@@ -155,7 +153,7 @@ position = Vector2( 0, 2 )
 shape = SubResource( 3 )
 
 [node name="NegTerminal" type="RigidBody2D" parent="."]
-position = Vector2( 47, 94 )
+position = Vector2( -63, 14 )
 gravity_scale = 0.0
 script = ExtResource( 3 )
 __meta__ = {
@@ -163,10 +161,10 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="NegTerminal"]
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
+margin_left = -9.0
+margin_top = -9.0
+margin_right = 9.0
+margin_bottom = 9.0
 mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="NegTerminal"]
@@ -183,11 +181,11 @@ mouse_filter = 1
 color = Color( 0.352941, 0.352941, 0.392157, 1 )
 
 [node name="TerminalImg" type="Sprite" parent="NegTerminal"]
-scale = Vector2( 0.20625, 0.20625 )
+scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 5 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="NegTerminal"]
-position = Vector2( 0, 2 )
+position = Vector2( 0, 0.75 )
 shape = SubResource( 4 )
 
 [node name="Area2D" type="Area2D" parent="NegTerminal"]
@@ -195,7 +193,7 @@ input_pickable = false
 monitorable = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="NegTerminal/Area2D"]
-position = Vector2( 0, 2 )
+position = Vector2( 0, 1 )
 shape = SubResource( 4 )
 
 [connection signal="body_shape_exited" from="." to="." method="_on_CurrentSource_body_shape_exited"]
