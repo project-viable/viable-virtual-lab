@@ -39,6 +39,7 @@ input_pickable = true
 mode = 3
 can_sleep = false
 script = ExtResource( 1 )
+canChangeSubscenes = false
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 1, 0, 0, 0.352941 )
