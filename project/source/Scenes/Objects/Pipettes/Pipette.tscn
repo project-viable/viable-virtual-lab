@@ -300,8 +300,9 @@ valign = 1
 [node name="ActionLabel" type="Label" parent="Menu/Border"]
 margin_left = 36.0
 margin_top = 46.0
-margin_right = 169.0
-margin_bottom = 60.0
+margin_right = 131.0
+margin_bottom = 107.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Dispensed contents!"
 autowrap = true
 
