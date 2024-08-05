@@ -2,15 +2,18 @@
 
 [ext_resource path="res://Scripts/DimensionSprite.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Objects/Pipette.gd" type="Script" id=2]
-[ext_resource path="res://Images/Pipette_Base.png" type="Texture" id=3]
-[ext_resource path="res://Images/Pipette_With_Tip.png" type="Texture" id=4]
+[ext_resource path="res://Images/Resized_Images/Pipette_with_notip.png" type="Texture" id=3]
+[ext_resource path="res://Images/Resized_Images/Pipette_with_tip.png" type="Texture" id=4]
 [ext_resource path="res://Images/Pipette_Closeup_Background.png" type="Texture" id=5]
 [ext_resource path="res://Images/Pipette_Closeup_Plunger.png" type="Texture" id=6]
 [ext_resource path="res://Images/Pipette_Closeup_Plunger_Stick.png" type="Texture" id=7]
 [ext_resource path="res://Images/RedArrow.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7.5, 33 )
+extents = Vector2( 7.5, 41.5 )
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 3.5, 34.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 4.5, 3 )
@@ -80,9 +83,6 @@ tracks/1/keys = {
 "values": [ Vector2( 106, 12.5 ), Vector2( 116, 12.5 ), Vector2( 106, 12.5 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 3.5, 32.5 )
-
 [node name="Pipette" type="RigidBody2D" groups=["LabObjects"]]
 z_index = 2
 collision_layer = 2
@@ -93,22 +93,24 @@ script = ExtResource( 2 )
 draggable = true
 
 [node name="BaseSprite" type="Sprite" parent="."]
-scale = Vector2( 0.157895, 0.157274 )
+position = Vector2( 0, 9 )
 texture = ExtResource( 3 )
 script = ExtResource( 1 )
-OverrideDimensions = true
 SpriteDimensions = Vector2( 24, 120 )
 
 [node name="TipSprite" type="Sprite" parent="."]
 visible = false
-position = Vector2( 0, 9 )
-scale = Vector2( 0.157895, 0.157274 )
+position = Vector2( 0, 19 )
 texture = ExtResource( 4 )
 script = ExtResource( 1 )
 
 [node name="Collision1" type="CollisionShape2D" parent="."]
-position = Vector2( 4.5, -20 )
+position = Vector2( 4.5, -11.5 )
 shape = SubResource( 1 )
+
+[node name="Collision2" type="CollisionShape2D" parent="."]
+position = Vector2( 3, 64.5 )
+shape = SubResource( 14 )
 
 [node name="Collision3" type="CollisionShape2D" parent="."]
 position = Vector2( -7.5, -50 )
@@ -295,10 +297,6 @@ margin_right = 169.0
 margin_bottom = 60.0
 text = "Dispensed contents!"
 autowrap = true
-
-[node name="Collision2" type="CollisionShape2D" parent="."]
-position = Vector2( 2.5, 45.5 )
-shape = SubResource( 14 )
 
 [connection signal="timeout" from="Menu/AutoCloseTimer" to="." method="_on_AutoCloseTimer_timeout"]
 [connection signal="pressed" from="Menu/Border/Background/CloseButton" to="." method="_on_CloseButton_pressed"]
