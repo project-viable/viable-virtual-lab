@@ -43,7 +43,7 @@ canChangeSubscenes = false
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 1, 0, 0, 0.352941 )
-position = Vector2( 0, 19 )
+position = Vector2( 0, 17 )
 texture = ExtResource( 3 )
 script = ExtResource( 2 )
 SpriteDimensions = Vector2( 24, 120 )
