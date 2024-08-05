@@ -22,9 +22,9 @@ position = Vector2( -9.53674e-07, -2.38419e-07 )
 texture = ExtResource( 2 )
 
 [node name="FillSprite" type="Sprite" parent="."]
-position = Vector2( -9.83013, 49.2502 )
+position = Vector2( -10, 48 )
 rotation = -1.31423
-scale = Vector2( 0.298025, 0.259101 )
+scale = Vector2( 0.0255607, 0.0181997 )
 texture = ExtResource( 5 )
 script = ExtResource( 3 )
 
