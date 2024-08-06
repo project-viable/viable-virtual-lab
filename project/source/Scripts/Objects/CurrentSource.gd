@@ -57,10 +57,12 @@ func _on_RunCurrent_pressed():
 			running = !running
 			ToggleRunCurrentText()
 			ToggleInputsEditable()
-	
+
 			# This calls run_current on the designated device at an equally timed interval
 			# This loop will also stop short of the desired time if the user presses "STOP"
-			while time_ran <= $CurrentConductor.GetTime() or !running:
+			while time_ran <= $CurrentConductor.GetTime():
+				if !running:
+					break
 				var timestep = get_physics_process_delta_time()
 				# Get the connection
 				if $PosTerminal.connected() && $NegTerminal.connected():
