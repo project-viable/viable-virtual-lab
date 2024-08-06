@@ -29,7 +29,9 @@ func GetAllFilesInFolder(path):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$MainMenu.show()
+	# Due to having one module, the MainMenu should be hidden by default
+	# When more modules are added, it is likely a good idea to show MainMenu by default
+	$MainMenu.hide()
 	$ModuleSelect.hide()
 	$OptionsScreen.hide()
 	$AboutScreen.hide()
@@ -45,7 +47,7 @@ func _ready():
 		if moduleData.Show:
 			var newButton = ModuleButton.instance()
 			newButton.SetData(moduleData)
-			newButton.connect("pressed", self, "ModuleSelectButtonClicked", [moduleData])
+			newButton.connect("pressed", self, "ModuleSelected", [moduleData])
 			$ModuleSelect.add_child(newButton)
 	
 	#connect the log signals
@@ -60,6 +62,10 @@ func _ready():
 	
 	$OptionsScreen/VBoxContainer/PopupDurationTitle.text = "Popup Duration (s) : Currently " + str(popupTimeout)
 	$OptionsScreen/VBoxContainer/PopupTimeout.value = popupTimeout
+	
+	# Since there is one module, it should boot directly into this scene
+	var module: ModuleData = load(ModuleDirectory + "GelElectrophoresis.tres")
+	ModuleSelected(module)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -82,7 +88,7 @@ func _process(delta):
 				ShowPopup(logs[0]['category'], logs[0]['newLog'])
 			logs.remove(0)
 
-func ModuleSelectButtonClicked(module: ModuleData):
+func ModuleSelected(module: ModuleData):
 	get_parent().SetScene(module.Scene)
 	$ModuleSelect.hide()
 	currentModule = module
