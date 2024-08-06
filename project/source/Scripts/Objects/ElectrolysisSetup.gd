@@ -8,7 +8,7 @@ var fill_requested = false
 
 signal menu_closed
 
-var filled_texture = load('res://Images/Gel_Rig_filled.png')
+var filled_texture = load('res://Images/Resized_Images/Gel_Rig_filled.png')
 
 func TryInteract(others):
 	for other in others:
