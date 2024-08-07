@@ -58,22 +58,22 @@ expand = true
 stretch_mode = 7
 
 [node name="SelectModuleButton" type="Button" parent="Menu/MainMenu/Content"]
+visible = false
 margin_right = 400.0
 margin_bottom = 41.0
 custom_fonts/font = ExtResource( 12 )
 text = "Select Module"
 
 [node name="OptionsButton" type="Button" parent="Menu/MainMenu/Content"]
-margin_top = 45.0
 margin_right = 400.0
-margin_bottom = 86.0
+margin_bottom = 41.0
 custom_fonts/font = ExtResource( 12 )
 text = "Options"
 
 [node name="AboutButton" type="Button" parent="Menu/MainMenu/Content"]
-margin_top = 90.0
+margin_top = 45.0
 margin_right = 400.0
-margin_bottom = 131.0
+margin_bottom = 86.0
 custom_fonts/font = ExtResource( 12 )
 text = "About"
 
@@ -611,19 +611,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -162.0
-margin_top = -51.0
-margin_right = 163.0
-margin_bottom = 145.0
+margin_left = -150.0
+margin_top = -84.5
+margin_right = 150.0
+margin_bottom = 84.5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/OptionsScreen"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 315.0
-margin_bottom = 186.0
+margin_right = 290.0
+margin_bottom = 159.0
 
 [node name="Label" type="Label" parent="Menu/OptionsScreen/VBoxContainer"]
-margin_right = 305.0
+margin_right = 280.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 text = "Options"
@@ -638,27 +638,27 @@ text = "Enable Dragging Camera with Mouse"
 
 [node name="ObjectTooltipsToggle" type="CheckButton" parent="Menu/OptionsScreen/VBoxContainer"]
 margin_top = 24.0
-margin_right = 305.0
+margin_right = 280.0
 margin_bottom = 64.0
 text = "Object Tooltips"
 
 [node name="PopupDurationTitle" type="Label" parent="Menu/OptionsScreen/VBoxContainer"]
 margin_top = 68.0
-margin_right = 305.0
+margin_right = 280.0
 margin_bottom = 87.0
 grow_horizontal = 0
 text = "Popup Duration (s) : Currently"
 
 [node name="PopupTimeout" type="SpinBox" parent="Menu/OptionsScreen/VBoxContainer"]
 margin_top = 91.0
-margin_right = 305.0
+margin_right = 280.0
 margin_bottom = 118.0
 max_value = 5.0
 step = 0.5
 
 [node name="CloseButton" type="Button" parent="Menu/OptionsScreen/VBoxContainer"]
 margin_top = 122.0
-margin_right = 305.0
+margin_right = 280.0
 margin_bottom = 149.0
 text = "Close"
 
