@@ -8,7 +8,10 @@ var fill_requested = false
 
 signal menu_closed
 
-var filled_texture = load('res://Images/Resized_Images/Gel_Rig_filled.png')
+var nonfilled_texture = load('res://Images/Resized_Images/Gel_Rig.png')
+var filled_texture = load('res://Images/Resized_Images/Gel_Rig_filled_NO_grooves.png')
+var filled_wells_texture = load('res://Images/Resized_Images/Gel_Rig_filled.png')
+var filled_comb_texture = load('res://Images/Resized_Images/Gel_Rig_comb.png')
 
 func TryInteract(others):
 	for other in others:
@@ -17,6 +20,7 @@ func TryInteract(others):
 			if len(liquid_substance) > 1:
 				liquid_substance = liquid_substance[0]
 			if(!(liquid_substance)):
+				print(other)
 				return
 			# Open substance menu
 			$FollowMenu/SubstanceMenu.visible = true
@@ -74,7 +78,15 @@ func terminal_connected(terminal, contact):
 func slot_filled(slot, object):
 	if(object.is_in_group('Gel Boat')):
 		mounted_container = object
+		var gelMoldInfo = object.GelMoldInfo()
 		mounted_container.visible = false
+		
+		# Change texture if it has wells
+		if gelMoldInfo["hasComb"]:
+			$Sprite.texture = filled_comb_texture
+		elif gelMoldInfo["hasWells"]:
+			$Sprite.texture = filled_wells_texture
+		
 		var init_data = mounted_container.gel_status()
 		$GelSimMenu/GelDisplay.init(init_data[0], init_data[1])
 
@@ -82,6 +94,12 @@ func slot_emptied(slot, object):
 	if mounted_container == null:
 		return
 	mounted_container.visible = true
+	
+	if fill_substance == null:
+		$Sprite.texture = nonfilled_texture
+	else:
+		$Sprite.texture = filled_texture
+	
 	mounted_container = null
 
 func _on_SubstanceCloseButton_pressed():
