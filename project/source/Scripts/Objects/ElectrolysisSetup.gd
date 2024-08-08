@@ -8,7 +8,7 @@ var fill_requested = false
 
 signal menu_closed
 
-var filled_texture = load('res://Images/Resized_Images/Gel_Rig_filled.png')
+var filled_texture = load('res://Images/Resized_Images/Gel_Rig_filled_NO_grooves.png')
 
 func TryInteract(others):
 	for other in others:
@@ -72,8 +72,10 @@ func terminal_connected(terminal, contact):
 	return $PosTerminal.connected() || $NegTerminal.connected()
 
 func slot_filled(slot, object):
+	print(slot, object)
 	if(object.is_in_group('Gel Boat')):
 		mounted_container = object
+		var gelMoldInfo = object.GelMoldInfo()
 		mounted_container.visible = false
 		var init_data = mounted_container.gel_status()
 		$GelSimMenu/GelDisplay.init(init_data[0], init_data[1])
