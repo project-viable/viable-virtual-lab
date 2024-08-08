@@ -20,7 +20,6 @@ func TryInteract(others):
 			if len(liquid_substance) > 1:
 				liquid_substance = liquid_substance[0]
 			if(!(liquid_substance)):
-				print(other)
 				return
 			# Open substance menu
 			$FollowMenu/SubstanceMenu.visible = true
@@ -34,7 +33,15 @@ func TryInteract(others):
 					print(fill_substance)
 					$FollowMenu/SubstanceMenu.visible = false
 					# Update the Electrolysis setup to show that it is filled
-					$Sprite.texture = filled_texture
+					if mounted_container != null:
+						if mounted_container.GelMoldInfo()["hasComb"]:
+							$Sprite.texture = filled_comb_texture
+						elif mounted_container.GelMoldInfo()["hasWells"]:
+							$Sprite.texture = filled_wells_texture
+						else:
+							$Sprite.texture = filled_texture
+					else:
+						$Sprite.texture = filled_texture
 				elif(other.CheckContents("Liquid Substance")):
 					print('The setup is already filled.')
 				else:
@@ -99,7 +106,9 @@ func slot_emptied(slot, object):
 		$Sprite.texture = nonfilled_texture
 	else:
 		$Sprite.texture = filled_texture
-	
+	print(mounted_container.position)
+	mounted_container.position = Vector2(self.position.x - 170, self.position.y - 20)
+	print(self.position)
 	mounted_container = null
 
 func _on_SubstanceCloseButton_pressed():

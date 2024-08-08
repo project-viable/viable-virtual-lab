@@ -16,7 +16,7 @@ extents = Vector2( 50, 14.5 )
 extents = Vector2( 10, 9.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 37.25, 12 )
+extents = Vector2( 65, 30.1875 )
 
 [node name="ElectrolysisSetup" type="RigidBody2D"]
 position = Vector2( -3, 35 )
@@ -173,19 +173,19 @@ position = Vector2( 1, 1 )
 shape = SubResource( 2 )
 
 [node name="GelBoatSlot" type="RigidBody2D" parent="."]
+collision_layer = 3
+input_pickable = true
 gravity_scale = 0.0
 script = ExtResource( 2 )
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="GelBoatSlot"]
-position = Vector2( -2.25, -47 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GelBoatSlot"]
+position = Vector2( 1, -30.1875 )
 shape = SubResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="GelBoatSlot"]
-input_pickable = false
-monitorable = false
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="GelBoatSlot/Area2D"]
-position = Vector2( 1, -47 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GelBoatSlot/Area2D"]
+position = Vector2( 2, -30 )
 shape = SubResource( 3 )
 
 [node name="GelButton" type="Button" parent="."]
@@ -217,6 +217,6 @@ texture_normal = ExtResource( 8 )
 [connection signal="pressed" from="FollowMenu/SubstanceMenu/SubstanceCloseButton" to="." method="_on_SubstanceCloseButton_pressed"]
 [connection signal="body_exited" from="PosTerminal/Area2D" to="PosTerminal" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="NegTerminal/Area2D" to="NegTerminal" method="_on_Area2D_body_exited"]
-[connection signal="body_exited" from="GelBoatSlot/Area2D" to="GelBoatSlot" method="_on_Area2D_body_exited"]
+[connection signal="input_event" from="GelBoatSlot" to="GelBoatSlot" method="_on_GelBoatSlot_input_event"]
 [connection signal="pressed" from="GelButton" to="." method="_on_GelButton_pressed"]
 [connection signal="pressed" from="GelSimMenu/CloseButton" to="." method="_on_CloseButton_pressed"]
