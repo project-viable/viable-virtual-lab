@@ -44,6 +44,6 @@ https://docs.godotengine.org/en/3.5/
 
 ### Licensing
 
-At the time of writing, this project has no license, which means that, while you can see it, you currently can't actually use any of the code on your own, because it belongs to its individual authors.
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/project-viable/viable-virtual-lab">VIABLE Framework</a> by <span property="cc:attributionName">VIABLE team</span> is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""></a></p>
 
-Soom, there will be a real license. When there is, Github will show it to you in the sidebar.
+The contents of this repository are under the above license unless otherwise noted (for example, we include the Godot Engine, which uses its own, somewhat similar, open-source license).
