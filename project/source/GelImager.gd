@@ -32,6 +32,7 @@ func slot_filled(slot, object):
 				
 				$ImagingMenu.visible = true
 				$ImagingMenu/GelDisplay.open()
+				object.visible = false
 				filled = true
 			else:
 				print("Container does not contain gel")
