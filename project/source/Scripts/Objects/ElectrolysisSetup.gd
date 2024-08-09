@@ -96,8 +96,11 @@ func slot_filled(slot, object):
 		
 		var init_data = mounted_container.gel_status()
 		$GelSimMenu/GelDisplay.init(init_data[0], init_data[1])
+	else:
+		slot_emptied(slot, object)
 
 func slot_emptied(slot, object):
+	$GelBoatSlot.held_object = null
 	if mounted_container == null:
 		return
 	mounted_container.visible = true
