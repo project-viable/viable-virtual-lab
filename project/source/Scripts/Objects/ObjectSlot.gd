@@ -14,8 +14,9 @@ func TryInteract(others):
 				# prevent the area from detecting the single-frame coordinate snap on adding the child
 				$Area2D.monitoring = false
 				
-				GetCurrentModuleScene().call_deferred("remove_child", other)
-				self.call_deferred("add_child", other)
+				if other in GetCurrentModuleScene().get_children():
+					GetCurrentModuleScene().call_deferred("remove_child", other)
+					self.call_deferred("add_child", other)
 				
 				other.set_deferred("position", Vector2.ZERO)
 				
@@ -41,8 +42,9 @@ func _on_GelBoatSlot_input_event(viewport, event, shape_idx):
 		held_object.set_deferred("gravity_scale", saved_grav_scale)
 		held_object.set_deferred("mode", saved_phys_mode)
 
-		self.call_deferred("remove_child", held_object)
-		GetCurrentModuleScene().call_deferred("add_child", held_object)
+		if held_object in self.get_children():
+			self.call_deferred("remove_child", held_object)
+			GetCurrentModuleScene().call_deferred("add_child", held_object)
 
 		get_parent().slot_emptied(self, held_object)
 		held_object = null
