@@ -33,6 +33,9 @@ func filled():
 
 func get_object():
 	return held_object
+	
+func _on_Area2D_body_exited(body):
+	pass
 
 func _on_GelBoatSlot_input_event(viewport, event, shape_idx):
 	if (event.is_pressed()):
