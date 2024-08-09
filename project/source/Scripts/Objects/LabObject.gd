@@ -19,6 +19,8 @@ onready var defaultMode = mode
 onready var defaultZIndex = z_index
 onready var defaultZAsRelative = z_as_relative
 
+var startPosition
+
 func _get_configuration_warning():
 	for child in get_children():
 		if child is CollisionShape2D or child is CollisionPolygon2D:
@@ -39,6 +41,8 @@ func _ready():
 	collision_mask = 1 #Scene layer, no others
 	can_sleep = false
 	input_pickable = true
+	
+	startPosition = self.position
 	
 	#if we're not in the editor
 	if not Engine.editor_hint:
@@ -272,3 +276,6 @@ func ReportAction(objectsInvolved: Array, actionType: String, params: Dictionary
 	params['objectsInvolved'] = objectsInvolved
 	params['actionType'] = actionType
 	GetCurrentModuleScene().CheckAction(params)
+
+func GetStartPosition():
+	return startPosition
