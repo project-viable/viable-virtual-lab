@@ -20,7 +20,6 @@ func TryInteract(others):
 			if len(liquid_substance) > 1:
 				liquid_substance = liquid_substance[0]
 			if(!(liquid_substance)):
-				print(other)
 				return
 			# Open substance menu
 			$FollowMenu/SubstanceMenu.visible = true
@@ -34,7 +33,15 @@ func TryInteract(others):
 					print(fill_substance)
 					$FollowMenu/SubstanceMenu.visible = false
 					# Update the Electrolysis setup to show that it is filled
-					$Sprite.texture = filled_texture
+					if mounted_container != null:
+						if mounted_container.GelMoldInfo()["hasComb"]:
+							$Sprite.texture = filled_comb_texture
+						elif mounted_container.GelMoldInfo()["hasWells"]:
+							$Sprite.texture = filled_wells_texture
+						else:
+							$Sprite.texture = filled_texture
+					else:
+						$Sprite.texture = filled_texture
 				elif(other.CheckContents("Liquid Substance")):
 					print('The setup is already filled.')
 				else:
@@ -89,17 +96,26 @@ func slot_filled(slot, object):
 		
 		var init_data = mounted_container.gel_status()
 		$GelSimMenu/GelDisplay.init(init_data[0], init_data[1])
+	else:
+		slot_emptied(slot, object)
 
 func slot_emptied(slot, object):
+	$GelBoatSlot.held_object = null
 	if mounted_container == null:
 		return
 	mounted_container.visible = true
+	
+	# We should prevent showing the subscene on removing the gel boat
+	# as that should be done when the user clicks it, not when removing it
+	if mounted_container.is_in_group("SubsceneManagers"):
+		mounted_container.HideSubscene();
 	
 	if fill_substance == null:
 		$Sprite.texture = nonfilled_texture
 	else:
 		$Sprite.texture = filled_texture
-	
+		
+	mounted_container.position = Vector2(self.position.x - 170, self.position.y - 20)
 	mounted_container = null
 
 func _on_SubstanceCloseButton_pressed():
