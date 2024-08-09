@@ -106,9 +106,8 @@ func slot_emptied(slot, object):
 		$Sprite.texture = nonfilled_texture
 	else:
 		$Sprite.texture = filled_texture
-	print(mounted_container.position)
+		
 	mounted_container.position = Vector2(self.position.x - 170, self.position.y - 20)
-	print(self.position)
 	mounted_container = null
 
 func _on_SubstanceCloseButton_pressed():
