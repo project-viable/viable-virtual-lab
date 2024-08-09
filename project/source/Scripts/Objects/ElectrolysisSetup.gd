@@ -105,6 +105,11 @@ func slot_emptied(slot, object):
 		return
 	mounted_container.visible = true
 	
+	# We should prevent showing the subscene on removing the gel boat
+	# as that should be done when the user clicks it, not when removing it
+	if mounted_container.is_in_group("SubsceneManagers"):
+		mounted_container.HideSubscene();
+	
 	if fill_substance == null:
 		$Sprite.texture = nonfilled_texture
 	else:
