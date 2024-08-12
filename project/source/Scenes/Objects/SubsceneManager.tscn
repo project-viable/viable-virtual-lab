@@ -60,8 +60,15 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -20.0
 margin_bottom = 20.0
+custom_colors/font_color_disabled = Color( 0.65098, 0.65098, 0.65098, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
 custom_styles/hover = SubResource( 3 )
 custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 4 )
 custom_styles/normal = SubResource( 2 )
 text = "X"
 

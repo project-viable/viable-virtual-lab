@@ -8,6 +8,19 @@ DisplayName = "P20 Pipette"
 minCapacity = 2.0
 maxCapacity = 20.0
 
+[node name="Border" parent="Menu" index="1"]
+anchor_left = 0.379
+margin_left = 307.88
+margin_top = -281.0
+margin_right = 463.0
+margin_bottom = 219.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Bottom" parent="Menu/Border/VolumeDialLabels" index="2"]
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+
 [node name="PipetteSizeLabel" type="TextureRect" parent="Menu/Border" index="6"]
 margin_left = 220.0
 margin_top = 440.0

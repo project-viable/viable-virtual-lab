@@ -1,11 +1,10 @@
 extends LabContainer
 
 export (int) var maxVolume
-export (Color) var fillColor = Color(0, 0, 1)
 
 var allowedGroups = ["Source Container"]
 
-func _ready():
+func LabObjectReady():
 	if maxVolume == 0:
 		print("Warning: Graduated Cylinder has a max volume of 0mL")
 	# Initialize volume to 0mL
@@ -17,8 +16,6 @@ func _ready():
 	# Menu hidden by default
 	$Menu.hide()
 	ResetMenu()
-	
-	$FillProgress.color = fillColor
 
 func TryInteract(others):
 	for other in others:
@@ -34,7 +31,7 @@ func TryInteract(others):
 					
 					# Disable dragging while menu open
 					self.draggable = false
-					yield($Menu/PanelContainer/VBoxContainer/CloseButton, "pressed")
+					yield($Menu/PanelContainer/VBoxContainer/DispenseButton, "pressed")
 					# Reenable dragging
 					self.draggable = true
 					# Check if the grad cylinder's substance volume has changed
@@ -92,11 +89,33 @@ func update_display():
 	var fillPercentage = $VolumeContainer.GetVolume() / $VolumeContainer.GetMaxVolume()
 	var fillHeight = maxHeight * fillPercentage
 	$FillProgress.rect_size = Vector2($FillProgress.rect_size.x, fillHeight)
+	print("Display updated")
+	###Now we need to calculate the average color of our contents:
+	if len(contents) > 0:
+		var r = 0
+		var g = 0
+		var b = 0
+		var volume = 0
+		
+		for content in contents:
+			r += Color(content.color).r * content.volume
+			g += Color(content.color).g * content.volume
+			b += Color(content.color).b * content.volume
+			volume += content.volume
+		
+		r = r/volume
+		g = g/volume
+		b = b/volume
+		
+		$FillProgress.color = Color(r, g, b)
+		print("color updated")
+
 # Reset values in menu
 func ResetMenu():
 	$Menu/PanelContainer/VBoxContainer/Description.text = "Graduated Cylinder currently has a " \
 	+ "volume of " + String($VolumeContainer.GetVolume()) + "mL"
 	$Menu/PanelContainer/VBoxContainer/SpinBox.set_value(0)
+	update_display()
 
 func _on_CloseButton_pressed():
 	$Menu.hide()

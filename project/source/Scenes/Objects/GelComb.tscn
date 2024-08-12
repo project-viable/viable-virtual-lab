@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Objects/LabObject.gd" type="Script" id=1]
-[ext_resource path="res://Images/comb.png" type="Texture" id=2]
+[ext_resource path="res://Images/Resized_Images/Gel_Comb.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 42, 12 )
@@ -16,10 +16,7 @@ script = ExtResource( 1 )
 DisplayName = "Gel Comb"
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, 18 )
-scale = Vector2( 0.106742, 0.106741 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 6 )
 shape = SubResource( 1 )

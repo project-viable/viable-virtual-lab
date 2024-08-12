@@ -4,12 +4,9 @@ extends "res://Scripts/Substances/Substance.gd"
 
 func _init():
 	var properties = {
-		'density': 0.8,
-		'color': '#ccffdd'
+		'density': 1,
+		'color': '#ffffff'
 	}
 	
 	# call the superclass init
 	init_created(properties)
-
-func heat(heatTime):
-	pass

@@ -4,12 +4,10 @@ class_name LabContainer
 
 # This container models a container (like a flask) that can be emptied of its contents.
 
-export (Texture) var filled_image = null
-var empty_image = null
 var contents = []
 
-func _ready():
-	empty_image = $Sprite.texture
+func LabObjectReady():
+	update_display()
 
 func TryInteract(others):
 	for other in others:
@@ -92,7 +90,7 @@ func AddContents(new_contents):
 	update_display()
 
 func update_weight():
-	var overall_weight = 9.8 #self.mass
+	var overall_weight = 0 #self.mass
 	for content in contents:
 		if(content.is_in_group("Weighable")):
 			overall_weight += content.get_mass()
@@ -144,11 +142,32 @@ func dispose():
 
 func update_display():
 	# static change from "empty" to "filled" for now
-	if(len(contents) > 0):
-		if(filled_image != null):
-			$Sprite.texture = filled_image
-	else:
-		$Sprite.texture = empty_image
+	$FillSprite.visible = (len(contents) > 0)
+	
+	###Now we need to calculate the average color of our contents:
+	if len(contents) > 0:
+		var r = 0
+		var g = 0
+		var b = 0
+		var a = 0
+		var volume = 0
+		
+		for content in contents:
+			r += Color(content.color).r * content.volume
+			g += Color(content.color).g * content.volume
+			b += Color(content.color).b * content.volume
+			volume += content.volume
+				
+		if volume > 0:
+			r = r/volume
+			g = g/volume
+			b = b/volume
+			a = 1
+		else:
+			a = 0	
+		
+		
+		$FillSprite.modulate = Color(r, g, b, a)
 
 func _on_Button_pressed():
 	mix()

@@ -4,19 +4,19 @@
 [ext_resource path="res://Scripts/Objects/ObjectSlot.gd" type="Script" id=2]
 [ext_resource path="res://Images/PositiveTerminal.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/UI/GelDisplay.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Images/Gel_Rig.png" type="Texture" id=5]
+[ext_resource path="res://Images/Resized_Images/Gel_Rig.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/Objects/ElectrolysisSetup.gd" type="Script" id=6]
 [ext_resource path="res://Scripts/Objects/ElectrodeTerminal.gd" type="Script" id=7]
 [ext_resource path="res://Images/redX.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 50, 17 )
+extents = Vector2( 50, 14.5 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 18, 18 )
+extents = Vector2( 10, 9.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 42.5, 12 )
+extents = Vector2( 65, 30.1875 )
 
 [node name="ElectrolysisSetup" type="RigidBody2D"]
 position = Vector2( -3, 35 )
@@ -29,10 +29,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -30.0
-margin_top = -83.0
-margin_right = 30.0
-margin_bottom = -49.0
+margin_left = -29.0
+margin_top = -91.0
+margin_right = 31.0
+margin_bottom = -57.0
 mouse_filter = 2
 color = Color( 0.188235, 0.188235, 0.564706, 1 )
 
@@ -46,11 +46,10 @@ align = 1
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 1, -33 )
-scale = Vector2( 0.04, 0.04 )
 texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -66 )
+position = Vector2( 3, -75 )
 shape = SubResource( 1 )
 
 [node name="FollowMenu" type="Control" parent="."]
@@ -84,7 +83,7 @@ margin_bottom = 47.0
 text = "Close"
 
 [node name="PosTerminal" type="RigidBody2D" parent="."]
-position = Vector2( -66, -29 )
+position = Vector2( -59, -53 )
 gravity_scale = 0.0
 script = ExtResource( 7 )
 __meta__ = {
@@ -92,8 +91,8 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="PosTerminal"]
-margin_left = -20.0
-margin_top = -20.0
+margin_left = -4.0
+margin_top = -2.0
 margin_right = 20.0
 margin_bottom = 20.0
 mouse_filter = 2
@@ -112,11 +111,12 @@ mouse_filter = 1
 color = Color( 0.352941, 0.352941, 0.392157, 1 )
 
 [node name="TerminalImg" type="Sprite" parent="PosTerminal"]
-scale = Vector2( 0.20625, 0.20625 )
+position = Vector2( 7.66094, 8.66094 )
+scale = Vector2( 0.116169, 0.116169 )
 texture = ExtResource( 3 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="PosTerminal"]
-position = Vector2( 0, 2 )
+position = Vector2( 8, 9 )
 shape = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="PosTerminal"]
@@ -124,11 +124,11 @@ input_pickable = false
 monitorable = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="PosTerminal/Area2D"]
-position = Vector2( 0, 2 )
+position = Vector2( 8, 8.5 )
 shape = SubResource( 2 )
 
 [node name="NegTerminal" type="RigidBody2D" parent="."]
-position = Vector2( 68, -28 )
+position = Vector2( 52, -43 )
 gravity_scale = 0.0
 script = ExtResource( 7 )
 __meta__ = {
@@ -136,10 +136,10 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="NegTerminal"]
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
+margin_left = -10.0
+margin_top = -10.0
+margin_right = 11.0
+margin_bottom = 11.0
 mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="NegTerminal"]
@@ -156,11 +156,12 @@ mouse_filter = 1
 color = Color( 0.352941, 0.352941, 0.392157, 1 )
 
 [node name="TerminalImg" type="Sprite" parent="NegTerminal"]
-scale = Vector2( 0.20625, 0.20625 )
+position = Vector2( 0.500001, 0.500001 )
+scale = Vector2( 0.117978, 0.117978 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="NegTerminal"]
-position = Vector2( 0, 2 )
+position = Vector2( 1, 1 )
 shape = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="NegTerminal"]
@@ -168,23 +169,22 @@ input_pickable = false
 monitorable = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="NegTerminal/Area2D"]
-position = Vector2( 0, 2 )
+position = Vector2( 1, 1 )
 shape = SubResource( 2 )
 
 [node name="GelBoatSlot" type="RigidBody2D" parent="."]
+input_pickable = true
 gravity_scale = 0.0
 script = ExtResource( 2 )
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="GelBoatSlot"]
-position = Vector2( 3, -36 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GelBoatSlot"]
+position = Vector2( 1, -30.1875 )
 shape = SubResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="GelBoatSlot"]
-input_pickable = false
-monitorable = false
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="GelBoatSlot/Area2D"]
-position = Vector2( 3.5, -36 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GelBoatSlot/Area2D"]
+position = Vector2( 2, -30 )
 shape = SubResource( 3 )
 
 [node name="GelButton" type="Button" parent="."]
@@ -216,6 +216,6 @@ texture_normal = ExtResource( 8 )
 [connection signal="pressed" from="FollowMenu/SubstanceMenu/SubstanceCloseButton" to="." method="_on_SubstanceCloseButton_pressed"]
 [connection signal="body_exited" from="PosTerminal/Area2D" to="PosTerminal" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="NegTerminal/Area2D" to="NegTerminal" method="_on_Area2D_body_exited"]
-[connection signal="body_exited" from="GelBoatSlot/Area2D" to="GelBoatSlot" method="_on_Area2D_body_exited"]
+[connection signal="input_event" from="GelBoatSlot" to="GelBoatSlot" method="_on_GelBoatSlot_input_event"]
 [connection signal="pressed" from="GelButton" to="." method="_on_GelButton_pressed"]
 [connection signal="pressed" from="GelSimMenu/CloseButton" to="." method="_on_CloseButton_pressed"]

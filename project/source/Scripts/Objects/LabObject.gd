@@ -19,6 +19,8 @@ onready var defaultMode = mode
 onready var defaultZIndex = z_index
 onready var defaultZAsRelative = z_as_relative
 
+var startPosition
+
 func _get_configuration_warning():
 	for child in get_children():
 		if child is CollisionShape2D or child is CollisionPolygon2D:
@@ -40,19 +42,25 @@ func _ready():
 	can_sleep = false
 	input_pickable = true
 	
-	#Set up the tooltip node, if we're not in the editor
-	if not Engine.editor_hint and len(DisplayName) > 1:
-		tooltip = Label.new()
-		tooltip.text = DisplayName
-		tooltip.name = "labobject_auto_tooltip"
-		tooltip.set_anchors_and_margins_preset(Control.PRESET_CENTER)
-		var tooltipStylebox = StyleBoxFlat.new()
-		tooltipStylebox.bg_color = Color(0.2, 0.2, 0.2, 0.7)
-		tooltip.add_stylebox_override('normal', tooltipStylebox)
-		add_child(tooltip)
-		tooltip.hide()
+	startPosition = self.position
 	
-	self.LabObjectReady()
+	#if we're not in the editor
+	if not Engine.editor_hint:
+		#Set up the tooltip
+		if len(DisplayName) > 1:
+			tooltip = Label.new()
+			tooltip.text = DisplayName
+			tooltip.name = "labobject_auto_tooltip"
+			tooltip.set_anchors_and_margins_preset(Control.PRESET_CENTER)
+			var tooltipStylebox = StyleBoxFlat.new()
+			tooltipStylebox.bg_color = Color(0.2, 0.2, 0.2, 0.8)
+			tooltip.add_color_override("font_color", Color(1, 1, 1))
+			tooltip.add_stylebox_override('normal', tooltipStylebox)
+			add_child(tooltip)
+			tooltip.hide()
+		
+		#last thing
+		self.LabObjectReady()
 
 func _physics_process(delta):
 	self.LabObjectPhysicsProcess(delta)
@@ -67,7 +75,8 @@ func _process(delta):
 	if dragging:
 		#move
 		if (canChangeSubscenes or get_node("/root/Main").GetDeepestSubsceneAt(get_global_mouse_position()) == GetSubsceneManagerParent()):
-			global_position = get_global_mouse_position() - dragOffset
+			DragMove()
+			ClampObjectPosition()
 		else:
 			StopDragging(false)
 		
@@ -117,6 +126,19 @@ func StopDragging(action: bool = true):
 	z_index = defaultZIndex
 	z_as_relative = defaultZAsRelative
 	if action: OnUserAction()
+
+func DragMove():
+	global_position = get_global_mouse_position() - dragOffset
+
+func ClampObjectPosition() -> void:
+	var currentModule = GetCurrentModuleScene()
+	var labBoundary = ""
+	for child in currentModule.get_children():
+		if child.name == "LabBoundary":
+			labBoundary = child
+	if typeof(labBoundary) != TYPE_STRING:
+		global_position.x = clamp(global_position.x, labBoundary.xBounds[0], labBoundary.xBounds[1])
+		global_position.y = clamp(global_position.y, labBoundary.yBounds[0], labBoundary.yBounds[1])
 
 func GetIntersectingLabObjects():
 	var spaceState = get_world_2d().direct_space_state
@@ -254,3 +276,6 @@ func ReportAction(objectsInvolved: Array, actionType: String, params: Dictionary
 	params['objectsInvolved'] = objectsInvolved
 	params['actionType'] = actionType
 	GetCurrentModuleScene().CheckAction(params)
+
+func GetStartPosition():
+	return startPosition

@@ -25,7 +25,7 @@ func SetScene(scene: PackedScene):
 	var newScene = scene.instance()
 	$Scene.add_child(newScene)
 	currentModuleScene = newScene
-	$Camera.Reset()
+	#$Camera.Reset()
 
 func GetDeepestSubsceneAt(pos: Vector2):
 	var result = null
@@ -54,7 +54,7 @@ func _unhandled_input(event):
 			
 			var pickOptions = []
 			for result in castResult:
-				if result['collider'] is LabObject and (result['collider'].GetSubsceneManagerParent() == deepestSubscene or (result['collider'] == deepestSubscene) and not result['collider'].subsceneActive):
+				if result['collider'] is LabObject and (result['collider'].GetSubsceneManagerParent() == deepestSubscene or (result['collider'] == deepestSubscene and not result['collider'].subsceneActive)):
 					pickOptions.append(result['collider'])
 			
 			var bestPick = null
@@ -62,7 +62,7 @@ func _unhandled_input(event):
 				#draggables are better than non draggables, and high z indexes are tie breakers
 				if bestPick == null or (
 					object.draggable and not bestPick.draggable) or (
-					object.z_index > bestPick.z_index):
+					object.z_index > bestPick.z_index and object.draggable == bestPick.draggable):
 						bestPick = object
 			
 			if bestPick:
@@ -75,10 +75,10 @@ func _unhandled_input(event):
 	
 	#If we've made it here, then we didn't need to do something with a LabObject
 	###Now see if we should do something to the camera
-	if event.is_action_pressed("DragCamera") and GameSettings.mouseCameraDrag:
-		$Camera.StartDragging()
-	
-	if event.is_action_pressed("CameraZoomIn"):
-		$Camera.ZoomIn()
-	if event.is_action_pressed("CameraZoomOut"):
-		$Camera.ZoomOut()
+#	if event.is_action_pressed("DragCamera") and GameSettings.mouseCameraDrag:
+#		$Camera.StartDragging()
+#
+#	if event.is_action_pressed("CameraZoomIn"):
+#		$Camera.ZoomIn()
+#	if event.is_action_pressed("CameraZoomOut"):
+#		$Camera.ZoomOut()
