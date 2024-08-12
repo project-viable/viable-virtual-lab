@@ -4,26 +4,13 @@ extends LabObject
 # be emptied of its contents, and instead dispenses creates 'content' objects 
 # when something draws from it.
 
-enum ContainerType {ERLENMEYER_FLASK, MICRO_CENTRIFUGE_TUBE}
+enum ContainerType {ERLENMEYER_FLASK, MICRO_CENTRIFUGE_TUBE} #TODO: I'm not convinced this is a good way to do this, since we have to repeatedly modify code instead of just making these, simple changes in the editor. Maybe use an inherited scene like the Pipettes
 export(ContainerType) var containerType
 export (PackedScene) var substance = null
 export (Array) var substance_parameters = null
 var contents = null
-export (Texture) var image = null
 
 func _ready():
-	if image:
-		$Sprite.texture = image
-	else:
-		match containerType:
-			ContainerType.ERLENMEYER_FLASK:
-				$Sprite.texture = load('res://Images/Erlenmeyer_full_flask.png')
-			ContainerType.MICRO_CENTRIFUGE_TUBE:
-				$Sprite.visible = false
-				$MicrocentrifugeTubeClosed.visible = true
-			_:
-				$Sprite.texture = load('res://Images/Erlenmeyer_full_flask.png')
-	
 	if substance == null:
 		substance = load('res://Scenes/Objects/DummyLiquidSubstance.tscn')
 	
@@ -31,7 +18,28 @@ func _ready():
 	if substance_parameters != null:
 		contents.initialize(substance_parameters)
 		print(str(contents.particle_sizes))
-		
+	
+	###Now set up all the visual stuff:
+	var sprite
+	var fillsprite
+	
+	match containerType:
+		ContainerType.ERLENMEYER_FLASK:
+			sprite = $Sprites/FlaskSprite
+			fillsprite = $Sprites/FlaskFillSprite
+		ContainerType.MICRO_CENTRIFUGE_TUBE:
+			sprite = $Sprites/MicrocentrifugeTubeSprite
+			fillsprite = $Sprites/MicrocentrifugeTubeFillSprite
+		_:
+			sprite = $Sprites/FlaskSprite
+			fillsprite = $Sprites/FlaskFillSprite
+	
+	for child in $Sprites.get_children():
+		child.hide()
+	sprite.show()
+	fillsprite.show()
+	fillsprite.modulate = contents.color
+
 func CheckContents(group):
 	return contents.is_in_group(group)
 
