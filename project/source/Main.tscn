@@ -642,24 +642,29 @@ margin_right = 280.0
 margin_bottom = 64.0
 text = "Object Tooltips"
 
-[node name="PopupDurationTitle" type="Label" parent="Menu/OptionsScreen/VBoxContainer"]
+[node name="PopupDuration" type="HSplitContainer" parent="Menu/OptionsScreen/VBoxContainer"]
 margin_top = 68.0
 margin_right = 280.0
-margin_bottom = 87.0
-grow_horizontal = 0
-text = "Popup Duration (s) : Currently"
+margin_bottom = 95.0
 
-[node name="PopupTimeout" type="SpinBox" parent="Menu/OptionsScreen/VBoxContainer"]
-margin_top = 91.0
+[node name="PopupDurationTitle" type="Label" parent="Menu/OptionsScreen/VBoxContainer/PopupDuration"]
+margin_top = 4.0
+margin_right = 112.0
+margin_bottom = 23.0
+grow_horizontal = 0
+text = "Popup Duration"
+
+[node name="PopupTimeout" type="SpinBox" parent="Menu/OptionsScreen/VBoxContainer/PopupDuration"]
+margin_left = 124.0
 margin_right = 280.0
-margin_bottom = 118.0
+margin_bottom = 27.0
 max_value = 5.0
 step = 0.5
 
 [node name="CloseButton" type="Button" parent="Menu/OptionsScreen/VBoxContainer"]
-margin_top = 122.0
+margin_top = 99.0
 margin_right = 280.0
-margin_bottom = 149.0
+margin_bottom = 126.0
 text = "Close"
 
 [node name="FinalReport" type="PanelContainer" parent="Menu"]
@@ -890,7 +895,7 @@ script = ExtResource( 10 )
 [connection signal="pressed" from="Menu/AboutScreen/VBoxContainer/CloseButton" to="Menu" method="_on_About_CloseButton_pressed"]
 [connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
 [connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="Menu" method="_on_ObjectTooltipsToggle_toggled"]
-[connection signal="value_changed" from="Menu/OptionsScreen/VBoxContainer/PopupTimeout" to="Menu" method="_on_PopupTimeout_value_changed"]
+[connection signal="value_changed" from="Menu/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="Menu" method="_on_PopupTimeout_value_changed"]
 [connection signal="pressed" from="Menu/OptionsScreen/VBoxContainer/CloseButton" to="Menu" method="_on_CloseButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/MainMenuButton" to="Menu" method="_on_FinalReport_MainMenuButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/RestartModuleButton" to="Menu" method="_on_FinalReport_RestartModuleButton_pressed"]

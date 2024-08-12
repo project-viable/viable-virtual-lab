@@ -13,6 +13,10 @@ var filled_texture = load('res://Images/Resized_Images/Gel_Rig_filled_NO_grooves
 var filled_wells_texture = load('res://Images/Resized_Images/Gel_Rig_filled.png')
 var filled_comb_texture = load('res://Images/Resized_Images/Gel_Rig_comb.png')
 
+func LabObjectReady():
+	$GelSimMenu.hide()
+	$FollowMenu/SubstanceMenu.hide()
+
 func TryInteract(others):
 	for other in others:
 		if other.is_in_group("Container") or other.is_in_group("Liquid Container") or other.is_in_group("Source Container"):

@@ -7,7 +7,6 @@ var currentModule: ModuleData = null
 
 var unreadLogs = {'log': 0, 'warning': 0, 'error': 0}
 
-export(float) var popupTimeout = 2.0
 var popupActive: bool = false
 var logs: Array = []
 
@@ -59,9 +58,6 @@ func _ready():
 	$LogButton/LogMenu.set_tab_icon(1, load("res://Images/Dot-Blue.png"))
 	$LogButton/LogMenu.set_tab_icon(2, load("res://Images/Dot-Yellow.png"))
 	$LogButton/LogMenu.set_tab_icon(3, load("res://Images/Dot-Red.png"))
-	
-	$OptionsScreen/VBoxContainer/PopupDurationTitle.text = "Popup Duration (s) : Currently " + str(popupTimeout)
-	$OptionsScreen/VBoxContainer/PopupTimeout.value = popupTimeout
 	
 	# Since there is one module, it should boot directly into this scene
 	var module: ModuleData = load(ModuleDirectory + "GelElectrophoresis.tres")
@@ -139,7 +135,7 @@ func ShowPopup(category: String, newLog: Dictionary) -> void:
 	SetPopupBorderColor(color)
 	popupActive = true
 	$LabLogPopup.visible = true
-	yield(get_tree().create_timer(popupTimeout), "timeout")
+	yield(get_tree().create_timer(GameSettings.popupTimeout), "timeout")
 	popupActive = false
 	$LabLogPopup.visible = false if logs.size() == 0 else true
 
@@ -225,6 +221,7 @@ func _on_OptionsButton_pressed():
 	$OptionsScreen.show()
 	$OptionsScreen/VBoxContainer/MouseDragToggle.pressed = GameSettings.mouseCameraDrag
 	$OptionsScreen/VBoxContainer/ObjectTooltipsToggle.pressed = GameSettings.objectTooltips
+	$OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout.value = GameSettings.popupTimeout
 
 func _on_CloseButton_pressed():
 	$OptionsScreen.hide()
@@ -236,5 +233,4 @@ func _on_ObjectTooltipsToggle_toggled(button_pressed):
 	GameSettings.objectTooltips = button_pressed
 
 func _on_PopupTimeout_value_changed(value: float):
-	popupTimeout = value
-	$OptionsScreen/VBoxContainer/PopupDurationTitle.text = "Popup Duration (s) : Currently " + str(popupTimeout)
+	GameSettings.popupTimeout = value

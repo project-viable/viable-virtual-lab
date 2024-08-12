@@ -121,6 +121,7 @@ position = Vector2( 3, -56.5 )
 shape = SubResource( 4 )
 
 [node name="Menu" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="AutoCloseTimer" type="Timer" parent="Menu"]
 one_shot = true

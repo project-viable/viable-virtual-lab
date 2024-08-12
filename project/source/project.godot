@@ -116,8 +116,9 @@ _global_script_class_icons={
 
 [application]
 
-config/name="VIABLE-VirtualLab"
+config/name="VIABLE Virtual Lab"
 run/main_scene="res://Main.tscn"
+boot_splash/image="res://Images/MainMenu-Background.png"
 config/icon="res://icon.png"
 
 [autoload]

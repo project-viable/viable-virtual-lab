@@ -29,6 +29,9 @@ texture = ExtResource( 2 )
 position = Vector2( 1.5, 2.5 )
 shape = SubResource( 3 )
 
+[node name="Subscene" parent="." index="2"]
+visible = false
+
 [node name="Boundary" parent="Subscene" index="0"]
 shape = SubResource( 4 )
 
