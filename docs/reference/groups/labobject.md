@@ -9,4 +9,4 @@ All `LabObject`s have groups they can have. These groups indicate functions they
 | Heatable | heat() | |
 | Chillable | chill() | |
 | Conductive | run_current() | |
-| Disposable-Hazard | _none_ | Used as a tag to indicate that this object can be put into a biohazard disposal bin. |
+| Disposable-Hazard | _none_ | Used as a tag to indicate that this object can be put into a biohazard disposal bin. Uses the normal `LabObject.dispose()` function. |

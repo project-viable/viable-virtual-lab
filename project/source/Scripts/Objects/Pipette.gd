@@ -24,9 +24,13 @@ func SetHasTip(newVal):
 	$BaseSprite.visible = !hasTip
 	$TipSprite.visible = hasTip
 	
-	if !hasTip:
+	if hasTip:
+		add_to_group("Disposable-Hazard")
+	else:
 		#If the tip has been removed, and had something in it, whatever was in it is now also gone.
 		contents = []
+		
+		remove_from_group("Disposable-Hazard")
 
 func SetDrawVolume(newVal):
 	drawVolume = newVal
@@ -87,6 +91,7 @@ func TryActIndependently():
 func dispose():
 	if(hasTip): #If the pipette has a tip, remove it.
 		SetHasTip(false)
+		LabLog.Log("Ejected Pipette Tip.", false, true)
 	else: #If there is no tip, the user is attempting to throw away the pipette itself
 		self.queue_free()
 
