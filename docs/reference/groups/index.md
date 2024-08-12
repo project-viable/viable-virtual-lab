@@ -15,6 +15,8 @@ To continue with the example above:
 - If the other object is in the group `Container`, the Pipette knows that it can accept liquids, and that it has an `AddContents()` function.
 -Knowing this, the Pipette can safely call that function to actually do the interaction.
 
+It is also worth noting that objects can be added to and removed from these groups dynamically. For example, a micropipette can only interact with a trashcan if it has a tip on it.
+
 See the pages below for a list of groups that exist, and ***please add any new groups you create to these pages***.
 
 ## Reference
