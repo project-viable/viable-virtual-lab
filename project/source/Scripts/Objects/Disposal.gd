@@ -1,6 +1,6 @@
 extends LabObject
 
-export(Array, String) var acceptedGroups = ["LabObjects"] #we will only try to dispose of objects in at least one of these groups.
+export(Array, String) var acceptedGroups = ["LabObjects"] #we will only try to interact with objects in at least one of these groups.
 export(bool) var confirmDisposal = true
 
 var target = null #used to store which object we're asking about, if the confirmation menu is used.

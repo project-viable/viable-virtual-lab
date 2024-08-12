@@ -83,7 +83,7 @@ tracks/1/keys = {
 "values": [ Vector2( 106, 12.5 ), Vector2( 116, 12.5 ), Vector2( 106, 12.5 ) ]
 }
 
-[node name="Pipette" type="RigidBody2D" groups=["LabObjects"]]
+[node name="Pipette" type="RigidBody2D" groups=["Disposable-Hazard", "LabObjects"]]
 z_index = 2
 collision_layer = 2
 input_pickable = true
