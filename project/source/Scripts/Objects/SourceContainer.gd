@@ -6,6 +6,8 @@ extends LabObject
 
 enum ContainerType {ERLENMEYER_FLASK, MICRO_CENTRIFUGE_TUBE} #TODO: I'm not convinced this is a good way to do this, since we have to repeatedly modify code instead of just making these, simple changes in the editor. Maybe use an inherited scene like the Pipettes
 export(ContainerType) var containerType
+export (Texture) var image = null #TODO: This just overrides the container type used above. This makes editing these things so hard for no reason.
+
 export (PackedScene) var substance = null
 export (Array) var substance_parameters = null
 var contents = null
@@ -23,22 +25,25 @@ func _ready():
 	var sprite
 	var fillsprite
 	
-	match containerType:
-		ContainerType.ERLENMEYER_FLASK:
+	if containerType == ContainerType.ERLENMEYER_FLASK:
 			sprite = $Sprites/FlaskSprite
 			fillsprite = $Sprites/FlaskFillSprite
-		ContainerType.MICRO_CENTRIFUGE_TUBE:
+	elif containerType == ContainerType.MICRO_CENTRIFUGE_TUBE:
 			sprite = $Sprites/MicrocentrifugeTubeSprite
 			fillsprite = $Sprites/MicrocentrifugeTubeFillSprite
-		_:
-			sprite = $Sprites/FlaskSprite
-			fillsprite = $Sprites/FlaskFillSprite
+	
+	if image:
+		$Sprites/CustomSprite.texture = image
+		sprite = $Sprites/CustomSprite
+		fillsprite = null
 	
 	for child in $Sprites.get_children():
 		child.hide()
+	
 	sprite.show()
-	fillsprite.show()
-	fillsprite.modulate = contents.color
+	if fillsprite:
+		fillsprite.show()
+		fillsprite.modulate = contents.color
 
 func CheckContents(group):
 	return contents.is_in_group(group)
