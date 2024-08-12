@@ -1,13 +1,18 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Objects/Trashcan.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Images/Bin-Sharps.png" type="Texture" id=2]
-[ext_resource path="res://Images/biohazardbin.png" type="Texture" id=3]
+[ext_resource path="res://Images/Resized_Images/Bin_Hazard.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 39.5, 47 )
 
 [node name="SharpsDisposal" instance=ExtResource( 1 )]
+acceptedGroups = [ "Disposable-Hazard" ]
 
 [node name="Sprite" parent="." index="0"]
+scale = Vector2( 1, 1 )
 texture = ExtResource( 3 )
 
-[node name="YesButton" parent="Menu/PanelContainer/VBoxContainer/HSplitContainer" index="1"]
-icon = ExtResource( 2 )
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2( -1.5, -4 )
+shape = SubResource( 1 )

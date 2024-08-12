@@ -252,3 +252,9 @@ func _on_RemoveComb_pressed():
 		hasComb = false
 		update_display()
 		$Subscene/Border/RemoveComb.hide()
+
+func GelMoldInfo():
+	return {
+		"hasComb": hasComb,
+		"hasWells": gel_has_wells,
+	}

@@ -7,7 +7,6 @@ var currentModule: ModuleData = null
 
 var unreadLogs = {'log': 0, 'warning': 0, 'error': 0}
 
-export(float) var popupTimeout = 2.0
 var popupActive: bool = false
 var logs: Array = []
 
@@ -29,7 +28,9 @@ func GetAllFilesInFolder(path):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$MainMenu.show()
+	# Due to having one module, the MainMenu should be hidden by default
+	# When more modules are added, it is likely a good idea to show MainMenu by default
+	$MainMenu.hide()
 	$ModuleSelect.hide()
 	$OptionsScreen.hide()
 	$AboutScreen.hide()
@@ -37,6 +38,7 @@ func _ready():
 	$LogButton/LogMenu.hide()
 	$FinalReport.hide()
 	$LabLogPopup.hide()
+	$MainMenu/Content/Logo.hide()
 	
 	#Set up the module select buttons
 	for file in GetAllFilesInFolder(ModuleDirectory):
@@ -44,7 +46,7 @@ func _ready():
 		if moduleData.Show:
 			var newButton = ModuleButton.instance()
 			newButton.SetData(moduleData)
-			newButton.connect("pressed", self, "ModuleSelectButtonClicked", [moduleData])
+			newButton.connect("pressed", self, "ModuleSelected", [moduleData])
 			$ModuleSelect.add_child(newButton)
 	
 	#connect the log signals
@@ -57,8 +59,9 @@ func _ready():
 	$LogButton/LogMenu.set_tab_icon(2, load("res://Images/Dot-Yellow.png"))
 	$LogButton/LogMenu.set_tab_icon(3, load("res://Images/Dot-Red.png"))
 	
-	$OptionsScreen/VBoxContainer/PopupDurationTitle.text = "Popup Duration (s) : Currently " + str(popupTimeout)
-	$OptionsScreen/VBoxContainer/PopupTimeout.value = popupTimeout
+	# Since there is one module, it should boot directly into this scene
+	var module: ModuleData = load(ModuleDirectory + "GelElectrophoresis.tres")
+	ModuleSelected(module)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -71,6 +74,8 @@ func _process(delta):
 			$AboutScreen.hide()
 			$LogButton/LogMenu.hide()
 			$OptionsScreen.hide()
+			$MainMenu/Background.visible = (get_parent().currentModuleScene == null)
+			$MainMenu/Content/Logo.visible = not (get_parent().currentModuleScene == null)
 			
 	if logs != []:
 		# Need to display log message(s)
@@ -79,7 +84,7 @@ func _process(delta):
 				ShowPopup(logs[0]['category'], logs[0]['newLog'])
 			logs.remove(0)
 
-func ModuleSelectButtonClicked(module: ModuleData):
+func ModuleSelected(module: ModuleData):
 	get_parent().SetScene(module.Scene)
 	$ModuleSelect.hide()
 	currentModule = module
@@ -130,7 +135,7 @@ func ShowPopup(category: String, newLog: Dictionary) -> void:
 	SetPopupBorderColor(color)
 	popupActive = true
 	$LabLogPopup.visible = true
-	yield(get_tree().create_timer(popupTimeout), "timeout")
+	yield(get_tree().create_timer(GameSettings.popupTimeout), "timeout")
 	popupActive = false
 	$LabLogPopup.visible = false if logs.size() == 0 else true
 
@@ -216,6 +221,7 @@ func _on_OptionsButton_pressed():
 	$OptionsScreen.show()
 	$OptionsScreen/VBoxContainer/MouseDragToggle.pressed = GameSettings.mouseCameraDrag
 	$OptionsScreen/VBoxContainer/ObjectTooltipsToggle.pressed = GameSettings.objectTooltips
+	$OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout.value = GameSettings.popupTimeout
 
 func _on_CloseButton_pressed():
 	$OptionsScreen.hide()
@@ -227,5 +233,4 @@ func _on_ObjectTooltipsToggle_toggled(button_pressed):
 	GameSettings.objectTooltips = button_pressed
 
 func _on_PopupTimeout_value_changed(value: float):
-	popupTimeout = value
-	$OptionsScreen/VBoxContainer/PopupDurationTitle.text = "Popup Duration (s) : Currently " + str(popupTimeout)
+	GameSettings.popupTimeout = value

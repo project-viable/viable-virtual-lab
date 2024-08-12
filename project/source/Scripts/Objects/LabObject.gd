@@ -19,6 +19,8 @@ onready var defaultMode = mode
 onready var defaultZIndex = z_index
 onready var defaultZAsRelative = z_as_relative
 
+var startPosition
+
 func _get_configuration_warning():
 	for child in get_children():
 		if child is CollisionShape2D or child is CollisionPolygon2D:
@@ -40,19 +42,30 @@ func _ready():
 	can_sleep = false
 	input_pickable = true
 	
-	#Set up the tooltip node, if we're not in the editor
-	if not Engine.editor_hint and len(DisplayName) > 1:
-		tooltip = Label.new()
-		tooltip.text = DisplayName
-		tooltip.name = "labobject_auto_tooltip"
-		tooltip.set_anchors_and_margins_preset(Control.PRESET_CENTER)
-		var tooltipStylebox = StyleBoxFlat.new()
-		tooltipStylebox.bg_color = Color(0.2, 0.2, 0.2, 0.7)
-		tooltip.add_stylebox_override('normal', tooltipStylebox)
-		add_child(tooltip)
-		tooltip.hide()
+	startPosition = self.position
 	
-	self.LabObjectReady()
+	#if we're not in the editor
+	if not Engine.editor_hint:
+		#Set up the tooltip
+		if len(DisplayName) > 1:
+			var tooltipContainer = Node2D.new()
+			tooltipContainer.z_index = VisualServer.CANVAS_ITEM_Z_MAX - 1
+			
+			tooltip = Label.new()
+			tooltip.text = DisplayName
+			tooltip.name = "labobject_auto_tooltip"
+			tooltip.set_anchors_and_margins_preset(Control.PRESET_CENTER)
+			var tooltipStylebox = StyleBoxFlat.new()
+			tooltipStylebox.bg_color = Color(0.2, 0.2, 0.2, 0.8)
+			tooltip.add_color_override("font_color", Color(1, 1, 1))
+			tooltip.add_stylebox_override('normal', tooltipStylebox)
+			
+			tooltipContainer.add_child(tooltip)
+			add_child(tooltipContainer)
+			tooltip.hide()
+		
+		#last thing
+		self.LabObjectReady()
 
 func _physics_process(delta):
 	self.LabObjectPhysicsProcess(delta)
@@ -268,3 +281,6 @@ func ReportAction(objectsInvolved: Array, actionType: String, params: Dictionary
 	params['objectsInvolved'] = objectsInvolved
 	params['actionType'] = actionType
 	GetCurrentModuleScene().CheckAction(params)
+
+func GetStartPosition():
+	return startPosition

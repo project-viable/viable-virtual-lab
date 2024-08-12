@@ -1,30 +1,28 @@
 extends LabObject
 
-export (String) var allowed_group = 'Container'
+export var allowed_groups = ['Container', 'Liquid Container']
 var held_object = null
 var saved_grav_scale = 0.0
 var saved_phys_mode = 0
 
 func TryInteract(others):
 	for other in others:
-		if(other.is_in_group(allowed_group)):
-			if(held_object == null):
-				# prevent the area from detecting the single-frame coordinate snap on adding the child
-				$Area2D.monitoring = false
-				
-				other.get_parent().remove_child(other)
-				self.add_child(other)
-				other.position = Vector2.ZERO
-				
-				$Area2D.monitoring = true
-				
-				held_object = other
-				saved_grav_scale = other.gravity_scale
-				other.gravity_scale = 0.0
-				saved_phys_mode = other.mode
-				other.mode = 3 # set to kinematic mode for the duration of its time in the slot
-				
-				get_parent().slot_filled(self, other)
+		for allowed_group in allowed_groups:
+			if(other.is_in_group(allowed_group)):
+				if(!filled()):
+					held_object = other
+					# prevent the area from detecting the single-frame coordinate snap on adding the child
+					$Area2D.monitoring = false
+					
+					if (other.get_parent()):
+						other.get_parent().call_deferred("remove_child", other)
+					self.call_deferred("add_child", other)
+					
+					other.set_deferred("position", Vector2.ZERO)
+					
+					$Area2D.monitoring = true
+					
+					get_parent().slot_filled(self, other)
 
 func filled():
 	return (held_object != null)
@@ -32,13 +30,13 @@ func filled():
 func get_object():
 	return held_object
 
-func _on_Area2D_body_exited(body):
-	if(body == held_object):
-		held_object.gravity_scale = saved_grav_scale
-		held_object.mode = saved_phys_mode
-		
-		self.call_deferred("remove_child", held_object)
-		get_parent().get_parent().add_child(held_object)
-		
+func _on_GelBoatSlot_input_event(viewport, event, shape_idx):
+	if (event.is_pressed()):
+		if (!filled()):
+			return
+
+		if (held_object.get_parent()):
+			held_object.get_parent().call_deferred("remove_child", held_object)
+		GetCurrentModuleScene().call_deferred("add_child", held_object)
 		get_parent().slot_emptied(self, held_object)
 		held_object = null

@@ -74,6 +74,7 @@ size_flags_vertical = 0
 icon = ExtResource( 3 )
 
 [node name="GelBoatSlot" type="RigidBody2D" parent="."]
+input_pickable = true
 gravity_scale = 0.0
 script = ExtResource( 5 )
 
@@ -116,4 +117,4 @@ position = Vector2( -4.0625, 16.25 )
 shape = SubResource( 2 )
 
 [connection signal="pressed" from="ImagingMenu/CloseButton" to="." method="_on_CloseButton_pressed"]
-[connection signal="body_exited" from="GelBoatSlot/Area2D" to="GelBoatSlot" method="_on_Area2D_body_exited"]
+[connection signal="input_event" from="GelBoatSlot" to="GelBoatSlot" method="_on_GelBoatSlot_input_event"]

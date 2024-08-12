@@ -52,7 +52,8 @@ func ShowSubscene():
 	subsceneActive = true
 
 func HideSubscene():
-	remove_child(subscene)
+	if subscene in self.get_children():
+		remove_child(subscene)
 	
 	subscene.hide()
 	
