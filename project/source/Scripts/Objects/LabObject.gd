@@ -48,6 +48,9 @@ func _ready():
 	if not Engine.editor_hint:
 		#Set up the tooltip
 		if len(DisplayName) > 1:
+			var tooltipContainer = Node2D.new()
+			tooltipContainer.z_index = VisualServer.CANVAS_ITEM_Z_MAX - 1
+			
 			tooltip = Label.new()
 			tooltip.text = DisplayName
 			tooltip.name = "labobject_auto_tooltip"
@@ -56,7 +59,9 @@ func _ready():
 			tooltipStylebox.bg_color = Color(0.2, 0.2, 0.2, 0.8)
 			tooltip.add_color_override("font_color", Color(1, 1, 1))
 			tooltip.add_stylebox_override('normal', tooltipStylebox)
-			add_child(tooltip)
+			
+			tooltipContainer.add_child(tooltip)
+			add_child(tooltipContainer)
 			tooltip.hide()
 		
 		#last thing
