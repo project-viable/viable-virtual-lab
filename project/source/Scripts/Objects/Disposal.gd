@@ -10,21 +10,23 @@ func _ready():
 	$Menu.hide()
 
 func TryInteract(others):
-	#In general, we should only interact with one thing at once
-	#every LabObject is equally trashable, so we just pick the first one.
+	for other in others:
+		for group in acceptedGroups:
+			if other.is_in_group(group):
+				#update the text
+				if len(other.DisplayName) > 0:
+					$Menu/PanelContainer/VBoxContainer/Label.text = "Do you really want to dispose of this " + other.DisplayName + "?"
+				else:
+					$Menu/PanelContainer/VBoxContainer/Label.text = "Are you sure you want to throw this away?"
+				
+				if confirmDisposal:
+					target = other
+					$Menu.show()
+				else:
+					Dispose(other)
+				return true
 	
-	#update the text
-	if len(others[0].DisplayName) > 0:
-		$Menu/PanelContainer/VBoxContainer/Label.text = "Do you really want to dispose of this " + others[0].DisplayName + "?"
-	else:
-		$Menu/PanelContainer/VBoxContainer/Label.text = "Are you sure you want to throw this away?"
-	
-	if confirmDisposal:
-		target = others[0]
-		$Menu.show()
-	else:
-		Dispose(others[0])
-	return true
+	return false
 
 func Dispose(object):
 	#TODO: Report this to the mistake checker
