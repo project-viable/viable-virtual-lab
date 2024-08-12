@@ -59,9 +59,10 @@ margin_right = -36.0
 margin_bottom = 94.0
 
 [node name="SubstanceMenu" type="Control" parent="FollowMenu"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 4.0
+margin_top = -53.0
+margin_right = 44.0
+margin_bottom = -13.0
 
 [node name="Panel2" type="Panel" parent="FollowMenu/SubstanceMenu"]
 margin_left = 22.0
@@ -197,9 +198,10 @@ disabled = true
 text = "View Gel"
 
 [node name="GelSimMenu" type="Control" parent="."]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 3.0
+margin_top = -82.0
+margin_right = 43.0
+margin_bottom = -42.0
 
 [node name="GelDisplay" parent="GelSimMenu" instance=ExtResource( 4 )]
 position = Vector2( 0, 196 )

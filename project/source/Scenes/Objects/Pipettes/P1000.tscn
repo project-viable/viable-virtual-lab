@@ -11,9 +11,6 @@ displayIncrementTop = 1000.0
 displayIncrementMiddle = 100.0
 displayIncrementBottom = 10.0
 
-[node name="Menu" parent="." index="6"]
-visible = false
-
 [node name="PipetteSizeLabel" type="TextureRect" parent="Menu/Border" index="6"]
 margin_left = 220.0
 margin_top = 440.0
