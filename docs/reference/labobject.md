@@ -13,7 +13,7 @@
 
 If a `LabObject` is `draggable`, it will try to interact with any objects it's overlapping with when it is released. If it is not draggable, it will try to interact when it is clicked.
 
-All `LabObject`s are part of the `LabObject` group. They take care of that on their own. You should add them to other groups depending on what they are capable of, so that other objects know how to interact with them. See Example 1 below for a basic example.
+All `LabObject`s are part of the `LabObject` group. They take care of that on their own. You should add them to other groups depending on what they are capable of, so that other objects know how to interact with them. See [here](/docs/reference/groups/index.md) for what those are and how they should be used..
 
 ### Functions
 

@@ -12,7 +12,7 @@ This is intended to list what different things exist, so that the rest of the do
 - How to arrange UI nodes (![Layout Presets](layout_presets_image.png) in the editor)
 - How Godot does [Singletons](https://docs.godotengine.org/en/3.5/tutorials/scripting/singletons_autoload.html)
 - What a Z-Index is
-- TODO: Anything else?
+- What [Resources](https://docs.godotengine.org/en/3.5/tutorials/scripting/resources.html) are
 
 ## Important Things
 
@@ -20,6 +20,7 @@ Here's the most important systems you should know about:
 
 1. [Modules](/docs/reference/modules.md)
 2. [LabObjects](/docs/reference/labobject.md)
+3. [Object Groups](/docs/reference/groups/index.md)
 3. [SubsceneManagers](/docs/reference/subscenemanagers.md)
 4. [Substances](/docs/reference/substances.md)
 5. [Lab Logs](/docs/reference/lablogs.md)

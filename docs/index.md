@@ -2,7 +2,7 @@
 
 This is an index of our documentation for the project.
 
-If you're here for the first time, go [here](https://docs.godotengine.org/en/3.5/). Do make sure to look at the class reference, not just the guides.
+If you're here for the first time, go [here](/docs/guide/overview.md). Do make sure to look at the class reference, not just the guides.
 
 ## Getting Started
 
@@ -18,7 +18,8 @@ https://docs.godotengine.org/en/3.5/
 2. [Project Overview](/docs/guide/overview.md)
 3. [Creating a new Module](/docs/reference/modules.md#making-a-new-module)
 4. [Adding a new object to the game](/docs/reference/labobject.md#creating-a-new-type-of-labobject)
-5. [Using Subscenes](/docs/reference/subscenemanagers.md)
+5. [Object Groups](/docs/reference/groups/index.md)
+6. [Using Subscenes](/docs/reference/subscenemanagers.md)
 
 ## Reference
 1. [Modules](/docs/reference/modules.md)
