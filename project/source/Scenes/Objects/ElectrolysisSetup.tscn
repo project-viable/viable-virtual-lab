@@ -10,7 +10,7 @@
 [ext_resource path="res://Images/redX.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 50, 14.5 )
+extents = Vector2( 65.5, 29.75 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 9.5 )
@@ -24,32 +24,12 @@ gravity_scale = 0.0
 script = ExtResource( 6 )
 DisplayName = "Electrolysis Setup"
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -29.0
-margin_top = -91.0
-margin_right = 31.0
-margin_bottom = -57.0
-mouse_filter = 2
-color = Color( 0.188235, 0.188235, 0.564706, 1 )
-
-[node name="Label" type="Label" parent="."]
-margin_left = -19.0
-margin_top = -80.0
-margin_right = 21.0
-margin_bottom = -66.0
-text = "Fill"
-align = 1
-
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 1, -33 )
 texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 3, -75 )
+position = Vector2( 1.5, -30.25 )
 shape = SubResource( 1 )
 
 [node name="FollowMenu" type="Control" parent="."]
