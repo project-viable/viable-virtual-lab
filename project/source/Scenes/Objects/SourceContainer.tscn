@@ -1,18 +1,22 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Objects/SourceContainer.gd" type="Script" id=1]
 [ext_resource path="res://Images/Resized_Images/Erlenmeyerflask_container.png" type="Texture" id=2]
 [ext_resource path="res://Images/Resized_Images/microcentrifuge_container.png" type="Texture" id=3]
 [ext_resource path="res://Images/Resized_Images/Erlenmeyerflask_liquid.png" type="Texture" id=4]
 [ext_resource path="res://Images/FillSprites/microcentrifuge_liquid.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/Objects/DummyLiquidSubstance.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 32 )
 
 [node name="SourceContainer" type="RigidBody2D" groups=["LabObjects", "Source Container"]]
 collision_layer = 2
+input_pickable = true
 gravity_scale = 0.0
+can_sleep = false
 script = ExtResource( 1 )
+substance = ExtResource( 6 )
 
 [node name="Sprites" type="Node2D" parent="."]
 
@@ -35,6 +39,7 @@ texture = ExtResource( 4 )
 texture = ExtResource( 2 )
 
 [node name="CustomSprite" type="Sprite" parent="Sprites"]
+visible = false
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

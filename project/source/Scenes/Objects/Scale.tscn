@@ -10,10 +10,12 @@ extents = Vector2( 63, 33 )
 extents = Vector2( 42.5, 33 )
 
 [node name="Scale" type="RigidBody2D" groups=["LabObjects", "Scale"]]
-position = Vector2( 350, 170 )
 input_pickable = true
 gravity_scale = 0.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 draggable = true
 
 [node name="Sprite" type="Sprite" parent="."]
