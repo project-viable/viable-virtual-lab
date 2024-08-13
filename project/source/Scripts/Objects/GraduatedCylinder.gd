@@ -4,6 +4,8 @@ export (int) var maxVolume
 
 var allowedGroups = ["Source Container"]
 
+var defaultText: String
+
 func LabObjectReady():
 	if maxVolume == 0:
 		print("Warning: Graduated Cylinder has a max volume of 0mL")
@@ -24,8 +26,9 @@ func TryInteract(others):
 				# Add contents to grad cylinder if it has nothing and the other container has a liquid substance
 				# Or if adding more of same liquid substance
 				# Set volume of grad cylinder to its max until a menu is created to specify volume
+				print("Other:", other)
 				if len(contents) == 0 and other.CheckContents("Liquid Substance") \
-				or len(contents) > 0 and other.contents.name == contents[0].name:
+					or len(contents) > 0 and other.contents.name == contents[0].name:
 					$Menu.visible = true
 					var oldVolume = $VolumeContainer.GetVolume()
 					
@@ -82,6 +85,7 @@ func AddContents(new_contents):
 
 func dispose():
 	contents.clear()
+	$VolumeContainer.DumpContents()
 	update_display()
 
 func update_display():
@@ -112,8 +116,9 @@ func update_display():
 
 # Reset values in menu
 func ResetMenu():
-	$Menu/PanelContainer/VBoxContainer/Description.text = "Graduated Cylinder currently has a " \
-	+ "volume of " + String($VolumeContainer.GetVolume()) + "mL"
+	defaultText = "Graduated Cylinder currently has a " \
+		+ "volume of " + String($VolumeContainer.GetVolume()) + "mL"
+	$Menu/PanelContainer/VBoxContainer/Description.text = defaultText
 	$Menu/PanelContainer/VBoxContainer/SpinBox.set_value(0)
 	update_display()
 
@@ -124,8 +129,8 @@ func _on_CloseButton_pressed():
 func _on_DispenseButton_pressed():
 	var substanceVolume = $Menu/PanelContainer/VBoxContainer/SpinBox.value
 	if not $VolumeContainer.AddSubstance(substanceVolume):
-		$Menu/PanelContainer/VBoxContainer/Description.text += "\nWarning: Cannot add " \
-		+ String(substanceVolume) + "mL to container"
+		$Menu/PanelContainer/VBoxContainer/Description.text = defaultText + "\nWarning: Cannot add " \
+			+ String(substanceVolume) + "mL to container"
 	else:
 		ResetMenu()
 
