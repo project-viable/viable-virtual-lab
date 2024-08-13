@@ -1,4 +1,4 @@
-extends "res://Scripts/Substances/Substance.gd"
+extends Substance
 
 # This represents the gel mixture, and thus responds to heating and cooling.
 
