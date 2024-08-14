@@ -18,6 +18,10 @@ var contents = []
 var hasComb = false
 var combObject = null
 
+# This determines whether it can be filled,
+# so that it can prevent taking substances when another object needs that substance
+var Fillable: bool = true
+
 var subsceneEmptyImg = preload("res://Images/Gel_Tray_empty_zoomed.png")
 var subsceneFullImg = preload('res://Images/Gel_Tray_filled_zoomed.png')
 var subsceneFullWellsImg = preload('res://Images/Gel_Tray_filled_wells_zoomed.png')
@@ -97,7 +101,9 @@ func calculate_positions():
 func gel_status():
 	return [self, gel_has_wells]
 
-func AddContents(new_contents):
+func AddContents(new_contents) -> bool:
+	if not Fillable:
+		return false
 	for new_content in new_contents:
 		var match_found = false
 		
@@ -148,6 +154,8 @@ func AddContents(new_contents):
 	print("Added contents "+str(contents)+" to container")
 	update_weight()
 	update_display()
+	
+	return true
 
 func dispose():
 	contents.clear()
