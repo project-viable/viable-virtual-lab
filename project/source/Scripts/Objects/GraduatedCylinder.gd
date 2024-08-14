@@ -55,7 +55,8 @@ func TryInteract(others):
 				# Add contents to container
 				# Set grad cylinder volume to 0mL
 				if len(contents) > 0:
-					other.AddContents(contents)
+					if not other.AddContents(contents):
+						return
 					contents.clear()
 					$VolumeContainer.DumpContents()
 					ResetMenu()

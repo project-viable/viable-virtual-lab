@@ -61,7 +61,7 @@ func TakeContents(volume = -1):
 	update_display()
 	return all_contents
 
-func AddContents(new_contents):
+func AddContents(new_contents) -> bool:
 	for new_content in new_contents:
 		var match_found = false
 		
@@ -88,6 +88,8 @@ func AddContents(new_contents):
 	print("Added contents "+str(contents)+" to container")
 	update_weight()
 	update_display()
+	
+	return true
 
 func update_weight():
 	var overall_weight = 0 #self.mass

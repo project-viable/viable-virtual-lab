@@ -8,7 +8,7 @@ func _ready():
 func TryActIndependently():
 	pass
 
-func AddContents(new_contents):
+func AddContents(new_contents) -> bool:
 	for new_content in new_contents:
 		var match_found = false
 		for chk_content in contents:
@@ -34,6 +34,8 @@ func AddContents(new_contents):
 	print("Current weight " + str(mass))
 	update_display()
 	scale_check()
+	
+	return true
 	
 func TakeContents(volume = -1):
 	# check for whether we can distribute the contents by volume
