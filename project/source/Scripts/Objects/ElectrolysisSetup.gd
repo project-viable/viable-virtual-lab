@@ -22,6 +22,9 @@ func TryInteract(others):
 		if other.is_in_group("Container") or other.is_in_group("Liquid Container") or other.is_in_group("Source Container"):
 			# We need an ionic substance for the electrolysis setup to run
 			var ionic_substance = other.CheckContents("Ionic Substance")
+			
+			if ionic_substance == []:
+				return
 
 			if(!(ionic_substance[0])):
 				return
@@ -34,7 +37,6 @@ func TryInteract(others):
 				# fill the setup with the container contents
 				if(fill_substance == null):
 					fill_substance = other.TakeContents()[0]
-					print(fill_substance)
 					$FollowMenu/SubstanceMenu.visible = false
 					# Update the Electrolysis setup to show that it is filled
 					if mounted_container != null:
@@ -88,7 +90,6 @@ func terminal_connected(terminal, contact):
 
 func slot_filled(slot, object):
 	if(object.is_in_group('Gel Boat')):
-		object.active = false
 		mounted_container = object
 		var gelMoldInfo = object.GelMoldInfo()
 		mounted_container.visible = false
@@ -105,7 +106,6 @@ func slot_filled(slot, object):
 		slot_emptied(slot, object)
 
 func slot_emptied(slot, object):
-	object.active = true
 	$GelBoatSlot.held_object = null
 	if mounted_container == null:
 		return

@@ -52,9 +52,12 @@ func TryInteract(others):
 				return true
 
 			elif other.is_in_group("Container"):
-				# Add contents to container
-				# Set grad cylinder volume to 0mL
 				if len(contents) > 0:
+					# Check if the other object is active
+					if not other.active:
+						continue
+					# Add contents to container
+					# Set grad cylinder volume to 0mL
 					other.AddContents(contents)
 					contents.clear()
 					$VolumeContainer.DumpContents()

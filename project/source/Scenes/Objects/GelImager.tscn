@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://GelImager.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Objects/GelImager.gd" type="Script" id=1]
 [ext_resource path="res://Images/Resized_Images/imager.png" type="Texture" id=2]
 [ext_resource path="res://Images/redX.png" type="Texture" id=3]
 [ext_resource path="res://Images/GelImagerFront2.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Objects/ObjectSlot.gd" type="Script" id=5]
-[ext_resource path="res://Images/PositiveTerminal.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/UI/GelDisplay.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -73,36 +72,12 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 icon = ExtResource( 3 )
 
-[node name="GelBoatSlot" type="RigidBody2D" parent="."]
+[node name="GelBoatSlot" type="RigidBody2D" parent="." groups=["LabObjects"]]
+collision_layer = 2
 input_pickable = true
 gravity_scale = 0.0
+can_sleep = false
 script = ExtResource( 5 )
-
-[node name="Panel" type="Panel" parent="GelBoatSlot"]
-visible = false
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
-mouse_filter = 2
-
-[node name="ColorRect" type="ColorRect" parent="GelBoatSlot"]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
-mouse_filter = 1
-color = Color( 0.352941, 0.352941, 0.392157, 1 )
-
-[node name="TerminalImg" type="Sprite" parent="GelBoatSlot"]
-visible = false
-scale = Vector2( 0.20625, 0.20625 )
-texture = ExtResource( 6 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="GelBoatSlot"]
 position = Vector2( -2, 17 )

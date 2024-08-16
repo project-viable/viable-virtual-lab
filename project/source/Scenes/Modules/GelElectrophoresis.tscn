@@ -150,7 +150,7 @@ substance = ExtResource( 6 )
 position = Vector2( 951, 868 )
 draggable = false
 
-[node name="GraduatedCylinder2" parent="." instance=ExtResource( 13 )]
+[node name="GraduatedCylinder" parent="." instance=ExtResource( 13 )]
 position = Vector2( 359, 806 )
 maxVolume = 50
 
