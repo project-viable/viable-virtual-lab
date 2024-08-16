@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Objects/GelImager.gd" type="Script" id=1]
 [ext_resource path="res://Images/Resized_Images/imager.png" type="Texture" id=2]
@@ -6,9 +6,6 @@
 [ext_resource path="res://Images/GelImagerFront2.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Objects/ObjectSlot.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/UI/GelDisplay.tscn" type="PackedScene" id=7]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 53, 44.25 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 96.0625, 76.75 )
@@ -23,10 +20,9 @@ script = ExtResource( 1 )
 position = Vector2( 0, -30 )
 texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2( 2, 6.25 )
-shape = SubResource( 1 )
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -0.5, -29 )
+polygon = PoolVector2Array( 0.5, -125, -66.5, -124, -88.5, -110, -106.5, -30, -104.5, 119, -93.5, 124, 104.5, 122, 106.5, 113, 106.5, -34, 90.5, -111, 71.5, -124 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 
@@ -51,10 +47,11 @@ margin_right = 176.464
 margin_bottom = 211.36
 
 [node name="ColorRect" type="ColorRect" parent="ImagingMenu/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 242.0
-margin_bottom = 198.0
+visible = false
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 239.0
+margin_bottom = 195.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="GelDisplay" parent="ImagingMenu" instance=ExtResource( 7 )]
