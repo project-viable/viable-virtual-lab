@@ -18,6 +18,8 @@ func LabObjectReady():
 	$FollowMenu/SubstanceMenu.hide()
 
 func TryInteract(others):
+	if fill_substance:
+		return
 	for other in others:
 		if other.is_in_group("Container") or other.is_in_group("Liquid Container") or other.is_in_group("Source Container"):
 			# We need an ionic substance for the electrolysis setup to run
@@ -28,6 +30,7 @@ func TryInteract(others):
 
 			if(!(ionic_substance[0])):
 				return
+
 			# Open substance menu
 			$FollowMenu/SubstanceMenu.visible = true
 			
@@ -35,19 +38,15 @@ func TryInteract(others):
 			
 			if(fill_requested):
 				# fill the setup with the container contents
-				if(fill_substance == null):
-					fill_substance = other.TakeContents()[0]
-					$FollowMenu/SubstanceMenu.visible = false
-					# Update the Electrolysis setup to show that it is filled
-					if mounted_container != null:
-						if mounted_container.GelMoldInfo()["hasComb"]:
-							$Sprite.texture = filled_comb_texture
-						elif mounted_container.GelMoldInfo()["hasWells"]:
-							$Sprite.texture = filled_wells_texture
-						else:
-							$Sprite.texture = filled_texture
-					else:
-						$Sprite.texture = filled_texture
+				fill_substance = other.TakeContents()[0]
+				$FollowMenu/SubstanceMenu.visible = false
+				# Update the Electrolysis setup to show that it is filled
+				$Sprite.texture = filled_texture
+				if mounted_container != null:
+					if mounted_container.GelMoldInfo()["hasComb"]:
+						$Sprite.texture = filled_comb_texture
+					elif mounted_container.GelMoldInfo()["hasWells"]:
+						$Sprite.texture = filled_wells_texture
 				elif(other.CheckContents("Liquid Substance")):
 					print('The setup is already filled.')
 				else:
