@@ -155,7 +155,7 @@ func GetIntersectingLabObjects():
 	#For each collider that we have, see if it colllides with anything.
 	#This way, we could have LabObjects with multiple colliders on them (for example, multiple rectangles making up a more complex shape)
 	for child in get_children():
-		if child is CollisionShape2D or child is CollisionPolygon2D:
+		if child is CollisionShape2D:
 			var queryOptions = Physics2DShapeQueryParameters.new()
 			queryOptions.set_shape(child.shape)
 			queryOptions.transform = child.get_global_transform()
