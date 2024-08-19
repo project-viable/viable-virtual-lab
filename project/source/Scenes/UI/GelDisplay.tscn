@@ -1,8 +1,26 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Images/Gel_Wells.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/UI/GelDisplay.gd" type="Script" id=2]
 [ext_resource path="res://Images/redX.png" type="Texture" id=3]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 1, 0.384314, 0.384314, 1 )
+border_width_left = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.72549, 0.156863, 0.156863, 1 )
+border_width_left = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 0.215686, 0.215686, 1 )
+border_width_left = 1
+border_width_bottom = 1
+border_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 220, 17 )
@@ -19,6 +37,24 @@ margin_left = -225.0
 margin_top = -271.0
 margin_right = 225.0
 margin_bottom = 268.0
+rect_pivot_offset = Vector2( 377, -18 )
+
+[node name="CloseButton" type="Button" parent="Panel"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -40.0
+margin_bottom = 40.0
+custom_colors/font_color_disabled = Color( 0.65098, 0.65098, 0.65098, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+text = "X"
 
 [node name="Gel" type="Sprite" parent="."]
 position = Vector2( 1, -2 )
@@ -82,6 +118,7 @@ margin_bottom = -253.0
 rect_scale = Vector2( 2, 2 )
 texture_normal = ExtResource( 3 )
 
+[connection signal="pressed" from="Panel/CloseButton" to="." method="_on_CloseButton_pressed"]
 [connection signal="pressed" from="UVLightButton" to="." method="_on_UVLightButton_pressed"]
 [connection signal="body_entered" from="TopRunoffArea" to="." method="_on_TopRunoffArea_body_entered"]
 [connection signal="body_entered" from="BottomRunoffArea" to="." method="_on_BottomRunoffArea_body_entered"]

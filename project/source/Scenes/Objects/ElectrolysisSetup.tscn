@@ -39,7 +39,6 @@ margin_right = -36.0
 margin_bottom = 94.0
 
 [node name="SubstanceMenu" type="Control" parent="FollowMenu"]
-visible = false
 margin_left = 4.0
 margin_top = -53.0
 margin_right = 44.0
@@ -48,20 +47,20 @@ margin_bottom = -13.0
 [node name="Panel2" type="Panel" parent="FollowMenu/SubstanceMenu"]
 margin_left = 22.0
 margin_right = 130.0
-margin_bottom = 50.0
+margin_bottom = 65.0
 
 [node name="FillButton" type="Button" parent="FollowMenu/SubstanceMenu"]
-margin_left = 27.0
+margin_left = 25.0
 margin_top = 3.0
-margin_right = 123.0
-margin_bottom = 23.0
+margin_right = 126.0
+margin_bottom = 30.0
 text = "Fill the Setup"
 
 [node name="SubstanceCloseButton" type="Button" parent="FollowMenu/SubstanceMenu"]
-margin_left = 27.0
-margin_top = 27.0
-margin_right = 74.0
-margin_bottom = 47.0
+margin_left = 26.0
+margin_top = 34.0
+margin_right = 74.4
+margin_bottom = 61.0
 text = "Close"
 
 [node name="PosTerminal" type="RigidBody2D" parent="."]
@@ -154,9 +153,11 @@ monitorable = false
 position = Vector2( 1, 1 )
 shape = SubResource( 2 )
 
-[node name="GelBoatSlot" type="RigidBody2D" parent="."]
+[node name="GelBoatSlot" type="RigidBody2D" parent="." groups=["LabObjects"]]
+collision_layer = 2
 input_pickable = true
 gravity_scale = 0.0
+can_sleep = false
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GelBoatSlot"]

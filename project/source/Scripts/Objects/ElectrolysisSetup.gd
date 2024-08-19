@@ -22,9 +22,15 @@ func TryInteract(others):
 		return
 	for other in others:
 		if other.is_in_group("Container") or other.is_in_group("Liquid Container") or other.is_in_group("Source Container"):
-			var liquid_substance = other.CheckContents("Liquid Substance")
-			if len(liquid_substance) > 1:
-				liquid_substance = liquid_substance[0]
+			# We need an ionic substance for the electrolysis setup to run
+			var ionic_substance = other.CheckContents("Ionic Substance")
+			
+			if ionic_substance == []:
+				return
+
+			if(!(ionic_substance[0])):
+				return
+
 			# Open substance menu
 			$FollowMenu/SubstanceMenu.visible = true
 			

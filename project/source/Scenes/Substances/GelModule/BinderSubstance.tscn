@@ -2,5 +2,5 @@
 
 [ext_resource path="res://Scenes/Substances/GelModule/BinderSubstance.gd" type="Script" id=1]
 
-[node name="BinderSubstance" type="Node2D" groups=["Chillable", "Conductive", "Heatable", "Liquid Substance", "Mixable", "Weighable"]]
+[node name="BinderSubstance" type="Node2D" groups=["Chillable", "Conductive", "Heatable", "Ionic Substance", "Liquid Substance", "Mixable", "Weighable"]]
 script = ExtResource( 1 )
