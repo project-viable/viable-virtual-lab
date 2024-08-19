@@ -120,5 +120,5 @@ func _on_StartButton_pressed():
 	if(heatTime != null):#If it should heat
 		print("Heattime check " + str(heatTime))
 		heatable.heat(heatTime)
+		LabLog.Log("Microwaved for " + str(heatTime) + " seconds.", false, true)
 		ReportAction([self, heatable], "heat", {'heatTime': heatTime})
-		$DingSound.play()

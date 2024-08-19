@@ -1,4 +1,4 @@
-extends "res://Scripts/Substances/Substance.gd"
+extends Substance
 
 # This represents the gel mixture, and thus responds to heating and cooling.
 
@@ -7,7 +7,6 @@ var totalHeatTime = 0 #This is a variable used if the substance should be heatab
 	# It can be changed as needed for specific modules, and is only used if the 
 	# container is a member of the group "Heatable"
 var viscosity = 0
-var total_run_time = 0
 var cooled = false
 
 func _init():

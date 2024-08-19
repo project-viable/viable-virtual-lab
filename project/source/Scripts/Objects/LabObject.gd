@@ -21,6 +21,9 @@ onready var defaultZAsRelative = z_as_relative
 
 var startPosition
 
+#This variable determines whether it should call TryInteract and TryInteractIndependently
+var active = true
+
 func _get_configuration_warning():
 	for child in get_children():
 		if child is CollisionShape2D or child is CollisionPolygon2D:
@@ -152,7 +155,7 @@ func GetIntersectingLabObjects():
 	#For each collider that we have, see if it colllides with anything.
 	#This way, we could have LabObjects with multiple colliders on them (for example, multiple rectangles making up a more complex shape)
 	for child in get_children():
-		if child is CollisionShape2D or child is CollisionPolygon2D:
+		if child is CollisionShape2D:
 			var queryOptions = Physics2DShapeQueryParameters.new()
 			queryOptions.set_shape(child.shape)
 			queryOptions.transform = child.get_global_transform()
@@ -221,6 +224,9 @@ func dispose():
 #If you need different or more complex behvaior, override this.
 #But you probably don't need to do that.
 func OnUserAction():
+	if not active:
+		return
+
 	var otherLabObjects = GetIntersectingLabObjects()
 	
 	#now filter those results to find only the ones in the same subscene as us

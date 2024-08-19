@@ -10,7 +10,7 @@
 [ext_resource path="res://Images/redX.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 50, 14.5 )
+extents = Vector2( 65.5, 29.75 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 9.5 )
@@ -24,32 +24,12 @@ gravity_scale = 0.0
 script = ExtResource( 6 )
 DisplayName = "Electrolysis Setup"
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -29.0
-margin_top = -91.0
-margin_right = 31.0
-margin_bottom = -57.0
-mouse_filter = 2
-color = Color( 0.188235, 0.188235, 0.564706, 1 )
-
-[node name="Label" type="Label" parent="."]
-margin_left = -19.0
-margin_top = -80.0
-margin_right = 21.0
-margin_bottom = -66.0
-text = "Fill"
-align = 1
-
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 1, -33 )
 texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 3, -75 )
+position = Vector2( 1.5, -30.25 )
 shape = SubResource( 1 )
 
 [node name="FollowMenu" type="Control" parent="."]
@@ -59,7 +39,6 @@ margin_right = -36.0
 margin_bottom = 94.0
 
 [node name="SubstanceMenu" type="Control" parent="FollowMenu"]
-visible = false
 margin_left = 4.0
 margin_top = -53.0
 margin_right = 44.0
@@ -68,20 +47,20 @@ margin_bottom = -13.0
 [node name="Panel2" type="Panel" parent="FollowMenu/SubstanceMenu"]
 margin_left = 22.0
 margin_right = 130.0
-margin_bottom = 50.0
+margin_bottom = 65.0
 
 [node name="FillButton" type="Button" parent="FollowMenu/SubstanceMenu"]
-margin_left = 27.0
+margin_left = 25.0
 margin_top = 3.0
-margin_right = 123.0
-margin_bottom = 23.0
+margin_right = 126.0
+margin_bottom = 30.0
 text = "Fill the Setup"
 
 [node name="SubstanceCloseButton" type="Button" parent="FollowMenu/SubstanceMenu"]
-margin_left = 27.0
-margin_top = 27.0
-margin_right = 74.0
-margin_bottom = 47.0
+margin_left = 26.0
+margin_top = 34.0
+margin_right = 74.4
+margin_bottom = 61.0
 text = "Close"
 
 [node name="PosTerminal" type="RigidBody2D" parent="."]
@@ -174,9 +153,11 @@ monitorable = false
 position = Vector2( 1, 1 )
 shape = SubResource( 2 )
 
-[node name="GelBoatSlot" type="RigidBody2D" parent="."]
+[node name="GelBoatSlot" type="RigidBody2D" parent="." groups=["LabObjects"]]
+collision_layer = 2
 input_pickable = true
 gravity_scale = 0.0
+can_sleep = false
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GelBoatSlot"]

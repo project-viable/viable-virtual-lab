@@ -6,7 +6,7 @@ Object1 has a script that implements `TryInteract()` and Object2 is in a group c
 
 ### 2 - LabObject that opens a Menu
 
-Sometimes you might want to prompt the user for something that a `LabObject` needs to do its job (for example, how long a microwave should heat something for). You can see an example of how you might structure this in Scenes/Objects/ExampleMenuLabobject.tscn.
+Sometimes you might want to prompt the user for something that a `LabObject` needs to do its job (for example, how long a microwave should heat something for). You can see an example of how you might structure this in Scenes/Objects/DummyHeater.tscn.
 
 This object has a child called `Menu`.
 ![image](https://github.com/jcourt325/BiofrontiersCapstone/assets/65268611/3305eb0e-5164-48e4-8546-a1a65ef3243f)
@@ -14,7 +14,7 @@ All of the menu components are children of that node, and it's accessed in the s
 
 `Menu` is a type of node called [CanvasLayer](https://docs.godotengine.org/en/3.5/classes/class_canvaslayer.html). It makes sure that its children are drawn as UI, relative to the screen (as opposed to relative to the LabObject itself). If you wanted to, for example, have a button that followed its object around, you would remove the `CanvasLayer` and parent that UI node to the LabObject directly.
 
-ExampleMenuLabobject also responds to input in its menu. When you select a color in the ColorPicker, it changes the color of the square below the object's sprite. To try it, drag this object onto any other `LabObject`.
+DummyHeater also responds to input in its menu. When you select a button, it can change the time it will heat an object for or start the heating process. To try it, drag a `LabObject` that has the `Heatable` property into this object.
 
 To do things like this, you don't need to follow any particular design (ie. the base class doesn't do it for you). Just connect a signal on the UI element to a function that does what you want to do. <br>
 ![image](https://github.com/jcourt325/BiofrontiersCapstone/assets/65268611/7124fc4b-43fe-43e6-89ad-baa995c23c0e)
