@@ -788,7 +788,6 @@ texture = ExtResource( 8 )
 stretch_mode = 3
 
 [node name="LogMenu" type="TabContainer" parent="Menu/LogButton"]
-visible = false
 anchor_left = -10.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -807,7 +806,9 @@ margin_left = 10.0
 margin_top = 41.0
 margin_right = -10.0
 margin_bottom = -10.0
+focus_mode = 2
 bbcode_enabled = true
+selection_enabled = true
 
 [node name="Log" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
 visible = false
@@ -817,7 +818,9 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+focus_mode = 2
 bbcode_enabled = true
+selection_enabled = true
 
 [node name="Warnings" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
 visible = false
@@ -827,7 +830,9 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+focus_mode = 2
 bbcode_enabled = true
+selection_enabled = true
 
 [node name="Errors" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
 visible = false
@@ -837,7 +842,9 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+focus_mode = 2
 bbcode_enabled = true
+selection_enabled = true
 
 [node name="LabLogPopup" type="Control" parent="Menu"]
 visible = false
@@ -866,14 +873,14 @@ grow_horizontal = 2
 
 [node name="Type" type="Label" parent="Menu/LabLogPopup/Panel/VBoxContainer"]
 margin_right = 354.0
-margin_bottom = 14.0
+margin_bottom = 19.0
 align = 1
 uppercase = true
 
 [node name="Description" type="RichTextLabel" parent="Menu/LabLogPopup/Panel/VBoxContainer"]
-margin_top = 18.0
+margin_top = 23.0
 margin_right = 354.0
-margin_bottom = 33.0
+margin_bottom = 43.0
 fit_content_height = true
 
 [node name="Border" type="ReferenceRect" parent="Menu/LabLogPopup"]
