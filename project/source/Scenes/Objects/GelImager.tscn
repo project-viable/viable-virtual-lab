@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://GelImager.gd" type="Script" id=1]
 [ext_resource path="res://Images/Resized_Images/imager.png" type="Texture" id=2]
 [ext_resource path="res://Images/redX.png" type="Texture" id=3]
-[ext_resource path="res://Images/GelImagerFront2.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Objects/ObjectSlot.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/UI/GelDisplay.tscn" type="PackedScene" id=7]
 
@@ -32,12 +31,6 @@ shape = SubResource( 1 )
 
 [node name="ImagingMenu" type="CanvasLayer" parent="."]
 
-[node name="Sprite" type="Sprite" parent="ImagingMenu"]
-visible = false
-position = Vector2( 357, 332 )
-scale = Vector2( 0.780414, 0.76806 )
-texture = ExtResource( 4 )
-
 [node name="PanelContainer" type="PanelContainer" parent="ImagingMenu"]
 physics_interpolation_mode = 1
 visible = false
@@ -51,10 +44,10 @@ margin_right = 176.464
 margin_bottom = 211.36
 
 [node name="ColorRect" type="ColorRect" parent="ImagingMenu/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 242.0
-margin_bottom = 198.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 239.0
+margin_bottom = 195.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="GelDisplay" parent="ImagingMenu" instance=ExtResource( 7 )]
