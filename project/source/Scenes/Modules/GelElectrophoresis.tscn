@@ -130,18 +130,14 @@ draggable = true
 
 [node name="AgaroseSourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( 671, 854 )
-input_pickable = true
 mode = 1
-can_sleep = false
 DisplayName = "Agarose"
 image = ExtResource( 12 )
 substance = ExtResource( 14 )
 
 [node name="TAESourceContainer" parent="." instance=ExtResource( 4 )]
 position = Vector2( 735, 851 )
-input_pickable = true
 mode = 1
-can_sleep = false
 DisplayName = "TAE Buffer"
 image = ExtResource( 8 )
 substance = ExtResource( 6 )
@@ -200,9 +196,7 @@ texture = ExtResource( 16 )
 
 [node name="DNAContainer" parent="DNA Containers" instance=ExtResource( 4 )]
 position = Vector2( -42, -1.07288e-06 )
-input_pickable = true
 mode = 1
-can_sleep = false
 DisplayName = "DNA 1"
 containerType = 1
 substance = SubResource( 2 )
@@ -210,9 +204,7 @@ substance_parameters = [ 1500.0, 200.0 ]
 
 [node name="DNAContainer2" parent="DNA Containers" instance=ExtResource( 4 )]
 position = Vector2( -16, -1.07288e-06 )
-input_pickable = true
 mode = 1
-can_sleep = false
 DisplayName = "DNA 2"
 containerType = 1
 substance = SubResource( 2 )
@@ -220,9 +212,7 @@ substance_parameters = [ 7500.0, 2200.0, 300.0 ]
 
 [node name="DNAContainer3" parent="DNA Containers" instance=ExtResource( 4 )]
 position = Vector2( 9.99999, -9.53674e-07 )
-input_pickable = true
 mode = 1
-can_sleep = false
 DisplayName = "DNA 3"
 containerType = 1
 substance = SubResource( 2 )
@@ -230,9 +220,7 @@ substance_parameters = [ 10000.0 ]
 
 [node name="DNAContainer4" parent="DNA Containers" instance=ExtResource( 4 )]
 position = Vector2( 37, -9.53674e-07 )
-input_pickable = true
 mode = 1
-can_sleep = false
 DisplayName = "Ladder"
 containerType = 1
 substance = SubResource( 2 )
