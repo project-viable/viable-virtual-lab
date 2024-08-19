@@ -24,8 +24,6 @@ texture = ExtResource( 2 )
 position = Vector2( -0.5, -29 )
 polygon = PoolVector2Array( 0.5, -125, -66.5, -124, -88.5, -110, -106.5, -30, -104.5, 119, -93.5, 124, 104.5, 122, 106.5, 113, 106.5, -34, 90.5, -111, 71.5, -124 )
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-
 [node name="ImagingMenu" type="CanvasLayer" parent="."]
 
 [node name="Sprite" type="Sprite" parent="ImagingMenu"]
