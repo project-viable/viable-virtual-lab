@@ -833,6 +833,7 @@ texture = ExtResource( 8 )
 stretch_mode = 3
 
 [node name="LogMenu" type="TabContainer" parent="Menu/LogButton"]
+visible = false
 anchor_left = -10.0
 anchor_top = 1.0
 anchor_right = 1.0
