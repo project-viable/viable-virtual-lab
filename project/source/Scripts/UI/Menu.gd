@@ -104,15 +104,16 @@ func _on_LogButton_pressed():
 
 func _on_New_Log_Message(category, newLog):
 	if not newLog['hidden']:
+		var bbcode = ("-" + newLog['message'] + "\n")
 		if category == 'log':
 			unreadLogs['log'] += 1
-			$LogButton/LogMenu/Log.bbcode_text += ("-" + newLog['message'] + "\n")
+			$LogButton/LogMenu/Log.bbcode_text += bbcode
 		elif category == 'warning':
 			unreadLogs['warning'] += 1
-			$LogButton/LogMenu/Warnings.bbcode_text += ("[color=yellow]-" + newLog['message'] + "[/color]\n")
+			$LogButton/LogMenu/Warnings.bbcode_text += bbcode
 		elif category == 'error':
 			unreadLogs['error'] += 1
-			$LogButton/LogMenu/Errors.bbcode_text += ("[color=red]-" + newLog['message'] + "[/color]\n")
+			$LogButton/LogMenu/Errors.bbcode_text += bbcode
 	logs.append({
 		'category': category, 
 		'newLog': newLog

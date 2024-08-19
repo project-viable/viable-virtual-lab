@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/UI/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
@@ -12,6 +12,51 @@
 [ext_resource path="res://Mixtures.gd" type="Script" id=10]
 [ext_resource path="res://Images/VIABLE_Logo_Transparent.png" type="Texture" id=11]
 [ext_resource path="res://UI/RobotoMedium28.tres" type="DynamicFont" id=12]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.866667, 0.866667, 1, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 1, 1, 0.866667, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 1, 0.866667, 0.866667, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
@@ -807,37 +852,48 @@ margin_left = 10.0
 margin_top = 41.0
 margin_right = -10.0
 margin_bottom = -10.0
+focus_mode = 2
 bbcode_enabled = true
+selection_enabled = true
 
 [node name="Log" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 10.0
+margin_top = 41.0
+margin_right = -10.0
+margin_bottom = -10.0
+focus_mode = 2
+custom_styles/normal = SubResource( 1 )
 bbcode_enabled = true
+selection_enabled = true
 
 [node name="Warnings" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 10.0
+margin_top = 41.0
+margin_right = -10.0
+margin_bottom = -10.0
+focus_mode = 2
+custom_styles/normal = SubResource( 2 )
 bbcode_enabled = true
+selection_enabled = true
 
 [node name="Errors" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 10.0
+margin_top = 41.0
+margin_right = -10.0
+margin_bottom = -10.0
+focus_mode = 2
+custom_styles/normal = SubResource( 3 )
 bbcode_enabled = true
+selection_enabled = true
 
 [node name="LabLogPopup" type="Control" parent="Menu"]
 visible = false
@@ -866,14 +922,14 @@ grow_horizontal = 2
 
 [node name="Type" type="Label" parent="Menu/LabLogPopup/Panel/VBoxContainer"]
 margin_right = 354.0
-margin_bottom = 14.0
+margin_bottom = 19.0
 align = 1
 uppercase = true
 
 [node name="Description" type="RichTextLabel" parent="Menu/LabLogPopup/Panel/VBoxContainer"]
-margin_top = 18.0
+margin_top = 23.0
 margin_right = 354.0
-margin_bottom = 33.0
+margin_bottom = 43.0
 fit_content_height = true
 
 [node name="Border" type="ReferenceRect" parent="Menu/LabLogPopup"]

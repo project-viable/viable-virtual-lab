@@ -57,7 +57,7 @@ func _on_RunCurrent_pressed():
 			running = !running
 			ToggleRunCurrentText()
 			ToggleInputsEditable()
-
+			
 			# This calls run_current on the designated device at an equally timed interval
 			# This loop will also stop short of the desired time if the user presses "STOP"
 			while time_ran <= $CurrentConductor.GetTime():
@@ -81,9 +81,9 @@ func _on_RunCurrent_pressed():
 					print("At least one terminal is disconnected")
 					break
 			
-			running = !running
-			ToggleRunCurrentText()
-			ToggleInputsEditable()
+			#running = !running
+			#ToggleRunCurrentText()
+			#ToggleInputsEditable()
 	else:
 		print("Device cannot run current")
 
