@@ -81,9 +81,9 @@ func _on_RunCurrent_pressed():
 					print("At least one terminal is disconnected")
 					break
 			
-			#running = !running
-			#ToggleRunCurrentText()
-			#ToggleInputsEditable()
+			running = !running
+			ToggleRunCurrentText()
+			ToggleInputsEditable()
 	else:
 		print("Device cannot run current")
 
