@@ -87,6 +87,8 @@ func init(gel_mold, has_wells):
 				band_obj.set_band_ids(i, j)
 				if j != (len(well) - 1):
 					band_obj.visible = false
+				else:
+					band_obj.visible = true
 
 func update_gel_display():
 	# update gel image
@@ -103,10 +105,11 @@ func update_gel_display():
 	
 	# update display for gel bands
 	for start_obj in $StartPositions.get_children():
+		var counter = 0
 		for band in start_obj.get_children():
-			var counter = 0
 			var lastBand = (counter == start_obj.get_child_count() - 1)
 			band.update_display(uv_on, show_without_UV, band_images, lastBand)
+			counter += 1
 
 func delete_band(band_obj):
 	band_obj.queue_free()
