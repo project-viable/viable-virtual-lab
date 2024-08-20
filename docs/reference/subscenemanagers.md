@@ -2,7 +2,7 @@
 
 `SubsceneManager` is a subclass of LabObject that handles a subscene (a popup that contains other LabObjects, like a zoomed in view, or maybe a fancy menu). Any time you need to create a subscene, you should make a new `SubsceneManager`. You can also `extend` it, but you often won't have to.
 
-![CapstoneSubsceneExample-ezgif com-crop](https://github.com/jcourt325/BiofrontiersCapstone/assets/65268611/1291a389-f63c-43bb-9573-9291757cbe00)
+![Subscene Example](./images/subscene-manager/subscene_manager.gif)
 
 **Inherits:** LabObject
 
@@ -30,7 +30,7 @@ All `SubsceneManager`s are part of the `SubsceneManagers` group. They take care 
 
 If you open `res://Scenes/Objects/SubsceneManager.tscn`, you'll see that SubsceneManager needs several child nodes in order to function. When you create a new SubsceneManager for your custom objects, those nodes need to exist, but you do not have to manually create them all. See below for how to create an inherited scene.
 
-![image](https://github.com/jcourt325/BiofrontiersCapstone/assets/65268611/5c2cef69-5fb4-4eb7-8fa2-f66011328653)
+![image](./images/subscene-manager/subscene_child_nodes.png)
 
 - `Subscene` is an [Area2D](https://docs.godotengine.org/en/3.5/classes/class_area2d.html) that contains the entire subscene. When you create a new subscene, add all the LabObjects in it as children of this node. When the game is started, it is removed from the tree (see `HideSubscene()` above), and readded as needed.
 - `Border` is a UI node that has children for the background and close button. These UI nodes have their mouse filter set to Ignore so that they don't stop mouse clicks from being recieved by the LabObjects in the subscene.
@@ -49,11 +49,11 @@ Some general notes:
 
 ### Creating a new type of SubsceneManager
 
-Since SubsceneManager depends on its predefined, special child nodes (see above), the process for creating a new one is a bit more complicated than a normal LabObject. To do this, find the SubsceneManager base scene (`res://Scenes/Objects/SubsceneManager.tscn`) in the file system tab, right click it, and select ![image](https://github.com/jcourt325/BiofrontiersCapstone/assets/65268611/9b2347a9-7fd6-43ec-8281-3187f13bd8ff).
+Since SubsceneManager depends on its predefined, special child nodes (see above), the process for creating a new one is a bit more complicated than a normal LabObject. To do this, find the SubsceneManager base scene (`res://Scenes/Objects/SubsceneManager.tscn`) in the file system tab, right click it, and select ![image](./images/new_inherited_scene.png).
 
 Now, you should have a new scene something like this:
 
-![image](https://github.com/jcourt325/BiofrontiersCapstone/assets/65268611/e1b90f5e-17b6-4a4d-bc0d-51086a0ed813)
+![image](./images/subscene-manager/new_subscene_type.png)
 
 The grayed out nodes are nodes inherited from the SubsceneManager scene. If a change is made to the base scene in the future, these nodes will reflect that change. In order to give your object special functionality (remember, it's still a LabObject, so you can `TryInteract()` or `TryActIndependently()` if you'd like), you'll need to remove the SubsceneManager script from the root of your new scene, and add a new one that extends it.
 
