@@ -9,4 +9,4 @@ gravity_scale = 0.0
 can_sleep = false
 script = ExtResource( 1 )
 
-[connection signal="input_event" from="." to="." method="_on_GelBoatSlot_input_event"]
+[connection signal="input_event" from="." to="." method="_on_ObjectSlot_input_event"]

@@ -67,3 +67,4 @@ position = Vector2( -2, 17 )
 shape = SubResource( 2 )
 
 [connection signal="pressed" from="ImagingMenu/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="input_event" from="ObjectSlot" to="ObjectSlot" method="_on_ObjectSlot_input_event"]
