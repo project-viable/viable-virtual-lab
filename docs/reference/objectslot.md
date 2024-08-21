@@ -11,7 +11,7 @@ For examples, refer to `ElectrolysisSetup` or `GelImager`.
 - `TryInteract()`: extended from `LabObject`, this overridden function modifies the object if it's allowed to be inserted into the slot before updating the parent of the object to be the `ObjectSlot`. It sets the object's active state to false, so that it cannot have unexpected behavior while it is in the slot.
 - `filled()`: returns whether or not the `ObjectSlot` is filled.
 - `get_object()`: returns the `held_object`.
-- `_on_GelBoatSlot_input_event(viewport, event, shape_idx)`: removes the object from the `ObjectSlot`, sets the `active` state to true, restores its original parent, and sets `held_object` to null. It is called when it is clicked on by the user.
+- `_on_ObjectSlot_input_event(viewport, event, shape_idx)`: removes the object from the `ObjectSlot`, sets the `active` state to true, restores its original parent, and sets `held_object` to null. It is called when it is clicked on by the user.
 
 ## Dependencies
 The `ObjectSlot` has a couple dependencies: `slot_filled()` and `slot_emptied()`.
