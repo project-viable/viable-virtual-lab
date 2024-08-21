@@ -19,3 +19,5 @@ The `ObjectSlot` has a couple dependencies: `slot_filled()` and `slot_emptied()`
 The parent node of the `ObjectSlot` needs to implement these functions. This behavior is specific to the parent node.
 
 For examples, see `ElectrolysisSetup.gd` and `GelImager.gd`.
+
+Like other `LabObject`s, it requires to have a `CollisionShape2D`. To fulfill this dependency, just add the node as a child of `ObjectSlot` with the size and shape the parent node requires. 
