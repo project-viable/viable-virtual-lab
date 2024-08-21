@@ -30,10 +30,8 @@ https://docs.godotengine.org/en/3.5/
 6. [Groups](/docs/reference/groups/index.md)
 7. [Lab Logs](/docs/reference/lablogs.md)
 8. [Main Scene](/docs/reference/mainscene.md)
-8. [Lab Logs](/docs/reference/lablogs.md)
-9. [Main Scene](/docs/reference/mainscene.md)
-10. [Game Settings](/docs/reference/gamesettings.md)
-11. [DimensionSprites](/docs/reference/dimensionsprite.md)
+9. [Game Settings](/docs/reference/gamesettings.md)
+10. [DimensionSprites](/docs/reference/dimensionsprite.md)
 
 ## Examples
 1. [LabObject Examples](/docs/examples/examples-labobjects.md)
