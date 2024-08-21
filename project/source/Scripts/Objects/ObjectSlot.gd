@@ -12,16 +12,12 @@ func TryInteract(others):
 				if(!filled()):
 					other.active = false
 					held_object = other
-					# prevent the area from detecting the single-frame coordinate snap on adding the child
-					$Area2D.monitoring = false
 					
 					if (other.get_parent()):
 						other.get_parent().call_deferred("remove_child", other)
 					self.call_deferred("add_child", other)
 					
 					other.set_deferred("position", Vector2.ZERO)
-					
-					$Area2D.monitoring = true
 					
 					get_parent().slot_filled(self, other)
 
@@ -31,7 +27,7 @@ func filled():
 func get_object():
 	return held_object
 
-func _on_GelBoatSlot_input_event(viewport, event, shape_idx):
+func _on_ObjectSlot_input_event(viewport, event, shape_idx):
 	if (event.is_pressed()):
 		if (!filled()):
 			return

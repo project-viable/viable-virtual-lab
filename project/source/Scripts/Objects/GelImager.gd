@@ -44,7 +44,7 @@ func slot_filled(slot, object):
 		print("Cannot insert this container into gel imager")
 		LabLog.Warn('You tried to place a different container into the gel imager instead of the gel boat.')
 	if !filled:
-		$GelBoatSlot.held_object = null
+		$ObjectSlot.held_object = null
 		# Given that an object's active state is set in ObjectSlot, we should reset it to true
 		# if the object fails to attach to the slot
 		object.active = true
