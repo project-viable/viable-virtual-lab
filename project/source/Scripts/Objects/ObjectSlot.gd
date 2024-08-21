@@ -4,8 +4,6 @@ class_name ObjectSlot
 
 export var allowed_groups = ['Container', 'Liquid Container']
 var held_object = null
-var saved_grav_scale = 0.0
-var saved_phys_mode = 0
 
 func TryInteract(others):
 	for other in others:
