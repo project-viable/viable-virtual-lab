@@ -8,7 +8,15 @@ One (which we do not use) is to use Godot's built in functions to fully change s
 
 The alternative (what we do) is to have a Main scene that just contains the things that the game needs to run - the Main script that handles input events (see below), the Camera, etc, and when we want to load a new scene, add it as a child of the Main scene. For our particular project, this makes the structure of the game a little simpler. It does have one small downside, which is that, without the Main scene, any other scenes you might make (like a module or an individual LabObject's scene) *will not be able to function alone*, so you have to run the entire game every time you want to test something, as opposed to using Godot's "Play Scene" button. We think this tradeoff is worth it, because it's very easy to create a simple little test module to put any objects you're working on in.
 
-TODO: show a screenshot of the structure of the Main scene, including the $Scene node where things are added.
+![image](./images/mainscene/Main%20scene.png)
+
+The above is the structure of the main scene. It contains the following higher-level nodes:
+- `Menu`
+  - The main UI the user itneracts with to perform actions like updating options and changing modules.
+- `Scene`
+  - The current scene the user is on. As of now, since there is just one module, it just sets itself to the GelElectrophoresis module scene. In the future, when this needs to be changed as another module is added, refer to the `_ready()` function within the `Scripts/UI/Menu.gd` script.
+- `Mixtures`
+  - This tracks all known mixtures relevant to the lab. It is meant to check for mistakes when a user makes a mixture.
 
 ### Input Handling
 
