@@ -1,8 +1,8 @@
 ### 1 - Basic LabObject that interacts with others
 
-See Scenes/Objects/TestLabObject1.tscn and TestLabObject2.tscn for how you can do this.
+See Scenes/Objects/GraduatedCylinder.tscn and Scenes/Objects/SourceContainer.tscn as reference.
 
-Object1 has a script that implements `TryInteract()` and Object2 is in a group called `Test LabObject Group`, that tells Object1 that it is able to interact with it. To try it, drag an instance of Object1 onto an instance of Object2.
+GraduatedCylinder has a script that implements `TryInteract` and SourceContainer is in a group called `Source Container`. It checks if SourceContainer is in either groups `Source Container` or `Container`. This determines the resulting action. In this case, it will prompt to the user to fill the GraduatedCylinder. To try it, drag an instance of GraduatedCylinder onto an instance of SourceContainer.
 
 ### 2 - LabObject that opens a Menu
 
