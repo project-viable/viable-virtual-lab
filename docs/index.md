@@ -33,8 +33,9 @@ https://docs.godotengine.org/en/3.5/
 8. [Main Scene](/docs/reference/mainscene.md)
 8. [Lab Logs](/docs/reference/lablogs.md)
 9. [Main Scene](/docs/reference/mainscene.md)
-10. [Game Settings](/docs/reference/gamesettings.md)
-11. [DimensionSprites](/docs/reference/dimensionsprite.md)
+10. [Mixtures.json](/docs/reference/mixtures.md)
+11. [Game Settings](/docs/reference/gamesettings.md)
+12. [DimensionSprites](/docs/reference/dimensionsprite.md)
 
 ## Examples
 1. [LabObject Examples](/docs/examples/examples-labobjects.md)
