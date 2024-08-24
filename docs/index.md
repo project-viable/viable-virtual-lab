@@ -36,6 +36,7 @@ https://docs.godotengine.org/en/3.5/
 10. [Mixtures.json](/docs/reference/mixtures.md)
 11. [Game Settings](/docs/reference/gamesettings.md)
 12. [DimensionSprites](/docs/reference/dimensionsprite.md)
+13. [Object Slot](/docs/reference/objectslot.md)
 
 ## Examples
 1. [LabObject Examples](/docs/examples/examples-labobjects.md)
