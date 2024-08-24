@@ -36,7 +36,7 @@ func current_reversed():
 
 func _on_RunCurrent_pressed():
 	if running:
-		running = !running
+		running = false
 		ToggleRunCurrentText()
 		ToggleInputsEditable()
 		return
@@ -54,7 +54,7 @@ func _on_RunCurrent_pressed():
 			ReportAction([self, other_device], "runCurrent", {'voltage': $CurrentConductor.GetVolts() * voltage_mod})
 			
 			# Update running state and button text
-			running = !running
+			running = true
 			ToggleRunCurrentText()
 			ToggleInputsEditable()
 			
@@ -81,7 +81,7 @@ func _on_RunCurrent_pressed():
 					print("At least one terminal is disconnected")
 					break
 			
-			running = !running
+			running = false
 			ToggleRunCurrentText()
 			ToggleInputsEditable()
 	else:
