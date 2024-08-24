@@ -1,6 +1,6 @@
 extends Node2D
 
-export (bool) var show_without_UV = true
+export (bool) var show_without_UV = false
 
 var band_prefab = null
 var gel_images = []
@@ -85,6 +85,10 @@ func init(gel_mold, has_wells):
 			var band_obj = start_pos.get_child(j)
 			if(band_obj != null):
 				band_obj.set_band_ids(i, j)
+				if j != (len(well) - 1):
+					band_obj.visible = false
+				else:
+					band_obj.visible = true
 
 func update_gel_display():
 	# update gel image
@@ -101,8 +105,11 @@ func update_gel_display():
 	
 	# update display for gel bands
 	for start_obj in $StartPositions.get_children():
+		var counter = 0
 		for band in start_obj.get_children():
-			band.update_display(uv_on, show_without_UV, band_images)
+			var lastBand = (counter == start_obj.get_child_count() - 1)
+			band.update_display(uv_on, show_without_UV, band_images, lastBand)
+			counter += 1
 
 func delete_band(band_obj):
 	band_obj.queue_free()
@@ -112,7 +119,6 @@ func _on_UVLightButton_pressed():
 	update_gel_display()
 
 func _on_TopRunoffArea_body_entered(body):
-	#print('Top area entered')
 	if(body.is_in_group('Gel Band')):
 		# check if this band has already triggered an error
 		var already_errored = false
