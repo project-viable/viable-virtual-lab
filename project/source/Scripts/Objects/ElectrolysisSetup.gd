@@ -105,7 +105,7 @@ func slot_filled(slot, object):
 		slot_emptied(slot, object)
 
 func slot_emptied(slot, object):
-	$GelBoatSlot.held_object = null
+	$ObjectSlot.held_object = null
 	if mounted_container == null:
 		return
 	mounted_container.visible = true

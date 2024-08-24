@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Images/NegativeTerminal.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/Objects/ObjectSlot.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Objects/ObjectSlot.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Images/PositiveTerminal.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/UI/GelDisplay.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Images/Resized_Images/Gel_Rig.png" type="Texture" id=5]
@@ -153,21 +153,10 @@ monitorable = false
 position = Vector2( 1, 1 )
 shape = SubResource( 2 )
 
-[node name="GelBoatSlot" type="RigidBody2D" parent="." groups=["LabObjects"]]
-collision_layer = 2
-input_pickable = true
-gravity_scale = 0.0
-can_sleep = false
-script = ExtResource( 2 )
+[node name="ObjectSlot" parent="." instance=ExtResource( 2 )]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GelBoatSlot"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectSlot"]
 position = Vector2( 1, -30.1875 )
-shape = SubResource( 3 )
-
-[node name="Area2D" type="Area2D" parent="GelBoatSlot"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GelBoatSlot/Area2D"]
-position = Vector2( 2, -30 )
 shape = SubResource( 3 )
 
 [node name="GelButton" type="Button" parent="."]
@@ -201,6 +190,6 @@ texture_normal = ExtResource( 8 )
 [connection signal="pressed" from="FollowMenu/SubstanceMenu/SubstanceCloseButton" to="." method="_on_SubstanceCloseButton_pressed"]
 [connection signal="body_exited" from="PosTerminal/Area2D" to="PosTerminal" method="_on_Area2D_body_exited"]
 [connection signal="body_exited" from="NegTerminal/Area2D" to="NegTerminal" method="_on_Area2D_body_exited"]
-[connection signal="input_event" from="GelBoatSlot" to="GelBoatSlot" method="_on_GelBoatSlot_input_event"]
+[connection signal="input_event" from="ObjectSlot" to="ObjectSlot" method="_on_ObjectSlot_input_event"]
 [connection signal="pressed" from="GelButton" to="." method="_on_GelButton_pressed"]
 [connection signal="pressed" from="GelSimMenu/CloseButton" to="." method="_on_CloseButton_pressed"]
