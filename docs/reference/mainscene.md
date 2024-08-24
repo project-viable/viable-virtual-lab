@@ -20,7 +20,13 @@ The above is the structure of the main scene. It contains the following higher-l
 
 ### Input Handling
 
-TODO: talk about how for subscenes we have to manually handle input events in a different order than Godot does by default.
+For subscenes, we have to manually handle input events in a different order than Godot does by default. Relying on the object's normal object picking does not give us the control we need.
+
+For reference, look at the function `_unhandled_input(event)` within `Main.gd`.
+
+Within a subscene, we need to find the best pick when a user clicks. To find the best pick, it iterates over the options. Draggables are preferrable to non-draggables and high z indices are tie breakers.
+
+If a best pick is found, and if it's draggable, it will start dragging. Otherwise, it calls `OnUserAction()` for that object. Finally, it calls `set_input_as_handled()` and the function returns.
 
 ### Utility Functions
 
