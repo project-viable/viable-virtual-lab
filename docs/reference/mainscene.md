@@ -24,4 +24,9 @@ TODO: talk about how for subscenes we have to manually handle input events in a 
 
 ### Utility Functions
 
-TODO: talk about the `SetScene` and `GetDeepestSubsceneAt` functions and why (if?) you might use them. Probably also warn that it's really unlikely you need them unless `Main.gd` is broken or something, so make sure you're not overcomplicating something.
+Within the Main scene, there are two utility functions to be aware of: `SetScene()` and `GetDeepestSubsceneAt()`.
+
+- `SetScene(scene: PackedScene)`: This first clears the currently loaded scene within `$Scene`. Then, it instantiates the scene from the parameter. It then adds the scene as a child of `$Scene`, and set the `currentModuleScene` to this scene.
+- `GetDeepestSubsceneAt(pos: Vector2)`: This finds the deepest `Subscene` at position `pos`. This is primarily used for dealing with `LabObjects` and determining its behavior if its within a subscene.
+
+You likely will not have to use these, unless there are deeper issues such as `Main.gd` being broken. So, before using these, make sure you're not overcomplicating something.
