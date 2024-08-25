@@ -81,3 +81,7 @@ func update_weight():
 	for object in contents:
 		weight += object.get_mass()
 
+func dispose():
+	contents.clear()
+	update_display()
+	weight = .4

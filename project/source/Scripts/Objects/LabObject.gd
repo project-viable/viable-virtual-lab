@@ -219,7 +219,7 @@ func LabObjectReady():
 #Chances are you only need TryInteract() and TryActIndependently()
 
 #Called when attempting to throw away an object, can be overwritten by subclasses for specialized deletion 
-func dispose(): 
+func dispose():
 	self.queue_free()
 	
 #Called automatically when this object might want to interact with others, or act on its own.
