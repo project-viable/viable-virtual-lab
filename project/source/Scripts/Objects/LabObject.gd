@@ -187,6 +187,9 @@ func GetSubsceneManagerParent():
 	#If we've made it here, we ran out of ancestors before finding one
 	return null
 
+func GetMain():
+	return get_tree().current_scene
+
 func GetCurrentModuleScene():
 	return get_tree().current_scene.currentModuleScene
 
