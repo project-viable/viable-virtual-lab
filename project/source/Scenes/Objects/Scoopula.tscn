@@ -9,7 +9,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 55.4946, 6.18365 )
 
-[node name="Scoopula" type="RigidBody2D"]
+[node name="Scoopula" type="RigidBody2D" groups=["LabObjects"]]
 z_index = 3
 collision_layer = 2
 gravity_scale = 0.0

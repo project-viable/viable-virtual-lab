@@ -15,7 +15,10 @@ func TryInteract(others):
 			if other.is_in_group(group):
 				#update the text
 				if len(other.DisplayName) > 0:
-					$Menu/PanelContainer/VBoxContainer/Label.text = "Do you really want to dispose of this " + other.DisplayName + "?"
+					if (other.DisplayName.find("Pipette") and ("hasTip" in other) and other.hasTip):
+						$Menu/PanelContainer/VBoxContainer/Label.text = "Do you really want to dispose of this " + other.DisplayName + " tip?"
+					else:
+						$Menu/PanelContainer/VBoxContainer/Label.text = "Do you really want to dispose of this " + other.DisplayName + "?"
 				else:
 					$Menu/PanelContainer/VBoxContainer/Label.text = "Are you sure you want to throw this away?"
 				
