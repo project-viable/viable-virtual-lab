@@ -286,6 +286,7 @@ func ReportAction(objectsInvolved: Array, actionType: String, params: Dictionary
 	#This function asks for these as arguments, and then manually adds them here, to remind/force you to provide them
 	params['objectsInvolved'] = objectsInvolved
 	params['actionType'] = actionType
+	GetMain().CheckAction(params)
 	GetCurrentModuleScene().CheckAction(params)
 
 func GetStartPosition():

@@ -4,7 +4,7 @@ This refers to any message that you need to show to the user (for example, telli
 
 Logs should fall into 3 categories:
 
-- Log: this is for messages that the user should be able to see, but are purely informational, not mistakes. For example, you might create a log when they reach a certain milestone or checkpoint in the lab.
+- Log: this is for messages that the user should be able to see, but are purely informational, not mistakes. For example, you might create a log when they reach a certain milestone or checkpoint in the lab. You may also use this to give the user an indication their interaction actually happened.
 - Warning: this is for warning the user of small mistakes, but ones which they can continue from. For example, in Gel Electrophoresis, if they microwave it too long, the viscosity will be different than expected, which may impact the final result.
 - Error: this is for larger mistakes, whose results we cannot simulate. Use these to notify the user of critical errors.
 
@@ -16,8 +16,8 @@ Logs also have 2 properties:
 ### `LabLog` Functions
 
 ###### Common Functions:
-- `Log(message, hidden = false, popup = false)`: creates a new log with the given message. `hidden` and `popup` are optional. The category of this log will be `"log"`.
-- `Warn(message, hidden = false, popup = false)`: creates a new Warning type log with the given message. `hidden` and `popup` are optional. The category of this log will be `"warning"`.
+- `Log(message, hidden = false, popup = true)`: creates a new log with the given message. `hidden` and `popup` are optional. The category of this log will be `"log"`.
+- `Warn(message, hidden = false, popup = true)`: creates a new Warning type log with the given message. `hidden` and `popup` are optional. The category of this log will be `"warning"`.
 - `Error(message)`: creates a new Error type log with the given message. `hidden` is always set to false and `popup` is always set as true. The category of this log will be `"error"`.
 - `ShowReport()`: Tells the system to show the final report for the module - a popup window that shows warning and errors, and lets them restart, return to the menu, or continue in freeform mode. Call this function when the user has completed an experiment.
 ###### Other Functions:
@@ -29,7 +29,6 @@ Logs also have 2 properties:
 You probably don't need to use any of these, but you can if you need. They are used by the UI nodes to update themselves with the new logs that interest them. You can use them yourself by calling `LabLog.connect("the name of the signal", [yourObject (probably 'self')], "theFunctionToCallOnYourObject")`.
 
 - `NewMessage(category, newLog)`: Emitted when a new log is created, of any type. See below for the log data structure.
-- `PopupLog(category, newLog)`: Emitted when a new `popup` log of any type is created. See below for the log data structure.
 - `ReportShown`: Emitted when something calls `ShowReport()` (see above). Used internally, but you can connect to it too if you need to.
 - `ClearLogs`: Emitted when logs are cleared with `CleaLogs()` (see above). Used internally to tell UI nodes to update themselves.
 
