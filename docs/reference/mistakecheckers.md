@@ -3,9 +3,9 @@ This refers to validating user actions against what is expected and considered c
 ## Types of Errors
 In the simulation, there are a variety of possible things to check for, though they tend to resolve to two categories: general and lab-specific. 
 ### General
-These may include configuring the `CurrentSource` wires incorrectly. This is something that a `LabObject` should be aware of and let the user know of their mistake.
+These may include configuring the `CurrentSource` wires incorrectly. This is something that a `LabObject` should be aware of and let the user know of their mistake. Since the `LabObject` is aware of these errors, it should call `LabLog` instead functions instead of `ReportAction()`. 
 ### Lab-Specific
-These include issues that are relevant to a specific lab. For instance, the run time of the gel in the Gel Electrophoresis module should not be something a `LabObject` like the `CurrentSource` or `ElectrolysisSetup` should be aware of.
+These include issues that are relevant to a specific lab. For instance, the run time of the gel in the Gel Electrophoresis module should not be something a `LabObject` like the `CurrentSource` or `ElectrolysisSetup` should be aware of. As a result, it is recommended to call `ReportAction()` instead of calling `LabLog` directly. This allows for easier maintenance as you won't have to keep adding potential errors for each module you each the object to.
 ## Implementation
 The general structure relies on the Strategy Design Pattern where each separate `MistakeChecker` type implements the base `MistakeChecker` class.
 ### `MistakeChecker` functions
