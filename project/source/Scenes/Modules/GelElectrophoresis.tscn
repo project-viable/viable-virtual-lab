@@ -160,7 +160,6 @@ position = Vector2( 767, 1116 )
 [node name="SharpsDisposal" parent="." instance=ExtResource( 17 )]
 position = Vector2( 79, 636 )
 scale = Vector2( 0.7, 0.7 )
-acceptedGroups = [ "Disposable-Hazard", "LabObjects" ]
 
 [node name="CurrentSource" parent="." instance=ExtResource( 24 )]
 position = Vector2( 943, 1082 )
