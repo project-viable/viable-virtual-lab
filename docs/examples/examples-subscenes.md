@@ -1,8 +1,19 @@
 ### 1 - Basic Subscene
 
-See Scenes/Objects/SubsceneManagerTest.tscn.
+See Scenes/Objects/SubsceneManager.tscn.
 
-This object does not extend the SubsceneManager script, because it needs only the basic functionality. It has several children to demonstrate where they should be put in the scene tree. While this particular SubsceneManager is `draggable`, most probably will not be.
+This object is the base class for the SubsceneManager. It implements the basic functionality required for a Subscene.
+
+#### Member Functions
+The following defines the base behavior for `SubsceneManagers`. However, nodes that extend this class can override them if necessary.
+- `_ready()`: Called when the object is initialized. Calls its parent `_ready()` function. It then sets the subscene variable to be the child `$Subscene`, adds itself to the `SubsceneManagers` group, sets the `z_index` to make the subscene draw in front of the one above it in the tree.
+- `CountSubsceneDepth()`: Returns the depth of the subscene. It is used by main when picking which object should receive a user input action (e.g. mouse click).
+- `SetDimensions(newDim: Vector2)`: Updates the dimensions of the subscene to the dimensions defined by a `Vector2`.
+- `TryActIndependently()`: By default, if `subsceneActive` is false, it calls `ShowSubscene()`.
+- `ShowSubscene()`: Shows the subscene.
+- `HideSubscene()`: Hides the subscene.
+- `AdoptNode()`: Remove node from parent's children and adds as child of subscene.
+- `AdjustSubsceneToVisibleHeight()`: Adjusts the subscene window height to fit objects within it. 
 
 ### 2 - Complex, Real World Subscene
 

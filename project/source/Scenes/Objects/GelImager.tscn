@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/Objects/GelImager.gd" type="Script" id=1]
 [ext_resource path="res://Images/Resized_Images/imager.png" type="Texture" id=2]
 [ext_resource path="res://Images/redX.png" type="Texture" id=3]
-[ext_resource path="res://Scripts/Objects/ObjectSlot.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Objects/ObjectSlot.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/UI/GelDisplay.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -60,24 +60,11 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 icon = ExtResource( 3 )
 
-[node name="GelBoatSlot" type="RigidBody2D" parent="." groups=["LabObjects"]]
-collision_layer = 2
-input_pickable = true
-gravity_scale = 0.0
-can_sleep = false
-script = ExtResource( 5 )
+[node name="ObjectSlot" parent="." instance=ExtResource( 4 )]
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="GelBoatSlot"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectSlot"]
 position = Vector2( -2, 17 )
 shape = SubResource( 2 )
 
-[node name="Area2D" type="Area2D" parent="GelBoatSlot"]
-input_pickable = false
-monitorable = false
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="GelBoatSlot/Area2D"]
-position = Vector2( -4.0625, 16.25 )
-shape = SubResource( 2 )
-
 [connection signal="pressed" from="ImagingMenu/CloseButton" to="." method="_on_CloseButton_pressed"]
-[connection signal="input_event" from="GelBoatSlot" to="GelBoatSlot" method="_on_GelBoatSlot_input_event"]
+[connection signal="input_event" from="ObjectSlot" to="ObjectSlot" method="_on_ObjectSlot_input_event"]

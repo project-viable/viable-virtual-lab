@@ -12,6 +12,7 @@ Properties
 
 | Group Name | Example Reasons |
 | ------------- | ------------- |
-| Solid Substance | Objects like GelBoats that can only take solid substances |
-| Granular Substance | Objects like the Scoopula should only pick up this type |
-| Liquid Substance | Objects like the GraduatedCylinder should only hold liquids |
+| Solid Substance | Objects like `GelBoats` that can only take solid substances |
+| Granular Substance | Objects like the `Scoopula` should only pick up this type |
+| Liquid Substance | Objects like the `GraduatedCylinder` should only hold liquids |
+| Ionic Substance | Objects like the `ElectrolysisSetup` should only run currents through these |

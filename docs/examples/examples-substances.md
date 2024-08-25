@@ -1,12 +1,10 @@
-### 1 - Creating a new Substance with node groups
+For the following examples, refer to Scenes/Substances/GelModule/GelMixSubstance.gd and Scenes/Substances/GelModule/GelMixManager.gd.
 
-See Scenes/Substances/GelModule/GelMixSubstance.tscn and Scenes/Substances/GelModule/GelMixSubstance.gd.
+### 1 - Creating a new Substance with node groups
 
 This substance can be heated, chilled and weighed, and includes the corresponding function implementations. Substances have no need to implement the `get_mass()` function for the `Weighable` group, as the base Substance class does this for them.
 
 ### 2 - Mixing two Substances
-
-See Scenes/Substances/GelModule/GelMixSubstance.gd and Scenes/Substances/GelModule/GelMixManager.gd.
 
 The GelMixManager extends MixManager, and only has to populate the `outcomes` dictionary and `substance_folder` filepath. All other mixing functionality is handled by the base class based on this data.
 

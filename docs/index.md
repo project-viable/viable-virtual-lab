@@ -20,6 +20,7 @@ https://docs.godotengine.org/en/3.5/
 4. [Adding a new object to the game](/docs/reference/labobject.md#creating-a-new-type-of-labobject)
 5. [Object Groups](/docs/reference/groups/index.md)
 6. [Using Subscenes](/docs/reference/subscenemanagers.md)
+7. [HTML5 Export and Deployment](/docs/reference/deployment.md)
 
 ## Reference
 1. [Modules](/docs/reference/modules.md)
@@ -33,6 +34,7 @@ https://docs.godotengine.org/en/3.5/
 9. [Main Scene](/docs/reference/mainscene.md)
 10. [Game Settings](/docs/reference/gamesettings.md)
 11. [DimensionSprites](/docs/reference/dimensionsprite.md)
+12. [Object Slot](/docs/reference/objectslot.md)
 
 ## Examples
 1. [LabObject Examples](/docs/examples/examples-labobjects.md)
