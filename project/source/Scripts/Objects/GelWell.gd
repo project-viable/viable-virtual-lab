@@ -17,17 +17,30 @@ func AddContents(new_contents):
 		#If the well is broken, you can't add stuff to it.
 		if broken:
 			AddLow(content)
+			
+		# We need to see if it's more than 0.05 mL (50µL)
+		# If greater, AddHigh with no extra Warning
+		var volume = content.get_volume()
+		var max_volume = 50
 		
 		###See what the thing is colliding with:
 		#check low
 		for other in $LowArea.get_overlapping_bodies():
 			if other is Pipette:
-				AddLow(content)
+				if volume >= max_volume:
+					AddHigh(content, false)
+					LabLog.Warn("Added more than 50 µL of DNA substance")
+				else:
+					AddLow(content)
 				return
 		#check mid
 		for other in $MidArea.get_overlapping_bodies():
 			if other is Pipette:
-				AddMid(content)
+				if volume >= max_volume:
+					AddHigh(content, false)
+					LabLog.Warn("Added more than 50 µL of DNA substance")
+				else:
+					AddMid(content)
 				return
 		#check high
 		for other in $HighArea.get_overlapping_bodies():
@@ -35,8 +48,9 @@ func AddContents(new_contents):
 				AddHigh(content)
 				return
 
-func AddHigh(new_contents):
-	LabLog.Warn("Added too High")
+func AddHigh(new_contents, send_warn=true):
+	if send_warn:
+		LabLog.Warn("Added too High")
 	$HighArea/AddedHighVisual.show()
 	#TODO: the contents go nowhere. Is this correct?
 
