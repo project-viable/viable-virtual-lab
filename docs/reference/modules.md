@@ -17,7 +17,7 @@ ModuleData has the following properties:
 ### Making a new Module
 
 In order to make a module, you need to do a couple things:
-1. Make the scene that contains all of the LabObjects, backgrounds, etc, that make up your new module. Don't worry about adding the Menu or a Camera or anything, because that's handled for you by the [Main Scene](#main-scene). For an example, you can look at the Gel electrophoresis scene. The location of this .tscn file in the project folder doesn't technically matter.
+1. Make the scene that contains all of the LabObjects, backgrounds, etc, that make up your new module. Don't worry about adding the Menu or a Camera or anything, because that's handled for you by the [Main Scene](#main-scene). Make sure to include a [Lab Boundary](/docs/reference/labboundary.md). For an example, you can look at the Gel electrophoresis scene. The location of this .tscn file in the project folder doesn't technically matter.
 2. Make a new ModuleData resource in the `"res://Modules"` folder. Simple Godot tutorials might not cover this - right click in the folder, hit "new resource", and find `ModuleData`. It needs to be in that folder so that the game can find it on its own.
 3. Once you've made your new `ModuleData` resource, fill in its properties (listed above) - you can leave most of them blank if you need to, or use a placeholder. Just make sure you've set the `Scene` property to point to the scene you made in step 1 (you don't need to make a new packed scene or anything, hit "Load" and point it directly to the .tscn file).
 
