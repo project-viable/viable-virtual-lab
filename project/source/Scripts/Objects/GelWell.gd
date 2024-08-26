@@ -48,9 +48,14 @@ func AddContents(new_contents):
 				AddHigh(content)
 				return
 
+func CheckContents(group):
+	#we're a fake container actually, so no.
+	return false
+
 func AddHigh(new_contents, send_warn=true):
 	if send_warn:
 		LabLog.Warn("Added too High")
+
 	$HighArea/AddedHighVisual.show()
 	#TODO: the contents go nowhere. Is this correct?
 
