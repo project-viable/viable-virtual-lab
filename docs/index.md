@@ -32,9 +32,10 @@ https://docs.godotengine.org/en/3.5/
 7. [Lab Logs](/docs/reference/lablogs.md)
 8. [Mistake Checkers](/docs/reference/mistakecheckers.md)
 9. [Main Scene](/docs/reference/mainscene.md)
-10. [Game Settings](/docs/reference/gamesettings.md)
-11. [DimensionSprites](/docs/reference/dimensionsprite.md)
-12. [Object Slot](/docs/reference/objectslot.md)
+10. [Mixtures.json](/docs/reference/mixtures.md)
+11. [Game Settings](/docs/reference/gamesettings.md)
+12. [DimensionSprites](/docs/reference/dimensionsprite.md)
+13. [Object Slot](/docs/reference/objectslot.md)
 
 ## Examples
 1. [LabObject Examples](/docs/examples/examples-labobjects.md)
