@@ -89,7 +89,7 @@ func run_current(voltage, time):
 	time = time * voltage_modifier
 	total_run_time += (time * sign(voltage))
 	
-	if total_run_time > 20:
+	if total_run_time > 21:
 		LabLog.Error("Total current run time has exceeded 20 minutes")
 
 func get_properties():
