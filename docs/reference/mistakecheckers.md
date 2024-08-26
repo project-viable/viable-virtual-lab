@@ -20,6 +20,8 @@ If the `heatTime` is less than the ideal value defined (e.g. 60 seconds), we use
 In the opposite case, we give a message saying the heat time was too long.
 
 ### `MistakeChecker` resource
-To add a `MistakeChecker` to a lab module or even to the main scene so that it acts as a universal checker, it is necessary to create a resource. Once created, it is added to the `Check Strategies` array of the scene. <br>
-As an example, refer to the image below. <br>
+To add a `MistakeChecker` to a lab module or even to the main scene so that it acts as a universal checker, it is necessary to create a resource. Once created, it is added to the `Check Strategies` array of the scene.
+
+As an example, refer to the image below.
+
 ![image](./images/Example_CheckStrategies.png)

@@ -39,7 +39,8 @@ These functions do the same things as the corresponding Godot functions. The bas
 
 You need to create a new Scene, whose type is Godot's RigidBody2D class (or something that extends it), and give it a new script for your child class.
 
-When you create a new script, tell it to inherit from LabObject. <br>
+When you create a new script, tell it to inherit from LabObject.
+
 ![image](./images/lab-object/attach_node_script.png)
 
 Your object is going to need some child nodes in order to do anything:
