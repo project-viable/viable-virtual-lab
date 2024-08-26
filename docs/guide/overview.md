@@ -20,12 +20,13 @@ Here's the most important systems you should know about:
 
 1. [Modules](/docs/reference/modules.md)
 2. [LabObjects](/docs/reference/labobject.md)
-3. [Object Groups](/docs/reference/groups/index.md)
-4. [Object Slot](/docs/reference/objectslot.md)
-5. [SubsceneManagers](/docs/reference/subscenemanagers.md)
-6. [Substances](/docs/reference/substances.md)
-7. [Lab Logs](/docs/reference/lablogs.md)
-8. [Main Scene](/docs/reference/mainscene.md)
-9. [Deployment](/docs/reference/deployment.md)
+3. [Lab Boundary](/docs/reference/labboundary.md)
+4. [Object Groups](/docs/reference/groups/index.md)
+5. [Object Slot](/docs/reference/objectslot.md)
+6. [SubsceneManagers](/docs/reference/subscenemanagers.md)
+7. [Substances](/docs/reference/substances.md)
+8. [Lab Logs](/docs/reference/lablogs.md)
+9. [Main Scene](/docs/reference/mainscene.md)
+10. [Deployment](/docs/reference/deployment.md)
 
 See the [full reference](/docs/index.md#reference) if this doesn't tell you what you need.
