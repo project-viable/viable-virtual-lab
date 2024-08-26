@@ -27,6 +27,7 @@ Here's the most important systems you should know about:
 7. [Substances](/docs/reference/substances.md)
 8. [Lab Logs](/docs/reference/lablogs.md)
 9. [Main Scene](/docs/reference/mainscene.md)
-10. [Deployment](/docs/reference/deployment.md)
+10. [Game Settings](/docs/reference/gamesettings.md)
+11. [Deployment](/docs/reference/deployment.md)
 
 See the [full reference](/docs/index.md#reference) if this doesn't tell you what you need.
