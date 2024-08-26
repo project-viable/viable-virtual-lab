@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-CorrectDNAVolume = 0.005
+CorrectDNAVolume = 5.0
 TooLowMessage = "Pipette dispensing less than 5µL of DNA sample"
 TooHighMessage = "Pipette dispensing more than 5µL of DNA sample"
