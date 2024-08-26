@@ -142,7 +142,7 @@ func _on_VolumeSlider_drag_ended(value_changed):
 
 func _on_PlungerSlider_value_changed(value):
 	if plungerPressExtent > value:
-			plungerPressExtent = value
+		plungerPressExtent = value
 	
 	if doActions:
 		if value == 0:
@@ -174,8 +174,8 @@ func _on_PlungerSlider_value_changed(value):
 	
 	#finally:
 	if value == 2:
-			#We've reset the plunger to the top, so anything that happens in the future is a different press of the button.
-			plungerPressExtent = 2
+		#We've reset the plunger to the top, so anything that happens in the future is a different press of the button.
+		plungerPressExtent = 2
 
 func _on_PlungerSlider_drag_ended(value_changed):
 	#Make the plunger spring back
