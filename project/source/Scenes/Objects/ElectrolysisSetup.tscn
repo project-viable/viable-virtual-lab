@@ -168,6 +168,7 @@ disabled = true
 text = "View Gel"
 
 [node name="GelSimMenu" type="Control" parent="."]
+visible = false
 margin_left = 3.0
 margin_top = -82.0
 margin_right = 43.0
