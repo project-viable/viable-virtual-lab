@@ -22,12 +22,12 @@ InstructionsBBCode = "[b]Gel Electrophoresis[/b]
 6) Tap the gel boat and press Let Cool to solidify the gel, then remove the gel comb by clicking and dragging it.
 
 [b]To run the gel:[/b]
-7) Place a tip onto the pipette using the tip box, and tap the pipette to adjust its amount to 5.0 uL.
+7) Place a tip onto the pipette using the tip box, and tap the pipette to adjust its amount to 5.0 µL.
 8) Use the pipette to take a DNA sample and place it into the gel, then move the pipette to the waste bin to dispose of the tip.
 9) Repeat steps 7-8 for all DNA samples.
 10) Use the graduated cylinder and an empty flask to fill the electrolysis setup with 50 mL of buffer solution, using the Fill portion at the top.
 11) Place the gel boat into the electrolysis setup and hook up the color-coded positive and negative wires to the current source.
-12) Set the current source to 400 milliamps and 120 volts, with a running time of 20 minutes.
+12) Set the current source to 120 volts and a running time of 20 minutes.
 13) Press START and watch the gel run in accelerated time (this should take 20 seconds).
 
 [b]To image the gel:[/b]
