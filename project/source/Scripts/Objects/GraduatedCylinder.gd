@@ -109,9 +109,10 @@ func update_display():
 			b += Color(content.color).b * content.volume
 			volume += content.volume
 		
-		r = r/volume
-		g = g/volume
-		b = b/volume
+		if volume != 0:
+			r = r/volume
+			g = g/volume
+			b = b/volume
 		
 		$FillProgress.color = Color(r, g, b)
 		print("color updated")
