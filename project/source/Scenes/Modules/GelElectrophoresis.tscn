@@ -165,11 +165,11 @@ scale = Vector2( 0.7, 0.7 )
 position = Vector2( 903, 1073 )
 
 [node name="ContactWire" parent="." instance=ExtResource( 23 )]
-position = Vector2( 863, 998 )
+position = Vector2( 683, 1009 )
 positive = false
 
 [node name="ContactWire2" parent="." instance=ExtResource( 23 )]
-position = Vector2( 863, 962 )
+position = Vector2( 683, 973 )
 
 [node name="GelImager" parent="." groups=["LabObjects"] instance=ExtResource( 27 )]
 position = Vector2( 1143, 1026 )
@@ -178,13 +178,13 @@ position = Vector2( 1143, 1026 )
 position = Vector2( 494, 1032 )
 draggable = true
 
-[node name="Scoopula" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1047, 835 )
-
 [node name="WeighBoat" parent="." instance=ExtResource( 10 )]
 position = Vector2( 823, 902 )
 gravity_scale = 0.0
 draggable = true
+
+[node name="Scoopula" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1047, 835 )
 
 [node name="TipBox" parent="." groups=["Tip Box"] instance=ExtResource( 20 )]
 position = Vector2( 247, 858 )
