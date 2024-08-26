@@ -155,7 +155,7 @@ position = Vector2( 359, 806 )
 maxVolume = 50
 
 [node name="ElectrolysisSetup" parent="." instance=ExtResource( 21 )]
-position = Vector2( 702, 1114 )
+position = Vector2( 668, 1113 )
 
 [node name="SharpsDisposal" parent="." instance=ExtResource( 17 )]
 position = Vector2( 79, 636 )
@@ -175,7 +175,7 @@ position = Vector2( 863, 962 )
 position = Vector2( 1143, 1026 )
 
 [node name="GelComb" parent="." instance=ExtResource( 26 )]
-position = Vector2( 547, 1031 )
+position = Vector2( 494, 1032 )
 draggable = true
 
 [node name="Scoopula" parent="." instance=ExtResource( 5 )]
@@ -192,7 +192,10 @@ gravity_scale = 0.0
 tooltipDisplayDistance = 50
 
 [node name="DNA Containers" type="Node2D" parent="."]
-position = Vector2( 400, 1083 )
+position = Vector2( 352, 1078 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="MicrocentrifugeRackBack" type="Sprite" parent="DNA Containers"]
 position = Vector2( -3, 16 )
@@ -250,4 +253,4 @@ mode = 3
 gravity_scale = 1.0
 
 [node name="GelMold" parent="." instance=ExtResource( 19 )]
-position = Vector2( 547, 1083 )
+position = Vector2( 498, 1083 )
