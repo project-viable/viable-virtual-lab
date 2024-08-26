@@ -141,10 +141,10 @@ func _on_VolumeSlider_drag_ended(value_changed):
 	SetupVolumeSlider()
 
 func _on_PlungerSlider_value_changed(value):
-	if doActions:
-		if plungerPressExtent > value:
+	if plungerPressExtent > value:
 			plungerPressExtent = value
-		
+	
+	if doActions:
 		if value == 0:
 			#all the way down
 			if len(contents) > 0:
@@ -171,8 +171,9 @@ func _on_PlungerSlider_value_changed(value):
 				doActions = false #reenabled when the menu is shown again.
 				$Menu/Border/ActionLabel.text = "Drew " + str(drawVolume * drawFactor) + "uL!"
 				$Menu/AutoCloseTimer.start()
-		
-		if value == 2:
+	
+	#finally:
+	if value == 2:
 			#We've reset the plunger to the top, so anything that happens in the future is a different press of the button.
 			plungerPressExtent = 2
 
