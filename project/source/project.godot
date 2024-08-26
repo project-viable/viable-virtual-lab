@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "DNASubstance",
 "language": "GDScript",
-"path": "res://Scenes/Substances/GelModule/DNASubstance.gd"
+"path": "res://Scripts/Substances/GelModule/DNASubstance.gd"
 }, {
 "base": "Sprite",
 "class": "DimensionSprite",

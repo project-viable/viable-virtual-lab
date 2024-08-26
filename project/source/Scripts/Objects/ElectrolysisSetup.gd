@@ -75,7 +75,7 @@ func run_current(voltage, time, print_text = false):
 		mounted_container.run_current(voltage, time)
 		
 		# update the gel display
-		var content = $GelBoatSlot.get_object()
+		var content = $ObjectSlot.get_object()
 		if(content != null):
 			if(content.is_in_group('Gel Boat')):
 				$GelSimMenu/GelDisplay.update_bands(content.calculate_positions())
