@@ -235,10 +235,6 @@ func TryInteract(others):
 			# transfer contents to another container
 			other.AddContents(TakeContents())
 			return true
-		elif other is Pipette:
-			AdoptNode(others[0])
-			ShowSubscene()
-			return true
 
 func TryActIndependently():
 	if not subsceneActive: ShowSubscene()
