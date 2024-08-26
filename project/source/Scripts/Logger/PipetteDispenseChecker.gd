@@ -1,7 +1,7 @@
 extends MistakeChecker
 class_name PipetteDispenseChecker
 
-export(float) var CorrectDNAVolume = 0.005
+export(float) var CorrectDNAVolume = 5
 export(String) var TooLowMessage
 export(String) var TooHighMessage
 
@@ -13,6 +13,7 @@ func CheckAction(params: Dictionary):
 				continue
 			if substance.has_method('get_properties'):
 				var volume: float = substance.get_properties()['volume']
+				print(volume)
 				if !is_equal_approx(volume, CorrectDNAVolume):
 					if volume < CorrectDNAVolume:
 						LabLog.Warn(TooLowMessage)
