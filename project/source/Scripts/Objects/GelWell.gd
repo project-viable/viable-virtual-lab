@@ -35,6 +35,10 @@ func AddContents(new_contents):
 				AddHigh(content)
 				return
 
+func CheckContents(group):
+	#we're a fake container actually, so no.
+	return false
+
 func AddHigh(new_contents):
 	LabLog.Warn("Added too High")
 	$HighArea/AddedHighVisual.show()
