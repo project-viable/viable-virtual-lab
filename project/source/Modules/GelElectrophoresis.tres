@@ -14,7 +14,7 @@ Scene = ExtResource( 2 )
 InstructionsBBCode = "[b]Gel Electrophoresis[/b]
 
 [b]To make the gel:[/b]
-1) Use the scoopula, weigh boat and scale to measure 7.84 g of agarose powder (this may require changing the scoopula to Tap mode by tapping on it, and tapping some off into an empty flask), and add it to an empty flask.
+1) Use the scoopula, weigh boat and scale to measure 7.84 g of agarose powder.
 2) Use the graduated cylinder to measure 50 mL of buffer solution, and add it to the same flask.
 3) Tap the flask and press Mix to mix the gel solution.
 4) Place the flask into the microwave and microwave for 60 seconds, then remove.
