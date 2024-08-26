@@ -10,7 +10,8 @@ export var displayIncrementBottom: float = 0.1 #microliters
 onready var volumeSliderWidth = displayIncrementMiddle * 2
 onready var volumeSliderStep = displayIncrementBottom
 
-onready var plungerPressExtent = 2 #Stores the lowest value the plunger slider has reached since being reset to the top.
+var plungerPressExtent = 2 #Stores the lowest value the plunger slider has reached since being reset to the top.
+var doActions = true #used to allow modifying the plunger's state by code without triggering interactions
 
 export var hasTip: bool = false setget SetHasTip
 onready var drawVolume: float = stepify((maxCapacity - minCapacity)/2, displayIncrementBottom) setget SetDrawVolume #microliters. onready set to the halfway point, rounded to the nearest unit the display can show.
@@ -42,12 +43,12 @@ func SetDrawVolume(newVal):
 	
 	SetupVolumeDisplay()
 
-func DrawSubstance(from: LabObject):
+func DrawSubstance(from: LabObject, volumeCoefficient = 1.0):
 	if hasTip: #Pipette needs a tip to dispense or take in substances
 		if len(contents) == 0 and from.CheckContents("Liquid Substance"):
 			if(len(tipContaminants) > 0):
 				LabLog.Warn("The pipette tip was already used. If it was for a different substance than this source, dispose the tip and attach a new one to avoid contaminating your substances.")
-			contents.append_array(from.TakeContents(drawVolume))
+			contents.append_array(from.TakeContents(drawVolume * volumeCoefficient))
 			tipContaminants.append_array(contents)
 
 func DispenseSubstance(to: LabObject):
@@ -105,6 +106,8 @@ func ShowMenu():
 	SetupVolumeDisplay()
 	
 	$Menu/Border/ActionLabel.text = ""
+	
+	doActions = true
 
 func HideMenu():
 	$Menu/Border/ActionLabel.text = ""
@@ -138,26 +141,40 @@ func _on_VolumeSlider_drag_ended(value_changed):
 	SetupVolumeSlider()
 
 func _on_PlungerSlider_value_changed(value):
-	if plungerPressExtent > value:
-		plungerPressExtent = value
-	
-	if value == 0:
-		#all the way down
-		if len(contents) > 0:
-			DispenseSubstance(SelectTarget())
-			$Menu/Border/ActionLabel.text = "Dispensed contents!"
-			$Menu/AutoCloseTimer.start()
-	elif value == 2 and plungerPressExtent == 1 and len(contents) == 0:
-		#just ended a half press
-		var otherObject = SelectTarget()
-		if otherObject:
-			DrawSubstance(otherObject)
-			$Menu/Border/ActionLabel.text = "Drew " + str(drawVolume) + "uL!"
-			$Menu/AutoCloseTimer.start()
-	
-	if value == 2:
-		#We've reset the plunger to the top, so anything that happens in the future is a different press of the button.
-		plungerPressExtent = 2
+	if doActions:
+		if plungerPressExtent > value:
+			plungerPressExtent = value
+		
+		if value == 0:
+			#all the way down
+			if len(contents) > 0:
+				DispenseSubstance(SelectTarget())
+				doActions = false #reenabled when the menu is shown again.
+				$Menu/Border/ActionLabel.text = "Dispensed contents!"
+				$Menu/AutoCloseTimer.start()
+		elif value == 2 and len(contents) == 0:
+			#just ended a plunger press while empty
+			
+			var drawFactor
+			if plungerPressExtent == 1:
+				#just ended a half press while empty
+				drawFactor = 1.0
+			elif plungerPressExtent == 0:
+				#just ended a full press while empty
+				#so we draw a little extra.
+				drawFactor = 1.25
+				LabLog.Warn("The plunger should be pressed to the first stop to draw substances in. Using the second stop will cause it to draw more than the intended amount.")
+			
+			var otherObject = SelectTarget()
+			if otherObject:
+				DrawSubstance(otherObject, drawFactor)
+				doActions = false #reenabled when the menu is shown again.
+				$Menu/Border/ActionLabel.text = "Drew " + str(drawVolume * drawFactor) + "uL!"
+				$Menu/AutoCloseTimer.start()
+		
+		if value == 2:
+			#We've reset the plunger to the top, so anything that happens in the future is a different press of the button.
+			plungerPressExtent = 2
 
 func _on_PlungerSlider_drag_ended(value_changed):
 	#Make the plunger spring back
