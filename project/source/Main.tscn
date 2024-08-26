@@ -163,7 +163,7 @@ rect_min_size = Vector2( 600, 400 )
 bbcode_enabled = true
 bbcode_text = "This project is a web-based simulation framework that intends to provide virtual lab experience to users without access to a physical lab space. The framework is built to allow users the freedom to experiment and make mistakes in a controlled environment, with user mistakes carrying through to future steps and influencing the final result as they would in a real lab environment.
 
-This project was developed by Jonas Courtney, Jeffrey Collins, Conor Harris, Michael Jordan, Tyler Hand, and Justin Astalos as part of the 2023-2024 CS Senior Capstone class, sponsored by Jian Wei Tay and Kristin Moore.
+This project was developed by Jonas Courtney, Jeffrey Collins, Conor Harris, Michael Jordan, Tyler Hand, and Justin Astalos as part of the 2023-2024 CS Senior Capstone class, sponsored by Jian Wei Tay and Kristin Moore. Most graphics used within the simulation were created by Sahba Setareh.
 
 
 
@@ -404,7 +404,7 @@ The following tools, projects, and assets are used under their respective licens
 									   limitations under the License."
 text = "This project is a web-based simulation framework that intends to provide virtual lab experience to users without access to a physical lab space. The framework is built to allow users the freedom to experiment and make mistakes in a controlled environment, with user mistakes carrying through to future steps and influencing the final result as they would in a real lab environment.
 
-This project was developed by Jonas Courtney, Jeffrey Collins, Conor Harris, Michael Jordan, Tyler Hand, and Justin Astalos as part of the 2023-2024 CS Senior Capstone class, sponsored by Jian Wei Tay and Kristin Moore.
+This project was developed by Jonas Courtney, Jeffrey Collins, Conor Harris, Michael Jordan, Tyler Hand, and Justin Astalos as part of the 2023-2024 CS Senior Capstone class, sponsored by Jian Wei Tay and Kristin Moore. Most graphics used within the simulation were created by Sahba Setareh.
 
 
 
