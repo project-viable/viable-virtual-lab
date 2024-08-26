@@ -131,14 +131,17 @@ func AddContents(new_contents):
 		
 		if contents == []:
 			print("There is not gel in the mold")
+			LabLog.Warn("There is no gel in the mold.")
 			continue
 			
 		if not contents[0].is_in_group('Gel'):
 			print("A substance that is not gel is in the mold")
+			LabLog.Warn("A substance other than a gel is in the mold.")
 			continue
 			
 		if !contents[0].cooled:
 			print("Gel has not been cooled")
+			LabLog.Warn("Gel has not been cooled yet.")
 			continue
 			
 		if not gel_has_wells:
