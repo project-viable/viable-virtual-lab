@@ -34,17 +34,18 @@ rotation = -1.3439
 shape = SubResource( 1 )
 
 [node name="ScoopulaMenu" type="PopupMenu" parent="."]
+visible = true
 margin_left = 107.0
 margin_top = 43.0
-margin_right = 241.0
-margin_bottom = 180.0
+margin_right = 200.0
+margin_bottom = 160.0
 script = ExtResource( 4 )
 
 [node name="PanelContainer" type="GridContainer" parent="ScoopulaMenu"]
-margin_left = 9.0
-margin_top = 8.0
-margin_right = 127.0
-margin_bottom = 131.0
+margin_left = 10.0
+margin_top = 7.0
+margin_right = 128.0
+margin_bottom = 130.0
 
 [node name="sliderDispenseQty" type="HSlider" parent="ScoopulaMenu/PanelContainer"]
 margin_right = 74.0
