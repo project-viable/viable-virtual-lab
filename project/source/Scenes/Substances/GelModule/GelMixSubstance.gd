@@ -76,8 +76,8 @@ func determine_accuracy(ideal, actual):
 	return 1 + (abs(actual) - ideal) / float(ideal)
 
 func run_current(voltage, time):
-	# The ideal scenario is 120V and around 60 minutes
-	# So, total_run_time should equal approximately 60 at the end in the correct scenario
+	# The ideal scenario is 120V and around 20 minutes
+	# So, total_run_time should equal approximately 20 at the end in the correct scenario
 	
 	# These time modifiers below will make the total_run_time increase at a different rate based on how
 	# the current and voltage differ from their ideal values
@@ -88,6 +88,9 @@ func run_current(voltage, time):
 	
 	time = time * voltage_modifier
 	total_run_time += (time * sign(voltage))
+	
+	if total_run_time > 20:
+		LabLog.Error("Total current run time has exceeded 20 minutes")
 
 func get_properties():
 	return {
