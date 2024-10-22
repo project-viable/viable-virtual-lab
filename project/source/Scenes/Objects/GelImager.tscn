@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Objects/GelImager.gd" type="Script" id=1]
-[ext_resource path="res://Images/Resized_Images/imager.png" type="Texture" id=2]
-[ext_resource path="res://Images/redX.png" type="Texture" id=3]
+[ext_resource path="res://Images/Resized_Images/imager.png" type="Texture2D" id=2]
+[ext_resource path="res://Images/redX.png" type="Texture2D" id=3]
 [ext_resource path="res://Scenes/Objects/ObjectSlot.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/UI/GelDisplay.tscn" type="PackedScene" id=7]
 
@@ -15,13 +15,13 @@ collision_mask = 0
 mode = 1
 script = ExtResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2( 0, -30 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( -0.5, -29 )
-polygon = PoolVector2Array( 0.5, -125, -66.5, -124, -88.5, -110, -106.5, -30, -104.5, 119, -93.5, 124, 104.5, 122, 106.5, 113, 106.5, -34, 90.5, -111, 71.5, -124 )
+polygon = PackedVector2Array( 0.5, -125, -66.5, -124, -88.5, -110, -106.5, -30, -104.5, 119, -93.5, 124, 104.5, 122, 106.5, 113, 106.5, -34, 90.5, -111, 71.5, -124 )
 
 [node name="ImagingMenu" type="CanvasLayer" parent="."]
 
@@ -32,17 +32,17 @@ anchor_left = 0.314
 anchor_top = 0.262
 anchor_right = 0.314
 anchor_bottom = 0.262
-margin_left = -72.536
-margin_top = 6.36
-margin_right = 176.464
-margin_bottom = 211.36
+offset_left = -72.536
+offset_top = 6.36
+offset_right = 176.464
+offset_bottom = 211.36
 
 [node name="ColorRect" type="ColorRect" parent="ImagingMenu/PanelContainer"]
 visible = false
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 239.0
-margin_bottom = 195.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 239.0
+offset_bottom = 195.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="GelDisplay" parent="ImagingMenu" instance=ExtResource( 7 )]
@@ -52,10 +52,10 @@ scale = Vector2( 0.5, 0.5 )
 
 [node name="CloseButton" type="Button" parent="ImagingMenu"]
 visible = false
-margin_left = 217.0
-margin_top = 233.0
-margin_right = 244.0
-margin_bottom = 254.0
+offset_left = 217.0
+offset_top = 233.0
+offset_right = 244.0
+offset_bottom = 254.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 icon = ExtResource( 3 )

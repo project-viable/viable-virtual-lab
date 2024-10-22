@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Objects/Scale.gd" type="Script" id=1]
-[ext_resource path="res://Images/Resized_Images/scale.png" type="Texture" id=2]
+[ext_resource path="res://Images/Resized_Images/scale.png" type="Texture2D" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 63, 33 )
@@ -18,7 +18,7 @@ __meta__ = {
 }
 draggable = true
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2( -2, 7 )
 scale = Vector2( 0.950783, 0.950783 )
 texture = ExtResource( 2 )
@@ -29,42 +29,42 @@ shape = SubResource( 1 )
 
 [node name="Control" type="Control" parent="."]
 visible = false
-margin_left = -55.0
-margin_top = 35.0
+offset_left = -55.0
+offset_top = 35.0
 
 [node name="PanelContainer" type="PanelContainer" parent="Control"]
-margin_right = 110.0
-margin_bottom = 120.0
+offset_right = 110.0
+offset_bottom = 120.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 103.0
-margin_bottom = 113.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 103.0
+offset_bottom = 113.0
 
 [node name="Title" type="Label" parent="Control/PanelContainer/VBoxContainer"]
-margin_right = 96.0
-margin_bottom = 14.0
+offset_right = 96.0
+offset_bottom = 14.0
 text = "Scale"
 align = 1
 valign = 1
 
 [node name="Tare_Button" type="Button" parent="Control/PanelContainer/VBoxContainer"]
-margin_top = 18.0
-margin_right = 96.0
-margin_bottom = 38.0
+offset_top = 18.0
+offset_right = 96.0
+offset_bottom = 38.0
 text = "Tare"
 
 [node name="Exit_Button" type="Button" parent="Control/PanelContainer/VBoxContainer"]
-margin_top = 42.0
-margin_right = 96.0
-margin_bottom = 62.0
+offset_top = 42.0
+offset_right = 96.0
+offset_bottom = 62.0
 text = "Exit"
 
 [node name="Weight_Value" type="Label" parent="Control/PanelContainer/VBoxContainer"]
-margin_top = 66.0
-margin_right = 96.0
-margin_bottom = 80.0
+offset_top = 66.0
+offset_right = 96.0
+offset_bottom = 80.0
 text = "0.0"
 align = 1
 valign = 1

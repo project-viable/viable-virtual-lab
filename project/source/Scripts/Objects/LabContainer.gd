@@ -1,4 +1,4 @@
-tool
+@tool
 extends LabObject
 class_name LabContainer
 

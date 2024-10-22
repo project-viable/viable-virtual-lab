@@ -1,7 +1,7 @@
-tool
+@tool
 extends Node2D
 
-export(Array, Resource) var CheckStrategies setget SetCheckStrategies
+@export var CheckStrategies : set = SetCheckStrategies
 
 func CheckAction(params: Dictionary):
 	for strategy in CheckStrategies:

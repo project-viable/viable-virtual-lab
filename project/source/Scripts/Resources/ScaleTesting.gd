@@ -13,10 +13,10 @@ func _unhandled_input(event):
 				if object['collider'].draggable:
 					object['collider'].StartDragging()
 					dragging = true
-					get_tree().set_input_as_handled()
+					get_viewport().set_input_as_handled()
 					break
 			
 			#If none of them are draggable, then have a static one try to interact
 			if not dragging:
 				castResult[0]['collider'].OnUserAction()
-				get_tree().set_input_as_handled()
+				get_viewport().set_input_as_handled()

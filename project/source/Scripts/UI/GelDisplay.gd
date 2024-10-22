@@ -1,6 +1,6 @@
 extends Node2D
 
-export (bool) var show_without_UV = false
+@export var show_without_UV: bool = false
 
 var band_prefab = null
 var gel_images = []
@@ -70,7 +70,7 @@ func init(gel_mold, has_wells):
 		var start_parent = $StartPositions.get_child(i)
 		
 		while(start_parent.get_child_count() < len(well)):
-			var new_band = band_prefab.instance()
+			var new_band = band_prefab.instantiate()
 			new_band.position = start_parent.position
 			start_parent.add_child(new_band)
 	

@@ -34,19 +34,19 @@ func TryInteract(others):
 			# Open substance menu
 			$FollowMenu/SubstanceMenu.visible = true
 			
-			yield(self, "menu_closed")
+			await self.menu_closed
 			
 			if(fill_requested):
 				# fill the setup with the container contents
 				fill_substance = other.TakeContents()[0]
 				$FollowMenu/SubstanceMenu.visible = false
 				# Update the Electrolysis setup to show that it is filled
-				$Sprite.texture = filled_texture
+				$Sprite2D.texture = filled_texture
 				if mounted_container != null:
 					if mounted_container.GelMoldInfo()["hasComb"]:
-						$Sprite.texture = filled_comb_texture
+						$Sprite2D.texture = filled_comb_texture
 					elif mounted_container.GelMoldInfo()["hasWells"]:
-						$Sprite.texture = filled_wells_texture
+						$Sprite2D.texture = filled_wells_texture
 				elif(other.CheckContents("Liquid Substance")):
 					print('The setup is already filled.')
 				else:
@@ -95,9 +95,9 @@ func slot_filled(slot, object):
 		
 		# Change texture if it has wells
 		if gelMoldInfo["hasComb"]:
-			$Sprite.texture = filled_comb_texture
+			$Sprite2D.texture = filled_comb_texture
 		elif gelMoldInfo["hasWells"]:
-			$Sprite.texture = filled_wells_texture
+			$Sprite2D.texture = filled_wells_texture
 		
 		var init_data = mounted_container.gel_status()
 		$GelSimMenu/GelDisplay.init(init_data[0], init_data[1])
@@ -116,9 +116,9 @@ func slot_emptied(slot, object):
 		mounted_container.HideSubscene();
 	
 	if fill_substance == null:
-		$Sprite.texture = nonfilled_texture
+		$Sprite2D.texture = nonfilled_texture
 	else:
-		$Sprite.texture = filled_texture
+		$Sprite2D.texture = filled_texture
 		
 	mounted_container.position = Vector2(self.position.x - 170, self.position.y - 20)
 	mounted_container = null

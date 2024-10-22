@@ -1,6 +1,6 @@
 extends LabObject
 
-export (bool) var positive = true
+@export var positive: bool = true
 var regex = RegEx.new()
 
 func _ready():

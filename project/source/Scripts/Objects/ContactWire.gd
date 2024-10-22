@@ -2,13 +2,13 @@ extends Node2D
 class_name ContactWire
 enum {REVERSE, FORWARD, NEUTRAL}
 
-export (bool) var positive = true
+@export var positive: bool = true
 var connections = []
 
 var point1 : Vector2
 var point2 : Vector2
 var width = 2
-var color = Color.black
+var color = Color.BLACK
 var current_direction = NEUTRAL
 
 func _ready():

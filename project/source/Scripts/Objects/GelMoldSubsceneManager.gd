@@ -1,4 +1,4 @@
-tool
+@tool
 extends SubsceneManager
 
 # this constant exists to match the prescribed numbers with the proper result
@@ -8,10 +8,10 @@ const gel_ratio_conv_const = 30 #26.6666667
 var empty_comb_img = null
 var filled_comb_img = null
 var comb_slots = 5
-onready var dna_contents = [null, null, null, null, null, null]
+@onready var dna_contents = [null, null, null, null, null, null]
 var gel_has_wells = false
 
-export (Texture) var filled_image = null
+@export var filled_image: Texture2D = null
 var empty_image = null
 var contents = []
 
@@ -41,16 +41,16 @@ func update_display():
 		# variants with the gel comb
 		if(len(contents) > 0):
 			if(filled_comb_img != null):
-				$Sprite.texture = filled_comb_img
+				$Sprite2D.texture = filled_comb_img
 			subsceneGelBg.texture = subsceneFullCombImg
 		else:
-			$Sprite.texture = empty_comb_img
+			$Sprite2D.texture = empty_comb_img
 			subsceneGelBg.texture = subsceneEmptyCombImg
 	else:
 		# variants without the gel comb
 		if(len(contents) > 0):
 			if(filled_image != null):
-				$Sprite.texture = filled_image
+				$Sprite2D.texture = filled_image
 			
 			if gel_has_wells:
 				subsceneGelBg.texture = subsceneFullWellsImg
@@ -58,7 +58,7 @@ func update_display():
 			else:
 				subsceneGelBg.texture = subsceneFullImg
 		else:
-			$Sprite.texture = empty_image
+			$Sprite2D.texture = empty_image
 			subsceneGelBg.texture = subsceneEmptyImg
 
 func _on_ChillButton_pressed():

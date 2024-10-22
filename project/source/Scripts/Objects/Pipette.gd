@@ -1,20 +1,20 @@
 extends LabObject
 class_name Pipette
 
-export var minCapacity: float = 1 #microliters
-export var maxCapacity: float = 10 #microliters
+@export var minCapacity: float = 1 #microliters
+@export var maxCapacity: float = 10 #microliters
 
-export var displayIncrementTop: float = 10 #microliters
-export var displayIncrementMiddle: float = 1 #microliters
-export var displayIncrementBottom: float = 0.1 #microliters
-onready var volumeSliderWidth = displayIncrementMiddle * 2
-onready var volumeSliderStep = displayIncrementBottom
+@export var displayIncrementTop: float = 10 #microliters
+@export var displayIncrementMiddle: float = 1 #microliters
+@export var displayIncrementBottom: float = 0.1 #microliters
+@onready var volumeSliderWidth = displayIncrementMiddle * 2
+@onready var volumeSliderStep = displayIncrementBottom
 
 var plungerPressExtent = 2 #Stores the lowest value the plunger slider has reached since being reset to the top.
 var doActions = true #used to allow modifying the plunger's state by code without triggering interactions
 
-export var hasTip: bool = false setget SetHasTip
-onready var drawVolume: float = stepify((maxCapacity - minCapacity)/2, displayIncrementBottom) setget SetDrawVolume #microliters. onready set to the halfway point, rounded to the nearest unit the display can show.
+@export var hasTip: bool = false: set = SetHasTip
+@onready var drawVolume: float = snapped((maxCapacity - minCapacity)/2, displayIncrementBottom): set = SetDrawVolume
 var contents = [] #current contents
 var tipContaminants = [] #stores what the pipette has drawn in since the last time the tip was replaced
 

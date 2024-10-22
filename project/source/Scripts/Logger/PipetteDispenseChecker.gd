@@ -1,9 +1,9 @@
 extends MistakeChecker
 class_name PipetteDispenseChecker
 
-export(float) var CorrectDNAVolume = 0.005
-export(String) var TooLowMessage
-export(String) var TooHighMessage
+@export var CorrectDNAVolume: float = 0.005
+@export var TooLowMessage: String
+@export var TooHighMessage: String
 
 func CheckAction(params: Dictionary):
 	if params['actionType'] == 'transferSubstance' and params.get('substances'):

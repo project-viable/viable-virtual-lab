@@ -25,12 +25,12 @@ func TryInteract(others):
 				update_display()
 				return true
 			else:
-				if(!contents.empty()):
+				if(!contents.is_empty()):
 					var contentName = contents[0].name
 					
 					#Show menu
 					$ScoopulaMenu.popup()
-					$ScoopulaMenu.rect_global_position = global_position
+					$ScoopulaMenu.global_position = global_position
 					$ScoopulaMenu/PanelContainer/sliderDispenseQty.max_value = contents[0].volume
 					
 					targetObj = other
@@ -41,7 +41,7 @@ func TryInteract(others):
 	return false
 
 func SplitContents():
-	if(contents.empty()):
+	if(contents.is_empty()):
 		print("empty")
 		return null
 	else:

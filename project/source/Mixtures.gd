@@ -13,7 +13,9 @@ func LoadMixtures() -> Dictionary:
 		push_error("Mixture file mixtures.json is missing! Cannot check user made mixtures!")
 		return {}
 	mixtureFile.open('res://mixtures.json', File.READ)
-	var mixtures = parse_json(mixtureFile.get_as_text())
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(mixtureFile.get_as_text())
+	var mixtures = test_json_conv.get_data()
 		
 	mixtureFile.close()
 	return mixtures

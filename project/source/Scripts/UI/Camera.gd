@@ -1,7 +1,7 @@
 extends Camera2D
 
 var baseMoveRate = 12.5 #the rate at which to move when zoom is 1.
-onready var moveRate = baseMoveRate #we adjust the move rate to be visually constant when we zoom in or out
+@onready var moveRate = baseMoveRate #we adjust the move rate to be visually constant when we zoom in or out
 var zoomFactor = 1.1 #we multiple/divide the zoom.
 
 var allowedAreaMargin = 500 #number of units beyond each labobject's position to allow to be visible

@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
 var well_index = -1
 var band_index = -1
@@ -15,7 +15,7 @@ func is_same_well(band_data):
 
 func update_display(uv_on, show_without_UV, textures, lastBand):
 	var tex_id = (1 if uv_on else 0) # another weird godot-style ternary
-	$Sprite.texture = textures[tex_id]
+	$Sprite2D.texture = textures[tex_id]
 	
 	if(!show_without_UV):
 		visible = uv_on
@@ -26,4 +26,5 @@ func update_display(uv_on, show_without_UV, textures, lastBand):
 		visible = true
 
 func move_band(move_vec):
-	move_and_slide(move_vec)
+	set_velocity(move_vec)
+	move_and_slide()

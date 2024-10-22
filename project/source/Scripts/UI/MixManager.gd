@@ -33,7 +33,7 @@ func mix(reactants):
 		var result_name = outcomes[check_array]
 		var result_ref = load(substance_folder + result_name + '.tscn')
 		if(result_ref != null):
-			var result = result_ref.instance()
+			var result = result_ref.instantiate()
 			# Need to add to scene in order to be able to call MistakeChecker methods
 			self.add_child(result)
 			result.init_mixed(reactants)

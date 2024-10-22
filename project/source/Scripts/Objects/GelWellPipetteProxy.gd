@@ -1,7 +1,7 @@
 extends LabObject
 
 var adoptedObject = null
-onready var startPos = position
+@onready var startPos = position
 var sideReleaseThreshold = 50 #in pixels, how far to the side the user should try to drag before we release the pipette
 
 func TryInteract(others):
@@ -35,7 +35,7 @@ func ReleasePipette():
 	#set ourselves up
 	position = startPos
 	adoptedObject = null
-	$Sprite.show()
+	$Sprite2D.show()
 	$AnimationPlayer.play()
 
 func DragMove():

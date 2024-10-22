@@ -14,9 +14,9 @@ var logs: Array = []
 #It seems like godot 3.5 does not have a convenient function for this.
 func GetAllFilesInFolder(path):
 	var result = []
-	var dir = Directory.new()
+	var dir = DirAccess.new()
 	if dir.open(path) == OK:
-		dir.list_dir_begin(true, false) #skip . and .. but don't skop hidden files
+		dir.list_dir_begin()  #skip . and .. but don't skop hidden files# TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var file_name = dir.get_next()
 		while file_name != "":
 			if not dir.current_is_dir():
@@ -44,15 +44,15 @@ func _ready():
 	for file in GetAllFilesInFolder(ModuleDirectory):
 		var moduleData = load(ModuleDirectory + file)
 		if moduleData.Show:
-			var newButton = ModuleButton.instance()
+			var newButton = ModuleButton.instantiate()
 			newButton.SetData(moduleData)
-			newButton.connect("pressed", self, "ModuleSelected", [moduleData])
+			newButton.connect("pressed", Callable(self, "ModuleSelected").bind(moduleData))
 			$ModuleSelect.add_child(newButton)
 	
 	#connect the log signals
-	LabLog.connect("NewMessage", self, "_on_New_Log_Message")
-	LabLog.connect("ReportShown", self, "_on_LabLog_Report_Shown")
-	LabLog.connect("LogsCleared", self, "_on_Logs_Cleared")
+	LabLog.connect("NewMessage", Callable(self, "_on_New_Log_Message"))
+	LabLog.connect("ReportShown", Callable(self, "_on_LabLog_Report_Shown"))
+	LabLog.connect("LogsCleared", Callable(self, "_on_Logs_Cleared"))
 	
 	SetLogNotificationCounts()
 	$LogButton/LogMenu.set_tab_icon(1, load("res://Images/Dot-Blue.png"))
@@ -89,7 +89,7 @@ func ModuleSelected(module: ModuleData):
 	$ModuleSelect.hide()
 	currentModule = module
 	$LogButton.show()
-	$LogButton/LogMenu/Instructions.bbcode_text = module.InstructionsBBCode
+	$LogButton/LogMenu/Instructions.text = module.InstructionsBBCode
 
 func _on_SelectModuleButton_pressed():
 	$MainMenu.hide()
@@ -107,13 +107,13 @@ func _on_New_Log_Message(category, newLog):
 		var bbcode = ("-" + newLog['message'] + "\n")
 		if category == 'log':
 			unreadLogs['log'] += 1
-			$LogButton/LogMenu/Log.bbcode_text += bbcode
+			$LogButton/LogMenu/Log.text += bbcode
 		elif category == 'warning':
 			unreadLogs['warning'] += 1
-			$LogButton/LogMenu/Warnings.bbcode_text += bbcode
+			$LogButton/LogMenu/Warnings.text += bbcode
 		elif category == 'error':
 			unreadLogs['error'] += 1
-			$LogButton/LogMenu/Errors.bbcode_text += bbcode
+			$LogButton/LogMenu/Errors.text += bbcode
 	logs.append({
 		'category': category, 
 		'newLog': newLog
@@ -136,7 +136,7 @@ func ShowPopup(category: String, newLog: Dictionary) -> void:
 	SetPopupBorderColor(color)
 	popupActive = true
 	$LabLogPopup.visible = true
-	yield(get_tree().create_timer(GameSettings.popupTimeout), "timeout")
+	await get_tree().create_timer(GameSettings.popupTimeout).timeout
 	popupActive = false
 	$LabLogPopup.visible = false if logs.size() == 0 else true
 
@@ -147,9 +147,9 @@ func _on_Logs_Cleared():
 	unreadLogs['log'] = 0
 	unreadLogs['warning'] = 0
 	unreadLogs['error'] = 0
-	$LogButton/LogMenu/Log.bbcode_text = ""
-	$LogButton/LogMenu/Warnings.bbcode_text = ""
-	$LogButton/LogMenu/Errors.bbcode_text = ""
+	$LogButton/LogMenu/Log.text = ""
+	$LogButton/LogMenu/Warnings.text = ""
+	$LogButton/LogMenu/Errors.text = ""
 
 func SetLogNotificationCounts(tab = -1):
 	if $LogButton/LogMenu.visible:
@@ -193,7 +193,7 @@ func _on_LabLog_Report_Shown():
 	
 	if logsText != "":
 		logsText = "You weren't perfect though - here's some notes:\n" + logsText
-		$FinalReport/VBoxContainer/Logs.bbcode_text = logsText
+		$FinalReport/VBoxContainer/Logs.text = logsText
 		$FinalReport/VBoxContainer/Logs.show()
 	else:
 		$FinalReport/VBoxContainer/Logs.hide()
@@ -220,8 +220,8 @@ func _on_About_CloseButton_pressed():
 
 func _on_OptionsButton_pressed():
 	$OptionsScreen.show()
-	$OptionsScreen/VBoxContainer/MouseDragToggle.pressed = GameSettings.mouseCameraDrag
-	$OptionsScreen/VBoxContainer/ObjectTooltipsToggle.pressed = GameSettings.objectTooltips
+	$OptionsScreen/VBoxContainer/MouseDragToggle.button_pressed = GameSettings.mouseCameraDrag
+	$OptionsScreen/VBoxContainer/ObjectTooltipsToggle.button_pressed = GameSettings.objectTooltips
 	$OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout.value = GameSettings.popupTimeout
 
 func _on_CloseButton_pressed():
