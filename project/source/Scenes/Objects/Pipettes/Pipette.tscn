@@ -2,12 +2,12 @@
 
 [ext_resource path="res://Scripts/DimensionSprite.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Objects/Pipette.gd" type="Script" id=2]
-[ext_resource path="res://Images/Resized_Images/Pipette_with_notip.png" type="Texture" id=3]
-[ext_resource path="res://Images/Resized_Images/Pipette_with_tip.png" type="Texture" id=4]
-[ext_resource path="res://Images/Pipette_Closeup_Background.png" type="Texture" id=5]
-[ext_resource path="res://Images/Pipette_Closeup_Plunger.png" type="Texture" id=6]
-[ext_resource path="res://Images/Pipette_Closeup_Plunger_Stick.png" type="Texture" id=7]
-[ext_resource path="res://Images/RedArrow.png" type="Texture" id=8]
+[ext_resource path="res://Images/Resized_Images/Pipette_with_notip.png" type="Texture2D" id=3]
+[ext_resource path="res://Images/Resized_Images/Pipette_with_tip.png" type="Texture2D" id=4]
+[ext_resource path="res://Images/Pipette_Closeup_Background.png" type="Texture2D" id=5]
+[ext_resource path="res://Images/Pipette_Closeup_Plunger.png" type="Texture2D" id=6]
+[ext_resource path="res://Images/Pipette_Closeup_Plunger_Stick.png" type="Texture2D" id=7]
+[ext_resource path="res://Images/RedArrow.png" type="Texture2D" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.5, 41.5 )
@@ -59,26 +59,26 @@ resource_name = "MoveArrows"
 length = 1.5
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Arrow1:rect_position")
+tracks/0/path = NodePath("Arrow1:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PackedFloat32Array( 0, 0.2, 0.4 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 20, 12.5 ), Vector2( 10, 12.5 ), Vector2( 20, 12.5 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Arrow2:rect_position")
+tracks/1/path = NodePath("Arrow2:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PackedFloat32Array( 0, 0.2, 0.4 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 106, 12.5 ), Vector2( 116, 12.5 ), Vector2( 106, 12.5 ) ]
 }
@@ -92,13 +92,13 @@ can_sleep = false
 script = ExtResource( 2 )
 draggable = true
 
-[node name="BaseSprite" type="Sprite" parent="."]
+[node name="BaseSprite" type="Sprite2D" parent="."]
 position = Vector2( 0, 9 )
 texture = ExtResource( 3 )
 script = ExtResource( 1 )
 SpriteDimensions = Vector2( 24, 120 )
 
-[node name="TipSprite" type="Sprite" parent="."]
+[node name="TipSprite" type="Sprite2D" parent="."]
 visible = false
 position = Vector2( 0, 19 )
 texture = ExtResource( 4 )
@@ -131,10 +131,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -155.0
-margin_top = -250.0
-margin_right = 155.0
-margin_bottom = 250.0
+offset_left = -155.0
+offset_top = -250.0
+offset_right = 155.0
+offset_bottom = 250.0
 mouse_filter = 2
 border_color = Color( 1, 1, 1, 1 )
 border_width = 2.0
@@ -149,32 +149,32 @@ color = Color( 0.392157, 0.392157, 0.392157, 1 )
 [node name="CloseButton" type="Button" parent="Menu/Border/Background"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -20.0
-margin_bottom = 20.0
-custom_colors/font_color_disabled = Color( 0.65098, 0.65098, 0.65098, 1 )
-custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 6 )
-custom_styles/focus = SubResource( 7 )
-custom_styles/disabled = SubResource( 6 )
-custom_styles/normal = SubResource( 7 )
+offset_left = -20.0
+offset_bottom = 20.0
+theme_override_colors/font_disabled_color = Color( 0.65098, 0.65098, 0.65098, 1 )
+theme_override_colors/font_focus_color = Color( 1, 1, 1, 1 )
+theme_override_colors/font_color = Color( 1, 1, 1, 1 )
+theme_override_colors/font_hover_color = Color( 1, 1, 1, 1 )
+theme_override_colors/font_pressed_color = Color( 1, 1, 1, 1 )
+theme_override_styles/hover = SubResource( 5 )
+theme_override_styles/pressed = SubResource( 6 )
+theme_override_styles/focus = SubResource( 7 )
+theme_override_styles/disabled = SubResource( 6 )
+theme_override_styles/normal = SubResource( 7 )
 text = "X"
 
 [node name="PlungerSlider" type="VSlider" parent="Menu/Border"]
-margin_left = 179.0
-margin_top = 6.0
-margin_right = 399.0
-margin_bottom = 194.0
-rect_scale = Vector2( 0.5, 0.5 )
-custom_icons/grabber_disabled = ExtResource( 6 )
-custom_icons/grabber_highlight = ExtResource( 6 )
-custom_icons/grabber = ExtResource( 6 )
-custom_styles/slider = SubResource( 9 )
-custom_styles/grabber_area_highlight = SubResource( 8 )
-custom_styles/grabber_area = SubResource( 8 )
+offset_left = 179.0
+offset_top = 6.0
+offset_right = 399.0
+offset_bottom = 194.0
+scale = Vector2( 0.5, 0.5 )
+theme_override_icons/grabber_disabled = ExtResource( 6 )
+theme_override_icons/grabber_highlight = ExtResource( 6 )
+theme_override_icons/grabber = ExtResource( 6 )
+theme_override_styles/slider = SubResource( 9 )
+theme_override_styles/grabber_area_highlight = SubResource( 8 )
+theme_override_styles/grabber_area = SubResource( 8 )
 max_value = 2.0
 value = 2.0
 scrollable = false
@@ -191,21 +191,21 @@ editor_only = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -400.0
+offset_top = -400.0
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 5
 
 [node name="EjectTipButton" type="Button" parent="Menu/Border"]
-margin_left = 272.0
-margin_top = 102.0
-margin_right = 306.0
-margin_bottom = 163.0
-custom_styles/hover = SubResource( 10 )
-custom_styles/pressed = SubResource( 10 )
-custom_styles/focus = SubResource( 10 )
-custom_styles/disabled = SubResource( 10 )
-custom_styles/normal = SubResource( 10 )
+offset_left = 272.0
+offset_top = 102.0
+offset_right = 306.0
+offset_bottom = 163.0
+theme_override_styles/hover = SubResource( 10 )
+theme_override_styles/pressed = SubResource( 10 )
+theme_override_styles/focus = SubResource( 10 )
+theme_override_styles/disabled = SubResource( 10 )
+theme_override_styles/normal = SubResource( 10 )
 
 [node name="ReferenceRect" type="ReferenceRect" parent="Menu/Border/EjectTipButton"]
 anchor_right = 1.0
@@ -218,16 +218,16 @@ anchor_left = 0.755
 anchor_top = 0.393
 anchor_right = 0.755
 anchor_bottom = 0.393
-margin_left = -25.05
-margin_top = -24.5
-margin_right = 24.95
-margin_bottom = 24.5
+offset_left = -25.05
+offset_top = -24.5
+offset_right = 24.95
+offset_bottom = 24.5
 grow_horizontal = 2
-rect_min_size = Vector2( 150, 0 )
-custom_icons/grabber_disabled = SubResource( 12 )
-custom_icons/grabber_highlight = SubResource( 12 )
-custom_icons/grabber = SubResource( 12 )
-custom_styles/slider = SubResource( 13 )
+custom_minimum_size = Vector2( 150, 0 )
+theme_override_icons/grabber_disabled = SubResource( 12 )
+theme_override_icons/grabber_highlight = SubResource( 12 )
+theme_override_icons/grabber = SubResource( 12 )
+theme_override_styles/slider = SubResource( 13 )
 max_value = 20.0
 step = 0.1
 
@@ -240,10 +240,10 @@ editor_only = false
 [node name="Arrow1" type="TextureRect" parent="Menu/Border/VolumeSlider/ReferenceRect"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 20.0
-margin_top = -12.0
-margin_right = 43.9999
-margin_bottom = 12.0
+offset_left = 20.0
+offset_top = -12.0
+offset_right = 43.9999
+offset_bottom = 12.0
 texture = ExtResource( 8 )
 expand = true
 flip_h = true
@@ -253,10 +253,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -44.0
-margin_top = -12.0
-margin_right = -20.0002
-margin_bottom = 12.0
+offset_left = -44.0
+offset_top = -12.0
+offset_right = -20.0002
+offset_bottom = 12.0
 texture = ExtResource( 8 )
 expand = true
 
@@ -265,45 +265,45 @@ autoplay = "MoveArrows"
 anims/MoveArrows = SubResource( 15 )
 
 [node name="VolumeDialLabels" type="Control" parent="Menu/Border"]
-margin_right = 40.0
-margin_bottom = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Top" type="Label" parent="Menu/Border/VolumeDialLabels"]
-margin_left = 24.0
-margin_top = 300.0
-margin_right = 60.0
-margin_bottom = 327.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+offset_left = 24.0
+offset_top = 300.0
+offset_right = 60.0
+offset_bottom = 327.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 text = "0"
 align = 1
 valign = 1
 
 [node name="Middle" type="Label" parent="Menu/Border/VolumeDialLabels"]
-margin_left = 24.0
-margin_top = 328.0
-margin_right = 60.0
-margin_bottom = 358.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+offset_left = 24.0
+offset_top = 328.0
+offset_right = 60.0
+offset_bottom = 358.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 text = "0"
 align = 1
 valign = 1
 
 [node name="Bottom" type="Label" parent="Menu/Border/VolumeDialLabels"]
-margin_left = 24.0
-margin_top = 359.0
-margin_right = 60.0
-margin_bottom = 387.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+offset_left = 24.0
+offset_top = 359.0
+offset_right = 60.0
+offset_bottom = 387.0
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
 text = "0"
 align = 1
 valign = 1
 
 [node name="ActionLabel" type="Label" parent="Menu/Border"]
-margin_left = 36.0
-margin_top = 46.0
-margin_right = 131.0
-margin_bottom = 107.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
+offset_left = 36.0
+offset_top = 46.0
+offset_right = 131.0
+offset_bottom = 107.0
+theme_override_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Dispensed contents!"
 autowrap = true
 

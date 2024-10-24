@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Objects/SourceContainer.gd" type="Script" id=1]
-[ext_resource path="res://Images/Resized_Images/Erlenmeyerflask_container.png" type="Texture" id=2]
-[ext_resource path="res://Images/Resized_Images/microcentrifuge_container.png" type="Texture" id=3]
-[ext_resource path="res://Images/Resized_Images/Erlenmeyerflask_liquid.png" type="Texture" id=4]
-[ext_resource path="res://Images/FillSprites/microcentrifuge_liquid.png" type="Texture" id=5]
+[ext_resource path="res://Images/Resized_Images/Erlenmeyerflask_container.png" type="Texture2D" id=2]
+[ext_resource path="res://Images/Resized_Images/microcentrifuge_container.png" type="Texture2D" id=3]
+[ext_resource path="res://Images/Resized_Images/Erlenmeyerflask_liquid.png" type="Texture2D" id=4]
+[ext_resource path="res://Images/FillSprites/microcentrifuge_liquid.png" type="Texture2D" id=5]
 [ext_resource path="res://Scenes/Objects/DummyLiquidSubstance.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -20,25 +20,25 @@ substance = ExtResource( 6 )
 
 [node name="Sprites" type="Node2D" parent="."]
 
-[node name="MicrocentrifugeTubeFillSprite" type="Sprite" parent="Sprites"]
+[node name="MicrocentrifugeTubeFillSprite" type="Sprite2D" parent="Sprites"]
 visible = false
 position = Vector2( -8.86081, 5 )
 scale = Vector2( 0.0365801, 0.0350926 )
 texture = ExtResource( 5 )
 
-[node name="MicrocentrifugeTubeSprite" type="Sprite" parent="Sprites"]
+[node name="MicrocentrifugeTubeSprite" type="Sprite2D" parent="Sprites"]
 visible = false
 scale = Vector2( 0.0350926, 0.0350926 )
 texture = ExtResource( 3 )
 
-[node name="FlaskFillSprite" type="Sprite" parent="Sprites"]
+[node name="FlaskFillSprite" type="Sprite2D" parent="Sprites"]
 position = Vector2( 0, 25 )
 texture = ExtResource( 4 )
 
-[node name="FlaskSprite" type="Sprite" parent="Sprites"]
+[node name="FlaskSprite" type="Sprite2D" parent="Sprites"]
 texture = ExtResource( 2 )
 
-[node name="CustomSprite" type="Sprite" parent="Sprites"]
+[node name="CustomSprite" type="Sprite2D" parent="Sprites"]
 visible = false
 texture = ExtResource( 2 )
 

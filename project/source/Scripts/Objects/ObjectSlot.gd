@@ -1,8 +1,8 @@
-tool
+@tool
 extends LabObject
 class_name ObjectSlot
 
-export var allowed_groups = ['Container', 'Liquid Container']
+@export var allowed_groups = ['Container', 'Liquid Container']
 var held_object = null
 
 func TryInteract(others):

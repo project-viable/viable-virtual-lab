@@ -10,6 +10,6 @@ func TakeContents():
 	if substance == null:
 		return null
 	
-	var new_content = substance.instance()
+	var new_content = substance.instantiate()
 	print("Dispensed some of the stored substance")
 	return [new_content]

@@ -4,7 +4,7 @@ var Tare = false
 var Weighing = false
 var tare_weight = 0.0
 var current_weight = 0.0
-onready var area = get_node("Area2D")
+@onready var area = get_node("Area2D")
 var objects = []
 
 func TryInteract(others):
@@ -50,7 +50,7 @@ func _on_Tare_Button_pressed():
 		for object in $Area2D.get_overlapping_bodies():
 			if(object.is_in_group("Weighable")):
 				if(object.is_in_group("WeighBoat")):
-					if(!object.contents.empty()):
+					if(!object.contents.is_empty()):
 						LabLog.Warn("Scale was tared while substances were being weighed, so final measurements may be incorrect")
 	else:
 		print("No overlap")
@@ -62,14 +62,14 @@ func _on_Tare_Button_pressed():
 func _on_Area2D_body_exited(body):
 	if(body.is_in_group("Weighable")):
 		if(body.is_in_group("WeighBoat")):
-			if(!body.contents.empty()):
+			if(!body.contents.is_empty()):
 				if(Tare == false):
 					LabLog.Warn("Scale was not tared when weighing, so substance weights may be incorrect")
 		if(objects.has(body)):
 			objects.erase(body)
 			UpdateWeight()
 			update_display()
-	if(objects.empty()):
+	if(objects.is_empty()):
 		Weighing = false
 
 func update_display():

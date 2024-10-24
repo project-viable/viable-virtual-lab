@@ -1,9 +1,9 @@
 extends MistakeChecker
 class_name HeatingTimeChecker
 
-export(float) var CorrectTimeToMicrowave = 60
-export(String) var TooLongMessage
-export(String) var TooShortMessage
+@export var CorrectTimeToMicrowave: float = 60
+@export var TooLongMessage: String
+@export var TooShortMessage: String
 
 func CheckAction(params: Dictionary):
 	#Check if this action is even applicable to this checker:

@@ -1,6 +1,6 @@
 extends LabContainer
 
-export (int) var maxVolume
+@export var maxVolume: int
 
 var allowedGroups = ["Source Container"]
 
@@ -41,7 +41,7 @@ func TryInteract(others):
 					
 					# Disable dragging while menu open
 					self.draggable = false
-					yield($Menu/PanelContainer/VBoxContainer/DispenseButton, "pressed")
+					await $Menu/PanelContainer/VBoxContainer/DispenseButton.pressed
 					# Reenable dragging
 					self.draggable = true
 				# Other is a container with a liquid substance and grad cylinder already has liquid, so do nothing
@@ -91,10 +91,10 @@ func dispose():
 	update_display()
 
 func update_display():
-	var maxHeight = $ColorRect.rect_size.y
+	var maxHeight = $ColorRect.size.y
 	var fillPercentage = $VolumeContainer.GetVolume() / $VolumeContainer.GetMaxVolume()
 	var fillHeight = maxHeight * fillPercentage
-	$FillProgress.rect_size = Vector2($FillProgress.rect_size.x, fillHeight)
+	$FillProgress.size = Vector2($FillProgress.size.x, fillHeight)
 	print("Display updated")
 	###Now we need to calculate the average color of our contents:
 	if len(contents) > 0:

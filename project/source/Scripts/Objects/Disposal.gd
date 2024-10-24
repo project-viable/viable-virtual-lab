@@ -1,12 +1,12 @@
 extends LabObject
 
-export(Array, String) var acceptedGroups = ["LabObjects"] #we will only try to interact with objects in at least one of these groups.
-export(bool) var confirmDisposal = true
+@export var acceptedGroups = ["LabObjects"] #we will only try to interact with objects in at least one of these groups. # (Array, String)
+@export var confirmDisposal: bool = true
 
 var target = null #used to store which object we're asking about, if the confirmation menu is used.
 
 func _ready():
-	._ready() #like super() in other languages
+	super._ready() #like super() in other languages
 	$Menu.hide()
 
 func TryInteract(others):

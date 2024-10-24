@@ -48,7 +48,7 @@ func init_created(properties):
 	properties['color'] = Color('#00cc66').blend(agar_color)
 	
 	# call the superclass init
-	.init_created(properties)
+	super.init_created(properties)
 
 func heat(heatTime):
 	totalHeatTime += heatTime

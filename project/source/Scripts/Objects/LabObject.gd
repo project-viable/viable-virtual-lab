@@ -1,13 +1,13 @@
-tool
+@tool
 extends RigidBody2D
 class_name LabObject
 
 #if draggable, the object can be clicked and dragged around the scene.
 #when not being dragged, it will be set to whatever it's rigidbody2d mode is set to (rigid, static, etc.)
-export(bool) var draggable
-export(bool) var canChangeSubscenes = true
-export(String) var DisplayName = ""
-export(int) var tooltipDisplayDistance = 35
+@export var draggable: bool
+@export var canChangeSubscenes: bool = true
+@export var DisplayName: String = ""
+@export var tooltipDisplayDistance: int = 35
 var tooltip: Label #Set when it's created
 
 #these variables are used internally to handle clicking and dragging:
@@ -15,16 +15,16 @@ var dragging = false
 var dragOffset = Vector2(0, 0)
 var dragStartGlobalPos = null
 var maxMovementForActIndependently = 10 #If an object is released more than this distance fron where it started being dragged (line above), it will only interact, not act independently.
-onready var defaultMode = mode
-onready var defaultZIndex = z_index
-onready var defaultZAsRelative = z_as_relative
+@onready var defaultMode = mode
+@onready var defaultZIndex = z_index
+@onready var defaultZAsRelative = z_as_relative
 
 var startPosition
 
 #This variable determines whether it should call TryInteract and TryInteractIndependently
 var active = true
 
-func _get_configuration_warning():
+func _get_configuration_warnings():
 	for child in get_children():
 		if child is CollisionShape2D or child is CollisionPolygon2D:
 			return ""
@@ -48,20 +48,20 @@ func _ready():
 	startPosition = self.position
 	
 	#if we're not in the editor
-	if not Engine.editor_hint:
+	if not Engine.is_editor_hint():
 		#Set up the tooltip
 		if len(DisplayName) > 1:
 			var tooltipContainer = Node2D.new()
-			tooltipContainer.z_index = VisualServer.CANVAS_ITEM_Z_MAX - 1
+			tooltipContainer.z_index = RenderingServer.CANVAS_ITEM_Z_MAX - 1
 			
 			tooltip = Label.new()
 			tooltip.text = DisplayName
 			tooltip.name = "labobject_auto_tooltip"
-			tooltip.set_anchors_and_margins_preset(Control.PRESET_CENTER)
+			tooltip.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 			var tooltipStylebox = StyleBoxFlat.new()
 			tooltipStylebox.bg_color = Color(0.2, 0.2, 0.2, 0.8)
-			tooltip.add_color_override("font_color", Color(1, 1, 1))
-			tooltip.add_stylebox_override('normal', tooltipStylebox)
+			tooltip.add_theme_color_override("font_color", Color(1, 1, 1))
+			tooltip.add_theme_stylebox_override('normal', tooltipStylebox)
 			
 			tooltipContainer.add_child(tooltip)
 			add_child(tooltipContainer)
@@ -116,11 +116,11 @@ func StartDragging():
 	dragging = true
 	
 	defaultMode = mode
-	mode = RigidBody2D.MODE_KINEMATIC
+	mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 	
 	defaultZIndex = z_index
 	defaultZAsRelative = z_as_relative
-	z_index = VisualServer.CANVAS_ITEM_Z_MAX - 1 #So the one being dragged is always on top of other things
+	z_index = RenderingServer.CANVAS_ITEM_Z_MAX - 1 #So the one being dragged is always on top of other things
 	z_as_relative = true
 	
 	dragOffset = get_global_mouse_position() - global_position
@@ -156,7 +156,7 @@ func GetIntersectingLabObjects():
 	#This way, we could have LabObjects with multiple colliders on them (for example, multiple rectangles making up a more complex shape)
 	for child in get_children():
 		if child is CollisionShape2D:
-			var queryOptions = Physics2DShapeQueryParameters.new()
+			var queryOptions = PhysicsShapeQueryParameters2D.new()
 			queryOptions.set_shape(child.shape)
 			queryOptions.transform = child.get_global_transform()
 			queryOptions.exclude = [self]

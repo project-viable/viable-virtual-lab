@@ -1,4 +1,4 @@
-tool
+@tool
 extends LabObject
 
 # This container models a substance source (like the buffer bottle) that cannot 
@@ -6,18 +6,18 @@ extends LabObject
 # when something draws from it.
 
 enum ContainerType {ERLENMEYER_FLASK, MICRO_CENTRIFUGE_TUBE} #TODO: I'm not convinced this is a good way to do this, since we have to repeatedly modify code instead of just making these, simple changes in the editor. Maybe use an inherited scene like the Pipettes
-export(ContainerType) var containerType setget SetContainerType
-export (Texture) var image = null setget SetOverrideImage #TODO: This just overrides the container type used above. This makes editing these things so hard for no reason.
+@export var containerType: ContainerType: set = SetContainerType
+@export var image: Texture2D = null: set = SetOverrideImage
 
-export (PackedScene) var substance = null
-export (Array) var substance_parameters = null
+@export var substance: PackedScene = null
+@export var substance_parameters: Array = null
 var contents = null
 
 func _ready():
 	if substance == null:
 		substance = load('res://Scenes/Objects/DummyLiquidSubstance.tscn')
 	
-	contents = substance.instance()
+	contents = substance.instantiate()
 	if substance_parameters != null:
 		contents.initialize(substance_parameters)
 		print(str(contents.particle_sizes))
@@ -63,7 +63,7 @@ func TakeContents(volume = -1):
 	if substance == null:
 		return null
 	
-	var new_content = substance.instance()
+	var new_content = substance.instantiate()
 	if substance_parameters != null:
 		new_content.initialize(substance_parameters)
 		print(str(contents.particle_sizes))

@@ -1,8 +1,8 @@
-tool
+@tool
 extends LabObject
 
 var running = false
-export (int) var time_delay = 0.005
+@export var time_delay: int = 0.005
 
 func Ready():
 	add_to_group("CurrentConductors", true)
@@ -72,7 +72,7 @@ func _on_RunCurrent_pressed():
 						
 						time_ran += timestep
 						
-						yield(get_tree().create_timer(time_delay), "timeout")
+						await get_tree().create_timer(time_delay).timeout
 						
 					else:
 						print("Other device ", other_device, " needs a run_current() method")

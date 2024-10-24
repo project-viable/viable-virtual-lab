@@ -1,17 +1,17 @@
-tool
+@tool
 extends LabObject
 class_name SubsceneManager
 
-export(Vector2) var dimensions = Vector2(300, 300) setget SetDimensions #setget so it updates in the editor
+@export var dimensions: Vector2 = Vector2(300, 300): set = SetDimensions
 var subsceneActive: bool
 var subscene = null #We keep a reference to the subscene so we can remove it from the tree entirely when it's hidden. This is how we "pause" the subscene when it isn't active
 
 func _ready():
-	._ready() #super()
+	super._ready() #super()
 	subscene = $Subscene
 	add_to_group("SubsceneManagers", true)
-	subscene.z_index = VisualServer.CANVAS_ITEM_Z_MAX #to make this subscene draw above ones above it in the tree
-	if not Engine.editor_hint: HideSubscene()
+	subscene.z_index = RenderingServer.CANVAS_ITEM_Z_MAX #to make this subscene draw above ones above it in the tree
+	if not Engine.is_editor_hint(): HideSubscene()
 
 #Gets the depth of this subscene (ie how many ancestors it has that are also SubsceneManagers)
 #This is used by main when picking which object should recieve a user action (mouse click)
@@ -33,8 +33,8 @@ func SetDimensions(newDim: Vector2):
 		var newShape = RectangleShape2D.new()
 		newShape.extents = Vector2(dimensions.x/2.0, dimensions.y/2.0)
 		subscene.get_node("Boundary").shape = newShape
-		subscene.get_node("Border").rect_position = Vector2(-dimensions.x/2.0, -dimensions.y/2.0)
-		subscene.get_node("Border").rect_size = dimensions
+		subscene.get_node("Border").position = Vector2(-dimensions.x/2.0, -dimensions.y/2.0)
+		subscene.get_node("Border").size = dimensions
 
 #You can still override this function just like any other LabObject if you need different behavior.
 func TryActIndependently():

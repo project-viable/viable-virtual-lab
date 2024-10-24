@@ -1,10 +1,10 @@
 extends MistakeChecker
 class_name CurrentChecker
 
-export(float) var CorrectVoltage = 120
-export(String) var TooHighMessage
-export(String) var TooLowMessage
-export(String) var ReversedMessage
+@export var CorrectVoltage: float = 120
+@export var TooHighMessage: String
+@export var TooLowMessage: String
+@export var ReversedMessage: String
 
 func CheckAction(params: Dictionary):
 	if params['actionType'] == 'runCurrent' and params.get('voltage'):

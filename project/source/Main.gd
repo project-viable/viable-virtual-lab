@@ -2,7 +2,7 @@ extends Node2D
 
 var currentModuleScene = null
 
-export(Array, Resource) var CheckStrategies setget SetCheckStrategies
+@export var CheckStrategies : set = SetCheckStrategies
 
 func CheckAction(params: Dictionary):
 	for strategy in CheckStrategies:
@@ -22,7 +22,7 @@ func SetScene(scene: PackedScene):
 	for child in $Scene.get_children():
 		child.queue_free()
 	
-	var newScene = scene.instance()
+	var newScene = scene.instantiate()
 	$Scene.add_child(newScene)
 	currentModuleScene = newScene
 	#$Camera.Reset()
@@ -70,7 +70,7 @@ func _unhandled_input(event):
 					bestPick.StartDragging()
 				else:
 					bestPick.OnUserAction()
-				get_tree().set_input_as_handled()
+				get_viewport().set_input_as_handled()
 				return
 	
 	#If we've made it here, then we didn't need to do something with a LabObject

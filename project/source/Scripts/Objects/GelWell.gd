@@ -1,6 +1,6 @@
 extends LabObject
 
-export(int) var wellNumber = 0
+@export var wellNumber: int = 0
 var broken = false
 
 func AddContents(new_contents):
