@@ -6,4 +6,4 @@ class_name ModuleData
 @export var Tooltip: String
 @export var Thumbnail: Texture2D
 @export var Scene: PackedScene
-@export var InstructionsBBCode # (String, MULTILINE)
+@export_multiline var InstructionsBBCode: String

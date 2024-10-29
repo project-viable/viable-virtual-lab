@@ -1,6 +1,6 @@
 extends LabObject
 
-@export var acceptedGroups = ["LabObjects"] #we will only try to interact with objects in at least one of these groups. # (Array, String)
+@export var acceptedGroups: Array[String] = ["LabObjects"] #we will only try to interact with objects in at least one of these groups. # (Array, String)
 @export var confirmDisposal: bool = true
 
 var target = null #used to store which object we're asking about, if the confirmation menu is used.
