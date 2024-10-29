@@ -2,7 +2,7 @@
 extends LabObject
 
 var running = false
-@export var time_delay: int = 0.005
+@export var time_delay: float = 0.005
 
 func _ready():
 	super()
