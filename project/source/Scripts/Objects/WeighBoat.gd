@@ -3,7 +3,7 @@ extends LabContainer
 var substance = null
 
 func _ready():
-	pass
+	super()._ready()
 
 func TryActIndependently():
 	pass

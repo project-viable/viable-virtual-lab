@@ -4,6 +4,7 @@ extends LabObject
 var regex = RegEx.new()
 
 func _ready():
+	super()._ready()
 	if(!positive):
 		$Contact.texture = load('res://Images/NegativeContact.png')
 	regex.compile("ContactWire")

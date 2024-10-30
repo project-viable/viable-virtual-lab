@@ -5,7 +5,7 @@ extends LabObject
 @export var offset: Vector2 = Vector2(0, 0)
 
 func _ready():
-	super._ready() #super()
+	super._ready() 
 	$Label.text = label
 
 func TryActIndependently():

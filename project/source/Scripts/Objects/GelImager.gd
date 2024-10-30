@@ -1,6 +1,7 @@
 extends LabObject
 
 func _ready():
+	super()._ready()
 	$ImagingMenu.hide()
 	$ImagingMenu/GelDisplay.close()
 

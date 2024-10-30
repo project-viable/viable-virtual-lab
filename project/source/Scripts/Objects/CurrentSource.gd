@@ -5,6 +5,7 @@ var running = false
 @export var time_delay: int = 0.005
 
 func Ready():
+	super()._ready()
 	add_to_group("CurrentConductors", true)
 	$CurrentConductor.SetVolts(0)
 	$CurrentConductor.SetTime(0)
