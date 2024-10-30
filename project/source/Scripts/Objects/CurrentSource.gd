@@ -1,10 +1,10 @@
-tool
+@tool
 extends LabObject
 
 var running = false
-export (int) var time_delay = 0.005
+@export var time_delay: int = 0.005
 
-func Ready():
+func _ready():
 	add_to_group("CurrentConductors", true)
 	$CurrentConductor.SetVolts(0)
 	$CurrentConductor.SetTime(0)
@@ -36,7 +36,7 @@ func current_reversed():
 
 func _on_RunCurrent_pressed():
 	if running:
-		running = !running
+		running = false
 		ToggleRunCurrentText()
 		ToggleInputsEditable()
 		return
@@ -54,7 +54,7 @@ func _on_RunCurrent_pressed():
 			ReportAction([self, other_device], "runCurrent", {'voltage': $CurrentConductor.GetVolts() * voltage_mod})
 			
 			# Update running state and button text
-			running = !running
+			running = true
 			ToggleRunCurrentText()
 			ToggleInputsEditable()
 			
@@ -72,7 +72,7 @@ func _on_RunCurrent_pressed():
 						
 						time_ran += timestep
 						
-						yield(get_tree().create_timer(time_delay), "timeout")
+						await get_tree().create_timer(time_delay).timeout
 						
 					else:
 						print("Other device ", other_device, " needs a run_current() method")
@@ -81,9 +81,9 @@ func _on_RunCurrent_pressed():
 					print("At least one terminal is disconnected")
 					break
 			
-			#running = !running
-			#ToggleRunCurrentText()
-			#ToggleInputsEditable()
+			running = false
+			ToggleRunCurrentText()
+			ToggleInputsEditable()
 	else:
 		print("Device cannot run current")
 
