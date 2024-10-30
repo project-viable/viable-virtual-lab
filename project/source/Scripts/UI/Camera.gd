@@ -66,7 +66,7 @@ func FixZoom():
 	var worstScaleFactor = max(yScaleFactor, xScaleFactor)
 	
 	if worstScaleFactor > 1:
-		Zoom(1.0/worstScaleFactor)
+		Zoom(1.0*worstScaleFactor)
 
 func FixPosition(offsetFromCurrentGlobalPos = Vector2(0, 0)):
 	#call with no (or default) argument to get the adjustment for the current position
@@ -106,14 +106,14 @@ func StopDragging():
 	dragging = false
 
 func Zoom(factor):
-	zoom = zoom * factor
+	zoom = zoom / factor
 	moveRate = moveRate * factor
 	FixToAllowedArea()
 
 #This function is called by the Main Scene. Read the documentation for that for why.
 func ZoomIn():
-	Zoom(1.0/zoomFactor)
+	Zoom(zoomFactor)
 
 #This function is called by the Main Scene. Read the documentation for that for why.
 func ZoomOut():
-	Zoom(zoomFactor)
+	Zoom(1.0/zoomFactor)
