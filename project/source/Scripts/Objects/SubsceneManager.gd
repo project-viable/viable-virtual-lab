@@ -7,7 +7,7 @@ var subsceneActive: bool
 var subscene = null #We keep a reference to the subscene so we can remove it from the tree entirely when it's hidden. This is how we "pause" the subscene when it isn't active
 
 func _ready():
-	super._ready() #super()
+	super._ready()
 	subscene = $Subscene
 	add_to_group("SubsceneManagers", true)
 	subscene.z_index = RenderingServer.CANVAS_ITEM_Z_MAX #to make this subscene draw above ones above it in the tree

@@ -6,7 +6,7 @@ extends LabObject
 var target = null #used to store which object we're asking about, if the confirmation menu is used.
 
 func _ready():
-	super._ready() #like super() in other languages
+	super._ready()
 	$Menu.hide()
 
 func TryInteract(others):
