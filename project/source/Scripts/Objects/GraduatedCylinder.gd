@@ -41,7 +41,7 @@ func TryInteract(others):
 					
 					# Disable dragging while menu open
 					self.draggable = false
-					await $Menu/PanelContainer/VBoxContainer/DispenseButton.pressed
+					await $Menu/PanelContainer/VBoxContainer/DispenseButton.button_pressed
 					# Reenable dragging
 					self.draggable = true
 				# Other is a container with a liquid substance and grad cylinder already has liquid, so do nothing
