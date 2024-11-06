@@ -14,7 +14,7 @@ enum ContainerType {ERLENMEYER_FLASK, MICRO_CENTRIFUGE_TUBE} #TODO: I'm not conv
 var contents = null
 
 func _ready():
-	super()._ready()
+	super()
 	if substance == null:
 		substance = load('res://Scenes/Objects/DummyLiquidSubstance.tscn')
 	
