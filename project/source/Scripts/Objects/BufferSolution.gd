@@ -6,6 +6,7 @@ extends LabObject
 var contents = null
 
 func _ready():
+	super()
 	if substance == null:
 		substance = load('res://Scenes/Objects/BufferSolutionSubstance.tscn')
 	contents = substance.instantiate()

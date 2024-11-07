@@ -4,7 +4,8 @@ extends LabObject
 var running = false
 @export var time_delay: int = 0.005
 
-func Ready():
+func _ready():
+	super()
 	add_to_group("CurrentConductors", true)
 	$CurrentConductor.SetVolts(0)
 	$CurrentConductor.SetTime(0)
