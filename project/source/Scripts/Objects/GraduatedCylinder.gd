@@ -6,7 +6,7 @@ var allowedGroups: Array[String] = ["Source Container"]
 
 var DefaultText: String
 
-var CurrContent: Variant
+var CurrContent: Substance
 
 func LabObjectReady() -> void:
 	if maxVolume == 0:
@@ -21,8 +21,8 @@ func LabObjectReady() -> void:
 	$Menu.hide()
 	ResetMenu()
 
-func TryInteract(others: Array[Variant]) -> bool:
-	for other: Variant in others:
+func TryInteract(others: Array[Substance]) -> bool:
+	for other: Substance in others:
 		for i in allowedGroups.size():
 			if other.is_in_group(allowedGroups[i]):
 				# Continue through loop if the graduated cylinder is already full
@@ -73,8 +73,8 @@ func TryInteract(others: Array[Variant]) -> bool:
 func TryActIndependently() -> void:
 	pass
 
-func TakeContents(volume: int =-1) -> Variant:
-	var content: Variant = contents.duplicate(true)
+func TakeContents(volume: int =-1) -> Array[Substance]:
+	var content: Array[Substance] = contents.duplicate(true)
 	contents.clear()
 	$VolumeContainer.DumpContents()
 	ResetMenu()
@@ -82,7 +82,7 @@ func TakeContents(volume: int =-1) -> Variant:
 	print("Graduated cylinder has ", $VolumeContainer.GetVolume(), "mL of liquid")
 	return content
 
-func AddContents(new_contents: Variant) -> void:
+func AddContents(new_contents: Substance) -> void:
 	pass
 
 func dispose() -> void:
@@ -98,12 +98,12 @@ func update_display() -> void:
 	print("Display updated")
 	###Now we need to calculate the average color of our contents:
 	if len(contents) > 0:
-		var r: int = 0
-		var g: int = 0
-		var b: int = 0
+		var r: float = 0
+		var g: float = 0
+		var b: float = 0
 		var volume: float = 0
 		
-		for content: Variant in contents:
+		for content: Substance in contents:
 			r += Color(content.color).r * content.volume
 			g += Color(content.color).g * content.volume
 			b += Color(content.color).b * content.volume
