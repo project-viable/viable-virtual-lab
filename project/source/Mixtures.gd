@@ -1,5 +1,6 @@
 extends Node2D
 
+# TODO (update): This name shadows the `MixtureChecker` class.
 var MixtureChecker: Resource
 
 func _ready() -> void:
