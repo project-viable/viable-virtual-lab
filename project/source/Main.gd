@@ -23,8 +23,14 @@ func SetScene(scene: PackedScene) -> void:
 
 func GetDeepestSubsceneAt(pos: Vector2) -> Node:
 	var result: Node = null
-	
-	var castResult := get_world_2d().direct_space_state.intersect_point(get_global_mouse_position(), 32, [], 2, false, true)
+
+	var castParams := PhysicsPointQueryParameters2D.new()
+	castParams.position = pos
+	castParams.collision_mask = 0b10
+	castParams.collide_with_bodies = false
+	castParams.collide_with_areas = true
+	var castResult := get_world_2d().direct_space_state.intersect_point(castParams)
+
 	if len(castResult) > 0:
 		#We found results
 		for object in castResult:
@@ -40,7 +46,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	#check if there's any labobjects that need to deal with that input
 	#Using the normal object picking (collision objects' input signals) doesn't give us the control we need
 	if event.is_action_pressed("DragLabObject"):
-		var castResult := get_world_2d().direct_space_state.intersect_point(get_global_mouse_position(), 32, [], 2, true, true)
+		var castParams := PhysicsPointQueryParameters2D.new()
+		castParams.position = get_global_mouse_position()
+		castParams.collision_mask = 0b10
+		castParams.collide_with_bodies = true
+		castParams.collide_with_areas = true
+		var castResult := get_world_2d().direct_space_state.intersect_point(castParams)
 		
 		if len(castResult) > 0:
 			#We found results: now we need to make sure only objects in the subscene we clicked in (if any) can get this input
