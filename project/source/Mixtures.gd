@@ -2,7 +2,7 @@ extends Node2D
 
 var MixtureChecker: Resource
 
-func _ready():
+func _ready() -> void:
 	MixtureChecker = load("res://MistakeCheckers/MixtureChecker.tres")
 	if MixtureChecker != null:
 		MixtureChecker.Mixtures = LoadMixtures()
