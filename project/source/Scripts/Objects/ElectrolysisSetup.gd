@@ -23,7 +23,8 @@ func LabObjectReady() -> void:
 	$GelSimMenu.hide()
 	$FollowMenu/SubstanceMenu.hide()
 
-func TryInteract(others: Array[LabObject]) -> void:
+# TODO (update): This should return a `bool` for whether it successfully interacted.
+func TryInteract(others: Array[LabObject]) -> bool:
 	if fill_substance:
 		return
 	for other in others:
