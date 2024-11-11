@@ -81,7 +81,7 @@ func run_current(voltage: float, time: float, print_text := false) -> void:
 		mounted_container.run_current(voltage, time)
 		
 		# update the gel display
-		var content = $ObjectSlot.get_object()
+		var content: LabObject = $ObjectSlot.get_object()
 		if(content != null):
 			if(content.is_in_group('Gel Boat')):
 				$GelSimMenu/GelDisplay.update_bands(content.calculate_positions())
@@ -96,7 +96,7 @@ func terminal_connected(terminal: LabObject, contact: LabObject) -> bool:
 func slot_filled(slot: ObjectSlot, object: LabObject) -> void:
 	if(object.is_in_group('Gel Boat')):
 		mounted_container = object
-		var gelMoldInfo = object.GelMoldInfo()
+		var gelMoldInfo := object.GelMoldInfo()
 		mounted_container.visible = false
 		
 		# Change texture if it has wells
