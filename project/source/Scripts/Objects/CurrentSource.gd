@@ -89,7 +89,7 @@ func _on_RunCurrent_pressed() -> void:
 	else:
 		print("Device cannot run current")
 
-func get_other_device() -> Node:
+func get_other_device() -> LabObject:
 	if $PosTerminal == null || $NegTerminal == null:
 		return
 	var pos_parent: ContactWire = $PosTerminal.plugged_electrode.get_parent()

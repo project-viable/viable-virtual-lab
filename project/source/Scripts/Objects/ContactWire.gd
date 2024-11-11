@@ -3,7 +3,7 @@ class_name ContactWire
 enum {REVERSE, FORWARD, NEUTRAL}
 
 @export var positive: bool = true
-var connections: Array[Node] = []
+var connections: Array[LabObject] = []
 
 var point1: Vector2
 var point2: Vector2
