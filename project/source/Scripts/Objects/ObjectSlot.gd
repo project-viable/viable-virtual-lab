@@ -3,9 +3,10 @@ extends LabObject
 class_name ObjectSlot
 
 @export var allowed_groups: Array[String] = ['Container', 'Liquid Container']
-var held_object = null
+var held_object: LabObject = null
 
-func TryInteract(others):
+# TODO (update): This should return `true` if it interacts successfully.
+func TryInteract(others: Array[LabObject]) -> bool:
 	for other in others:
 		for allowed_group in allowed_groups:
 			if(other.is_in_group(allowed_group)):
@@ -21,13 +22,13 @@ func TryInteract(others):
 					
 					get_parent().slot_filled(self, other)
 
-func filled():
+func filled() -> bool:
 	return (held_object != null)
 
-func get_object():
+func get_object() -> LabObject:
 	return held_object
 
-func _on_ObjectSlot_input_event(viewport, event, shape_idx):
+func _on_ObjectSlot_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if (event.is_pressed()):
 		if (!filled()):
 			return
