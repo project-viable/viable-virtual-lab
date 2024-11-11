@@ -1,20 +1,28 @@
 extends LabContainer
 
-var dispense_mode = 0
-var split_substance = [] 
+# TODO (update): `dispense_mode` isn't used anywhere. Remove it or figure out what it's supposed to
+# do.
+var dispense_mode := 0
+var split_substance: Array[Substance] = [] 
 
-var targetObj = null
+# TODO (update): This is a substance container, and I would *like* to give this a more specialized
+# type, but there's no single class that all containers derive from other than `LabObject`. We
+# should find a way to fix this, but that's kind of complicated.
+var targetObj: LabObject = null
 
-func TryInteract(others):
+func TryInteract(others: Array[LabObject]) -> bool:
 	for other in others:#If interacting with container then we want to dispense or pick up
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
-			var granularSubstance = other.CheckContents("Granular Substance")
+
+			# TODO (update): If we rework all instances of `CheckContents` to return an array, then
+			# we don't have to do this type check.
+			var granularSubstance: Array[bool] = other.CheckContents("Granular Substance")
 			if typeof(granularSubstance) == TYPE_ARRAY:
 				if len(granularSubstance) > 0:
 					granularSubstance = granularSubstance[0]
 			if len(contents) == 0 and granularSubstance:
 				# get density to determine volume taken
-				var density = other.TakeContents()[0].get_properties()['density']
+				var density: float = other.TakeContents()[0].get_properties()['density']
 				
 				contents.append_array(other.TakeContents(1 / density)) # Take 1g of material
 				if(other.is_in_group("Scale")):
@@ -26,7 +34,7 @@ func TryInteract(others):
 				return true
 			else:
 				if(!contents.is_empty()):
-					var contentName = contents[0].name
+					var contentName := contents[0].name
 					
 					#Show menu
 					$ScoopulaMenu.popup()
@@ -40,13 +48,13 @@ func TryInteract(others):
 				return true
 	return false
 
-func SplitContents():
+func SplitContents() -> Substance:
 	if(contents.is_empty()):
 		print("empty")
 		return null
 	else:
 		print("array check")
-		var split = contents[0].duplicate()
+		var split := contents[0].duplicate()
 		if(contents[0].get_volume() <= .1/split.get_density()):
 			split.set_volume(contents[0].get_volume())
 			contents.clear()
@@ -59,16 +67,16 @@ func SplitContents():
 			print("After split volume: " + str(contents[0].volume))
 		return split
 
-func TryActIndependently():
+func TryActIndependently() -> void:
 	pass
 
-func _on_btnDispense_pressed():
+func _on_btnDispense_pressed() -> void:
 	
-	var volDispensed = $ScoopulaMenu/PanelContainer/sliderDispenseQty.value / contents[0].density
+	var volDispensed: float = $ScoopulaMenu/PanelContainer/sliderDispenseQty.value / contents[0].density
 	
 	#Add contents to receiving object
-	var contentToDispense = contents[0].duplicate()
-	var contentArray = []
+	var contentToDispense: Substance = contents[0].duplicate()
+	var contentArray: Array[Substance] = []
 		
 	contentToDispense.set_volume(volDispensed)
 	contentArray.append(contentToDispense)
