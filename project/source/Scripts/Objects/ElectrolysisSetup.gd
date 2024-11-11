@@ -1,29 +1,35 @@
 extends LabObject
 
-var fill_substance = null
-var current_source = null
-var mounted_container = null # This container reference should contain the substance to run
+var fill_substance: Substance = null
 
-var fill_requested = false
+# TODO (update): This is treated as if it should hold a reference to some object, but it's set to
+# `true` in `ElectrodeTerminal.gd`. Either the external code should be modified to treat this
+# exclusively as `bool`, or it should be changed to some reference type and treated as such. The
+# latter might be worth doing if this class might eventually want to access the current source (I
+# assume this refers to the object supplying the current).
+var current_source: bool = null
+var mounted_container: GelMoldSubsceneManager = null # This container reference should contain the substance to run
+
+var fill_requested := false
 
 signal menu_closed
 
-var nonfilled_texture = load('res://Images/Resized_Images/Gel_Rig.png')
-var filled_texture = load('res://Images/Resized_Images/Gel_Rig_filled_NO_grooves.png')
-var filled_wells_texture = load('res://Images/Resized_Images/Gel_Rig_filled.png')
-var filled_comb_texture = load('res://Images/Resized_Images/Gel_Rig_comb.png')
+var nonfilled_texture: Texture2D = load('res://Images/Resized_Images/Gel_Rig.png')
+var filled_texture: Texture2D = load('res://Images/Resized_Images/Gel_Rig_filled_NO_grooves.png')
+var filled_wells_texture: Texture2D = load('res://Images/Resized_Images/Gel_Rig_filled.png')
+var filled_comb_texture: Texture2D = load('res://Images/Resized_Images/Gel_Rig_comb.png')
 
-func LabObjectReady():
+func LabObjectReady() -> void:
 	$GelSimMenu.hide()
 	$FollowMenu/SubstanceMenu.hide()
 
-func TryInteract(others):
+func TryInteract(others: Array[LabObject]) -> void:
 	if fill_substance:
 		return
 	for other in others:
 		if other.is_in_group("Container") or other.is_in_group("Liquid Container") or other.is_in_group("Source Container"):
 			# We need an ionic substance for the electrolysis setup to run
-			var ionic_substance = other.CheckContents("Ionic Substance")
+			var ionic_substance: Array[bool] = other.CheckContents("Ionic Substance")
 			
 			if ionic_substance == []:
 				return
@@ -69,7 +75,7 @@ func able_to_run_current(print_text: bool = false) -> bool:
 		return false
 	return true
 
-func run_current(voltage, time, print_text = false):
+func run_current(voltage: float, time: float, print_text := false) -> void:
 	if able_to_run_current((print_text)):
 		# run current through the container
 		mounted_container.run_current(voltage, time)
@@ -84,10 +90,10 @@ func run_current(voltage, time, print_text = false):
 			$GelSimMenu.visible = true
 			$GelSimMenu/GelDisplay.open()
 
-func terminal_connected(terminal, contact):
+func terminal_connected(terminal: LabObject, contact: LabObject) -> bool:
 	return $PosTerminal.connected() || $NegTerminal.connected()
 
-func slot_filled(slot, object):
+func slot_filled(slot: ObjectSlot, object: LabObject) -> void:
 	if(object.is_in_group('Gel Boat')):
 		mounted_container = object
 		var gelMoldInfo = object.GelMoldInfo()
@@ -99,12 +105,16 @@ func slot_filled(slot, object):
 		elif gelMoldInfo["hasWells"]:
 			$Sprite2D.texture = filled_wells_texture
 		
-		var init_data = mounted_container.gel_status()
+		# TODO (update): `gel_status` returns an array in the form [m, w] where m is a
+		# `GelMoldSubsceneManager` (equal to `mounted_container`) and w is a `bool`. This can
+		# probably just be changed to return `bool` and `init` here can be called as
+		# `init(mounted_container, init_data)`.
+		var init_data := mounted_container.gel_status()
 		$GelSimMenu/GelDisplay.init(init_data[0], init_data[1])
 	else:
 		slot_emptied(slot, object)
 
-func slot_emptied(slot, object):
+func slot_emptied(slot: ObjectSlot, object: LabObject) -> void:
 	$ObjectSlot.held_object = null
 	if mounted_container == null:
 		return
@@ -123,14 +133,14 @@ func slot_emptied(slot, object):
 	mounted_container.position = Vector2(self.position.x - 170, self.position.y - 20)
 	mounted_container = null
 
-func _on_SubstanceCloseButton_pressed():
+func _on_SubstanceCloseButton_pressed() -> void:
 	$FollowMenu/SubstanceMenu.visible = false
 	emit_signal("menu_closed")
 
-func _on_FillButton_pressed():
+func _on_FillButton_pressed() -> void:
 	fill_requested = true
 	emit_signal("menu_closed")
 
-func _on_CloseButton_pressed():
+func _on_CloseButton_pressed() -> void:
 	$GelSimMenu.visible = false
 	$GelSimMenu/GelDisplay.close()
