@@ -1,12 +1,12 @@
 extends "res://Scripts/Objects/LabObject.gd"
 
-var Tare := false
-var Weighing := false
-var tare_weight := 0.0
-var current_weight := 0.0
+var Tare: bool = false
+var Weighing: bool = false
+var tare_weight: float = 0.0
+var current_weight: float = 0.0
 
 # TODO (update): `area` doesn't appear to be used. Consider removing it.
-@onready var area := get_node("Area2D")
+@onready var area: Area2D = get_node("Area2D")
 var objects: Array[LabObject] = []
 
 func TryInteract(others: Array[LabObject]) -> bool:

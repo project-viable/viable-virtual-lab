@@ -2,8 +2,8 @@
 extends Node2D
 class_name CurrentConductor
 
-var volts := 0.0
-var time := 0.0 # in minutes
+var volts: float = 0.0
+var time: float = 0.0 # in minutes
 
 func _ready() -> void:
 	pass

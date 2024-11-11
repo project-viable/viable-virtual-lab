@@ -2,7 +2,7 @@ extends LabObject
 class_name CurrentContact
 
 @export var positive: bool = true
-var regex := RegEx.new()
+var regex: RegEx = RegEx.new()
 
 func _ready() -> void:
 	super()

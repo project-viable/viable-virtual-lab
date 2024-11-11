@@ -1,7 +1,7 @@
 extends LabObject
 
 var adoptedObject: Pipette = null
-@onready var startPos := position
+@onready var startPos: Vector2 = position
 var sideReleaseThreshold: float = 50 #in pixels, how far to the side the user should try to drag before we release the pipette
 
 func TryInteract(others: Array[LabObject]) -> bool:

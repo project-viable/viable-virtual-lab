@@ -7,11 +7,11 @@ class_name Pipette
 @export var displayIncrementTop: float = 10 #microliters
 @export var displayIncrementMiddle: float = 1 #microliters
 @export var displayIncrementBottom: float = 0.1 #microliters
-@onready var volumeSliderWidth := displayIncrementMiddle * 2
-@onready var volumeSliderStep := displayIncrementBottom
+@onready var volumeSliderWidth: float = displayIncrementMiddle * 2
+@onready var volumeSliderStep: float = displayIncrementBottom
 
 var plungerPressExtent: float = 2 #Stores the lowest value the plunger slider has reached since being reset to the top.
-var doActions := true #used to allow modifying the plunger's state by code without triggering interactions
+var doActions: bool = true #used to allow modifying the plunger's state by code without triggering interactions
 
 @export var hasTip: bool = false: set = SetHasTip
 @onready var drawVolume: float = snapped((maxCapacity - minCapacity)/2, displayIncrementBottom): set = SetDrawVolume

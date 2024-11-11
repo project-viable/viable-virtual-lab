@@ -10,7 +10,7 @@ var fill_substance: Substance = null
 var current_source: bool = null
 var mounted_container: GelMoldSubsceneManager = null # This container reference should contain the substance to run
 
-var fill_requested := false
+var fill_requested: bool = false
 
 signal menu_closed
 

@@ -1,7 +1,7 @@
 extends LabObject
 
 @export var wellNumber: int = 0
-var broken := false
+var broken: bool = false
 
 func AddContents(new_contents: Array[Substance]) -> void:
 	#TODO: This could do the wrong thing if an object other than the pipette being handled by the Proxy tries to add liquid.

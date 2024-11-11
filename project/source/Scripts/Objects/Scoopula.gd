@@ -2,7 +2,7 @@ extends LabContainer
 
 # TODO (update): `dispense_mode` isn't used anywhere. Remove it or figure out what it's supposed to
 # do.
-var dispense_mode := 0
+var dispense_mode: int = 0
 var split_substance: Array[Substance] = [] 
 
 # TODO (update): This is a substance container, and I would *like* to give this a more specialized

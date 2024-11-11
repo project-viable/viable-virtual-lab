@@ -10,15 +10,15 @@ var empty_comb_img: Texture2D = null
 var filled_comb_img: Texture2D = null
 
 # TODO (update): This is unused; remove it.
-var comb_slots := 5
+var comb_slots: int = 5
 @onready var dna_contents: Array[DNASubstance] = [null, null, null, null, null, null]
-var gel_has_wells := false
+var gel_has_wells: bool = false
 
 @export var filled_image: Texture2D = null
 var empty_image: Texture2D = null
 var contents: Array[Substance] = []
 
-var hasComb := false
+var hasComb: bool = false
 var combObject: LabObject = null
 
 var subsceneEmptyImg: Texture2D = preload("res://Images/Gel_Tray_empty_zoomed.png")

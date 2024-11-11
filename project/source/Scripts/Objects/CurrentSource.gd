@@ -1,7 +1,7 @@
 @tool
 extends LabObject
 
-var running := false
+var running: bool = false
 @export var time_delay: float = 0.005
 
 func _ready() -> void:

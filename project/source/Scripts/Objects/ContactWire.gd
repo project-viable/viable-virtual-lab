@@ -8,9 +8,12 @@ var connections: Array[LabObject] = []
 var point1: Vector2
 var point2: Vector2
 
-var width := 2.0
-var color := Color.BLACK
-var current_direction := NEUTRAL
+var width: float = 2.0
+var color: Color = Color.BLACK
+
+# TODO (update): This is an enum; we should look into whether enums can be made more statically
+# typed.
+var current_direction: int = NEUTRAL
 
 func _ready() -> void:
 	if(!positive):
