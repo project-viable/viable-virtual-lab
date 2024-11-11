@@ -1,5 +1,6 @@
 @tool
 extends SubsceneManager
+class_name GelMoldSubsceneManager
 
 # this constant exists to match the prescribed numbers with the proper result
 const gel_ratio_conv_const = 30 #26.6666667
