@@ -1,11 +1,11 @@
 extends LabObject
 
-func _ready():
+func _ready() -> void:
 	super()
 	$ImagingMenu.hide()
 	$ImagingMenu/GelDisplay.close()
 
-func TryActIndependently():
+func TryActIndependently() -> bool:
 	$ImagingMenu.visible = !$ImagingMenu.visible
 	if($ImagingMenu.visible):
 		$ImagingMenu/GelDisplay.open()
@@ -14,19 +14,21 @@ func TryActIndependently():
 	
 	return true
 
-func _on_RichTextLabel_meta_clicked(meta):
+func _on_RichTextLabel_meta_clicked(meta: Variant) -> void:
 	OS.shell_open(str(meta))
 
-func _on_CloseButton_pressed():
+func _on_CloseButton_pressed() -> void:
 	$ImagingMenu.hide()
 	$ImagingMenu/GelDisplay.close()
 
-func slot_filled(slot, object):
-	var filled = false
+func slot_filled(slot: ObjectSlot, object: LabObject) -> void:
+	var filled := false
 	if object.is_in_group("Gel Boat"):
 		if object.contents != []:
 			if object.contents[0].is_in_group("Gel"):
-				var init_data = object.gel_status()
+				# TODO (update): This is wonky; see todo in ElectrolysisSetup.gd for an
+				# explanation.
+				var init_data := object.gel_status()
 				
 				$ImagingMenu/GelDisplay.init(init_data[0], init_data[1])
 				$ImagingMenu/GelDisplay.update_bands(object.calculate_positions())
@@ -50,7 +52,7 @@ func slot_filled(slot, object):
 		# if the object fails to attach to the slot
 		object.active = true
 
-func slot_emptied(slot, object):
+func slot_emptied(slot: ObjectSlot, object: LabObject) -> void:
 	object.visible = true
 	object.position = Vector2(self.position.x, self.position.y - 150)
 	if object.is_in_group("SubsceneManagers"):
