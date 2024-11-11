@@ -29,7 +29,7 @@ func GetDeepestSubsceneAt(pos: Vector2) -> Node:
 	castParams.collision_mask = 0b10
 	castParams.collide_with_bodies = false
 	castParams.collide_with_areas = true
-	var castResult := get_world_2d().direct_space_state.intersect_point(castParams)
+	var castResult: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(castParams)
 
 	if len(castResult) > 0:
 		#We found results
@@ -51,7 +51,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		castParams.collision_mask = 0b10
 		castParams.collide_with_bodies = true
 		castParams.collide_with_areas = true
-		var castResult := get_world_2d().direct_space_state.intersect_point(castParams)
+		var castResult: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(castParams)
 		
 		if len(castResult) > 0:
 			#We found results: now we need to make sure only objects in the subscene we clicked in (if any) can get this input
