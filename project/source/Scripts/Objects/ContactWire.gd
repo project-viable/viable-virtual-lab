@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 			point1 = contact1_position
 			point2 = contact2_position
 
-			update()
+			queue_redraw()
 
 func _draw() -> void:
 	draw_line(point1, point2, color, width)
