@@ -16,8 +16,8 @@ func AddContents(new_contents: Array[Substance]) -> void:
 				match_found = true
 				print("Combining substances "+str(new_content)+" and "+str(chk_content))
 				var props: Dictionary = chk_content.get_properties()
-				var current_vol: int = props["volume"]
-				var new_vol: int = new_content.get_properties()["volume"]
+				var current_vol: float = props["volume"]
+				var new_vol: float = new_content.get_properties()["volume"]
 				props["volume"] = current_vol + new_vol
 				#var vol_ratio = (current_vol / new_vol)
 				#props["density"] = (vol_ratio * props["density"]) + ((1.0 - vol_ratio) * new_content.get_properties()["density"])
@@ -34,7 +34,7 @@ func AddContents(new_contents: Array[Substance]) -> void:
 	update_display()
 	scale_check()
 	
-func TakeContents(volume: int = -1) -> Array[Substance]:
+func TakeContents(volume: float = -1.0) -> Array[Substance]:
 	# check for whether we can distribute the contents by volume
 	if(volume != -1 && len(contents) == 1):
 		if(volume >= contents[0].volume):
@@ -45,7 +45,7 @@ func TakeContents(volume: int = -1) -> Array[Substance]:
 		var original_props: Dictionary = contents[0].get_properties()
 		var dispensed_props: Dictionary = original_props.duplicate()
 		
-		var remaining_volume: int = contents[0].volume - volume
+		var remaining_volume: float = contents[0].volume - volume
 		dispensed_props["volume"] = volume
 		original_props["volume"] = remaining_volume
 		
