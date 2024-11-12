@@ -1,15 +1,15 @@
 extends LabObject
 
-@export var acceptedGroups = ["LabObjects"] #we will only try to interact with objects in at least one of these groups. # (Array, String)
+@export var acceptedGroups: Array[String] = ["LabObjects"] #we will only try to interact with objects in at least one of these groups. # (Array, String)
 @export var confirmDisposal: bool = true
 
-var target = null #used to store which object we're asking about, if the confirmation menu is used.
+var target: LabObject = null #used to store which object we're asking about, if the confirmation menu is used.
 
-func _ready():
+func _ready() -> void:
 	super()
 	$Menu.hide()
 
-func TryInteract(others):
+func TryInteract(others: Array[LabObject]) -> bool:
 	for other in others:
 		for group in acceptedGroups:
 			if other.is_in_group(group):
@@ -31,11 +31,11 @@ func TryInteract(others):
 	
 	return false
 
-func Dispose(object):
+func Dispose(object: LabObject) -> void:
 	#TODO: Report this to the mistake checker
 	print("Calling Disposal function of " + str(object))
 	object.dispose()
 
-func _on_YesButton_pressed():
+func _on_YesButton_pressed() -> void:
 	Dispose(target)
 	$Menu.hide()
