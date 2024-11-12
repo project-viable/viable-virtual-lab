@@ -1,24 +1,23 @@
 extends LabContainer
 
-var substance = null
 
-func _ready():
+func _ready() -> void:
 	pass
 
-func TryActIndependently():
+func TryActIndependently() -> void:
 	pass
 
-func AddContents(new_contents):
-	for new_content in new_contents:
-		var match_found = false
-		for chk_content in contents:
+func AddContents(new_contents: Array[Substance]) -> void:
+	for new_content: Substance in new_contents:
+		var match_found: bool = false
+		for chk_content: Substance in contents:
 			if(new_content.name == chk_content.name):
 				# combine the two contents together
 				match_found = true
 				print("Combining substances "+str(new_content)+" and "+str(chk_content))
-				var props = chk_content.get_properties()
-				var current_vol = props["volume"]
-				var new_vol = new_content.get_properties()["volume"]
+				var props: Dictionary = chk_content.get_properties()
+				var current_vol: int = props["volume"]
+				var new_vol: int = new_content.get_properties()["volume"]
 				props["volume"] = current_vol + new_vol
 				#var vol_ratio = (current_vol / new_vol)
 				#props["density"] = (vol_ratio * props["density"]) + ((1.0 - vol_ratio) * new_content.get_properties()["density"])
@@ -35,18 +34,18 @@ func AddContents(new_contents):
 	update_display()
 	scale_check()
 	
-func TakeContents(volume = -1):
+func TakeContents(volume: int = -1) -> Array[Substance]:
 	# check for whether we can distribute the contents by volume
 	if(volume != -1 && len(contents) == 1):
 		if(volume >= contents[0].volume):
 			return [contents.pop_front()]
 		
 		# make a duplicate substance with the desired volume
-		var dispensed_subst = contents[0].duplicate()
-		var original_props = contents[0].get_properties()
-		var dispensed_props = original_props.duplicate()
+		var dispensed_subst: Substance = contents[0].duplicate()
+		var original_props: Dictionary = contents[0].get_properties()
+		var dispensed_props: Dictionary = original_props.duplicate()
 		
-		var remaining_volume = contents[0].volume - volume
+		var remaining_volume: int = contents[0].volume - volume
 		dispensed_props["volume"] = volume
 		original_props["volume"] = remaining_volume
 		
@@ -61,7 +60,7 @@ func TakeContents(volume = -1):
 		scale_check()
 		return [dispensed_subst]
 	
-	var all_contents = contents.duplicate(true)
+	var all_contents: Array[Substance] = contents.duplicate(true)
 	contents.clear()
 	print("Emptied container of its contents")
 	update_weight()
@@ -69,19 +68,19 @@ func TakeContents(volume = -1):
 	scale_check()
 	return all_contents
 	
-func scale_check():
-	for object in $Area2D.get_overlapping_bodies():
+func scale_check() -> bool:
+	for object: Node2D in $Area2D.get_overlapping_bodies():
 		if(object.is_in_group("Scale")):
 			object.UpdateWeight()
 			return true
 	return false
 			
-func update_weight():
+func update_weight() -> void:
 	weight = .4 #self mass
-	for object in contents:
+	for object: Substance in contents:
 		weight += object.get_mass()
 
-func dispose():
+func dispose() -> void:
 	contents.clear()
 	update_display()
 	weight = .4
