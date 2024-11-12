@@ -1,31 +1,34 @@
 @tool
 extends SubsceneManager
+class_name GelMoldSubsceneManager
 
 # this constant exists to match the prescribed numbers with the proper result
 const gel_ratio_conv_const = 30 #26.6666667
 
 # extra images for comb variant
-var empty_comb_img = null
-var filled_comb_img = null
-var comb_slots = 5
-@onready var dna_contents = [null, null, null, null, null, null]
-var gel_has_wells = false
+var empty_comb_img: Texture2D = null
+var filled_comb_img: Texture2D = null
+
+# TODO (update): This is unused; remove it.
+var comb_slots: int = 5
+@onready var dna_contents: Array[DNASubstance] = [null, null, null, null, null, null]
+var gel_has_wells: bool = false
 
 @export var filled_image: Texture2D = null
-var empty_image = null
-var contents = []
+var empty_image: Texture2D = null
+var contents: Array[Substance] = []
 
-var hasComb = false
-var combObject = null
+var hasComb: bool = false
+var combObject: LabObject = null
 
-var subsceneEmptyImg = preload("res://Images/Gel_Tray_empty_zoomed.png")
-var subsceneFullImg = preload('res://Images/Gel_Tray_filled_zoomed.png')
-var subsceneFullWellsImg = preload('res://Images/Gel_Tray_filled_wells_zoomed.png')
-var subsceneFullCombImg = preload('res://Images/Gel_Tray_comb_gel_zoomed.png')
-var subsceneEmptyCombImg = preload('res://Images/Gel_Tray_comb_empty_zoomed.png')
-var subsceneGelBg
+var subsceneEmptyImg: Texture2D = preload("res://Images/Gel_Tray_empty_zoomed.png")
+var subsceneFullImg: Texture2D = preload('res://Images/Gel_Tray_filled_zoomed.png')
+var subsceneFullWellsImg: Texture2D = preload('res://Images/Gel_Tray_filled_wells_zoomed.png')
+var subsceneFullCombImg: Texture2D = preload('res://Images/Gel_Tray_comb_gel_zoomed.png')
+var subsceneEmptyCombImg: Texture2D = preload('res://Images/Gel_Tray_comb_empty_zoomed.png')
+var subsceneGelBg: TextureRect = null
 
-func LabObjectReady():
+func LabObjectReady() -> void:
 	empty_comb_img = preload('res://Images/Gel_Tray_comb_empty.png')
 	filled_comb_img = preload('res://Images/Gel_Tray_comb_gel.png')
 	filled_image = preload('res://Images/Gel_Tray_filled.png')
@@ -35,7 +38,7 @@ func LabObjectReady():
 	$Subscene/PipetteProxies.hide()
 	update_display()
 
-func update_display():
+func update_display() -> void:
 	# static change from "empty" to "filled" for now
 	if(hasComb):
 		# variants with the gel comb
@@ -61,7 +64,7 @@ func update_display():
 			$Sprite2D.texture = empty_image
 			subsceneGelBg.texture = subsceneEmptyImg
 
-func _on_ChillButton_pressed():
+func _on_ChillButton_pressed() -> void:
 	if contents:
 		chill(1)
 		gel_has_wells = hasComb
@@ -71,45 +74,55 @@ func _on_ChillButton_pressed():
 		LabLog.Log("Chilled", false, true)
 		$Subscene/Border/ChillButton.hide() #TODO: Make it possible to hit the button mroe than once?
 
-func add_dna(dna, well):
+func add_dna(dna: DNASubstance, well: int) -> void:
 	print("Added DNA to gel boat")
 	dna_contents[well] = dna
 	print("DNA functions: " + str(dna.get_class()))
 	print("New DNA contents: " + str(dna_contents))
 
-func calculate_positions():
-	var band_positions = []
-	var slot = 0
+# TODO (update): Since Godot doesn't support nested typed arrays, we should consider wrapping the
+# inner array in a class to maintain static-ish typing.
+#
+# The return type should be `Array[Array[float]]`.
+func calculate_positions() -> Array[Array]:
+	var band_positions: Array[Array] = []
+	var slot := 0
 	for dna in dna_contents:
-		var temp_array = []
+		var temp_array: Array[float] = []
+
+		# TODO (update): remove this check, since `dna` should always be a DNA substance and
+		# therefore this will always be true.
 		if dna and dna.is_in_group('DNA'):
-			for size in dna.get_particle_sizes():
+			for size: float in dna.get_particle_sizes():
 				# Multiply total run time/ideal run time + extra to make percentage, multiply by viscosity and gel ratio, divide by size
 				#var distance = ((contents[0].total_run_time/(40)) * (contents[0].viscosity) * (contents[0].gel_ratio * gel_ratio_conv_const))/(size / 300)
 
-				var distance =  (contents[0].total_run_time/(20)) * (673.6 * pow(2.7183, -0.000773 * size) + 480.6 * pow(2.7186, -0.00002189 * size)) / 1500				
+				var distance: float = (contents[0].total_run_time/(20)) * (673.6 * pow(2.7183, -0.000773 * size) + 480.6 * pow(2.7186, -0.00002189 * size)) / 1500				
 				
 				temp_array.append(distance)
 		band_positions.append(temp_array)
 		slot = slot + 1
 	return band_positions
 
-func gel_status():
+# TODO (update): The "intended" type of this is actually something like
+# `Tuple[GelMoldSubsceneManager, bool]`. But since Godot doesn't have tuples, this might be better
+# to replace with a class.
+func gel_status() -> Array[Variant]:
 	return [self, gel_has_wells]
 
-func AddContents(new_contents):
+func AddContents(new_contents: Array[Substance]) -> void:
 	for new_content in new_contents:
-		var match_found = false
+		var match_found := false
 		
 		for chk_content in contents:
 			if(new_content.name == chk_content.name):
 				# combine the two contents together
 				match_found = true
 				print("Combining substances "+str(new_content)+" and "+str(chk_content))
-				var props = chk_content.get_properties()
+				var props := chk_content.get_properties()
 				
-				var current_vol = props["volume"]
-				var new_vol = new_content.get_properties()["volume"]
+				var current_vol: float = props["volume"]
+				var new_vol: float = new_content.get_properties()["volume"]
 				props["volume"] = current_vol + new_vol
 				#var vol_ratio = (current_vol / new_vol)
 				#props["density"] = (vol_ratio * props["density"]) + ((1.0 - vol_ratio) * new_content.get_properties()["density"])
@@ -152,7 +165,7 @@ func AddContents(new_contents):
 	update_weight()
 	update_display()
 
-func dispose():
+func dispose() -> void:
 	contents.clear()
 	update_display()
 	
@@ -160,37 +173,40 @@ func dispose():
 	dna_contents.clear()
 	gel_has_wells = false
 
-func chill(chillTime):
+func chill(chillTime: float) -> void:
 	# pass chilling along to the container's contents
 	for content in contents:
 		if(content.is_in_group("Chillable")):
 			content.chill(chillTime)
 
-func run_current(voltage, time):
+func run_current(voltage: float, time: float) -> void:
 	# pass current along to the container's contents
 	for content in contents:
 		if(content.is_in_group("Conductive")):
 			content.run_current(voltage, time)
 
-func update_weight():
-	var overall_weight = 9.8 #self.mass
+func update_weight() -> void:
+	var overall_weight := 9.8 #self.mass
 	for content in contents:
 		if(content.is_in_group("Weighable")):
 			overall_weight += content.get_mass()
+
+	# TODO (update): `weight` is a property in physics objects that has been replaced with `mass`,
+	# so that should be changed.
 	weight = overall_weight
 
-func TakeContents(volume = -1):
+func TakeContents(volume: float = -1) -> Array[Substance]:
 	# check for whether we can distribute the contents by volume
 	if(volume != -1 && len(contents) == 1):
 		if(volume >= contents[0].volume):
 			return [contents.pop_front()]
 		
 		# make a duplicate substance with the desired volume
-		var dispensed_subst = contents[0].duplicate()
-		var original_props = contents[0].get_properties()
-		var dispensed_props = original_props.duplicate()
+		var dispensed_subst := contents[0].duplicate()
+		var original_props := contents[0].get_properties()
+		var dispensed_props := original_props.duplicate()
 		
-		var remaining_volume = contents[0].volume - volume
+		var remaining_volume := contents[0].volume - volume
 		dispensed_props["volume"] = volume
 		original_props["volume"] = remaining_volume
 		
@@ -204,21 +220,21 @@ func TakeContents(volume = -1):
 		update_display()
 		return [dispensed_subst]
 	
-	var all_contents = contents.duplicate(true)
+	var all_contents := contents.duplicate(true)
 	contents.clear()
 	print("Emptied container of its contents")
 	update_weight()
 	update_display()
 	return all_contents
 
-func CheckContents(group):
+func CheckContents(group: String) -> Array[bool]:
 	print('Checking for '+group)
-	var check_results = []
+	var check_results: Array[bool] = []
 	for content in contents:
 		check_results.append(content.is_in_group(group))
 	return check_results
 
-func TryInteract(others):
+func TryInteract(others: Array[LabObject]) -> bool:
 	for other in others:
 		if other.is_in_group("Gel Comb"):
 			combObject = other
@@ -235,8 +251,10 @@ func TryInteract(others):
 			# transfer contents to another container
 			other.AddContents(TakeContents())
 			return true
+	
+	return false
 
-func TryActIndependently():
+func TryActIndependently() -> bool:
 	if not subsceneActive: ShowSubscene()
 	if hasComb:
 		$Subscene/Border/RemoveComb.show()
@@ -244,7 +262,7 @@ func TryActIndependently():
 		$Subscene/Border/RemoveComb.hide()
 	return true
 
-func _on_RemoveComb_pressed():
+func _on_RemoveComb_pressed() -> void:
 	if hasComb:
 		get_parent().add_child(combObject)
 		combObject.position.x -= 100
@@ -252,7 +270,7 @@ func _on_RemoveComb_pressed():
 		update_display()
 		$Subscene/Border/RemoveComb.hide()
 
-func GelMoldInfo():
+func GelMoldInfo() -> Dictionary:
 	return {
 		"hasComb": hasComb,
 		"hasWells": gel_has_wells,
