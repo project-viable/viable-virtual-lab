@@ -5,10 +5,10 @@ class_name PipetteDispenseChecker
 @export var TooLowMessage: String
 @export var TooHighMessage: String
 
-func CheckAction(params: Dictionary):
+func CheckAction(params: Dictionary) -> void:
 	if params['actionType'] == 'transferSubstance' and params.get('substances'):
 		print(params['actionType'])
-		for substance in params['substances']:
+		for substance: Substance in params['substances']:
 			if substance.name != 'DNASubstance':
 				continue
 			if substance.has_method('get_properties'):

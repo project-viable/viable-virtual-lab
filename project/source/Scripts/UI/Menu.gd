@@ -8,12 +8,13 @@ var currentModule: ModuleData = null
 var unreadLogs: Dictionary = {'log': 0, 'warning': 0, 'error': 0}
 
 var popupActive: bool = false
-var logs: Array = []
+var logs: Array[Dictionary] = []
 
 #This function is mostly copied from online.
 #It seems like godot 3.5 does not have a convenient function for this.
 func GetAllFilesInFolder(path: String) -> Array[String]:
 	var result: Array[String] = []
+
 	var dir: DirAccess = DirAccess.open(path)
 	if dir != null:
 		dir.list_dir_begin()  #skip . and .. but don't skop hidden files# TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
@@ -83,6 +84,7 @@ func _process(delta: float) -> void:
 			if logs[0]['newLog']['popup']:
 				ShowPopup(logs[0]['category'], logs[0]['newLog'])
 			logs.remove_at(0)
+
 
 func ModuleSelected(module: ModuleData) -> void:
 	get_parent().SetScene(module.Scene)

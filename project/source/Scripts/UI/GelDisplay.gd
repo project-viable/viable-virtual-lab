@@ -2,16 +2,22 @@ extends Node2D
 
 @export var show_without_UV: bool = false
 
-var band_prefab = null
-var gel_images = []
-var band_images = []
-var uv_on = false
-var gel_has_wells = true
-var band_positions = []
+var band_prefab: PackedScene = null
+var gel_images: Array[Texture2D] = []
+var band_images: Array[Texture2D] = []
+var uv_on: bool = false
+var gel_has_wells: bool = true
 
-var cached_band_errors = []
+# TODO (update): This should be `Array[Array[float]]`.
+var band_positions: Array[Array] = []
 
-func _ready():
+# TODO (update): Technically, this should be `Array[Array[int]]`. But actually, it would be better
+# represented as `Array[Tuple[int, int]]`, where the first element of each tuple is the well index
+# and the second is the band index. Therefore, we should consider using a class to represent a band
+# error tuple.
+var cached_band_errors: Array[Array] = []
+
+func _ready() -> void:
 	band_prefab = load('res://Scenes/UI/GelBand.tscn')
 	
 	# load relevant images to swap between them later
@@ -29,21 +35,21 @@ func _ready():
 # [ [substance_1_band_1, substance_1_band_2], [substance_1_band_2, substance_2_band_2, substance_1_band_3] ]
 # and so on.
 #
-func update_bands(band_positions_in):
+func update_bands(band_positions_in: Array[Array]) -> void:
 	band_positions = band_positions_in
-	var upper_bound = min(len(band_positions), $StartPositions.get_child_count())
+	var upper_bound: int = min(len(band_positions), $StartPositions.get_child_count())
 	
 	# update band positions
 	for i in range(upper_bound):
-		var well = band_positions[i]
-		var start_pos = $StartPositions.get_child(i)
+		var well: Array[float] = band_positions[i]
+		var start_pos: Node = $StartPositions.get_child(i)
 		for j in range(len(well)):
 			# handle an individual band position
-			var move_vec = Vector2(0, $EndPosition.position.y - $StartPositions.position.y)
-			var band_pos_factor = well[j]
+			var move_vec := Vector2(0, $EndPosition.position.y - $StartPositions.position.y)
+			var band_pos_factor := well[j]
 			if start_pos.get_children() == [] || j == len(start_pos.get_children()):
 				return
-			var band_obj = start_pos.get_child(j)
+			var band_obj := start_pos.get_child(j)
 			if(band_obj != null):
 				band_obj.position = (move_vec * band_pos_factor)
 				
@@ -53,24 +59,24 @@ func update_bands(band_positions_in):
 				elif(band_pos_factor < -0.2):
 					_on_TopRunoffArea_body_entered(band_obj)
 
-func init(gel_mold, has_wells):
+func init(gel_mold: GelMoldSubsceneManager, has_wells: bool) -> void:
 	gel_has_wells = has_wells
 	update_gel_display()
 	band_positions = gel_mold.calculate_positions()
 	
 	# create new bands as needed
-	var upper_bound = min(len(band_positions), $StartPositions.get_child_count())
+	var upper_bound: int = min(len(band_positions), $StartPositions.get_child_count())
 	
 	# temporarily deactivate outlier detection to prevent false-positive errors
 	$TopRunoffArea.monitoring = false
 	$BottomRunoffArea.monitoring = false
 	
 	for i in range(upper_bound):
-		var well = band_positions[i]
-		var start_parent = $StartPositions.get_child(i)
+		var well := band_positions[i]
+		var start_parent: Node = $StartPositions.get_child(i)
 		
 		while(start_parent.get_child_count() < len(well)):
-			var new_band = band_prefab.instantiate()
+			var new_band := band_prefab.instantiate()
 			new_band.position = start_parent.position
 			start_parent.add_child(new_band)
 	
@@ -79,10 +85,10 @@ func init(gel_mold, has_wells):
 	
 	# assign each band an index so we can reference it later
 	for i in range(upper_bound):
-		var well = band_positions[i]
-		var start_pos = $StartPositions.get_child(i)
+		var well: Array[float] = band_positions[i]
+		var start_pos: Node = $StartPositions.get_child(i)
 		for j in range(len(well)):
-			var band_obj = start_pos.get_child(j)
+			var band_obj := start_pos.get_child(j)
 			if(band_obj != null):
 				band_obj.set_band_ids(i, j)
 				if j != (len(well) - 1):
@@ -90,7 +96,7 @@ func init(gel_mold, has_wells):
 				else:
 					band_obj.visible = true
 
-func update_gel_display():
+func update_gel_display() -> void:
 	# update gel image
 	if(gel_has_wells):
 		if(uv_on):
@@ -105,23 +111,23 @@ func update_gel_display():
 	
 	# update display for gel bands
 	for start_obj in $StartPositions.get_children():
-		var counter = 0
+		var counter := 0
 		for band in start_obj.get_children():
-			var lastBand = (counter == start_obj.get_child_count() - 1)
+			var lastBand := (counter == start_obj.get_child_count() - 1)
 			band.update_display(uv_on, show_without_UV, band_images, lastBand)
 			counter += 1
 
-func delete_band(band_obj):
+func delete_band(band_obj: Node2D) -> void:
 	band_obj.queue_free()
 
-func _on_UVLightButton_pressed():
+func _on_UVLightButton_pressed() -> void:
 	uv_on = !uv_on
 	update_gel_display()
 
-func _on_TopRunoffArea_body_entered(body):
+func _on_TopRunoffArea_body_entered(body: Node2D) -> void:
 	if(body.is_in_group('Gel Band')):
 		# check if this band has already triggered an error
-		var already_errored = false
+		var already_errored := false
 		for error in cached_band_errors:
 			if(body.is_same_well(error)):
 				already_errored = true
@@ -135,11 +141,11 @@ func _on_TopRunoffArea_body_entered(body):
 		cached_band_errors.append([body.well_index, body.band_index])
 		delete_band(body)
 
-func _on_BottomRunoffArea_body_entered(body):
+func _on_BottomRunoffArea_body_entered(body: Node2D) -> void:
 	#print('Bottom area entered')
 	if(body.is_in_group('Gel Band')):
 		# check if this band has already triggered an error
-		var already_errored = false
+		var already_errored := false
 		for error in cached_band_errors:
 			if(body.is_same_well(error)):
 				already_errored = true
@@ -153,15 +159,15 @@ func _on_BottomRunoffArea_body_entered(body):
 		cached_band_errors.append([body.well_index, body.band_index])	
 		delete_band(body)
 
-func _on_CloseButton_pressed():
+func _on_CloseButton_pressed() -> void:
 	close()
 
-func close():
+func close() -> void:
 	visible = false
 	$TopRunoffArea.monitoring = false
 	$BottomRunoffArea.monitoring = false
 
-func open():
+func open() -> void:
 	visible = true
 	$TopRunoffArea.monitoring = true
 	$BottomRunoffArea.monitoring = true

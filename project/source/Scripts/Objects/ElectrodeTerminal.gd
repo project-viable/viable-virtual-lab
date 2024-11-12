@@ -1,8 +1,8 @@
 extends LabObject
 
-var plugged_electrode = null
+var plugged_electrode: CurrentContact = null
 
-func TryInteract(others):
+func TryInteract(others: Array[LabObject]) -> void:
 	for other in others:
 		if(other.is_in_group("Current Contact")):
 			# check if an electrode is currently plugged in
@@ -17,8 +17,11 @@ func TryInteract(others):
 				get_parent().terminal_connected(self, other)
 				
 				if other.get_parent() != null:
-					var parent = other.get_parent()
-					var connection_device = self.get_parent()
+					var parent: ContactWire = other.get_parent()
+					var connection_device: LabObject = self.get_parent()
+
+					# TODO (update): If we know `parent` is a `ContactWire`, then it should be
+					# guaranteed to have `connections`, so this check isn't needed.
 					if "connections" in parent:
 						if connection_device.has_method("terminal_connected"):
 							# Both terminals connected, so a connection can be made with the contact
@@ -39,8 +42,8 @@ func TryInteract(others):
 						# Add current_source
 						connection_device.current_source = true
 					
-					var curr_source = null
-					var curr_target = null
+					var curr_source: LabObject = null
+					var curr_target: LabObject = null
 					for connection in parent.connections:
 						if connection.get_name() == "CurrentSource":
 							curr_source = connection
@@ -50,8 +53,8 @@ func TryInteract(others):
 					if curr_source && curr_target:
 						if curr_source.get_node("PosTerminal").plugged_electrode && \
 						curr_target.get_node("PosTerminal").plugged_electrode:
-							var source_parent = curr_source.get_node("PosTerminal").plugged_electrode.get_parent()
-							var target_parent = curr_target.get_node("PosTerminal").plugged_electrode.get_parent()
+							var source_parent: ContactWire = curr_source.get_node("PosTerminal").plugged_electrode.get_parent()
+							var target_parent: ContactWire = curr_target.get_node("PosTerminal").plugged_electrode.get_parent()
 							if source_parent == target_parent:
 								parent.current_direction = ContactWire.FORWARD
 							else:
@@ -59,17 +62,17 @@ func TryInteract(others):
 								
 						if curr_source.get_node("NegTerminal").plugged_electrode && \
 						curr_target.get_node("NegTerminal").plugged_electrode:
-							var source_parent = curr_source.get_node("NegTerminal").plugged_electrode.get_parent()
-							var target_parent = curr_target.get_node("NegTerminal").plugged_electrode.get_parent()
+							var source_parent: ContactWire = curr_source.get_node("NegTerminal").plugged_electrode.get_parent()
+							var target_parent: ContactWire = curr_target.get_node("NegTerminal").plugged_electrode.get_parent()
 							if source_parent == target_parent:
 								parent.current_direction = ContactWire.FORWARD
 							else:
 								parent.current_direction = ContactWire.REVERSE
 
-func connected():
+func connected() -> bool:
 	return (plugged_electrode != null)
 
-func _on_Area2D_body_exited(body):
+func _on_Area2D_body_exited(body: Node2D) -> void:
 	if(body == plugged_electrode):
 		plugged_electrode.gravity_scale = 0.0
 		plugged_electrode = null

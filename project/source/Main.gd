@@ -1,36 +1,36 @@
 extends Node2D
 
-var currentModuleScene = null
+# TODO (update): This is essentially public, so we should consider using a convention to make that
+# clear, like naming it in PascalCase.
+var currentModuleScene: Node = null
 
-@export var CheckStrategies : set = SetCheckStrategies
+@export var CheckStrategies: Array[MistakeChecker]
 
-func CheckAction(params: Dictionary):
+func CheckAction(params: Dictionary) -> void:
 	for strategy in CheckStrategies:
 		strategy.CheckAction(params)
 
-func SetCheckStrategies(newVal):
-	for item in newVal.duplicate(false):
-		if not (item is MistakeChecker) and item != null:
-			print("CheckStrategies should only contain MistakeCheckers. " + str(item) + " is not one.")
-			newVal.erase(item)
-	
-	CheckStrategies = newVal
-
 #instanciates scene and adds it as a child of $Scene. Gets rid of any scene that's already been loaded, and hides the menu.
-func SetScene(scene: PackedScene):
+func SetScene(scene: PackedScene) -> void:
 	LabLog.ClearLogs()
 	for child in $Scene.get_children():
 		child.queue_free()
 	
-	var newScene = scene.instantiate()
+	var newScene := scene.instantiate()
 	$Scene.add_child(newScene)
 	currentModuleScene = newScene
 	#$Camera.Reset()
 
-func GetDeepestSubsceneAt(pos: Vector2):
-	var result = null
-	
-	var castResult = get_world_2d().direct_space_state.intersect_point(get_global_mouse_position(), 32, [], 2, false, true)
+func GetDeepestSubsceneAt(pos: Vector2) -> Node:
+	var result: Node = null
+
+	var castParams := PhysicsPointQueryParameters2D.new()
+	castParams.position = pos
+	castParams.collision_mask = 0b10
+	castParams.collide_with_bodies = false
+	castParams.collide_with_areas = true
+	var castResult: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(castParams)
+
 	if len(castResult) > 0:
 		#We found results
 		for object in castResult:
@@ -41,23 +41,28 @@ func GetDeepestSubsceneAt(pos: Vector2):
 	
 	return result
 
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	###Check if they clicked a LabObject first
 	#check if there's any labobjects that need to deal with that input
 	#Using the normal object picking (collision objects' input signals) doesn't give us the control we need
 	if event.is_action_pressed("DragLabObject"):
-		var castResult = get_world_2d().direct_space_state.intersect_point(get_global_mouse_position(), 32, [], 2, true, true)
+		var castParams := PhysicsPointQueryParameters2D.new()
+		castParams.position = get_global_mouse_position()
+		castParams.collision_mask = 0b10
+		castParams.collide_with_bodies = true
+		castParams.collide_with_areas = true
+		var castResult: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(castParams)
 		
 		if len(castResult) > 0:
 			#We found results: now we need to make sure only objects in the subscene we clicked in (if any) can get this input
-			var deepestSubscene = GetDeepestSubsceneAt(get_global_mouse_position())
+			var deepestSubscene := GetDeepestSubsceneAt(get_global_mouse_position())
 			
-			var pickOptions = []
+			var pickOptions: Array[LabObject] = []
 			for result in castResult:
 				if result['collider'] is LabObject and (result['collider'].GetSubsceneManagerParent() == deepestSubscene or (result['collider'] == deepestSubscene and not result['collider'].subsceneActive)):
 					pickOptions.append(result['collider'])
 			
-			var bestPick = null
+			var bestPick: LabObject = null
 			for object in pickOptions:
 				#draggables are better than non draggables, and high z indexes are tie breakers
 				if bestPick == null or (
