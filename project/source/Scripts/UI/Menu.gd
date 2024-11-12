@@ -13,7 +13,7 @@ var logs: Array = []
 #This function is mostly copied from online.
 #It seems like godot 3.5 does not have a convenient function for this.
 func GetAllFilesInFolder(path: String) -> Array[String]:
-	var result: Array = []
+	var result: Array[String] = []
 	var dir: DirAccess = DirAccess.open(path)
 	if dir != null:
 		dir.list_dir_begin()  #skip . and .. but don't skop hidden files# TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
@@ -44,7 +44,7 @@ func _ready() -> void:
 	for file in GetAllFilesInFolder(ModuleDirectory):
 		var moduleData: ModuleData = load(ModuleDirectory + file)
 		if moduleData.Show:
-			var newButton: = ModuleButton.instantiate()
+			var newButton := ModuleButton.instantiate()
 			newButton.SetData(moduleData)
 			newButton.connect("pressed", Callable(self, "ModuleSelected").bind(moduleData))
 			$ModuleSelect.add_child(newButton)
@@ -151,6 +151,7 @@ func _on_Logs_Cleared() -> void:
 	$LogButton/LogMenu/Warnings.text = ""
 	$LogButton/LogMenu/Errors.text = ""
 
+# TODO (update): `tab` is unused. We should figure out why this was included.
 func SetLogNotificationCounts(tab: int = -1) -> void:
 	if $LogButton/LogMenu.visible:
 		if $LogButton/LogMenu.current_tab == 1:
@@ -184,7 +185,7 @@ func SetLogNotificationCounts(tab: int = -1) -> void:
 
 func _on_LabLog_Report_Shown() -> void:
 	#Show all the warnings and errors
-	var logsText: String = ""
+	var logsText := ""
 	var allLogs: Dictionary = LabLog.GetLogs()
 	for warning: Dictionary in allLogs.get('warning', []):
 		logsText += "[color=yellow]-" + warning['message'] + "[/color]\n"
@@ -227,10 +228,10 @@ func _on_OptionsButton_pressed() -> void:
 func _on_CloseButton_pressed() -> void:
 	$OptionsScreen.hide()
 
-func _on_MouseDragToggle_toggled(button_pressed: Button) -> void:
+func _on_MouseDragToggle_toggled(button_pressed: bool) -> void:
 	GameSettings.mouseCameraDrag = button_pressed
 
-func _on_ObjectTooltipsToggle_toggled(button_pressed: Button) -> void:
+func _on_ObjectTooltipsToggle_toggled(button_pressed: bool) -> void:
 	GameSettings.objectTooltips = button_pressed
 
 func _on_PopupTimeout_value_changed(value: float) -> void:
