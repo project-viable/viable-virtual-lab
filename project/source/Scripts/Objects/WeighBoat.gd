@@ -1,8 +1,9 @@
 extends LabContainer
 
 
-func _ready() -> void:
-	pass
+func _ready():
+	pass # LabContainer does not have a _ready() function
+
 
 func TryActIndependently() -> void:
 	pass

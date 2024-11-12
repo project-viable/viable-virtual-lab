@@ -8,6 +8,7 @@ var subscene: Area2D = null #We keep a reference to the subscene so we can remov
 
 func _ready() -> void:
 	super._ready() #super()
+
 	subscene = $Subscene
 	add_to_group("SubsceneManagers", true)
 	subscene.z_index = RenderingServer.CANVAS_ITEM_Z_MAX #to make this subscene draw above ones above it in the tree
