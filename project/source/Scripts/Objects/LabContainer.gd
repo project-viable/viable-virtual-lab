@@ -4,13 +4,14 @@ class_name LabContainer
 
 # This container models a container (like a flask) that can be emptied of its contents.
 
-var contents = []
+var contents: Array = []
 
-func LabObjectReady():
+func LabObjectReady() -> void:
 	update_display()
 
-func TryInteract(others):
-	for other in others:
+#TODO: rename these variables to something easier to read/understand
+func TryInteract(others: Array) -> bool:
+	for other: Node in others:
 		if(other.is_in_group('Container')):
 			# transfer contents to another container
 			other.AddContents(TakeContents())
@@ -18,7 +19,7 @@ func TryInteract(others):
 	
 	return false
 
-func TryActIndependently():
+func TryActIndependently() -> bool:
 	$FollowMenu.visible = !$FollowMenu.visible
 	return true
 
@@ -29,7 +30,7 @@ func CheckContents(group):
 		check_results.append(content.is_in_group(group))
 	return check_results
 
-func TakeContents(volume = -1):
+func TakeContents(volume: int = -1) -> Array:
 	# check for whether we can distribute the contents by volume
 	if(volume != -1 && len(contents) == 1):
 		if(volume >= contents[0].volume):
