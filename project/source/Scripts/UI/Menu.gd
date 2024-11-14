@@ -15,9 +15,8 @@ var logs: Array[Dictionary] = []
 func GetAllFilesInFolder(path: String) -> Array[String]:
 	var result: Array[String] = []
 
-	# TODO (update): Use `DirAccess.open` instead of instantiating it directly.
-	var dir := DirAccess.new()
-	if dir.open(path) == OK:
+	var dir: DirAccess = DirAccess.open(path)
+	if dir != null:
 		dir.list_dir_begin()  #skip . and .. but don't skop hidden files# TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var file_name: String = dir.get_next()
 		while file_name != "":
@@ -84,9 +83,8 @@ func _process(delta: float) -> void:
 		if !popupActive:
 			if logs[0]['newLog']['popup']:
 				ShowPopup(logs[0]['category'], logs[0]['newLog'])
+			logs.remove_at(0)
 
-			# TODO (update): This should be `remove_at`.
-			logs.remove(0)
 
 func ModuleSelected(module: ModuleData) -> void:
 	get_parent().SetScene(module.Scene)
@@ -190,7 +188,7 @@ func SetLogNotificationCounts(tab: int = -1) -> void:
 func _on_LabLog_Report_Shown() -> void:
 	#Show all the warnings and errors
 	var logsText := ""
-	var allLogs := LabLog.GetLogs()
+	var allLogs: Dictionary = LabLog.GetLogs()
 	for warning: Dictionary in allLogs.get('warning', []):
 		logsText += "[color=yellow]-" + warning['message'] + "[/color]\n"
 	for error: Dictionary in allLogs.get('error', []):
