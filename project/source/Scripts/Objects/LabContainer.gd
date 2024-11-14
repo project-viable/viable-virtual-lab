@@ -9,12 +9,11 @@ var contents: Array = []
 func LabObjectReady() -> void:
 	update_display()
 
-#TODO: rename these variables to something easier to read/understand
-func TryInteract(others: Array) -> bool:
-	for other: Node in others:
-		if(other.is_in_group('Container')):
+func TryInteract(other_substance: Array) -> bool:
+	for substance: Node in other_substance:
+		if(substance.is_in_group('Container')):
 			# transfer contents to another container
-			other.AddContents(TakeContents())
+			substance.AddContents(TakeContents())
 			return true
 	
 	return false
@@ -23,10 +22,10 @@ func TryActIndependently() -> bool:
 	$FollowMenu.visible = !$FollowMenu.visible
 	return true
 
-func CheckContents(group):
+func CheckContents(group: String) -> Array:
 	print('Checking for '+group)
-	var check_results = []
-	for content in contents:
+	var check_results: Array = []
+	for content: Node in contents:
 		check_results.append(content.is_in_group(group))
 	return check_results
 
@@ -37,11 +36,11 @@ func TakeContents(volume: int = -1) -> Array:
 			return [contents.pop_front()]
 		
 		# make a duplicate substance with the desired volume
-		var dispensed_subst = contents[0].duplicate()
-		var original_props = contents[0].get_properties()
-		var dispensed_props = original_props.duplicate()
+		var dispensed_subst: Node = contents[0].duplicate()
+		var original_props: Dictionary = contents[0].get_properties()
+		var dispensed_props: Dictionary = original_props.duplicate()
 		
-		var remaining_volume = contents[0].volume - volume
+		var remaining_volume: int = contents[0].volume - volume
 		dispensed_props["volume"] = volume
 		original_props["volume"] = remaining_volume
 		
@@ -55,26 +54,26 @@ func TakeContents(volume: int = -1) -> Array:
 		update_display()
 		return [dispensed_subst]
 	
-	var all_contents = contents.duplicate(true)
+	var all_contents: Array = contents.duplicate(true)
 	contents.clear()
 	print("Emptied container of its contents")
 	update_weight()
 	update_display()
 	return all_contents
 
-func AddContents(new_contents):
-	for new_content in new_contents:
-		var match_found = false
+func AddContents(new_contents: Array) -> void:
+	for new_content: Node in new_contents:
+		var match_found: bool = false
 		
-		for chk_content in contents:
+		for chk_content: Node in contents:
 			if(new_content.name == chk_content.name):
 				# combine the two contents together
 				match_found = true
 				print("Combining substances "+str(new_content)+" and "+str(chk_content))
-				var props = chk_content.get_properties()
+				var props: Dictionary = chk_content.get_properties()
 				
-				var current_vol = props["volume"]
-				var new_vol = new_content.get_properties()["volume"]
+				var current_vol: int = props["volume"]
+				var new_vol: int = new_content.get_properties()["volume"]
 				props["volume"] = current_vol + new_vol
 				#var vol_ratio = (current_vol / new_vol)
 				#props["density"] = (vol_ratio * props["density"]) + ((1.0 - vol_ratio) * new_content.get_properties()["density"])

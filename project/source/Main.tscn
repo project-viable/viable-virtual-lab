@@ -73,6 +73,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Background" type="TextureRect" parent="Menu/MainMenu"]
 layout_mode = 0
@@ -604,6 +606,8 @@ offset_left = -371.0
 offset_top = -121.0
 offset_right = -5.0
 offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="Panel" type="Panel" parent="Menu/LabLogPopup"]
 layout_mode = 0
