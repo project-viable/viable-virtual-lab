@@ -3,11 +3,11 @@ extends CanvasLayer
 var ModuleDirectory: String = "res://Modules/"
 var ModuleButton: PackedScene = load("res://Scenes/UI/ModuleSelectButton.tscn")
 
-var currentModule: ModuleData = null
+var current_module: ModuleData = null
 
-var unreadLogs: Dictionary = {'log': 0, 'warning': 0, 'error': 0}
+var unread_logs: Dictionary = {'log': 0, 'warning': 0, 'error': 0}
 
-var popupActive: bool = false
+var popup_active: bool = false
 var logs: Array[Dictionary] = []
 
 #This function is mostly copied from online.
@@ -43,12 +43,12 @@ func _ready() -> void:
 	
 	#Set up the module select buttons
 	for file in GetAllFilesInFolder(ModuleDirectory):
-		var moduleData: ModuleData = load(ModuleDirectory + file)
-		if moduleData.Show:
-			var newButton := ModuleButton.instantiate()
-			newButton.SetData(moduleData)
-			newButton.connect("pressed", Callable(self, "ModuleSelected").bind(moduleData))
-			$ModuleSelect.add_child(newButton)
+		var module_data: ModuleData = load(ModuleDirectory + file)
+		if module_data.Show:
+			var new_button := ModuleButton.instantiate()
+			new_button.SetData(module_data)
+			new_button.connect("pressed", Callable(self, "ModuleSelected").bind(module_data))
+			$ModuleSelect.add_child(new_button)
 	
 	#connect the log signals
 	LabLog.connect("NewMessage", Callable(self, "_on_New_Log_Message"))
@@ -80,7 +80,7 @@ func _process(delta: float) -> void:
 			
 	if logs != []:
 		# Need to display log message(s)
-		if !popupActive:
+		if !popup_active:
 			if logs[0]['newLog']['popup']:
 				ShowPopup(logs[0]['category'], logs[0]['newLog'])
 			logs.remove_at(0)
@@ -89,7 +89,7 @@ func _process(delta: float) -> void:
 func ModuleSelected(module: ModuleData) -> void:
 	get_parent().SetScene(module.Scene)
 	$ModuleSelect.hide()
-	currentModule = module
+	current_module = module
 	$LogButton.show()
 	$LogButton/LogMenu/Instructions.text = module.InstructionsBBCode
 
@@ -104,21 +104,21 @@ func _on_LogButton_pressed() -> void:
 	$LogButton/LogMenu.visible = ! $LogButton/LogMenu.visible
 	SetLogNotificationCounts()
 
-func _on_New_Log_Message(category: String, newLog: Dictionary) -> void:
-	if not newLog['hidden']:
-		var bbcode: String = ("-" + newLog['message'] + "\n")
+func _on_New_Log_Message(category: String, new_log: Dictionary) -> void:
+	if not new_log['hidden']:
+		var bbcode: String = ("-" + new_log['message'] + "\n")
 		if category == 'log':
-			unreadLogs['log'] += 1
+			unread_logs['log'] += 1
 			$LogButton/LogMenu/Log.text += bbcode
 		elif category == 'warning':
-			unreadLogs['warning'] += 1
+			unread_logs['warning'] += 1
 			$LogButton/LogMenu/Warnings.text += bbcode
 		elif category == 'error':
-			unreadLogs['error'] += 1
+			unread_logs['error'] += 1
 			$LogButton/LogMenu/Errors.text += bbcode
 	logs.append({
 		'category': category, 
-		'newLog': newLog
+		'new_log': new_log
 	})
 	SetLogNotificationCounts()
 
@@ -136,19 +136,19 @@ func ShowPopup(category: String, newLog: Dictionary) -> void:
 		_:
 			color = Color(0.0, 0.0, 0.0, 0.0)
 	SetPopupBorderColor(color)
-	popupActive = true
+	popup_active = true
 	$LabLogPopup.visible = true
 	await get_tree().create_timer(GameSettings.popupTimeout).timeout
-	popupActive = false
+	popup_active = false
 	$LabLogPopup.visible = false if logs.size() == 0 else true
 
 func SetPopupBorderColor(color: Color) -> void:
 	$LabLogPopup/Border.border_color = color
 
 func _on_Logs_Cleared() -> void:
-	unreadLogs['log'] = 0
-	unreadLogs['warning'] = 0
-	unreadLogs['error'] = 0
+	unread_logs['log'] = 0
+	unread_logs['warning'] = 0
+	unread_logs['error'] = 0
 	$LogButton/LogMenu/Log.text = ""
 	$LogButton/LogMenu/Warnings.text = ""
 	$LogButton/LogMenu/Errors.text = ""
@@ -157,53 +157,53 @@ func _on_Logs_Cleared() -> void:
 func SetLogNotificationCounts(tab: int = -1) -> void:
 	if $LogButton/LogMenu.visible:
 		if $LogButton/LogMenu.current_tab == 1:
-			unreadLogs['log'] = 0
+			unread_logs['log'] = 0
 		elif $LogButton/LogMenu.current_tab == 2:
-			unreadLogs['warning'] = 0
+			unread_logs['warning'] = 0
 		#Do not ever clear error notifications
 		#elif $LogButton/LogMenu.current_tab == 3:
-		#	unreadLogs['error'] = 0
+		#	unread_logs['error'] = 0
 	
-	if unreadLogs['log'] == 0:
+	if unread_logs['log'] == 0:
 		$LogButton/LogMenu.set_tab_title(1, "Log")
 		$LogButton/Notifications/Log.hide()
 	else:
-		$LogButton/LogMenu.set_tab_title(1, "Log (" + str(unreadLogs['log']) + "!)")
+		$LogButton/LogMenu.set_tab_title(1, "Log (" + str(unread_logs['log']) + "!)")
 		$LogButton/Notifications/Log.show()
 	
-	if unreadLogs['warning'] == 0:
+	if unread_logs['warning'] == 0:
 		$LogButton/LogMenu.set_tab_title(2, "Warnings")
 		$LogButton/Notifications/Warning.hide()
 	else:
-		$LogButton/LogMenu.set_tab_title(2, "Warnings (" + str(unreadLogs['warning']) + "!)")
+		$LogButton/LogMenu.set_tab_title(2, "Warnings (" + str(unread_logs['warning']) + "!)")
 		$LogButton/Notifications/Warning.show()
 	
-	if unreadLogs['error'] == 0:
+	if unread_logs['error'] == 0:
 		$LogButton/LogMenu.set_tab_title(3, "Errors")
 		$LogButton/Notifications/Error.hide()
 	else:
-		$LogButton/LogMenu.set_tab_title(3, "Errors (" + str(unreadLogs['error']) + "!)")
+		$LogButton/LogMenu.set_tab_title(3, "Errors (" + str(unread_logs['error']) + "!)")
 		$LogButton/Notifications/Error.show()
 
 func _on_LabLog_Report_Shown() -> void:
 	#Show all the warnings and errors
-	var logsText := ""
-	var allLogs: Dictionary = LabLog.GetLogs()
-	for warning: Dictionary in allLogs.get('warning', []):
-		logsText += "[color=yellow]-" + warning['message'] + "[/color]\n"
-	for error: Dictionary in allLogs.get('error', []):
-		logsText += "[color=red]-" + error['message'] + "[/color]\n"
+	var logs_text := ""
+	var all_logs: Dictionary = LabLog.GetLogs()
+	for warning: Dictionary in all_logs.get('warning', []):
+		logs_text += "[color=yellow]-" + warning['message'] + "[/color]\n"
+	for error: Dictionary in all_logs.get('error', []):
+		logs_text += "[color=red]-" + error['message'] + "[/color]\n"
 	
-	if logsText != "":
-		logsText = "You weren't perfect though - here's some notes:\n" + logsText
-		$FinalReport/VBoxContainer/Logs.text = logsText
+	if logs_text != "":
+		logs_text = "You weren't perfect though - here's some notes:\n" + logs_text
+		$FinalReport/VBoxContainer/Logs.text = logs_text
 		$FinalReport/VBoxContainer/Logs.show()
 	else:
 		$FinalReport/VBoxContainer/Logs.hide()
 	
 	#Setup the rest of the popup
-	$FinalReport/VBoxContainer/ModuleName.text = "You completed the \"" + currentModule.Name + "\" module!"
-	$FinalReport/VBoxContainer/ModuleIcon.texture = currentModule.Thumbnail
+	$FinalReport/VBoxContainer/ModuleName.text = "You completed the \"" + current_module.Name + "\" module!"
+	$FinalReport/VBoxContainer/ModuleIcon.texture = current_module.Thumbnail
 	$FinalReport.set_anchors_preset(Control.PRESET_CENTER)
 	$FinalReport.show()
 
@@ -211,7 +211,7 @@ func _on_FinalReport_MainMenuButton_pressed() -> void:
 	get_tree().reload_current_scene()
 
 func _on_FinalReport_RestartModuleButton_pressed() -> void:
-	get_parent().SetScene(currentModule.Scene)
+	get_parent().SetScene(current_module.Scene)
 	SetLogNotificationCounts()
 	$FinalReport.hide()
 

@@ -39,5 +39,4 @@ func mix(reactants: Array[Substance]) -> Substance:
 			self.add_child(result)
 			result.init_mixed(reactants)
 			return result
-	else:
-		return null
+	return null

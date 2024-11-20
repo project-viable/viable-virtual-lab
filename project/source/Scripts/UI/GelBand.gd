@@ -13,14 +13,14 @@ func is_same_band(band_data: Array[int]) -> bool:
 func is_same_well(band_data: Array[int]) -> bool:
 	return (band_data[0] == well_index)
 
-func update_display(uv_on: bool, show_without_UV: bool, textures: Array[Texture2D], lastBand: bool) -> void:
+func update_display(uv_on: bool, show_without_UV: bool, textures: Array[Texture2D], last_band: bool) -> void:
 	var tex_id := (1 if uv_on else 0) # another weird godot-style ternary
 	$Sprite2D.texture = textures[tex_id]
 	
 	if(!show_without_UV):
 		visible = uv_on
 		
-		if lastBand:
+		if last_band:
 			visible = true
 	else:
 		visible = true
