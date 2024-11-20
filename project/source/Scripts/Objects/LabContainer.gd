@@ -96,18 +96,18 @@ func update_weight():
 			overall_weight += content.get_mass()
 	weight = overall_weight
 
-func heat(heatTime):
+func heat(heat_time):
 	print("LabContainer is being heated")
 	# pass heating along to the container's contents
 	for content in contents:
 		if(content.is_in_group("Heatable")):
-			content.heat(heatTime)
+			content.heat(heat_time)
 
-func chill(chillTime):
+func chill(chill_time):
 	# pass chilling along to the container's contents
 	for content in contents:
 		if(content.is_in_group("Chillable")):
-			content.chill(chillTime)
+			content.chill(chill_time)
 
 func run_current(voltage, time):
 	# pass current along to the container's contents

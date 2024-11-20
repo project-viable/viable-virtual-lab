@@ -2,7 +2,7 @@ extends Node2D
 
 # TODO (update): This is essentially public, so we should consider using a convention to make that
 # clear, like naming it in PascalCase.
-var currentModuleScene: Node = null
+var current_module_scene: Node = null
 
 @export var CheckStrategies: Array[MistakeChecker]
 
@@ -16,24 +16,24 @@ func SetScene(scene: PackedScene) -> void:
 	for child in $Scene.get_children():
 		child.queue_free()
 	
-	var newScene := scene.instantiate()
-	$Scene.add_child(newScene)
-	currentModuleScene = newScene
+	var new_scene := scene.instantiate()
+	$Scene.add_child(new_scene)
+	current_module_scene = new_scene
 	#$Camera.Reset()
 
 func GetDeepestSubsceneAt(pos: Vector2) -> Node:
 	var result: Node = null
 
-	var castParams := PhysicsPointQueryParameters2D.new()
-	castParams.position = pos
-	castParams.collision_mask = 0b10
-	castParams.collide_with_bodies = false
-	castParams.collide_with_areas = true
-	var castResult: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(castParams)
+	var cast_params := PhysicsPointQueryParameters2D.new()
+	cast_params.position = pos
+	cast_params.collision_mask = 0b10
+	cast_params.collide_with_bodies = false
+	cast_params.collide_with_areas = true
+	var cast_result: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(cast_params)
 
-	if len(castResult) > 0:
+	if len(cast_result) > 0:
 		#We found results
-		for object in castResult:
+		for object in cast_result:
 			if not object['collider'] is LabObject: #the allowed area of a subscene is not a LabObject
 				if object['collider'].get_parent() is SubsceneManager: #^but its parent is the SubsceneManager
 					if object['collider'].get_parent().subsceneActive and (result == null or object['collider'].get_parent().CountSubsceneDepth() > result.CountSubsceneDepth()):
@@ -46,35 +46,35 @@ func _unhandled_input(event: InputEvent) -> void:
 	#check if there's any labobjects that need to deal with that input
 	#Using the normal object picking (collision objects' input signals) doesn't give us the control we need
 	if event.is_action_pressed("DragLabObject"):
-		var castParams := PhysicsPointQueryParameters2D.new()
-		castParams.position = get_global_mouse_position()
-		castParams.collision_mask = 0b10
-		castParams.collide_with_bodies = true
-		castParams.collide_with_areas = true
-		var castResult: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(castParams)
+		var cast_params := PhysicsPointQueryParameters2D.new()
+		cast_params.position = get_global_mouse_position()
+		cast_params.collision_mask = 0b10
+		cast_params.collide_with_bodies = true
+		cast_params.collide_with_areas = true
+		var cast_result: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(cast_params)
 		
-		if len(castResult) > 0:
+		if len(cast_result) > 0:
 			#We found results: now we need to make sure only objects in the subscene we clicked in (if any) can get this input
-			var deepestSubscene := GetDeepestSubsceneAt(get_global_mouse_position())
+			var deepest_subscene := GetDeepestSubsceneAt(get_global_mouse_position())
 			
-			var pickOptions: Array[LabObject] = []
-			for result in castResult:
-				if result['collider'] is LabObject and (result['collider'].GetSubsceneManagerParent() == deepestSubscene or (result['collider'] == deepestSubscene and not result['collider'].subsceneActive)):
-					pickOptions.append(result['collider'])
+			var pick_options: Array[LabObject] = []
+			for result in cast_result:
+				if result['collider'] is LabObject and (result['collider'].GetSubsceneManagerParent() == deepest_subscene or (result['collider'] == deepest_subscene and not result['collider'].subsceneActive)):
+					pick_options.append(result['collider'])
 			
-			var bestPick: LabObject = null
-			for object in pickOptions:
+			var best_pick: LabObject = null
+			for object in pick_options:
 				#draggables are better than non draggables, and high z indexes are tie breakers
-				if bestPick == null or (
-					object.draggable and not bestPick.draggable) or (
-					object.z_index > bestPick.z_index and object.draggable == bestPick.draggable):
-						bestPick = object
+				if best_pick == null or (
+					object.draggable and not best_pick.draggable) or (
+					object.z_index > best_pick.z_index and object.draggable == best_pick.draggable):
+						best_pick = object
 			
-			if bestPick:
-				if bestPick.draggable:
-					bestPick.StartDragging()
+			if best_pick:
+				if best_pick.draggable:
+					best_pick.StartDragging()
 				else:
-					bestPick.OnUserAction()
+					best_pick.OnUserAction()
 				get_viewport().set_input_as_handled()
 				return
 	

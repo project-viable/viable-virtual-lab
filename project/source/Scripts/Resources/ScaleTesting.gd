@@ -6,12 +6,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("DragLabObject"):
 
 		# TODO (update): Fix this so it uses `PhysicsPointQueryParameters2D`.
-		var castResult: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(get_global_mouse_position(), 32, [], 2)
+		var cast_result: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(get_global_mouse_position(), 32, [], 2)
 		
-		if len(castResult) > 0:
+		if len(cast_result) > 0:
 			#Drag a draggable object, if possible
 			var dragging := false
-			for object in castResult:
+			for object in cast_result:
 				if object['collider'].draggable:
 					object['collider'].StartDragging()
 					dragging = true
@@ -20,5 +20,5 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 			#If none of them are draggable, then have a static one try to interact
 			if not dragging:
-				castResult[0]['collider'].OnUserAction()
+				cast_result[0]['collider'].OnUserAction()
 				get_viewport().set_input_as_handled()

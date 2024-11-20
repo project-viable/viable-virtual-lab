@@ -6,7 +6,7 @@ extends LabObject
 # when something draws from it.
 
 enum ContainerType {ERLENMEYER_FLASK, MICRO_CENTRIFUGE_TUBE} #TODO: I'm not convinced this is a good way to do this, since we have to repeatedly modify code instead of just making these, simple changes in the editor. Maybe use an inherited scene like the Pipettes
-@export var containerType: ContainerType: set = SetContainerType
+@export var container_type: ContainerType: set = SetContainerType
 @export var image: Texture2D = null: set = SetOverrideImage
 
 @export var substance: PackedScene = null
@@ -29,10 +29,10 @@ func SetupVisual():
 	var sprite
 	var fillsprite
 	
-	if containerType == ContainerType.ERLENMEYER_FLASK:
+	if container_type == ContainerType.ERLENMEYER_FLASK:
 			sprite = $Sprites/FlaskSprite
 			fillsprite = $Sprites/FlaskFillSprite
-	elif containerType == ContainerType.MICRO_CENTRIFUGE_TUBE:
+	elif container_type == ContainerType.MICRO_CENTRIFUGE_TUBE:
 			sprite = $Sprites/MicrocentrifugeTubeSprite
 			fillsprite = $Sprites/MicrocentrifugeTubeFillSprite
 	
@@ -54,7 +54,7 @@ func SetOverrideImage(new):
 	SetupVisual()
 
 func SetContainerType(new):
-	containerType = new
+	container_type = new
 	SetupVisual()
 
 func CheckContents(group):

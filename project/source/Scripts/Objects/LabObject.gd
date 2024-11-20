@@ -5,21 +5,21 @@ class_name LabObject
 #if draggable, the object can be clicked and dragged around the scene.
 #when not being dragged, it will be set to whatever it's rigidbody2d mode is set to (rigid, static, etc.)
 @export var draggable: bool
-@export var canChangeSubscenes: bool = true
+@export var can_change_subscenes: bool = true
 @export var DisplayName: String = ""
-@export var tooltipDisplayDistance: int = 35
+@export var tooltip_display_distance: int = 35
 var tooltip: Label #Set when it's created
 
 #these variables are used internally to handle clicking and dragging:
 var dragging = false
-var dragOffset = Vector2(0, 0)
-var dragStartGlobalPos = null
-var maxMovementForActIndependently = 10 #If an object is released more than this distance fron where it started being dragged (line above), it will only interact, not act independently.
-@onready var defaultMode = mode
-@onready var defaultZIndex = z_index
-@onready var defaultZAsRelative = z_as_relative
+var drag_offset = Vector2(0, 0)
+var drag_start_global_pos = null
+var max_movement_for_act_independently = 10 #If an object is released more than this distance fron where it started being dragged (line above), it will only interact, not act independently.
+@onready var default_mode = mode
+@onready var default_z_index = z_index
+@onready var default_z_as_relative = z_as_relative
 
-var startPosition
+var start_position
 
 #This variable determines whether it should call TryInteract and TryInteractIndependently
 var active = true
@@ -45,26 +45,26 @@ func _ready():
 	can_sleep = false
 	input_pickable = true
 	
-	startPosition = self.position
+	start_position = self.position
 	
 	#if we're not in the editor
 	if not Engine.is_editor_hint():
 		#Set up the tooltip
 		if len(DisplayName) > 1:
-			var tooltipContainer = Node2D.new()
-			tooltipContainer.z_index = RenderingServer.CANVAS_ITEM_Z_MAX - 1
+			var tooltip_container = Node2D.new()
+			tooltip_container.z_index = RenderingServer.CANVAS_ITEM_Z_MAX - 1
 			
 			tooltip = Label.new()
 			tooltip.text = DisplayName
 			tooltip.name = "labobject_auto_tooltip"
 			tooltip.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-			var tooltipStylebox = StyleBoxFlat.new()
-			tooltipStylebox.bg_color = Color(0.2, 0.2, 0.2, 0.8)
+			var tooltip_stylebox = StyleBoxFlat.new()
+			tooltip_stylebox.bg_color = Color(0.2, 0.2, 0.2, 0.8)
 			tooltip.add_theme_color_override("font_color", Color(1, 1, 1))
-			tooltip.add_theme_stylebox_override('normal', tooltipStylebox)
+			tooltip.add_theme_stylebox_override('normal', tooltip_stylebox)
 			
-			tooltipContainer.add_child(tooltip)
-			add_child(tooltipContainer)
+			tooltip_container.add_child(tooltip)
+			add_child(tooltip_container)
 			tooltip.hide()
 		
 		#last thing
@@ -77,32 +77,32 @@ func _physics_process(delta):
 func _process(delta):
 	#tooltip visibility
 	if tooltip:
-		tooltip.visible = (GameSettings.objectTooltips and global_position.distance_squared_to(get_global_mouse_position()) < pow(tooltipDisplayDistance, 2))
+		tooltip.visible = (GameSettings.objectTooltips and global_position.distance_squared_to(get_global_mouse_position()) < pow(tooltip_display_distance, 2))
 	
 	#Dragging control
 	if dragging:
 		#move
-		if (canChangeSubscenes or get_node("/root/Main").GetDeepestSubsceneAt(get_global_mouse_position()) == GetSubsceneManagerParent()):
+		if (can_change_subscenes or get_node("/root/Main").GetDeepestSubsceneAt(get_global_mouse_position()) == GetSubsceneManagerParent()):
 			DragMove()
 			ClampObjectPosition()
 		else:
 			StopDragging(false)
 		
-		if canChangeSubscenes:
+		if can_change_subscenes:
 			#make sure we're in the correct subscene
-			var desiredSubscene = get_node("/root/Main").GetDeepestSubsceneAt(global_position)
-			if GetSubsceneManagerParent() != desiredSubscene:
-				if desiredSubscene == null:
+			var desired_subscene = get_node("/root/Main").GetDeepestSubsceneAt(global_position)
+			if GetSubsceneManagerParent() != desired_subscene:
+				if desired_subscene == null:
 					#we're in a subscene, but need to not be in any (null)
-					var newParent = GetSubsceneManagerParent().get_parent()
-					var globalPos = global_position
+					var new_parent = GetSubsceneManagerParent().get_parent()
+					var global_pos = global_position
 					get_parent().remove_child(self)
-					newParent.add_child(self)
-					owner = newParent
-					global_position = globalPos
+					new_parent.add_child(self)
+					owner = new_parent
+					global_position = global_pos
 				else:
 					#go into that subscene
-					desiredSubscene.AdoptNode(self)
+					desired_subscene.AdoptNode(self)
 		
 		#see if we should continue dragging
 		if Input.is_action_just_released("DragLabObject"):
@@ -115,57 +115,57 @@ func _process(delta):
 func StartDragging():
 	dragging = true
 	
-	defaultMode = mode
+	default_mode = mode
 	mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 	
-	defaultZIndex = z_index
-	defaultZAsRelative = z_as_relative
+	default_z_index = z_index
+	default_z_as_relative = z_as_relative
 	z_index = RenderingServer.CANVAS_ITEM_Z_MAX - 1 #So the one being dragged is always on top of other things
 	z_as_relative = true
 	
-	dragOffset = get_global_mouse_position() - global_position
-	dragStartGlobalPos = global_position
+	drag_offset = get_global_mouse_position() - global_position
+	drag_start_global_pos = global_position
 
 #sometimes an object needs to stop dragging without interacting (eg. when an object that can't change subscenes is dragging, and the mouse leaves its subscene)
 func StopDragging(action: bool = true):
 	dragging = false
 	set_linear_velocity(Vector2(0, 0))
-	mode = defaultMode
-	z_index = defaultZIndex
-	z_as_relative = defaultZAsRelative
+	mode = default_mode
+	z_index = default_z_index
+	z_as_relative = default_z_as_relative
 	if action: OnUserAction()
 
 func DragMove():
-	global_position = get_global_mouse_position() - dragOffset
+	global_position = get_global_mouse_position() - drag_offset
 
 func ClampObjectPosition() -> void:
-	var currentModule = GetCurrentModuleScene()
-	var labBoundary = ""
-	for child in currentModule.get_children():
+	var current_module = GetCurrentModuleScene()
+	var lab_boundary = ""
+	for child in current_module.get_children():
 		if child.name == "LabBoundary":
-			labBoundary = child
-	if typeof(labBoundary) != TYPE_STRING:
-		global_position.x = clamp(global_position.x, labBoundary.xBounds[0], labBoundary.xBounds[1])
-		global_position.y = clamp(global_position.y, labBoundary.yBounds[0], labBoundary.yBounds[1])
+			lab_boundary = child
+	if typeof(lab_boundary) != TYPE_STRING:
+		global_position.x = clamp(global_position.x, lab_boundary.x_bounds[0], lab_boundary.x_bounds[1])
+		global_position.y = clamp(global_position.y, lab_boundary.y_bounds[0], lab_boundary.y_bounds[1])
 
 func GetIntersectingLabObjects():
-	var spaceState = get_world_2d().direct_space_state
-	var queryResults = []
+	var space_state = get_world_2d().direct_space_state
+	var query_results = []
 	
 	#For each collider that we have, see if it colllides with anything.
 	#This way, we could have LabObjects with multiple colliders on them (for example, multiple rectangles making up a more complex shape)
 	for child in get_children():
 		if child is CollisionShape2D:
-			var queryOptions = PhysicsShapeQueryParameters2D.new()
-			queryOptions.set_shape(child.shape)
-			queryOptions.transform = child.get_global_transform()
-			queryOptions.exclude = [self]
-			queryOptions.collision_layer = 2 #the objects layer and no others
+			var query_options = PhysicsShapeQueryParameters2D.new()
+			query_options.set_shape(child.shape)
+			query_options.transform = child.get_global_transform()
+			query_options.exclude = [self]
+			query_options.collision_layer = 2 #the objects layer and no others
 			
-			queryResults.append_array(spaceState.intersect_shape(queryOptions))
+			query_results.append_array(space_state.intersect_shape(query_options))
 	
 	var results = []
-	for other in queryResults:
+	for other in query_results:
 		#We can't use "is LabObject" here, because Godot needs to finish loading this file to know what that is. We can't compare to this script at runtime either, because that doesn't take inheritance into account.
 		if other['collider'].is_in_group("LabObjects") and not other['collider'] in results:
 			results.append(other['collider'])
@@ -230,33 +230,33 @@ func OnUserAction():
 	if not active:
 		return
 
-	var otherLabObjects = GetIntersectingLabObjects()
+	var other_lab_objects = GetIntersectingLabObjects()
 	
 	#now filter those results to find only the ones in the same subscene as us
-	var thisLabObjectSubscene = GetSubsceneManagerParent()
-	var interactOptions = []
-	for other in otherLabObjects:
-		if other.GetSubsceneManagerParent() == thisLabObjectSubscene:
-			interactOptions.append(other)
+	var this_lab_object_subscene = GetSubsceneManagerParent()
+	var interact_options = []
+	for other in other_lab_objects:
+		if other.GetSubsceneManagerParent() == this_lab_object_subscene:
+			interact_options.append(other)
 	
 	####Interactions
-	if interactOptions:
+	if interact_options:
 		#First, see if we want to do something.
-		var result = self.TryInteract(interactOptions)
+		var result = self.TryInteract(interact_options)
 		
 		if result:
 			#We chose to interact with something, so now we need to have the module make sure that wasn't a user mistake.
 			return
 		else:
 			#If not, see if the other objects want to do something
-			for other in interactOptions:
+			for other in interact_options:
 				result = other.TryInteract([self])
 				if result:
 					#It chose to interact with us, so now we need to have the module make sure that wasn't a user mistake.
 					return
 	
 	####Independent Actions
-	if not dragStartGlobalPos or not draggable or global_position.distance_to(dragStartGlobalPos) <= maxMovementForActIndependently:
+	if not drag_start_global_pos or not draggable or global_position.distance_to(drag_start_global_pos) <= max_movement_for_act_independently:
 		var result = self.TryActIndependently()
 		if result:
 			#We chose to do something!
@@ -293,4 +293,4 @@ func ReportAction(objectsInvolved: Array, actionType: String, params: Dictionary
 	GetCurrentModuleScene().CheckAction(params)
 
 func GetStartPosition():
-	return startPosition
+	return start_position

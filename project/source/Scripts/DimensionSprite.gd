@@ -6,8 +6,8 @@ class_name DimensionSprite
 @export var SpriteDimensions: Vector2: set = SetDimensions
 
 # Called when the node enters the scene tree for the first time.
-func SetOverride(newVal: bool) -> void:
-	OverrideDimensions = newVal
+func SetOverride(new_val: bool) -> void:
+	OverrideDimensions = new_val
 	
 	SetDimensions(SpriteDimensions)
 	
@@ -16,8 +16,8 @@ func SetOverride(newVal: bool) -> void:
 		#so just set it to the default scale
 		scale = Vector2(1, 1)
 
-func SetDimensions(newDimensions: Vector2) -> void:
-	SpriteDimensions = newDimensions
+func SetDimensions(new_dimensions: Vector2) -> void:
+	SpriteDimensions = new_dimensions
 	
 	if OverrideDimensions:
 		scale = Vector2(SpriteDimensions.x / texture.get_width(), SpriteDimensions.y / texture.get_height())

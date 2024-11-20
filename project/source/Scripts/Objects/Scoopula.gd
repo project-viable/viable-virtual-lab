@@ -8,7 +8,7 @@ var split_substance: Array[Substance] = []
 # TODO (update): This is a substance container, and I would *like* to give this a more specialized
 # type, but there's no single class that all containers derive from other than `LabObject`. We
 # should find a way to fix this, but that's kind of complicated.
-var targetObj: LabObject = null
+var target_obj: LabObject = null
 
 func TryInteract(others: Array[LabObject]) -> bool:
 	for other in others:#If interacting with container then we want to dispense or pick up
@@ -16,11 +16,11 @@ func TryInteract(others: Array[LabObject]) -> bool:
 
 			# TODO (update): If we rework all instances of `CheckContents` to return an array, then
 			# we don't have to do this type check.
-			var granularSubstance: Array[bool] = other.CheckContents("Granular Substance")
-			if typeof(granularSubstance) == TYPE_ARRAY:
-				if len(granularSubstance) > 0:
-					granularSubstance = granularSubstance[0]
-			if len(contents) == 0 and granularSubstance:
+			var granular_substance: Array[bool] = other.CheckContents("Granular Substance")
+			if typeof(granular_substance) == TYPE_ARRAY:
+				if len(granular_substance) > 0:
+					granular_substance = granular_substance[0]
+			if len(contents) == 0 and granular_substance:
 				# get density to determine volume taken
 				var density: float = other.TakeContents()[0].get_properties()['density']
 				
@@ -34,14 +34,14 @@ func TryInteract(others: Array[LabObject]) -> bool:
 				return true
 			else:
 				if(!contents.is_empty()):
-					var contentName := contents[0].name
+					var content_name := contents[0].name
 					
 					#Show menu
 					$ScoopulaMenu.popup()
 					$ScoopulaMenu.global_position = global_position
 					$ScoopulaMenu/PanelContainer/sliderDispenseQty.max_value = contents[0].volume
 					
-					targetObj = other
+					target_obj = other
 						#split_substance.append(SplitContents())
 						#other.AddContents(split_substance)
 				update_display()
@@ -72,22 +72,22 @@ func TryActIndependently() -> void:
 
 func _on_btnDispense_pressed() -> void:
 	
-	var volDispensed: float = $ScoopulaMenu/PanelContainer/sliderDispenseQty.value / contents[0].density
+	var vol_dispensed: float = $ScoopulaMenu/PanelContainer/sliderDispenseQty.value / contents[0].density
 	
 	#Add contents to receiving object
-	var contentToDispense: Substance = contents[0].duplicate()
-	var contentArray: Array[Substance] = []
+	var content_to_dispense: Substance = contents[0].duplicate()
+	var content_array: Array[Substance] = []
 		
-	contentToDispense.set_volume(volDispensed)
-	contentArray.append(contentToDispense)
-	targetObj.AddContents(contentArray)
+	content_to_dispense.set_volume(vol_dispensed)
+	content_array.append(content_to_dispense)
+	target_obj.AddContents(content_array)
 	
 	#Update current volume remaining
-	contents[0].volume -= volDispensed
+	contents[0].volume -= vol_dispensed
 		
 	if contents[0].volume <= 0.01:
 		contents.clear()
 	
-	LabLog.Log("Dispensed " + str(volDispensed * contentArray[0].density) + " g from scoopula")
+	LabLog.Log("Dispensed " + str(vol_dispensed * content_array[0].density) + " g from scoopula")
 	update_display()
 	$ScoopulaMenu.hide()

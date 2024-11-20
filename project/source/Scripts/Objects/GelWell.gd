@@ -1,6 +1,6 @@
 extends LabObject
 
-@export var wellNumber: int = 0
+@export var well_number: int = 0
 var broken: bool = false
 
 func AddContents(new_contents: Array[Substance]) -> void:
@@ -62,7 +62,7 @@ func AddHigh(new_contents: DNASubstance, send_warn := true) -> void:
 
 func AddMid(new_contents: DNASubstance) -> void:
 	LabLog.Log("Added a substance to the gel well")
-	GetSubsceneManagerParent().add_dna(new_contents, wellNumber)
+	GetSubsceneManagerParent().add_dna(new_contents, well_number)
 	$MidArea/AddedMidVisual.show()
 
 func AddLow(new_contents: DNASubstance) -> void:

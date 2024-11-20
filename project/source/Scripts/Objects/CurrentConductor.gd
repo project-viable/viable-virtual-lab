@@ -11,13 +11,13 @@ func _ready() -> void:
 func GetVolts() -> float:
 	return volts
 
-func SetVolts(newVolts: float) -> void:
-	if newVolts >= 0:
-		volts = newVolts
+func SetVolts(new_volts: float) -> void:
+	if new_volts >= 0:
+		volts = new_volts
 
 func GetTime() -> float:
 	return time
 	
-func SetTime(newTime: float) -> void:
+func SetTime(new_time: float) -> void:
 	if time >= 0:
-		time = newTime
+		time = new_time

@@ -1,31 +1,31 @@
 extends LabObject
 class_name Pipette
 
-@export var minCapacity: float = 1 #microliters
-@export var maxCapacity: float = 10 #microliters
+@export var min_capacity: float = 1 #microliters
+@export var max_capacity: float = 10 #microliters
 
-@export var displayIncrementTop: float = 10 #microliters
-@export var displayIncrementMiddle: float = 1 #microliters
-@export var displayIncrementBottom: float = 0.1 #microliters
-@onready var volumeSliderWidth: float = displayIncrementMiddle * 2
-@onready var volumeSliderStep: float = displayIncrementBottom
+@export var display_increment_top: float = 10 #microliters
+@export var display_increment_middle: float = 1 #microliters
+@export var display_increment_bottom: float = 0.1 #microliters
+@onready var volume_slider_width: float = display_increment_middle * 2
+@onready var volume_slider_step: float = display_increment_bottom
 
-var plungerPressExtent: float = 2 #Stores the lowest value the plunger slider has reached since being reset to the top.
-var doActions: bool = true #used to allow modifying the plunger's state by code without triggering interactions
+var plunger_press_extent: float = 2 #Stores the lowest value the plunger slider has reached since being reset to the top.
+var do_actions: bool = true #used to allow modifying the plunger's state by code without triggering interactions
 
-@export var hasTip: bool = false: set = SetHasTip
-@onready var drawVolume: float = snapped((maxCapacity - minCapacity)/2, displayIncrementBottom): set = SetDrawVolume
+@export var has_tip: bool = false: set = SetHasTip
+@onready var draw_volume: float = snapped((max_capacity - min_capacity)/2, display_increment_bottom): set = SetDrawVolume
 var contents: Array[Substance] = [] #current contents
-var tipContaminants: Array[Substance] = [] #stores what the pipette has drawn in since the last time the tip was replaced
+var tip_contaminants: Array[Substance] = [] #stores what the pipette has drawn in since the last time the tip was replaced
 
 func SetHasTip(newVal: bool) -> void:
-	hasTip = newVal
-	tipContaminants = []
+	has_tip = newVal
+	tip_contaminants = []
 	
-	$BaseSprite.visible = !hasTip
-	$TipSprite.visible = hasTip
+	$BaseSprite.visible = !has_tip
+	$TipSprite.visible = has_tip
 	
-	if hasTip:
+	if has_tip:
 		add_to_group("Disposable-Hazard")
 	else:
 		#If the tip has been removed, and had something in it, whatever was in it is now also gone.
@@ -34,25 +34,25 @@ func SetHasTip(newVal: bool) -> void:
 		remove_from_group("Disposable-Hazard")
 
 func SetDrawVolume(newVal: float) -> void:
-	drawVolume = newVal
+	draw_volume = newVal
 	
-	if drawVolume < minCapacity:
-		LabLog.Warn("Setting this micropipette to a volume lower than its minimum (" + str(minCapacity) + ") could break it!")
-	elif drawVolume > maxCapacity:
-		LabLog.Warn("Setting this micropipette to a volume higher than its maximum (" + str(maxCapacity) + ") could break it!")
+	if draw_volume < min_capacity:
+		LabLog.Warn("Setting this micropipette to a volume lower than its minimum (" + str(min_capacity) + ") could break it!")
+	elif draw_volume > max_capacity:
+		LabLog.Warn("Setting this micropipette to a volume higher than its maximum (" + str(max_capacity) + ") could break it!")
 	
 	SetupVolumeDisplay()
 
-func DrawSubstance(from: LabObject, volumeCoefficient := 1.0) -> void:
-	if hasTip: #Pipette needs a tip to dispense or take in substances
+func DrawSubstance(from: LabObject, volume_coefficient := 1.0) -> void:
+	if has_tip: #Pipette needs a tip to dispense or take in substances
 		if len(contents) == 0 and from.CheckContents("Liquid Substance"):
-			if(len(tipContaminants) > 0):
+			if(len(tip_contaminants) > 0):
 				LabLog.Warn("The pipette tip was already used. If it was for a different substance than this source, dispose the tip and attach a new one to avoid contaminating your substances.")
-			contents.append_array(from.TakeContents(drawVolume * volumeCoefficient))
-			tipContaminants.append_array(contents)
+			contents.append_array(from.TakeContents(draw_volume * volume_coefficient))
+			tip_contaminants.append_array(contents)
 
 func DispenseSubstance(to: LabObject) -> void:
-	if hasTip and to: #Pipette needs a tip to dispense or take in substances
+	if has_tip and to: #Pipette needs a tip to dispense or take in substances
 		to.AddContents(contents)
 		ReportAction([self] + contents, "transferSubstance", {'substances': contents})
 	
@@ -90,7 +90,7 @@ func TryActIndependently() -> bool:
 	return true
 
 func dispose() -> void:
-	if(hasTip): #If the pipette has a tip, remove it.
+	if(has_tip): #If the pipette has a tip, remove it.
 		SetHasTip(false)
 		LabLog.Log("Ejected Pipette Tip.", false, true)
 	else: #If there is no tip, the user is attempting to throw away the pipette itself
@@ -101,30 +101,30 @@ func ShowMenu() -> void:
 	$Menu/Border/PlungerSlider.value = 2
 	
 	SetupVolumeSlider()
-	$Menu/Border/VolumeSlider.value = drawVolume #this is not in SetupVolumeSlider() so we don't create a loop with the signal
+	$Menu/Border/VolumeSlider.value = draw_volume #this is not in SetupVolumeSlider() so we don't create a loop with the signal
 	
 	SetupVolumeDisplay()
 	
 	$Menu/Border/ActionLabel.text = ""
 	
-	doActions = true
+	do_actions = true
 
 func HideMenu() -> void:
 	$Menu/Border/ActionLabel.text = ""
 	$Menu.hide()
 
 func SetupVolumeSlider() -> void:
-	$Menu/Border/VolumeSlider.step = volumeSliderStep
-	$Menu/Border/VolumeSlider.min_value = drawVolume - (volumeSliderWidth/2)
-	$Menu/Border/VolumeSlider.max_value = drawVolume + (volumeSliderWidth/2)
+	$Menu/Border/VolumeSlider.step = volume_slider_step
+	$Menu/Border/VolumeSlider.min_value = draw_volume - (volume_slider_width/2)
+	$Menu/Border/VolumeSlider.max_value = draw_volume + (volume_slider_width/2)
 
 func SetupVolumeDisplay() -> void:
-	var remaining := drawVolume
-	$Menu/Border/VolumeDialLabels/Top.text = str(int(remaining/displayIncrementTop))
-	remaining = fmod(remaining, displayIncrementTop)
-	$Menu/Border/VolumeDialLabels/Middle.text = str(int(remaining/displayIncrementMiddle))
-	remaining = fmod(remaining, displayIncrementMiddle)
-	$Menu/Border/VolumeDialLabels/Bottom.text = str(int(remaining/displayIncrementBottom))
+	var remaining := draw_volume
+	$Menu/Border/VolumeDialLabels/Top.text = str(int(remaining/display_increment_top))
+	remaining = fmod(remaining, display_increment_top)
+	$Menu/Border/VolumeDialLabels/Middle.text = str(int(remaining/display_increment_middle))
+	remaining = fmod(remaining, display_increment_middle)
+	$Menu/Border/VolumeDialLabels/Bottom.text = str(int(remaining/display_increment_bottom))
 
 func _on_CloseButton_pressed() -> void:
 	HideMenu()
@@ -141,45 +141,45 @@ func _on_VolumeSlider_drag_ended(value_changed: bool) -> void:
 	SetupVolumeSlider()
 
 func _on_PlungerSlider_value_changed(value: float) -> void:
-	if plungerPressExtent > value:
-		plungerPressExtent = value
+	if plunger_press_extent > value:
+		plunger_press_extent = value
 	
-	if doActions:
+	if do_actions:
 		if value == 0:
 			#all the way down
 			if len(contents) > 0:
 				DispenseSubstance(SelectTarget())
-				doActions = false #reenabled when the menu is shown again.
+				do_actions = false #reenabled when the menu is shown again.
 				$Menu/Border/ActionLabel.text = "Dispensed contents!"
 				$Menu/AutoCloseTimer.start()
 		elif value == 2 and len(contents) == 0:
 			#just ended a plunger press while empty
 			
-			var drawFactor: float
-			if plungerPressExtent == 1:
+			var draw_factor: float
+			if plunger_press_extent == 1:
 				#just ended a half press while empty
-				drawFactor = 1.0
-			elif plungerPressExtent == 0:
+				draw_factor = 1.0
+			elif plunger_press_extent == 0:
 				#just ended a full press while empty
 				#so we draw a little extra.
-				drawFactor = 1.25
+				draw_factor = 1.25
 				LabLog.Warn("The plunger should be pressed to the first stop to draw substances in. Using the second stop will cause it to draw more than the intended amount.")
 			
-			var otherObject := SelectTarget()
-			if otherObject:
-				DrawSubstance(otherObject, drawFactor)
-				doActions = false #reenabled when the menu is shown again.
-				$Menu/Border/ActionLabel.text = "Drew " + str(drawVolume * drawFactor) + "uL!"
+			var other_object := SelectTarget()
+			if other_object:
+				DrawSubstance(other_object, draw_factor)
+				do_actions = false #reenabled when the menu is shown again.
+				$Menu/Border/ActionLabel.text = "Drew " + str(draw_volume * draw_factor) + "uL!"
 				$Menu/AutoCloseTimer.start()
 	
 	#finally:
 	if value == 2:
 		#We've reset the plunger to the top, so anything that happens in the future is a different press of the button.
-		plungerPressExtent = 2
+		plunger_press_extent = 2
 
 func _on_PlungerSlider_drag_ended(value_changed: bool) -> void:
 	#Make the plunger spring back
-	if $Menu/Border/PlungerSlider.value == 1 and plungerPressExtent == 1:
+	if $Menu/Border/PlungerSlider.value == 1 and plunger_press_extent == 1:
 		#It has just been released, it's half pressed, and it was previously not pressed at all
 		#That^ means we've just half pressed and released
 		#So we go ahead and make it go back up
