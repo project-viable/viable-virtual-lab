@@ -272,6 +272,6 @@ func _on_RemoveComb_pressed() -> void:
 
 func GelMoldInfo() -> Dictionary:
 	return {
-		"has_comb": has_comb,
-		"has_wells": gel_has_wells,
+		"hasComb": has_comb,
+		"hasWells": gel_has_wells,
 	}
