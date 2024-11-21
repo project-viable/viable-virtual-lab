@@ -10,10 +10,10 @@ enum ContainerType {ERLENMEYER_FLASK, MICRO_CENTRIFUGE_TUBE} #TODO: I'm not conv
 @export var image: Texture2D = null: set = SetOverrideImage
 
 @export var substance: PackedScene = null
-@export var substance_parameters: Array = null
-var contents = null
+@export var substance_parameters: Array
+var contents: Substance = null
 
-func _ready():
+func _ready() -> void:
 	super()
 	if substance == null:
 		substance = load('res://Scenes/Objects/DummyLiquidSubstance.tscn')
@@ -25,9 +25,9 @@ func _ready():
 	
 	SetupVisual()
 
-func SetupVisual():
-	var sprite
-	var fillsprite
+func SetupVisual() -> void:
+	var sprite: Sprite2D
+	var fillsprite: Sprite2D
 	
 	if containerType == ContainerType.ERLENMEYER_FLASK:
 			sprite = $Sprites/FlaskSprite
@@ -49,22 +49,25 @@ func SetupVisual():
 		fillsprite.show()
 		if contents: fillsprite.modulate = contents.color
 
-func SetOverrideImage(new):
+func SetOverrideImage(new: Texture2D) -> void:
 	image = new
 	SetupVisual()
 
-func SetContainerType(new):
+func SetContainerType(new: ContainerType) -> void:
 	containerType = new
 	SetupVisual()
 
-func CheckContents(group):
+func CheckContents(group: StringName) -> bool:
 	return contents.is_in_group(group)
 
-func TakeContents(volume = -1):
+func TakeContents(volume: int = -1) -> Array:
+	# TODO: This funciton originially had "return null" as the last line,
+	# but this does not work with static typing, so I replaced it with
+	# returning the substance because it is already null
 	if substance == null:
-		return null
+		return [substance]
 	
-	var new_content = substance.instantiate()
+	var new_content: Substance = substance.instantiate()
 	if substance_parameters != null:
 		new_content.initialize(substance_parameters)
 		print(str(contents.particle_sizes))
@@ -74,5 +77,5 @@ func TakeContents(volume = -1):
 	print("Dispensed some of the stored substance")
 	return [new_content]
 
-func AddContents(new_contents):
+func AddContents(new_contents: Substance) -> void:
 	pass
