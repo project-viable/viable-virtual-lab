@@ -19,9 +19,9 @@ func _init() -> void:
 
 func init_mixed(parent_substances: Array[Substance]) -> void:
 	# determine the gel ratio from the parent masses
-	var agar_props := parent_substances[0].get_properties() if parent_substances[0].name == "AgarPowderSubstance" \
+	var agar_props: Dictionary = parent_substances[0].get_properties() if parent_substances[0].name == "AgarPowderSubstance" \
 		else parent_substances[1].get_properties()
-	var binder_props := parent_substances[0].get_properties() if parent_substances[1].name == "AgarPowderSubstance" \
+	var binder_props: Dictionary= parent_substances[0].get_properties() if parent_substances[1].name == "AgarPowderSubstance" \
 		else parent_substances[1].get_properties()
 	gel_ratio = agar_props['volume'] / binder_props['volume']
 	print('Got gel ratio '+str(gel_ratio))
