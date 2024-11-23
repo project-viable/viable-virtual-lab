@@ -4,13 +4,13 @@ class_name LabContainer
 
 # This container models a container (like a flask) that can be emptied of its contents.
 
-var contents: Array = []
+var contents: Array[Substance] = []
 
 func LabObjectReady() -> void:
 	update_display()
 
-func TryInteract(other_substance: Array) -> bool:
-	for substance: Node in other_substance:
+func TryInteract(other_substance: Array[Substance]) -> bool:
+	for substance in other_substance:
 		if(substance.is_in_group('Container')):
 			# transfer contents to another container
 			substance.AddContents(TakeContents())
@@ -22,23 +22,23 @@ func TryActIndependently() -> bool:
 	$FollowMenu.visible = !$FollowMenu.visible
 	return true
 
-func CheckContents(group: String) -> Array:
+func CheckContents(group: String) -> Array[bool]:
 	print('Checking for '+group)
-	var check_results: Array = []
-	for content: Node in contents:
+	var check_results: Array[bool] = []
+	for content in contents:
 		check_results.append(content.is_in_group(group))
 	return check_results
 
-func TakeContents(volume: int = -1) -> Array:
+func TakeContents(volume: int = -1) -> Array[Substance]:
 	# check for whether we can distribute the contents by volume
 	if(volume != -1 && len(contents) == 1):
 		if(volume >= contents[0].volume):
 			return [contents.pop_front()]
 		
 		# make a duplicate substance with the desired volume
-		var dispensed_subst: Node = contents[0].duplicate()
+		var dispensed_subst:= contents[0].duplicate()
 		var original_props: Dictionary = contents[0].get_properties()
-		var dispensed_props: Dictionary = original_props.duplicate()
+		var dispensed_props:= original_props.duplicate()
 		
 		var remaining_volume: int = contents[0].volume - volume
 		dispensed_props["volume"] = volume
@@ -54,14 +54,14 @@ func TakeContents(volume: int = -1) -> Array:
 		update_display()
 		return [dispensed_subst]
 	
-	var all_contents: Array = contents.duplicate(true)
+	var all_contents: Array[Substance] = contents.duplicate(true)
 	contents.clear()
 	print("Emptied container of its contents")
 	update_weight()
 	update_display()
 	return all_contents
 
-func AddContents(new_contents: Array) -> void:
+func AddContents(new_contents: Array[Substance]) -> void:
 	for new_content: Node in new_contents:
 		var match_found: bool = false
 		
@@ -89,68 +89,68 @@ func AddContents(new_contents: Array) -> void:
 	update_weight()
 	update_display()
 
-func update_weight():
-	var overall_weight = 0 #self.mass
+func update_weight() -> void:
+	var overall_weight:= 0 #self.mass
 	for content in contents:
 		if(content.is_in_group("Weighable")):
 			overall_weight += content.get_mass()
-	weight = overall_weight
+	mass = overall_weight
 
-func heat(heatTime):
+func heat(heatTime: float) -> void:
 	print("LabContainer is being heated")
 	# pass heating along to the container's contents
 	for content in contents:
 		if(content.is_in_group("Heatable")):
 			content.heat(heatTime)
 
-func chill(chillTime):
+func chill(chillTime: float) -> void:
 	# pass chilling along to the container's contents
 	for content in contents:
 		if(content.is_in_group("Chillable")):
 			content.chill(chillTime)
 
-func run_current(voltage, time):
+func run_current(voltage: float, time: float) -> void:
 	# pass current along to the container's contents
 	for content in contents:
 		if(content.is_in_group("Conductive")):
 			content.run_current(voltage, time)
 
-func mix():
+func mix() -> void:
 	# mix together all mixable contents
-	var mixable_contents = []
-	var removal_indices = []
+	var mixable_contents: Array[Substance] = []
+	var removal_indices: Array[int] = []
 	for i in range(len(contents)):
 		if(contents[i].is_in_group("Mixable")):
 			mixable_contents.append(contents[i])
 			removal_indices.append(i)
 	
-	var mix_result = get_node('../MixManager').mix(mixable_contents)
+	var mix_result: Array[Substance] = get_node('../MixManager').mix(mixable_contents)
 	if(mix_result != null):
 		# prevent index-shifting by resolving removals in reverse-sorted order
 		removal_indices.sort()
-		removal_indices.invert()
+		removal_indices.reverse()
 		
-		for index in removal_indices:
+		for index: int in removal_indices:
 			contents.pop_at(index)
 		
-		AddContents([mix_result])
+		AddContents(mix_result)
 	update_weight()
 
-func dispose():
+func dispose() -> void:
 	contents.clear()
 	update_display()
 
-func update_display():
+func update_display() -> void:
 	# static change from "empty" to "filled" for now
 	$FillSprite.visible = (len(contents) > 0)
 	
 	###Now we need to calculate the average color of our contents:
 	if len(contents) > 0:
-		var r = 0
-		var g = 0
-		var b = 0
-		var a = 0
-		var volume = 0
+		var r: float = 0
+		var g: float = 0
+		var b: float = 0
+		var a: float = 0
+		var volume: float = 0
 		
 		for content in contents:
 			r += Color(content.color).r * content.volume
@@ -169,6 +169,6 @@ func update_display():
 		
 		$FillSprite.modulate = Color(r, g, b, a)
 
-func _on_Button_pressed():
+func _on_Button_pressed() -> void:
 	mix()
 	$FollowMenu.visible = false
