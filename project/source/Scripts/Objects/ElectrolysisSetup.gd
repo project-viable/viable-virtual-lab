@@ -2,12 +2,7 @@ extends LabObject
 
 var fill_substance: Substance = null
 
-# TODO (update): This is treated as if it should hold a reference to some object, but it's set to
-# `true` in `ElectrodeTerminal.gd`. Either the external code should be modified to treat this
-# exclusively as `bool`, or it should be changed to some reference type and treated as such. The
-# latter might be worth doing if this class might eventually want to access the current source (I
-# assume this refers to the object supplying the current).
-var current_source: bool = null
+var has_current_source: bool = false
 var mounted_container: GelMoldSubsceneManager = null # This container reference should contain the substance to run
 
 var fill_requested: bool = false
@@ -62,7 +57,7 @@ func TryInteract(others: Array[LabObject]) -> bool:
 				fill_requested = false
 
 func able_to_run_current(print_text: bool = false) -> bool:
-	if(current_source == null || !$PosTerminal.connected() || !$NegTerminal.connected()):
+	if(!has_current_source || !$PosTerminal.connected() || !$NegTerminal.connected()):
 		if print_text:
 			print('There is no current source attached.')
 		return false

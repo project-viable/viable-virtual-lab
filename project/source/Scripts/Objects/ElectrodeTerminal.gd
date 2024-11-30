@@ -34,13 +34,13 @@ func TryInteract(others: Array[LabObject]) -> void:
 								# Set direction to neutral in contact wire
 								if "current_direction" in parent:
 									parent.current_direction = ContactWire.NEUTRAL
-								if "current_source" in self.get_parent():
+								if "has_current_source" in self.get_parent():
 									# Remove current_source
-									self.get_parent().current_source = null
+									self.get_parent().has_current_source = false
 						
-					if "current_source" in self.get_parent():
+					if "has_current_source" in self.get_parent():
 						# Add current_source
-						connection_device.current_source = true
+						connection_device.has_current_source = true
 					
 					var curr_source: LabObject = null
 					var curr_target: LabObject = null
