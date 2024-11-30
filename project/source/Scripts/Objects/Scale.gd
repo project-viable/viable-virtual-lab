@@ -26,8 +26,8 @@ func TryInteract(others: Array[LabObject]) -> bool:
 func UpdateWeight() -> void:
 	var test_weight := 0.0
 	for object in objects:
-		print(object.get_name() + str(object.weight))
-		test_weight += object.weight
+		print(object.get_name() + str(object.mass))
+		test_weight += object.mass
 	current_weight = test_weight
 	
 	update_display()

@@ -191,9 +191,7 @@ func update_weight() -> void:
 		if(content.is_in_group("Weighable")):
 			overall_weight += content.get_mass()
 
-	# TODO (update): `weight` is a property in physics objects that has been replaced with `mass`,
-	# so that should be changed.
-	weight = overall_weight
+	mass = overall_weight
 
 func TakeContents(volume: float = -1) -> Array[Substance]:
 	# check for whether we can distribute the contents by volume
