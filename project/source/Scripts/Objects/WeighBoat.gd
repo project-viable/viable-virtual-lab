@@ -77,11 +77,11 @@ func scale_check() -> bool:
 	return false
 			
 func update_weight() -> void:
-	weight = .4 #self mass
+	mass = .4 #self mass
 	for object: Substance in contents:
-		weight += object.get_mass()
+		mass += object.get_mass()
 
 func dispose() -> void:
 	contents.clear()
 	update_display()
-	weight = .4
+	mass = .4
