@@ -1,12 +1,12 @@
 extends LabContainer
 
 
-func _ready():
+func _ready() -> void:
 	pass # LabContainer does not have a _ready() function
 
 
-func TryActIndependently() -> void:
-	pass
+func TryActIndependently() -> bool:
+	return false
 
 func AddContents(new_contents: Array[Substance]) -> void:
 	for new_content: Substance in new_contents:
