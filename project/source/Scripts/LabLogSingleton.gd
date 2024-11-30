@@ -12,7 +12,7 @@ extends Node
 #{'message': "something", 'hidden': false, 'popup': false}
 #log data will be used by other things. This node just stores them and notifies others when they change.
 var logs: Dictionary = {}
-signal NewMessage(category: String, newLog: LabLog)
+signal NewMessage(category: String, newLog: Dictionary)
 signal LogsCleared()
 signal ReportShown()
 
