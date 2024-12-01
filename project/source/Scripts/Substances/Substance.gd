@@ -56,10 +56,10 @@ func get_properties():
 		"density": density
 	}
 	
-func heat(heatTime):
+func heat(heat_time):
 	pass
 
-func chill(chillTime):
+func chill(chill_time):
 	pass
 	
 func run_current(voltage, time):

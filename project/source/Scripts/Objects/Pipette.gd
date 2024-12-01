@@ -18,8 +18,8 @@ var do_actions: bool = true #used to allow modifying the plunger's state by code
 var contents: Array[Substance] = [] #current contents
 var tip_contaminants: Array[Substance] = [] #stores what the pipette has drawn in since the last time the tip was replaced
 
-func SetHasTip(newVal: bool) -> void:
-	has_tip = newVal
+func SetHasTip(new_val: bool) -> void:
+	has_tip = new_val
 	tip_contaminants = []
 	
 	$BaseSprite.visible = !has_tip
@@ -33,8 +33,8 @@ func SetHasTip(newVal: bool) -> void:
 		
 		remove_from_group("Disposable-Hazard")
 
-func SetDrawVolume(newVal: float) -> void:
-	draw_volume = newVal
+func SetDrawVolume(new_val: float) -> void:
+	draw_volume = new_val
 	
 	if draw_volume < min_capacity:
 		LabLog.Warn("Setting this micropipette to a volume lower than its minimum (" + str(min_capacity) + ") could break it!")

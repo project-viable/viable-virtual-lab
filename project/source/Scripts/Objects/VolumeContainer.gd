@@ -20,7 +20,7 @@ func GetMaxVolume() -> float:
 	return max_volume
 
 func SetVolume(new_volume: float) -> void:
-	# If the newVolume is less than or equal to max_volume, update the volume variable
+	# If the new_volume is less than or equal to max_volume, update the volume variable
 	# Otherwise, set it to the max_volume for now
 	if new_volume >= 0:
 		if new_volume <= max_volume:
