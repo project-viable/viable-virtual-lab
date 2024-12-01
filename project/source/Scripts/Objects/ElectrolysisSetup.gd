@@ -18,26 +18,26 @@ func LabObjectReady() -> void:
 	$GelSimMenu.hide()
 	$FollowMenu/SubstanceMenu.hide()
 
-# TODO (update): This should return a `bool` for whether it successfully interacted.
 func TryInteract(others: Array[LabObject]) -> bool:
 	if fill_substance:
-		return
+		return false
+
 	for other in others:
 		if other.is_in_group("Container") or other.is_in_group("Liquid Container") or other.is_in_group("Source Container"):
 			# We need an ionic substance for the electrolysis setup to run
 			var ionic_substance: Array[bool] = other.CheckContents("Ionic Substance")
-			
+
 			if ionic_substance == []:
-				return
+				return false
 
 			if(!(ionic_substance[0])):
-				return
+				return false
 
 			# Open substance menu
 			$FollowMenu/SubstanceMenu.visible = true
-			
+
 			await self.menu_closed
-			
+
 			if(fill_requested):
 				# fill the setup with the container contents
 				fill_substance = other.TakeContents()[0]
@@ -53,8 +53,10 @@ func TryInteract(others: Array[LabObject]) -> bool:
 					print('The setup is already filled.')
 				else:
 					print('The setup cannot be filled with that.')
-				
-				fill_requested = false
+
+			return true
+
+	return false
 
 func able_to_run_current(print_text: bool = false) -> bool:
 	if(!has_current_source || !$PosTerminal.connected() || !$NegTerminal.connected()):
@@ -75,13 +77,13 @@ func run_current(voltage: float, time: float, print_text := false) -> void:
 	if able_to_run_current((print_text)):
 		# run current through the container
 		mounted_container.run_current(voltage, time)
-		
+
 		# update the gel display
 		var content: LabObject = $ObjectSlot.get_object()
 		if(content != null):
 			if(content.is_in_group('Gel Boat')):
 				$GelSimMenu/GelDisplay.update_bands(content.calculate_positions())
-		
+
 		if(!$GelSimMenu.visible):
 			$GelSimMenu.visible = true
 			$GelSimMenu/GelDisplay.open()
@@ -94,13 +96,13 @@ func slot_filled(slot: ObjectSlot, object: LabObject) -> void:
 		mounted_container = object
 		var gelMoldInfo := object.GelMoldInfo()
 		mounted_container.visible = false
-		
+
 		# Change texture if it has wells
 		if gelMoldInfo["hasComb"]:
 			$Sprite2D.texture = filled_comb_texture
 		elif gelMoldInfo["hasWells"]:
 			$Sprite2D.texture = filled_wells_texture
-		
+
 		# TODO (update): `gel_status` returns an array in the form [m, w] where m is a
 		# `GelMoldSubsceneManager` (equal to `mounted_container`) and w is a `bool`. This can
 		# probably just be changed to return `bool` and `init` here can be called as
@@ -115,17 +117,17 @@ func slot_emptied(slot: ObjectSlot, object: LabObject) -> void:
 	if mounted_container == null:
 		return
 	mounted_container.visible = true
-	
+
 	# We should prevent showing the subscene on removing the gel boat
 	# as that should be done when the user clicks it, not when removing it
 	if mounted_container.is_in_group("SubsceneManagers"):
 		mounted_container.HideSubscene();
-	
+
 	if fill_substance == null:
 		$Sprite2D.texture = nonfilled_texture
 	else:
 		$Sprite2D.texture = filled_texture
-		
+
 	mounted_container.position = Vector2(self.position.x - 170, self.position.y - 20)
 	mounted_container = null
 
