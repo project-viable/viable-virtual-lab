@@ -11,43 +11,43 @@ extends Node
 #each log is stored as dictionaries like this:
 #{'message': "something", 'hidden': false, 'popup': false}
 #log data will be used by other things. This node just stores them and notifies others when they change.
-var logs = {}
-signal NewMessage(category, new_log)
+var logs: Dictionary = {}
+signal NewMessage(category: String, new_log: LabLog)
 signal LogsCleared()
 signal ReportShown()
 
-func AddLogMessage(category: String, message: String, hidden: bool = false, popup: bool = false):
+func AddLogMessage(category: String, message: String, hidden: bool = false, popup: bool = false) -> void:
 	if not logs.has(category):
 		logs[category] = []
 	
-	var new_log = {'message': message, 'hidden': hidden, 'popup': popup}
+	var new_log: Dictionary = {'message': message, 'hidden': hidden, 'popup': popup}
 	logs[category].append(new_log)
 	
 	emit_signal("NewMessage", category, new_log)
 
 #returns the entire logs structure, defined above.
-func GetLogs():
+func GetLogs() -> Dictionary:
 	return logs.duplicate(true)
 
 #clears all the logs
-func ClearLogs():
+func ClearLogs() -> void:
 	logs = {}
 	emit_signal("LogsCleared")
 
 #This is just for convenience - instead of having to find the final report UI node, just call LabLog.ShowReport() and it'll make sure that everyone who needs to know about it does.
-func ShowReport():
+func ShowReport() -> void:
 	emit_signal("ReportShown")
 
 #========Convenience Functions========
 #all of these are just prettier ways of calling AddLogMessage
 #the intent is that you should only ever have to call these
 
-func Log(message: String, hidden: bool = false, popup: bool = true):
+func Log(message: String, hidden: bool = false, popup: bool = true) -> void:
 	AddLogMessage("log", message, hidden, popup)
 
-func Warn(message: String, hidden: bool = false, popup: bool = true):
+func Warn(message: String, hidden: bool = false, popup: bool = true) -> void:
 	AddLogMessage("warning", message, hidden, popup)
 
 #errors should generally always popup, and should not be hidden.
-func Error(message: String):
+func Error(message: String) -> void:
 	AddLogMessage("error", message, false, true)
