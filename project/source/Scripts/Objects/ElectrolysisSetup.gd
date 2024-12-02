@@ -4,7 +4,14 @@ var fill_substance = null
 var current_source = null
 var mounted_container = null # This container reference should contain the substance to run
 
+<<<<<<< HEAD
 var fill_requested = false
+=======
+var has_current_source: bool = false
+var mounted_container: GelMoldSubsceneManager = null # This container reference should contain the substance to run
+
+var fill_requested: bool = false
+>>>>>>> d23adb1b6bb39a5004894396003ecb1aba517785
 
 signal menu_closed
 
@@ -55,7 +62,7 @@ func TryInteract(others):
 				fill_requested = false
 
 func able_to_run_current(print_text: bool = false) -> bool:
-	if(current_source == null || !$PosTerminal.connected() || !$NegTerminal.connected()):
+	if(!has_current_source || !$PosTerminal.connected() || !$NegTerminal.connected()):
 		if print_text:
 			print('There is no current source attached.')
 		return false

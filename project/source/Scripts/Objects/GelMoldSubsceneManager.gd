@@ -177,7 +177,12 @@ func update_weight():
 	for content in contents:
 		if(content.is_in_group("Weighable")):
 			overall_weight += content.get_mass()
+<<<<<<< HEAD
 	weight = overall_weight
+=======
+
+	mass = overall_weight
+>>>>>>> d23adb1b6bb39a5004894396003ecb1aba517785
 
 func TakeContents(volume = -1):
 	# check for whether we can distribute the contents by volume

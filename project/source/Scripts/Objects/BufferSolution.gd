@@ -14,7 +14,7 @@ func _ready() -> void:
 func CheckContents(group:String) -> bool:
 	return contents.is_in_group(group)
 
-func TakeContents() -> Array:
+func TakeContents() -> Array[Node]:
 	if substance == null:
 		return [null]
 	
@@ -22,5 +22,5 @@ func TakeContents() -> Array:
 	print("Dispensed some of TAE Buffer Solution")
 	return [new_content]
 
-func AddContents(new_contents:Array) -> void:
+func AddContents(new_contents:Array[Node]) -> void:
 	pass

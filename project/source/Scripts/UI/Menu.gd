@@ -12,10 +12,18 @@ var logs: Array = []
 
 #This function is mostly copied from online.
 #It seems like godot 3.5 does not have a convenient function for this.
+<<<<<<< HEAD
 func GetAllFilesInFolder(path):
 	var result = []
 	var dir = DirAccess.new()
 	if dir.open(path) == OK:
+=======
+func GetAllFilesInFolder(path: String) -> Array[String]:
+	var result: Array[String] = []
+
+	var dir: DirAccess = DirAccess.open(path)
+	if dir != null:
+>>>>>>> d23adb1b6bb39a5004894396003ecb1aba517785
 		dir.list_dir_begin()  #skip . and .. but don't skop hidden files# TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var file_name = dir.get_next()
 		while file_name != "":
@@ -82,7 +90,12 @@ func _process(delta):
 		if !popupActive:
 			if logs[0]['newLog']['popup']:
 				ShowPopup(logs[0]['category'], logs[0]['newLog'])
+<<<<<<< HEAD
 			logs.remove(0)
+=======
+			logs.remove_at(0)
+
+>>>>>>> d23adb1b6bb39a5004894396003ecb1aba517785
 
 func ModuleSelected(module: ModuleData):
 	get_parent().SetScene(module.Scene)
@@ -184,9 +197,15 @@ func SetLogNotificationCounts(tab = -1):
 
 func _on_LabLog_Report_Shown():
 	#Show all the warnings and errors
+<<<<<<< HEAD
 	var logsText = ""
 	var allLogs = LabLog.GetLogs()
 	for warning in allLogs.get('warning', []):
+=======
+	var logsText := ""
+	var allLogs: Dictionary = LabLog.GetLogs()
+	for warning: Dictionary in allLogs.get('warning', []):
+>>>>>>> d23adb1b6bb39a5004894396003ecb1aba517785
 		logsText += "[color=yellow]-" + warning['message'] + "[/color]\n"
 	for error in allLogs.get('error', []):
 		logsText += "[color=red]-" + error['message'] + "[/color]\n"

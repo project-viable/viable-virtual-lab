@@ -1,8 +1,14 @@
 extends LabObject
 
+<<<<<<< HEAD
 var heatTime = null #heatTime is in seconds
 var timeArray = []
 var heatable = null # Stores the heatable interacting with the microwave in order to let the function wait
+=======
+var heatTime: int = 0 #heatTime is in seconds
+var timeArray: Array[int] = []
+var heatable: LabObject = null # Stores the heatable interacting with the microwave in order to let the function wait
+>>>>>>> d23adb1b6bb39a5004894396003ecb1aba517785
 					#For the menu input to end before heating
 
 func _ready():
@@ -13,7 +19,7 @@ func getTime():
 	var arrayLen = len(timeArray)
 	match arrayLen:
 		0:
-			return null #If no inputs/cancel pressed, return null for no heating
+			return 0 #If no inputs/cancel pressed, return null for no heating
 		1:
 			return timeArray[0] # heat time is <10 seconds
 		2:
@@ -24,11 +30,18 @@ func getTime():
 																#and by a power of 10 dependent on place in the number
 			temp += (timeArray[arrayLen - 2] * 10) + timeArray[arrayLen - 1] #Add in the seconds
 			return temp
+<<<<<<< HEAD
 	return null
 	
 func displayTime(): #Made to display the microwave time in the TimeLabel
 	var time = ""
 	var arrayLen = len(timeArray)
+=======
+
+func displayTime() -> void: #Made to display the microwave time in the TimeLabel
+	var time := ""
+	var arrayLen := len(timeArray)
+>>>>>>> d23adb1b6bb39a5004894396003ecb1aba517785
 	match arrayLen:
 		0:
 			$Menu/PanelContainer/VBoxContainer/TimeLabel.text = "0:00" #default time is 0
@@ -117,7 +130,7 @@ func _on_BackButton_pressed():
 func _on_StartButton_pressed():
 	$Menu.hide() #Just hide the menu so the tryInteract function continues with current array contents
 	heatTime = getTime()
-	if(heatTime != null):#If it should heat
+	if(heatTime != 0):#If it should heat
 		print("Heattime check " + str(heatTime))
 		heatable.heat(heatTime)
 		LabLog.Log("Microwaved for " + str(heatTime) + " seconds.", false, true)
