@@ -5,7 +5,6 @@ class_name ObjectSlot
 @export var allowed_groups: Array[String] = ['Container', 'Liquid Container']
 var held_object: LabObject = null
 
-# TODO (update): This should return `true` if it interacts successfully.
 func TryInteract(others: Array[LabObject]) -> bool:
 	for other in others:
 		for allowed_group in allowed_groups:
@@ -21,6 +20,10 @@ func TryInteract(others: Array[LabObject]) -> bool:
 					other.set_deferred("position", Vector2.ZERO)
 					
 					get_parent().slot_filled(self, other)
+
+					return true
+
+	return false
 
 func filled() -> bool:
 	return (held_object != null)
