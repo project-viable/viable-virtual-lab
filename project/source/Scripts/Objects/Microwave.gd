@@ -1,9 +1,7 @@
 extends LabObject
 
-# TODO (update): Since it's a `float`, `heatTime` cannot be null; perhaps this should be
-# represented with a negative time or by just designing it so it will never be invalid.
-var heatTime: float = null #heatTime is in seconds
-var timeArray: Array[float] = []
+var heatTime: int = 0 #heatTime is in seconds
+var timeArray: Array[int] = []
 var heatable: LabObject = null # Stores the heatable interacting with the microwave in order to let the function wait
 					#For the menu input to end before heating
 
@@ -16,7 +14,7 @@ func getTime() -> float:
 	var arrayLen := len(timeArray)
 	match arrayLen:
 		0:
-			return null #If no inputs/cancel pressed, return null for no heating
+			return 0 #If no inputs/cancel pressed, return null for no heating
 		1:
 			return timeArray[0] # heat time is <10 seconds
 		2:
@@ -27,8 +25,7 @@ func getTime() -> float:
 																#and by a power of 10 dependent on place in the number
 			temp += (timeArray[arrayLen - 2] * 10) + timeArray[arrayLen - 1] #Add in the seconds
 			return temp
-	return null
-	
+
 func displayTime() -> void: #Made to display the microwave time in the TimeLabel
 	var time := ""
 	var arrayLen := len(timeArray)
@@ -124,7 +121,7 @@ func _on_BackButton_pressed() -> void:
 func _on_StartButton_pressed() -> void:
 	$Menu.hide() #Just hide the menu so the tryInteract function continues with current array contents
 	heatTime = getTime()
-	if(heatTime != null):#If it should heat
+	if(heatTime != 0):#If it should heat
 		print("Heattime check " + str(heatTime))
 		heatable.heat(heatTime)
 		LabLog.Log("Microwaved for " + str(heatTime) + " seconds.", false, true)
