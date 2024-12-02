@@ -54,6 +54,10 @@ func TryInteract(others: Array[LabObject]) -> bool:
 			$Menu.visible = !$Menu.visible #show popup menu
 			displayTime()#Display default time
 
+			return true
+
+	return false
+
 
 # TODO (update): This can be just one function `_on_number_button_pressed(digit: int)`, which can
 # have the corresponding digit bound to the argument when the signal is connected.
