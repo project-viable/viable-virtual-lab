@@ -63,9 +63,9 @@ func CheckContents(group: StringName) -> bool:
 func TakeContents(volume: int = -1) -> Array:
 	# TODO: This funciton originially had "return null" as the last line,
 	# but this does not work with static typing, so I replaced it with
-	# returning the substance because it is already null
+	# returning an empty array
 	if substance == null:
-		return [substance]
+		return []
 	
 	var new_content: Substance = substance.instantiate()
 	if substance_parameters != null:
