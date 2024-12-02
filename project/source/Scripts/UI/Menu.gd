@@ -1,25 +1,23 @@
 extends CanvasLayer
 
-var ModuleDirectory: String = "res://Modules/"
-var ModuleButton: PackedScene = load("res://Scenes/UI/ModuleSelectButton.tscn")
+var ModuleDirectory = "res://Modules/"
+var ModuleButton = load("res://Scenes/UI/ModuleSelectButton.tscn")
 
 var currentModule: ModuleData = null
 
-var unreadLogs: Dictionary = {'log': 0, 'warning': 0, 'error': 0}
+var unreadLogs = {'log': 0, 'warning': 0, 'error': 0}
 
 var popupActive: bool = false
-var logs: Array[Dictionary] = []
+var logs: Array = []
 
 #This function is mostly copied from online.
 #It seems like godot 3.5 does not have a convenient function for this.
-func GetAllFilesInFolder(path: String) -> Array[String]:
-	var result: Array[String] = []
-
-	# TODO (update): Use `DirAccess.open` instead of instantiating it directly.
-	var dir := DirAccess.new()
+func GetAllFilesInFolder(path):
+	var result = []
+	var dir = DirAccess.new()
 	if dir.open(path) == OK:
 		dir.list_dir_begin()  #skip . and .. but don't skop hidden files# TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-		var file_name: String = dir.get_next()
+		var file_name = dir.get_next()
 		while file_name != "":
 			if not dir.current_is_dir():
 				result.append(file_name)
@@ -29,7 +27,7 @@ func GetAllFilesInFolder(path: String) -> Array[String]:
 	return result
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func _ready():
 	# Due to having one module, the MainMenu should be hidden by default
 	# When more modules are added, it is likely a good idea to show MainMenu by default
 	$MainMenu.hide()
@@ -44,9 +42,9 @@ func _ready() -> void:
 	
 	#Set up the module select buttons
 	for file in GetAllFilesInFolder(ModuleDirectory):
-		var moduleData: ModuleData = load(ModuleDirectory + file)
+		var moduleData = load(ModuleDirectory + file)
 		if moduleData.Show:
-			var newButton := ModuleButton.instantiate()
+			var newButton = ModuleButton.instantiate()
 			newButton.SetData(moduleData)
 			newButton.connect("pressed", Callable(self, "ModuleSelected").bind(moduleData))
 			$ModuleSelect.add_child(newButton)
@@ -66,7 +64,7 @@ func _ready() -> void:
 	ModuleSelected(module)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(delta):
 	if Input.is_action_just_pressed("ToggleMenu"):
 		if $MainMenu.visible:
 			$MainMenu.hide()
@@ -84,31 +82,29 @@ func _process(delta: float) -> void:
 		if !popupActive:
 			if logs[0]['newLog']['popup']:
 				ShowPopup(logs[0]['category'], logs[0]['newLog'])
-
-			# TODO (update): This should be `remove_at`.
 			logs.remove(0)
 
-func ModuleSelected(module: ModuleData) -> void:
+func ModuleSelected(module: ModuleData):
 	get_parent().SetScene(module.Scene)
 	$ModuleSelect.hide()
 	currentModule = module
 	$LogButton.show()
 	$LogButton/LogMenu/Instructions.text = module.InstructionsBBCode
 
-func _on_SelectModuleButton_pressed() -> void:
+func _on_SelectModuleButton_pressed():
 	$MainMenu.hide()
 	$ModuleSelect.show()
 
-func _on_AboutButton_pressed() -> void:
+func _on_AboutButton_pressed():
 	$AboutScreen.show()
 
-func _on_LogButton_pressed() -> void:
+func _on_LogButton_pressed():
 	$LogButton/LogMenu.visible = ! $LogButton/LogMenu.visible
 	SetLogNotificationCounts()
 
-func _on_New_Log_Message(category: String, newLog: Dictionary) -> void:
+func _on_New_Log_Message(category, newLog):
 	if not newLog['hidden']:
-		var bbcode: String = ("-" + newLog['message'] + "\n")
+		var bbcode = ("-" + newLog['message'] + "\n")
 		if category == 'log':
 			unreadLogs['log'] += 1
 			$LogButton/LogMenu/Log.text += bbcode
@@ -127,7 +123,7 @@ func _on_New_Log_Message(category: String, newLog: Dictionary) -> void:
 func ShowPopup(category: String, newLog: Dictionary) -> void:
 	$LabLogPopup/Panel/VBoxContainer/Type.text = category.capitalize()
 	$LabLogPopup/Panel/VBoxContainer/Description.text = newLog['message'][0].to_upper() + newLog['message'].substr(1, -1)
-	var color: Color
+	var color
 	match category:
 		"log":
 			color = Color(0.0, 0.0, 1.0, 1.0)
@@ -147,7 +143,7 @@ func ShowPopup(category: String, newLog: Dictionary) -> void:
 func SetPopupBorderColor(color: Color) -> void:
 	$LabLogPopup/Border.border_color = color
 
-func _on_Logs_Cleared() -> void:
+func _on_Logs_Cleared():
 	unreadLogs['log'] = 0
 	unreadLogs['warning'] = 0
 	unreadLogs['error'] = 0
@@ -155,8 +151,7 @@ func _on_Logs_Cleared() -> void:
 	$LogButton/LogMenu/Warnings.text = ""
 	$LogButton/LogMenu/Errors.text = ""
 
-# TODO (update): `tab` is unused. We should figure out why this was included.
-func SetLogNotificationCounts(tab: int = -1) -> void:
+func SetLogNotificationCounts(tab = -1):
 	if $LogButton/LogMenu.visible:
 		if $LogButton/LogMenu.current_tab == 1:
 			unreadLogs['log'] = 0
@@ -187,13 +182,13 @@ func SetLogNotificationCounts(tab: int = -1) -> void:
 		$LogButton/LogMenu.set_tab_title(3, "Errors (" + str(unreadLogs['error']) + "!)")
 		$LogButton/Notifications/Error.show()
 
-func _on_LabLog_Report_Shown() -> void:
+func _on_LabLog_Report_Shown():
 	#Show all the warnings and errors
-	var logsText := ""
-	var allLogs := LabLog.GetLogs()
-	for warning: Dictionary in allLogs.get('warning', []):
+	var logsText = ""
+	var allLogs = LabLog.GetLogs()
+	for warning in allLogs.get('warning', []):
 		logsText += "[color=yellow]-" + warning['message'] + "[/color]\n"
-	for error: Dictionary in allLogs.get('error', []):
+	for error in allLogs.get('error', []):
 		logsText += "[color=red]-" + error['message'] + "[/color]\n"
 	
 	if logsText != "":
@@ -209,34 +204,34 @@ func _on_LabLog_Report_Shown() -> void:
 	$FinalReport.set_anchors_preset(Control.PRESET_CENTER)
 	$FinalReport.show()
 
-func _on_FinalReport_MainMenuButton_pressed() -> void:
+func _on_FinalReport_MainMenuButton_pressed():
 	get_tree().reload_current_scene()
 
-func _on_FinalReport_RestartModuleButton_pressed() -> void:
+func _on_FinalReport_RestartModuleButton_pressed():
 	get_parent().SetScene(currentModule.Scene)
 	SetLogNotificationCounts()
 	$FinalReport.hide()
 
-func _on_FinalReport_ContinueButton_pressed() -> void:
+func _on_FinalReport_ContinueButton_pressed():
 	$FinalReport.hide()
 
-func _on_About_CloseButton_pressed() -> void:
+func _on_About_CloseButton_pressed():
 	$AboutScreen.hide()
 
-func _on_OptionsButton_pressed() -> void:
+func _on_OptionsButton_pressed():
 	$OptionsScreen.show()
 	$OptionsScreen/VBoxContainer/MouseDragToggle.button_pressed = GameSettings.mouseCameraDrag
 	$OptionsScreen/VBoxContainer/ObjectTooltipsToggle.button_pressed = GameSettings.objectTooltips
 	$OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout.value = GameSettings.popupTimeout
 
-func _on_CloseButton_pressed() -> void:
+func _on_CloseButton_pressed():
 	$OptionsScreen.hide()
 
-func _on_MouseDragToggle_toggled(button_pressed: bool) -> void:
+func _on_MouseDragToggle_toggled(button_pressed):
 	GameSettings.mouseCameraDrag = button_pressed
 
-func _on_ObjectTooltipsToggle_toggled(button_pressed: bool) -> void:
+func _on_ObjectTooltipsToggle_toggled(button_pressed):
 	GameSettings.objectTooltips = button_pressed
 
-func _on_PopupTimeout_value_changed(value: float) -> void:
+func _on_PopupTimeout_value_changed(value: float):
 	GameSettings.popupTimeout = value

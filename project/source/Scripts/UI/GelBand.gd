@@ -1,20 +1,20 @@
 extends CharacterBody2D
 
-var well_index: int = -1
-var band_index: int = -1
+var well_index = -1
+var band_index = -1
 
-func set_band_ids(well_id: int, band_id: int) -> void:
+func set_band_ids(well_id, band_id):
 	well_index = well_id
 	band_index = band_id
 
-func is_same_band(band_data: Array[int]) -> bool:
+func is_same_band(band_data):
 	return (band_data[0] == well_index && band_data[1] == band_index)
 
-func is_same_well(band_data: Array[int]) -> bool:
+func is_same_well(band_data):
 	return (band_data[0] == well_index)
 
-func update_display(uv_on: bool, show_without_UV: bool, textures: Array[Texture2D], lastBand: bool) -> void:
-	var tex_id := (1 if uv_on else 0) # another weird godot-style ternary
+func update_display(uv_on, show_without_UV, textures, lastBand):
+	var tex_id = (1 if uv_on else 0) # another weird godot-style ternary
 	$Sprite2D.texture = textures[tex_id]
 	
 	if(!show_without_UV):
@@ -25,6 +25,6 @@ func update_display(uv_on: bool, show_without_UV: bool, textures: Array[Texture2
 	else:
 		visible = true
 
-func move_band(move_vec: Vector2) -> void:
+func move_band(move_vec):
 	set_velocity(move_vec)
 	move_and_slide()

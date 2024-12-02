@@ -2,22 +2,22 @@
 extends Node2D
 class_name CurrentConductor
 
-var volts: float = 0.0
-var time: float = 0.0 # in minutes
+var volts = 0
+var time = 0 # in minutes
 
-func _ready() -> void:
+func _ready():
 	pass
 	
-func GetVolts() -> float:
+func GetVolts():
 	return volts
 
-func SetVolts(newVolts: float) -> void:
+func SetVolts(newVolts):
 	if newVolts >= 0:
 		volts = newVolts
 
-func GetTime() -> float:
+func GetTime():
 	return time
 	
-func SetTime(newTime: float) -> void:
+func SetTime(newTime):
 	if time >= 0:
 		time = newTime

@@ -6,7 +6,7 @@ class_name CurrentChecker
 @export var TooLowMessage: String
 @export var ReversedMessage: String
 
-func CheckAction(params: Dictionary) -> void:
+func CheckAction(params: Dictionary):
 	if params['actionType'] == 'runCurrent' and params.get('voltage'):
 		if params['voltage'] < 0:
 			LabLog.Warn(ReversedMessage)

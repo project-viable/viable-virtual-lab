@@ -1,19 +1,16 @@
 extends LabObject
 
-# TODO (update): Since it's a `float`, `heatTime` cannot be null; perhaps this should be
-# represented with a negative time or by just designing it so it will never be invalid.
-var heatTime: float = null #heatTime is in seconds
-var timeArray: Array[float] = []
-var heatable: LabObject = null # Stores the heatable interacting with the microwave in order to let the function wait
+var heatTime = null #heatTime is in seconds
+var timeArray = []
+var heatable = null # Stores the heatable interacting with the microwave in order to let the function wait
 					#For the menu input to end before heating
 
-func _ready() -> void:
+func _ready():
 	$Menu.hide()
 
-# TODO (update): Rework this so it can't return `null`.
-func getTime() -> float:
-	var temp: float =0
-	var arrayLen := len(timeArray)
+func getTime():
+	var temp=0
+	var arrayLen = len(timeArray)
 	match arrayLen:
 		0:
 			return null #If no inputs/cancel pressed, return null for no heating
@@ -29,9 +26,9 @@ func getTime() -> float:
 			return temp
 	return null
 	
-func displayTime() -> void: #Made to display the microwave time in the TimeLabel
-	var time := ""
-	var arrayLen := len(timeArray)
+func displayTime(): #Made to display the microwave time in the TimeLabel
+	var time = ""
+	var arrayLen = len(timeArray)
 	match arrayLen:
 		0:
 			$Menu/PanelContainer/VBoxContainer/TimeLabel.text = "0:00" #default time is 0
@@ -46,9 +43,7 @@ func displayTime() -> void: #Made to display the microwave time in the TimeLabel
 			time = time + str(timeArray[arrayLen - 2]) + str(timeArray[arrayLen - 1]) #Add in the seconds
 			$Menu/PanelContainer/VBoxContainer/TimeLabel.text = "%s" % time
 
-# TODO (update): All other `TryInteract` functions return `true` when they successfully interact;
-# this should do the same.
-func TryInteract(others: Array[LabObject]) -> bool:
+func TryInteract(others):
 	#When the microwave is clicked and touching another object, it'll call this function
 	for other in others:
 		if other.is_in_group("Heatable"): #Only heat heatables
@@ -58,70 +53,68 @@ func TryInteract(others: Array[LabObject]) -> bool:
 			displayTime()#Display default time
 
 
-# TODO (update): This can be just one function `_on_number_button_pressed(digit: int)`, which can
-# have the corresponding digit bound to the argument when the signal is connected.
-func _on_1Button_pressed() -> void:
+func _on_1Button_pressed():
 	timeArray.append(1)
 	displayTime()#Display new time
 
 
-func _on_2Button_pressed() -> void:
+func _on_2Button_pressed():
 	timeArray.append(2)
 	displayTime()#Display new time
 
 
-func _on_3Button_pressed() -> void:
+func _on_3Button_pressed():
 	timeArray.append(3)
 	displayTime()#Display new time
 
 
-func _on_4Button_pressed() -> void:
+func _on_4Button_pressed():
 	timeArray.append(4)
 	displayTime()#Display new time
 
 
-func _on_5Button_pressed() -> void:
+func _on_5Button_pressed():
 	timeArray.append(5)
 	displayTime()#Display new time
 
 
-func _on_6Button_pressed() -> void:
+func _on_6Button_pressed():
 	timeArray.append(6)
 	displayTime()#Display new time
 
 
-func _on_7Button_pressed() -> void:
+func _on_7Button_pressed():
 	timeArray.append(7)
 	displayTime()#Display new time
 
 
-func _on_8Button_pressed() -> void:
+func _on_8Button_pressed():
 	timeArray.append(8)
 	displayTime()#Display new time
 
 
-func _on_9Button_pressed() -> void:
+func _on_9Button_pressed():
 	timeArray.append(9)
 	displayTime()#Display new time
 
 
-func _on_ClearButton_pressed() -> void: #Clear array to cancel input/return null when getTime is called, 
+func _on_ClearButton_pressed(): #Clear array to cancel input/return null when getTime is called, 
 								#then hide menu to continue module
 	timeArray.clear()
 	$Menu.hide() 
 
 
-func _on_0Button_pressed() -> void:
+func _on_0Button_pressed():
 	timeArray.append(0)
 	displayTime()#Display new time
 
 
-func _on_BackButton_pressed() -> void:
+func _on_BackButton_pressed():
 	timeArray.pop_back() #Remove the last input from the array
 	displayTime()#Display new time
 
 
-func _on_StartButton_pressed() -> void:
+func _on_StartButton_pressed():
 	$Menu.hide() #Just hide the menu so the tryInteract function continues with current array contents
 	heatTime = getTime()
 	if(heatTime != null):#If it should heat

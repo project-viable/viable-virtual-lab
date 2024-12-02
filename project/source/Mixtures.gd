@@ -1,9 +1,8 @@
 extends Node2D
 
-# TODO (update): This name shadows the `MixtureChecker` class.
 var MixtureChecker: Resource
 
-func _ready() -> void:
+func _ready():
 	MixtureChecker = load("res://MistakeCheckers/MixtureChecker.tres")
 	if MixtureChecker != null:
 		MixtureChecker.Mixtures = LoadMixtures()

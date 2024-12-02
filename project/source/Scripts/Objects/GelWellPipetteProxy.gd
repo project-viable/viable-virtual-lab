@@ -1,10 +1,10 @@
 extends LabObject
 
-var adoptedObject: Pipette = null
-@onready var startPos: Vector2 = position
-var sideReleaseThreshold: float = 50 #in pixels, how far to the side the user should try to drag before we release the pipette
+var adoptedObject = null
+@onready var startPos = position
+var sideReleaseThreshold = 50 #in pixels, how far to the side the user should try to drag before we release the pipette
 
-func TryInteract(others: Array[LabObject]) -> bool:
+func TryInteract(others):
 	for other in others:
 		if other is Pipette and adoptedObject == null:
 			AdoptPipette(other)
@@ -17,7 +17,7 @@ func TryInteract(others: Array[LabObject]) -> bool:
 				return true
 	return false
 
-func AdoptPipette(pipette: Pipette) -> void:
+func AdoptPipette(pipette):
 	#set the pipette up
 	pipette.draggable = false
 	pipette.global_position = global_position
@@ -28,7 +28,7 @@ func AdoptPipette(pipette: Pipette) -> void:
 	$AnimationPlayer.stop()
 	#$Sprite.hide()
 
-func ReleasePipette() -> void:
+func ReleasePipette():
 	#set the pipette up
 	adoptedObject.draggable = true
 	
@@ -38,16 +38,16 @@ func ReleasePipette() -> void:
 	$Sprite2D.show()
 	$AnimationPlayer.play()
 
-func DragMove() -> void:
+func DragMove():
 	#handle movement
 	global_position = Vector2(global_position.x, (get_global_mouse_position() - dragOffset).y)
 	if adoptedObject:
 		adoptedObject.global_position = global_position
 		
 		#check if we should release the pipette:
-		var xDifference: float = (get_global_mouse_position() - dragOffset).x - global_position.x
+		var xDifference = (get_global_mouse_position() - dragOffset).x - global_position.x
 		if abs(xDifference) >= sideReleaseThreshold:
-			var other := adoptedObject
+			var other = adoptedObject
 			StopDragging()
 			ReleasePipette()
 			other.global_position = get_global_mouse_position() - dragOffset
