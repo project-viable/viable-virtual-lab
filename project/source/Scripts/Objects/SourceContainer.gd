@@ -10,7 +10,7 @@ enum ContainerType {ERLENMEYER_FLASK, MICRO_CENTRIFUGE_TUBE} #TODO: I'm not conv
 @export var image: Texture2D = null: set = SetOverrideImage
 
 @export var substance: PackedScene = null
-@export var substance_parameters: Array
+@export var substance_parameters: Array[float]
 var contents: Substance = null
 
 func _ready() -> void:
@@ -60,7 +60,7 @@ func SetContainerType(new: ContainerType) -> void:
 func CheckContents(group: StringName) -> bool:
 	return contents.is_in_group(group)
 
-func TakeContents(volume: int = -1) -> Array:
+func TakeContents(volume: int = -1) -> Array[Substance]:
 	# TODO: This funciton originially had "return null" as the last line,
 	# but this does not work with static typing, so I replaced it with
 	# returning an empty array
