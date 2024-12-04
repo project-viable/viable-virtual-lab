@@ -6,7 +6,7 @@ var allowedGroups: Array[String] = ["Source Container"]
 
 var DefaultText: String
 
-var CurrContent: Substance
+var CurrContent: LabContainer
 
 func LabObjectReady() -> void:
 	if maxVolume == 0:
@@ -21,8 +21,8 @@ func LabObjectReady() -> void:
 	$Menu.hide()
 	ResetMenu()
 
-func TryInteract(others: Array[Substance]) -> bool:
-	for other: Substance in others:
+func TryInteract(others: Array[LabObject]) -> bool:
+	for other in others:
 		for i in allowedGroups.size():
 			if other.is_in_group(allowedGroups[i]):
 				# Continue through loop if the graduated cylinder is already full
