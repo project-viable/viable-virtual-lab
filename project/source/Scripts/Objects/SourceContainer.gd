@@ -60,7 +60,7 @@ func SetContainerType(new: ContainerType) -> void:
 func CheckContents(group: StringName) -> bool:
 	return contents.is_in_group(group)
 
-func TakeContents(volume: int = -1) -> Array[Substance]:
+func TakeContents(volume: float = -1) -> Array[Substance]:
 	# TODO: This funciton originially had "return null" as the last line,
 	# but this does not work with static typing, so I replaced it with
 	# returning an empty array

@@ -73,7 +73,7 @@ func TryInteract(others: Array[LabObject]) -> bool:
 func TryActIndependently() -> bool:
 	return false
 
-func TakeContents(volume: int =-1) -> Array[Substance]:
+func TakeContents(volume: float = -1) -> Array[Substance]:
 	var content: Array[Substance] = contents.duplicate(true)
 	contents.clear()
 	$VolumeContainer.DumpContents()

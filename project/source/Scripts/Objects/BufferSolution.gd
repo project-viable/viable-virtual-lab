@@ -14,7 +14,7 @@ func _ready() -> void:
 func CheckContents(group:String) -> bool:
 	return contents.is_in_group(group)
 
-func TakeContents() -> Array[Substance]:
+func TakeContents(_volume: float = -1) -> Array[Substance]:
 	if substance == null:
 		return [null]
 	
