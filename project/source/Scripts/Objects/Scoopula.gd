@@ -67,8 +67,8 @@ func SplitContents() -> Substance:
 			print("After split volume: " + str(contents[0].volume))
 		return split
 
-func TryActIndependently() -> void:
-	pass
+func TryActIndependently() -> bool:
+	return false
 
 func _on_btnDispense_pressed() -> void:
 	

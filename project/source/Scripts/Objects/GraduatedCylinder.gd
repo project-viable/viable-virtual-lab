@@ -70,8 +70,8 @@ func TryInteract(others: Array[LabObject]) -> bool:
 					return false
 	return false
 
-func TryActIndependently() -> void:
-	pass
+func TryActIndependently() -> bool:
+	return false
 
 func TakeContents(volume: int =-1) -> Array[Substance]:
 	var content: Array[Substance] = contents.duplicate(true)
