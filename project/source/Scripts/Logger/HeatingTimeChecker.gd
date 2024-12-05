@@ -5,7 +5,7 @@ class_name HeatingTimeChecker
 @export var TooLongMessage: String
 @export var TooShortMessage: String
 
-func CheckAction(params: Dictionary):
+func CheckAction(params: Dictionary) -> void:
 	#Check if this action is even applicable to this checker:
 	if params['actionType'] == 'heat' and params.get('heatTime'):
 		#Now that we know we can check it, see if the user made a mistake:
