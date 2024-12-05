@@ -120,7 +120,7 @@ func update_display() -> void:
 # Reset values in menu
 func ResetMenu() -> void:
 	DefaultText = "Graduated Cylinder currently has a " \
-		+ "volume of " + String($VolumeContainer.GetVolume()) + "mL"
+		+ "volume of " + str($VolumeContainer.GetVolume()) + "mL"
 	$Menu/PanelContainer/VBoxContainer/Description.text = DefaultText
 	$Menu/PanelContainer/VBoxContainer/SpinBox.set_value(0)
 	update_display()

@@ -18,8 +18,8 @@ func _ready() -> void:
 	if substance == null:
 		substance = load('res://Scenes/Objects/DummyLiquidSubstance.tscn')
 	
-	contents = substance.instantiate()
-	if substance_parameters != null:
+	contents = substance.instantiate() as Substance
+	if substance_parameters != null and contents is DNASubstance:
 		contents.initialize(substance_parameters)
 		print(str(contents.particle_sizes))
 	

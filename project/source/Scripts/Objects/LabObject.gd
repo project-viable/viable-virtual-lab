@@ -149,28 +149,28 @@ func ClampObjectPosition() -> void:
 	for child in currentModule.get_children():
 		if child.name == "LabBoundary":
 			labBoundary = child
-	if typeof(labBoundary) != TYPE_STRING:
+	if labBoundary != null:
 		global_position.x = clamp(global_position.x, labBoundary.xBounds[0], labBoundary.xBounds[1])
 		global_position.y = clamp(global_position.y, labBoundary.yBounds[0], labBoundary.yBounds[1])
 
-func GetIntersectingLabObjects() -> Array:
-	var spaceState:PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
-	var queryResults:Array = []
+func GetIntersectingLabObjects() -> Array[LabObject]:
+	var spaceState := get_world_2d().direct_space_state
+	var queryResults: Array[LabObject] = []
 	
 	#For each collider that we have, see if it colllides with anything.
 	#This way, we could have LabObjects with multiple colliders on them (for example, multiple rectangles making up a more complex shape)
 	for child in get_children():
 		if child is CollisionShape2D:
-			var queryOptions:PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
-			queryOptions.set_shape(child.shape)
+			var queryOptions := PhysicsShapeQueryParameters2D.new()
+			queryOptions.shape = child.shape
 			queryOptions.transform = child.get_global_transform()
 			queryOptions.exclude = [self]
-			queryOptions.collision_layer = 2 #the objects layer and no others
+			queryOptions.collision_mask = 0x10
 			
 			queryResults.append_array(spaceState.intersect_shape(queryOptions))
 	
-	var results:Array = []
-	for other:Node in queryResults:
+	var results: Array[LabObject] = []
+	for other in queryResults:
 		#We can't use "is LabObject" here, because Godot needs to finish loading this file to know what that is. We can't compare to this script at runtime either, because that doesn't take inheritance into account.
 		if other['collider'].is_in_group("LabObjects") and not other['collider'] in results:
 			results.append(other['collider'])
@@ -235,12 +235,12 @@ func OnUserAction() -> void:
 	if not active:
 		return
 
-	var otherLabObjects:Array = GetIntersectingLabObjects()
+	var otherLabObjects := GetIntersectingLabObjects()
 	
 	#now filter those results to find only the ones in the same subscene as us
-	var thisLabObjectSubscene:Node = GetSubsceneManagerParent()
-	var interactOptions:Array = []
-	for other:Node in otherLabObjects:
+	var thisLabObjectSubscene := GetSubsceneManagerParent()
+	var interactOptions: Array[LabObject] = []
+	for other in otherLabObjects:
 		if other.GetSubsceneManagerParent() == thisLabObjectSubscene:
 			interactOptions.append(other)
 	
@@ -275,7 +275,7 @@ func OnUserAction() -> void:
 #If any decision making is required in order to do the interaction, for example:
 #A pipette needs to show a menu to let the user pick what volume to get/dispense.
 #TryInteract() should show that menu, then when the menu is submitted, a function should be called that actually does the thing.
-func TryInteract(others:Array) -> bool:
+func TryInteract(others: Array[LabObject]) -> bool:
 	#The base class never interacts.
 	return false
 
