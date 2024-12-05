@@ -8,7 +8,6 @@ var heatable: LabObject = null # Stores the heatable interacting with the microw
 func _ready() -> void:
 	$Menu.hide()
 
-# TODO (update): Rework this so it can't return `null`.
 func getTime() -> float:
 	var temp: float =0
 	var arrayLen := len(timeArray)
@@ -43,8 +42,6 @@ func displayTime() -> void: #Made to display the microwave time in the TimeLabel
 			time = time + str(timeArray[arrayLen - 2]) + str(timeArray[arrayLen - 1]) #Add in the seconds
 			$Menu/PanelContainer/VBoxContainer/TimeLabel.text = "%s" % time
 
-# TODO (update): All other `TryInteract` functions return `true` when they successfully interact;
-# this should do the same.
 func TryInteract(others: Array[LabObject]) -> bool:
 	#When the microwave is clicked and touching another object, it'll call this function
 	for other in others:
