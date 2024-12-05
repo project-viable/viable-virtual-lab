@@ -33,8 +33,7 @@ func ToggleRunCurrentText() -> void:
 		$UserInput/RunCurrent.text = "START"
 		
 func current_reversed() -> bool:
-	# TODO (update): This if statement is pointless.
-	return true if ($PosTerminal.plugged_electrode.get_parent().current_direction == 0) else false
+	return $PosTerminal.plugged_electrode.get_parent().current_direction == 0
 
 func _on_RunCurrent_pressed() -> void:
 	if running:
