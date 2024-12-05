@@ -4,10 +4,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	#check if there's any labobjects that need to deal with that input
 	#Using the normal object picking (collision objects' input signals) doesn't give us the control we need
 	if event.is_action_pressed("DragLabObject"):
+		var castParams := PhysicsPointQueryParameters2D.new()
+		castParams.position = get_global_mouse_position()
+		castParams.collision_mask = 0x10
+		var castResult := get_world_2d().direct_space_state.intersect_point(castParams)
 
-		# TODO (update): Fix this so it uses `PhysicsPointQueryParameters2D`.
-		var castResult: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(get_global_mouse_position(), 32, [], 2)
-		
 		if len(castResult) > 0:
 			#Drag a draggable object, if possible
 			var dragging := false
