@@ -165,7 +165,7 @@ func GetIntersectingLabObjects() -> Array[LabObject]:
 			queryOptions.shape = child.shape
 			queryOptions.transform = child.get_global_transform()
 			queryOptions.exclude = [self]
-			queryOptions.collision_mask = 0x10
+			queryOptions.collision_mask = 0b10
 			
 			queryResults.append_array(spaceState.intersect_shape(queryOptions))
 	
