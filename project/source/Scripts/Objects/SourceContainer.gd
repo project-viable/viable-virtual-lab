@@ -57,8 +57,8 @@ func SetContainerType(new: ContainerType) -> void:
 	containerType = new
 	SetupVisual()
 
-func CheckContents(group: StringName) -> bool:
-	return contents.is_in_group(group)
+func CheckContents(group: StringName) -> Array[bool]:
+	return [contents.is_in_group(group)] if contents else []
 
 func TakeContents(volume: float = -1) -> Array[Substance]:
 	# TODO: This funciton originially had "return null" as the last line,
@@ -77,5 +77,5 @@ func TakeContents(volume: float = -1) -> Array[Substance]:
 	print("Dispensed some of the stored substance")
 	return [new_content]
 
-func AddContents(new_contents: Substance) -> void:
+func AddContents(new_contents: Array[Substance]) -> void:
 	pass

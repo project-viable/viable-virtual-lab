@@ -49,9 +49,9 @@ func AddContents(new_contents: Array[Substance]) -> void:
 				return
 
 # TODO (update): This should return `Array[bool]` to match the other functions.
-func CheckContents(group: String) -> bool:
+func CheckContents(group: StringName) -> Array[bool]:
 	#we're a fake container actually, so no.
-	return false
+	return []
 
 func AddHigh(new_contents: DNASubstance, send_warn := true) -> void:
 	if send_warn:

@@ -22,14 +22,14 @@ func TryActIndependently() -> bool:
 	$FollowMenu.visible = !$FollowMenu.visible
 	return true
 
-func CheckContents(group: String) -> Array[bool]:
+func CheckContents(group: StringName) -> Array[bool]:
 	print('Checking for '+group)
 	var check_results: Array[bool] = []
 	for content in contents:
 		check_results.append(content.is_in_group(group))
 	return check_results
 
-func TakeContents(volume: int = -1) -> Array[Substance]:
+func TakeContents(volume: float = -1) -> Array[Substance]:
 	# check for whether we can distribute the contents by volume
 	if(volume != -1 && len(contents) == 1):
 		if(volume >= contents[0].volume):
@@ -40,7 +40,7 @@ func TakeContents(volume: int = -1) -> Array[Substance]:
 		var original_props: Dictionary = contents[0].get_properties()
 		var dispensed_props:= original_props.duplicate()
 		
-		var remaining_volume: int = contents[0].volume - volume
+		var remaining_volume: float = contents[0].volume - volume
 		dispensed_props["volume"] = volume
 		original_props["volume"] = remaining_volume
 		

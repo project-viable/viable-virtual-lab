@@ -225,7 +225,7 @@ func TakeContents(volume: float = -1) -> Array[Substance]:
 	update_display()
 	return all_contents
 
-func CheckContents(group: String) -> Array[bool]:
+func CheckContents(group: StringName) -> Array[bool]:
 	print('Checking for '+group)
 	var check_results: Array[bool] = []
 	for content in contents:

@@ -31,7 +31,7 @@ func TryInteract(others: Array[LabObject]) -> bool:
 				# Add contents to grad cylinder if it has nothing and the other container has a liquid substance
 				# Or if adding more of same liquid substance
 				# Set volume of grad cylinder to its max until a menu is created to specify volume
-				if len(contents) == 0 and other.CheckContents("Liquid Substance") \
+				if len(contents) == 0 and other.CheckContents("Liquid Substance").front() \
 					or len(contents) > 0 and other.contents.name == contents[0].name:
 					$Menu.visible = true
 					
@@ -82,7 +82,7 @@ func TakeContents(volume: float = -1) -> Array[Substance]:
 	print("Graduated cylinder has ", $VolumeContainer.GetVolume(), "mL of liquid")
 	return content
 
-func AddContents(new_contents: Substance) -> void:
+func AddContents(new_contents: Array[Substance]) -> void:
 	pass
 
 func dispose() -> void:

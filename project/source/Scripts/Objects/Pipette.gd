@@ -45,7 +45,7 @@ func SetDrawVolume(newVal: float) -> void:
 
 func DrawSubstance(from: LabObject, volumeCoefficient := 1.0) -> void:
 	if hasTip: #Pipette needs a tip to dispense or take in substances
-		if len(contents) == 0 and from.CheckContents("Liquid Substance"):
+		if len(contents) == 0 and from.CheckContents("Liquid Substance").front():
 			if(len(tipContaminants) > 0):
 				LabLog.Warn("The pipette tip was already used. If it was for a different substance than this source, dispose the tip and attach a new one to avoid contaminating your substances.")
 			contents.append_array(from.TakeContents(drawVolume * volumeCoefficient))
