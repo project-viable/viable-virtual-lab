@@ -155,7 +155,7 @@ func ClampObjectPosition() -> void:
 
 func GetIntersectingLabObjects() -> Array[LabObject]:
 	var spaceState := get_world_2d().direct_space_state
-	var queryResults: Array[LabObject] = []
+	var queryResults: Array[Dictionary] = []
 	
 	#For each collider that we have, see if it colllides with anything.
 	#This way, we could have LabObjects with multiple colliders on them (for example, multiple rectangles making up a more complex shape)
@@ -254,7 +254,7 @@ func OnUserAction() -> void:
 			return
 		else:
 			#If not, see if the other objects want to do something
-			for other:Node in interactOptions:
+			for other in interactOptions:
 				result = other.TryInteract([self])
 				if result:
 					#It chose to interact with us, so now we need to have the module make sure that wasn't a user mistake.
