@@ -28,7 +28,7 @@ func slot_filled(slot: ObjectSlot, object: LabObject) -> void:
 			if object.contents[0].is_in_group("Gel"):
 				# TODO (update): This is wonky; see todo in ElectrolysisSetup.gd for an
 				# explanation.
-				var init_data := object.gel_status()
+				var init_data: Array[Variant] = object.gel_status()
 				
 				$ImagingMenu/GelDisplay.init(init_data[0], init_data[1])
 				$ImagingMenu/GelDisplay.update_bands(object.calculate_positions())
