@@ -9,11 +9,11 @@ var contents: Array[Substance] = []
 func LabObjectReady() -> void:
 	update_display()
 
-func TryInteract(other_substance: Array[Substance]) -> bool:
-	for substance in other_substance:
-		if(substance.is_in_group('Container')):
+func TryInteract(other_labObjects: Array[LabObject]) -> bool:
+	for object in other_labObjects:
+		if(object.is_in_group('Container')):
 			# transfer contents to another container
-			substance.AddContents(TakeContents())
+			object.AddContents(TakeContents())
 			return true
 	
 	return false
