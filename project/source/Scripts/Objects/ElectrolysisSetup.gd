@@ -94,7 +94,7 @@ func terminal_connected(terminal: LabObject, contact: LabObject) -> bool:
 func slot_filled(slot: ObjectSlot, object: LabObject) -> void:
 	if(object.is_in_group('Gel Boat')):
 		mounted_container = object
-		var gelMoldInfo := object.GelMoldInfo()
+		var gelMoldInfo: Dictionary = object.GelMoldInfo()
 		mounted_container.visible = false
 
 		# Change texture if it has wells
