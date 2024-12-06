@@ -71,7 +71,7 @@ func TakeContents(volume: float = -1) -> Array[Substance]:
 		return []
 	
 	var new_content: Substance = substance.instantiate()
-	if substance_parameters != null:
+	if substance_parameters != null and new_content is DNASubstance:
 		new_content.initialize(substance_parameters)
 		print(str(contents.particle_sizes))
 	
