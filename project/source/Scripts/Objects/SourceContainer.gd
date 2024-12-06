@@ -58,7 +58,10 @@ func SetContainerType(new: ContainerType) -> void:
 	SetupVisual()
 
 func CheckContents(group: StringName) -> Array[bool]:
-	return [contents.is_in_group(group)] if contents else []
+	if contents:
+		return [contents.is_in_group(group)]
+	else:
+		return []
 
 func TakeContents(volume: float = -1) -> Array[Substance]:
 	# TODO: This funciton originially had "return null" as the last line,
