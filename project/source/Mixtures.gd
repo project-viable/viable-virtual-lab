@@ -24,10 +24,9 @@ func LoadMixtures() -> Dictionary:
 	
 	# Parse the file contents into a dictonary
 	var parse_res: JSON = JSON.new()
-	parse_res.parse(mixtureFile.get_as_text())
 	
 	# Checking for parsing errors
-	if parse_res.error != OK:
+	if parse_res.parse(mixtureFile.get_as_text()) != OK:
 		push_error("Error parsing JSON data from mixtures.json: " + str(parse_res.error))
 		mixtureFile.close()
 		return {}

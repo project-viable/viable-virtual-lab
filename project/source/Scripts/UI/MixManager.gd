@@ -17,11 +17,10 @@ var substance_folder: String = 'res://Scenes/Substances/'
 
 func _ready() -> void:
 	# ensure all outcome key arrays are sorted
-	var keys: Array[Array] = outcomes.keys()
-	for key: Array[Substance] in keys:
+	var keys: Array = outcomes.keys()
+	for key: Array in keys:
 		key.sort()
 
-# TODO (update): Make sure all paths return a value.
 func mix(reactants: Array[Substance]) -> Substance:
 	# check if this outcome is listed in the outcomes dictionary
 	var check_array: Array[String] = []
@@ -39,5 +38,5 @@ func mix(reactants: Array[Substance]) -> Substance:
 			self.add_child(result)
 			result.init_mixed(reactants)
 			return result
-	else:
-		return null
+	
+	return null

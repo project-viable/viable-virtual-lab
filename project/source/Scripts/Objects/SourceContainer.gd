@@ -18,8 +18,8 @@ func _ready() -> void:
 	if substance == null:
 		substance = load('res://Scenes/Objects/DummyLiquidSubstance.tscn')
 	
-	contents = substance.instantiate()
-	if substance_parameters != null:
+	contents = substance.instantiate() as Substance
+	if substance_parameters != null and contents is DNASubstance:
 		contents.initialize(substance_parameters)
 		print(str(contents.particle_sizes))
 	
@@ -57,10 +57,13 @@ func SetContainerType(new: ContainerType) -> void:
 	containerType = new
 	SetupVisual()
 
-func CheckContents(group: StringName) -> bool:
-	return contents.is_in_group(group)
+func CheckContents(group: StringName) -> Array[bool]:
+	if contents:
+		return [contents.is_in_group(group)]
+	else:
+		return []
 
-func TakeContents(volume: int = -1) -> Array[Substance]:
+func TakeContents(volume: float = -1) -> Array[Substance]:
 	# TODO: This funciton originially had "return null" as the last line,
 	# but this does not work with static typing, so I replaced it with
 	# returning an empty array
@@ -68,7 +71,7 @@ func TakeContents(volume: int = -1) -> Array[Substance]:
 		return []
 	
 	var new_content: Substance = substance.instantiate()
-	if substance_parameters != null:
+	if substance_parameters != null and new_content is DNASubstance:
 		new_content.initialize(substance_parameters)
 		print(str(contents.particle_sizes))
 	
@@ -77,5 +80,5 @@ func TakeContents(volume: int = -1) -> Array[Substance]:
 	print("Dispensed some of the stored substance")
 	return [new_content]
 
-func AddContents(new_contents: Substance) -> void:
+func AddContents(new_contents: Array[Substance]) -> void:
 	pass

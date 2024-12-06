@@ -60,7 +60,7 @@ func HideSubscene() -> void:
 	
 	subsceneActive = false
 
-func AdoptNode(node) -> void:
+func AdoptNode(node: Node) -> void:
 	var globalPos: Vector2 = node.global_position
 	node.get_parent().remove_child(node)
 	subscene.add_child(node)
@@ -70,8 +70,8 @@ func AdoptNode(node) -> void:
 func AdjustSubsceneToVisibleHeight() -> void:
 	#We can't just use a VisibilityNotifier2D node because we only need to do this on y, and we need to know *how far* outside the screen it is.
 	#This is taken partly from https://docs.godotengine.org/en/3.5/tutorials/2d/2d_transforms.html
-	var topScreenY = (get_viewport_transform() * (get_global_transform() * Vector2(0, -(dimensions.y/2)))).y
-	var bottomScreenY = (get_viewport_transform() * (get_global_transform() * Vector2(0, (dimensions.y/2)))).y
+	var topScreenY := (get_viewport_transform() * (get_global_transform() * Vector2(0, -(dimensions.y/2)))).y
+	var bottomScreenY := (get_viewport_transform() * (get_global_transform() * Vector2(0, (dimensions.y/2)))).y
 	
 	#reset to no offset in case everything is ok
 	subscene.position = Vector2(0, 0)

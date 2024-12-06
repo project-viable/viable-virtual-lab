@@ -6,7 +6,7 @@ var allowedGroups: Array[String] = ["Source Container"]
 
 var DefaultText: String
 
-var CurrContent: Substance
+var CurrContent: LabContainer
 
 func LabObjectReady() -> void:
 	if maxVolume == 0:
@@ -21,8 +21,8 @@ func LabObjectReady() -> void:
 	$Menu.hide()
 	ResetMenu()
 
-func TryInteract(others: Array[Substance]) -> bool:
-	for other: Substance in others:
+func TryInteract(others: Array[LabObject]) -> bool:
+	for other in others:
 		for i in allowedGroups.size():
 			if other.is_in_group(allowedGroups[i]):
 				# Continue through loop if the graduated cylinder is already full
@@ -31,7 +31,7 @@ func TryInteract(others: Array[Substance]) -> bool:
 				# Add contents to grad cylinder if it has nothing and the other container has a liquid substance
 				# Or if adding more of same liquid substance
 				# Set volume of grad cylinder to its max until a menu is created to specify volume
-				if len(contents) == 0 and other.CheckContents("Liquid Substance") \
+				if len(contents) == 0 and other.CheckContents("Liquid Substance").front() \
 					or len(contents) > 0 and other.contents.name == contents[0].name:
 					$Menu.visible = true
 					
@@ -70,10 +70,10 @@ func TryInteract(others: Array[Substance]) -> bool:
 					return false
 	return false
 
-func TryActIndependently() -> void:
-	pass
+func TryActIndependently() -> bool:
+	return false
 
-func TakeContents(volume: int =-1) -> Array[Substance]:
+func TakeContents(volume: float = -1) -> Array[Substance]:
 	var content: Array[Substance] = contents.duplicate(true)
 	contents.clear()
 	$VolumeContainer.DumpContents()
@@ -82,7 +82,7 @@ func TakeContents(volume: int =-1) -> Array[Substance]:
 	print("Graduated cylinder has ", $VolumeContainer.GetVolume(), "mL of liquid")
 	return content
 
-func AddContents(new_contents: Substance) -> void:
+func AddContents(new_contents: Array[Substance]) -> void:
 	pass
 
 func dispose() -> void:
@@ -120,7 +120,7 @@ func update_display() -> void:
 # Reset values in menu
 func ResetMenu() -> void:
 	DefaultText = "Graduated Cylinder currently has a " \
-		+ "volume of " + String($VolumeContainer.GetVolume()) + "mL"
+		+ "volume of " + str($VolumeContainer.GetVolume()) + "mL"
 	$Menu/PanelContainer/VBoxContainer/Description.text = DefaultText
 	$Menu/PanelContainer/VBoxContainer/SpinBox.set_value(0)
 	update_display()

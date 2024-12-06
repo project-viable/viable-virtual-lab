@@ -14,12 +14,7 @@ func TryInteract(others: Array[LabObject]) -> bool:
 	for other in others:#If interacting with container then we want to dispense or pick up
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
 
-			# TODO (update): If we rework all instances of `CheckContents` to return an array, then
-			# we don't have to do this type check.
-			var granularSubstance: Array[bool] = other.CheckContents("Granular Substance")
-			if typeof(granularSubstance) == TYPE_ARRAY:
-				if len(granularSubstance) > 0:
-					granularSubstance = granularSubstance[0]
+			var granularSubstance: bool = other.CheckContents("Granular Substance").front()
 			if len(contents) == 0 and granularSubstance:
 				# get density to determine volume taken
 				var density: float = other.TakeContents()[0].get_properties()['density']
@@ -67,8 +62,8 @@ func SplitContents() -> Substance:
 			print("After split volume: " + str(contents[0].volume))
 		return split
 
-func TryActIndependently() -> void:
-	pass
+func TryActIndependently() -> bool:
+	return false
 
 func _on_btnDispense_pressed() -> void:
 	

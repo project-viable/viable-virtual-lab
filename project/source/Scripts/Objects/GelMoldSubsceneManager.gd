@@ -225,7 +225,7 @@ func TakeContents(volume: float = -1) -> Array[Substance]:
 	update_display()
 	return all_contents
 
-func CheckContents(group: String) -> Array[bool]:
+func CheckContents(group: StringName) -> Array[bool]:
 	print('Checking for '+group)
 	var check_results: Array[bool] = []
 	for content in contents:
@@ -240,11 +240,11 @@ func TryInteract(others: Array[LabObject]) -> bool:
 			hasComb = true
 			update_display()
 			return true
+		# TODO (update): There is no 'GelImager' group, but there *is* a 'Gel Imager' group. This
+		# means that this never gets called.
 		elif other.is_in_group('GelImager'):
 			if(hasComb):
 				LabLog.Warn("You didn't remove the comb from the gel before imaging the gel. The experiment can't continue.")
-			else:
-				other.AddContents(self)
 		elif(other.is_in_group('Container')):
 			# transfer contents to another container
 			other.AddContents(TakeContents())
