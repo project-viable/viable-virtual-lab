@@ -47,7 +47,7 @@ func _ready() -> void:
 	collision_mask = 1 #Scene layer, no others
 	can_sleep = false
 	input_pickable = true
-	
+	gravity_scale = 0
 	startPosition = self.position
 	
 	#if we're not in the editor
