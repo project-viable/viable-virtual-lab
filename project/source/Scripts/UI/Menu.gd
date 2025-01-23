@@ -31,8 +31,8 @@ func GetAllFilesInFolder(path: String) -> Array[String]:
 func _ready() -> void:
 	# Due to having one module, the MainMenu should be hidden by default
 	# When more modules are added, it is likely a good idea to show MainMenu by default
-	$MainMenu.hide()
-	$ModuleSelect.hide()
+	$MainMenu.show()
+	$ModuleSelect.show()
 	$OptionsScreen.hide()
 	$AboutScreen.hide()
 	$LogButton.hide() #until we load a module
@@ -71,7 +71,7 @@ func _process(delta: float) -> void:
 			$MainMenu.hide()
 		else:
 			$MainMenu.show()
-			$ModuleSelect.hide()
+			$ModuleSelect.show()
 			$AboutScreen.hide()
 			$LogButton/LogMenu.hide()
 			$OptionsScreen.hide()
