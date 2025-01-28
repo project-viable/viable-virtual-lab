@@ -18,6 +18,11 @@ var doActions: bool = true #used to allow modifying the plunger's state by code 
 var contents: Array[Substance] = [] #current contents
 var tipContaminants: Array[Substance] = [] #stores what the pipette has drawn in since the last time the tip was replaced
 
+func _ready() -> void:
+	freeze = true
+	freeze_mode = FREEZE_MODE_STATIC
+
+
 func SetHasTip(newVal: bool) -> void:
 	hasTip = newVal
 	tipContaminants = []
