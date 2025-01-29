@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtltidc1e8ikc"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/computer.gd" id="1_qhp2f"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_emloy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i5bsf"]
+size = Vector2(201, 164)
+
+[node name="Computer" type="StaticBody2D"]
+modulate = Color(0.466181, 0.466181, 0.466181, 1)
+position = Vector2(100, 84)
+collision_layer = 2
+input_pickable = true
+script = ExtResource("1_qhp2f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3.8147e-06, -2)
+rotation = -3.14159
+scale = Vector2(201.452, -161.9)
+texture = SubResource("CanvasTexture_emloy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -3)
+shape = SubResource("RectangleShape2D_i5bsf")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
