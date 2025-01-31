@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpm1gs1fyv4gg"]
+[gd_scene load_steps=6 format=3 uid="uid://dpm1gs1fyv4gg"]
 
 [ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="1_bc34u"]
 [ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="2_3x61r"]
+[ext_resource type="PackedScene" uid="uid://dj8378rcmjta0" path="res://Scenes/Objects/Joystick.tscn" id="3_psukr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1w4j"]
 size = Vector2(1278.5, 565)
@@ -32,3 +33,6 @@ position = Vector2(-6, 291)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Countertop"]
 position = Vector2(6.125, 0)
 shape = SubResource("RectangleShape2D_y5o7s")
+
+[node name="Joystick" parent="." instance=ExtResource("3_psukr")]
+position = Vector2(1134, 554)
