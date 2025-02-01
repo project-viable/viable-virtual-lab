@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtltidc1e8ikc"]
+[gd_scene load_steps=7 format=3 uid="uid://dtltidc1e8ikc"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/computer.gd" id="1_qhp2f"]
 [ext_resource type="Texture2D" uid="uid://cqmb14y7dw7nj" path="res://Images/Computer_Screen.png" id="2_pfloe"]
@@ -8,8 +8,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i5bsf"]
 size = Vector2(201, 158)
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_5ps3k"]
 
 [node name="Computer" type="StaticBody2D"]
 modulate = Color(0.466181, 0.466181, 0.466181, 1)
@@ -42,19 +40,12 @@ offset_right = 80.0
 offset_bottom = 50.0
 mouse_filter = 2
 
-[node name="Acquisiton Panel" type="TextureRect" parent="MainScreen/Control"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 5.0
-offset_right = 40.0
-offset_bottom = 89.0
-texture = SubResource("CanvasTexture_5ps3k")
-
 [node name="Label" type="Label" parent="MainScreen/Control"]
 layout_mode = 0
 offset_left = 46.0
+offset_top = 5.0
 offset_right = 127.0
-offset_bottom = 19.0
+offset_bottom = 24.0
 theme_override_fonts/font = ExtResource("3_dhk5g")
 text = "TEST "
 horizontal_alignment = 1
@@ -62,10 +53,11 @@ horizontal_alignment = 1
 [node name="CellImage" type="Node2D" parent="MainScreen"]
 
 [node name="Sprite2D" type="Sprite2D" parent="MainScreen/CellImage"]
-position = Vector2(2, 5)
-scale = Vector2(0.183628, 0.17437)
+position = Vector2(-2, 10)
+scale = Vector2(0.103162, 0.0979609)
 texture = ExtResource("4_cbet6")
 region_enabled = true
-region_rect = Rect2(300, 300, 300, 300)
+region_rect = Rect2(783.903, 752.302, 500, 600)
+region_filter_clip_enabled = true
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
