@@ -1,27 +1,71 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtltidc1e8ikc"]
+[gd_scene load_steps=8 format=3 uid="uid://dtltidc1e8ikc"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/computer.gd" id="1_qhp2f"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_emloy"]
+[ext_resource type="Texture2D" uid="uid://cqmb14y7dw7nj" path="res://Images/Computer_Screen.png" id="2_pfloe"]
+[ext_resource type="FontFile" uid="uid://6w3vjxe8ci0e" path="res://UI/Roboto/Roboto-Bold.ttf" id="3_dhk5g"]
+[ext_resource type="Script" path="res://Scenes/Objects/main_screen.gd" id="3_yvw0i"]
+[ext_resource type="Texture2D" uid="uid://dei2oh26773j6" path="res://Images/BPAE cells 40x_ch2.jpg" id="4_cbet6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i5bsf"]
-size = Vector2(201, 164)
+size = Vector2(201, 158)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_5ps3k"]
 
 [node name="Computer" type="StaticBody2D"]
 modulate = Color(0.466181, 0.466181, 0.466181, 1)
-position = Vector2(100, 84)
+position = Vector2(100, 65)
 collision_layer = 2
 input_pickable = true
 script = ExtResource("1_qhp2f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-3.8147e-06, -2)
+position = Vector2(0, 18)
 rotation = -3.14159
-scale = Vector2(201.452, -161.9)
-texture = SubResource("CanvasTexture_emloy")
+scale = Vector2(0.335249, -0.269428)
+texture = ExtResource("2_pfloe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -3)
+position = Vector2(0, 15)
 shape = SubResource("RectangleShape2D_i5bsf")
+
+[node name="MainScreen" type="Node2D" parent="."]
+visible = false
+position = Vector2(3, 0)
+script = ExtResource("3_yvw0i")
+
+[node name="Control" type="Control" parent="MainScreen"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -83.0
+offset_top = -49.0
+offset_right = 80.0
+offset_bottom = 50.0
+mouse_filter = 2
+
+[node name="Acquisiton Panel" type="TextureRect" parent="MainScreen/Control"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 5.0
+offset_right = 40.0
+offset_bottom = 89.0
+texture = SubResource("CanvasTexture_5ps3k")
+
+[node name="Label" type="Label" parent="MainScreen/Control"]
+layout_mode = 0
+offset_left = 46.0
+offset_right = 127.0
+offset_bottom = 19.0
+theme_override_fonts/font = ExtResource("3_dhk5g")
+text = "TEST "
+horizontal_alignment = 1
+
+[node name="CellImage" type="Node2D" parent="MainScreen"]
+
+[node name="Sprite2D" type="Sprite2D" parent="MainScreen/CellImage"]
+position = Vector2(2, 5)
+scale = Vector2(0.183628, 0.17437)
+texture = ExtResource("4_cbet6")
+region_enabled = true
+region_rect = Rect2(300, 300, 300, 300)
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

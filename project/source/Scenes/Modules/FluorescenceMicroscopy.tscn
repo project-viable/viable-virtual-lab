@@ -36,7 +36,8 @@ position = Vector2(6.125, 0)
 shape = SubResource("RectangleShape2D_y5o7s")
 
 [node name="Computer" parent="." instance=ExtResource("3_0ypcw")]
-position = Vector2(955, 463)
+position = Vector2(922, 481)
+scale = Vector2(0.952876, 0.952876)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(641, 360)
