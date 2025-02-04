@@ -1,13 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://dtltidc1e8ikc"]
+[gd_scene load_steps=12 format=3 uid="uid://dtltidc1e8ikc"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/computer.gd" id="1_qhp2f"]
 [ext_resource type="Texture2D" uid="uid://cqmb14y7dw7nj" path="res://Images/Computer_Screen.png" id="2_pfloe"]
 [ext_resource type="FontFile" uid="uid://6w3vjxe8ci0e" path="res://UI/Roboto/Roboto-Bold.ttf" id="3_dhk5g"]
 [ext_resource type="Script" path="res://Scenes/Objects/main_screen.gd" id="3_yvw0i"]
 [ext_resource type="Texture2D" uid="uid://dei2oh26773j6" path="res://Images/BPAE cells 40x_ch2.jpg" id="4_cbet6"]
+[ext_resource type="Texture2D" uid="uid://bdg0qubi6xt7d" path="res://Images/MainMenu-Background.png" id="6_hfodf"]
+[ext_resource type="Script" path="res://Scenes/Objects/Desktop.gd" id="6_ib5vj"]
+[ext_resource type="Script" path="res://Scenes/UI/app_icon.gd" id="7_ayaux"]
+[ext_resource type="Texture2D" uid="uid://b2u2vyu06gaor" path="res://favicon.png" id="7_jbvos"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i5bsf"]
 size = Vector2(201, 158)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bup2y"]
+size = Vector2(10, 10)
 
 [node name="Computer" type="StaticBody2D"]
 modulate = Color(0.466181, 0.466181, 0.466181, 1)
@@ -27,7 +34,6 @@ position = Vector2(0, 15)
 shape = SubResource("RectangleShape2D_i5bsf")
 
 [node name="MainScreen" type="Node2D" parent="."]
-visible = false
 position = Vector2(3, 0)
 script = ExtResource("3_yvw0i")
 
@@ -60,4 +66,27 @@ region_enabled = true
 region_rect = Rect2(783.903, 752.302, 500, 600)
 region_filter_clip_enabled = true
 
+[node name="Desktop" type="Node2D" parent="MainScreen"]
+script = ExtResource("6_ib5vj")
+
+[node name="DesktopBackground" type="Sprite2D" parent="MainScreen/Desktop"]
+position = Vector2(-3, 0)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("6_hfodf")
+
+[node name="AppIcon" type="StaticBody2D" parent="MainScreen/Desktop"]
+input_pickable = true
+script = ExtResource("7_ayaux")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainScreen/Desktop/AppIcon"]
+position = Vector2(-75, -25)
+shape = SubResource("RectangleShape2D_bup2y")
+
+[node name="Sprite2D" type="Sprite2D" parent="MainScreen/Desktop/AppIcon"]
+position = Vector2(-75, -25)
+scale = Vector2(0.013, 0.013)
+texture = ExtResource("7_jbvos")
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="app_click_signal" from="MainScreen/Desktop/AppIcon" to="MainScreen/Desktop" method="_on_app_icon_app_click_signal"]
+[connection signal="input_event" from="MainScreen/Desktop/AppIcon" to="MainScreen/Desktop/AppIcon" method="_on_input_event"]
