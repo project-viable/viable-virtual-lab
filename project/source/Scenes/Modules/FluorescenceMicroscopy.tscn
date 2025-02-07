@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpm1gs1fyv4gg"]
+[gd_scene load_steps=9 format=3 uid="uid://dpm1gs1fyv4gg"]
 
 [ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="1_bc34u"]
 [ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="2_3x61r"]
 [ext_resource type="PackedScene" uid="uid://dj8378rcmjta0" path="res://Scenes/Objects/Joystick.tscn" id="3_psukr"]
+[ext_resource type="Script" path="res://Scripts/Objects/JoystickKnob.gd" id="4_ueffg"]
+[ext_resource type="Texture2D" uid="uid://cm88dw0xfl2xk" path="res://Images/testImg.png" id="5_uv0me"]
+[ext_resource type="Script" path="res://Scenes/Modules/panningImage.gd" id="6_gdu6r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1w4j"]
 size = Vector2(1278.5, 565)
@@ -36,3 +39,13 @@ shape = SubResource("RectangleShape2D_y5o7s")
 
 [node name="Joystick" parent="." instance=ExtResource("3_psukr")]
 position = Vector2(1134, 554)
+script = ExtResource("4_ueffg")
+max_drag_length = 100.0
+deadzone = 5.0
+
+[node name="Cells Image" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(448.5, 245)
+scale = Vector2(0.443333, 0.464)
+texture = ExtResource("5_uv0me")
+script = ExtResource("6_gdu6r")
