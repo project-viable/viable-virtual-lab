@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/Substances/GelModule/BinderSubstance.tscn" id="6"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/Microwave.tscn" id="7"]
 [ext_resource type="Texture2D" uid="uid://bwkmd8uade2g6" path="res://Images/Resized_Images/TEA_Buffer.png" id="8"]
-[ext_resource type="PackedScene" path="res://Scenes/Objects/Scale.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://bdfkn4vc3t1ld" path="res://Scenes/Objects/Scale.tscn" id="9"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/WeighBoat.tscn" id="10"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/Pipettes/P1000.tscn" id="11"]
 [ext_resource type="Texture2D" uid="uid://c16pk6aqn5d2t" path="res://Images/Resized_Images/Agarose_Powder.png" id="12"]

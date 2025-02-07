@@ -8,3 +8,14 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	if event is InputEventMouseButton and event.pressed and not is_clicked:
 		screen_click_signal.emit()
 		is_clicked = true
+		
+
+# Used for exiting the computer
+func _on_exit_button_pressed() -> void:
+	get_node("PopupControl").visible = false
+	is_clicked = false
+
+
+func _on_close_desktop_pressed() -> void:
+	get_node("PopupControl/PanelContainer/VBoxContainer/MainScreen/Desktop").visible = false
+	get_node("PopupControl/PanelContainer/VBoxContainer/MainScreen/Desktop/AppIcon").visible = false
