@@ -1,9 +1,9 @@
-extends RigidBody2D
+extends Sprite2D
 
 @export var max_drag_length: float = 100 #Max length the joystick can be dragged out to 
 @export var deadzone: float = 5
 
-@onready var joystick_parent: Node2D  = $".."
+@onready var joystick_parent: RigidBody2D  = $".."
 
 var button_pressed : bool = false
 
