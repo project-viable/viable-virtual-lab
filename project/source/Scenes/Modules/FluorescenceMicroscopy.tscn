@@ -26,6 +26,7 @@ z_index = -1
 position = Vector2(641, 354)
 
 [node name="LabCounter1" type="Sprite2D" parent="Background"]
+scale = Vector2(1.0084, 1)
 texture = ExtResource("2_3x61r")
 
 [node name="Countertop" type="StaticBody2D" parent="Background"]
@@ -36,8 +37,9 @@ position = Vector2(6.125, 0)
 shape = SubResource("RectangleShape2D_y5o7s")
 
 [node name="Computer" parent="." instance=ExtResource("3_0ypcw")]
-position = Vector2(922, 481)
+position = Vector2(889, 472)
 scale = Vector2(0.952876, 0.952876)
+metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(641, 360)
