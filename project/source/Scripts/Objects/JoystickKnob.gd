@@ -45,10 +45,10 @@ func _on_button_button_down() -> void:
 func _on_button_button_up() -> void:
 	button_pressed =  false
 	
-#func get_velocity() -> Vector2:
-	#var joystick_velocity:Vector2 = Vector2(0,0)
-	#joystick_velocity.x = joystick_parent.global_position.x / max_drag_length
-	#joystick_velocity.y = joystick_parent.global_position.y / max_drag_length
-	#
-	#return joystick_velocity
+func get_velocity() -> Vector2:
+	var joystick_velocity:Vector2 = Vector2(0,0)
+	joystick_velocity.x = joystick_parent.global_position.x / max_drag_length
+	joystick_velocity.y = joystick_parent.global_position.y / max_drag_length
+	
+	return joystick_velocity
 	
