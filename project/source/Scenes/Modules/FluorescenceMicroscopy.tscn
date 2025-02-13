@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="2_3x61r"]
 [ext_resource type="PackedScene" uid="uid://dj8378rcmjta0" path="res://Scenes/Objects/Joystick.tscn" id="3_psukr"]
 [ext_resource type="Texture2D" uid="uid://cm88dw0xfl2xk" path="res://Images/testImg.png" id="5_uv0me"]
-[ext_resource type="Script" path="res://Scenes/Modules/panningImage.gd" id="6_gdu6r"]
+[ext_resource type="Script" path="res://Scripts/Objects/PanningImage.gd" id="6_gdu6r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1w4j"]
 size = Vector2(1278.5, 565)

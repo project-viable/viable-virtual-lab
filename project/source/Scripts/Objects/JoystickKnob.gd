@@ -3,7 +3,7 @@ extends Sprite2D
 @export var max_drag_length: float = 100 #Max length the joystick can be dragged out to 
 @export var deadzone: float = 5
 
-@onready var joystick_parent: RigidBody2D  = $".."
+@onready var joystick_parent: Sprite2D  = $"../JoystickTemp"
 
 var button_pressed : bool = false
 
@@ -42,14 +42,13 @@ func _process(delta: float) -> void:
 func _on_button_button_down() -> void:
 	button_pressed = true
 
-
 func _on_button_button_up() -> void:
 	button_pressed =  false
 	
-func get_velocity() -> Vector2:
-	var joystick_velocity:Vector2 = Vector2(0,0)
-	joystick_velocity.x = joystick_parent.global_position.x / max_drag_length
-	joystick_velocity.y = joystick_parent.global_position.y / max_drag_length
-	
-	return joystick_velocity
+#func get_velocity() -> Vector2:
+	#var joystick_velocity:Vector2 = Vector2(0,0)
+	#joystick_velocity.x = joystick_parent.global_position.x / max_drag_length
+	#joystick_velocity.y = joystick_parent.global_position.y / max_drag_length
+	#
+	#return joystick_velocity
 	

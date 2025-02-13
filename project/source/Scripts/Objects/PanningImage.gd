@@ -9,7 +9,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	move = Vector2(0,0)
-	var joystick:Sprite2D = $"../Joystick/JoystickKnobTemp"
+	var joystick:Area2D = $"../Joystick"
 	
 	move = joystick.get_velocity()
 	position += move * speed * delta
