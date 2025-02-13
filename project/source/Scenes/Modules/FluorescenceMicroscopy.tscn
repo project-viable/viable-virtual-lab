@@ -12,6 +12,7 @@ size = Vector2(1278.5, 565)
 size = Vector2(1243.75, 139.5)
 
 [node name="FluorescenceMicroscopy" type="Node2D"]
+position = Vector2(1, -1)
 script = ExtResource("1_q60rk")
 
 [node name="LabBoundary" type="Area2D" parent="."]
@@ -39,7 +40,6 @@ shape = SubResource("RectangleShape2D_y5o7s")
 [node name="Computer" parent="." instance=ExtResource("3_0ypcw")]
 position = Vector2(889, 472)
 scale = Vector2(0.952876, 0.952876)
-metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(641, 360)

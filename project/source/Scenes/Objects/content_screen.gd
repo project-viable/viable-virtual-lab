@@ -3,6 +3,7 @@ var cell_image_width: float
 var cell_image_height: float
 var speed: float = 500
 func _ready() -> void:
+	hide()
 	cell_image_width = $CellImage/Sprite2D.texture.get_width()
 	cell_image_height = $CellImage/Sprite2D.texture.get_height()
 
@@ -25,3 +26,8 @@ func _process(delta: float) -> void:
 			
 		if $CellImage/Sprite2D.region_rect.position.y <= 0:
 			$CellImage/Sprite2D.region_rect.position.y = 0 
+
+
+# Change Image Zoom
+func _on_macro_panel_button_press(button_value: int) -> void:
+	print(button_value)

@@ -26,16 +26,19 @@ scale = Vector2(1.5534, 1.5534)
 collision_layer = 2
 input_pickable = true
 script = ExtResource("1_qhp2f")
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 18)
 rotation = -3.14159
 scale = Vector2(0.335249, -0.269428)
 texture = ExtResource("2_pfloe")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 15)
 shape = SubResource("RectangleShape2D_i5bsf")
+metadata/_edit_lock_ = true
 
 [node name="PopupControl" type="Control" parent="."]
 layout_mode = 3
@@ -44,6 +47,8 @@ offset_top = 117.162
 offset_right = 500.0
 offset_bottom = 367.162
 scale = Vector2(0.853986, 0.853986)
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="PopupControl"]
 layout_mode = 1
@@ -59,16 +64,21 @@ offset_bottom = -332.079
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.70694, 1.70694)
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupControl/PanelContainer"]
 layout_mode = 2
+metadata/_edit_lock_ = true
 
 [node name="Screen" type="Node2D" parent="PopupControl/PanelContainer/VBoxContainer"]
 position = Vector2(378, 240)
 scale = Vector2(4.5, 4.5)
 script = ExtResource("3_yvw0i")
+metadata/_edit_lock_ = true
 
 [node name="Desktop" type="Node2D" parent="PopupControl/PanelContainer/VBoxContainer/Screen"]
+metadata/_edit_lock_ = true
 
 [node name="DesktopBackground" type="Sprite2D" parent="PopupControl/PanelContainer/VBoxContainer/Screen/Desktop"]
 position = Vector2(-3, 0)
@@ -97,18 +107,20 @@ scale = Vector2(0.015, 0.015)
 icon = ExtResource("7_jbvos")
 
 [node name="ContentScreen" type="Node2D" parent="PopupControl/PanelContainer/VBoxContainer/Screen"]
-visible = false
 script = ExtResource("7_hy7wm")
+metadata/_edit_lock_ = true
 
 [node name="CellImage" type="Node2D" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen"]
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/CellImage"]
-position = Vector2(-2, 10)
+position = Vector2(-2.01993, 10.0002)
 scale = Vector2(0.103162, 0.0979609)
 texture = ExtResource("4_cbet6")
 region_enabled = true
 region_rect = Rect2(783.903, 752.302, 500, 600)
 region_filter_clip_enabled = true
+metadata/_edit_lock_ = true
 
 [node name="AcquisitonPanel" type="Control" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen"]
 layout_mode = 3
@@ -124,6 +136,7 @@ offset_bottom = -45.1111
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.247689, 0.328289)
+metadata/_edit_lock_ = true
 
 [node name="Panel" type="Panel" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel"]
 layout_mode = 0
@@ -137,10 +150,10 @@ metadata/_edit_lock_ = true
 
 [node name="MacroPanel" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel" instance=ExtResource("10_env1g")]
 layout_mode = 1
-offset_left = 13.4525
-offset_top = 27.9724
-offset_right = 13.4525
-offset_bottom = 27.9724
+offset_left = -0.0173273
+offset_top = 16.3136
+offset_right = -0.0173273
+offset_bottom = 16.3136
 scale = Vector2(0.628668, 0.628668)
 
 [node name="ExitButton" type="Button" parent="PopupControl/PanelContainer/VBoxContainer"]
@@ -150,9 +163,11 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("10_scboh")
 text = "EXIT"
 alignment = 2
+metadata/_edit_lock_ = true
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="app_click_signal" from="PopupControl/PanelContainer/VBoxContainer/Screen/Desktop/AppIcon" to="PopupControl/PanelContainer/VBoxContainer/Screen" method="_on_app_icon_app_click_signal"]
 [connection signal="input_event" from="PopupControl/PanelContainer/VBoxContainer/Screen/Desktop/AppIcon" to="PopupControl/PanelContainer/VBoxContainer/Screen/Desktop/AppIcon" method="_on_input_event"]
 [connection signal="pressed" from="PopupControl/PanelContainer/VBoxContainer/Screen/Desktop/AppIcon/AppIconPressed" to="PopupControl/PanelContainer/VBoxContainer/Screen" method="_on_app_icon_pressed"]
+[connection signal="button_press" from="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/MacroPanel" to="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen" method="_on_macro_panel_button_press"]
 [connection signal="pressed" from="PopupControl/PanelContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
