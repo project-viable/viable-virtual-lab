@@ -20,8 +20,14 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 
 func _process(delta: float) -> void:
 	if click:
-		knob.global_position = get_global_mouse_position()
-		
+		if get_global_mouse_position().distance_to(outer_area.global_position) <= max_distance:
+			knob.global_position = get_global_mouse_position()
+		else:
+			var angle: float = outer_area.global_position.angle_to_point(get_global_mouse_position())
+			knob.global_position.x = outer_area.global_position.x + cos(angle)*max_distance
+			knob.global_position.y = outer_area.global_position.y + sin(angle)*max_distance
+	else:
+		knob.global_position = lerp(knob.global_position, outer_area.global_position, delta*10)
 		#i was trying this code to see if i could control how far the knob
 		#can move but it wasn't really working
 		#knob.position = outer_area.position + (knob.position - outer_area.position).clamp(knob.position, outer_area.position)
