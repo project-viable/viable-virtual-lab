@@ -37,7 +37,7 @@ func LabObjectReady() -> void:
 	subsceneGelBg = $Subscene/Border/Background2
 	$Subscene/PipetteProxies.hide()
 	freeze = true
-	freeze_mode = FREEZE_MODE_STATIC
+	#freeze_mode = FREEZE_MODE_STATIC
 	update_display()
 
 func update_display() -> void:
