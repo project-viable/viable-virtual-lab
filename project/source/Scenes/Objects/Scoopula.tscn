@@ -1,78 +1,72 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://cdrtd40n83ytx"]
 
-[ext_resource path="res://Scripts/Objects/Scoopula.gd" type="Script" id=1]
-[ext_resource path="res://Images/Resized_Images/Spatula.png" type="Texture2D" id=2]
-[ext_resource path="res://Scripts/DimensionSprite.gd" type="Script" id=3]
-[ext_resource path="res://Scripts/Objects/UI/ScoopulaMenu.gd" type="Script" id=4]
-[ext_resource path="res://Images/FillSprites/scoopula_fill.png" type="Texture2D" id=5]
+[ext_resource type="Script" path="res://Scripts/Objects/Scoopula.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://ci8a1mnsvq05o" path="res://Images/Resized_Images/Spatula.png" id="2"]
+[ext_resource type="Script" path="res://Scripts/DimensionSprite.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://yrxt2sxidd3c" path="res://Images/FillSprites/scoopula_fill.png" id="5"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 55.4946, 6.18365 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(110.989, 12.3673)
 
 [node name="Scoopula" type="RigidBody2D" groups=["LabObjects"]]
 z_index = 3
 collision_layer = 2
 gravity_scale = 0.0
-script = ExtResource( 1 )
+script = ExtResource("1")
 draggable = true
 DisplayName = "Scoopula"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2( -9.53674e-07, -2.38419e-07 )
-texture = ExtResource( 2 )
+position = Vector2(-9.53674e-07, -2.38419e-07)
+texture = ExtResource("2")
 
 [node name="FillSprite" type="Sprite2D" parent="."]
-position = Vector2( -10, 48 )
+position = Vector2(-10, 48)
 rotation = -1.31423
-scale = Vector2( 0.0255607, 0.0181997 )
-texture = ExtResource( 5 )
-script = ExtResource( 3 )
+scale = Vector2(0.0255607, 0.0181997)
+texture = ExtResource("5")
+script = ExtResource("3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1.17049, -0.238485 )
+position = Vector2(1.17049, -0.238485)
 rotation = -1.3439
-shape = SubResource( 1 )
+shape = SubResource("1")
 
-[node name="ScoopulaMenu" type="PopupMenu" parent="."]
-offset_left = 107.0
-offset_top = 43.0
-offset_right = 241.0
-offset_bottom = 180.0
-script = ExtResource( 4 )
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="PanelContainer" type="GridContainer" parent="ScoopulaMenu"]
-offset_left = 9.0
-offset_top = 8.0
-offset_right = 127.0
-offset_bottom = 131.0
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
 
-[node name="sliderDispenseQty" type="HSlider" parent="ScoopulaMenu/PanelContainer"]
-offset_right = 74.0
-offset_bottom = 16.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+
+[node name="sliderDispenseQty" type="HSlider" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
 step = 0.01
 
-[node name="lblDispenseQty" type="Label" parent="ScoopulaMenu/PanelContainer"]
-offset_top = 20.0
-offset_right = 74.0
-offset_bottom = 39.0
+[node name="lblDispenseQty" type="Label" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
 text = "0"
 
-[node name="btnDispense" type="Button" parent="ScoopulaMenu/PanelContainer"]
-offset_top = 43.0
-offset_right = 74.0
-offset_bottom = 70.0
+[node name="btnDispense" type="Button" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Dispense"
 
-[node name="btnCancel" type="Button" parent="ScoopulaMenu/PanelContainer"]
-offset_top = 74.0
-offset_right = 57.0
-offset_bottom = 101.0
+[node name="btnCancel" type="Button" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Cancel"
 
-[connection signal="value_changed" from="ScoopulaMenu/PanelContainer/sliderDispenseQty" to="ScoopulaMenu" method="_on_sliderDispenseQty_value_changed"]
-[connection signal="pressed" from="ScoopulaMenu/PanelContainer/btnDispense" to="." method="_on_btnDispense_pressed"]
-[connection signal="pressed" from="ScoopulaMenu/PanelContainer/btnCancel" to="ScoopulaMenu" method="_on_btnCancel_pressed"]
+[connection signal="value_changed" from="Control/PanelContainer/VBoxContainer/sliderDispenseQty" to="." method="_on_sliderDispenseQty_value_changed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/btnDispense" to="." method="_on_btnDispense_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/btnCancel" to="." method="_on_btnCancel_pressed"]

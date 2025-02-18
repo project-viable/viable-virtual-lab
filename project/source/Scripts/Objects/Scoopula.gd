@@ -14,7 +14,8 @@ func TryInteract(others: Array[LabObject]) -> bool:
 	for other in others:#If interacting with container then we want to dispense or pick up
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
 
-			var granularSubstance: bool = other.CheckContents("Granular Substance").front()
+			var substances: Array[bool] = other.CheckContents("Granular Substance")
+			var granularSubstance: bool = not substances.is_empty() and substances.front()
 			if len(contents) == 0 and granularSubstance:
 				# get density to determine volume taken
 				var density: float = other.TakeContents()[0].get_properties()['density']
@@ -28,13 +29,14 @@ func TryInteract(others: Array[LabObject]) -> bool:
 				update_display()
 				return true
 			else:
-				if(!contents.is_empty()):
+				if(not contents.is_empty()):
 					var contentName := contents[0].name
 					
 					#Show menu
-					$ScoopulaMenu.popup()
-					$ScoopulaMenu.global_position = global_position
-					$ScoopulaMenu/PanelContainer/sliderDispenseQty.max_value = contents[0].volume
+					$Control.visible = true
+					# the following line appears to use deprecated behavior and cause a crashing bug
+					$Control.global_position = global_position
+					$Control/PanelContainer/VBoxContainer/sliderDispenseQty.max_value = contents[0].volume
 					
 					targetObj = other
 						#split_substance.append(SplitContents())
@@ -64,10 +66,17 @@ func SplitContents() -> Substance:
 
 func TryActIndependently() -> bool:
 	return false
+	
+func _on_sliderDispenseQty_value_changed(value: float) -> void:
+	$Control/PanelContainer/VBoxContainer/lblDispenseQty.text = str(value) + " g"
+
+func _on_btnCancel_pressed() -> void:
+	$Control.visible = false
+
 
 func _on_btnDispense_pressed() -> void:
 	
-	var volDispensed: float = $ScoopulaMenu/PanelContainer/sliderDispenseQty.value / contents[0].density
+	var volDispensed: float = $Control/PanelContainer/VBoxContainer/sliderDispenseQty.value / contents[0].density
 	
 	#Add contents to receiving object
 	var contentToDispense: Substance = contents[0].duplicate()
@@ -85,4 +94,4 @@ func _on_btnDispense_pressed() -> void:
 	
 	LabLog.Log("Dispensed " + str(volDispensed * contentArray[0].density) + " g from scoopula")
 	update_display()
-	$ScoopulaMenu.hide()
+	$Control.visible = false

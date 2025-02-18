@@ -48,6 +48,7 @@ func _ready() -> void:
 	can_sleep = false
 	input_pickable = true
 	startPosition = self.position
+	lock_rotation = true
 	
 	#if we're not in the editor
 	if not Engine.is_editor_hint():
