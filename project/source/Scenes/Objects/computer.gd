@@ -2,6 +2,22 @@ extends StaticBody2D
 
 signal screen_click_signal()
 var is_clicked: bool = false
+var current_channel : String = ""
+# Measures power in percent
+@onready var channels_power: Dictionary = {
+	"Dapi": 0.0,
+	"FITC": 0.0,
+	"RITC": 0.0,
+	"Cy5": 0.0
+}
+# Measures exposure time in miliseconds
+@onready var channels_exposure: Dictionary = {
+	"Dapi": 1.0,
+	"FITC": 1.0,
+	"RITC": 1.0,
+	"Cy5": 1.0
+}
+
 
 func _ready() -> void:
 	$PopupControl.hide()
@@ -17,3 +33,44 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 func _on_exit_button_pressed() -> void:
 	get_node("PopupControl").visible = false
 	is_clicked = false
+
+
+func _on_channels_panel_channel_selected(channel: String) -> void:
+	current_channel = channel
+	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure.visible = false
+	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/DapiLabelContainer.visible = false
+	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/FITCLabelContainer.visible = false
+	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/RITCLabelContainer.visible = false
+	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/Cy5LabelContainer.visible = false
+	
+	match channel:
+		"Combo":
+			print("NOT IMPLEMENTED YET")
+		"Dapi":
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure.visible = true
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/DapiLabelContainer.visible = true
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/HBoxContainer4/PowerSlider.value = 0
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/HBoxContainer5/ExposureSlider.value = 1
+		"FITC":
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure.visible = true
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/FITCLabelContainer.visible = true
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/HBoxContainer4/PowerSlider.value = 0
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/HBoxContainer5/ExposureSlider.value = 1
+		"RITC":
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure.visible = true
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/RITCLabelContainer.visible = true
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/HBoxContainer4/PowerSlider.value = 0
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/HBoxContainer5/ExposureSlider.value = 1
+		"Cy5":
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure.visible = true
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/Cy5LabelContainer.visible = true
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/HBoxContainer4/PowerSlider.value = 0
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/Panel/HBoxContainer5/ExposureSlider.value = 1
+
+
+func _on_exposure_change(new_exposure: float) -> void:
+	channels_exposure[current_channel] = new_exposure
+
+
+func _on_power_change(new_power: float) -> void:
+	channels_power[current_channel] = new_power

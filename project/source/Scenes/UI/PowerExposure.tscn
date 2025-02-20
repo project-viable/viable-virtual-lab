@@ -14,6 +14,7 @@ border_color = Color(0, 0, 0, 1)
 bg_color = Color(1, 1, 1, 1)
 
 [node name="PowerExposure" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 237.0
@@ -37,11 +38,13 @@ text = "LED Power And Exposure
 [node name="Panel" type="Panel" parent="."]
 self_modulate = Color(0.541176, 0.541176, 0.541176, 1)
 clip_contents = true
+layout_mode = 0
 offset_right = 237.0
 offset_bottom = 105.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5iqk")
 
 [node name="DapiLabelContainer" type="HBoxContainer" parent="Panel"]
+visible = false
 clip_contents = true
 layout_mode = 1
 offset_right = 262.0
@@ -59,7 +62,9 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "Dapi"
 
 [node name="FITCLabelContainer" type="HBoxContainer" parent="Panel"]
+visible = false
 clip_contents = true
+layout_mode = 0
 offset_right = 262.0
 offset_bottom = 125.0
 scale = Vector2(0.111304, 0.111719)
@@ -75,7 +80,9 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "FITC"
 
 [node name="RITCLabelContainer" type="HBoxContainer" parent="Panel"]
+visible = false
 clip_contents = true
+layout_mode = 0
 offset_right = 262.0
 offset_bottom = 125.0
 scale = Vector2(0.111304, 0.111719)
@@ -92,7 +99,9 @@ text = "RITC
 "
 
 [node name="Cy5LabelContainer" type="HBoxContainer" parent="Panel"]
+visible = false
 clip_contents = true
+layout_mode = 0
 offset_right = 262.0
 offset_bottom = 125.0
 scale = Vector2(0.111304, 0.111719)
@@ -109,6 +118,7 @@ text = "Cy5"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel"]
 clip_contents = true
+layout_mode = 0
 offset_top = 18.0
 offset_right = 530.0
 offset_bottom = 143.0
@@ -136,6 +146,7 @@ text = "0%"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Panel"]
 clip_contents = true
+layout_mode = 0
 offset_top = 58.0
 offset_right = 809.0
 offset_bottom = 183.0
@@ -163,6 +174,7 @@ text = "1 msec"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="Panel"]
 clip_contents = true
+layout_mode = 0
 offset_left = 3.0
 offset_top = 38.0
 offset_right = 2069.0
@@ -177,6 +189,7 @@ tick_count = 10
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="Panel"]
 clip_contents = true
+layout_mode = 0
 offset_left = 3.0
 offset_top = 78.0
 offset_right = 2069.0

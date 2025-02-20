@@ -51,6 +51,7 @@ text = "Channels Panel
 [node name="Panel" type="Panel" parent="."]
 self_modulate = Color(0.541176, 0.541176, 0.541176, 1)
 clip_contents = true
+layout_mode = 0
 offset_right = 177.0
 offset_bottom = 99.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_nfi10")
@@ -100,6 +101,7 @@ text = "FITC
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel"]
 clip_contents = true
+layout_mode = 0
 offset_left = 1.0
 offset_top = 35.0
 offset_right = 2112.0
@@ -141,6 +143,7 @@ text = "Cy5"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Panel"]
 clip_contents = true
+layout_mode = 0
 offset_left = 1.0
 offset_top = 70.0
 offset_right = 2552.0
@@ -162,3 +165,9 @@ toggle_mode = true
 button_group = ExtResource("2_28d1o")
 text = "Combo
 "
+
+[connection signal="pressed" from="Panel/HBoxContainer/Dapi" to="." method="_on_dapi_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/FITC" to="." method="_on_fitc_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer2/RITC" to="." method="_on_ritc_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer2/Cy5" to="." method="_on_cy_5_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer3/Combo" to="." method="_on_combo_pressed"]
