@@ -15,10 +15,10 @@ func LoadMixtures() -> Dictionary:
 		return {}
 	
 	# Opening file
-	var mixtureFile: FileAccess = FileAccess.open('res://mixtures.json', FileAccess.READ)
+	var mixture_file: FileAccess = FileAccess.open('res://mixtures.json', FileAccess.READ)
 	
 	# Checking if file is open 
-	if mixtureFile == null:
+	if mixture_file == null:
 		push_error("Mixture file mixtures.json failed to open!")
 		return {}
 	
@@ -26,10 +26,10 @@ func LoadMixtures() -> Dictionary:
 	var parse_res: JSON = JSON.new()
 	
 	# Checking for parsing errors
-	if parse_res.parse(mixtureFile.get_as_text()) != OK:
+	if parse_res.parse(mixture_file.get_as_text()) != OK:
 		push_error("Error parsing JSON data from mixtures.json: " + str(parse_res.error))
-		mixtureFile.close()
+		mixture_file.close()
 		return {}
 		
-	mixtureFile.close()
+	mixture_file.close()
 	return parse_res.get_data()

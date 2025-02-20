@@ -18,15 +18,15 @@ var gel_has_wells: bool = false
 var empty_image: Texture2D = null
 var contents: Array[Substance] = []
 
-var hasComb: bool = false
-var combObject: LabObject = null
+var has_comb: bool = false
+var comb_object: LabObject = null
 
-var subsceneEmptyImg: Texture2D = preload("res://Images/Gel_Tray_empty_zoomed.png")
-var subsceneFullImg: Texture2D = preload('res://Images/Gel_Tray_filled_zoomed.png')
-var subsceneFullWellsImg: Texture2D = preload('res://Images/Gel_Tray_filled_wells_zoomed.png')
-var subsceneFullCombImg: Texture2D = preload('res://Images/Gel_Tray_comb_gel_zoomed.png')
-var subsceneEmptyCombImg: Texture2D = preload('res://Images/Gel_Tray_comb_empty_zoomed.png')
-var subsceneGelBg: TextureRect = null
+var subscene_empty_img: Texture2D = preload("res://Images/Gel_Tray_empty_zoomed.png")
+var subscene_full_img: Texture2D = preload('res://Images/Gel_Tray_filled_zoomed.png')
+var subscene_full_wells_img: Texture2D = preload('res://Images/Gel_Tray_filled_wells_zoomed.png')
+var subscene_full_comb_img: Texture2D = preload('res://Images/Gel_Tray_comb_gel_zoomed.png')
+var subscene_empty_comb_img: Texture2D = preload('res://Images/Gel_Tray_comb_empty_zoomed.png')
+var subscene_gel_bg: TextureRect = null
 
 func LabObjectReady() -> void:
 	empty_comb_img = preload('res://Images/Gel_Tray_comb_empty.png')
@@ -34,21 +34,21 @@ func LabObjectReady() -> void:
 	filled_image = preload('res://Images/Gel_Tray_filled.png')
 	empty_image = preload('res://Images/Gel_Tray_empty.png')
 	
-	subsceneGelBg = $Subscene/Border/Background2
+	subscene_gel_bg = $Subscene/Border/Background2
 	$Subscene/PipetteProxies.hide()
 	update_display()
 
 func update_display() -> void:
 	# static change from "empty" to "filled" for now
-	if(hasComb):
+	if(has_comb):
 		# variants with the gel comb
 		if(len(contents) > 0):
 			if(filled_comb_img != null):
 				$Sprite2D.texture = filled_comb_img
-			subsceneGelBg.texture = subsceneFullCombImg
+			subscene_gel_bg.texture = subscene_full_comb_img
 		else:
 			$Sprite2D.texture = empty_comb_img
-			subsceneGelBg.texture = subsceneEmptyCombImg
+			subscene_gel_bg.texture = subscene_empty_comb_img
 	else:
 		# variants without the gel comb
 		if(len(contents) > 0):
@@ -56,18 +56,18 @@ func update_display() -> void:
 				$Sprite2D.texture = filled_image
 			
 			if gel_has_wells:
-				subsceneGelBg.texture = subsceneFullWellsImg
+				subscene_gel_bg.texture = subscene_full_wells_img
 				$Subscene/PipetteProxies.show()
 			else:
-				subsceneGelBg.texture = subsceneFullImg
+				subscene_gel_bg.texture = subscene_full_img
 		else:
 			$Sprite2D.texture = empty_image
-			subsceneGelBg.texture = subsceneEmptyImg
+			subscene_gel_bg.texture = subscene_empty_img
 
 func _on_ChillButton_pressed() -> void:
 	if contents:
 		chill(1)
-		gel_has_wells = hasComb
+		gel_has_wells = has_comb
 
 		update_display()
 		
@@ -137,7 +137,7 @@ func AddContents(new_contents: Array[Substance]) -> void:
 		if not new_content.is_in_group('DNA'):
 			continue
 			
-		if hasComb:
+		if has_comb:
 			print("The comb is in the way of the slots")
 			LabLog.Warn("You tried to add a DNA sample to a gel while the comb is still in place. Make sure the comb has been removed before adding samples.")
 			continue
@@ -173,11 +173,11 @@ func dispose() -> void:
 	dna_contents.clear()
 	gel_has_wells = false
 
-func chill(chillTime: float) -> void:
+func chill(chill_time: float) -> void:
 	# pass chilling along to the container's contents
 	for content in contents:
 		if(content.is_in_group("Chillable")):
-			content.chill(chillTime)
+			content.chill(chill_time)
 
 func run_current(voltage: float, time: float) -> void:
 	# pass current along to the container's contents
@@ -235,15 +235,15 @@ func CheckContents(group: StringName) -> Array[bool]:
 func TryInteract(others: Array[LabObject]) -> bool:
 	for other in others:
 		if other.is_in_group("Gel Comb"):
-			combObject = other
-			combObject.get_parent().remove_child(combObject)
-			hasComb = true
+			comb_object = other
+			comb_object.get_parent().remove_child(comb_object)
+			has_comb = true
 			update_display()
 			return true
 		# TODO (update): There is no 'GelImager' group, but there *is* a 'Gel Imager' group. This
 		# means that this never gets called.
 		elif other.is_in_group('GelImager'):
-			if(hasComb):
+			if(has_comb):
 				LabLog.Warn("You didn't remove the comb from the gel before imaging the gel. The experiment can't continue.")
 		elif(other.is_in_group('Container')):
 			# transfer contents to another container
@@ -253,23 +253,23 @@ func TryInteract(others: Array[LabObject]) -> bool:
 	return false
 
 func TryActIndependently() -> bool:
-	if not subsceneActive: ShowSubscene()
-	if hasComb:
+	if not subscene_active: ShowSubscene()
+	if has_comb:
 		$Subscene/Border/RemoveComb.show()
 	else:
 		$Subscene/Border/RemoveComb.hide()
 	return true
 
 func _on_RemoveComb_pressed() -> void:
-	if hasComb:
-		get_parent().add_child(combObject)
-		combObject.position.x -= 100
-		hasComb = false
+	if has_comb:
+		get_parent().add_child(comb_object)
+		comb_object.position.x -= 100
+		has_comb = false
 		update_display()
 		$Subscene/Border/RemoveComb.hide()
 
 func GelMoldInfo() -> Dictionary:
 	return {
-		"hasComb": hasComb,
+		"hasComb": has_comb,
 		"hasWells": gel_has_wells,
 	}

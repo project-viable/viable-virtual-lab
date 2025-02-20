@@ -94,13 +94,13 @@ func terminal_connected(terminal: LabObject, contact: LabObject) -> bool:
 func slot_filled(slot: ObjectSlot, object: LabObject) -> void:
 	if(object.is_in_group('Gel Boat')):
 		mounted_container = object
-		var gelMoldInfo: Dictionary = object.GelMoldInfo()
+		var gel_mold_info: Dictionary = object.GelMoldInfo()
 		mounted_container.visible = false
 
 		# Change texture if it has wells
-		if gelMoldInfo["hasComb"]:
+		if gel_mold_info["hasComb"]:
 			$Sprite2D.texture = filled_comb_texture
-		elif gelMoldInfo["hasWells"]:
+		elif gel_mold_info["hasWells"]:
 			$Sprite2D.texture = filled_wells_texture
 
 		# TODO (update): `gel_status` returns an array in the form [m, w] where m is a

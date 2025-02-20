@@ -1,20 +1,20 @@
 extends LabContainer
 
-@export var maxVolume: int
+@export var max_volume: int
 
-var allowedGroups: Array[String] = ["Source Container"]
+var allowed_groups: Array[String] = ["Source Container"]
 
 var DefaultText: String
 
 var CurrContent: LabContainer
 
 func LabObjectReady() -> void:
-	if maxVolume == 0:
+	if max_volume == 0:
 		print("Warning: Graduated Cylinder has a max volume of 0mL")
 	# Initialize volume to 0mL
 	var volume: float = 0
 	
-	$VolumeContainer.SetMaxVolume(maxVolume)
+	$VolumeContainer.SetMaxVolume(max_volume)
 	$VolumeContainer.SetVolume(volume)
 	
 	# Menu hidden by default
@@ -23,8 +23,8 @@ func LabObjectReady() -> void:
 
 func TryInteract(others: Array[LabObject]) -> bool:
 	for other in others:
-		for i in allowedGroups.size():
-			if other.is_in_group(allowedGroups[i]):
+		for i in allowed_groups.size():
+			if other.is_in_group(allowed_groups[i]):
 				# Continue through loop if the graduated cylinder is already full
 				if $VolumeContainer.GetVolume() == $VolumeContainer.GetMaxVolume():
 					continue
@@ -91,10 +91,10 @@ func dispose() -> void:
 	update_display()
 
 func update_display() -> void:
-	var maxHeight: float = $ColorRect.size.y
-	var fillPercentage: float = $VolumeContainer.GetVolume() / $VolumeContainer.GetMaxVolume()
-	var fillHeight: float = maxHeight * fillPercentage
-	$FillProgress.size = Vector2($FillProgress.size.x, fillHeight)
+	var max_height: float = $ColorRect.size.y
+	var fill_percentage: float = $VolumeContainer.GetVolume() / $VolumeContainer.GetMaxVolume()
+	var fill_height: float = max_height * fill_percentage
+	$FillProgress.size = Vector2($FillProgress.size.x, fill_height)
 	print("Display updated")
 	###Now we need to calculate the average color of our contents:
 	if len(contents) > 0:
@@ -130,14 +130,14 @@ func _on_CloseButton_pressed() -> void:
 	ResetMenu()
 
 func _on_DispenseButton_pressed() -> void:
-	var substanceVolume: float = $Menu/PanelContainer/VBoxContainer/SpinBox.value
-	if not $VolumeContainer.AddSubstance(substanceVolume):
+	var substance_volume: float = $Menu/PanelContainer/VBoxContainer/SpinBox.value
+	if not $VolumeContainer.AddSubstance(substance_volume):
 		$Menu/PanelContainer/VBoxContainer/Description.text = DefaultText + "\nWarning: Cannot add " \
-			+ str(substanceVolume) + "mL to container"
+			+ str(substance_volume) + "mL to container"
 	else:
 		contents.append_array(CurrContent.TakeContents($VolumeContainer.GetVolume()))
 		# Update the volume of the contents
-		contents[0].set_volume(substanceVolume)
+		contents[0].set_volume(substance_volume)
 		LabLog.Log("Added " + str(contents[0].get_volume()) + "mL of " + contents[0].name + " to graduated cylinder.")
 		update_display()
 		ResetMenu()

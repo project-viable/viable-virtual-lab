@@ -1,7 +1,7 @@
 extends "res://Scripts/Objects/LabObject.gd"
 
-var Tare: bool = false
-var Weighing: bool = false
+var tare: bool = false
+var weighing: bool = false
 var tare_weight: float = 0.0
 var current_weight: float = 0.0
 
@@ -14,7 +14,7 @@ func TryInteract(others: Array[LabObject]) -> bool:
 		if other.is_in_group("Weighable"):
 			if(!objects.has(other)):
 				objects.append(other)
-				Weighing = true
+				weighing = true
 				UpdateWeight()
 				
 			get_node("Control").visible = true
@@ -48,7 +48,7 @@ func _on_Tare_Button_pressed() -> void:
 			print(object.get_name())
 		print("Overlap test")
 		tare_weight = current_weight
-		Tare = true
+		tare = true
 		get_node("Control/PanelContainer/VBoxContainer/Weight_Value").text = "%.2f" % (current_weight-tare_weight)
 		for object: Node2D in $Area2D.get_overlapping_bodies():
 			if(object.is_in_group("Weighable")):
@@ -57,7 +57,7 @@ func _on_Tare_Button_pressed() -> void:
 						LabLog.Warn("Scale was tared while substances were being weighed, so final measurements may be incorrect")
 	else:
 		print("No overlap")
-		Tare = false
+		tare = false
 		tare_weight = 0.0
 		UpdateWeight()
 		update_display()
@@ -66,17 +66,17 @@ func _on_Area2D_body_exited(body: Node2D) -> void:
 	if(body.is_in_group("Weighable")):
 		if(body.is_in_group("WeighBoat")):
 			if(!body.contents.is_empty()):
-				if(Tare == false):
+				if(tare == false):
 					LabLog.Warn("Scale was not tared when weighing, so substance weights may be incorrect")
 		if(objects.has(body)):
 			objects.erase(body)
 			UpdateWeight()
 			update_display()
 	if(objects.is_empty()):
-		Weighing = false
+		weighing = false
 
 func update_display() -> void:
-	if(Tare == false):
+	if(tare == false):
 		get_node("Control/PanelContainer/VBoxContainer/Weight_Value").text = "%.2f" % current_weight
 	else:
 		get_node("Control/PanelContainer/VBoxContainer/Weight_Value").text = "%.2f" % (current_weight - tare_weight)

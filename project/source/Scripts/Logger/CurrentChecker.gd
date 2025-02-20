@@ -7,7 +7,7 @@ class_name CurrentChecker
 @export var ReversedMessage: String
 
 func CheckAction(params: Dictionary) -> void:
-	if params['actionType'] == 'runCurrent' and params.get('voltage'):
+	if params['action_type'] == 'runCurrent' and params.get('voltage'):
 		if params['voltage'] < 0:
 			LabLog.Warn(ReversedMessage)
 		if abs(params['voltage']) < CorrectVoltage:

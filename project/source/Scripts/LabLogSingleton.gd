@@ -12,7 +12,7 @@ extends Node
 #{'message': "something", 'hidden': false, 'popup': false}
 #log data will be used by other things. This node just stores them and notifies others when they change.
 var logs: Dictionary = {}
-signal NewMessage(category: String, newLog: Dictionary)
+signal NewMessage(category: String, new_log: Dictionary)
 signal LogsCleared()
 signal ReportShown()
 
@@ -20,10 +20,10 @@ func AddLogMessage(category: String, message: String, hidden: bool = false, popu
 	if not logs.has(category):
 		logs[category] = []
 	
-	var newLog: Dictionary = {'message': message, 'hidden': hidden, 'popup': popup}
-	logs[category].append(newLog)
+	var new_log: Dictionary = {'message': message, 'hidden': hidden, 'popup': popup}
+	logs[category].append(new_log)
 	
-	emit_signal("NewMessage", category, newLog)
+	emit_signal("NewMessage", category, new_log)
 
 #returns the entire logs structure, defined above.
 func GetLogs() -> Dictionary:

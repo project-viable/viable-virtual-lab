@@ -84,23 +84,23 @@ position = Vector2( -95, 34 )
 
 [node name="GelWell2" parent="Subscene/Wells" index="1" instance=ExtResource( 5 )]
 position = Vector2( -56, 34 )
-wellNumber = 1
+well_number = 1
 
 [node name="GelWell3" parent="Subscene/Wells" index="2" instance=ExtResource( 5 )]
 position = Vector2( -19, 34 )
-wellNumber = 2
+well_number = 2
 
 [node name="GelWell4" parent="Subscene/Wells" index="3" instance=ExtResource( 5 )]
 position = Vector2( 20, 34 )
-wellNumber = 3
+well_number = 3
 
 [node name="GelWell5" parent="Subscene/Wells" index="4" instance=ExtResource( 5 )]
 position = Vector2( 56, 34 )
-wellNumber = 4
+well_number = 4
 
 [node name="GelWell6" parent="Subscene/Wells" index="5" instance=ExtResource( 5 )]
 position = Vector2( 95, 34 )
-wellNumber = 5
+well_number = 5
 
 [node name="PipetteProxies" type="Node2D" parent="Subscene" index="3"]
 visible = false
