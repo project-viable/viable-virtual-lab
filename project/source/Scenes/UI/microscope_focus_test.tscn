@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dk45mqvuyiv1v"]
+
+[ext_resource type="Shader" path="res://Scenes/UI/microscope_focus_blur.gdshader" id="1_syvup"]
+[ext_resource type="Texture2D" uid="uid://cm88dw0xfl2xk" path="res://Images/testImg.png" id="1_xjnra"]
+[ext_resource type="PackedScene" uid="uid://b7038o1t6lkhh" path="res://Scenes/Objects/focus_control.tscn" id="2_jf3ii"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e00rm"]
+shader = ExtResource("1_syvup")
+shader_parameter/blur_amount = 1.0
+
+[node name="microscope_focus_test" type="Node2D"]
+
+[node name="microscope_image" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_e00rm")
+position = Vector2(433, 254.5)
+scale = Vector2(0.831111, 0.886)
+texture = ExtResource("1_xjnra")
+
+[node name="focus_control" parent="." instance=ExtResource("2_jf3ii")]
+offset_left = 397.0
+offset_top = 130.0
+offset_right = 397.0
+offset_bottom = 130.0
