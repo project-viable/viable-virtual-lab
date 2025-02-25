@@ -66,7 +66,7 @@ func fix_zoom() -> void:
 	var worst_scale_factor: float = max(y_scale_factor, x_scale_factor)
 	
 	if worst_scale_factor > 1:
-		zoom(1.0/worst_scale_factor)
+		zoom_by_factor(1.0/worst_scale_factor)
 
 func fix_position(offset_from_current_global_pos: Vector2 = Vector2(0, 0)) -> Vector2:
 	#call with no (or default) argument to get the adjustment for the current position
@@ -105,15 +105,15 @@ func start_dragging() -> void:
 func stop_dragging() -> void:
 	dragging = false
 
-func zoom(factor: float) -> void:
+func zoom_by_factor(factor: float) -> void:
 	zoom = zoom * factor
 	move_rate = move_rate * factor
 	fix_to_allowed_area()
 
 #This function is called by the Main Scene. Read the documentation for that for why.
 func zoom_in() -> void:
-	zoom(1.0/zoom_factor)
+	zoom_by_factor(1.0/zoom_factor)
 
 #This function is called by the Main Scene. Read the documentation for that for why.
 func zoom_out() -> void:
-	zoom(zoom_factor)
+	zoom_by_factor(zoom_factor)

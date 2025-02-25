@@ -26,16 +26,16 @@ func try_interact(others: Array[LabObject]) -> bool:
 					target = other
 					$Menu.show()
 				else:
-					dispose(other)
+					dispose_of(other)
 				return true
 	
 	return false
 
-func dispose(object: LabObject) -> void:
+func dispose_of(object: LabObject) -> void:
 	#TODO: Report this to the mistake checker
 	print("Calling Disposal function of " + str(object))
 	object.dispose()
 
 func _on_YesButton_pressed() -> void:
-	dispose(target)
+	dispose_of(target)
 	$Menu.hide()
