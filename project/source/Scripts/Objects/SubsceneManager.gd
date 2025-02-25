@@ -2,7 +2,7 @@
 extends LabObject
 class_name SubsceneManager
 
-@export var dimensions: Vector2 = Vector2(300, 300): set = SetDimensions
+@export var dimensions: Vector2 = Vector2(300, 300): set = set_dimensions
 var subscene_active: bool
 var subscene: Area2D = null #We keep a reference to the subscene so we can remove it from the tree entirely when it's hidden. This is how we "pause" the subscene when it isn't active
 

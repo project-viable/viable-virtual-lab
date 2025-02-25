@@ -13,8 +13,8 @@ class_name Pipette
 var plunger_press_extent: float = 2 #Stores the lowest value the plunger slider has reached since being reset to the top.
 var do_actions: bool = true #used to allow modifying the plunger's state by code without triggering interactions
 
-@export var has_tip: bool = false: set = SetHasTip
-@onready var draw_volume: float = snapped((max_capacity - min_capacity)/2, display_increment_bottom): set = SetDrawVolume
+@export var has_tip: bool = false: set = set_has_tip
+@onready var draw_volume: float = snapped((max_capacity - min_capacity)/2, display_increment_bottom): set = set_draw_volume
 var contents: Array[Substance] = [] #current contents
 var tip_contaminants: Array[Substance] = [] #stores what the pipette has drawn in since the last time the tip was replaced
 

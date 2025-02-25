@@ -2,8 +2,8 @@
 extends Sprite2D
 class_name DimensionSprite
 
-@export var OverrideDimensions: bool: set = SetOverride
-@export var SpriteDimensions: Vector2: set = SetDimensions
+@export var OverrideDimensions: bool: set = set_override
+@export var SpriteDimensions: Vector2: set = set_dimensions
 
 # Called when the node enters the scene tree for the first time.
 func set_override(new_val: bool) -> void:

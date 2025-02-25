@@ -6,8 +6,8 @@ extends LabObject
 # when something draws from it.
 
 enum ContainerType {ERLENMEYER_FLASK, MICRO_CENTRIFUGE_TUBE} #TODO: I'm not convinced this is a good way to do this, since we have to repeatedly modify code instead of just making these, simple changes in the editor. Maybe use an inherited scene like the Pipettes
-@export var container_type: ContainerType: set = SetContainerType
-@export var image: Texture2D = null: set = SetOverrideImage
+@export var container_type: ContainerType: set = set_container_type
+@export var image: Texture2D = null: set = set_override_image
 
 @export var substance: PackedScene = null
 @export var substance_parameters: Array[float]
