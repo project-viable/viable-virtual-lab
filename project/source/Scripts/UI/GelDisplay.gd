@@ -136,7 +136,7 @@ func _on_TopRunoffArea_body_entered(body: Node2D) -> void:
 
 		if(!already_errored):
 			#print('Sending error for band ['+str(body.well_index)+','+str(body.band_index)+']')
-			LabLog.Error("A gel band has run off the top of the gel. You may want to check how you've wired the electrolysis setup.")
+			LabLog.error("A gel band has run off the top of the gel. You may want to check how you've wired the electrolysis setup.")
 		
 		cached_band_errors.append([body.well_index, body.band_index])
 		delete_band(body)
@@ -154,7 +154,7 @@ func _on_BottomRunoffArea_body_entered(body: Node2D) -> void:
 
 		if(!already_errored):
 			#print('Sending error for band ['+str(body.well_index)+','+str(body.band_index)+']')
-			LabLog.Error("A gel band has run off the bottom of the gel. You may have run the gel for too long, or the gel ratio is too small.")
+			LabLog.error("A gel band has run off the bottom of the gel. You may have run the gel for too long, or the gel ratio is too small.")
 		
 		cached_band_errors.append([body.well_index, body.band_index])	
 		delete_band(body)

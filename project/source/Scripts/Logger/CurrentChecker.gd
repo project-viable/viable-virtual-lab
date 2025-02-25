@@ -6,11 +6,11 @@ class_name CurrentChecker
 @export var TooLowMessage: String
 @export var ReversedMessage: String
 
-func CheckAction(params: Dictionary) -> void:
+func check_action(params: Dictionary) -> void:
 	if params['action_type'] == 'runCurrent' and params.get('voltage'):
 		if params['voltage'] < 0:
-			LabLog.Warn(ReversedMessage)
+			LabLog.warn(ReversedMessage)
 		if abs(params['voltage']) < CorrectVoltage:
-			LabLog.Warn(TooLowMessage)
+			LabLog.warn(TooLowMessage)
 		elif abs(params['voltage']) > CorrectVoltage:
-			LabLog.Warn(TooHighMessage)
+			LabLog.warn(TooHighMessage)

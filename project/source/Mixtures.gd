@@ -6,9 +6,9 @@ var MixtureChecker: Resource
 func _ready() -> void:
 	MixtureChecker = load("res://MistakeCheckers/MixtureChecker.tres")
 	if MixtureChecker != null:
-		MixtureChecker.Mixtures = LoadMixtures()
+		MixtureChecker.Mixtures = load_mixtures()
 	
-func LoadMixtures() -> Dictionary:
+func load_mixtures() -> Dictionary:
 	# Checking if file exists
 	if not FileAccess.file_exists("res://mixtures.json"):
 		push_error("Mixture file mixtures.json is missing! Cannot check user made mixtures!")

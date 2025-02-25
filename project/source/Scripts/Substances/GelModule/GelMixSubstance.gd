@@ -34,7 +34,7 @@ func init_mixed(parent_substances: Array[Substance]) -> void:
 			'binder': binder_props
 		}
 	}
-	ReportAction([self], 'mixSubstance', substances)
+	report_action([self], 'mixSubstance', substances)
 
 func init_created(properties: Dictionary) -> void:
 	if(properties.has('gel ratio')):
@@ -60,7 +60,7 @@ func heat(heat_time: float) -> void:
 	# 40 is currently a placeholder value for the ideal heating time for the lab
 	viscosity = 1 + ((total_heat_time - 40)/40)
 	print("Gel viscosity after heating: " + str(viscosity))
-	#GetCurrentModuleScene().HeatingChecker([total_heat_time])
+	#get_current_module_scene().HeatingChecker([total_heat_time])
 
 func chill(chill_time: float) -> void:
 	if total_heat_time > 30 and total_heat_time < 70:
@@ -90,7 +90,7 @@ func run_current(voltage: float, time: float) -> void:
 	total_run_time += (time * sign(voltage))
 	
 	if total_run_time > 21:
-		LabLog.Error("Total current run time has exceeded 20 minutes")
+		LabLog.error("Total current run time has exceeded 20 minutes")
 
 func get_properties() -> Dictionary:
 	return {

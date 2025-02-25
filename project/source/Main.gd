@@ -6,22 +6,22 @@ var current_module_scene: Node = null
 
 @export var CheckStrategies: Array[MistakeChecker]
 
-func CheckAction(params: Dictionary) -> void:
+func check_action(params: Dictionary) -> void:
 	for strategy in CheckStrategies:
-		strategy.CheckAction(params)
+		strategy.check_action(params)
 
 #instanciates scene and adds it as a child of $Scene. Gets rid of any scene that's already been loaded, and hides the menu.
-func SetScene(scene: PackedScene) -> void:
-	LabLog.ClearLogs()
+func set_scene(scene: PackedScene) -> void:
+	LabLog.clear_logs()
 	for child in $Scene.get_children():
 		child.queue_free()
 	
 	var new_scene := scene.instantiate()
 	$Scene.add_child(new_scene)
 	current_module_scene = new_scene
-	#$Camera.Reset()
+	#$Camera.reset()
 
-func GetDeepestSubsceneAt(pos: Vector2) -> Node:
+func get_deepest_subscene_at(pos: Vector2) -> Node:
 	var result: Node = null
 
 	var cast_params := PhysicsPointQueryParameters2D.new()
@@ -36,7 +36,7 @@ func GetDeepestSubsceneAt(pos: Vector2) -> Node:
 		for object in cast_result:
 			if not object['collider'] is LabObject: #the allowed area of a subscene is not a LabObject
 				if object['collider'].get_parent() is SubsceneManager: #^but its parent is the SubsceneManager
-					if object['collider'].get_parent().subscene_active and (result == null or object['collider'].get_parent().CountSubsceneDepth() > result.CountSubsceneDepth()):
+					if object['collider'].get_parent().subscene_active and (result == null or object['collider'].get_parent().count_subscene_depth() > result.count_subscene_depth()):
 						result = object['collider'].get_parent()
 	
 	return result
@@ -55,11 +55,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		if len(cast_result) > 0:
 			#We found results: now we need to make sure only objects in the subscene we clicked in (if any) can get this input
-			var deepest_subscene := GetDeepestSubsceneAt(get_global_mouse_position())
+			var deepest_subscene := get_deepest_subscene_at(get_global_mouse_position())
 			
 			var pick_options: Array[LabObject] = []
 			for result in cast_result:
-				if result['collider'] is LabObject and (result['collider'].GetSubsceneManagerParent() == deepest_subscene or (result['collider'] == deepest_subscene and not result['collider'].subscene_active)):
+				if result['collider'] is LabObject and (result['collider'].get_subscene_manager_parent() == deepest_subscene or (result['collider'] == deepest_subscene and not result['collider'].subscene_active)):
 					pick_options.append(result['collider'])
 			
 			var best_pick: LabObject = null
@@ -72,18 +72,18 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 			if best_pick:
 				if best_pick.draggable:
-					best_pick.StartDragging()
+					best_pick.start_dragging()
 				else:
-					best_pick.OnUserAction()
+					best_pick.on_user_action()
 				get_viewport().set_input_as_handled()
 				return
 	
 	#If we've made it here, then we didn't need to do something with a LabObject
 	###Now see if we should do something to the camera
 #	if event.is_action_pressed("DragCamera") and GameSettings.mouseCameraDrag:
-#		$Camera.StartDragging()
+#		$Camera.start_dragging()
 #
 #	if event.is_action_pressed("CameraZoomIn"):
-#		$Camera.ZoomIn()
+#		$Camera.zoom_in()
 #	if event.is_action_pressed("CameraZoomOut"):
-#		$Camera.ZoomOut()
+#		$Camera.zoom_out()
