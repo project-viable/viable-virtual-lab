@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-var ModuleDirectory: String = "res://Modules/"
-var ModuleButton: PackedScene = load("res://Scenes/UI/ModuleSelectButton.tscn")
+var module_directory: String = "res://Modules/"
+var module_button: PackedScene = load("res://Scenes/UI/ModuleSelectButton.tscn")
 
 var current_module: ModuleData = null
 
@@ -42,10 +42,10 @@ func _ready() -> void:
 	$MainMenu/Content/Logo.hide()
 	
 	#Set up the module select buttons
-	for file in get_all_files_in_folder(ModuleDirectory):
-		var module_data: ModuleData = load(ModuleDirectory + file)
+	for file in get_all_files_in_folder(module_directory):
+		var module_data: ModuleData = load(module_directory + file)
 		if module_data.show:
-			var new_button := ModuleButton.instantiate()
+			var new_button := module_button.instantiate()
 			new_button.set_data(module_data)
 			new_button.connect("pressed", Callable(self, "ModuleSelected").bind(module_data))
 			$ModuleSelect.add_child(new_button)
@@ -61,7 +61,7 @@ func _ready() -> void:
 	$LogButton/LogMenu.set_tab_icon(3, load("res://Images/Dot-Red.png"))
 	
 	# Since there is one module, it should boot directly into this scene
-	var module: ModuleData = load(ModuleDirectory + "GelElectrophoresis.tres")
+	var module: ModuleData = load(module_directory + "GelElectrophoresis.tres")
 	module_selected(module)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

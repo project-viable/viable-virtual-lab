@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var show_without_UV: bool = false
+@export var show_without_uv: bool = false
 
 var band_prefab: PackedScene = null
 var gel_images: Array[Texture2D] = []
@@ -114,7 +114,7 @@ func update_gel_display() -> void:
 		var counter := 0
 		for band in start_obj.get_children():
 			var last_band := (counter == start_obj.get_child_count() - 1)
-			band.update_display(uv_on, show_without_UV, band_images, last_band)
+			band.update_display(uv_on, show_without_uv, band_images, last_band)
 			counter += 1
 
 func delete_band(band_obj: Node2D) -> void:
