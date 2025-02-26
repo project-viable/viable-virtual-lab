@@ -1,12 +1,11 @@
 extends Node2D
 
-# TODO (update): This name shadows the `MixtureChecker` class.
-var MixtureChecker: Resource
+var mixture_checker: Resource
 
 func _ready() -> void:
-	MixtureChecker = load("res://MistakeCheckers/MixtureChecker.tres")
-	if MixtureChecker != null:
-		MixtureChecker.Mixtures = load_mixtures()
+	mixture_checker = load("res://MistakeCheckers/MixtureChecker.tres")
+	if mixture_checker != null:
+		mixture_checker.Mixtures = load_mixtures()
 	
 func load_mixtures() -> Dictionary:
 	# Checking if file exists
