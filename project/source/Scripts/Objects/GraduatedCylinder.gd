@@ -4,9 +4,9 @@ extends LabContainer
 
 var allowed_groups: Array[String] = ["Source Container"]
 
-var DefaultText: String
+var default_text: String
 
-var CurrContent: LabContainer
+var curr_content: LabContainer
 
 func lab_object_ready() -> void:
 	if max_volume == 0:
@@ -37,7 +37,7 @@ func try_interact(others: Array[LabObject]) -> bool:
 					
 					# We want to store the substance in a variable
 					# so that it can be accessed in _on_DispenseButton_pressed()
-					CurrContent = other
+					curr_content = other
 					
 					# Disable dragging while menu open
 					self.draggable = false
@@ -119,9 +119,9 @@ func update_display() -> void:
 
 # Reset values in menu
 func reset_menu() -> void:
-	DefaultText = "Graduated Cylinder currently has a " \
+	default_text = "Graduated Cylinder currently has a " \
 		+ "volume of " + str($VolumeContainer.get_volume()) + "mL"
-	$Menu/PanelContainer/VBoxContainer/Description.text = DefaultText
+	$Menu/PanelContainer/VBoxContainer/Description.text = default_text
 	$Menu/PanelContainer/VBoxContainer/SpinBox.set_value(0)
 	update_display()
 
@@ -132,10 +132,10 @@ func _on_CloseButton_pressed() -> void:
 func _on_DispenseButton_pressed() -> void:
 	var substance_volume: float = $Menu/PanelContainer/VBoxContainer/SpinBox.value
 	if not $VolumeContainer.add_substance(substance_volume):
-		$Menu/PanelContainer/VBoxContainer/Description.text = DefaultText + "\nWarning: Cannot add " \
+		$Menu/PanelContainer/VBoxContainer/Description.text = default_text + "\nWarning: Cannot add " \
 			+ str(substance_volume) + "mL to container"
 	else:
-		contents.append_array(CurrContent.take_contents($VolumeContainer.get_volume()))
+		contents.append_array(curr_content.take_contents($VolumeContainer.get_volume()))
 		# Update the volume of the contents
 		contents[0].set_volume(substance_volume)
 		LabLog.log("Added " + str(contents[0].get_volume()) + "mL of " + contents[0].name + " to graduated cylinder.")

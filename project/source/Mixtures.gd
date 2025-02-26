@@ -5,7 +5,7 @@ var mixture_checker: Resource
 func _ready() -> void:
 	mixture_checker = load("res://MistakeCheckers/MixtureChecker.tres")
 	if mixture_checker != null:
-		mixture_checker.Mixtures = load_mixtures()
+		mixture_checker.mixtures = load_mixtures()
 	
 func load_mixtures() -> Dictionary:
 	# Checking if file exists

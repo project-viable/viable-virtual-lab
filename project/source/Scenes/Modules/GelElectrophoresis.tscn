@@ -59,7 +59,7 @@ _bundled = {
 [node name="GelElectrophoresis" type="Node2D"]
 position = Vector2( 25, -546 )
 script = ExtResource( 29 )
-CheckStrategies = [ ExtResource( 28 ), ExtResource( 32 ), ExtResource( 25 ) ]
+check_strategies = [ ExtResource( 28 ), ExtResource( 32 ), ExtResource( 25 ) ]
 
 [node name="PipetteHolder" type="Sprite2D" parent="."]
 position = Vector2( 103, 824 )

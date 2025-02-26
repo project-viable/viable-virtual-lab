@@ -4,10 +4,10 @@ extends Node2D
 # clear, like naming it in PascalCase.
 var current_module_scene: Node = null
 
-@export var CheckStrategies: Array[MistakeChecker]
+@export var check_strategies: Array[MistakeChecker]
 
 func check_action(params: Dictionary) -> void:
-	for strategy in CheckStrategies:
+	for strategy in check_strategies:
 		strategy.check_action(params)
 
 #instanciates scene and adds it as a child of $Scene. Gets rid of any scene that's already been loaded, and hides the menu.

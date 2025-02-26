@@ -44,7 +44,7 @@ func _ready() -> void:
 	#Set up the module select buttons
 	for file in get_all_files_in_folder(ModuleDirectory):
 		var module_data: ModuleData = load(ModuleDirectory + file)
-		if module_data.Show:
+		if module_data.show:
 			var new_button := ModuleButton.instantiate()
 			new_button.set_data(module_data)
 			new_button.connect("pressed", Callable(self, "ModuleSelected").bind(module_data))
@@ -202,7 +202,7 @@ func _on_LabLog_Report_Shown() -> void:
 		$FinalReport/VBoxContainer/Logs.hide()
 	
 	#Setup the rest of the popup
-	$FinalReport/VBoxContainer/ModuleName.text = "You completed the \"" + current_module.Name + "\" module!"
+	$FinalReport/VBoxContainer/ModuleName.text = "You completed the \"" + current_module.name + "\" module!"
 	$FinalReport/VBoxContainer/ModuleIcon.texture = current_module.Thumbnail
 	$FinalReport.set_anchors_preset(Control.PRESET_CENTER)
 	$FinalReport.show()

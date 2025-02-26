@@ -6,8 +6,8 @@
 
 [resource]
 script = ExtResource( 1 )
-Show = true
-Name = "Gel Electrophoresis"
+show = true
+name = "Gel Electrophoresis"
 Tooltip = "Learn how to do Gel Electrophoresis."
 Thumbnail = ExtResource( 3 )
 Scene = ExtResource( 2 )
