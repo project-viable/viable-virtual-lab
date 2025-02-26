@@ -6,7 +6,7 @@ class_name LabObject
 #when not being dragged, it will be set to whatever it's rigidbody2d mode is set to (rigid, static, etc.)
 @export var draggable: bool
 @export var can_change_subscenes: bool = true
-@export var DisplayName: String = ""
+@export var display_name: String = ""
 @export var tooltip_display_distance: int = 35
 var tooltip: Label #Set when it's created
 
@@ -52,12 +52,12 @@ func _ready() -> void:
 	#if we're not in the editor
 	if not Engine.is_editor_hint():
 		#Set up the tooltip
-		if len(DisplayName) > 1:
+		if len(display_name) > 1:
 			var tooltip_container:Node2D = Node2D.new()
 			tooltip_container.z_index = RenderingServer.CANVAS_ITEM_Z_MAX - 1
 			
 			tooltip = Label.new()
-			tooltip.text = DisplayName
+			tooltip.text = display_name
 			tooltip.name = "labobject_auto_tooltip"
 			tooltip.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 			var tooltip_stylebox:StyleBoxFlat = StyleBoxFlat.new()

@@ -22,7 +22,7 @@ extents = Vector2( 65, 30.1875 )
 position = Vector2( -3, 35 )
 gravity_scale = 0.0
 script = ExtResource( 6 )
-DisplayName = "Electrolysis Setup"
+display_name = "Electrolysis Setup"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2( 1, -33 )

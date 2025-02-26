@@ -4,7 +4,7 @@
 [ext_resource path="res://Images/Label_P20.png" type="Texture2D" id=2]
 
 [node name="P20" instance=ExtResource( 1 )]
-DisplayName = "P20 Pipette"
+display_name = "P20 Pipette"
 minCapacity = 2.0
 maxCapacity = 20.0
 

@@ -14,7 +14,7 @@ extents = Vector2( 59.5, 8 )
 [node name="WeighBoat" type="RigidBody2D" groups=["Container", "WeighBoat", "Weighable"]]
 mass = 0.0408163
 script = ExtResource( 2 )
-DisplayName = "Weigh Boat"
+display_name = "Weigh Boat"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2( -1, -14 )

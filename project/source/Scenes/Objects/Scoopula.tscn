@@ -15,7 +15,7 @@ collision_layer = 2
 gravity_scale = 0.0
 script = ExtResource( 1 )
 draggable = true
-DisplayName = "Scoopula"
+display_name = "Scoopula"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2( -9.53674e-07, -2.38419e-07 )

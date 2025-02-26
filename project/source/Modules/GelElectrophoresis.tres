@@ -8,10 +8,10 @@
 script = ExtResource( 1 )
 show = true
 name = "Gel Electrophoresis"
-Tooltip = "Learn how to do Gel Electrophoresis."
-Thumbnail = ExtResource( 3 )
-Scene = ExtResource( 2 )
-InstructionsBBCode = "[b]Gel Electrophoresis[/b]
+tooltip = "Learn how to do Gel Electrophoresis."
+thumbnail = ExtResource( 3 )
+scene = ExtResource( 2 )
+instructions_bb_code = "[b]Gel Electrophoresis[/b]
 
 [b]To make the gel:[/b]
 1) Use the scoopula, weigh boat and scale to measure 7.84 g of agarose powder.

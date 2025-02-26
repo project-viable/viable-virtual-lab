@@ -87,11 +87,11 @@ func _process(delta: float) -> void:
 
 
 func module_selected(module: ModuleData) -> void:
-	get_parent().set_scene(module.Scene)
+	get_parent().set_scene(module.scene)
 	$ModuleSelect.hide()
 	current_module = module
 	$LogButton.show()
-	$LogButton/LogMenu/Instructions.text = module.InstructionsBBCode
+	$LogButton/LogMenu/Instructions.text = module.instructions_bb_code
 
 func _on_SelectModuleButton_pressed() -> void:
 	$MainMenu.hide()
@@ -203,7 +203,7 @@ func _on_LabLog_Report_Shown() -> void:
 	
 	#Setup the rest of the popup
 	$FinalReport/VBoxContainer/ModuleName.text = "You completed the \"" + current_module.name + "\" module!"
-	$FinalReport/VBoxContainer/ModuleIcon.texture = current_module.Thumbnail
+	$FinalReport/VBoxContainer/ModuleIcon.texture = current_module.thumbnail
 	$FinalReport.set_anchors_preset(Control.PRESET_CENTER)
 	$FinalReport.show()
 
@@ -211,7 +211,7 @@ func _on_FinalReport_MainMenuButton_pressed() -> void:
 	get_tree().reload_current_scene()
 
 func _on_FinalReport_RestartModuleButton_pressed() -> void:
-	get_parent().set_scene(current_module.Scene)
+	get_parent().set_scene(current_module.scene)
 	set_log_notification_counts()
 	$FinalReport.hide()
 
