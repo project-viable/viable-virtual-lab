@@ -189,6 +189,7 @@ metadata/_edit_lock_ = true
 [connection signal="pressed" from="PopupControl/PanelContainer/VBoxContainer/Screen/Desktop/AppIcon/AppIconPressed" to="PopupControl/PanelContainer/VBoxContainer/Screen" method="_on_app_icon_pressed"]
 [connection signal="button_press" from="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/MacroPanel" to="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen" method="_on_macro_panel_button_press"]
 [connection signal="channel_selected" from="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/ChannelsPanel" to="." method="_on_channels_panel_channel_selected"]
+[connection signal="combo_change" from="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure" to="." method="_on_power_exposure_combo_change"]
 [connection signal="exposure_change" from="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure" to="." method="_on_exposure_change"]
 [connection signal="power_change" from="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure" to="." method="_on_power_change"]
 [connection signal="pressed" from="PopupControl/PanelContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
