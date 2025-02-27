@@ -2,6 +2,15 @@ extends Node2D
 var cell_image_width: float 
 var cell_image_height: float
 var speed: float = 500
+
+var cell_images: Dictionary = {
+	"BPAE": {	
+		"10x": preload("res://Images/ImageCells/20250224_bpae_10xA1c1.jpg"),
+		"20x": preload("res://Images/ImageCells/20250224_bpae_20xA1c1.jpg"),
+		"40x": preload("res://Images/ImageCells/20250224_bpae_40xA1c1.jpg"),
+		"100x": preload("res://Images/ImageCells/20250224_bpae_100xA1c1.jpg")
+	}
+}
 func _ready() -> void:
 	hide()
 	cell_image_width = $CellImage/Sprite2D.texture.get_width()
@@ -29,5 +38,5 @@ func _process(delta: float) -> void:
 
 
 # Change Image Zoom
-func _on_macro_panel_button_press(button_value: int) -> void:
-	print(button_value)
+func _on_macro_panel_button_press(button_value: String) -> void:
+	$CellImage/Sprite2D.texture = cell_images["BPAE"][button_value]

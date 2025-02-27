@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://Scenes/Objects/computer.gd" id="1_qhp2f"]
 [ext_resource type="Texture2D" uid="uid://cqmb14y7dw7nj" path="res://Images/Computer_Screen.png" id="2_pfloe"]
 [ext_resource type="Script" path="res://Scenes/Objects/main_screen.gd" id="3_yvw0i"]
-[ext_resource type="Texture2D" uid="uid://dei2oh26773j6" path="res://Images/BPAE cells 40x_ch2.jpg" id="4_cbet6"]
 [ext_resource type="Texture2D" uid="uid://bdg0qubi6xt7d" path="res://Images/MainMenu-Background.png" id="6_hfodf"]
 [ext_resource type="Script" path="res://Scenes/UI/app_icon.gd" id="7_ayaux"]
 [ext_resource type="Script" path="res://Scenes/Objects/content_screen.gd" id="7_hy7wm"]
 [ext_resource type="Texture2D" uid="uid://b2u2vyu06gaor" path="res://favicon.png" id="7_jbvos"]
-[ext_resource type="PackedScene" uid="uid://5gf8bks5msro" path="res://Scenes/UI/MacroPanel.tscn" id="10_env1g"]
+[ext_resource type="Texture2D" uid="uid://3jh4ygiiufys" path="res://Images/ImageCells/20250224_bpae_10xA1c1.jpg" id="8_6plxk"]
+[ext_resource type="PackedScene" uid="uid://css145ipgmvbb" path="res://Scenes/UI/MacroPanel.tscn" id="10_env1g"]
 [ext_resource type="FontFile" uid="uid://c5jqyemsa330f" path="res://UI/Roboto/Roboto-Black.ttf" id="10_scboh"]
 [ext_resource type="PackedScene" uid="uid://bh6iocygbfwtj" path="res://Scenes/UI/ChannelsPanel.tscn" id="10_t3byj"]
 [ext_resource type="PackedScene" uid="uid://b6ak8mmd81jv2" path="res://Scenes/UI/PowerExposure.tscn" id="11_anhd5"]
@@ -119,7 +119,7 @@ metadata/_edit_lock_ = true
 [node name="Sprite2D" type="Sprite2D" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/CellImage"]
 position = Vector2(-2.01993, 10.0002)
 scale = Vector2(0.103162, 0.0979609)
-texture = ExtResource("4_cbet6")
+texture = ExtResource("8_6plxk")
 region_enabled = true
 region_rect = Rect2(783.903, 752.302, 500, 600)
 region_filter_clip_enabled = true
