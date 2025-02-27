@@ -51,9 +51,9 @@ func _ready() -> void:
 			$ModuleSelect.add_child(new_button)
 	
 	#connect the log signals
-	LabLog.connect("NewMessage", Callable(self, "_on_New_Log_Message"))
+	LabLog.connect("new_message", Callable(self, "_on_New_Log_Message"))
 	LabLog.connect("ReportShown", Callable(self, "_on_LabLog_Report_Shown"))
-	LabLog.connect("LogsCleared", Callable(self, "_on_Logs_Cleared"))
+	LabLog.connect("logs_cleared", Callable(self, "_on_Logs_Cleared"))
 	
 	set_log_notification_counts()
 	$LogButton/LogMenu.set_tab_icon(1, load("res://Images/Dot-Blue.png"))
