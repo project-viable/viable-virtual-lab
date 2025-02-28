@@ -16,21 +16,21 @@ script = ExtResource("1_vfl2b")
 
 [node name="focus_knob" type="Sprite2D" parent="."]
 position = Vector2(637, 360)
-scale = Vector2(4.346, 4.25)
+scale = Vector2(1.022, 1)
 texture = ExtResource("1_2o7ui")
 
 [node name="right_area" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 635.0
-offset_top = 165.0
-offset_right = 833.0
-offset_bottom = 559.0
+offset_top = 315.0
+offset_right = 685.0
+offset_bottom = 407.0
 
 [node name="left_area" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 427.0
-offset_top = 158.0
+offset_left = 589.0
+offset_top = 310.0
 offset_right = 635.0
-offset_bottom = 557.0
+offset_bottom = 407.0
