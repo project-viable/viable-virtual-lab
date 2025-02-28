@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ce5y575nnlkib"
-path="res://.godot/imported/TempJoystick.png-3188e4491aafc0b971e7edffc1a85dcf.ctex"
+uid="uid://ueu35wl3ucup"
+path="res://.godot/imported/focus_knob.png-a5ed61adeac3b8f0b8961429f751fb5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/TempJoystick.png"
-dest_files=["res://.godot/imported/TempJoystick.png-3188e4491aafc0b971e7edffc1a85dcf.ctex"]
+source_file="res://Images/focus_knob.png"
+dest_files=["res://.godot/imported/focus_knob.png-a5ed61adeac3b8f0b8961429f751fb5e.ctex"]
 
 [params]
 
