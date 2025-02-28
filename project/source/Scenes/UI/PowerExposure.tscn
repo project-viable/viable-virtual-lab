@@ -80,7 +80,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "FITC"
 
-[node name="RITCLabelContainer" type="HBoxContainer" parent="GeneralPanel"]
+[node name="TRITCLabelContainer" type="HBoxContainer" parent="GeneralPanel"]
 visible = false
 clip_contents = true
 layout_mode = 0
@@ -89,14 +89,14 @@ offset_bottom = 125.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="RITCLabel" type="Label" parent="GeneralPanel/RITCLabelContainer"]
+[node name="TRITCLabel" type="Label" parent="GeneralPanel/TRITCLabelContainer"]
 self_modulate = Color(1, 0.0392157, 0.0235294, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "RITC
+text = "TRITC
 "
 
 [node name="Cy5LabelContainer" type="HBoxContainer" parent="GeneralPanel"]
@@ -210,6 +210,7 @@ tick_count = 10
 visible = false
 self_modulate = Color(0.541176, 0.541176, 0.541176, 1)
 clip_contents = true
+layout_mode = 0
 offset_right = 237.0
 offset_bottom = 365.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5iqk")
@@ -249,7 +250,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "FITC"
 
-[node name="RITCLabelContainer" type="HBoxContainer" parent="ComboPanel"]
+[node name="TRITCLabelContainer" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_top = 180.0
@@ -258,14 +259,14 @@ offset_bottom = 305.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="RITCLabel" type="Label" parent="ComboPanel/RITCLabelContainer"]
+[node name="TRITCLabel" type="Label" parent="ComboPanel/TRITCLabelContainer"]
 self_modulate = Color(1, 0.0392157, 0.0235294, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "RITC
+text = "TRITC
 "
 
 [node name="Cy5LabelContainer" type="HBoxContainer" parent="ComboPanel"]
@@ -344,6 +345,7 @@ text = "1 msec"
 
 [node name="FITCPower" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_top = 104.0
 offset_right = 771.0
 offset_bottom = 229.0
@@ -371,6 +373,7 @@ text = "0%"
 
 [node name="FITCExposure" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_top = 144.0
 offset_right = 1153.0
 offset_bottom = 269.0
@@ -396,15 +399,16 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "1 msec"
 
-[node name="RITCPower" type="HBoxContainer" parent="ComboPanel"]
+[node name="TRITCPower" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_top = 194.0
 offset_right = 771.0
 offset_bottom = 319.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="LEDPowerLabel" type="Label" parent="ComboPanel/RITCPower"]
+[node name="LEDPowerLabel" type="Label" parent="ComboPanel/TRITCPower"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -414,7 +418,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "LED Power:
 "
 
-[node name="LEDPowerVal" type="Label" parent="ComboPanel/RITCPower"]
+[node name="LEDPowerVal" type="Label" parent="ComboPanel/TRITCPower"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -423,15 +427,16 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "0%"
 
-[node name="RITCExposure" type="HBoxContainer" parent="ComboPanel"]
+[node name="TRITCExposure" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_top = 234.0
 offset_right = 1153.0
 offset_bottom = 359.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="ExposureTimeLabel" type="Label" parent="ComboPanel/RITCExposure"]
+[node name="ExposureTimeLabel" type="Label" parent="ComboPanel/TRITCExposure"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -441,7 +446,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "Exposure Time:
 "
 
-[node name="ExposureTimeVal" type="Label" parent="ComboPanel/RITCExposure"]
+[node name="ExposureTimeVal" type="Label" parent="ComboPanel/TRITCExposure"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -452,6 +457,7 @@ text = "1 msec"
 
 [node name="Cy5Power" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_top = 284.0
 offset_right = 771.0
 offset_bottom = 409.0
@@ -479,6 +485,7 @@ text = "0%"
 
 [node name="Cy5Exposure" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_top = 324.0
 offset_right = 1153.0
 offset_bottom = 449.0
@@ -506,6 +513,7 @@ text = "1 msec"
 
 [node name="DapiPowerSlider" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_left = 3.0
 offset_top = 30.0
 offset_right = 2069.0
@@ -520,6 +528,7 @@ tick_count = 10
 
 [node name="DapiExposureSlider" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_left = 3.0
 offset_top = 70.0
 offset_right = 2069.0
@@ -537,6 +546,7 @@ tick_count = 10
 
 [node name="FITCPowerSlider" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_left = 3.0
 offset_top = 120.0
 offset_right = 2069.0
@@ -551,6 +561,7 @@ tick_count = 10
 
 [node name="FITCExposureSlider" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_left = 3.0
 offset_top = 160.0
 offset_right = 2069.0
@@ -568,6 +579,7 @@ tick_count = 10
 
 [node name="RITCPowerSlider" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_left = 3.0
 offset_top = 210.0
 offset_right = 2069.0
@@ -582,6 +594,7 @@ tick_count = 10
 
 [node name="RITCExposureSlider" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_left = 3.0
 offset_top = 250.0
 offset_right = 2069.0
@@ -599,6 +612,7 @@ tick_count = 10
 
 [node name="Cy5PowerSlider" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_left = 3.0
 offset_top = 300.0
 offset_right = 2069.0
@@ -613,6 +627,7 @@ tick_count = 10
 
 [node name="Cy5ExposureSlider" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
+layout_mode = 0
 offset_left = 3.0
 offset_top = 340.0
 offset_right = 2069.0

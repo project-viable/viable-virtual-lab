@@ -34,13 +34,13 @@ func _on_FITC_exposure_slider_value_changed(value: float) -> void:
 
 
 func _on_RITC_power_slider_value_changed(value: float) -> void:
-	$ComboPanel/RITCPower/LEDPowerVal.text = str(value) + "%"
-	combo_change.emit("RITC", "Power", value)
+	$ComboPanel/TRITCPower/LEDPowerVal.text = str(value) + "%"
+	combo_change.emit("TRITC", "Power", value)
 
 
 func _on_RITC_exposure_slider_value_changed(value: float) -> void:
-	$ComboPanel/RITCExposure/ExposureTimeVal.text = str(value) + " msec"
-	combo_change.emit("RITC", "Exposure", value)
+	$ComboPanel/TRITCExposure/ExposureTimeVal.text = str(value) + " msec"
+	combo_change.emit("TRITC", "Exposure", value)
 
 
 func _on_Cy5_power_slider_value_changed(value: float) -> void:

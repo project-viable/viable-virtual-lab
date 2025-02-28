@@ -10,14 +10,14 @@ var current_channel : String = ""
 @onready var channels_power: Dictionary = {
 	"Dapi": 0.0,
 	"FITC": 0.0,
-	"RITC": 0.0,
+	"TRITC": 0.0,
 	"Cy5": 0.0
 }
 # Measures exposure time in miliseconds
 @onready var channels_exposure: Dictionary = {
 	"Dapi": 1.0,
 	"FITC": 1.0,
-	"RITC": 1.0,
+	"TRITC": 1.0,
 	"Cy5": 1.0
 }
 
@@ -48,7 +48,7 @@ func _on_channels_panel_channel_selected(channel: String) -> void:
 	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = false
 	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/DapiLabelContainer.visible = false
 	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/FITCLabelContainer.visible = false
-	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/RITCLabelContainer.visible = false
+	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/TRITCLabelContainer.visible = false
 	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/Cy5LabelContainer.visible = false
 	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/ComboPanel.visible = false
 	
@@ -68,10 +68,10 @@ func _on_channels_panel_channel_selected(channel: String) -> void:
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/FITCLabelContainer.visible = true
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 0
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1
-		"RITC":
+		"TRITC":
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = true
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/RITCLabelContainer.visible = true
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/TRITCLabelContainer.visible = true
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 0
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1
 		"Cy5":
@@ -95,5 +95,3 @@ func _on_power_exposure_combo_change(selected_channel: String, attribute: String
 		channels_power[selected_channel] = value
 	else:
 		channels_exposure[selected_channel] = value
-
-

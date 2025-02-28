@@ -26,7 +26,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/Objects/ContactWire.tscn" id="23"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/CurrentSource.tscn" id="24"]
 [ext_resource type="Resource" path="res://MistakeCheckers/GelElectrophoresis/PipetteDispenseChecker.tres" id="25"]
-[ext_resource type="PackedScene" path="res://Scenes/Objects/GelComb.tscn" id="26"]
+[ext_resource type="PackedScene" uid="uid://3tnjoc15p5br" path="res://Scenes/Objects/GelComb.tscn" id="26"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/GelImager.tscn" id="27"]
 [ext_resource type="Resource" path="res://MistakeCheckers/GelElectrophoresis/CurrentChecker.tres" id="28"]
 [ext_resource type="Script" path="res://Scripts/Logger/ProcedureChecker.gd" id="29"]
