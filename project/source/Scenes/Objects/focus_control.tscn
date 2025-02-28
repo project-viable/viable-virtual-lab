@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7038o1t6lkhh"]
+
+[ext_resource type="Texture2D" uid="uid://ueu35wl3ucup" path="res://Images/focus_knob.png" id="1_2o7ui"]
+[ext_resource type="Script" path="res://Scripts/focus_control.gd" id="1_vfl2b"]
+
+[node name="focus_control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_vfl2b")
+
+[node name="focus_knob" type="Sprite2D" parent="."]
+position = Vector2(637, 360)
+scale = Vector2(1.022, 1)
+texture = ExtResource("1_2o7ui")
+
+[node name="right_area" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 635.0
+offset_top = 315.0
+offset_right = 685.0
+offset_bottom = 407.0
+
+[node name="left_area" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 589.0
+offset_top = 310.0
+offset_right = 635.0
+offset_bottom = 407.0

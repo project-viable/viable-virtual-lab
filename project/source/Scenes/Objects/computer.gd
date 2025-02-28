@@ -2,6 +2,9 @@ extends StaticBody2D
 
 signal screen_click_signal()
 var is_clicked: bool = false
+@onready var joystick:Area2D = $"../Joystick"
+@onready var direction:Vector2 = Vector2(0,0)
+
 var current_channel : String = ""
 # Measures power in percent
 @onready var channels_power: Dictionary = {
@@ -18,9 +21,14 @@ var current_channel : String = ""
 	"Cy5": 1.0
 }
 
-
 func _ready() -> void:
 	$PopupControl.hide()
+  
+func _process(delta: float) -> void:
+var content_screen:Node2D = $"%ContentScreen"
+if joystick: direction = joystick.get_velocity()
+content_screen.direction = direction
+
 
 # Emits a signal to the FlourescenceMicroscope Node, used to zoom into the computer screen
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
@@ -87,3 +95,5 @@ func _on_power_exposure_combo_change(selected_channel: String, attribute: String
 		channels_power[selected_channel] = value
 	else:
 		channels_exposure[selected_channel] = value
+
+

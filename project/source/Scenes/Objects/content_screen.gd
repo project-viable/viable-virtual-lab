@@ -11,6 +11,8 @@ var cell_images: Dictionary = {
 		"100x": preload("res://Images/ImageCells/20250224_bpae_100xA1c1.jpg")
 	}
 }
+
+var direction: Vector2 = Vector2(0,0)
 func _ready() -> void:
 	hide()
 	cell_image_width = $CellImage/Sprite2D.texture.get_width()
@@ -20,7 +22,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	# Should only be able to move the camera if the screen is actually visible
 	if visible:
-		var direction:Vector2 = Input.get_vector("CameraLeft", "CameraRight", "CameraUp", "CameraDown")
+		#direction = Input.get_vector("CameraLeft", "CameraRight", "CameraUp", "CameraDown")
 		$CellImage/Sprite2D.region_rect.position += direction * speed * delta
 		
 		# Check so the visible image doesnt go past the actual image width and height
