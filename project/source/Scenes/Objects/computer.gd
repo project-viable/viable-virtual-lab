@@ -25,9 +25,9 @@ func _ready() -> void:
 	$PopupControl.hide()
   
 func _process(delta: float) -> void:
-var content_screen:Node2D = $"%ContentScreen"
-if joystick: direction = joystick.get_velocity()
-content_screen.direction = direction
+	var content_screen:Node2D = $"%ContentScreen"
+	if joystick: direction = joystick.get_velocity()
+	content_screen.direction = direction
 
 
 # Emits a signal to the FlourescenceMicroscope Node, used to zoom into the computer screen
