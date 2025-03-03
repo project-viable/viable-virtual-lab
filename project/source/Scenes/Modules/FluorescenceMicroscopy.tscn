@@ -20,7 +20,6 @@ position = Vector2(1, -1)
 script = ExtResource("1_q60rk")
 
 [node name="LabBoundary" type="Area2D" parent="."]
-visible = false
 position = Vector2(640, 280)
 script = ExtResource("1_bc34u")
 
@@ -43,7 +42,6 @@ position = Vector2(6.125, 0)
 shape = SubResource("RectangleShape2D_y5o7s")
 
 [node name="Computer" parent="." instance=ExtResource("3_0ypcw")]
-visible = false
 position = Vector2(889, 472)
 scale = Vector2(0.952876, 0.952876)
 
