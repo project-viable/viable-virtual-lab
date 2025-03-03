@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpm1gs1fyv4gg"]
+[gd_scene load_steps=11 format=3 uid="uid://dpm1gs1fyv4gg"]
 
 [ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="1_bc34u"]
 [ext_resource type="Script" path="res://Scenes/Modules/fluorescence_microscopy.gd" id="1_q60rk"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dj8378rcmjta0" path="res://Scenes/Objects/Joystick.tscn" id="3_psukr"]
 [ext_resource type="Texture2D" uid="uid://cm88dw0xfl2xk" path="res://Images/testImg.png" id="5_uv0me"]
 [ext_resource type="Script" path="res://Scripts/Objects/PanningImage.gd" id="6_gdu6r"]
+[ext_resource type="Script" path="res://Scenes/Modules/exit_module_button.gd" id="8_wxrtj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1w4j"]
 size = Vector2(1278.5, 565)
@@ -19,6 +20,7 @@ position = Vector2(1, -1)
 script = ExtResource("1_q60rk")
 
 [node name="LabBoundary" type="Area2D" parent="."]
+visible = false
 position = Vector2(640, 280)
 script = ExtResource("1_bc34u")
 
@@ -41,6 +43,7 @@ position = Vector2(6.125, 0)
 shape = SubResource("RectangleShape2D_y5o7s")
 
 [node name="Computer" parent="." instance=ExtResource("3_0ypcw")]
+visible = false
 position = Vector2(889, 472)
 scale = Vector2(0.952876, 0.952876)
 
@@ -58,4 +61,16 @@ scale = Vector2(0.443333, 0.464)
 texture = ExtResource("5_uv0me")
 script = ExtResource("6_gdu6r")
 
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(1058, 577)
+script = ExtResource("8_wxrtj")
+
+[node name="ExitModuleButton" type="Button" parent="Node2D"]
+offset_left = -60.0
+offset_top = -564.0
+offset_right = 78.0
+offset_bottom = -537.0
+text = "Exit Module"
+
 [connection signal="screen_click_signal" from="Computer" to="." method="_on_computer_screen_click_signal"]
+[connection signal="pressed" from="Node2D/ExitModuleButton" to="Node2D" method="_on_exit_module_button_pressed"]
