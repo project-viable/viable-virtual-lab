@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dei2oh26773j6"
-path="res://.godot/imported/BPAE cells 40x_ch2.jpg-99722960f2d2508810f346eb15e0bd2a.ctex"
+uid="uid://ueu35wl3ucup"
+path="res://.godot/imported/focus_knob.png-a5ed61adeac3b8f0b8961429f751fb5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/BPAE cells 40x_ch2.jpg"
-dest_files=["res://.godot/imported/BPAE cells 40x_ch2.jpg-99722960f2d2508810f346eb15e0bd2a.ctex"]
+source_file="res://Images/focus_knob.png"
+dest_files=["res://.godot/imported/focus_knob.png-a5ed61adeac3b8f0b8961429f751fb5e.ctex"]
 
 [params]
 

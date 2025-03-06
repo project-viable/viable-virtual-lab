@@ -1,0 +1,173 @@
+[gd_scene load_steps=7 format=3 uid="uid://bh6iocygbfwtj"]
+
+[ext_resource type="FontFile" uid="uid://c5jqyemsa330f" path="res://UI/Roboto/Roboto-Black.ttf" id="1_8laf3"]
+[ext_resource type="ButtonGroup" uid="uid://b2r6nsccpunhd" path="res://UI/ZoomButtonGroup.tres" id="2_28d1o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p50rb"]
+content_margin_left = 30.0
+content_margin_right = 30.0
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfi10"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mqfu8"]
+bg_color = Color(0.29394, 0.616428, 0.940206, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aabya"]
+content_margin_left = 25.0
+content_margin_right = 30.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="ChannelsPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -52.0
+offset_right = 762.0
+offset_bottom = 78.0
+grow_vertical = 0
+scale = Vector2(0.0919469, 0.0919469)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_8laf3")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_p50rb")
+text = "Channels Panel
+"
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(0.541176, 0.541176, 0.541176, 1)
+clip_contents = true
+layout_mode = 0
+offset_right = 177.0
+offset_bottom = 99.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nfi10")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+clip_contents = true
+layout_mode = 1
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 2121.0
+offset_bottom = 240.0
+scale = Vector2(0.111304, 0.111719)
+focus_mode = 1
+theme_override_constants/separation = 250
+
+[node name="Dapi" type="Button" parent="Panel/HBoxContainer"]
+self_modulate = Color(0.329689, 0.29829, 0.874134, 1)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+focus_mode = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8laf3")
+theme_override_font_sizes/font_size = 200
+theme_override_styles/focus = SubResource("StyleBoxFlat_mqfu8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_aabya")
+toggle_mode = true
+button_group = ExtResource("2_28d1o")
+text = "Dapi
+"
+
+[node name="FITC" type="Button" parent="Panel/HBoxContainer"]
+self_modulate = Color(0.159563, 0.523982, 0.263635, 1)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+focus_mode = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8laf3")
+theme_override_font_sizes/font_size = 200
+theme_override_styles/focus = SubResource("StyleBoxFlat_mqfu8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_aabya")
+toggle_mode = true
+button_group = ExtResource("2_28d1o")
+text = "FITC
+"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel"]
+clip_contents = true
+layout_mode = 0
+offset_left = 1.0
+offset_top = 35.0
+offset_right = 2112.0
+offset_bottom = 274.0
+scale = Vector2(0.111304, 0.111719)
+focus_mode = 1
+theme_override_constants/separation = 250
+
+[node name="RITC" type="Button" parent="Panel/HBoxContainer2"]
+self_modulate = Color(1, 0.0405029, 0.0223527, 1)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+focus_mode = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8laf3")
+theme_override_font_sizes/font_size = 200
+theme_override_styles/focus = SubResource("StyleBoxFlat_mqfu8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_aabya")
+toggle_mode = true
+button_group = ExtResource("2_28d1o")
+text = "RITC
+"
+
+[node name="Cy5" type="Button" parent="Panel/HBoxContainer2"]
+self_modulate = Color(1, 0.0392157, 0.984314, 1)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+focus_mode = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8laf3")
+theme_override_font_sizes/font_size = 200
+theme_override_styles/focus = SubResource("StyleBoxFlat_mqfu8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_aabya")
+toggle_mode = true
+button_group = ExtResource("2_28d1o")
+text = "Cy5"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel"]
+clip_contents = true
+layout_mode = 0
+offset_left = 1.0
+offset_top = 70.0
+offset_right = 2552.0
+offset_bottom = 309.0
+scale = Vector2(0.111304, 0.111719)
+focus_mode = 1
+
+[node name="Combo" type="Button" parent="Panel/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+focus_mode = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8laf3")
+theme_override_font_sizes/font_size = 200
+theme_override_styles/focus = SubResource("StyleBoxFlat_mqfu8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_aabya")
+toggle_mode = true
+button_group = ExtResource("2_28d1o")
+text = "Combo
+"
+
+[connection signal="pressed" from="Panel/HBoxContainer/Dapi" to="." method="_on_dapi_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/FITC" to="." method="_on_fitc_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer2/RITC" to="." method="_on_ritc_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer2/Cy5" to="." method="_on_cy_5_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer3/Combo" to="." method="_on_combo_pressed"]

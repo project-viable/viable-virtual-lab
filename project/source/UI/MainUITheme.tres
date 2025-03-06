@@ -4,7 +4,9 @@
 [ext_resource type="StyleBox" path="res://UI/ButtonNormalStylebox.tres" id="2"]
 [ext_resource type="StyleBox" path="res://UI/ButtonDisabledStylebox.tres" id="3"]
 [ext_resource type="StyleBox" path="res://UI/ButtonPressedStylebox.tres" id="4"]
-[ext_resource type="StyleBox" uid="uid://co6eq5jxq4ama" path="res://UI/ButtonFocusStylebox.tres" id="5"]
+
+[ext_resource type="StyleBox" uid="uid://c2a1wrfjhl64e" path="res://UI/ButtonFocusStylebox.tres" id="5"]
+
 [ext_resource type="StyleBox" path="res://UI/ButtonHoverStylebox.tres" id="6"]
 [ext_resource type="FontFile" path="res://UI/RobotoMedium16.tres" id="7"]
 [ext_resource type="StyleBox" path="res://UI/GrabberHighlight.tres" id="8"]
