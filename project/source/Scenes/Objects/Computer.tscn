@@ -189,6 +189,7 @@ text = "EXIT"
 alignment = 2
 metadata/_edit_lock_ = true
 
+[connection signal="channel_select" from="." to="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen" method="_on_computer_channel_select"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="app_click_signal" from="PopupControl/PanelContainer/VBoxContainer/Screen/Desktop/AppIcon" to="PopupControl/PanelContainer/VBoxContainer/Screen" method="_on_app_icon_app_click_signal"]
 [connection signal="input_event" from="PopupControl/PanelContainer/VBoxContainer/Screen/Desktop/AppIcon" to="PopupControl/PanelContainer/VBoxContainer/Screen/Desktop/AppIcon" method="_on_input_event"]

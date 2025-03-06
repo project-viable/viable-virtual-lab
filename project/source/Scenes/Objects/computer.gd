@@ -1,6 +1,7 @@
 extends StaticBody2D
 
 signal screen_click_signal()
+signal channel_select(channel: String)
 var is_clicked: bool = false
 @onready var joystick:Area2D = $"../Joystick"
 @onready var direction:Vector2 = Vector2(0,0)
@@ -45,6 +46,7 @@ func _on_exit_button_pressed() -> void:
 
 func _on_channels_panel_channel_selected(channel: String) -> void:
 	current_channel = channel
+	channel_select.emit(channel)
 	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = false
 	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/DapiLabelContainer.visible = false
 	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/FITCLabelContainer.visible = false
