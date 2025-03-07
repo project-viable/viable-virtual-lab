@@ -8,16 +8,16 @@ var time: float = 0.0 # in minutes
 func _ready() -> void:
 	pass
 	
-func GetVolts() -> float:
+func get_volts() -> float:
 	return volts
 
-func SetVolts(new_volts: float) -> void:
+func set_volts(new_volts: float) -> void:
 	if new_volts >= 0:
 		volts = new_volts
 
-func GetTime() -> float:
+func get_time() -> float:
 	return time
 	
-func SetTime(new_time: float) -> void:
+func set_time(new_time: float) -> void:
 	if time >= 0:
 		time = new_time

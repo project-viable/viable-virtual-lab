@@ -10,21 +10,21 @@ var split_substance: Array[Substance] = []
 # should find a way to fix this, but that's kind of complicated.
 var target_obj: LabObject = null
 
-func TryInteract(others: Array[LabObject]) -> bool:
+func try_interact(others: Array[LabObject]) -> bool:
 	for other in others:#If interacting with container then we want to dispense or pick up
 		if other.is_in_group("Container") or other.is_in_group("Source Container"):
 
-			var granular_substance: bool = other.CheckContents("Granular Substance").front()
+			var granular_substance: bool = other.check_contents("Granular Substance").front()
 			if len(contents) == 0 and granular_substance:
 				# get density to determine volume taken
-				var density: float = other.TakeContents()[0].get_properties()['density']
+				var density: float = other.take_contents()[0].get_properties()['density']
 				
-				contents.append_array(other.TakeContents(1 / density)) # Take 1g of material
+				contents.append_array(other.take_contents(1 / density)) # Take 1g of material
 				if(other.is_in_group("Scale")):
-					other.UpdateWeight()
+					other.update_weight()
 				print("Added contents")
 				if contents != []:
-					LabLog.Log("Added " + contents[0].name + " to scoopula.")
+					LabLog.log("Added " + contents[0].name + " to scoopula.")
 				update_display()
 				return true
 			else:
@@ -37,13 +37,13 @@ func TryInteract(others: Array[LabObject]) -> bool:
 					$ScoopulaMenu/PanelContainer/sliderDispenseQty.max_value = contents[0].volume
 					
 					target_obj = other
-						#split_substance.append(SplitContents())
-						#other.AddContents(split_substance)
+						#split_substance.append(split_contents())
+						#other.add_contents(split_substance)
 				update_display()
 				return true
 	return false
 
-func SplitContents() -> Substance:
+func split_contents() -> Substance:
 	if(contents.is_empty()):
 		print("empty")
 		return null
@@ -62,7 +62,7 @@ func SplitContents() -> Substance:
 			print("After split volume: " + str(contents[0].volume))
 		return split
 
-func TryActIndependently() -> bool:
+func try_act_independently() -> bool:
 	return false
 
 func _on_btnDispense_pressed() -> void:
@@ -75,7 +75,7 @@ func _on_btnDispense_pressed() -> void:
 		
 	content_to_dispense.set_volume(vol_dispensed)
 	content_array.append(content_to_dispense)
-	target_obj.AddContents(content_array)
+	target_obj.add_contents(content_array)
 	
 	#Update current volume remaining
 	contents[0].volume -= vol_dispensed
@@ -83,6 +83,6 @@ func _on_btnDispense_pressed() -> void:
 	if contents[0].volume <= 0.01:
 		contents.clear()
 	
-	LabLog.Log("Dispensed " + str(vol_dispensed * content_array[0].density) + " g from scoopula")
+	LabLog.log("Dispensed " + str(vol_dispensed * content_array[0].density) + " g from scoopula")
 	update_display()
 	$ScoopulaMenu.hide()

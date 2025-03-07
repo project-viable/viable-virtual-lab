@@ -46,7 +46,7 @@ modulate = Color( 1, 0, 0, 0.352941 )
 position = Vector2( 0, 17 )
 texture = ExtResource( 3 )
 script = ExtResource( 2 )
-SpriteDimensions = Vector2( 24, 120 )
+sprite_dimensions = Vector2( 24, 120 )
 
 [node name="Collision1" type="CollisionShape2D" parent="."]
 position = Vector2( 4.5, -20 )

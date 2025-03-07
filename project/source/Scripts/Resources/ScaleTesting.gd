@@ -14,12 +14,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			var dragging := false
 			for object in cast_result:
 				if object['collider'].draggable:
-					object['collider'].StartDragging()
+					object['collider'].start_dragging()
 					dragging = true
 					get_viewport().set_input_as_handled()
 					break
 			
 			#If none of them are draggable, then have a static one try to interact
 			if not dragging:
-				cast_result[0]['collider'].OnUserAction()
+				cast_result[0]['collider'].on_user_action()
 				get_viewport().set_input_as_handled()

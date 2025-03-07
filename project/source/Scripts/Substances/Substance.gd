@@ -65,17 +65,17 @@ func chill(chill_time: float) -> void:
 func run_current(voltage: float, time: float) -> void:
 	pass
 
-func GetMain() -> Node2D:
+func get_main() -> Node2D:
 	return get_tree().current_scene
 
-func GetCurrentModuleScene() -> Node2D:
+func get_current_module_scene() -> Node2D:
 	return get_tree().current_scene.current_module_scene
 
-func ReportAction(objects_involved: Array, action_type: String, params: Dictionary) -> void:
+func report_action(objects_involved: Array, action_type: String, params: Dictionary) -> void:
 	print("Reporting an action of type " + action_type + " involving " + str(objects_involved) + ". Params are " + str(params))
 	
 	#This function asks for these as arguments, and then manually adds them here, to remind/force you to provide them
 	params['objects_involved'] = objects_involved
 	params['action_type'] = action_type
-	GetMain().CheckAction(params)
-	GetCurrentModuleScene().CheckAction(params)
+	get_main().check_action(params)
+	get_current_module_scene().check_action(params)

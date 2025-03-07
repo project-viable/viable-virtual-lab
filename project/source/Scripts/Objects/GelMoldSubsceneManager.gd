@@ -28,7 +28,7 @@ var subscene_full_comb_img: Texture2D = preload('res://Images/Gel_Tray_comb_gel_
 var subscene_empty_comb_img: Texture2D = preload('res://Images/Gel_Tray_comb_empty_zoomed.png')
 var subscene_gel_bg: TextureRect = null
 
-func LabObjectReady() -> void:
+func lab_object_ready() -> void:
 	empty_comb_img = preload('res://Images/Gel_Tray_comb_empty.png')
 	filled_comb_img = preload('res://Images/Gel_Tray_comb_gel.png')
 	filled_image = preload('res://Images/Gel_Tray_filled.png')
@@ -71,7 +71,7 @@ func _on_ChillButton_pressed() -> void:
 
 		update_display()
 		
-		LabLog.Log("Chilled", false, true)
+		LabLog.log("Chilled", false, true)
 		$Subscene/Border/ChillButton.hide() #TODO: Make it possible to hit the button mroe than once?
 
 func add_dna(dna: DNASubstance, well: int) -> void:
@@ -110,7 +110,7 @@ func calculate_positions() -> Array[Array]:
 func gel_status() -> Array[Variant]:
 	return [self, gel_has_wells]
 
-func AddContents(new_contents: Array[Substance]) -> void:
+func add_contents(new_contents: Array[Substance]) -> void:
 	for new_content in new_contents:
 		var match_found := false
 		
@@ -139,27 +139,27 @@ func AddContents(new_contents: Array[Substance]) -> void:
 			
 		if has_comb:
 			print("The comb is in the way of the slots")
-			LabLog.Warn("You tried to add a DNA sample to a gel while the comb is still in place. Make sure the comb has been removed before adding samples.")
+			LabLog.warn("You tried to add a DNA sample to a gel while the comb is still in place. Make sure the comb has been removed before adding samples.")
 			continue
 		
 		if contents == []:
 			print("There is not gel in the mold")
-			LabLog.Warn("There is no gel in the mold.")
+			LabLog.warn("There is no gel in the mold.")
 			continue
 			
 		if not contents[0].is_in_group('Gel'):
 			print("A substance that is not gel is in the mold")
-			LabLog.Warn("A substance other than a gel is in the mold.")
+			LabLog.warn("A substance other than a gel is in the mold.")
 			continue
 			
 		if !contents[0].cooled:
 			print("Gel has not been cooled")
-			LabLog.Warn("Gel has not been cooled yet.")
+			LabLog.warn("Gel has not been cooled yet.")
 			continue
 			
 		if not gel_has_wells:
 			print("There are no comb slots in the gel")
-			LabLog.Warn("You tried to add a DNA sample to a gel with no wells. Make sure a gel comb is placed into the gel while it cools so the wells can form.")
+			LabLog.warn("You tried to add a DNA sample to a gel with no wells. Make sure a gel comb is placed into the gel while it cools so the wells can form.")
 			continue
 	print("Added contents "+str(contents)+" to container")
 	update_weight()
@@ -193,7 +193,7 @@ func update_weight() -> void:
 
 	mass = overall_weight
 
-func TakeContents(volume: float = -1) -> Array[Substance]:
+func take_contents(volume: float = -1) -> Array[Substance]:
 	# check for whether we can distribute the contents by volume
 	if(volume != -1 && len(contents) == 1):
 		if(volume >= contents[0].volume):
@@ -225,14 +225,14 @@ func TakeContents(volume: float = -1) -> Array[Substance]:
 	update_display()
 	return all_contents
 
-func CheckContents(group: StringName) -> Array[bool]:
+func check_contents(group: StringName) -> Array[bool]:
 	print('Checking for '+group)
 	var check_results: Array[bool] = []
 	for content in contents:
 		check_results.append(content.is_in_group(group))
 	return check_results
 
-func TryInteract(others: Array[LabObject]) -> bool:
+func try_interact(others: Array[LabObject]) -> bool:
 	for other in others:
 		if other.is_in_group("Gel Comb"):
 			comb_object = other
@@ -244,16 +244,16 @@ func TryInteract(others: Array[LabObject]) -> bool:
 		# means that this never gets called.
 		elif other.is_in_group('GelImager'):
 			if(has_comb):
-				LabLog.Warn("You didn't remove the comb from the gel before imaging the gel. The experiment can't continue.")
+				LabLog.warn("You didn't remove the comb from the gel before imaging the gel. The experiment can't continue.")
 		elif(other.is_in_group('Container')):
 			# transfer contents to another container
-			other.AddContents(TakeContents())
+			other.add_contents(take_contents())
 			return true
 	
 	return false
 
-func TryActIndependently() -> bool:
-	if not subscene_active: ShowSubscene()
+func try_act_independently() -> bool:
+	if not subscene_active: show_subscene()
 	if has_comb:
 		$Subscene/Border/RemoveComb.show()
 	else:
@@ -268,7 +268,7 @@ func _on_RemoveComb_pressed() -> void:
 		update_display()
 		$Subscene/Border/RemoveComb.hide()
 
-func GelMoldInfo() -> Dictionary:
+func gel_mold_info() -> Dictionary:
 	return {
 		"hasComb": has_comb,
 		"hasWells": gel_has_wells,

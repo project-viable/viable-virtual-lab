@@ -17,7 +17,7 @@ extents = Vector2( 160, 175 )
 [node name="GelMold" groups=["Conductive", "Container", "Gel Boat"] instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 draggable = true
-DisplayName = "Gel Mold"
+display_name = "Gel Mold"
 dimensions = Vector2( 320, 350 )
 filled_image = ExtResource( 8 )
 

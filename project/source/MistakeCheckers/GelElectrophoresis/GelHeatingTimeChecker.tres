@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-TooLongMessage = "You microwaved it too long! The viscosity could be too high."
-TooShortMessage = "You didn't microwave it long enough! The viscosity could be too low."
+too_long_message = "You microwaved it too long! The viscosity could be too high."
+too_short_message = "You didn't microwave it long enough! The viscosity could be too low."

@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-var ModuleDirectory: String = "res://Modules/"
-var ModuleButton: PackedScene = load("res://Scenes/UI/ModuleSelectButton.tscn")
+var module_directory: String = "res://Modules/"
+var module_button: PackedScene = load("res://Scenes/UI/ModuleSelectButton.tscn")
 
 var current_module: ModuleData = null
 
@@ -12,7 +12,7 @@ var logs: Array[Dictionary] = []
 
 #This function is mostly copied from online.
 #It seems like godot 3.5 does not have a convenient function for this.
-func GetAllFilesInFolder(path: String) -> Array[String]:
+func get_all_files_in_folder(path: String) -> Array[String]:
 	var result: Array[String] = []
 
 	var dir: DirAccess = DirAccess.open(path)
@@ -42,27 +42,27 @@ func _ready() -> void:
 	$MainMenu/Content/Logo.hide()
 	
 	#Set up the module select buttons
-	for file in GetAllFilesInFolder(ModuleDirectory):
-		var module_data: ModuleData = load(ModuleDirectory + file)
-		if module_data.Show:
-			var new_button := ModuleButton.instantiate()
-			new_button.SetData(module_data)
+	for file in get_all_files_in_folder(module_directory):
+		var module_data: ModuleData = load(module_directory + file)
+		if module_data.show:
+			var new_button := module_button.instantiate()
+			new_button.set_data(module_data)
 			new_button.connect("pressed", Callable(self, "ModuleSelected").bind(module_data))
 			$ModuleSelect.add_child(new_button)
 	
 	#connect the log signals
-	LabLog.connect("NewMessage", Callable(self, "_on_New_Log_Message"))
+	LabLog.connect("new_message", Callable(self, "_on_New_Log_Message"))
 	LabLog.connect("ReportShown", Callable(self, "_on_LabLog_Report_Shown"))
-	LabLog.connect("LogsCleared", Callable(self, "_on_Logs_Cleared"))
+	LabLog.connect("logs_cleared", Callable(self, "_on_Logs_Cleared"))
 	
-	SetLogNotificationCounts()
+	set_log_notification_counts()
 	$LogButton/LogMenu.set_tab_icon(1, load("res://Images/Dot-Blue.png"))
 	$LogButton/LogMenu.set_tab_icon(2, load("res://Images/Dot-Yellow.png"))
 	$LogButton/LogMenu.set_tab_icon(3, load("res://Images/Dot-Red.png"))
 	
 	# Since there is one module, it should boot directly into this scene
-	var module: ModuleData = load(ModuleDirectory + "GelElectrophoresis.tres")
-	ModuleSelected(module)
+	var module: ModuleData = load(module_directory + "GelElectrophoresis.tres")
+	module_selected(module)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -82,16 +82,16 @@ func _process(delta: float) -> void:
 		# Need to display log message(s)
 		if !popup_active:
 			if logs[0]['new_log']['popup']:
-				ShowPopup(logs[0]['category'], logs[0]['new_log'])
+				show_popup(logs[0]['category'], logs[0]['new_log'])
 			logs.remove_at(0)
 
 
-func ModuleSelected(module: ModuleData) -> void:
-	get_parent().SetScene(module.Scene)
+func module_selected(module: ModuleData) -> void:
+	get_parent().set_scene(module.scene)
 	$ModuleSelect.hide()
 	current_module = module
 	$LogButton.show()
-	$LogButton/LogMenu/Instructions.text = module.InstructionsBBCode
+	$LogButton/LogMenu/Instructions.text = module.instructions_bb_code
 
 func _on_SelectModuleButton_pressed() -> void:
 	$MainMenu.hide()
@@ -102,7 +102,7 @@ func _on_AboutButton_pressed() -> void:
 
 func _on_LogButton_pressed() -> void:
 	$LogButton/LogMenu.visible = ! $LogButton/LogMenu.visible
-	SetLogNotificationCounts()
+	set_log_notification_counts()
 
 func _on_New_Log_Message(category: String, new_log: Dictionary) -> void:
 	if not new_log['hidden']:
@@ -120,9 +120,9 @@ func _on_New_Log_Message(category: String, new_log: Dictionary) -> void:
 		'category': category, 
 		'new_log': new_log
 	})
-	SetLogNotificationCounts()
+	set_log_notification_counts()
 
-func ShowPopup(category: String, new_log: Dictionary) -> void:
+func show_popup(category: String, new_log: Dictionary) -> void:
 	$LabLogPopup/Panel/VBoxContainer/Type.text = category.capitalize()
 	$LabLogPopup/Panel/VBoxContainer/Description.text = new_log['message'][0].to_upper() + new_log['message'].substr(1, -1)
 	var color: Color
@@ -135,14 +135,14 @@ func ShowPopup(category: String, new_log: Dictionary) -> void:
 			color = Color(1.0, 0.0, 0.0, 1.0)
 		_:
 			color = Color(0.0, 0.0, 0.0, 0.0)
-	SetPopupBorderColor(color)
+	set_popup_border_color(color)
 	popup_active = true
 	$LabLogPopup.visible = true
 	await get_tree().create_timer(GameSettings.popup_timeout).timeout
 	popup_active = false
 	$LabLogPopup.visible = false if logs.size() == 0 else true
 
-func SetPopupBorderColor(color: Color) -> void:
+func set_popup_border_color(color: Color) -> void:
 	$LabLogPopup/Border.border_color = color
 
 func _on_Logs_Cleared() -> void:
@@ -154,7 +154,7 @@ func _on_Logs_Cleared() -> void:
 	$LogButton/LogMenu/Errors.text = ""
 
 # TODO (update): `tab` is unused. We should figure out why this was included.
-func SetLogNotificationCounts(tab: int = -1) -> void:
+func set_log_notification_counts(tab: int = -1) -> void:
 	if $LogButton/LogMenu.visible:
 		if $LogButton/LogMenu.current_tab == 1:
 			unread_logs['log'] = 0
@@ -188,7 +188,7 @@ func SetLogNotificationCounts(tab: int = -1) -> void:
 func _on_LabLog_Report_Shown() -> void:
 	#Show all the warnings and errors
 	var logs_text := ""
-	var all_logs: Dictionary = LabLog.GetLogs()
+	var all_logs: Dictionary = LabLog.get_logs()
 	for warning: Dictionary in all_logs.get('warning', []):
 		logs_text += "[color=yellow]-" + warning['message'] + "[/color]\n"
 	for error: Dictionary in all_logs.get('error', []):
@@ -202,8 +202,8 @@ func _on_LabLog_Report_Shown() -> void:
 		$FinalReport/VBoxContainer/Logs.hide()
 	
 	#Setup the rest of the popup
-	$FinalReport/VBoxContainer/ModuleName.text = "You completed the \"" + current_module.Name + "\" module!"
-	$FinalReport/VBoxContainer/ModuleIcon.texture = current_module.Thumbnail
+	$FinalReport/VBoxContainer/ModuleName.text = "You completed the \"" + current_module.name + "\" module!"
+	$FinalReport/VBoxContainer/ModuleIcon.texture = current_module.thumbnail
 	$FinalReport.set_anchors_preset(Control.PRESET_CENTER)
 	$FinalReport.show()
 
@@ -211,8 +211,8 @@ func _on_FinalReport_MainMenuButton_pressed() -> void:
 	get_tree().reload_current_scene()
 
 func _on_FinalReport_RestartModuleButton_pressed() -> void:
-	get_parent().SetScene(current_module.Scene)
-	SetLogNotificationCounts()
+	get_parent().set_scene(current_module.scene)
+	set_log_notification_counts()
 	$FinalReport.hide()
 
 func _on_FinalReport_ContinueButton_pressed() -> void:

@@ -8,7 +8,7 @@ func _ready() -> void:
 	super()
 	$Label.text = label
 
-func TryActIndependently() -> bool:
+func try_act_independently() -> bool:
 	if object_to_spawn:
 		var new_object: Node2D = object_to_spawn.instantiate()
 		get_parent().add_child(new_object)

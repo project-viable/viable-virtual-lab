@@ -28,17 +28,17 @@ func _process(delta: float) -> void:
 	if dragging:
 		#adjust our position so the mouse is still at the same global coordinate in the scene
 		var current_offset: Vector2 = get_global_mouse_position() - drag_mouse_position
-		global_position = FixPosition(-current_offset)
+		global_position = fix_position(-current_offset)
 		
 		if Input.is_action_just_released("DragCamera"):
-			StopDragging()
+			stop_dragging()
 	
 	#if we've moved, make sure we're in the allowed area
 	if get_global_position() != start_position:
-		FixToAllowedArea()
+		fix_to_allowed_area()
 
 #include every LabObject's position, and then add a margin around the outside.
-func GetAllowedRect() -> Rect2:
+func get_allowed_rect() -> Rect2:
 	var result: Rect2 = Rect2(0, 0, 0, 0)
 	
 	for labobject in get_tree().get_nodes_in_group("LabObjects"):
@@ -49,12 +49,12 @@ func GetAllowedRect() -> Rect2:
 	return result
 
 #converts the edges of the viewport to world coordinates, and then zooms/moves the camera to make sure the viewport rect is entirely within the allowed area
-func FixToAllowedArea() -> void:
-	FixZoom()
-	global_position = FixPosition()
+func fix_to_allowed_area() -> void:
+	fix_zoom()
+	global_position = fix_position()
 
-func FixZoom() -> void:
-	var allowed_area: Rect2 = GetAllowedRect()
+func fix_zoom() -> void:
+	var allowed_area: Rect2 = get_allowed_rect()
 	
 	var viewport_start: Vector2 = get_canvas_transform().affine_inverse() * get_viewport_rect().position
 	var viewport_size: Vector2 = (get_canvas_transform().affine_inverse() * get_viewport_rect().end) - viewport_start
@@ -66,13 +66,13 @@ func FixZoom() -> void:
 	var worst_scale_factor: float = max(y_scale_factor, x_scale_factor)
 	
 	if worst_scale_factor > 1:
-		Zoom(1.0/worst_scale_factor)
+		zoom_by_factor(1.0/worst_scale_factor)
 
-func FixPosition(offset_from_current_global_pos: Vector2 = Vector2(0, 0)) -> Vector2:
+func fix_position(offset_from_current_global_pos: Vector2 = Vector2(0, 0)) -> Vector2:
 	#call with no (or default) argument to get the adjustment for the current position
 	#call with other arguments to get the adjustment that would need to be made for a hypothetical global position.
 	
-	var allowed_area: Rect2 = GetAllowedRect()
+	var allowed_area: Rect2 = get_allowed_rect()
 	
 	var viewport_start: Vector2 = get_canvas_transform().affine_inverse() * get_viewport_rect().position
 	var viewport_size: Vector2 = (get_canvas_transform().affine_inverse() * get_viewport_rect().end) - viewport_start
@@ -92,28 +92,28 @@ func FixPosition(offset_from_current_global_pos: Vector2 = Vector2(0, 0)) -> Vec
 	
 	return global_position + offset_from_current_global_pos + Vector2(x_adjustment, y_adjustment)
 
-func Reset() -> void:
+func reset() -> void:
 	position = Vector2(0, 0)
 	zoom = Vector2(1, 1)
 	move_rate = base_move_rate
 
 #Camera does not do this on it's own. When input happens, Main decides what should happen.
-func StartDragging() -> void:
+func start_dragging() -> void:
 	dragging = true
 	drag_mouse_position = get_global_mouse_position()
 
-func StopDragging() -> void:
+func stop_dragging() -> void:
 	dragging = false
 
-func Zoom(factor: float) -> void:
+func zoom_by_factor(factor: float) -> void:
 	zoom = zoom * factor
 	move_rate = move_rate * factor
-	FixToAllowedArea()
+	fix_to_allowed_area()
 
 #This function is called by the Main Scene. Read the documentation for that for why.
-func ZoomIn() -> void:
-	Zoom(1.0/zoom_factor)
+func zoom_in() -> void:
+	zoom_by_factor(1.0/zoom_factor)
 
 #This function is called by the Main Scene. Read the documentation for that for why.
-func ZoomOut() -> void:
-	Zoom(zoom_factor)
+func zoom_out() -> void:
+	zoom_by_factor(zoom_factor)

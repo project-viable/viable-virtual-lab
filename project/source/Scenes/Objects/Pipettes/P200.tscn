@@ -4,7 +4,7 @@
 [ext_resource path="res://Images/Label_P200.png" type="Texture2D" id=2]
 
 [node name="P200" instance=ExtResource( 1 )]
-DisplayName = "P200 Pipette"
+display_name = "P200 Pipette"
 minCapacity = 20.0
 maxCapacity = 200.0
 displayIncrementTop = 100.0

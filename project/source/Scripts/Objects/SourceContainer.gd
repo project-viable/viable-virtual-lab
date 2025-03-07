@@ -6,8 +6,8 @@ extends LabObject
 # when something draws from it.
 
 enum ContainerType {ERLENMEYER_FLASK, MICRO_CENTRIFUGE_TUBE} #TODO: I'm not convinced this is a good way to do this, since we have to repeatedly modify code instead of just making these, simple changes in the editor. Maybe use an inherited scene like the Pipettes
-@export var container_type: ContainerType: set = SetContainerType
-@export var image: Texture2D = null: set = SetOverrideImage
+@export var container_type: ContainerType: set = set_container_type
+@export var image: Texture2D = null: set = set_override_image
 
 @export var substance: PackedScene = null
 @export var substance_parameters: Array[float]
@@ -23,9 +23,9 @@ func _ready() -> void:
 		contents.initialize(substance_parameters)
 		print(str(contents.particle_sizes))
 	
-	SetupVisual()
+	setup_visual()
 
-func SetupVisual() -> void:
+func setup_visual() -> void:
 	var sprite: Sprite2D
 	var fillsprite: Sprite2D
 	
@@ -49,21 +49,21 @@ func SetupVisual() -> void:
 		fillsprite.show()
 		if contents: fillsprite.modulate = contents.color
 
-func SetOverrideImage(new: Texture2D) -> void:
+func set_override_image(new: Texture2D) -> void:
 	image = new
-	SetupVisual()
+	setup_visual()
 
-func SetContainerType(new: ContainerType) -> void:
+func set_container_type(new: ContainerType) -> void:
 	container_type = new
-	SetupVisual()
+	setup_visual()
 
-func CheckContents(group: StringName) -> Array[bool]:
+func check_contents(group: StringName) -> Array[bool]:
 	if contents:
 		return [contents.is_in_group(group)]
 	else:
 		return []
 
-func TakeContents(volume: float = -1) -> Array[Substance]:
+func take_contents(volume: float = -1) -> Array[Substance]:
 	# TODO: This funciton originially had "return null" as the last line,
 	# but this does not work with static typing, so I replaced it with
 	# returning an empty array
@@ -80,5 +80,5 @@ func TakeContents(volume: float = -1) -> Array[Substance]:
 	print("Dispensed some of the stored substance")
 	return [new_content]
 
-func AddContents(new_contents: Array[Substance]) -> void:
+func add_contents(new_contents: Array[Substance]) -> void:
 	pass

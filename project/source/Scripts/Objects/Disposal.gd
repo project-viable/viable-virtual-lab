@@ -9,7 +9,7 @@ func _ready() -> void:
 	super()
 	$Menu.hide()
 
-func TryInteract(others: Array[LabObject]) -> bool:
+func try_interact(others: Array[LabObject]) -> bool:
 	for other in others:
 		for group in accepted_groups:
 			if other.is_in_group(group):
@@ -26,16 +26,16 @@ func TryInteract(others: Array[LabObject]) -> bool:
 					target = other
 					$Menu.show()
 				else:
-					Dispose(other)
+					dispose_of(other)
 				return true
 	
 	return false
 
-func Dispose(object: LabObject) -> void:
+func dispose_of(object: LabObject) -> void:
 	#TODO: Report this to the mistake checker
 	print("Calling Disposal function of " + str(object))
 	object.dispose()
 
 func _on_YesButton_pressed() -> void:
-	Dispose(target)
+	dispose_of(target)
 	$Menu.hide()

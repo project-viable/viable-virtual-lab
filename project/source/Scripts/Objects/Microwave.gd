@@ -8,7 +8,7 @@ var heatable: LabObject = null # Stores the heatable interacting with the microw
 func _ready() -> void:
 	$Menu.hide()
 
-func getTime() -> float:
+func get_time() -> float:
 	var temp: float =0
 	var array_len := len(time_array)
 	match array_len:
@@ -25,7 +25,7 @@ func getTime() -> float:
 			temp += (time_array[array_len - 2] * 10) + time_array[array_len - 1] #Add in the seconds
 			return temp
 
-func displayTime() -> void: #Made to display the microwave time in the TimeLabel
+func display_time() -> void: #Made to display the microwave time in the TimeLabel
 	var time := ""
 	var array_len := len(time_array)
 	match array_len:
@@ -42,14 +42,14 @@ func displayTime() -> void: #Made to display the microwave time in the TimeLabel
 			time = time + str(time_array[array_len - 2]) + str(time_array[array_len - 1]) #Add in the seconds
 			$Menu/PanelContainer/VBoxContainer/TimeLabel.text = "%s" % time
 
-func TryInteract(others: Array[LabObject]) -> bool:
+func try_interact(others: Array[LabObject]) -> bool:
 	#When the microwave is clicked and touching another object, it'll call this function
 	for other in others:
 		if other.is_in_group("Heatable"): #Only heat heatables
 			time_array.clear() #Reset time array to allow subsequent heatings
 			heatable = other #Store the object to use later
 			$Menu.visible = !$Menu.visible #show popup menu
-			displayTime()#Display default time
+			display_time()#Display default time
 
 			return true
 
@@ -60,47 +60,47 @@ func TryInteract(others: Array[LabObject]) -> bool:
 # have the corresponding digit bound to the argument when the signal is connected.
 func _on_1Button_pressed() -> void:
 	time_array.append(1)
-	displayTime()#Display new time
+	display_time()#Display new time
 
 
 func _on_2Button_pressed() -> void:
 	time_array.append(2)
-	displayTime()#Display new time
+	display_time()#Display new time
 
 
 func _on_3Button_pressed() -> void:
 	time_array.append(3)
-	displayTime()#Display new time
+	display_time()#Display new time
 
 
 func _on_4Button_pressed() -> void:
 	time_array.append(4)
-	displayTime()#Display new time
+	display_time()#Display new time
 
 
 func _on_5Button_pressed() -> void:
 	time_array.append(5)
-	displayTime()#Display new time
+	display_time()#Display new time
 
 
 func _on_6Button_pressed() -> void:
 	time_array.append(6)
-	displayTime()#Display new time
+	display_time()#Display new time
 
 
 func _on_7Button_pressed() -> void:
 	time_array.append(7)
-	displayTime()#Display new time
+	display_time()#Display new time
 
 
 func _on_8Button_pressed() -> void:
 	time_array.append(8)
-	displayTime()#Display new time
+	display_time()#Display new time
 
 
 func _on_9Button_pressed() -> void:
 	time_array.append(9)
-	displayTime()#Display new time
+	display_time()#Display new time
 
 
 func _on_ClearButton_pressed() -> void: #Clear array to cancel input/return null when getTime is called, 
@@ -111,19 +111,19 @@ func _on_ClearButton_pressed() -> void: #Clear array to cancel input/return null
 
 func _on_0Button_pressed() -> void:
 	time_array.append(0)
-	displayTime()#Display new time
+	display_time()#Display new time
 
 
 func _on_BackButton_pressed() -> void:
 	time_array.pop_back() #Remove the last input from the array
-	displayTime()#Display new time
+	display_time()#Display new time
 
 
 func _on_StartButton_pressed() -> void:
 	$Menu.hide() #Just hide the menu so the tryInteract function continues with current array contents
-	heat_time = getTime()
+	heat_time = get_time()
 	if(heat_time != 0):#If it should heat
 		print("Heattime check " + str(heat_time))
 		heatable.heat(heat_time)
-		LabLog.Log("Microwaved for " + str(heat_time) + " seconds.", false, true)
-		ReportAction([self, heatable], "heat", {'heat_time': heat_time})
+		LabLog.log("Microwaved for " + str(heat_time) + " seconds.", false, true)
+		report_action([self, heatable], "heat", {'heat_time': heat_time})

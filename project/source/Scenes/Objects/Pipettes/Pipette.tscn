@@ -96,7 +96,7 @@ draggable = true
 position = Vector2( 0, 9 )
 texture = ExtResource( 3 )
 script = ExtResource( 1 )
-SpriteDimensions = Vector2( 24, 120 )
+sprite_dimensions = Vector2( 24, 120 )
 
 [node name="TipSprite" type="Sprite2D" parent="."]
 visible = false

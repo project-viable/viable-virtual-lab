@@ -9,13 +9,13 @@ var current_weight: float = 0.0
 @onready var area: Area2D = get_node("Area2D")
 var objects: Array[LabObject] = []
 
-func TryInteract(others: Array[LabObject]) -> bool:
+func try_interact(others: Array[LabObject]) -> bool:
 	for other in others:
 		if other.is_in_group("Weighable"):
 			if(!objects.has(other)):
 				objects.append(other)
 				weighing = true
-				UpdateWeight()
+				update_weight()
 				
 			get_node("Control").visible = true
 			return true
@@ -23,7 +23,7 @@ func TryInteract(others: Array[LabObject]) -> bool:
 			print("Not weighable or already being weighed")
 	return false
 
-func UpdateWeight() -> void:
+func update_weight() -> void:
 	var test_weight := 0.0
 	for object in objects:
 		print(object.get_name() + str(object.mass))
@@ -32,7 +32,7 @@ func UpdateWeight() -> void:
 	
 	update_display()
 
-func TryActIndependently() -> bool:
+func try_act_independently() -> bool:
 	get_node("Control").visible = true
 	return true
 
@@ -54,12 +54,12 @@ func _on_Tare_Button_pressed() -> void:
 			if(object.is_in_group("Weighable")):
 				if(object.is_in_group("WeighBoat")):
 					if(!object.contents.is_empty()):
-						LabLog.Warn("Scale was tared while substances were being weighed, so final measurements may be incorrect")
+						LabLog.warn("Scale was tared while substances were being weighed, so final measurements may be incorrect")
 	else:
 		print("No overlap")
 		tare = false
 		tare_weight = 0.0
-		UpdateWeight()
+		update_weight()
 		update_display()
 
 func _on_Area2D_body_exited(body: Node2D) -> void:
@@ -67,10 +67,10 @@ func _on_Area2D_body_exited(body: Node2D) -> void:
 		if(body.is_in_group("WeighBoat")):
 			if(!body.contents.is_empty()):
 				if(tare == false):
-					LabLog.Warn("Scale was not tared when weighing, so substance weights may be incorrect")
+					LabLog.warn("Scale was not tared when weighing, so substance weights may be incorrect")
 		if(objects.has(body)):
 			objects.erase(body)
-			UpdateWeight()
+			update_weight()
 			update_display()
 	if(objects.is_empty()):
 		weighing = false

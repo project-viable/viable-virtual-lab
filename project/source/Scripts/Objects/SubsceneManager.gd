@@ -2,7 +2,7 @@
 extends LabObject
 class_name SubsceneManager
 
-@export var dimensions: Vector2 = Vector2(300, 300): set = SetDimensions
+@export var dimensions: Vector2 = Vector2(300, 300): set = set_dimensions
 var subscene_active: bool
 var subscene: Area2D = null #We keep a reference to the subscene so we can remove it from the tree entirely when it's hidden. This is how we "pause" the subscene when it isn't active
 
@@ -12,20 +12,20 @@ func _ready() -> void:
 	subscene = $Subscene
 	add_to_group("SubsceneManagers", true)
 	subscene.z_index = RenderingServer.CANVAS_ITEM_Z_MAX #to make this subscene draw above ones above it in the tree
-	if not Engine.is_editor_hint(): HideSubscene()
+	if not Engine.is_editor_hint(): hide_subscene()
 
 #Gets the depth of this subscene (ie how many ancestors it has that are also SubsceneManagers)
 #This is used by main when picking which object should recieve a user action (mouse click)
-func CountSubsceneDepth() -> int:
+func count_subscene_depth() -> int:
 	var count: int = 0
 	var node: SubsceneManager = self
-	while node.GetSubsceneManagerParent():
+	while node.get_subscene_manager_parent():
 		count += 1
-		node = node.GetSubsceneManagerParent()
+		node = node.get_subscene_manager_parent()
 	
 	return count
 
-func SetDimensions(new_dim: Vector2) -> void:
+func set_dimensions(new_dim: Vector2) -> void:
 	if not subscene:
 		subscene = $Subscene
 	
@@ -38,21 +38,21 @@ func SetDimensions(new_dim: Vector2) -> void:
 		subscene.get_node("Border").size = dimensions
 
 #You can still override this function just like any other LabObject if you need different behavior.
-func TryActIndependently() -> bool:
-	if not subscene_active: ShowSubscene()
+func try_act_independently() -> bool:
+	if not subscene_active: show_subscene()
 	return true
 
-func ShowSubscene() -> void:
+func show_subscene() -> void:
 	add_child(subscene)
 	subscene.owner = self
 	
-	AdjustSubsceneToVisibleHeight()
+	adjust_subscene_to_visible_height()
 	
 	subscene.show()
 	
 	subscene_active = true
 
-func HideSubscene() -> void:
+func hide_subscene() -> void:
 	if subscene in self.get_children():
 		remove_child(subscene)
 	
@@ -60,14 +60,14 @@ func HideSubscene() -> void:
 	
 	subscene_active = false
 
-func AdoptNode(node: Node) -> void:
+func adopt_node(node: Node) -> void:
 	var global_pos: Vector2 = node.global_position
 	node.get_parent().remove_child(node)
 	subscene.add_child(node)
 	node.owner = subscene
 
 #If our object is positioned so that the subscene would normally be partly or fully outside the area that can be visible on the screen, this function adjusts its position so that the whole thing should be visible.
-func AdjustSubsceneToVisibleHeight() -> void:
+func adjust_subscene_to_visible_height() -> void:
 	#We can't just use a VisibilityNotifier2D node because we only need to do this on y, and we need to know *how far* outside the screen it is.
 	#This is taken partly from https://docs.godotengine.org/en/3.5/tutorials/2d/2d_transforms.html
 	var top_screen_y := (get_viewport_transform() * (get_global_transform() * Vector2(0, -(dimensions.y/2)))).y
