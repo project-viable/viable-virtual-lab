@@ -36,6 +36,7 @@ func lab_object_ready() -> void:
 	
 	subscene_gel_bg = $Subscene/Border/Background2
 	$Subscene/PipetteProxies.hide()
+	freeze = true
 	update_display()
 
 func update_display() -> void:

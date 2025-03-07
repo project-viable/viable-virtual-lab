@@ -9,6 +9,11 @@ var current_weight: float = 0.0
 @onready var area: Area2D = get_node("Area2D")
 var objects: Array[LabObject] = []
 
+func lab_object_ready() -> void:
+	# ready used to fix Tare bug
+	var collision_shape: CollisionShape2D = area.get_child(0)
+	collision_shape.global_position = global_position
+
 func try_interact(others: Array[LabObject]) -> bool:
 	for other in others:
 		if other.is_in_group("Weighable"):

@@ -47,7 +47,7 @@ func _ready() -> void:
 		if module_data.show:
 			var new_button := module_button.instantiate()
 			new_button.set_data(module_data)
-			new_button.connect("pressed", Callable(self, "ModuleSelected").bind(module_data))
+			new_button.connect("pressed", Callable(self, "module_selected").bind(module_data))
 			$ModuleSelect.add_child(new_button)
 	
 	#connect the log signals
