@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://5k1jgd6pvw4r"]
+[gd_scene load_steps=39 format=3 uid="uid://5k1jgd6pvw4r"]
 
 [ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://dfinou685yv2a" path="res://Images/Resized_Images/Pipette_holder.png" id="2"]
@@ -34,7 +34,6 @@
 [ext_resource type="PackedScene" path="res://Scenes/Objects/Pipettes/P20.tscn" id="31"]
 [ext_resource type="Resource" path="res://MistakeCheckers/GelElectrophoresis/GelHeatingTimeChecker.tres" id="32"]
 [ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="34"]
-[ext_resource type="Script" path="res://Scenes/Modules/exit_module_button.gd" id="35_fpoje"]
 
 [sub_resource type="RectangleShape2D" id="4"]
 size = Vector2(1278.5, 565)
@@ -228,16 +227,3 @@ gravity_scale = 1.0
 
 [node name="GelMold" parent="." instance=ExtResource("19")]
 position = Vector2(498, 1083)
-
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2(1058, 577)
-script = ExtResource("35_fpoje")
-
-[node name="ExitModuleButton" type="Button" parent="Node2D"]
-offset_left = -80.0
-offset_top = -20.0
-offset_right = 58.0
-offset_bottom = 7.0
-text = "Exit Module"
-
-[connection signal="pressed" from="Node2D/ExitModuleButton" to="Node2D" method="_on_exit_module_button_pressed"]
