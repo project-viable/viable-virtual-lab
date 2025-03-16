@@ -610,7 +610,6 @@ offset_bottom = 79.0
 text = "Exit Module"
 
 [node name="LabLogPopup" type="Control" parent="Menu"]
-visible = false
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -644,6 +643,7 @@ uppercase = true
 
 [node name="Description" type="RichTextLabel" parent="Menu/LabLogPopup/Panel/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Border" type="ReferenceRect" parent="Menu/LabLogPopup"]
 layout_mode = 0
