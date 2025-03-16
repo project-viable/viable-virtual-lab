@@ -28,7 +28,6 @@ func add_contents(new_contents: Array[Substance]) -> void:
 	update_weight()
 	print("Current weight " + str(mass))
 	update_display()
-	scale_check()
 	
 func take_contents(volume: float = -1.0) -> Array[Substance]:
 	# check for whether we can distribute the contents by volume
@@ -53,7 +52,6 @@ func take_contents(volume: float = -1.0) -> Array[Substance]:
 		print("Contents now have "+str(contents[0].volume)+"mL of the substance")
 		update_weight()
 		update_display()
-		scale_check()
 		return [dispensed_subst]
 	
 	var all_contents: Array[Substance] = contents.duplicate(true)
@@ -61,16 +59,8 @@ func take_contents(volume: float = -1.0) -> Array[Substance]:
 	print("Emptied container of its contents")
 	update_weight()
 	update_display()
-	scale_check()
 	return all_contents
 	
-func scale_check() -> bool:
-	for object: Node2D in $Area2D.get_overlapping_bodies():
-		if(object.is_in_group("Scale")):
-			object.update_weight()
-			return true
-	return false
-			
 func update_weight() -> void:
 	mass = .4 #self mass
 	for object: Substance in contents:

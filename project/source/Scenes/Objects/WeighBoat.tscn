@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bx4lalohf7clg"]
+[gd_scene load_steps=6 format=3 uid="uid://bx4lalohf7clg"]
 
 [ext_resource type="Texture2D" uid="uid://ducrr5q5wxen8" path="res://Images/Resized_Images/Weigh_Boat.png" id="1"]
 [ext_resource type="Script" path="res://Scripts/Objects/WeighBoat.gd" id="2"]
@@ -7,9 +7,6 @@
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(118, 16)
-
-[sub_resource type="RectangleShape2D" id="2"]
-size = Vector2(119, 16)
 
 [node name="WeighBoat" type="RigidBody2D" groups=["Container", "WeighBoat", "Weighable"]]
 mass = 0.0408163
@@ -29,11 +26,3 @@ script = ExtResource("3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -14)
 shape = SubResource("1")
-
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(0, -5)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-1.5, -9)
-shape = SubResource("2")
