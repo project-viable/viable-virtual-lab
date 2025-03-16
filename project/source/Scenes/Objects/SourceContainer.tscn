@@ -1,46 +1,47 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://cowfxnf6s31pm"]
 
-[ext_resource path="res://Scripts/Objects/SourceContainer.gd" type="Script" id=1]
-[ext_resource path="res://Images/Resized_Images/Erlenmeyerflask_container.png" type="Texture2D" id=2]
-[ext_resource path="res://Images/Resized_Images/microcentrifuge_container.png" type="Texture2D" id=3]
-[ext_resource path="res://Images/Resized_Images/Erlenmeyerflask_liquid.png" type="Texture2D" id=4]
-[ext_resource path="res://Images/FillSprites/microcentrifuge_liquid.png" type="Texture2D" id=5]
-[ext_resource path="res://Scenes/Objects/DummyLiquidSubstance.tscn" type="PackedScene" id=6]
+[ext_resource type="Script" path="res://Scripts/Objects/SourceContainer.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://d1mkaw208j1vl" path="res://Images/Resized_Images/Erlenmeyerflask_container.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://c8tdr25oe74eq" path="res://Images/Resized_Images/microcentrifuge_container.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://sb2vpjbdln67" path="res://Images/Resized_Images/Erlenmeyerflask_liquid.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://vgonknoyfid1" path="res://Images/FillSprites/microcentrifuge_liquid.png" id="5"]
+[ext_resource type="PackedScene" path="res://Scenes/Objects/DummyLiquidSubstance.tscn" id="6"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 20, 32 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(40, 64)
 
 [node name="SourceContainer" type="RigidBody2D" groups=["LabObjects", "Source Container"]]
 collision_layer = 2
 input_pickable = true
 gravity_scale = 0.0
 can_sleep = false
-script = ExtResource( 1 )
-substance = ExtResource( 6 )
+lock_rotation = true
+script = ExtResource("1")
+substance = ExtResource("6")
 
 [node name="Sprites" type="Node2D" parent="."]
 
 [node name="MicrocentrifugeTubeFillSprite" type="Sprite2D" parent="Sprites"]
 visible = false
-position = Vector2( -8.86081, 5 )
-scale = Vector2( 0.0365801, 0.0350926 )
-texture = ExtResource( 5 )
+position = Vector2(-8.86081, 5)
+scale = Vector2(0.0365801, 0.0350926)
+texture = ExtResource("5")
 
 [node name="MicrocentrifugeTubeSprite" type="Sprite2D" parent="Sprites"]
 visible = false
-scale = Vector2( 0.0350926, 0.0350926 )
-texture = ExtResource( 3 )
+scale = Vector2(0.0350926, 0.0350926)
+texture = ExtResource("3")
 
 [node name="FlaskFillSprite" type="Sprite2D" parent="Sprites"]
-position = Vector2( 0, 25 )
-texture = ExtResource( 4 )
+position = Vector2(0, 25)
+texture = ExtResource("4")
 
 [node name="FlaskSprite" type="Sprite2D" parent="Sprites"]
-texture = ExtResource( 2 )
+texture = ExtResource("2")
 
 [node name="CustomSprite" type="Sprite2D" parent="Sprites"]
 visible = false
-texture = ExtResource( 2 )
+texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource("1")
