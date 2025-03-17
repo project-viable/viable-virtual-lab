@@ -1,5 +1,9 @@
 extends LabContainer
 
+# Mass of the weigh boat by itself.
+# TODO: This mass is supposed to represent mass in grams, but Godot's mass is in kilograms.
+@onready var base_mass: float = mass
+
 func try_act_independently() -> bool:
 	return false
 
@@ -28,7 +32,7 @@ func add_contents(new_contents: Array[Substance]) -> void:
 	update_weight()
 	print("Current weight " + str(mass))
 	update_display()
-	
+
 func take_contents(volume: float = -1.0) -> Array[Substance]:
 	# check for whether we can distribute the contents by volume
 	if(volume != -1 && len(contents) == 1):
@@ -60,13 +64,13 @@ func take_contents(volume: float = -1.0) -> Array[Substance]:
 	update_weight()
 	update_display()
 	return all_contents
-	
+
 func update_weight() -> void:
-	mass = .4 #self mass
+	mass = base_mass
 	for object: Substance in contents:
 		mass += object.get_mass()
 
 func dispose() -> void:
 	contents.clear()
 	update_display()
-	mass = .4
+	mass = base_mass
