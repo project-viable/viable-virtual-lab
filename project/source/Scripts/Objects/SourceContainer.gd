@@ -1,4 +1,5 @@
 @tool
+class_name SourceContainer
 extends LabObject
 
 # This container models a substance source (like the buffer bottle) that cannot 

@@ -6,7 +6,7 @@ var allowed_groups: Array[String] = ["Source Container"]
 
 var default_text: String
 
-var curr_content: LabContainer
+var curr_content: SourceContainer
 
 func lab_object_ready() -> void:
 	if max_volume == 0:
