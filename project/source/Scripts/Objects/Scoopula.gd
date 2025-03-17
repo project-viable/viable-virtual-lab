@@ -21,8 +21,6 @@ func try_interact(others: Array[LabObject]) -> bool:
 				var density: float = other.take_contents()[0].get_properties()['density']
 				
 				contents.append_array(other.take_contents(1 / density)) # Take 1g of material
-				if(other.is_in_group("Scale")):
-					other.update_weight()
 				print("Added contents")
 				if contents != []:
 					LabLog.log("Added " + contents[0].name + " to scoopula.")
