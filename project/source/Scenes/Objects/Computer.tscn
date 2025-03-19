@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dtltidc1e8ikc"]
+[gd_scene load_steps=20 format=3 uid="uid://dtltidc1e8ikc"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/computer.gd" id="1_qhp2f"]
 [ext_resource type="Texture2D" uid="uid://cqmb14y7dw7nj" path="res://Images/Computer_Screen.png" id="2_pfloe"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bh6iocygbfwtj" path="res://Scenes/UI/ChannelsPanel.tscn" id="10_t3byj"]
 [ext_resource type="PackedScene" uid="uid://b6ak8mmd81jv2" path="res://Scenes/UI/PowerExposure.tscn" id="11_anhd5"]
 [ext_resource type="Script" path="res://Scripts/UI/channels_panel.gd" id="11_u2afq"]
+[ext_resource type="Texture2D" uid="uid://bn0mca24purdc" path="res://Images/Play_Button.png" id="14_1rr6n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i5bsf"]
 size = Vector2(201, 158)
@@ -122,6 +123,7 @@ metadata/_edit_lock_ = true
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/CellImage"]
+visible = false
 material = SubResource("ShaderMaterial_geey7")
 position = Vector2(-2.01993, 10.0002)
 scale = Vector2(0.103162, 0.0979609)
@@ -180,6 +182,15 @@ offset_right = 236.0
 offset_bottom = 216.0
 scale = Vector2(0.629, 0.5)
 
+[node name="Play_Button" type="Button" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel"]
+layout_mode = 0
+offset_left = 151.337
+offset_right = 621.337
+offset_bottom = 434.0
+scale = Vector2(0.025, 0.025)
+icon = ExtResource("14_1rr6n")
+flat = true
+
 [node name="ExitButton" type="Button" parent="PopupControl/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -194,9 +205,11 @@ metadata/_edit_lock_ = true
 [connection signal="app_click_signal" from="PopupControl/PanelContainer/VBoxContainer/Screen/Desktop/AppIcon" to="PopupControl/PanelContainer/VBoxContainer/Screen" method="_on_app_icon_app_click_signal"]
 [connection signal="input_event" from="PopupControl/PanelContainer/VBoxContainer/Screen/Desktop/AppIcon" to="PopupControl/PanelContainer/VBoxContainer/Screen/Desktop/AppIcon" method="_on_input_event"]
 [connection signal="pressed" from="PopupControl/PanelContainer/VBoxContainer/Screen/Desktop/AppIcon/AppIconPressed" to="PopupControl/PanelContainer/VBoxContainer/Screen" method="_on_app_icon_pressed"]
+[connection signal="update_zoom" from="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen" to="." method="_on_content_screen_update_zoom"]
 [connection signal="button_press" from="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/MacroPanel" to="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen" method="_on_macro_panel_button_press"]
 [connection signal="channel_selected" from="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/ChannelsPanel" to="." method="_on_channels_panel_channel_selected"]
 [connection signal="combo_change" from="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure" to="." method="_on_power_exposure_combo_change"]
 [connection signal="exposure_change" from="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure" to="." method="_on_exposure_change"]
 [connection signal="power_change" from="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure" to="." method="_on_power_change"]
+[connection signal="pressed" from="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/Play_Button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="PopupControl/PanelContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

@@ -3,6 +3,9 @@ extends StaticBody2D
 signal screen_click_signal()
 signal channel_select(channel: String)
 var is_clicked: bool = false
+var zoom_level: String = "None"
+var current_slide: String = "A1"
+@onready var cell_image_node: Sprite2D = $"./PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/CellImage/Sprite2D"
 @onready var joystick:Area2D = $"../Joystick"
 @onready var direction:Vector2 = Vector2(0,0)
 
@@ -97,3 +100,65 @@ func _on_power_exposure_combo_change(selected_channel: String, attribute: String
 		channels_power[selected_channel] = value
 	else:
 		channels_exposure[selected_channel] = value
+
+func _on_play_button_pressed() -> void:
+	if (current_channel != "Combo"):
+		var image_path: String = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide, current_channel, zoom_level]
+		cell_image_node.texture = load(image_path)
+		cell_image_node.visible = true
+		return
+	var texture: ImageTexture = ImageTexture.new()
+	texture = texture.create_from_image(create_combo_image())
+	cell_image_node.texture = texture
+	cell_image_node.visible = true
+
+func _on_content_screen_update_zoom(button_value: String) -> void:
+	zoom_level = button_value
+
+func calculate_brightness_percentage(channel: String) -> float:
+	if(channels_power[channel] != 0.0):
+		var power_percent: float = channels_power[channel] / 100.0
+		var exposure_percent: float = channels_exposure[channel] / 5000.0
+		return (power_percent + exposure_percent) / 2
+	return 0.0
+
+func create_combo_image() -> Image:
+	var opacities: Dictionary = {
+		"Dapi": 0.0,
+		"FITC": 0.0,
+		"TRITC": 0.0,
+		"Cy5": 0.0
+	}
+	
+	var compiled_image: Image = Image.new()
+	var width: int = cell_image_node.texture.get_width()
+	var height: int = cell_image_node.texture.get_height()
+	var images: Array[Dictionary] = []
+	var opacities_sum: float
+	
+	for channel: String in opacities.keys():
+		opacities[channel] = calculate_brightness_percentage(channel)
+		if (opacities[channel] == 0.0):
+			continue
+		var image_path: String = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide, channel, zoom_level]
+		var img: Image = Image.new()
+		var img_resource := ResourceLoader.load(image_path)
+		img = img_resource.get_image()
+		img.convert(Image.FORMAT_RGBA8)
+		opacities_sum += opacities[channel]
+		images.append({"Image": img, "Opacity" :opacities[channel]})
+	
+	compiled_image = compiled_image.create(width, height, false, Image.FORMAT_RGBA8)
+	compiled_image.fill(Color(0,0,0,0))
+	
+	for i in images:
+		var img: Image = i["Image"]
+		var opacity: float = i["Opacity"] / opacities_sum
+		for x in range(width):
+			for y in range(height):
+				var base_color: Color = compiled_image.get_pixel(x, y)
+				var overlay_color: Color = img.get_pixel(x, y)
+				overlay_color.a *= opacity
+				compiled_image.set_pixel(x, y, base_color.blend(overlay_color))
+	
+	return compiled_image
