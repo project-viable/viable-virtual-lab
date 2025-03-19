@@ -6,15 +6,6 @@ var curr_channel: String = "BPAE"
 var curr_button_value: String = "10x"
 signal update_zoom(button_value: String)
 
-var cell_images: Dictionary = {
-	"BPAE": {	
-		"10x": preload("res://Images/ImageCells/20250224_bpae_10xA1c1.jpg"),
-		"20x": preload("res://Images/ImageCells/20250224_bpae_20xA1c1.jpg"),
-		"40x": preload("res://Images/ImageCells/20250224_bpae_40xA1c1.jpg"),
-		"100x": preload("res://Images/ImageCells/20250224_bpae_100xA1c1.jpg")
-	}
-}
-
 var direction: Vector2 = Vector2(0,0)
 func _ready() -> void:
 	hide()

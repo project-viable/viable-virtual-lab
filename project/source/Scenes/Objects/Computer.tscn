@@ -7,8 +7,8 @@
 [ext_resource type="Script" path="res://Scenes/UI/app_icon.gd" id="7_ayaux"]
 [ext_resource type="Script" path="res://Scenes/Objects/content_screen.gd" id="7_hy7wm"]
 [ext_resource type="Texture2D" uid="uid://b2u2vyu06gaor" path="res://favicon.png" id="7_jbvos"]
-[ext_resource type="Texture2D" uid="uid://3jh4ygiiufys" path="res://Images/ImageCells/20250224_bpae_10xA1c1.jpg" id="8_6plxk"]
 [ext_resource type="Shader" path="res://Scenes/UI/microscope_focus_blur.gdshader" id="8_whtpd"]
+[ext_resource type="Texture2D" uid="uid://d1qovw5njn0ce" path="res://Images/ImageCells/BPAE/A1/Dapi/10x.jpg" id="9_cfhj1"]
 [ext_resource type="PackedScene" uid="uid://css145ipgmvbb" path="res://Scenes/UI/MacroPanel.tscn" id="10_env1g"]
 [ext_resource type="FontFile" uid="uid://c5jqyemsa330f" path="res://UI/Roboto/Roboto-Black.ttf" id="10_scboh"]
 [ext_resource type="PackedScene" uid="uid://bh6iocygbfwtj" path="res://Scenes/UI/ChannelsPanel.tscn" id="10_t3byj"]
@@ -127,7 +127,7 @@ visible = false
 material = SubResource("ShaderMaterial_geey7")
 position = Vector2(-2.01993, 10.0002)
 scale = Vector2(0.103162, 0.0979609)
-texture = ExtResource("8_6plxk")
+texture = ExtResource("9_cfhj1")
 region_enabled = true
 region_rect = Rect2(783.903, 752.302, 500, 600)
 region_filter_clip_enabled = true
