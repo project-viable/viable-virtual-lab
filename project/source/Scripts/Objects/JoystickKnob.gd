@@ -3,7 +3,7 @@ extends Sprite2D
 @export var max_drag_length: float = 100 #Max length the joystick can be dragged out to 
 @export var deadzone: float = 5
 
-@onready var joystick_parent: Sprite2D  = $"../JoystickTemp"
+@onready var joystick_parent: Sprite2D  = $"../JoystickFinal"
 
 var button_pressed : bool = false
 

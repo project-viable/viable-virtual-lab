@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dj8378rcmjta0" path="res://Scenes/Objects/Joystick.tscn" id="3_psukr"]
 [ext_resource type="Texture2D" uid="uid://cm88dw0xfl2xk" path="res://Images/testImg.png" id="5_uv0me"]
 [ext_resource type="Script" path="res://Scripts/Objects/PanningImage.gd" id="6_gdu6r"]
-[ext_resource type="PackedScene" path="res://Scenes/Objects/focus_control.tscn" id="8_b47o4"]
+[ext_resource type="PackedScene" uid="uid://b7038o1t6lkhh" path="res://Scenes/Objects/focus_control.tscn" id="8_b47o4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1w4j"]
 size = Vector2(1278.5, 565)
@@ -45,12 +45,12 @@ shape = SubResource("RectangleShape2D_y5o7s")
 position = Vector2(889, 472)
 scale = Vector2(0.952876, 0.952876)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(641, 360)
-
 [node name="Joystick" parent="." instance=ExtResource("3_psukr")]
 z_index = 5
-position = Vector2(1134, 554)
+position = Vector2(1167, 421)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(641, 360)
 
 [node name="Cells Image" type="Sprite2D" parent="."]
 visible = false
@@ -60,10 +60,10 @@ texture = ExtResource("5_uv0me")
 script = ExtResource("6_gdu6r")
 
 [node name="focus_control" parent="." instance=ExtResource("8_b47o4")]
-offset_left = 27.0
-offset_top = -276.0
-offset_right = 27.0
-offset_bottom = -276.0
+offset_left = 29.0
+offset_top = -432.0
+offset_right = 29.0
+offset_bottom = -432.0
 scale = Vector2(1.75, 1.75)
 
 [connection signal="screen_click_signal" from="Computer" to="." method="_on_computer_screen_click_signal"]
