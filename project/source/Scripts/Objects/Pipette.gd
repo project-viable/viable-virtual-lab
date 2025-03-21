@@ -154,7 +154,7 @@ func _on_PlungerSlider_value_changed(value: float) -> void:
 				do_actions = false #reenabled when the menu is shown again.
 				$Menu/Border/ActionLabel.text = "Dispensed contents!"
 				$Menu/AutoCloseTimer.start()
-		elif value == 2 and len(contents) == 0:
+		elif value == 2 and len(contents) == 0 and plunger_press_extent != 2:
 			#just ended a plunger press while empty
 			
 			var draw_factor: float
