@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dj8378rcmjta0" path="res://Scenes/Objects/Joystick.tscn" id="3_psukr"]
 [ext_resource type="Texture2D" uid="uid://cm88dw0xfl2xk" path="res://Images/testImg.png" id="5_uv0me"]
 [ext_resource type="Script" path="res://Scripts/Objects/PanningImage.gd" id="6_gdu6r"]
-[ext_resource type="PackedScene" path="res://Scenes/Objects/focus_control.tscn" id="8_b47o4"]
+[ext_resource type="PackedScene" uid="uid://b7038o1t6lkhh" path="res://Scenes/Objects/focus_control.tscn" id="8_b47o4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1w4j"]
 size = Vector2(1278.5, 565)
@@ -20,6 +20,7 @@ position = Vector2(1, -1)
 script = ExtResource("1_q60rk")
 
 [node name="LabBoundary" type="Area2D" parent="."]
+visible = false
 position = Vector2(640, 280)
 script = ExtResource("1_bc34u")
 
@@ -42,6 +43,7 @@ position = Vector2(6.125, 0)
 shape = SubResource("RectangleShape2D_y5o7s")
 
 [node name="Computer" parent="." instance=ExtResource("3_0ypcw")]
+visible = false
 position = Vector2(889, 472)
 scale = Vector2(0.952876, 0.952876)
 

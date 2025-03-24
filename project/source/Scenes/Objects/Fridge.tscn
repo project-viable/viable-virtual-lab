@@ -1,0 +1,131 @@
+[gd_scene load_steps=5 format=3 uid="uid://ckpsbn3v00xyb"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Fridge.gd" id="1_8tmrn"]
+[ext_resource type="Texture2D" uid="uid://bfvser5ktrsim" path="res://Images/fridge.png" id="2_dkfy3"]
+[ext_resource type="Texture2D" uid="uid://dyra1limph5n6" path="res://Images/fridge_inside.png" id="3_dhf2e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tn2l3"]
+size = Vector2(757.5, 711)
+
+[node name="Fridge" type="RigidBody2D" groups=["LabObjects"]]
+collision_layer = 2
+input_pickable = true
+can_sleep = false
+lock_rotation = true
+script = ExtResource("1_8tmrn")
+
+[node name="Fridge" type="Sprite2D" parent="."]
+position = Vector2(492, 276)
+texture = ExtResource("2_dkfy3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(492.25, 402.5)
+shape = SubResource("RectangleShape2D_tn2l3")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_left = 81.0
+offset_top = -106.0
+offset_right = 893.0
+offset_bottom = 842.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+
+[node name="FridgeInside" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer"]
+position = Vector2(390, 404)
+texture = ExtResource("3_dhf2e")
+
+[node name="TemperatureLabel" type="Label" parent="Control/PanelContainer/VBoxContainer/FridgeInside"]
+offset_left = -380.0
+offset_top = -398.0
+offset_right = 159.0
+offset_bottom = -259.0
+
+[node name="GridContainer" type="GridContainer" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+columns = 3
+
+[node name="Button1" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "       1       "
+
+[node name="Button2" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "2"
+
+[node name="Button3" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "       3       "
+
+[node name="Button4" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "4"
+
+[node name="Button5" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "5"
+
+[node name="Button6" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "6"
+
+[node name="Button7" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "7"
+
+[node name="Button8" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "8"
+
+[node name="Button9" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "9"
+
+[node name="ClearButton" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Clear"
+
+[node name="Button0" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "       0       "
+
+[node name="DeleteButton" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Delete"
+
+[node name="GridContainer2" type="GridContainer" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+columns = 2
+
+[node name="EnterButton" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "         Enter         "
+
+[node name="Exit" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "         Exit         "
+
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button1" to="." method="_on_Button1_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button2" to="." method="_on_Button2_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button3" to="." method="_on_Button3_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button4" to="." method="_on_Button4_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button5" to="." method="_on_Button5_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button6" to="." method="_on_Button6_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button7" to="." method="_on_Button7_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button8" to="." method="_on_Button8_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button9" to="." method="_on_Button9_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/ClearButton" to="." method="_on_ClearButton_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button0" to="." method="_on_Button0_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/DeleteButton" to="." method="_on_DeleteButton_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer2/EnterButton" to="." method="_on_EnterButton_pressed"]
