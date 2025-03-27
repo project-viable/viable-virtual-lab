@@ -1,6 +1,7 @@
 shader_type canvas_item;
 
 uniform float blur_amount: hint_range(0.0, 1.0);
+uniform float brightness: hint_range(-1.0, 1.0);
 
 void fragment() {
 	vec2 tex_size = vec2(textureSize(TEXTURE,0));
@@ -34,6 +35,12 @@ void fragment() {
 		
 		vec4 original_color = texture(TEXTURE, uv);
 		COLOR = mix(original_color, blurred_color, blur_amount);
+		
+		// Changing brightness
+		vec4 color = texture(TEXTURE, 	UV);
+		color.rgb += vec3(brightness);
+		COLOR = color;
+		// End of changing brightness
 	}
 	
 }

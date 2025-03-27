@@ -5,6 +5,8 @@ signal channel_select(channel: String)
 var is_clicked: bool = false
 var zoom_level: String = "None"
 var current_slide: String = "A1"
+var delay: int = 0
+var brightness: float = 0.0
 @onready var cell_image_node: Sprite2D = $"./PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/CellImage/Sprite2D"
 @onready var joystick:Area2D = $"../Joystick"
 @onready var direction:Vector2 = Vector2(0,0)
@@ -104,12 +106,28 @@ func _on_power_exposure_combo_change(selected_channel: String, attribute: String
 func _on_play_button_pressed() -> void:
 	if (current_channel != "Combo"):
 		var image_path: String = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide, current_channel, zoom_level]
+		delay = channels_exposure[current_channel]
+		brightness = clamp((calculate_brightness_percentage(current_channel) * 2) - 1, -1.0, 1.0)
+		# Delays the visibility of the image based on the miliseconds the user put in
+		await get_tree().create_timer((delay/1000)).timeout
 		cell_image_node.texture = load(image_path)
+		adjust_brightness()
 		cell_image_node.visible = true
 		return
 	var texture: ImageTexture = ImageTexture.new()
 	texture = texture.create_from_image(create_combo_image())
+	delay = max(channels_exposure["Dapi"],
+				channels_exposure["FITC"],
+				channels_exposure["TRITC"],
+				channels_exposure["Cy5"])
+	# Account for slow image processing
+	if(delay - 1000 > 0):
+		delay = delay - 1000
+	# Delays the visibility of the image based on the miliseconds the user put in
+	await get_tree().create_timer((delay/1000)).timeout
 	cell_image_node.texture = texture
+	brightness = clamp(brightness - 1, -1.0, 1.0)
+	adjust_brightness()
 	cell_image_node.visible = true
 
 func _on_content_screen_update_zoom(button_value: String) -> void:
@@ -147,6 +165,7 @@ func create_combo_image() -> Image:
 		img.convert(Image.FORMAT_RGBA8)
 		opacities_sum += opacities[channel]
 		images.append({"Image": img, "Opacity" :opacities[channel]})
+		brightness = max(brightness, opacities[channel])
 	
 	compiled_image = compiled_image.create(width, height, false, Image.FORMAT_RGBA8)
 	compiled_image.fill(Color(0,0,0,0))
@@ -162,3 +181,7 @@ func create_combo_image() -> Image:
 				compiled_image.set_pixel(x, y, base_color.blend(overlay_color))
 	
 	return compiled_image
+
+func adjust_brightness() -> void:
+	var material: ShaderMaterial = cell_image_node.material as ShaderMaterial
+	material.set_shader_parameter("brightness", brightness)
