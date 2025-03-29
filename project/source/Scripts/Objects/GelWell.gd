@@ -3,9 +3,6 @@ extends LabObject
 @export var well_number: int = 0
 var broken: bool = false
 
-func lab_object_ready() -> void:
-	freeze = true
-
 func add_contents(new_contents: Array[Substance]) -> void:
 	#TODO: This could do the wrong thing if an object other than the pipette being handled by the Proxy tries to add liquid.
 	print("-gel well add contents")
