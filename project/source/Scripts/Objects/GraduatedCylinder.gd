@@ -38,12 +38,6 @@ func try_interact(others: Array[LabObject]) -> bool:
 					# We want to store the substance in a variable
 					# so that it can be accessed in _on_DispenseButton_pressed()
 					curr_content = other
-					
-					# Disable dragging while menu open
-					self.draggable = false
-					await $Menu/PanelContainer/VBoxContainer/DispenseButton.button_pressed
-					# Reenable dragging
-					self.draggable = true
 				# Other is a container with a liquid substance and grad cylinder already has liquid, so do nothing
 				else:
 					continue
