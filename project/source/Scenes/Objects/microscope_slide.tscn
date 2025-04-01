@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://0nnjowlafkwi"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/microscope_slide.gd" id="1_lrjwm"]
+[ext_resource type="Texture2D" uid="uid://cw1sdqqvir4ii" path="res://Images/slideA.PNG" id="2_hf1ov"]
+[ext_resource type="Texture2D" uid="uid://dolcw6quhj512" path="res://Images/slideA_oiled.PNG" id="3_aejj2"]
+[ext_resource type="Texture2D" uid="uid://bjoyy8p47pch3" path="res://Images/slideA_backwards.PNG" id="4_afwi0"]
+[ext_resource type="Texture2D" uid="uid://ca6ej0soxyu36" path="res://Images/slideA_backwards_oiled.PNG" id="5_sv2ne"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6kgi5"]
+size = Vector2(446, 143)
+
+[node name="microscope_slide" type="RigidBody2D"]
+position = Vector2(531, 265)
+freeze = true
+script = ExtResource("1_lrjwm")
+slide_images_path = "res://Images/slideA_images/"
+right_side_up = ExtResource("2_hf1ov")
+right_side_up_oiled = ExtResource("3_aejj2")
+right_side_down = ExtResource("4_afwi0")
+right_side_down_oiled = ExtResource("5_sv2ne")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, 1.00003)
+scale = Vector2(1.17991, 1.21429)
+texture = ExtResource("2_hf1ov")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7, -3.5)
+shape = SubResource("RectangleShape2D_6kgi5")
