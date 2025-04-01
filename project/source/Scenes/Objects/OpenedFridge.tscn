@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://t644gb2u0lwd"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/OpenedFridge.gd" id="1_7fvrm"]
+[ext_resource type="Texture2D" uid="uid://clwueahne5kf7" path="res://Images/OpenedFridge.png" id="2_ksksu"]
+[ext_resource type="Texture2D" uid="uid://dmmihv3j6wu3m" path="res://Images/MicroscopeSlides.png" id="3_cxyxe"]
+[ext_resource type="Script" path="res://Scenes/Objects/slides.gd" id="3_sifj1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xroc1"]
+size = Vector2(753, 675)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dx2pq"]
+size = Vector2(555, 359)
+
+[node name="OpenedFridge" type="StaticBody2D"]
+input_pickable = true
+script = ExtResource("1_7fvrm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ksksu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 113.5)
+shape = SubResource("RectangleShape2D_xroc1")
+debug_color = Color(0.998388, 0, 0.143295, 0.42)
+
+[node name="Slides" type="StaticBody2D" parent="."]
+position = Vector2(-22, -37)
+scale = Vector2(1.24992, 1.24992)
+input_pickable = true
+script = ExtResource("3_sifj1")
+
+[node name="Sprite2D" type="Sprite2D" parent="Slides"]
+position = Vector2(11, 296)
+scale = Vector2(0.48673, 0.48673)
+texture = ExtResource("3_cxyxe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slides"]
+position = Vector2(19.5, 106.5)
+scale = Vector2(1.0019, 1)
+shape = SubResource("RectangleShape2D_dx2pq")
+debug_color = Color(0.739286, 0.231657, 0.987335, 0.42)
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="input_event" from="Slides" to="Slides" method="_on_input_event"]

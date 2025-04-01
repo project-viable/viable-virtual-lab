@@ -1,12 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dpm1gs1fyv4gg"]
+[gd_scene load_steps=10 format=3 uid="uid://dpm1gs1fyv4gg"]
 
 [ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="1_bc34u"]
 [ext_resource type="Script" path="res://Scenes/Modules/fluorescence_microscopy.gd" id="1_q60rk"]
 [ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="2_3x61r"]
 [ext_resource type="PackedScene" uid="uid://dtltidc1e8ikc" path="res://Scenes/Objects/Computer.tscn" id="3_0ypcw"]
 [ext_resource type="PackedScene" uid="uid://dj8378rcmjta0" path="res://Scenes/Objects/Joystick.tscn" id="3_psukr"]
-[ext_resource type="Texture2D" uid="uid://cm88dw0xfl2xk" path="res://Images/testImg.png" id="5_uv0me"]
-[ext_resource type="Script" path="res://Scripts/Objects/PanningImage.gd" id="6_gdu6r"]
+[ext_resource type="PackedScene" uid="uid://d4ab723c4vlvp" path="res://Scenes/Objects/ClosedFridge.tscn" id="7_ne6rj"]
 [ext_resource type="PackedScene" uid="uid://b7038o1t6lkhh" path="res://Scenes/Objects/focus_control.tscn" id="8_b47o4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1w4j"]
@@ -41,23 +40,18 @@ position = Vector2(-6, 291)
 position = Vector2(6.125, 0)
 shape = SubResource("RectangleShape2D_y5o7s")
 
+[node name="ClosedFridge" parent="." instance=ExtResource("7_ne6rj")]
+position = Vector2(154, 422)
+scale = Vector2(0.322336, 0.322336)
+metadata/_edit_lock_ = true
+
 [node name="Computer" parent="." instance=ExtResource("3_0ypcw")]
 position = Vector2(889, 472)
 scale = Vector2(0.952876, 0.952876)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(641, 360)
-
 [node name="Joystick" parent="." instance=ExtResource("3_psukr")]
 z_index = 5
 position = Vector2(1134, 554)
-
-[node name="Cells Image" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(448.5, 245)
-scale = Vector2(0.443333, 0.464)
-texture = ExtResource("5_uv0me")
-script = ExtResource("6_gdu6r")
 
 [node name="focus_control" parent="." instance=ExtResource("8_b47o4")]
 offset_left = 27.0
@@ -66,4 +60,5 @@ offset_right = 27.0
 offset_bottom = -276.0
 scale = Vector2(1.75, 1.75)
 
+[connection signal="on_click" from="ClosedFridge" to="." method="_on_fridge_on_click"]
 [connection signal="screen_click_signal" from="Computer" to="." method="_on_computer_screen_click_signal"]

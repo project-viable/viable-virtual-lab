@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4ab723c4vlvp"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/ClosedFridge.gd" id="1_h87bx"]
+[ext_resource type="Texture2D" uid="uid://db7oqu0unl5gv" path="res://Images/Fridge.png" id="2_gosnc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xroc1"]
+size = Vector2(753, 675)
+
+[node name="ClosedFridge" type="StaticBody2D"]
+input_pickable = true
+script = ExtResource("1_h87bx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_gosnc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 113.5)
+shape = SubResource("RectangleShape2D_xroc1")
+debug_color = Color(0.998388, 0, 0.143295, 0.42)
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
