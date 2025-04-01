@@ -34,10 +34,14 @@ func _on_area_input(_viewport: Viewport, event: InputEvent, _shape_idx: int, sid
 			texture = tray_closed
 				
 
+func _update_light_switch_color() -> void:
+	var light_switch: Sprite2D = get_node("../light_switch/Sprite2D")
+	light_switch.modulate = Color.GREEN if light_on else Color.GRAY
 
 func _on_light_switch_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		light_on = !light_on
+		_update_light_switch_color()
 		if right_open and left_open:
 			if light_on:
 				texture = tray_open_light_on
