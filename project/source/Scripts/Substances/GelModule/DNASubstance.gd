@@ -17,9 +17,6 @@ func _init() -> void:
 func initialize(input_particle_sizes: Array[float]) -> void:
 	particle_sizes = input_particle_sizes
 
-# TODO (update): This is never used. Every other function that accesses this class instead opts to
-# directly read from `particle_sizes`, so we should figure out how we want to handle it
-# consistently.
 func get_particle_sizes() -> Array[float]:
 	return particle_sizes
 
