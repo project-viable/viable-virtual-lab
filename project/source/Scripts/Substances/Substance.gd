@@ -8,7 +8,7 @@ var color: Color = Color('#4bd87e') # dictates what color to display in the subs
 var volume: float = 1 # volume is used as the default measure to keep consistency between solids and liquids
 var density: float = 1.0 # used for calculating mass based on the volume
 
-var total_run_time: int = 0 # used for calculating time ran under current
+var total_run_time: float = 0 # used for calculating time ran under current
 
 func init_mixed(parent_substances: Array[Substance]) -> void:
 	# this function is called when the substance is created by mixing 
