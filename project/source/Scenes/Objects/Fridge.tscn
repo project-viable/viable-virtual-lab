@@ -5,21 +5,21 @@
 [ext_resource type="Texture2D" uid="uid://dyra1limph5n6" path="res://Images/fridge_inside.png" id="3_dhf2e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tn2l3"]
-size = Vector2(757.5, 711)
+size = Vector2(213, 201)
 
-[node name="Fridge" type="RigidBody2D" groups=["LabObjects"]]
+[node name="Fridge" type="StaticBody2D" groups=["LabObjects"]]
+z_index = -1
 collision_layer = 2
 input_pickable = true
-can_sleep = false
-lock_rotation = true
 script = ExtResource("1_8tmrn")
 
 [node name="Fridge" type="Sprite2D" parent="."]
-position = Vector2(492, 276)
+position = Vector2(284, 275)
+scale = Vector2(0.282974, 0.282974)
 texture = ExtResource("2_dkfy3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(492.25, 402.5)
+position = Vector2(283.5, 311.5)
 shape = SubResource("RectangleShape2D_tn2l3")
 
 [node name="Control" type="Control" parent="."]
@@ -30,23 +30,25 @@ offset_bottom = 40.0
 
 [node name="PanelContainer" type="PanelContainer" parent="Control"]
 layout_mode = 0
-offset_left = 81.0
-offset_top = -106.0
-offset_right = 893.0
-offset_bottom = 842.0
+offset_left = 135.0
+offset_top = 97.0
+offset_right = 539.0
+offset_bottom = 494.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
 layout_mode = 2
 
 [node name="FridgeInside" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer"]
-position = Vector2(390, 404)
+position = Vector2(183, 227)
+scale = Vector2(0.302758, 0.302758)
 texture = ExtResource("3_dhf2e")
 
 [node name="TemperatureLabel" type="Label" parent="Control/PanelContainer/VBoxContainer/FridgeInside"]
-offset_left = -380.0
-offset_top = -398.0
-offset_right = 159.0
-offset_bottom = -259.0
+offset_left = -568.111
+offset_top = -663.897
+offset_right = -142.111
+offset_bottom = -336.897
+theme_override_font_sizes/font_size = 80
 
 [node name="GridContainer" type="GridContainer" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -116,6 +118,7 @@ text = "         Enter         "
 layout_mode = 2
 text = "         Exit         "
 
+[connection signal="input_event" from="." to="." method="_on_fridge_click_event"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button1" to="." method="_on_Button1_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button3" to="." method="_on_Button3_pressed"]
@@ -129,3 +132,4 @@ text = "         Exit         "
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button0" to="." method="_on_Button0_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/DeleteButton" to="." method="_on_DeleteButton_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer2/EnterButton" to="." method="_on_EnterButton_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer2/Exit" to="." method="_on_ExitButton_pressed"]
