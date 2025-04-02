@@ -126,7 +126,7 @@ func _on_play_button_pressed() -> void:
 	# Delays the visibility of the image based on the miliseconds the user put in
 	await get_tree().create_timer((delay/1000)).timeout
 	cell_image_node.texture = texture
-	brightness = clamp(brightness - 1, -1.0, 1.0)
+	brightness = clamp((brightness * 2) - 1, -1.0, 1.0)
 	adjust_brightness()
 	cell_image_node.visible = true
 
