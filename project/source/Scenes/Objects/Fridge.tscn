@@ -1,11 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckpsbn3v00xyb"]
+[gd_scene load_steps=13 format=3 uid="uid://bkggix17k4xu"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Fridge.gd" id="1_8tmrn"]
 [ext_resource type="Texture2D" uid="uid://bfvser5ktrsim" path="res://Images/fridge.png" id="2_dkfy3"]
 [ext_resource type="Texture2D" uid="uid://dyra1limph5n6" path="res://Images/fridge_inside.png" id="3_dhf2e"]
+[ext_resource type="Script" path="res://Scenes/Objects/fridge_inside.gd" id="3_yb7mv"]
+[ext_resource type="Texture2D" uid="uid://chtvgtf7spbaj" path="res://Images/Microscope_Slide_A_Empty.png" id="5_vh6dd"]
+[ext_resource type="Texture2D" uid="uid://bt2lod7gkampi" path="res://Images/Microscope_Slide_A_Prepared.png" id="6_hcrx2"]
+[ext_resource type="Texture2D" uid="uid://dhsk2pe8ci6gq" path="res://Images/Microscope_Slide_B_Empty.png" id="6_wckev"]
+[ext_resource type="Texture2D" uid="uid://bd5et4ofepu8b" path="res://Images/Microscope_Slide_B_Prepared.png" id="7_sohg4"]
+[ext_resource type="Texture2D" uid="uid://dn06wvuu6buto" path="res://Images/Microscope_Slide_C_Empty.png" id="8_pwwkm"]
+[ext_resource type="Texture2D" uid="uid://ovitl23p43m8" path="res://Images/Microscope_Slide_C_Prepared.png" id="9_37qt0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tn2l3"]
 size = Vector2(213, 201)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r2b3d"]
+size = Vector2(379.359, 114.69)
 
 [node name="Fridge" type="StaticBody2D" groups=["LabObjects"]]
 z_index = -1
@@ -25,8 +35,11 @@ shape = SubResource("RectangleShape2D_tn2l3")
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -22.0
+offset_top = -81.0
+offset_right = 18.0
+offset_bottom = -41.0
+mouse_filter = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="Control"]
 layout_mode = 0
@@ -34,25 +47,97 @@ offset_left = 135.0
 offset_top = 97.0
 offset_right = 539.0
 offset_bottom = 494.0
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
 layout_mode = 2
+mouse_filter = 2
 
-[node name="FridgeInside" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer"]
+[node name="FridgeInside" type="Node2D" parent="Control/PanelContainer/VBoxContainer"]
+script = ExtResource("3_yb7mv")
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside"]
 position = Vector2(183, 227)
 scale = Vector2(0.302758, 0.302758)
 texture = ExtResource("3_dhf2e")
 
-[node name="TemperatureLabel" type="Label" parent="Control/PanelContainer/VBoxContainer/FridgeInside"]
+[node name="TemperatureLabel" type="Label" parent="Control/PanelContainer/VBoxContainer/FridgeInside/Sprite2D"]
 offset_left = -568.111
 offset_top = -663.897
 offset_right = -142.111
 offset_bottom = -336.897
 theme_override_font_sizes/font_size = 80
 
+[node name="EmptySlideA" type="StaticBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+position = Vector2(127, 213)
+scale = Vector2(0.226698, 0.226698)
+input_pickable = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideA"]
+texture = ExtResource("5_vh6dd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideA"]
+shape = SubResource("RectangleShape2D_r2b3d")
+
+[node name="PreparedSlideA" type="StaticBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+position = Vector2(237, 213)
+scale = Vector2(0.226698, 0.226698)
+input_pickable = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideA"]
+texture = ExtResource("6_hcrx2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideA"]
+shape = SubResource("RectangleShape2D_r2b3d")
+
+[node name="EmptySlideB" type="StaticBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+position = Vector2(127, 260)
+scale = Vector2(0.226698, 0.226698)
+input_pickable = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideB"]
+texture = ExtResource("6_wckev")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideB"]
+shape = SubResource("RectangleShape2D_r2b3d")
+
+[node name="PreparedSlideB" type="StaticBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+position = Vector2(237, 260)
+scale = Vector2(0.226698, 0.226698)
+input_pickable = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideB"]
+texture = ExtResource("7_sohg4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideB"]
+shape = SubResource("RectangleShape2D_r2b3d")
+
+[node name="EmptySlideC" type="StaticBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+position = Vector2(127, 306)
+scale = Vector2(0.226698, 0.226698)
+input_pickable = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideC"]
+texture = ExtResource("8_pwwkm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideC"]
+shape = SubResource("RectangleShape2D_r2b3d")
+
+[node name="PreparedSlideC" type="StaticBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+position = Vector2(237, 306)
+scale = Vector2(0.226698, 0.226698)
+input_pickable = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideC"]
+texture = ExtResource("9_37qt0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideC"]
+shape = SubResource("RectangleShape2D_r2b3d")
+
 [node name="GridContainer" type="GridContainer" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+mouse_filter = 2
 columns = 3
 
 [node name="Button1" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]

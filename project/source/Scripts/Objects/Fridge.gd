@@ -13,7 +13,7 @@ func _ready() -> void:
 func _on_fridge_click_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		click = true
-		$Control.visible = !$Control.visible #show popup menu
+		$Control.visible = true #show popup menu
 	else:
 		click = false
 
@@ -35,11 +35,11 @@ func display_temperature() -> void: #Made to display the fridge temperature in t
 	var temp:= ""
 	var array_len := len(temperature_array)
 	if array_len < 1:
-		$Control/PanelContainer/VBoxContainer/FridgeInside/TemperatureLabel.text = "Set \u00B0C" #default temperature is 32 degrees C
+		$Control/PanelContainer/VBoxContainer/FridgeInside/Sprite2D/TemperatureLabel.text = "Set \u00B0C" #default temperature is 32 degrees C
 	else:
 		for i in range(0, array_len):
 			temp+= str(temperature_array[i])
-		$Control/PanelContainer/VBoxContainer/FridgeInside/TemperatureLabel.text = "%s \u00B0C" % temp
+		$Control/PanelContainer/VBoxContainer/FridgeInside/Sprite2D/TemperatureLabel.text = "%s \u00B0C" % temp
 			
 func _on_Button1_pressed() -> void:
 	temperature_array.append(1)
