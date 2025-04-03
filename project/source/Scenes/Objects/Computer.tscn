@@ -49,6 +49,7 @@ shape = SubResource("RectangleShape2D_i5bsf")
 metadata/_edit_lock_ = true
 
 [node name="PopupControl" type="Control" parent="."]
+z_index = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = -130.037

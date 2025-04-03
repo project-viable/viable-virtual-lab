@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dpm1gs1fyv4gg"]
+[gd_scene load_steps=13 format=3 uid="uid://dpm1gs1fyv4gg"]
 
 [ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="1_bc34u"]
 [ext_resource type="Script" path="res://Scenes/Modules/fluorescence_microscopy.gd" id="1_q60rk"]
@@ -74,7 +74,7 @@ offset_bottom = -432.0
 scale = Vector2(1.75, 1.75)
 
 [node name="Fridge" parent="." instance=ExtResource("9_pfw6q")]
-z_index = 0
-position = Vector2(-105, 167)
+z_index = 1
+position = Vector2(345, 148)
 
 [connection signal="screen_click_signal" from="Computer" to="." method="_on_computer_screen_click_signal"]
