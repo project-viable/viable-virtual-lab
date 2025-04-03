@@ -3,13 +3,13 @@ extends LabObject
 var contents: Substance = null
 var substance: PackedScene = null
 
-func CheckContents(group: StringName) -> Array[bool]:
+func check_contents(group: StringName) -> Array[bool]:
 	if contents:
 		return [contents.is_in_group(group)]
 	else:
 		return []
 
-func TakeContents(_volume: float = -1) -> Array[Substance]:
+func take_contents(_volume: float = -1) -> Array[Substance]:
 	if substance == null:
 		return []
 	

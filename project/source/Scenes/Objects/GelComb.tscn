@@ -13,7 +13,7 @@ input_pickable = true
 gravity_scale = 0.0
 can_sleep = false
 script = ExtResource("1")
-DisplayName = "Gel Comb"
+display_name = "Gel Comb"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2")

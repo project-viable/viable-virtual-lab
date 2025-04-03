@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("1_bou2b")
-Show = true
-Name = "FluorescenceMicroscopy"
-Tooltip = "FluorescenceMicroscopy"
-Scene = ExtResource("1_hl2bj")
-InstructionsBBCode = "1) TEST FOR MICROSCOPE"
+show = true
+name = "FluorescenceMicroscopy"
+tooltip = "FluorescenceMicroscopy"
+scene = ExtResource("1_hl2bj")
+instructions_bb_code = "1) TEST FOR MICROSCOPE"

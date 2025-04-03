@@ -2,7 +2,7 @@ extends LabObject
 
 var plugged_electrode: CurrentContact = null
 
-func TryInteract(others: Array[LabObject]) -> bool:
+func try_interact(others: Array[LabObject]) -> bool:
 	# If there's already an electrode plugged in, we can't attach another one.
 	if plugged_electrode != null: return false
 

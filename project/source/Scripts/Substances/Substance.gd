@@ -56,26 +56,26 @@ func get_properties() -> Dictionary:
 		"density": density
 	}
 	
-func heat(heatTime: float) -> void:
+func heat(heat_time: float) -> void:
 	pass
 
-func chill(chillTime: float) -> void:
+func chill(chill_time: float) -> void:
 	pass
 	
 func run_current(voltage: float, time: float) -> void:
 	pass
 
-func GetMain() -> Node2D:
+func get_main() -> Node2D:
 	return get_tree().current_scene
 
-func GetCurrentModuleScene() -> Node2D:
-	return get_tree().current_scene.currentModuleScene
+func get_current_module_scene() -> Node2D:
+	return get_tree().current_scene.current_module_scene
 
-func ReportAction(objectsInvolved: Array, actionType: String, params: Dictionary) -> void:
-	print("Reporting an action of type " + actionType + " involving " + str(objectsInvolved) + ". Params are " + str(params))
+func report_action(objects_involved: Array, action_type: String, params: Dictionary) -> void:
+	print("Reporting an action of type " + action_type + " involving " + str(objects_involved) + ". Params are " + str(params))
 	
 	#This function asks for these as arguments, and then manually adds them here, to remind/force you to provide them
-	params['objectsInvolved'] = objectsInvolved
-	params['actionType'] = actionType
-	GetMain().CheckAction(params)
-	GetCurrentModuleScene().CheckAction(params)
+	params['objects_involved'] = objects_involved
+	params['action_type'] = action_type
+	get_main().check_action(params)
+	get_current_module_scene().check_action(params)

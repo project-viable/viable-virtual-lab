@@ -1,14 +1,9 @@
 extends LabContainer
 
-
-func _ready() -> void:
-	pass # LabContainer does not have a _ready() function
-
-
-func TryActIndependently() -> bool:
+func try_act_independently() -> bool:
 	return false
 
-func AddContents(new_contents: Array[Substance]) -> void:
+func add_contents(new_contents: Array[Substance]) -> void:
 	for new_content: Substance in new_contents:
 		var match_found: bool = false
 		for chk_content: Substance in contents:
@@ -35,7 +30,7 @@ func AddContents(new_contents: Array[Substance]) -> void:
 	update_display()
 	scale_check()
 	
-func TakeContents(volume: float = -1.0) -> Array[Substance]:
+func take_contents(volume: float = -1.0) -> Array[Substance]:
 	# check for whether we can distribute the contents by volume
 	if(volume != -1 && len(contents) == 1):
 		if(volume >= contents[0].volume):
@@ -72,7 +67,7 @@ func TakeContents(volume: float = -1.0) -> Array[Substance]:
 func scale_check() -> bool:
 	for object: Node2D in $Area2D.get_overlapping_bodies():
 		if(object.is_in_group("Scale")):
-			object.UpdateWeight()
+			object.update_weight()
 			return true
 	return false
 			

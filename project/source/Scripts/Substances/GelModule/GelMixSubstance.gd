@@ -3,7 +3,7 @@ extends Substance
 # This represents the gel mixture, and thus responds to heating and cooling.
 
 var gel_ratio: float = 0.0 # gel ratio does not change when heated, only viscosity does
-var totalHeatTime: float = 0 #This is a variable used if the substance should be heatable
+var total_heat_time: float = 0 #This is a variable used if the substance should be heatable
 	# It can be changed as needed for specific modules, and is only used if the 
 	# container is a member of the group "Heatable"
 var viscosity: float = 0
@@ -34,7 +34,7 @@ func init_mixed(parent_substances: Array[Substance]) -> void:
 			'binder': binder_props
 		}
 	}
-	ReportAction([self], 'mixSubstance', substances)
+	report_action([self], 'mixSubstance', substances)
 
 func init_created(properties: Dictionary) -> void:
 	if(properties.has('gel ratio')):
@@ -50,22 +50,22 @@ func init_created(properties: Dictionary) -> void:
 	# call the superclass init
 	super.init_created(properties)
 
-func heat(heatTime: float) -> void:
-	totalHeatTime += heatTime
+func heat(heat_time: float) -> void:
+	total_heat_time += heat_time
 	
 	# Using 1 for ideal viscosity for use in running the gel, heating variables 
 	# use the error formula to alter viscosity based on effects of over/
 	# underheating and of over/under content volumes
 	
 	# 40 is currently a placeholder value for the ideal heating time for the lab
-	viscosity = 1 + ((totalHeatTime - 40)/40)
+	viscosity = 1 + ((total_heat_time - 40)/40)
 	print("Gel viscosity after heating: " + str(viscosity))
-	#GetCurrentModuleScene().HeatingChecker([totalHeatTime])
+	#get_current_module_scene().HeatingChecker([total_heat_time])
 
-func chill(chillTime: float) -> void:
-	if totalHeatTime > 30 and totalHeatTime < 70:
+func chill(chill_time: float) -> void:
+	if total_heat_time > 30 and total_heat_time < 70:
 		cooled = true
-		totalHeatTime -= chillTime
+		total_heat_time -= chill_time
 		
 		self.remove_from_group("Liquid Substance")
 		self.add_to_group("Solid Substance")
@@ -90,7 +90,7 @@ func run_current(voltage: float, time: float) -> void:
 	total_run_time += (time * sign(voltage))
 	
 	if total_run_time > 21:
-		LabLog.Error("Total current run time has exceeded 20 minutes")
+		LabLog.error("Total current run time has exceeded 20 minutes")
 
 func get_properties() -> Dictionary:
 	return {

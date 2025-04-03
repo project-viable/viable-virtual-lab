@@ -1,5 +1,5 @@
 extends Resource
 class_name MistakeChecker
 
-func CheckAction(params: Dictionary)-> void:
+func check_action(params: Dictionary)-> void:
 	pass

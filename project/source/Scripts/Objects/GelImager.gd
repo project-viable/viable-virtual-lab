@@ -5,7 +5,7 @@ func _ready() -> void:
 	$ImagingMenu.hide()
 	$ImagingMenu/GelDisplay.close()
 
-func TryActIndependently() -> bool:
+func try_act_independently() -> bool:
 	$ImagingMenu.visible = !$ImagingMenu.visible
 	if($ImagingMenu.visible):
 		$ImagingMenu/GelDisplay.open()
@@ -39,13 +39,13 @@ func slot_filled(slot: ObjectSlot, object: LabObject) -> void:
 				filled = true
 			else:
 				print("Container does not contain gel")
-				LabLog.Warn('You tried to image a container without a gel in it.')
+				LabLog.warn('You tried to image a container without a gel in it.')
 		else:
 			print("Container is empty")
-			LabLog.Warn('You tried to image an empty container.')
+			LabLog.warn('You tried to image an empty container.')
 	else:
 		print("Cannot insert this container into gel imager")
-		LabLog.Warn('You tried to place a different container into the gel imager instead of the gel boat.')
+		LabLog.warn('You tried to place a different container into the gel imager instead of the gel boat.')
 	if !filled:
 		$ObjectSlot.held_object = null
 		# Given that an object's active state is set in ObjectSlot, we should reset it to true
@@ -56,4 +56,4 @@ func slot_emptied(slot: ObjectSlot, object: LabObject) -> void:
 	object.visible = true
 	object.position = Vector2(self.position.x, self.position.y - 150)
 	if object.is_in_group("SubsceneManagers"):
-		object.HideSubscene()
+		object.hide_subscene()

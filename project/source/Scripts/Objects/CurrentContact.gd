@@ -15,8 +15,8 @@ func is_positive() -> bool:
 
 func dispose() -> void:
 	# If the CurrentContact is part of a ContactWire, it is preferrable to call dispose() on the parent
-	var parentIsContactWire := regex.search(get_parent().name)
-	if parentIsContactWire:
+	var parent_is_contact_wire := regex.search(get_parent().name)
+	if parent_is_contact_wire:
 		get_parent().dispose()
 	else:
 		self.queue_free()
