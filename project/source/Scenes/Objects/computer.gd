@@ -95,5 +95,3 @@ func _on_power_exposure_combo_change(selected_channel: String, attribute: String
 		channels_power[selected_channel] = value
 	else:
 		channels_exposure[selected_channel] = value
-
-

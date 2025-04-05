@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dpm1gs1fyv4gg"]
+[gd_scene load_steps=13 format=3 uid="uid://dpm1gs1fyv4gg"]
 
 [ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="1_bc34u"]
 [ext_resource type="Script" path="res://Scenes/Modules/fluorescence_microscopy.gd" id="1_q60rk"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cm88dw0xfl2xk" path="res://Images/testImg.png" id="5_uv0me"]
 [ext_resource type="Script" path="res://Scripts/Objects/PanningImage.gd" id="6_gdu6r"]
 [ext_resource type="PackedScene" uid="uid://b7038o1t6lkhh" path="res://Scenes/Objects/focus_control.tscn" id="8_b47o4"]
+[ext_resource type="PackedScene" uid="uid://ckpsbn3v00xyb" path="res://Scenes/Objects/Fridge.tscn" id="9_pfw6q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1w4j"]
 size = Vector2(1278.5, 565)
@@ -47,6 +48,7 @@ position = Vector2(-770, -244)
 scale = Vector2(0.7, 0.7)
 
 [node name="Computer" parent="." instance=ExtResource("3_0ypcw")]
+z_index = 1
 position = Vector2(889, 472)
 scale = Vector2(0.952876, 0.952876)
 
@@ -70,5 +72,9 @@ offset_top = -432.0
 offset_right = 29.0
 offset_bottom = -432.0
 scale = Vector2(1.75, 1.75)
+
+[node name="Fridge" parent="." instance=ExtResource("9_pfw6q")]
+z_index = 1
+position = Vector2(345, 148)
 
 [connection signal="screen_click_signal" from="Computer" to="." method="_on_computer_screen_click_signal"]
