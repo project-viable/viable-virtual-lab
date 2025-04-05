@@ -29,10 +29,6 @@ func _process(delta: float) -> void:
 		elif is_inside_fridge and current_parent != original_parent:
 			current_parent = original_parent
 			self.reparent(original_parent)
-		
-	
-		
-
 
 func _on_mouse_entered() -> void:
 	is_draggable = true

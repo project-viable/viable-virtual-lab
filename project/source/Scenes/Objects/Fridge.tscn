@@ -19,7 +19,7 @@ size = Vector2(213, 201)
 size = Vector2(379.359, 114.69)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u0pbe"]
-size = Vector2(404, 400)
+size = Vector2(226, 205)
 
 [node name="Fridge" type="StaticBody2D" groups=["LabObjects"]]
 z_index = -1
@@ -76,6 +76,8 @@ theme_override_font_sizes/font_size = 80
 [node name="EmptySlideA" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
 position = Vector2(127, 213)
 scale = Vector2(0.226698, 0.226698)
+collision_layer = 4
+collision_mask = 8
 input_pickable = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideA"]
@@ -87,6 +89,8 @@ shape = SubResource("RectangleShape2D_r2b3d")
 [node name="PreparedSlideA" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
 position = Vector2(237, 213)
 scale = Vector2(0.226698, 0.226698)
+collision_layer = 4
+collision_mask = 8
 input_pickable = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideA"]
@@ -98,6 +102,8 @@ shape = SubResource("RectangleShape2D_r2b3d")
 [node name="EmptySlideB" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
 position = Vector2(127, 260)
 scale = Vector2(0.226698, 0.226698)
+collision_layer = 4
+collision_mask = 8
 input_pickable = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideB"]
@@ -109,6 +115,8 @@ shape = SubResource("RectangleShape2D_r2b3d")
 [node name="PreparedSlideB" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
 position = Vector2(237, 260)
 scale = Vector2(0.226698, 0.226698)
+collision_layer = 4
+collision_mask = 8
 input_pickable = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideB"]
@@ -120,6 +128,8 @@ shape = SubResource("RectangleShape2D_r2b3d")
 [node name="EmptySlideC" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
 position = Vector2(127, 306)
 scale = Vector2(0.226698, 0.226698)
+collision_layer = 4
+collision_mask = 8
 input_pickable = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideC"]
@@ -131,6 +141,8 @@ shape = SubResource("RectangleShape2D_r2b3d")
 [node name="PreparedSlideC" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
 position = Vector2(237, 306)
 scale = Vector2(0.226698, 0.226698)
+collision_layer = 4
+collision_mask = 8
 input_pickable = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideC"]
@@ -209,9 +221,11 @@ layout_mode = 2
 text = "         Exit         "
 
 [node name="InsidePopup" type="Area2D" parent="Control/PanelContainer"]
+collision_layer = 8
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/InsidePopup"]
-position = Vector2(201, 198)
+position = Vector2(193, 270.5)
 shape = SubResource("RectangleShape2D_u0pbe")
 debug_color = Color(0.888634, 0.0926687, 0.761513, 0.42)
 
