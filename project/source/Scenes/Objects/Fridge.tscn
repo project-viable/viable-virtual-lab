@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bkggix17k4xu"]
+[gd_scene load_steps=15 format=3 uid="uid://bkggix17k4xu"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Fridge.gd" id="1_8tmrn"]
 [ext_resource type="Texture2D" uid="uid://bfvser5ktrsim" path="res://Images/fridge.png" id="2_dkfy3"]
+[ext_resource type="Script" path="res://Scenes/Objects/panel_container.gd" id="3_b3tey"]
 [ext_resource type="Texture2D" uid="uid://dyra1limph5n6" path="res://Images/fridge_inside.png" id="3_dhf2e"]
 [ext_resource type="Script" path="res://Scenes/Objects/fridge_inside.gd" id="3_yb7mv"]
 [ext_resource type="Texture2D" uid="uid://chtvgtf7spbaj" path="res://Images/Microscope_Slide_A_Empty.png" id="5_vh6dd"]
@@ -16,6 +17,9 @@ size = Vector2(213, 201)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r2b3d"]
 size = Vector2(379.359, 114.69)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u0pbe"]
+size = Vector2(404, 400)
 
 [node name="Fridge" type="StaticBody2D" groups=["LabObjects"]]
 z_index = -1
@@ -48,6 +52,7 @@ offset_top = 97.0
 offset_right = 539.0
 offset_bottom = 494.0
 mouse_filter = 2
+script = ExtResource("3_b3tey")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
 layout_mode = 2
@@ -68,7 +73,7 @@ offset_right = -142.111
 offset_bottom = -336.897
 theme_override_font_sizes/font_size = 80
 
-[node name="EmptySlideA" type="StaticBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+[node name="EmptySlideA" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
 position = Vector2(127, 213)
 scale = Vector2(0.226698, 0.226698)
 input_pickable = true
@@ -79,7 +84,7 @@ texture = ExtResource("5_vh6dd")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideA"]
 shape = SubResource("RectangleShape2D_r2b3d")
 
-[node name="PreparedSlideA" type="StaticBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+[node name="PreparedSlideA" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
 position = Vector2(237, 213)
 scale = Vector2(0.226698, 0.226698)
 input_pickable = true
@@ -90,7 +95,7 @@ texture = ExtResource("6_hcrx2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideA"]
 shape = SubResource("RectangleShape2D_r2b3d")
 
-[node name="EmptySlideB" type="StaticBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+[node name="EmptySlideB" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
 position = Vector2(127, 260)
 scale = Vector2(0.226698, 0.226698)
 input_pickable = true
@@ -101,7 +106,7 @@ texture = ExtResource("6_wckev")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideB"]
 shape = SubResource("RectangleShape2D_r2b3d")
 
-[node name="PreparedSlideB" type="StaticBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+[node name="PreparedSlideB" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
 position = Vector2(237, 260)
 scale = Vector2(0.226698, 0.226698)
 input_pickable = true
@@ -112,7 +117,7 @@ texture = ExtResource("7_sohg4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideB"]
 shape = SubResource("RectangleShape2D_r2b3d")
 
-[node name="EmptySlideC" type="StaticBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+[node name="EmptySlideC" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
 position = Vector2(127, 306)
 scale = Vector2(0.226698, 0.226698)
 input_pickable = true
@@ -123,7 +128,7 @@ texture = ExtResource("8_pwwkm")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideC"]
 shape = SubResource("RectangleShape2D_r2b3d")
 
-[node name="PreparedSlideC" type="StaticBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+[node name="PreparedSlideC" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
 position = Vector2(237, 306)
 scale = Vector2(0.226698, 0.226698)
 input_pickable = true
@@ -203,6 +208,13 @@ text = "         Enter         "
 layout_mode = 2
 text = "         Exit         "
 
+[node name="InsidePopup" type="Area2D" parent="Control/PanelContainer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/InsidePopup"]
+position = Vector2(201, 198)
+shape = SubResource("RectangleShape2D_u0pbe")
+debug_color = Color(0.888634, 0.0926687, 0.761513, 0.42)
+
 [connection signal="input_event" from="." to="." method="_on_fridge_click_event"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button1" to="." method="_on_Button1_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button2" to="." method="_on_Button2_pressed"]
@@ -218,3 +230,5 @@ text = "         Exit         "
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/DeleteButton" to="." method="_on_DeleteButton_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer2/EnterButton" to="." method="_on_EnterButton_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer2/Exit" to="." method="_on_ExitButton_pressed"]
+[connection signal="body_entered" from="Control/PanelContainer/InsidePopup" to="Control/PanelContainer" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Control/PanelContainer/InsidePopup" to="Control/PanelContainer" method="_on_area_2d_body_exited"]
