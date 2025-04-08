@@ -15,7 +15,7 @@ It has a property for every setting.
 #### Using Game Settings
 
 You can access the Settings object as `GameSettings` at any time, from any script. You can just do something like this:
-```
+```gdscript
 if GameSettings.mouse_camera_drag:
 	drag_camera()
 ```

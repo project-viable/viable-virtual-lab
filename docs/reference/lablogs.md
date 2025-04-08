@@ -36,7 +36,7 @@ You probably don't need to use any of these, but you can if you need. They are u
 
 `get_logs()` and the `new_message` signal give you logs as dictionaries like this:
 
-```
+```gdscript
 {
    "message": "Some string",
    "hidden": true/false,
@@ -48,7 +48,7 @@ You probably don't need to use any of these, but you can if you need. They are u
 
 `LabLog` is a singleton (an [autoloaded](https://docs.godotengine.org/en/3.5/tutorials/scripting/singletons_autoload.html) instance of the `LabLogSingleton.gd` script), which you can access from any script by its name. To log something, just do something like this:
 
-```
+```gdscript
 LabLog.log("Hello World!")
 LabLog.warn("You didn't heat [something] for long enough! This may affect the final result.", true, false)
 LabLog.error(You messed up really bad.)
