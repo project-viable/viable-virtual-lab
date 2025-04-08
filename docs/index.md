@@ -6,12 +6,12 @@ If you're here for the first time, go [here](/docs/guide/overview.md). Do make s
 
 ## Getting Started
 
-This project is made using Godot 3.5 (the LTS version). You don't need to download that yourself because we include its exectuable here, to make sure everyone is using the right version and everything.
+This project is made using Godot 4.3. You don't need to download that yourself because we include its executable here, to make sure everyone is using the right version and everything.
 
 This Documentation assumes some basic familiarity with Godot. It has links to the Godot docs for things you might not have been exposed to before, but if you've never used it before you'll probably want to follow at least one basic tutorial so this all makes sense (even if you've used an engine like Unity or Unreal before. Godot does things somewhat differently).
 
-Here's a link to the Godot 3.5 documentation (and if you google something related to Godot, *make sure you're on the documentation for **this version***):<br>
-https://docs.godotengine.org/en/3.5/
+Here's a link to the Godot 4.3 documentation (and if you google something related to Godot, *make sure you're on the documentation for **this version***):<br>
+https://docs.godotengine.org/en/4.3/
 
 ## Guides
 1. [Installation/Getting Started](/README.md#setup)
