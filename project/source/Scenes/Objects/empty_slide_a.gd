@@ -1,3 +1,3 @@
 extends "res://Scripts/draggable_microscope_slide.gd"
 
-@export var slide: String = "Empty"
+@export var slide: String = ""
