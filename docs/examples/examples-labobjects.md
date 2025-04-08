@@ -14,7 +14,7 @@ This object has a child called `Menu`.
 
 All of the menu components are children of that node, and it's accessed in the script as `$Menu`.
 
-`Menu` is a type of node called [CanvasLayer](https://docs.godotengine.org/en/3.5/classes/class_canvaslayer.html). It makes sure that its children are drawn as UI, relative to the screen (as opposed to relative to the LabObject itself). If you wanted to, for example, have a button that followed its object around, you would remove the `CanvasLayer` and parent that UI node to the LabObject directly.
+`Menu` is a type of node called [CanvasLayer](https://docs.godotengine.org/en/4.3/classes/class_canvaslayer.html). It makes sure that its children are drawn as UI, relative to the screen (as opposed to relative to the LabObject itself). If you wanted to, for example, have a button that followed its object around, you would remove the `CanvasLayer` and parent that UI node to the LabObject directly.
 
 Microwave also responds to input in its menu. When you select a button, it can change the time it will heat an object for or start the heating process. To try it, drag a `LabObject` that has the `Heatable` property into this object.
 
