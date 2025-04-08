@@ -6,10 +6,10 @@
 
 **Inherits:** LabObject
 
-LabObjects in a subscene can only interact with others in their same subscene, and if the player clicks inside of a subscene, only objects within that subscene can recieve that click.
+LabObjects in a subscene can only interact with others in their same subscene, and if the player clicks inside of a subscene, only objects within that subscene can receive that click.
 
 While a Subscene is open:
-- The SubsceneManager object will not recieve mouse clicks.
+- The SubsceneManager object will not receive mouse clicks.
 - `draggable` LabObjects can be dragged in and out of the subscene. When this happens, their parent is changed.
 
 ### Properties
@@ -23,8 +23,8 @@ All `SubsceneManager`s are part of the `SubsceneManagers` group. They take care 
 
 ### Functions
 
-- `ShowSubscene()`: Shows the subscene belonging to this object. By default, SubsceneManager overrides `TryActIndependently()`, so this happens when the object is clicked. If you don't want that to happen, override `TryActIndependently()` and then call this function yourself somewhere.
-- `HideSubscene()`: Hides the subscene belonging to this object. This is called when the close button is pressed (see below), but you can also call it yourself if you need to. Note: Internally, this function *removes the entire subscene from the scene tree while it is hidden*. While it's in that state, its data still exists (we don't call `queue_free()` or anything), but it doesn't simulate at all, so it's effectively paused. This affects a lot of things - see Using SubsceneManagers below.
+- `show_subscene()`: Shows the subscene belonging to this object. By default, SubsceneManager overrides `try_act_independently()`, so this happens when the object is clicked. If you don't want that to happen, override `try_act_independently()` and then call this function yourself somewhere.
+- `hide_subscene()`: Hides the subscene belonging to this object. This is called when the close button is pressed (see below), but you can also call it yourself if you need to. Note: Internally, this function *removes the entire subscene from the scene tree while it is hidden*. While it's in that state, its data still exists (we don't call `queue_free()` or anything), but it doesn't simulate at all, so it's effectively paused. This affects a lot of things - see Using SubsceneManagers below.
 
 ### Child Nodes
 
@@ -32,7 +32,7 @@ If you open `res://Scenes/Objects/SubsceneManager.tscn`, you'll see that Subscen
 
 ![image](./images/subscene-manager/subscene_child_nodes.png)
 
-- `Subscene` is an [Area2D](https://docs.godotengine.org/en/3.5/classes/class_area2d.html) that contains the entire subscene. When you create a new subscene, add all the LabObjects in it as children of this node. When the game is started, it is removed from the tree (see `HideSubscene()` above), and readded as needed.
+- `Subscene` is an [Area2D](https://docs.godotengine.org/en/3.5/classes/class_area2d.html) that contains the entire subscene. When you create a new subscene, add all the LabObjects in it as children of this node. When the game is started, it is removed from the tree (see `hide_subscene()` above), and readded as needed.
 - `Border` is a UI node that has children for the background and close button. These UI nodes have their mouse filter set to Ignore so that they don't stop mouse clicks from being recieved by the LabObjects in the subscene.
 
 ### Using SubsceneManagers

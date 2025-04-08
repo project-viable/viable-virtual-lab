@@ -1,6 +1,6 @@
 ## Dimension Sprites
 
-Godot's `Sprite` nodes don't let you specify exact dimensions, although you can scale them. At times this can make it hard to get things precisely the size you want without spending a lot fo effort or doing the scale factor math yourself.
+Godot's `Sprite` nodes don't let you specify exact dimensions, although you can scale them. At times this can make it hard to get things precisely the size you want without spending a lot of effort or doing the scale factor math yourself.
 
 We've made a `DimensionSprite` class that hopefully makes this a little easier, if you want it. It functions exactly the same as a normal `Sprite`, but it lets you set the dimensions directly in the editor. You could also theoretically use its functionality at run time if you really wanted to.
 
@@ -9,8 +9,8 @@ We've made a `DimensionSprite` class that hopefully makes this a little easier, 
 **Inherits:** [Sprite](https://docs.godotengine.org/en/3.5/classes/class_sprite.html)
 
 ### Properties
-- `OverrideDimensions`: boolean, toggles whether the script will automatically set the scale.
-- `SpriteDimensions`: the dimensions, in pixels, that the sprite should have. Only works if `OverrideDimensions` is true.
+- `override_dimensions`: boolean, toggles whether the script will automatically set the scale.
+- `sprite_dimensions`: the dimensions, in pixels, that the sprite should have. Only works if `override_dimensions` is true.
 
 ### Functions
-- SetDimensions(newDimensions): sets the dimensions, only if `OverrideDimensions` is true. This is [called automatically](https://docs.godotengine.org/en/3.5/tutorials/plugins/running_code_in_the_editor.html#editing-variables) when you change the `SpriteDimensions` property in the editor. Works by changing the `scale` for you.
+- `set_dimensions(new_dimensions: Vector2)`: sets the dimensions, only if `override_dimensions` is true. This is [called automatically](https://docs.godotengine.org/en/3.5/tutorials/plugins/running_code_in_the_editor.html#editing-variables) when you change the `sprite_dimensions` property in the editor. Works by changing the `scale` for you.
