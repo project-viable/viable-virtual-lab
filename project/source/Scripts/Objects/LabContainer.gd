@@ -124,7 +124,7 @@ func mix() -> void:
 			mixable_contents.append(contents[i])
 			removal_indices.append(i)
 	
-	var mix_result: Array[Substance] = get_node('../MixManager').mix(mixable_contents)
+	var mix_result: Substance = get_node('../MixManager').mix(mixable_contents)
 	if(mix_result != null):
 		# prevent index-shifting by resolving removals in reverse-sorted order
 		removal_indices.sort()
@@ -133,7 +133,7 @@ func mix() -> void:
 		for index: int in removal_indices:
 			contents.pop_at(index)
 		
-		add_contents(mix_result)
+		add_contents([mix_result])
 	update_weight()
 
 func dispose() -> void:

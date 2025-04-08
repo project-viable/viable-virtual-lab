@@ -18,10 +18,11 @@ var do_actions: bool = true #used to allow modifying the plunger's state by code
 var contents: Array[Substance] = [] #current contents
 var tip_contaminants: Array[Substance] = [] #stores what the pipette has drawn in since the last time the tip was replaced
 
-func _ready() -> void:
+func lab_object_ready() -> void:
 	freeze = true
 	freeze_mode = FREEZE_MODE_STATIC
-
+	$TipSprite.hide()
+	hide_menu()
 
 func set_has_tip(new_val: bool) -> void:
 	has_tip = new_val
@@ -74,10 +75,6 @@ func select_target() -> LabObject:
 			return other
 	
 	return null
-
-func lab_object_ready() -> void:
-	$TipSprite.hide()
-	hide_menu()
 
 func try_interact(others: Array[LabObject]) -> bool:
 	for other in others:
@@ -157,7 +154,7 @@ func _on_PlungerSlider_value_changed(value: float) -> void:
 				do_actions = false #reenabled when the menu is shown again.
 				$Menu/Border/ActionLabel.text = "Dispensed contents!"
 				$Menu/AutoCloseTimer.start()
-		elif value == 2 and len(contents) == 0:
+		elif value == 2 and len(contents) == 0 and plunger_press_extent != 2:
 			#just ended a plunger press while empty
 			
 			var draw_factor: float

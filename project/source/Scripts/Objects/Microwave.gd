@@ -5,7 +5,7 @@ var time_array: Array[int] = []
 var heatable: LabObject = null # Stores the heatable interacting with the microwave in order to let the function wait
 					#For the menu input to end before heating
 
-func _ready() -> void:
+func lab_object_ready() -> void:
 	$Menu.hide()
 
 func get_time() -> float:

@@ -5,10 +5,15 @@ var module_button: PackedScene = load("res://Scenes/UI/ModuleSelectButton.tscn")
 
 var current_module: ModuleData = null
 
-var unread_logs: Dictionary = {'log': 0, 'warning': 0, 'error': 0}
+# `Dictionary[LogMessage.Category, int]`.
+var unread_logs: Dictionary = {
+	LogMessage.Category.LOG: 0,
+	LogMessage.Category.WARNING: 0,
+	LogMessage.Category.ERROR: 0
+}
 
 var popup_active: bool = false
-var logs: Array[Dictionary] = []
+var logs: Array[LogMessage] = []
 
 #This function is mostly copied from online.
 #It seems like godot 3.5 does not have a convenient function for this.
@@ -81,8 +86,8 @@ func _process(delta: float) -> void:
 	if logs != []:
 		# Need to display log message(s)
 		if !popup_active:
-			if logs[0]['new_log']['popup']:
-				show_popup(logs[0]['category'], logs[0]['new_log'])
+			if logs[0].popup:
+				show_popup(logs[0])
 			logs.remove_at(0)
 
 
@@ -104,34 +109,31 @@ func _on_LogButton_pressed() -> void:
 	$LogButton/LogMenu.visible = ! $LogButton/LogMenu.visible
 	set_log_notification_counts()
 
-func _on_New_Log_Message(category: String, new_log: Dictionary) -> void:
-	if not new_log['hidden']:
-		var bbcode: String = ("-" + new_log['message'] + "\n")
-		if category == 'log':
-			unread_logs['log'] += 1
-			$LogButton/LogMenu/Log.text += bbcode
-		elif category == 'warning':
-			unread_logs['warning'] += 1
-			$LogButton/LogMenu/Warnings.text += bbcode
-		elif category == 'error':
-			unread_logs['error'] += 1
-			$LogButton/LogMenu/Errors.text += bbcode
-	logs.append({
-		'category': category, 
-		'new_log': new_log
-	})
+func _on_New_Log_Message(new_log: LogMessage) -> void:
+	if not new_log.hidden:
+		var bbcode: String = ("-" + new_log.message + "\n")
+		match new_log.category:
+			LogMessage.Category.LOG:
+				$LogButton/LogMenu/Log.text += bbcode
+			LogMessage.Category.WARNING:
+				$LogButton/LogMenu/Warnings.text += bbcode
+			LogMessage.Category.ERROR:
+				$LogButton/LogMenu/Errors.text += bbcode
+
+	logs.append(new_log)
+	unread_logs[new_log.category] += 1
 	set_log_notification_counts()
 
-func show_popup(category: String, new_log: Dictionary) -> void:
-	$LabLogPopup/Panel/VBoxContainer/Type.text = category.capitalize()
-	$LabLogPopup/Panel/VBoxContainer/Description.text = new_log['message'][0].to_upper() + new_log['message'].substr(1, -1)
+func show_popup(new_log: LogMessage) -> void:
+	$LabLogPopup/Panel/VBoxContainer/Type.text = log_category_to_string(new_log.category)
+	$LabLogPopup/Panel/VBoxContainer/Description.text = new_log.message[0].to_upper() + new_log.message.substr(1, -1)
 	var color: Color
-	match category:
-		"log":
+	match new_log.category:
+		LogMessage.Category.LOG:
 			color = Color(0.0, 0.0, 1.0, 1.0)
-		"warning":
+		LogMessage.Category.WARNING:
 			color = Color(1.0, 1.0, 0.0, 1.0)
-		"error":
+		LogMessage.Category.ERROR:
 			color = Color(1.0, 0.0, 0.0, 1.0)
 		_:
 			color = Color(0.0, 0.0, 0.0, 0.0)
@@ -146,9 +148,9 @@ func set_popup_border_color(color: Color) -> void:
 	$LabLogPopup/Border.border_color = color
 
 func _on_Logs_Cleared() -> void:
-	unread_logs['log'] = 0
-	unread_logs['warning'] = 0
-	unread_logs['error'] = 0
+	for key: LogMessage.Category in unread_logs.keys():
+		unread_logs[key] = 0
+
 	$LogButton/LogMenu/Log.text = ""
 	$LogButton/LogMenu/Warnings.text = ""
 	$LogButton/LogMenu/Errors.text = ""
@@ -157,42 +159,41 @@ func _on_Logs_Cleared() -> void:
 func set_log_notification_counts(tab: int = -1) -> void:
 	if $LogButton/LogMenu.visible:
 		if $LogButton/LogMenu.current_tab == 1:
-			unread_logs['log'] = 0
+			unread_logs[LogMessage.Category.LOG] = 0
 		elif $LogButton/LogMenu.current_tab == 2:
-			unread_logs['warning'] = 0
+			unread_logs[LogMessage.Category.WARNING] = 0
 		#Do not ever clear error notifications
 		#elif $LogButton/LogMenu.current_tab == 3:
-		#	unread_logs['error'] = 0
+		#	unread_logs[LogMessage.Category.ERROR] = 0
 	
-	if unread_logs['log'] == 0:
+	if unread_logs[LogMessage.Category.LOG] == 0:
 		$LogButton/LogMenu.set_tab_title(1, "Log")
 		$LogButton/Notifications/Log.hide()
 	else:
-		$LogButton/LogMenu.set_tab_title(1, "Log (" + str(unread_logs['log']) + "!)")
+		$LogButton/LogMenu.set_tab_title(1, "Log (" + str(unread_logs[LogMessage.Category.LOG]) + "!)")
 		$LogButton/Notifications/Log.show()
 	
-	if unread_logs['warning'] == 0:
+	if unread_logs[LogMessage.Category.WARNING] == 0:
 		$LogButton/LogMenu.set_tab_title(2, "Warnings")
 		$LogButton/Notifications/Warning.hide()
 	else:
-		$LogButton/LogMenu.set_tab_title(2, "Warnings (" + str(unread_logs['warning']) + "!)")
+		$LogButton/LogMenu.set_tab_title(2, "Warnings (" + str(unread_logs[LogMessage.Category.WARNING]) + "!)")
 		$LogButton/Notifications/Warning.show()
 	
-	if unread_logs['error'] == 0:
+	if unread_logs[LogMessage.Category.ERROR] == 0:
 		$LogButton/LogMenu.set_tab_title(3, "Errors")
 		$LogButton/Notifications/Error.hide()
 	else:
-		$LogButton/LogMenu.set_tab_title(3, "Errors (" + str(unread_logs['error']) + "!)")
+		$LogButton/LogMenu.set_tab_title(3, "Errors (" + str(unread_logs[LogMessage.Category.ERROR]) + "!)")
 		$LogButton/Notifications/Error.show()
 
 func _on_LabLog_Report_Shown() -> void:
 	#Show all the warnings and errors
 	var logs_text := ""
-	var all_logs: Dictionary = LabLog.get_logs()
-	for warning: Dictionary in all_logs.get('warning', []):
-		logs_text += "[color=yellow]-" + warning['message'] + "[/color]\n"
-	for error: Dictionary in all_logs.get('error', []):
-		logs_text += "[color=red]-" + error['message'] + "[/color]\n"
+	for warning in LabLog.get_logs(LogMessage.Category.WARNING):
+		logs_text += "[color=yellow]-" + warning.message + "[/color]\n"
+	for error in LabLog.get_logs(LogMessage.Category.ERROR):
+		logs_text += "[color=red]-" + error.message + "[/color]\n"
 	
 	if logs_text != "":
 		logs_text = "You weren't perfect though - here's some notes:\n" + logs_text
@@ -238,3 +239,6 @@ func _on_ObjectTooltipsToggle_toggled(button_pressed: bool) -> void:
 
 func _on_PopupTimeout_value_changed(value: float) -> void:
 	GameSettings.popup_timeout = value
+
+static func log_category_to_string(category: LogMessage.Category) -> String:
+	return LogMessage.Category.keys()[category].to_lower()

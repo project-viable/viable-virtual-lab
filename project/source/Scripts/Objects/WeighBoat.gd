@@ -1,5 +1,9 @@
 extends LabContainer
 
+# Mass of the weigh boat by itself.
+# TODO: This mass is supposed to represent mass in grams, but Godot's mass is in kilograms.
+@onready var base_mass: float = mass
+
 func try_act_independently() -> bool:
 	return false
 
@@ -28,8 +32,7 @@ func add_contents(new_contents: Array[Substance]) -> void:
 	update_weight()
 	print("Current weight " + str(mass))
 	update_display()
-	scale_check()
-	
+
 func take_contents(volume: float = -1.0) -> Array[Substance]:
 	# check for whether we can distribute the contents by volume
 	if(volume != -1 && len(contents) == 1):
@@ -53,7 +56,6 @@ func take_contents(volume: float = -1.0) -> Array[Substance]:
 		print("Contents now have "+str(contents[0].volume)+"mL of the substance")
 		update_weight()
 		update_display()
-		scale_check()
 		return [dispensed_subst]
 	
 	var all_contents: Array[Substance] = contents.duplicate(true)
@@ -61,22 +63,14 @@ func take_contents(volume: float = -1.0) -> Array[Substance]:
 	print("Emptied container of its contents")
 	update_weight()
 	update_display()
-	scale_check()
 	return all_contents
-	
-func scale_check() -> bool:
-	for object: Node2D in $Area2D.get_overlapping_bodies():
-		if(object.is_in_group("Scale")):
-			object.update_weight()
-			return true
-	return false
-			
+
 func update_weight() -> void:
-	mass = .4 #self mass
+	mass = base_mass
 	for object: Substance in contents:
 		mass += object.get_mass()
 
 func dispose() -> void:
 	contents.clear()
 	update_display()
-	mass = .4
+	mass = base_mass
