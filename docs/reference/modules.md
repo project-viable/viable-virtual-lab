@@ -4,14 +4,14 @@ A Module is basically a Level. The game is able to load them automatically, and 
 
 ### ModuleData Resource
 
-Each ModuleData stores metadata about a module. They're [resources](https://docs.godotengine.org/en/3.5/classes/class_resource.html), and the game automatically loads them if you save them in the proper place (see Making a new Module below). Right now, the ModuleData script has no functionality of its own, so they basically function like a struct.
+Each ModuleData stores metadata about a module. They're [resources](https://docs.godotengine.org/en/4.3/classes/class_resource.html), and the game automatically loads them if you save them in the proper place (see Making a new Module below). Right now, the ModuleData script has no functionality of its own, so they basically function like a struct.
 
 ModuleData has the following properties:
 - `show`: should be used to control whether the module is visible in the module selection screen. This way you could have testing module files in the game, but make them invisible for some kind of actual release.
 - `name`: the title of the module
 - `tooltip`: the description text shown in the module select menu
 - `thumbnail`: the icon for the module
-- `instructions_bb_code`: a string (formatted with [bbcode](https://docs.godotengine.org/en/3.5/tutorials/ui/bbcode_in_richtextlabel.html)) for the instructions. This will be shown in the instructions tab after the scene is loaded.
+- `instructions_bb_code`: a string (formatted with [bbcode](https://docs.godotengine.org/en/4.3/tutorials/ui/bbcode_in_richtextlabel.html)) for the instructions. This will be shown in the instructions tab after the scene is loaded.
 - `scene`: This is the most important property - it tells the game what scene to load when this module is selected.
 
 ### Making a new Module

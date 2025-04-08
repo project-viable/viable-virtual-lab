@@ -4,7 +4,7 @@ This refers to settings controlled in the Options menu.
 
 ![screenshot alt text](/docs/reference/images/options_menu.png)
 
-These settings need to be available at all times, so they're stored in a [Singleton](https://docs.godotengine.org/en/3.5/tutorials/scripting/singletons_autoload.html) instance of the `GameSettingsSingleton.gd` script.
+These settings need to be available at all times, so they're stored in a [Singleton](https://docs.godotengine.org/en/4.3/tutorials/scripting/singletons_autoload.html) instance of the `GameSettingsSingleton.gd` script.
 
 ### GameSettingsSingleton
 

@@ -17,7 +17,7 @@ While a Subscene is open:
 - `dimensions` tells a `SubsceneManager` how large its popup should be, in pixels.
 - `subscene` is a reference to this SubsceneManager's `$Subscene` node. This is mainly used internally, but you must use it if you want to access to the subscene while it is hidden. See Using SubsceneManagers below for why you can't use `get_node()` (`$`).
 
-Note: when you change `dimensions` in the editor, it will update all the appropriate child nodes' values for you. This happens because it is a [tool script](https://docs.godotengine.org/en/3.5/tutorials/plugins/running_code_in_the_editor.html).
+Note: when you change `dimensions` in the editor, it will update all the appropriate child nodes' values for you. This happens because it is a [tool script](https://docs.godotengine.org/en/4.3/tutorials/plugins/running_code_in_the_editor.html).
 
 All `SubsceneManager`s are part of the `SubsceneManagers` group. They take care of that on their own. You should add them to other groups depending on what they are capable of, so that other objects know how to interact with them. See Example 1 below for a basic example.
 
@@ -32,7 +32,7 @@ If you open `res://Scenes/Objects/SubsceneManager.tscn`, you'll see that Subscen
 
 ![image](./images/subscene-manager/subscene_child_nodes.png)
 
-- `Subscene` is an [Area2D](https://docs.godotengine.org/en/3.5/classes/class_area2d.html) that contains the entire subscene. When you create a new subscene, add all the LabObjects in it as children of this node. When the game is started, it is removed from the tree (see `hide_subscene()` above), and readded as needed.
+- `Subscene` is an [Area2D](https://docs.godotengine.org/en/4.3/classes/class_area2d.html) that contains the entire subscene. When you create a new subscene, add all the LabObjects in it as children of this node. When the game is started, it is removed from the tree (see `hide_subscene()` above), and readded as needed.
 - `Border` is a UI node that has children for the background and close button. These UI nodes have their mouse filter set to Ignore so that they don't stop mouse clicks from being recieved by the LabObjects in the subscene.
 
 ### Using SubsceneManagers
