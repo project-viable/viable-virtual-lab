@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ch0l2jx71m6nv"]
+[gd_scene load_steps=9 format=3 uid="uid://3k6qjais1rsg"]
 
 [ext_resource type="Texture2D" uid="uid://qss8fduiuddr" path="res://Images/slide_tray_closed.PNG" id="1_6ny3m"]
 [ext_resource type="Script" path="res://Scripts/Objects/microscope_slide_tray.gd" id="2_wv2i2"]
@@ -9,6 +9,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hppl"]
 size = Vector2(621.377, 724)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s1h72"]
+size = Vector2(1250, 724)
 
 [node name="microscope_slide_tray" type="Sprite2D"]
 position = Vector2(660, 598)
@@ -22,13 +25,26 @@ slide_tray_right_open = ExtResource("5_j778n")
 tray_open_light_off = ExtResource("6_4bjnn")
 
 [node name="right_area" type="Area2D" parent="."]
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="right_area"]
 position = Vector2(313.406, -478)
 shape = SubResource("RectangleShape2D_1hppl")
 
 [node name="left_area" type="Area2D" parent="."]
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="left_area"]
 position = Vector2(-312.5, -474)
 shape = SubResource("RectangleShape2D_1hppl")
+
+[node name="whole_area" type="Area2D" parent="."]
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="whole_area"]
+position = Vector2(-1.81165, -480)
+shape = SubResource("RectangleShape2D_s1h72")
+debug_color = Color(0.686354, 0.334238, 0.930649, 0.42)
+
+[connection signal="body_entered" from="whole_area" to="." method="_on_whole_area_body_entered"]
+[connection signal="body_exited" from="whole_area" to="." method="_on_whole_area_body_exited"]

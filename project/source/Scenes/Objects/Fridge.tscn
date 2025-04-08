@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bkggix17k4xu"]
+[gd_scene load_steps=21 format=3 uid="uid://bkggix17k4xu"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Fridge.gd" id="1_8tmrn"]
 [ext_resource type="Texture2D" uid="uid://bfvser5ktrsim" path="res://Images/fridge.png" id="2_dkfy3"]
@@ -6,11 +6,17 @@
 [ext_resource type="Texture2D" uid="uid://dyra1limph5n6" path="res://Images/fridge_inside.png" id="3_dhf2e"]
 [ext_resource type="Script" path="res://Scenes/Objects/fridge_inside.gd" id="3_yb7mv"]
 [ext_resource type="Texture2D" uid="uid://chtvgtf7spbaj" path="res://Images/Microscope_Slide_A_Empty.png" id="5_vh6dd"]
+[ext_resource type="Script" path="res://Scenes/Objects/empty_slide_a.gd" id="6_d1vtv"]
 [ext_resource type="Texture2D" uid="uid://bt2lod7gkampi" path="res://Images/Microscope_Slide_A_Prepared.png" id="6_hcrx2"]
 [ext_resource type="Texture2D" uid="uid://dhsk2pe8ci6gq" path="res://Images/Microscope_Slide_B_Empty.png" id="6_wckev"]
+[ext_resource type="Script" path="res://Scenes/Objects/prepared_slide_a.gd" id="7_hawwf"]
 [ext_resource type="Texture2D" uid="uid://bd5et4ofepu8b" path="res://Images/Microscope_Slide_B_Prepared.png" id="7_sohg4"]
 [ext_resource type="Texture2D" uid="uid://dn06wvuu6buto" path="res://Images/Microscope_Slide_C_Empty.png" id="8_pwwkm"]
 [ext_resource type="Texture2D" uid="uid://ovitl23p43m8" path="res://Images/Microscope_Slide_C_Prepared.png" id="9_37qt0"]
+[ext_resource type="Script" path="res://Scenes/Objects/prepared_slide_b.gd" id="10_pm4go"]
+[ext_resource type="Script" path="res://Scenes/Objects/empty_slide_b.gd" id="10_xqmki"]
+[ext_resource type="Script" path="res://Scenes/Objects/prepared_slide_c.gd" id="13_itk5u"]
+[ext_resource type="Script" path="res://Scenes/Objects/empty_slide_c.gd" id="14_ybc0x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tn2l3"]
 size = Vector2(213, 201)
@@ -77,8 +83,9 @@ theme_override_font_sizes/font_size = 80
 position = Vector2(127, 213)
 scale = Vector2(0.226698, 0.226698)
 collision_layer = 4
-collision_mask = 8
+collision_mask = 9
 input_pickable = true
+script = ExtResource("6_d1vtv")
 
 [node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideA"]
 texture = ExtResource("5_vh6dd")
@@ -90,8 +97,9 @@ shape = SubResource("RectangleShape2D_r2b3d")
 position = Vector2(237, 213)
 scale = Vector2(0.226698, 0.226698)
 collision_layer = 4
-collision_mask = 8
+collision_mask = 9
 input_pickable = true
+script = ExtResource("7_hawwf")
 
 [node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideA"]
 texture = ExtResource("6_hcrx2")
@@ -103,8 +111,9 @@ shape = SubResource("RectangleShape2D_r2b3d")
 position = Vector2(127, 260)
 scale = Vector2(0.226698, 0.226698)
 collision_layer = 4
-collision_mask = 8
+collision_mask = 9
 input_pickable = true
+script = ExtResource("10_xqmki")
 
 [node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideB"]
 texture = ExtResource("6_wckev")
@@ -116,8 +125,9 @@ shape = SubResource("RectangleShape2D_r2b3d")
 position = Vector2(237, 260)
 scale = Vector2(0.226698, 0.226698)
 collision_layer = 4
-collision_mask = 8
+collision_mask = 9
 input_pickable = true
+script = ExtResource("10_pm4go")
 
 [node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideB"]
 texture = ExtResource("7_sohg4")
@@ -129,8 +139,9 @@ shape = SubResource("RectangleShape2D_r2b3d")
 position = Vector2(127, 306)
 scale = Vector2(0.226698, 0.226698)
 collision_layer = 4
-collision_mask = 8
+collision_mask = 9
 input_pickable = true
+script = ExtResource("14_ybc0x")
 
 [node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/EmptySlideC"]
 texture = ExtResource("8_pwwkm")
@@ -142,8 +153,9 @@ shape = SubResource("RectangleShape2D_r2b3d")
 position = Vector2(237, 306)
 scale = Vector2(0.226698, 0.226698)
 collision_layer = 4
-collision_mask = 8
+collision_mask = 9
 input_pickable = true
+script = ExtResource("13_itk5u")
 
 [node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/PreparedSlideC"]
 texture = ExtResource("9_37qt0")

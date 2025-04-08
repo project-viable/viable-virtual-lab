@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cm1ln611t82pr"]
+[gd_scene load_steps=4 format=3 uid="uid://dklhhilqtsh2w"]
 
 [ext_resource type="Texture2D" uid="uid://cwfhudjaswg0r" path="res://Images/microscope.PNG" id="1_okq74"]
-[ext_resource type="PackedScene" uid="uid://ch0l2jx71m6nv" path="res://Scenes/Objects/microscope_slide_tray.tscn" id="2_uexeg"]
+[ext_resource type="Script" path="res://Scenes/Objects/microscope.gd" id="1_vq476"]
+[ext_resource type="PackedScene" uid="uid://3k6qjais1rsg" path="res://Scenes/Objects/microscope_slide_tray.tscn" id="2_uexeg"]
 
 [node name="Microscope" type="Node2D"]
+script = ExtResource("1_vq476")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(550, 452)
@@ -13,3 +15,5 @@ texture = ExtResource("1_okq74")
 [node name="microscope_slide_tray" parent="." instance=ExtResource("2_uexeg")]
 position = Vector2(548, 253)
 scale = Vector2(0.168465, 0.123953)
+
+[connection signal="mount_slide" from="microscope_slide_tray" to="." method="_on_microscope_slide_tray_mount_slide"]

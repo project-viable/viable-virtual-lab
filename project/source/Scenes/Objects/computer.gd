@@ -162,3 +162,7 @@ func create_combo_image() -> Image:
 				compiled_image.set_pixel(x, y, base_color.blend(overlay_color))
 	
 	return compiled_image
+
+
+func _on_microscope_mount_slide(slide: String) -> void:
+	current_slide = slide

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="2_3x61r"]
 [ext_resource type="PackedScene" uid="uid://dtltidc1e8ikc" path="res://Scenes/Objects/Computer.tscn" id="3_0ypcw"]
 [ext_resource type="PackedScene" uid="uid://dj8378rcmjta0" path="res://Scenes/Objects/Joystick.tscn" id="3_psukr"]
-[ext_resource type="PackedScene" path="res://Scenes/Objects/microscope.tscn" id="4_nth22"]
+[ext_resource type="PackedScene" uid="uid://dklhhilqtsh2w" path="res://Scenes/Objects/microscope.tscn" id="4_nth22"]
 [ext_resource type="PackedScene" uid="uid://b7038o1t6lkhh" path="res://Scenes/Objects/focus_control.tscn" id="8_b47o4"]
 [ext_resource type="PackedScene" uid="uid://bkggix17k4xu" path="res://Scenes/Objects/Fridge.tscn" id="9_pfw6q"]
 
@@ -46,7 +46,6 @@ position = Vector2(-367, -239)
 scale = Vector2(0.7, 0.7)
 
 [node name="Computer" parent="." instance=ExtResource("3_0ypcw")]
-visible = false
 z_index = 1
 position = Vector2(889, 472)
 scale = Vector2(0.952876, 0.952876)
@@ -69,4 +68,5 @@ scale = Vector2(1.75, 1.75)
 z_index = 0
 position = Vector2(-105, 156)
 
+[connection signal="mount_slide" from="Background/Microscope" to="Computer" method="_on_microscope_mount_slide"]
 [connection signal="screen_click_signal" from="Computer" to="." method="_on_computer_screen_click_signal"]
