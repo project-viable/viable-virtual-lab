@@ -5,6 +5,9 @@ extends Sprite2D
 @export var slide_tray_left_open: Texture 
 @export var slide_tray_right_open: Texture
 @export var tray_open_light_off: Texture
+var can_slide_mount: bool = false
+var slide: String = ""
+signal mount_slide(slide: String)
 
 var left_open: bool = false
 var right_open: bool = false
@@ -13,6 +16,13 @@ var light_on: bool = false
 func _ready() -> void:
 	$left_area.connect("input_event", _on_area_input.bind("left"))
 	$right_area.connect("input_event", _on_area_input.bind("slide_tray_right_openright"))
+
+	
+func _process(delta: float) -> void:
+	if can_slide_mount and slide and Input.is_action_just_released("click"):
+		mount_slide.emit(slide)
+		
+	
 
 func _on_area_input(_viewport: Viewport, event: InputEvent, _shape_idx: int, side: String) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
@@ -37,3 +47,17 @@ func _on_area_input(_viewport: Viewport, event: InputEvent, _shape_idx: int, sid
 		else:
 			texture = tray_closed
 				
+
+
+func _on_whole_area_body_entered(body: Node2D) -> void:
+	if right_open and left_open:
+		slide = body.slide
+		can_slide_mount = true
+	else:
+		can_slide_mount = false
+
+
+
+func _on_whole_area_body_exited(body: Node2D) -> void:
+		can_slide_mount = false
+		mount_slide.emit("")

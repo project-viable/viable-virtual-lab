@@ -1,11 +1,10 @@
 extends CharacterBody2D
-
 signal is_selected
 var is_draggable: bool = false
 
 var is_inside_fridge: bool = true
 
-var scene_root: Node2D = get_tree().current_scene
+@onready var scene_root: Node2D = get_tree().current_scene
 var original_parent: Node2D = null
 var current_parent: Node2D = null
 

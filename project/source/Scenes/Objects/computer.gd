@@ -4,7 +4,7 @@ signal screen_click_signal()
 signal channel_select(channel: String)
 var is_clicked: bool = false
 var zoom_level: String = "None"
-var current_slide: String = "A1"
+var current_slide: String = ""
 @onready var cell_image_node: Sprite2D = $"./PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/CellImage/Sprite2D"
 @onready var joystick:Area2D = $"../Joystick"
 @onready var direction:Vector2 = Vector2(0,0)
@@ -104,6 +104,8 @@ func _on_power_exposure_combo_change(selected_channel: String, attribute: String
 func _on_play_button_pressed() -> void:
 	if (current_channel != "Combo"):
 		var image_path: String = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide, current_channel, zoom_level]
+		if current_slide == "":
+			image_path = "res://Images/ImageCells/EmptySlide.jpg"
 		cell_image_node.texture = load(image_path)
 		cell_image_node.visible = true
 		return
