@@ -1,4 +1,4 @@
-extends "res://Scripts/Objects/LabObject.gd"
+extends LabObject
 
 var has_non_empty_weigh_boat: bool = false
 var tare_weight: float = 0.0
