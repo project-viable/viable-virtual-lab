@@ -13,18 +13,20 @@ var brightness: float = 0.0
 
 var current_channel : String = ""
 # Measures power in percent
+# Defaults to 75 for good visibility w/o changing anything
 @onready var channels_power: Dictionary = {
-	"Dapi": 0.0,
-	"FITC": 0.0,
-	"TRITC": 0.0,
-	"Cy5": 0.0
+	"Dapi": 75.0,
+	"FITC": 75.0,
+	"TRITC": 75.0,
+	"Cy5": 75.0
 }
 # Measures exposure time in miliseconds
+# Defaults to 1000 for good visibility w/o changing anything
 @onready var channels_exposure: Dictionary = {
-	"Dapi": 1.0,
-	"FITC": 1.0,
-	"TRITC": 1.0,
-	"Cy5": 1.0
+	"Dapi": 1000.0,
+	"FITC": 1000.0,
+	"TRITC": 1000.0,
+	"Cy5": 1000.0
 }
 
 func _ready() -> void:
@@ -67,26 +69,26 @@ func _on_channels_panel_channel_selected(channel: String) -> void:
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = true
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel.visible = true
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/DapiLabelContainer.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 0
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
 		"FITC":
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = true
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel.visible = true
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/FITCLabelContainer.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 0
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
 		"TRITC":
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = true
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel.visible = true
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/TRITCLabelContainer.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 0
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
 		"Cy5":
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = true
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel.visible = true
 			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/Cy5LabelContainer.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 0
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
+			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
 
 
 func _on_exposure_change(new_exposure: float) -> void:
@@ -114,8 +116,7 @@ func _on_play_button_pressed() -> void:
 		adjust_brightness()
 		cell_image_node.visible = true
 		return
-	var texture: ImageTexture = ImageTexture.new()
-	texture = texture.create_from_image(create_combo_image())
+	var texture := ImageTexture.create_from_image(create_combo_image())
 	delay = max(channels_exposure["Dapi"],
 				channels_exposure["FITC"],
 				channels_exposure["TRITC"],
@@ -141,33 +142,25 @@ func calculate_brightness_percentage(channel: String) -> float:
 	return 0.0
 
 func create_combo_image() -> Image:
-	var opacities: Dictionary = {
-		"Dapi": 0.0,
-		"FITC": 0.0,
-		"TRITC": 0.0,
-		"Cy5": 0.0
-	}
-	
-	var compiled_image: Image = Image.new()
 	var width: int = cell_image_node.texture.get_width()
 	var height: int = cell_image_node.texture.get_height()
 	var images: Array[Dictionary] = []
 	var opacities_sum: float
 	
-	for channel: String in opacities.keys():
-		opacities[channel] = calculate_brightness_percentage(channel)
-		if (opacities[channel] == 0.0):
+	for channel: String in channels_power.keys():
+		var opacity := calculate_brightness_percentage(channel)
+		if (opacity == 0.0):
 			continue
 		var image_path: String = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide, channel, zoom_level]
 		var img: Image = Image.new()
 		var img_resource := ResourceLoader.load(image_path)
 		img = img_resource.get_image()
 		img.convert(Image.FORMAT_RGBA8)
-		opacities_sum += opacities[channel]
-		images.append({"Image": img, "Opacity" :opacities[channel]})
-		brightness = max(brightness, opacities[channel])
+		opacities_sum += opacity
+		images.append({"Image": img, "Opacity" :opacity})
+		brightness = max(brightness, opacity)
 	
-	compiled_image = compiled_image.create(width, height, false, Image.FORMAT_RGBA8)
+	var compiled_image := Image.create(width, height, false, Image.FORMAT_RGBA8)
 	compiled_image.fill(Color(0,0,0,0))
 	
 	for i in images:

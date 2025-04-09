@@ -313,7 +313,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "0%"
+text = "75%"
 
 [node name="DapiExposure" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
@@ -341,7 +341,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "1 msec"
+text = "1000 msec"
 
 [node name="FITCPower" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
@@ -369,7 +369,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "0%"
+text = "75%"
 
 [node name="FITCExposure" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
@@ -397,7 +397,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "1 msec"
+text = "1000 msec"
 
 [node name="TRITCPower" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
@@ -425,7 +425,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "0%"
+text = "75%"
 
 [node name="TRITCExposure" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
@@ -453,7 +453,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "1 msec"
+text = "1000 msec"
 
 [node name="Cy5Power" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
@@ -481,7 +481,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "0%"
+text = "75%"
 
 [node name="Cy5Exposure" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
@@ -509,7 +509,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "1 msec"
+text = "1000 msec"
 
 [node name="DapiPowerSlider" type="HBoxContainer" parent="ComboPanel"]
 clip_contents = true
@@ -524,6 +524,7 @@ focus_mode = 1
 [node name="PowerSlider" type="HSlider" parent="ComboPanel/DapiPowerSlider"]
 layout_mode = 2
 size_flags_horizontal = 3
+value = 75.0
 tick_count = 10
 
 [node name="DapiExposureSlider" type="HBoxContainer" parent="ComboPanel"]
@@ -541,7 +542,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
 max_value = 5000.0
-value = 1.0
+value = 1000.0
 tick_count = 10
 
 [node name="FITCPowerSlider" type="HBoxContainer" parent="ComboPanel"]
@@ -557,6 +558,7 @@ focus_mode = 1
 [node name="PowerSlider" type="HSlider" parent="ComboPanel/FITCPowerSlider"]
 layout_mode = 2
 size_flags_horizontal = 3
+value = 75.0
 tick_count = 10
 
 [node name="FITCExposureSlider" type="HBoxContainer" parent="ComboPanel"]
@@ -574,7 +576,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
 max_value = 5000.0
-value = 1.0
+value = 1000.0
 tick_count = 10
 
 [node name="RITCPowerSlider" type="HBoxContainer" parent="ComboPanel"]
@@ -590,6 +592,7 @@ focus_mode = 1
 [node name="PowerSlider" type="HSlider" parent="ComboPanel/RITCPowerSlider"]
 layout_mode = 2
 size_flags_horizontal = 3
+value = 75.0
 tick_count = 10
 
 [node name="RITCExposureSlider" type="HBoxContainer" parent="ComboPanel"]
@@ -607,7 +610,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
 max_value = 5000.0
-value = 1.0
+value = 1000.0
 tick_count = 10
 
 [node name="Cy5PowerSlider" type="HBoxContainer" parent="ComboPanel"]
@@ -623,6 +626,7 @@ focus_mode = 1
 [node name="PowerSlider" type="HSlider" parent="ComboPanel/Cy5PowerSlider"]
 layout_mode = 2
 size_flags_horizontal = 3
+value = 75.0
 tick_count = 10
 
 [node name="Cy5ExposureSlider" type="HBoxContainer" parent="ComboPanel"]
@@ -640,7 +644,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
 max_value = 5000.0
-value = 1.0
+value = 1000.0
 tick_count = 10
 
 [connection signal="value_changed" from="GeneralPanel/HBoxContainer4/PowerSlider" to="." method="_on_power_slider_value_changed"]
