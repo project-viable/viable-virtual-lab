@@ -11,10 +11,10 @@ func _ready() -> void:
 		substance = load('res://Scenes/Objects/BufferSolutionSubstance.tscn')
 	contents = substance.instantiate()
 
-func CheckContents(group: StringName) -> Array[bool]:
+func check_contents(group: StringName) -> Array[bool]:
 	return [contents.is_in_group(group)] if contents else []
 
-func TakeContents(_volume: float = -1) -> Array[Substance]:
+func take_contents(_volume: float = -1) -> Array[Substance]:
 	if substance == null:
 		return []
 	
@@ -22,5 +22,5 @@ func TakeContents(_volume: float = -1) -> Array[Substance]:
 	print("Dispensed some of TAE Buffer Solution")
 	return [new_content]
 
-func AddContents(new_contents:Array[Substance]) -> void:
+func add_contents(new_contents:Array[Substance]) -> void:
 	pass

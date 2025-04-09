@@ -1,5 +1,4 @@
 [gd_scene load_steps=20 format=3 uid="uid://dtltidc1e8ikc"]
-
 [ext_resource type="Script" path="res://Scenes/Objects/computer.gd" id="1_qhp2f"]
 [ext_resource type="Texture2D" uid="uid://cqmb14y7dw7nj" path="res://Images/Computer_Screen.png" id="2_pfloe"]
 [ext_resource type="Script" path="res://Scenes/Objects/main_screen.gd" id="3_yvw0i"]
@@ -10,8 +9,8 @@
 [ext_resource type="Shader" path="res://Scenes/UI/microscope_focus_blur.gdshader" id="8_whtpd"]
 [ext_resource type="PackedScene" uid="uid://css145ipgmvbb" path="res://Scenes/UI/MacroPanel.tscn" id="10_env1g"]
 [ext_resource type="FontFile" uid="uid://c5jqyemsa330f" path="res://UI/Roboto/Roboto-Black.ttf" id="10_scboh"]
-[ext_resource type="PackedScene" uid="uid://bh6iocygbfwtj" path="res://Scenes/UI/ChannelsPanel.tscn" id="10_t3byj"]
-[ext_resource type="PackedScene" uid="uid://b6ak8mmd81jv2" path="res://Scenes/UI/PowerExposure.tscn" id="11_anhd5"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/ChannelsPanel.tscn" id="10_t3byj"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/PowerExposure.tscn" id="11_anhd5"]
 [ext_resource type="Script" path="res://Scripts/UI/channels_panel.gd" id="11_u2afq"]
 [ext_resource type="Texture2D" uid="uid://bn0mca24purdc" path="res://Images/Play_Button.png" id="14_1rr6n"]
 
@@ -53,6 +52,7 @@ shape = SubResource("RectangleShape2D_i5bsf")
 metadata/_edit_lock_ = true
 
 [node name="PopupControl" type="Control" parent="."]
+z_index = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = -130.037

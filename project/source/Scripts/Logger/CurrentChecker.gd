@@ -1,16 +1,16 @@
 extends MistakeChecker
 class_name CurrentChecker
 
-@export var CorrectVoltage: float = 120
-@export var TooHighMessage: String
-@export var TooLowMessage: String
-@export var ReversedMessage: String
+@export var correct_voltage: float = 120
+@export var too_high_message: String
+@export var too_low_message: String
+@export var reversed_message: String
 
-func CheckAction(params: Dictionary) -> void:
-	if params['actionType'] == 'runCurrent' and params.get('voltage'):
+func check_action(params: Dictionary) -> void:
+	if params['action_type'] == 'runCurrent' and params.get('voltage'):
 		if params['voltage'] < 0:
-			LabLog.Warn(ReversedMessage)
-		if abs(params['voltage']) < CorrectVoltage:
-			LabLog.Warn(TooLowMessage)
-		elif abs(params['voltage']) > CorrectVoltage:
-			LabLog.Warn(TooHighMessage)
+			LabLog.warn(reversed_message)
+		if abs(params['voltage']) < correct_voltage:
+			LabLog.warn(too_low_message)
+		elif abs(params['voltage']) > correct_voltage:
+			LabLog.warn(too_high_message)

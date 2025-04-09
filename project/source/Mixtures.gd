@@ -1,24 +1,23 @@
 extends Node2D
 
-# TODO (update): This name shadows the `MixtureChecker` class.
-var MixtureChecker: Resource
+var mixture_checker: Resource
 
 func _ready() -> void:
-	MixtureChecker = load("res://MistakeCheckers/MixtureChecker.tres")
-	if MixtureChecker != null:
-		MixtureChecker.Mixtures = LoadMixtures()
+	mixture_checker = load("res://MistakeCheckers/MixtureChecker.tres")
+	if mixture_checker != null:
+		mixture_checker.mixtures = load_mixtures()
 	
-func LoadMixtures() -> Dictionary:
+func load_mixtures() -> Dictionary:
 	# Checking if file exists
 	if not FileAccess.file_exists("res://mixtures.json"):
 		push_error("Mixture file mixtures.json is missing! Cannot check user made mixtures!")
 		return {}
 	
 	# Opening file
-	var mixtureFile: FileAccess = FileAccess.open('res://mixtures.json', FileAccess.READ)
+	var mixture_file: FileAccess = FileAccess.open('res://mixtures.json', FileAccess.READ)
 	
 	# Checking if file is open 
-	if mixtureFile == null:
+	if mixture_file == null:
 		push_error("Mixture file mixtures.json failed to open!")
 		return {}
 	
@@ -26,10 +25,10 @@ func LoadMixtures() -> Dictionary:
 	var parse_res: JSON = JSON.new()
 	
 	# Checking for parsing errors
-	if parse_res.parse(mixtureFile.get_as_text()) != OK:
+	if parse_res.parse(mixture_file.get_as_text()) != OK:
 		push_error("Error parsing JSON data from mixtures.json: " + str(parse_res.error))
-		mixtureFile.close()
+		mixture_file.close()
 		return {}
 		
-	mixtureFile.close()
+	mixture_file.close()
 	return parse_res.get_data()

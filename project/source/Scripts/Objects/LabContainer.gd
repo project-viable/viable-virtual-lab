@@ -6,30 +6,30 @@ class_name LabContainer
 
 var contents: Array[Substance] = []
 
-func LabObjectReady() -> void:
+func lab_object_ready() -> void:
 	update_display()
 
-func TryInteract(other_labObjects: Array[LabObject]) -> bool:
+func try_interact(other_labObjects: Array[LabObject]) -> bool:
 	for object in other_labObjects:
 		if(object.is_in_group('Container')):
 			# transfer contents to another container
-			object.AddContents(TakeContents())
+			object.add_contents(take_contents())
 			return true
 	
 	return false
 
-func TryActIndependently() -> bool:
+func try_act_independently() -> bool:
 	$FollowMenu.visible = !$FollowMenu.visible
 	return true
 
-func CheckContents(group: StringName) -> Array[bool]:
+func check_contents(group: StringName) -> Array[bool]:
 	print('Checking for '+group)
 	var check_results: Array[bool] = []
 	for content in contents:
 		check_results.append(content.is_in_group(group))
 	return check_results
 
-func TakeContents(volume: float = -1) -> Array[Substance]:
+func take_contents(volume: float = -1) -> Array[Substance]:
 	# check for whether we can distribute the contents by volume
 	if(volume != -1 && len(contents) == 1):
 		if(volume >= contents[0].volume):
@@ -61,7 +61,7 @@ func TakeContents(volume: float = -1) -> Array[Substance]:
 	update_display()
 	return all_contents
 
-func AddContents(new_contents: Array[Substance]) -> void:
+func add_contents(new_contents: Array[Substance]) -> void:
 	for new_content: Node in new_contents:
 		var match_found: bool = false
 		
@@ -96,18 +96,18 @@ func update_weight() -> void:
 			overall_weight += content.get_mass()
 	mass = overall_weight
 
-func heat(heatTime: float) -> void:
+func heat(heat_time: float) -> void:
 	print("LabContainer is being heated")
 	# pass heating along to the container's contents
 	for content in contents:
 		if(content.is_in_group("Heatable")):
-			content.heat(heatTime)
+			content.heat(heat_time)
 
-func chill(chillTime: float) -> void:
+func chill(chill_time: float) -> void:
 	# pass chilling along to the container's contents
 	for content in contents:
 		if(content.is_in_group("Chillable")):
-			content.chill(chillTime)
+			content.chill(chill_time)
 
 func run_current(voltage: float, time: float) -> void:
 	# pass current along to the container's contents
@@ -124,7 +124,7 @@ func mix() -> void:
 			mixable_contents.append(contents[i])
 			removal_indices.append(i)
 	
-	var mix_result: Array[Substance] = get_node('../MixManager').mix(mixable_contents)
+	var mix_result: Substance = get_node('../MixManager').mix(mixable_contents)
 	if(mix_result != null):
 		# prevent index-shifting by resolving removals in reverse-sorted order
 		removal_indices.sort()
@@ -133,7 +133,7 @@ func mix() -> void:
 		for index: int in removal_indices:
 			contents.pop_at(index)
 		
-		AddContents(mix_result)
+		add_contents([mix_result])
 	update_weight()
 
 func dispose() -> void:

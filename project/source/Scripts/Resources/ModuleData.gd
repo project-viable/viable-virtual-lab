@@ -1,9 +1,9 @@
 extends Resource
 class_name ModuleData
 
-@export var Show: bool = true
-@export var Name: String
-@export var Tooltip: String
-@export var Thumbnail: Texture2D
-@export var Scene: PackedScene
-@export_multiline var InstructionsBBCode: String
+@export var show: bool = true
+@export var name: String
+@export var tooltip: String
+@export var thumbnail: Texture2D
+@export var scene: PackedScene
+@export_multiline var instructions_bb_code: String

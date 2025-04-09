@@ -7,26 +7,26 @@ var running: bool = false
 func _ready() -> void:
 	super()
 	add_to_group("CurrentConductors", true)
-	$CurrentConductor.SetVolts(0)
-	$CurrentConductor.SetTime(0)
+	$CurrentConductor.set_volts(0)
+	$CurrentConductor.set_time(0)
 
-func TryInteract(others: Array[LabObject]) -> bool:
+func try_interact(others: Array[LabObject]) -> bool:
 	return false
 
 func terminal_connected(_terminal: LabObject, _contact: LabObject) -> bool:
 	return $PosTerminal.connected() || $NegTerminal.connected()
 
 func _on_VoltsInput_value_changed(value: float) -> void:
-	$CurrentConductor.SetVolts(value)
+	$CurrentConductor.set_volts(value)
 
 func _on_TimeInput_value_changed(value: float) -> void:
-	$CurrentConductor.SetTime(value)
+	$CurrentConductor.set_time(value)
 	
-func ToggleInputsEditable() -> void:
+func toggle_inputs_editable() -> void:
 	$UserInput/VoltsInput.editable = !running
 	$UserInput/TimeInput.editable = !running	
 	
-func ToggleRunCurrentText() -> void:
+func toggle_run_current_text() -> void:
 	if running:
 		$UserInput/RunCurrent.text = "STOP"
 	else:
@@ -38,11 +38,11 @@ func current_reversed() -> bool:
 func _on_RunCurrent_pressed() -> void:
 	if running:
 		running = false
-		ToggleRunCurrentText()
-		ToggleInputsEditable()
+		toggle_run_current_text()
+		toggle_inputs_editable()
 		return
 		
-	if $CurrentConductor.GetTime() == 0:
+	if $CurrentConductor.get_time() == 0:
 		return
 	
 	var other_device := get_other_device()
@@ -52,16 +52,16 @@ func _on_RunCurrent_pressed() -> void:
 			var time_ran := 0.0
 			var voltage_mod: float = -1 if (current_reversed()) else 1
 			# Notify of potential errors only once
-			ReportAction([self, other_device], "runCurrent", {'voltage': $CurrentConductor.GetVolts() * voltage_mod})
+			report_action([self, other_device], "runCurrent", {'voltage': $CurrentConductor.get_volts() * voltage_mod})
 			
 			# Update running state and button text
 			running = true
-			ToggleRunCurrentText()
-			ToggleInputsEditable()
+			toggle_run_current_text()
+			toggle_inputs_editable()
 			
 			# This calls run_current on the designated device at an equally timed interval
 			# This loop will also stop short of the desired time if the user presses "STOP"
-			while time_ran <= $CurrentConductor.GetTime():
+			while time_ran <= $CurrentConductor.get_time():
 				if !running:
 					break
 				var timestep := get_physics_process_delta_time()
@@ -69,7 +69,7 @@ func _on_RunCurrent_pressed() -> void:
 				if $PosTerminal.connected() && $NegTerminal.connected():
 					if other_device.has_method("run_current"):
 						
-						other_device.run_current($CurrentConductor.GetVolts() * voltage_mod, timestep)
+						other_device.run_current($CurrentConductor.get_volts() * voltage_mod, timestep)
 						
 						time_ran += timestep
 						
@@ -83,8 +83,8 @@ func _on_RunCurrent_pressed() -> void:
 					break
 			
 			running = false
-			ToggleRunCurrentText()
-			ToggleInputsEditable()
+			toggle_run_current_text()
+			toggle_inputs_editable()
 	else:
 		print("Device cannot run current")
 

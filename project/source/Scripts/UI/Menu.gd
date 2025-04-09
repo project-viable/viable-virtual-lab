@@ -1,18 +1,23 @@
 extends CanvasLayer
 
-var ModuleDirectory: String = "res://Modules/"
-var ModuleButton: PackedScene = load("res://Scenes/UI/ModuleSelectButton.tscn")
+var module_directory: String = "res://Modules/"
+var module_button: PackedScene = load("res://Scenes/UI/ModuleSelectButton.tscn")
 
-var currentModule: ModuleData = null
+var current_module: ModuleData = null
 
-var unreadLogs: Dictionary = {'log': 0, 'warning': 0, 'error': 0}
+# `Dictionary[LogMessage.Category, int]`.
+var unread_logs: Dictionary = {
+	LogMessage.Category.LOG: 0,
+	LogMessage.Category.WARNING: 0,
+	LogMessage.Category.ERROR: 0
+}
 
-var popupActive: bool = false
-var logs: Array[Dictionary] = []
+var popup_active: bool = false
+var logs: Array[LogMessage] = []
 
 #This function is mostly copied from online.
 #It seems like godot 3.5 does not have a convenient function for this.
-func GetAllFilesInFolder(path: String) -> Array[String]:
+func get_all_files_in_folder(path: String) -> Array[String]:
 	var result: Array[String] = []
 
 	var dir: DirAccess = DirAccess.open(path)
@@ -32,7 +37,7 @@ func _ready() -> void:
 	# Due to having one module, the MainMenu should be hidden by default
 	# When more modules are added, it is likely a good idea to show MainMenu by default
 	$MainMenu.show()
-	$ModuleSelect.show()
+	$ModuleSelect.hide()
 	$OptionsScreen.hide()
 	$AboutScreen.hide()
 	$LogButton.hide() #until we load a module
@@ -42,27 +47,27 @@ func _ready() -> void:
 	$MainMenu/Content/Logo.hide()
 	
 	#Set up the module select buttons
-	for file in GetAllFilesInFolder(ModuleDirectory):
-		var moduleData: ModuleData = load(ModuleDirectory + file)
-		if moduleData.Show:
-			var newButton := ModuleButton.instantiate()
-			newButton.SetData(moduleData)
-			newButton.connect("pressed", Callable(self, "ModuleSelected").bind(moduleData))
-			$ModuleSelect.add_child(newButton)
+	for file in get_all_files_in_folder(module_directory):
+		var module_data: ModuleData = load(module_directory + file)
+		if module_data.show:
+			var new_button := module_button.instantiate()
+			new_button.set_data(module_data)
+			new_button.connect("pressed", Callable(self, "module_selected").bind(module_data))
+			$ModuleSelect.add_child(new_button)
 	
 	#connect the log signals
-	LabLog.connect("NewMessage", Callable(self, "_on_New_Log_Message"))
+	LabLog.connect("new_message", Callable(self, "_on_New_Log_Message"))
 	LabLog.connect("ReportShown", Callable(self, "_on_LabLog_Report_Shown"))
-	LabLog.connect("LogsCleared", Callable(self, "_on_Logs_Cleared"))
+	LabLog.connect("logs_cleared", Callable(self, "_on_Logs_Cleared"))
 	
-	SetLogNotificationCounts()
+	set_log_notification_counts()
 	$LogButton/LogMenu.set_tab_icon(1, load("res://Images/Dot-Blue.png"))
 	$LogButton/LogMenu.set_tab_icon(2, load("res://Images/Dot-Yellow.png"))
 	$LogButton/LogMenu.set_tab_icon(3, load("res://Images/Dot-Red.png"))
 	
 	# Since there is one module, it should boot directly into this scene
-	var module: ModuleData = load(ModuleDirectory + "GelElectrophoresis.tres")
-	ModuleSelected(module)
+	#var module: ModuleData = load(module_directory + "GelElectrophoresis.tres")
+	#module_selected(module)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -75,23 +80,24 @@ func _process(delta: float) -> void:
 			$AboutScreen.hide()
 			$LogButton/LogMenu.hide()
 			$OptionsScreen.hide()
-			$MainMenu/Background.visible = (get_parent().currentModuleScene == null)
-			$MainMenu/Content/Logo.visible = not (get_parent().currentModuleScene == null)
+			$MainMenu/Background.visible = (get_parent().current_module_scene == null)
+			$MainMenu/Content/Logo.visible = not (get_parent().current_module_scene == null)
 			
 	if logs != []:
 		# Need to display log message(s)
-		if !popupActive:
-			if logs[0]['newLog']['popup']:
-				ShowPopup(logs[0]['category'], logs[0]['newLog'])
+		if !popup_active:
+			if logs[0].popup:
+				show_popup(logs[0])
 			logs.remove_at(0)
 
 
-func ModuleSelected(module: ModuleData) -> void:
-	get_parent().SetScene(module.Scene)
+func module_selected(module: ModuleData) -> void:
+	get_parent().set_scene(module.scene)
 	$ModuleSelect.hide()
-	currentModule = module
+	current_module = module
 	$LogButton.show()
-	$LogButton/LogMenu/Instructions.text = module.InstructionsBBCode
+	$LogButton/LogMenu/Instructions.text = module.instructions_bb_code
+	$LogButton/LogMenu/Instructions.show()
 
 func _on_SelectModuleButton_pressed() -> void:
 	$MainMenu.hide()
@@ -102,108 +108,104 @@ func _on_AboutButton_pressed() -> void:
 
 func _on_LogButton_pressed() -> void:
 	$LogButton/LogMenu.visible = ! $LogButton/LogMenu.visible
-	SetLogNotificationCounts()
+	set_log_notification_counts()
 
-func _on_New_Log_Message(category: String, newLog: Dictionary) -> void:
-	if not newLog['hidden']:
-		var bbcode: String = ("-" + newLog['message'] + "\n")
-		if category == 'log':
-			unreadLogs['log'] += 1
-			$LogButton/LogMenu/Log.text += bbcode
-		elif category == 'warning':
-			unreadLogs['warning'] += 1
-			$LogButton/LogMenu/Warnings.text += bbcode
-		elif category == 'error':
-			unreadLogs['error'] += 1
-			$LogButton/LogMenu/Errors.text += bbcode
-	logs.append({
-		'category': category, 
-		'newLog': newLog
-	})
-	SetLogNotificationCounts()
+func _on_New_Log_Message(new_log: LogMessage) -> void:
+	if not new_log.hidden:
+		var bbcode: String = ("-" + new_log.message + "\n")
+		match new_log.category:
+			LogMessage.Category.LOG:
+				$LogButton/LogMenu/Log.text += bbcode
+			LogMessage.Category.WARNING:
+				$LogButton/LogMenu/Warnings.text += bbcode
+			LogMessage.Category.ERROR:
+				$LogButton/LogMenu/Errors.text += bbcode
 
-func ShowPopup(category: String, newLog: Dictionary) -> void:
-	$LabLogPopup/Panel/VBoxContainer/Type.text = category.capitalize()
-	$LabLogPopup/Panel/VBoxContainer/Description.text = newLog['message'][0].to_upper() + newLog['message'].substr(1, -1)
+	logs.append(new_log)
+	unread_logs[new_log.category] += 1
+	set_log_notification_counts()
+
+func show_popup(new_log: LogMessage) -> void:
+	$LabLogPopup/Panel/VBoxContainer/Type.text = log_category_to_string(new_log.category)
+	$LabLogPopup/Panel/VBoxContainer/Description.text = new_log.message[0].to_upper() + new_log.message.substr(1, -1)
 	var color: Color
-	match category:
-		"log":
+	match new_log.category:
+		LogMessage.Category.LOG:
 			color = Color(0.0, 0.0, 1.0, 1.0)
-		"warning":
+		LogMessage.Category.WARNING:
 			color = Color(1.0, 1.0, 0.0, 1.0)
-		"error":
+		LogMessage.Category.ERROR:
 			color = Color(1.0, 0.0, 0.0, 1.0)
 		_:
 			color = Color(0.0, 0.0, 0.0, 0.0)
-	SetPopupBorderColor(color)
-	popupActive = true
+	set_popup_border_color(color)
+	popup_active = true
 	$LabLogPopup.visible = true
-	await get_tree().create_timer(GameSettings.popupTimeout).timeout
-	popupActive = false
+	await get_tree().create_timer(GameSettings.popup_timeout).timeout
+	popup_active = false
 	$LabLogPopup.visible = false if logs.size() == 0 else true
 
-func SetPopupBorderColor(color: Color) -> void:
+func set_popup_border_color(color: Color) -> void:
 	$LabLogPopup/Border.border_color = color
 
 func _on_Logs_Cleared() -> void:
-	unreadLogs['log'] = 0
-	unreadLogs['warning'] = 0
-	unreadLogs['error'] = 0
+	for key: LogMessage.Category in unread_logs.keys():
+		unread_logs[key] = 0
+
 	$LogButton/LogMenu/Log.text = ""
 	$LogButton/LogMenu/Warnings.text = ""
 	$LogButton/LogMenu/Errors.text = ""
 
 # TODO (update): `tab` is unused. We should figure out why this was included.
-func SetLogNotificationCounts(tab: int = -1) -> void:
+func set_log_notification_counts(tab: int = -1) -> void:
 	if $LogButton/LogMenu.visible:
 		if $LogButton/LogMenu.current_tab == 1:
-			unreadLogs['log'] = 0
+			unread_logs[LogMessage.Category.LOG] = 0
 		elif $LogButton/LogMenu.current_tab == 2:
-			unreadLogs['warning'] = 0
+			unread_logs[LogMessage.Category.WARNING] = 0
 		#Do not ever clear error notifications
 		#elif $LogButton/LogMenu.current_tab == 3:
-		#	unreadLogs['error'] = 0
+		#	unread_logs[LogMessage.Category.ERROR] = 0
 	
-	if unreadLogs['log'] == 0:
+	if unread_logs[LogMessage.Category.LOG] == 0:
 		$LogButton/LogMenu.set_tab_title(1, "Log")
 		$LogButton/Notifications/Log.hide()
 	else:
-		$LogButton/LogMenu.set_tab_title(1, "Log (" + str(unreadLogs['log']) + "!)")
+		$LogButton/LogMenu.set_tab_title(1, "Log (" + str(unread_logs[LogMessage.Category.LOG]) + "!)")
 		$LogButton/Notifications/Log.show()
 	
-	if unreadLogs['warning'] == 0:
+	if unread_logs[LogMessage.Category.WARNING] == 0:
 		$LogButton/LogMenu.set_tab_title(2, "Warnings")
 		$LogButton/Notifications/Warning.hide()
 	else:
-		$LogButton/LogMenu.set_tab_title(2, "Warnings (" + str(unreadLogs['warning']) + "!)")
+		$LogButton/LogMenu.set_tab_title(2, "Warnings (" + str(unread_logs[LogMessage.Category.WARNING]) + "!)")
 		$LogButton/Notifications/Warning.show()
 	
-	if unreadLogs['error'] == 0:
+	if unread_logs[LogMessage.Category.ERROR] == 0:
 		$LogButton/LogMenu.set_tab_title(3, "Errors")
 		$LogButton/Notifications/Error.hide()
 	else:
-		$LogButton/LogMenu.set_tab_title(3, "Errors (" + str(unreadLogs['error']) + "!)")
+		$LogButton/LogMenu.set_tab_title(3, "Errors (" + str(unread_logs[LogMessage.Category.ERROR]) + "!)")
 		$LogButton/Notifications/Error.show()
 
 func _on_LabLog_Report_Shown() -> void:
 	#Show all the warnings and errors
-	var logsText := ""
-	var allLogs: Dictionary = LabLog.GetLogs()
-	for warning: Dictionary in allLogs.get('warning', []):
-		logsText += "[color=yellow]-" + warning['message'] + "[/color]\n"
-	for error: Dictionary in allLogs.get('error', []):
-		logsText += "[color=red]-" + error['message'] + "[/color]\n"
+	var logs_text := ""
+	for warning in LabLog.get_logs(LogMessage.Category.WARNING):
+		logs_text += "[color=yellow]-" + warning.message + "[/color]\n"
+	for error in LabLog.get_logs(LogMessage.Category.ERROR):
+		logs_text += "[color=red]-" + error.message + "[/color]\n"
 	
-	if logsText != "":
-		logsText = "You weren't perfect though - here's some notes:\n" + logsText
-		$FinalReport/VBoxContainer/Logs.text = logsText
+	if logs_text != "":
+		logs_text = "You weren't perfect though - here's some notes:\n" + logs_text
+		$FinalReport/VBoxContainer/Logs.text = logs_text
 		$FinalReport/VBoxContainer/Logs.show()
 	else:
 		$FinalReport/VBoxContainer/Logs.hide()
 	
 	#Setup the rest of the popup
-	$FinalReport/VBoxContainer/ModuleName.text = "You completed the \"" + currentModule.Name + "\" module!"
-	$FinalReport/VBoxContainer/ModuleIcon.texture = currentModule.Thumbnail
+	$FinalReport/VBoxContainer/ModuleName.text = "You completed the \"" + current_module.name + "\" module!"
+	$FinalReport/VBoxContainer/ModuleIcon.texture = current_module.thumbnail
 	$FinalReport.set_anchors_preset(Control.PRESET_CENTER)
 	$FinalReport.show()
 
@@ -211,8 +213,8 @@ func _on_FinalReport_MainMenuButton_pressed() -> void:
 	get_tree().reload_current_scene()
 
 func _on_FinalReport_RestartModuleButton_pressed() -> void:
-	get_parent().SetScene(currentModule.Scene)
-	SetLogNotificationCounts()
+	get_parent().set_scene(current_module.scene)
+	set_log_notification_counts()
 	$FinalReport.hide()
 
 func _on_FinalReport_ContinueButton_pressed() -> void:
@@ -223,18 +225,21 @@ func _on_About_CloseButton_pressed() -> void:
 
 func _on_OptionsButton_pressed() -> void:
 	$OptionsScreen.show()
-	$OptionsScreen/VBoxContainer/MouseDragToggle.button_pressed = GameSettings.mouseCameraDrag
-	$OptionsScreen/VBoxContainer/ObjectTooltipsToggle.button_pressed = GameSettings.objectTooltips
-	$OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout.value = GameSettings.popupTimeout
+	$OptionsScreen/VBoxContainer/MouseDragToggle.button_pressed = GameSettings.mouse_camera_drag
+	$OptionsScreen/VBoxContainer/ObjectTooltipsToggle.button_pressed = GameSettings.object_tooltips
+	$OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout.value = GameSettings.popup_timeout
 
 func _on_CloseButton_pressed() -> void:
 	$OptionsScreen.hide()
 
 func _on_MouseDragToggle_toggled(button_pressed: bool) -> void:
-	GameSettings.mouseCameraDrag = button_pressed
+	GameSettings.mouse_camera_drag = button_pressed
 
 func _on_ObjectTooltipsToggle_toggled(button_pressed: bool) -> void:
-	GameSettings.objectTooltips = button_pressed
+	GameSettings.object_tooltips = button_pressed
 
 func _on_PopupTimeout_value_changed(value: float) -> void:
-	GameSettings.popupTimeout = value
+	GameSettings.popup_timeout = value
+
+static func log_category_to_string(category: LogMessage.Category) -> String:
+	return LogMessage.Category.keys()[category].to_lower()
