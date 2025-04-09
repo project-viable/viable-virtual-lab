@@ -1,4 +1,4 @@
-extends "res://Scripts/Substances/Substance.gd"
+extends Substance
 
 # This represents the binder solution that makes up one part of the gel.
 

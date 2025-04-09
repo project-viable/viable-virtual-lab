@@ -1,4 +1,4 @@
-extends "res://Scripts/Substances/Substance.gd"
+extends Substance
 class_name DNASubstance
 
 #export (Array) var particle_sizes = [1,1.3,1.7,3]

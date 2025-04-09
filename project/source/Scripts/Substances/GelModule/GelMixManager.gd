@@ -1,5 +1,5 @@
 # TODO: I think this should be "res://Scripts/Substances/GelModule/GelMixManager.gd but I need to confrim
-extends "res://Scripts/UI/MixManager.gd"
+extends MixManager
 
 # This is the mix manager for the Gel Electrophoresis lab module.
 
