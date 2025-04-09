@@ -32,6 +32,7 @@ func _process(delta: float) -> void:
 
 # Emits a signal to the FlourescenceMicroscope Node, used to zoom into the computer screen
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	LabLog.log("Entered computer", true, false)
 	if event is InputEventMouseButton and event.pressed and not is_clicked:
 		screen_click_signal.emit()
 		is_clicked = true
@@ -39,11 +40,13 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 
 # Used for exiting the computer
 func _on_exit_button_pressed() -> void:
+	LabLog.log("Exited computer", true, false)
 	get_node("PopupControl").visible = false
 	is_clicked = false
 
 
 func _on_channels_panel_channel_selected(channel: String) -> void:
+	LabLog.log("Changed channel to " + channel, false, false)
 	current_channel = channel
 	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = false
 	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/DapiLabelContainer.visible = false
@@ -83,15 +86,19 @@ func _on_channels_panel_channel_selected(channel: String) -> void:
 
 
 func _on_exposure_change(new_exposure: float) -> void:
+	LabLog.log("Changed exposure to " + str(new_exposure) + "msec for the " + current_channel + " channel", false, false)
 	channels_exposure[current_channel] = new_exposure
 
 
 func _on_power_change(new_power: float) -> void:
+	LabLog.log("Changed power to " + str(new_power) + "% for the " + current_channel + " channel", false, false)
 	channels_power[current_channel] = new_power
 
 
 func _on_power_exposure_combo_change(selected_channel: String, attribute: String, value: float) -> void:
 	if(attribute == "Power"):
+		LabLog.log("Changed power to " + str(value) + "% for the " + selected_channel + " channel in combo", false, false)
 		channels_power[selected_channel] = value
 	else:
+		LabLog.log("Changed exposure to " + str(value) + "msec for the " + selected_channel + " channel in combo", false, false)
 		channels_exposure[selected_channel] = value

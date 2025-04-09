@@ -41,4 +41,5 @@ func _process(delta: float) -> void:
 
 # Change Image Zoom
 func _on_macro_panel_button_press(button_value: String) -> void:
+	LabLog.log("Changed zoom to " + button_value, false, false)
 	$CellImage/Sprite2D.texture = cell_images["BPAE"][button_value]

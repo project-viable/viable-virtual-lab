@@ -9,10 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://b2u2vyu06gaor" path="res://favicon.png" id="7_jbvos"]
 [ext_resource type="Texture2D" uid="uid://3jh4ygiiufys" path="res://Images/ImageCells/20250224_bpae_10xA1c1.jpg" id="8_6plxk"]
 [ext_resource type="Shader" path="res://Scenes/UI/microscope_focus_blur.gdshader" id="8_whtpd"]
-[ext_resource type="PackedScene" uid="uid://5gf8bks5msro" path="res://Scenes/UI/MacroPanel.tscn" id="10_env1g"]
+[ext_resource type="PackedScene" uid="uid://css145ipgmvbb" path="res://Scenes/UI/MacroPanel.tscn" id="10_env1g"]
 [ext_resource type="FontFile" uid="uid://c5jqyemsa330f" path="res://UI/Roboto/Roboto-Black.ttf" id="10_scboh"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/ChannelsPanel.tscn" id="10_t3byj"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/PowerExposure.tscn" id="11_anhd5"]
+[ext_resource type="PackedScene" uid="uid://bh6iocygbfwtj" path="res://Scenes/UI/ChannelsPanel.tscn" id="10_t3byj"]
+[ext_resource type="PackedScene" uid="uid://b6ak8mmd81jv2" path="res://Scenes/UI/PowerExposure.tscn" id="11_anhd5"]
 [ext_resource type="Script" path="res://Scripts/UI/channels_panel.gd" id="11_u2afq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i5bsf"]
