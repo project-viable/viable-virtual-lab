@@ -1,4 +1,4 @@
-extends Substance
+extends "res://Scripts/Substances/Substance.gd"
 
 # This represents the powdered agarose that makes up one part of the gel.
 

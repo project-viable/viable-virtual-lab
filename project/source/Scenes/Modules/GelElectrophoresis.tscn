@@ -4,22 +4,22 @@
 [ext_resource type="Texture2D" uid="uid://dfinou685yv2a" path="res://Images/Resized_Images/Pipette_holder.png" id="2"]
 [ext_resource type="Script" path="res://Scripts/Resources/MistakeChecker.gd" id="2_26cga"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/LabContainer.tscn" id="3"]
-[ext_resource type="PackedScene" uid="uid://cowfxnf6s31pm" path="res://Scenes/Objects/SourceContainer.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://Scenes/Objects/SourceContainer.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://cdrtd40n83ytx" path="res://Scenes/Objects/Scoopula.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://Scenes/Substances/GelModule/BinderSubstance.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://drmdj4df5uwn7" path="res://Scenes/Objects/Microwave.tscn" id="7"]
 [ext_resource type="Texture2D" uid="uid://bwkmd8uade2g6" path="res://Images/Resized_Images/TEA_Buffer.png" id="8"]
 [ext_resource type="PackedScene" uid="uid://bdfkn4vc3t1ld" path="res://Scenes/Objects/Scale.tscn" id="9"]
-[ext_resource type="PackedScene" uid="uid://bx4lalohf7clg" path="res://Scenes/Objects/WeighBoat.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://Scenes/Objects/WeighBoat.tscn" id="10"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/Pipettes/P1000.tscn" id="11"]
 [ext_resource type="Texture2D" uid="uid://c16pk6aqn5d2t" path="res://Images/Resized_Images/Agarose_Powder.png" id="12"]
-[ext_resource type="PackedScene" uid="uid://cpax3ed6lg0e2" path="res://Scenes/Objects/GraduatedCylinder.tscn" id="13"]
+[ext_resource type="PackedScene" path="res://Scenes/Objects/GraduatedCylinder.tscn" id="13"]
 [ext_resource type="PackedScene" path="res://Scenes/Substances/GelModule/AgarPowderSubstance.tscn" id="14"]
 [ext_resource type="Script" path="res://Scripts/Substances/GelModule/GelMixManager.gd" id="15"]
 [ext_resource type="Texture2D" uid="uid://evoowj21iule" path="res://Images/Resized_Images/microcentrifuge_rack_BACK.png" id="16"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/SharpsDisposal.tscn" id="17"]
 [ext_resource type="Texture2D" uid="uid://b44fdogq3thf6" path="res://Images/Resized_Images/microcentrifuge_rack_FRONT.png" id="18"]
-[ext_resource type="PackedScene" uid="uid://ox8tkk7nhjvu" path="res://Scenes/Objects/GelMoldSubsceneManager.tscn" id="19"]
+[ext_resource type="PackedScene" path="res://Scenes/Objects/GelMoldSubsceneManager.tscn" id="19"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/TipBox.tscn" id="20"]
 [ext_resource type="PackedScene" uid="uid://dbm4rpbhs7wdc" path="res://Scenes/Objects/ElectrolysisSetup.tscn" id="21"]
 [ext_resource type="Script" path="res://Scripts/Substances/GelModule/DNASubstance.gd" id="22"]
@@ -121,12 +121,14 @@ draggable = true
 
 [node name="AgaroseSourceContainer" parent="." instance=ExtResource("4")]
 position = Vector2(671, 854)
+lock_rotation = true
 image = ExtResource("12")
 substance = ExtResource("14")
 display_name = "Agarose"
 
 [node name="TAESourceContainer" parent="." instance=ExtResource("4")]
 position = Vector2(735, 851)
+lock_rotation = true
 image = ExtResource("8")
 substance = ExtResource("6")
 display_name = "TAE Buffer"
@@ -188,6 +190,7 @@ texture = ExtResource("16")
 
 [node name="DNAContainer" parent="DNA Containers" instance=ExtResource("4")]
 position = Vector2(-42, -1.07288e-06)
+lock_rotation = true
 container_type = 1
 substance = SubResource("2")
 substance_parameters = Array[float]([1500.0, 200.0])
@@ -195,6 +198,7 @@ display_name = "DNA 1"
 
 [node name="DNAContainer2" parent="DNA Containers" instance=ExtResource("4")]
 position = Vector2(-16, -1.07288e-06)
+lock_rotation = true
 container_type = 1
 substance = SubResource("2")
 substance_parameters = Array[float]([7500.0, 2200.0, 300.0])
@@ -202,6 +206,7 @@ display_name = "DNA 2"
 
 [node name="DNAContainer3" parent="DNA Containers" instance=ExtResource("4")]
 position = Vector2(9.99999, -9.53674e-07)
+lock_rotation = true
 container_type = 1
 substance = SubResource("2")
 substance_parameters = Array[float]([10000.0])
@@ -209,6 +214,7 @@ display_name = "DNA 3"
 
 [node name="DNAContainer4" parent="DNA Containers" instance=ExtResource("4")]
 position = Vector2(37, -9.53674e-07)
+lock_rotation = true
 container_type = 1
 substance = SubResource("2")
 substance_parameters = Array[float]([20000.0, 10000.0, 7000.0, 5000.0, 4000.0, 3000.0, 2000.0, 1500.0, 1000.0, 700.0, 500.0, 400.0, 300.0, 200.0, 75.0])
@@ -232,3 +238,4 @@ gravity_scale = 1.0
 
 [node name="GelMold" parent="." instance=ExtResource("19")]
 position = Vector2(498, 1083)
+lock_rotation = true

@@ -1,5 +1,4 @@
 extends Node
-class_name MixManager
 
 # This object exists in the background of a module and provides a way to 
 # centrally control substance mixing. It should be extended on a per-module 
