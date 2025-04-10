@@ -4,6 +4,7 @@ var temperature: int = 32 #temperature of fridge in degrees celsius
 var temperature_array: Array[int] = []
 var fridge: LabObject = null # Stores the cell samples 
 var click : bool = false
+var valid_temperature: bool = true
 
 func _ready() -> void:
 	$Control.hide()
@@ -21,15 +22,22 @@ func get_temperature() -> int:
 	#print(temperature_array)
 	var temp:= ""
 	var array_len := len(temperature_array)
+	var int_temp: int = 0
 	if array_len< 1:
-		#print("temperature = " ,temperature)
+		#print("temperature = " ,temperature)\
 		return temperature #If no inputs/cancel pressed, return the exisitng fride temperature to show no change in temperature
 	else:
 		for i in range(0, array_len):
 			temp+= str(temperature_array[i])
+			
+		int_temp = int(temp)
 		
-		print("temperature = " ,int(temp))
-		return int(temp)
+		if int_temp >= 0 && int_temp <= 50:	
+			return int_temp
+		else:
+			print("Invalid temperature")
+			valid_temperature = false
+			return temperature
 
 func display_temperature() -> void: #Made to display the fridge temperature in the TemperatureLabel
 	var temp:= ""
@@ -37,9 +45,14 @@ func display_temperature() -> void: #Made to display the fridge temperature in t
 	if array_len < 1:
 		$Control/PanelContainer/VBoxContainer/FridgeInside/Sprite2D/TemperatureLabel.text = "Set \u00B0C" #default temperature is 32 degrees C
 	else:
-		for i in range(0, array_len):
-			temp+= str(temperature_array[i])
-		$Control/PanelContainer/VBoxContainer/FridgeInside/Sprite2D/TemperatureLabel.text = "%s \u00B0C" % temp
+		if valid_temperature == true:
+			for i in range(0, array_len):
+				temp+= str(temperature_array[i])
+			$Control/PanelContainer/VBoxContainer/FridgeInside/Sprite2D/TemperatureLabel.text = "%s \u00B0C" % temp
+		else:
+			$Control/PanelContainer/VBoxContainer/FridgeInside/Sprite2D/TemperatureLabel.text = "Invalid" # Only temperatures between 0 and 32 degrees C are valid for selection
+			valid_temperature = true
+		
 			
 func _on_Button1_pressed() -> void:
 	temperature_array.append(1)
@@ -91,6 +104,7 @@ func _on_DeleteButton_pressed() -> void:
 
 func _on_EnterButton_pressed() -> void:
 	temperature = get_temperature()
+	print("temperature = " ,temperature)
 	display_temperature()
 	temperature_array.clear()
 	

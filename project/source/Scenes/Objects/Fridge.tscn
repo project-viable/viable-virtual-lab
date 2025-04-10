@@ -78,6 +78,7 @@ offset_top = -663.897
 offset_right = -142.111
 offset_bottom = -336.897
 theme_override_font_sizes/font_size = 80
+text = "32 °C"
 
 [node name="EmptySlideA" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
 position = Vector2(127, 213)
