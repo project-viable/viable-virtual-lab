@@ -23,7 +23,6 @@ func _process(delta: float) -> void:
 		mount_slide.emit(slide)
 		
 	
-
 func _on_area_input(_viewport: Viewport, event: InputEvent, _shape_idx: int, side: String) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		if side == "left":
@@ -52,11 +51,10 @@ func _on_whole_area_body_entered(body: Node2D) -> void:
 	else:
 		can_slide_mount = false
 
-
-
 func _on_whole_area_body_exited(body: Node2D) -> void:
 		can_slide_mount = false
 		mount_slide.emit("")
+		
 func _update_light_switch_color() -> void:
 	var light_switch: Sprite2D = get_node("../light_switch/Sprite2D")
 	light_switch.modulate = Color.GREEN if light_on else Color.GRAY
