@@ -46,7 +46,10 @@ func show_subscene() -> void:
 	add_child(subscene)
 	subscene.owner = self
 	
-	adjust_subscene_to_visible_height()
+	#adjust_subscene_to_visible_height()
+	#Jian mentioned putting subscenese in the middle of the screen 
+	#which is more simple
+	center_subscene_position()
 	
 	subscene.show()
 	
@@ -79,6 +82,9 @@ func adjust_subscene_to_visible_height() -> void:
 	#adjust to meet the bottom first, then the top, so that if they conflict the latter will be final and the close button will be visible.
 	if bottom_screen_y > get_viewport_rect().end.y:
 		subscene.position = Vector2(0, get_viewport_rect().end.y - bottom_screen_y)
-	
+
 	if top_screen_y < 0:
 		subscene.position = Vector2(0, -top_screen_y)
+
+func center_subscene_position() -> void:
+	subscene.global_position = get_viewport_rect().size / 2.0
