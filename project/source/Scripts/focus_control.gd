@@ -16,7 +16,7 @@ var snap_angle: float = 360.0 / snap_positions
 
 var FOCUS_CHANGE: float = 0.05 
 
-
+signal focus_changed(level: float)
 
 func _ready() -> void:
 	left_area.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -31,7 +31,7 @@ func _ready() -> void:
 
 	# Initing to random blur level
 	focus_level = randf_range(0.75, 1)
-	update_focus(focus_level)
+	focus_changed.emit(focus_level)
 
 func _on_left_area_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
@@ -55,7 +55,7 @@ func snap_left() -> void:
 	# Update focus level (0 to 1)
 	focus_level = max(0, focus_level - FOCUS_CHANGE)
 
-	update_focus(focus_level)
+	focus_changed.emit(focus_level)
 	
 func snap_right() -> void:
 	# Increment the angle to the next snap position
@@ -70,8 +70,4 @@ func snap_right() -> void:
 	# Update focus level (0 to 1)
 	focus_level = min(1, focus_level + FOCUS_CHANGE)
 	
-	update_focus(focus_level)
-	
-func update_focus(level: float) -> void:
-	if microscope_image.material:
-		microscope_image.material.set("shader_parameter/blur_amount", level)
+	focus_changed.emit(focus_level)
