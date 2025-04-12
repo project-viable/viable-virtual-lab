@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://3k6qjais1rsg"]
+[gd_scene load_steps=8 format=3 uid="uid://3k6qjais1rsg"]
 
 [ext_resource type="Texture2D" uid="uid://qss8fduiuddr" path="res://Images/slide_tray_closed.PNG" id="1_6ny3m"]
 [ext_resource type="Script" path="res://Scripts/Objects/microscope_slide_tray.gd" id="2_wv2i2"]
@@ -6,9 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bfpsuxqrq8ck" path="res://Images/slide_tray_left_open.PNG" id="4_vb41o"]
 [ext_resource type="Texture2D" uid="uid://ducsf3hy4m7y2" path="res://Images/slide_tray_right_open.PNG" id="5_j778n"]
 [ext_resource type="Texture2D" uid="uid://dpvmlexufmfv3" path="res://Images/slide_tray_open_light_off.PNG" id="6_4bjnn"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1hppl"]
-size = Vector2(621.377, 724)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s1h72"]
 size = Vector2(1250, 724)
@@ -24,19 +21,21 @@ slide_tray_left_open = ExtResource("4_vb41o")
 slide_tray_right_open = ExtResource("5_j778n")
 tray_open_light_off = ExtResource("6_4bjnn")
 
-[node name="right_area" type="Area2D" parent="."]
-collision_mask = 5
+[node name="right_area" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = 7.0
+offset_top = -842.0
+offset_right = 623.0
+offset_bottom = -118.0
+mouse_filter = 1
+toggle_mode = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="right_area"]
-position = Vector2(313.406, -478)
-shape = SubResource("RectangleShape2D_1hppl")
-
-[node name="left_area" type="Area2D" parent="."]
-collision_mask = 5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="left_area"]
-position = Vector2(-312.5, -474)
-shape = SubResource("RectangleShape2D_1hppl")
+[node name="left_area" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = -629.0
+offset_top = -842.0
+offset_bottom = -118.0
+mouse_filter = 1
 
 [node name="whole_area" type="Area2D" parent="."]
 collision_mask = 5

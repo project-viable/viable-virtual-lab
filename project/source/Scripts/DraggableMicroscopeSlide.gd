@@ -1,8 +1,9 @@
 extends CharacterBody2D
-
+class_name DraggableMicroscopeSlide
 # If the user closes the fridge, the slides will still persist outside
 # Users can also store the slides back into the fridge
 # Selects the slide to be dragged
+@export var slide_name: String = ""
 @onready var scene_root: Node2D = get_tree().current_scene
 
 signal is_selected
@@ -12,7 +13,7 @@ var is_inside_fridge: bool = true
 var original_parent: Node2D = null
 var current_parent: Node2D = null
 
-func setup() -> void:
+func _ready() -> void:
 	original_parent = get_parent()
 	current_parent = original_parent
 	

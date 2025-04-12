@@ -8,7 +8,6 @@ var current_slide: CharacterBody2D = null
 func _ready() -> void:
 	var slides: Array = get_tree().get_nodes_in_group("Slides")
 	for slide: CharacterBody2D in slides:
-		slide.setup()
 		slide.is_selected.connect(_on_slide_is_selected)
 
 func _process(delta: float) -> void:
