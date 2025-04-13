@@ -6,44 +6,39 @@
 
 [node name="focus_control" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = 5.0
-offset_right = 3.0
-offset_bottom = 5.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 124.0
+offset_bottom = 124.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_vfl2b")
 
 [node name="focus_knob" type="Sprite2D" parent="."]
 z_index = 1
-position = Vector2(649.55, 372.28)
-scale = Vector2(0.771, 0.754403)
+position = Vector2(63, 66)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("1_2o7ui")
 
 [node name="right_area" type="Control" parent="."]
 z_index = 1
-layout_mode = 3
 anchors_preset = 0
-offset_left = 648.0
-offset_top = 336.0
-offset_right = 687.0
-offset_bottom = 408.0
+offset_left = 63.0
+offset_top = 28.0
+offset_right = 101.0
+offset_bottom = 106.0
 
 [node name="left_area" type="Control" parent="."]
 z_index = 1
 layout_mode = 3
 anchors_preset = 0
-offset_left = 612.0
-offset_top = 336.0
-offset_right = 648.0
-offset_bottom = 407.0
+offset_left = 23.0
+offset_top = 27.0
+offset_right = 62.0
+offset_bottom = 105.0
 
 [node name="Focus_outer_area" type="Sprite2D" parent="."]
-position = Vector2(642, 332)
+position = Vector2(62, 62)
 scale = Vector2(0.183809, 0.183809)
 texture = ExtResource("3_l063a")
+region_enabled = true
+region_rect = Rect2(531.729, 1042.39, 676, 676)

@@ -58,10 +58,10 @@ position = Vector2(1167, 421)
 position = Vector2(641, 360)
 
 [node name="focus_control" parent="." instance=ExtResource("8_b47o4")]
-offset_left = 29.0
-offset_top = -432.0
-offset_right = 29.0
-offset_bottom = -432.0
+offset_left = 1057.0
+offset_top = 96.9999
+offset_right = 1057.0
+offset_bottom = 96.9999
 scale = Vector2(1.75, 1.75)
 
 [node name="Fridge" parent="." instance=ExtResource("9_pfw6q")]
