@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://dj8378rcmjta0"]
+[gd_scene load_steps=5 format=3 uid="uid://dj8378rcmjta0"]
 
-[ext_resource type="Texture2D" uid="uid://odw6cslkdlmp" path="res://Images/Joystick_temp.png" id="1_e55ji"]
 [ext_resource type="Script" path="res://Scripts/Objects/Joystick.gd" id="2_mmdlm"]
 [ext_resource type="Texture2D" uid="uid://dssj1r0fiy1ba" path="res://Images/Joystick_Knob_temp.png" id="2_o8l0x"]
 [ext_resource type="Texture2D" uid="uid://cywu72ubqmqcv" path="res://Images/joystick_final.png" id="2_quk4p"]
@@ -13,12 +12,6 @@ script = ExtResource("2_mmdlm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6r06w")
-
-[node name="JoystickTemp" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-7.62939e-06, -3.8147e-06)
-scale = Vector2(0.242766, 0.242766)
-texture = ExtResource("1_e55ji")
 
 [node name="JoystickKnobTemp" type="Sprite2D" parent="."]
 position = Vector2(-1, 0)
