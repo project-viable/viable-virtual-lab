@@ -20,7 +20,7 @@ The MixManager exists as a central touchpoint for all reactions that happen in a
 
 To mix two substances together, simply pass them as an array argument to the MixManager's mix() function. This will look through the list of input arrays (with the order of inputs not mattering) and, if a matching array is found, the output substance will be created and its `init_mixed()` function will be called with the reactant substances as an array argument. Following this, the created substance will be returned from `mix()`, and this new substance should be put in place of the substances that created it, which should be deleted after mixing finishes.
 
-To check if a substance was mixed correctly according to the module or the main `CheckAction` functions, it is important to call `ReportAction(objectsInvoled: Array, actionType: string, params: Dictionary)`.
+To check if a substance was mixed correctly according to the module or the main `check_action` functions, it is important to call `report_action(objects_involed: Array, actionType: String, params: Dictionary)`.
 
 ### 3 - Custom MixManagers
 
