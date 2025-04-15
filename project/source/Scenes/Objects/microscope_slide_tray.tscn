@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://3k6qjais1rsg"]
+[gd_scene load_steps=8 format=3 uid="uid://ch0l2jx71m6nv"]
 
 [ext_resource type="Texture2D" uid="uid://qss8fduiuddr" path="res://Images/slide_tray_closed.PNG" id="1_6ny3m"]
 [ext_resource type="Script" path="res://Scripts/Objects/microscope_slide_tray.gd" id="2_wv2i2"]

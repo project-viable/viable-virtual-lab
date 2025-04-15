@@ -3,10 +3,25 @@ class_name DraggableMicroscopeSlide
 # If the user closes the fridge, the slides will still persist outside
 # Users can also store the slides back into the fridge
 # Selects the slide to be dragged
-@export var slide_name: String = ""
 @onready var scene_root: Node2D = get_tree().current_scene
 
 signal is_selected
+
+@export var slide_name: String = "" # Used to change the path to the cell image shown in the computer
+@export var right_side_up: Texture
+@export var right_side_up_oiled: Texture
+@export var right_side_down: Texture
+@export var right_side_down_oiled: Texture
+
+@export var oiled_up: bool:
+	set(value):
+		oiled_up = value
+		_update_texture()
+		
+@export var slide_orientation_up: bool:
+	set(value):
+		slide_orientation_up = value
+		_update_texture()
 
 var is_draggable: bool = false
 var is_inside_fridge: bool = true
@@ -38,3 +53,10 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	is_draggable = false
+
+func _update_texture() -> void:
+	var sprite := $Sprite2D
+	if slide_orientation_up:
+		sprite.texture = right_side_up_oiled if oiled_up else right_side_up
+	else:
+		sprite.texture = right_side_down_oiled if oiled_up else right_side_down

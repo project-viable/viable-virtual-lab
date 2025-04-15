@@ -1,6 +1,6 @@
 extends Node2D
 
-# Logic responsible for dragging the slides
+# Logic responsible for dragging the slides and making sure only 1 slide can be dragged at a time
 
 var currently_dragging: bool = false
 var current_slide: CharacterBody2D = null
@@ -17,6 +17,10 @@ func _process(delta: float) -> void:
 	elif current_slide:
 		current_slide.z_index = 0
 
-func _on_slide_is_selected(slide: CharacterBody2D, can_drag: bool) -> void:
-	current_slide = slide
-	currently_dragging = can_drag
+func _on_slide_is_selected(slide: CharacterBody2D, is_dragging: bool) -> void:
+	if is_dragging and not currently_dragging:
+		currently_dragging = true
+		current_slide = slide
+	
+	if not is_dragging:
+		currently_dragging = false

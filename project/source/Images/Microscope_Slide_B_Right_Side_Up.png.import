@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bd5et4ofepu8b"
-path="res://.godot/imported/Microscope_Slide_B_Prepared.png-3e6dfe207d13f1a414f224e0cdea2a22.ctex"
+uid="uid://dhsk2pe8ci6gq"
+path="res://.godot/imported/Microscope_Slide_B_Right_Side_Up.png-31307f72609c5cf788e1cedfdf383458.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Microscope_Slide_B_Prepared.png"
-dest_files=["res://.godot/imported/Microscope_Slide_B_Prepared.png-3e6dfe207d13f1a414f224e0cdea2a22.ctex"]
+source_file="res://Images/Microscope_Slide_B_Right_Side_Up.png"
+dest_files=["res://.godot/imported/Microscope_Slide_B_Right_Side_Up.png-31307f72609c5cf788e1cedfdf383458.ctex"]
 
 [params]
 
