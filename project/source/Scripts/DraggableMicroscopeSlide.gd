@@ -23,12 +23,16 @@ signal is_selected
 		slide_orientation_up = value
 		_update_texture()
 
-var is_draggable: bool = false
+var is_mouse_hovering: bool = false
 var is_inside_fridge: bool = true
 var original_parent: Node2D = null
 var current_parent: Node2D = null
+var initial_mouse_pos: Vector2
+var is_dragging: bool = false
+
 
 func _ready() -> void:
+	slide_orientation_up = randi() % 2 == 0 # Randomize if slides are oriented correctly 
 	original_parent = get_parent()
 	current_parent = original_parent
 	
@@ -36,10 +40,21 @@ func _ready() -> void:
 	mouse_exited.connect(_on_mouse_exited)
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("click") and is_draggable:
-		is_selected.emit(self, is_draggable)
-	elif Input.is_action_just_released("click"):
-		is_selected.emit(self, false)
+	if Input.is_action_just_pressed("click") and is_mouse_hovering:
+		initial_mouse_pos = get_global_mouse_position()
+		
+	if Input.is_action_pressed("click") and is_mouse_hovering and get_global_mouse_position().distance_to(initial_mouse_pos) > 3:
+		is_dragging = true
+		is_selected.emit(self, is_dragging)
+		
+	elif Input.is_action_just_released("click") and is_mouse_hovering:
+		is_dragging = false
+		is_selected.emit(self, is_dragging)
+		
+		if get_global_mouse_position().distance_to(initial_mouse_pos) < 3: # User clicked, toggles orientation
+			
+			slide_orientation_up = !slide_orientation_up
+	
 		
 		if not is_inside_fridge and current_parent == original_parent:
 			current_parent = scene_root
@@ -49,10 +64,10 @@ func _process(delta: float) -> void:
 			self.reparent(original_parent) # Put the slide back into the fridge and when closed, the slide will not persist
 
 func _on_mouse_entered() -> void:
-	is_draggable = true
+	is_mouse_hovering = true
 
 func _on_mouse_exited() -> void:
-	is_draggable = false
+	is_mouse_hovering = false
 
 func _update_texture() -> void:
 	var sprite := $Sprite2D

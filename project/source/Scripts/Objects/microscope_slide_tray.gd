@@ -27,6 +27,9 @@ func _process(delta: float) -> void:
 			mount_slide.emit(null)
 	
 func _on_area_input(side: String) -> void:
+	if slide and slide.is_mouse_hovering: # Prevent slide trays from being toggled if clicking on the slide while it's in the tray
+		return
+		
 	if side == "left":
 		left_open = !left_open
 	else:
