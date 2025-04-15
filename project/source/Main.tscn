@@ -557,7 +557,7 @@ offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 0
 tab_alignment = 2
-current_tab = 4
+current_tab = 1
 
 [node name="Instructions" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
 visible = false
@@ -568,7 +568,6 @@ selection_enabled = true
 metadata/_tab_index = 0
 
 [node name="Log" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
-visible = false
 layout_mode = 2
 focus_mode = 2
 theme_override_styles/normal = SubResource("1")
@@ -595,6 +594,7 @@ selection_enabled = true
 metadata/_tab_index = 3
 
 [node name="Exit Module" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
