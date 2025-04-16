@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://e685x26lprpf"]
+
+[ext_resource type="Texture2D" uid="uid://dxtxxu20hrsha" path="res://Images/Oil_Jar.png" id="1_bgchu"]
+[ext_resource type="Script" path="res://Scenes/Objects/oil_jar.gd" id="1_ykbnd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0obkp"]
+size = Vector2(312, 575)
+
+[node name="OilJar" type="Area2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_ykbnd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_bgchu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(37, -277.5)
+shape = SubResource("RectangleShape2D_0obkp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
