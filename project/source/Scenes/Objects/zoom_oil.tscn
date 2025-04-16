@@ -1,19 +1,25 @@
 [gd_scene load_steps=4 format=3 uid="uid://6tou436jn4fv"]
 
-[ext_resource type="Script" path="res://Scripts/Objects/LabObject.gd" id="1_i6w0x"]
-[ext_resource type="Texture2D" uid="uid://vy742jvgai5p" path="res://Images/zoom_oil.png" id="2_1rgl7"]
+[ext_resource type="Script" path="res://Scripts/Objects/zoom_oil.gd" id="1_klcqn"]
+[ext_resource type="Texture2D" uid="uid://d2i3ln4s1xwdv" path="res://Images/zoom_oil.png" id="2_1rgl7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enofe"]
-size = Vector2(149, 275)
+size = Vector2(48, 87)
 
-[node name="Zoom_Oil" type="Node2D" groups=["LabObjects"]]
-script = ExtResource("1_i6w0x")
+[node name="ZoomOil" type="RigidBody2D" groups=["LabObjects"]]
+collision_layer = 2
+input_pickable = true
+gravity_scale = 0.0
+can_sleep = false
+lock_rotation = true
+script = ExtResource("1_klcqn")
+draggable = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(618, 493)
-scale = Vector2(0.5, 0.5)
+position = Vector2(638, 361)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_1rgl7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(637.5, 353.5)
+position = Vector2(638, 360.5)
 shape = SubResource("RectangleShape2D_enofe")

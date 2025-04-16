@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dpm1gs1fyv4gg"]
+[gd_scene load_steps=12 format=3 uid="uid://dpm1gs1fyv4gg"]
 
 [ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="1_bc34u"]
 [ext_resource type="Script" path="res://Scenes/Modules/fluorescence_microscopy.gd" id="1_q60rk"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cm1ln611t82pr" path="res://Scenes/Objects/microscope.tscn" id="4_nth22"]
 [ext_resource type="PackedScene" uid="uid://b7038o1t6lkhh" path="res://Scenes/Objects/focus_control.tscn" id="8_b47o4"]
 [ext_resource type="PackedScene" uid="uid://beqq06mcfr5hj" path="res://Scenes/Objects/Fridge.tscn" id="9_pfw6q"]
+[ext_resource type="PackedScene" uid="uid://6tou436jn4fv" path="res://Scenes/Objects/zoom_oil.tscn" id="9_wh6pa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1w4j"]
 size = Vector2(1278.5, 565)
@@ -46,6 +47,7 @@ position = Vector2(-367, -239)
 scale = Vector2(0.7, 0.7)
 
 [node name="Computer" parent="." instance=ExtResource("3_0ypcw")]
+visible = false
 z_index = 1
 position = Vector2(889, 472)
 scale = Vector2(0.952876, 0.952876)
@@ -66,6 +68,9 @@ scale = Vector2(1.75, 1.75)
 
 [node name="Fridge" parent="." instance=ExtResource("9_pfw6q")]
 position = Vector2(-105, 156)
+
+[node name="ZoomOil" parent="." instance=ExtResource("9_wh6pa")]
+position = Vector2(330, -95)
 
 [connection signal="mount_slide" from="Background/Microscope" to="." method="_on_microscope_mount_slide"]
 [connection signal="screen_click_signal" from="Computer" to="." method="_on_computer_screen_click_signal"]
