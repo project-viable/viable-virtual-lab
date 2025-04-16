@@ -2,15 +2,9 @@ extends Node2D
 var cell_image_width: float 
 var cell_image_height: float
 var speed: float = 500
-
-var cell_images: Dictionary = {
-	"BPAE": {	
-		"10x": preload("res://Images/ImageCells/20250224_bpae_10xA1c1.jpg"),
-		"20x": preload("res://Images/ImageCells/20250224_bpae_20xA1c1.jpg"),
-		"40x": preload("res://Images/ImageCells/20250224_bpae_40xA1c1.jpg"),
-		"100x": preload("res://Images/ImageCells/20250224_bpae_100xA1c1.jpg")
-	}
-}
+var curr_channel: String = "BPAE"
+var curr_button_value: String = "10x"
+signal update_zoom(button_value: String)
 
 var direction: Vector2 = Vector2(0,0)
 func _ready() -> void:
@@ -41,4 +35,10 @@ func _process(delta: float) -> void:
 
 # Change Image Zoom
 func _on_macro_panel_button_press(button_value: String) -> void:
-	$CellImage/Sprite2D.texture = cell_images["BPAE"][button_value]
+	curr_button_value = button_value
+	update_zoom.emit(button_value)
+
+
+func _on_computer_channel_select(channel: String) -> void:
+	curr_channel = channel
+	update_zoom.emit(curr_button_value)

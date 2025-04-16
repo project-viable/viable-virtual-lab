@@ -2,7 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://c5jqyemsa330f" path="res://UI/Roboto/Roboto-Black.ttf" id="1_32o6e"]
 [ext_resource type="Script" path="res://Scenes/UI/macro_panel.gd" id="1_i0pmk"]
-[ext_resource type="ButtonGroup" path="res://UI/ZoomButtonGroup.tres" id="3_6aplu"]
+[ext_resource type="ButtonGroup" uid="uid://b2r6nsccpunhd" path="res://UI/ZoomButtonGroup.tres" id="3_6aplu"]
 [ext_resource type="StyleBox" uid="uid://yioftydsdv8e" path="res://UI/ZoomButtonPressedStyle.tres" id="4_4c2cx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gntgp"]

@@ -11,7 +11,7 @@ func _on_fitc_pressed() -> void:
 
 
 func _on_ritc_pressed() -> void:
-	channel_selected.emit("RITC")
+	channel_selected.emit("TRITC")
 
 
 func _on_cy_5_pressed() -> void:
