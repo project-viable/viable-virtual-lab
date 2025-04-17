@@ -1,10 +1,9 @@
+class_name FocusControl
 extends Control
 
 @onready var left_area: Control = $left_area
 @onready var right_area: Control = $right_area
 @onready var knob_sprite: Sprite2D = $focus_knob
-
-var microscope_image: Sprite2D
 
 # Knob properties
 var current_angle: float = 0.0
@@ -24,10 +23,6 @@ func _ready() -> void:
 	
 	left_area.gui_input.connect(_on_left_area_input)
 	right_area.gui_input.connect(_on_right_area_input)
-	
-	var parent: Node = get_parent()
-	microscope_image = parent.get_node_or_null("Computer/PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/CellImage/Sprite2D") as Sprite2D
-
 
 	# Initing to random blur level
 	focus_level = randf_range(0.75, 1)

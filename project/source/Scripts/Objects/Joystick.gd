@@ -1,3 +1,4 @@
+class_name Joystick
 extends Area2D
 #Could try doing this with a virtual joystick setup and having users click and then drag 
 
