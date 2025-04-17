@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dpm1gs1fyv4gg"]
+[gd_scene load_steps=14 format=3 uid="uid://dpm1gs1fyv4gg"]
 
 [ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="1_bc34u"]
 [ext_resource type="Script" path="res://Scenes/Modules/fluorescence_microscopy.gd" id="1_q60rk"]
@@ -6,14 +6,19 @@
 [ext_resource type="PackedScene" uid="uid://dtltidc1e8ikc" path="res://Scenes/Objects/Computer.tscn" id="3_0ypcw"]
 [ext_resource type="PackedScene" uid="uid://dj8378rcmjta0" path="res://Scenes/Objects/Joystick.tscn" id="3_psukr"]
 [ext_resource type="PackedScene" uid="uid://cm1ln611t82pr" path="res://Scenes/Objects/microscope.tscn" id="4_nth22"]
+[ext_resource type="Script" path="res://Scripts/Objects/microscope_view_controls.gd" id="6_fmuel"]
 [ext_resource type="PackedScene" uid="uid://b7038o1t6lkhh" path="res://Scenes/Objects/focus_control.tscn" id="8_b47o4"]
 [ext_resource type="PackedScene" uid="uid://beqq06mcfr5hj" path="res://Scenes/Objects/Fridge.tscn" id="9_pfw6q"]
+[ext_resource type="Texture2D" uid="uid://dyapxs2are4im" path="res://Images/microscope_controls_setup.png" id="9_wlk43"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1w4j"]
 size = Vector2(1278.5, 565)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y5o7s"]
 size = Vector2(1243.75, 139.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bx62t"]
+size = Vector2(149, 71)
 
 [node name="FluorescenceMicroscopy" type="Node2D"]
 position = Vector2(1, -1)
@@ -49,8 +54,8 @@ scale = Vector2(0.7, 0.7)
 z_index = 1
 position = Vector2(889, 472)
 scale = Vector2(0.952876, 0.952876)
-joystick = NodePath("../Border/Joystick")
-focus_control = NodePath("../Border/focus_control")
+joystick = NodePath("../MicroscopeControls/Border/Joystick")
+focus_control = NodePath("../MicroscopeControls/Border/focus_control")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(641, 360)
@@ -58,17 +63,26 @@ position = Vector2(641, 360)
 [node name="Fridge" parent="." instance=ExtResource("9_pfw6q")]
 position = Vector2(-105, 156)
 
-[node name="Border" type="ReferenceRect" parent="."]
-offset_left = 1052.0
-offset_top = 59.0
-offset_right = 1275.0
-offset_bottom = 507.0
+[node name="MicroscopeControls" type="RigidBody2D" parent="." groups=["LabObjects"]]
+position = Vector2(1313, 419)
+collision_layer = 2
+input_pickable = true
+can_sleep = false
+lock_rotation = true
+freeze = true
+script = ExtResource("6_fmuel")
+
+[node name="Border" type="ReferenceRect" parent="MicroscopeControls"]
+offset_left = -260.0
+offset_top = -373.0
+offset_right = -37.0
+offset_bottom = 75.0
 mouse_filter = 1
 border_color = Color(1, 1, 1, 1)
 border_width = 2.0
 editor_only = false
 
-[node name="Background" type="ColorRect" parent="Border"]
+[node name="Background" type="ColorRect" parent="MicroscopeControls/Border"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -78,7 +92,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.265681, 0.2907, 0.376152, 1)
 
-[node name="focus_control" parent="Border" instance=ExtResource("8_b47o4")]
+[node name="focus_control" parent="MicroscopeControls/Border" instance=ExtResource("8_b47o4")]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -89,8 +103,17 @@ offset_right = 62.0
 offset_bottom = 140.0
 grow_horizontal = 2
 
-[node name="Joystick" parent="Border" instance=ExtResource("3_psukr")]
+[node name="Joystick" parent="MicroscopeControls/Border" instance=ExtResource("3_psukr")]
 z_index = 1
 position = Vector2(113, 212)
+
+[node name="Sprite2D" type="Sprite2D" parent="MicroscopeControls"]
+position = Vector2(-149, 112)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("9_wlk43")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MicroscopeControls"]
+position = Vector2(-148.5, 112.5)
+shape = SubResource("RectangleShape2D_bx62t")
 
 [connection signal="mount_slide" from="Background/Microscope" to="." method="_on_microscope_mount_slide"]
