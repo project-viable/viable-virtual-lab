@@ -86,4 +86,3 @@ func _update_texture() -> void:
 func _on_zoom_oil_applied(slide: DraggableMicroscopeSlide) -> void:
 	if slide == self:
 		oiled_up = true
-		print("Slide oiled!")
