@@ -69,7 +69,7 @@ scale = Vector2(1.75, 1.75)
 position = Vector2(-105, 156)
 
 [node name="ZoomOil" parent="." instance=ExtResource("9_wh6pa")]
-position = Vector2(330, -95)
+position = Vector2(338, -60)
 
 [connection signal="mount_slide" from="Background/Microscope" to="." method="_on_microscope_mount_slide"]
 [connection signal="screen_click_signal" from="Computer" to="." method="_on_computer_screen_click_signal"]
