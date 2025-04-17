@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfvser5ktrsim"
-path="res://.godot/imported/fridge.png-1efd022ad5ca1a4adf5d87d9c161f37b.ctex"
+uid="uid://dhop6molm0rjt"
+path="res://.godot/imported/40x.jpg-5fce73e1bd06332178f24d88b10a264f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/fridge.png"
-dest_files=["res://.godot/imported/fridge.png-1efd022ad5ca1a4adf5d87d9c161f37b.ctex"]
+source_file="res://Images/ImageCells/BPAE/C1/FITC/40x.jpg"
+dest_files=["res://.godot/imported/40x.jpg-5fce73e1bd06332178f24d88b10a264f.ctex"]
 
 [params]
 
