@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://beqq06mcfr5hj"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Fridge.gd" id="1_8tmrn"]
-[ext_resource type="Texture2D" uid="uid://ctr2ysvm6fpfs" path="res://Images/Fridge.png" id="2_dkfy3"]
+[ext_resource type="Texture2D" uid="uid://bt344fmycrfa0" path="res://Images/fridge.png" id="2_dkfy3"]
 [ext_resource type="Script" path="res://Scenes/Objects/panel_container.gd" id="3_b3tey"]
 [ext_resource type="Texture2D" uid="uid://dyra1limph5n6" path="res://Images/fridge_inside.png" id="3_dhf2e"]
 [ext_resource type="Script" path="res://Scenes/Objects/fridge_inside.gd" id="3_yb7mv"]
