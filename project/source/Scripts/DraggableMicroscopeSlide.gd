@@ -38,6 +38,14 @@ func _ready() -> void:
 	
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
+	
+	get_tree().create_timer(0.1).timeout.connect(func() -> void:
+		var oil_bottles: Array = get_tree().get_nodes_in_group("ZoomOil")
+		for i in range(oil_bottles.size()):
+			var bottle:ZoomOil = oil_bottles[i]
+			if bottle != null and bottle.has_signal("apply_oil") and not bottle.is_connected("apply_oil", _on_zoom_oil_applied):
+				bottle.connect("apply_oil", _on_zoom_oil_applied)
+	)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("click") and is_mouse_hovering:
@@ -74,3 +82,8 @@ func _update_texture() -> void:
 		sprite.texture = right_side_up_oiled if oiled_up else right_side_up
 	else:
 		sprite.texture = right_side_down_oiled if oiled_up else right_side_down
+		
+func _on_zoom_oil_applied(slide: DraggableMicroscopeSlide) -> void:
+	if slide == self:
+		oiled_up = true
+		print("Slide oiled!")
