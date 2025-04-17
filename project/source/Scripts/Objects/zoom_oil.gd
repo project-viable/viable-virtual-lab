@@ -36,7 +36,6 @@ func _on_body_entered(body: Node2D) -> void:
 	# Check if body is a slide
 	if body is CharacterBody2D:
 		current_slide = body
-		print("Oil bottle touching slide: ", body.name)
 
 func _on_body_exited(body: Node2D) -> void:
 	if current_slide == body:
