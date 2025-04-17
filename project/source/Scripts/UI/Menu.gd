@@ -37,7 +37,7 @@ func _ready() -> void:
 	# Due to having one module, the MainMenu should be hidden by default
 	# When more modules are added, it is likely a good idea to show MainMenu by default
 	$MainMenu.show()
-	$ModuleSelect.show()
+	$ModuleSelect.hide()
 	$OptionsScreen.hide()
 	$AboutScreen.hide()
 	$LogButton.hide() #until we load a module
@@ -66,8 +66,8 @@ func _ready() -> void:
 	$LogButton/LogMenu.set_tab_icon(3, load("res://Images/Dot-Red.png"))
 	
 	# Since there is one module, it should boot directly into this scene
-	var module: ModuleData = load(module_directory + "GelElectrophoresis.tres")
-	module_selected(module)
+	#var module: ModuleData = load(module_directory + "GelElectrophoresis.tres")
+	#module_selected(module)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -97,6 +97,7 @@ func module_selected(module: ModuleData) -> void:
 	current_module = module
 	$LogButton.show()
 	$LogButton/LogMenu/Instructions.text = module.instructions_bb_code
+	$LogButton/LogMenu/Instructions.show()
 
 func _on_SelectModuleButton_pressed() -> void:
 	$MainMenu.hide()

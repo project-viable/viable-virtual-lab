@@ -10,13 +10,13 @@ This is intended to list what different things exist, so that the rest of the do
 - How to make an object, and give it a script
 ### Things Tutorials might not have taught you
 - How to arrange UI nodes (![Layout Presets](layout_presets_image.png) in the editor)
-- How Godot does [Singletons](https://docs.godotengine.org/en/3.5/tutorials/scripting/singletons_autoload.html)
+- How Godot does [Singletons](https://docs.godotengine.org/en/4.3/tutorials/scripting/singletons_autoload.html)
 - What a Z-Index is
-- What [Resources](https://docs.godotengine.org/en/3.5/tutorials/scripting/resources.html) are
+- What [Resources](https://docs.godotengine.org/en/4.3/tutorials/scripting/resources.html) are
 - How to draw a line (see Scenes/Objects/ContactWire.tscn for an example)
 - How to programmatically get and set positions and the fact positions are of type `Vector2` (a two dimensional vector)
 - How to read from a JSON file (for cases like reading a file of stored mixtures)
-  - [Reference](https://docs.godotengine.org/en/3.5/tutorials/io/saving_games.html)
+  - [Reference](https://docs.godotengine.org/en/4.3/tutorials/io/saving_games.html)
 - How to make a script execute without running the game (the `tool` keyword at the top of some scripts like `LabObject.gd`)
 
 ## Important Things

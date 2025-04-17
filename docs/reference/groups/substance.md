@@ -4,9 +4,9 @@ All `Substances` can have groups. These groups indicate functions they should im
 
 | Group Name | Function(s) |
 | ------------- | ------------- |
-| Heatable | heat() |
-| Chillable | chill() |
-| Conductive | run_current() |
+| Heatable | `heat()` |
+| Chillable | `chill()` |
+| Conductive | `run_current()` |
 
 Properties
 
