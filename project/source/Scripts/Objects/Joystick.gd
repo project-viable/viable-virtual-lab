@@ -3,7 +3,7 @@ extends Area2D
 #Could try doing this with a virtual joystick setup and having users click and then drag 
 
 @onready var outer_area:CollisionShape2D = $CollisionShape2D
-@onready var knob:Sprite2D = $JoystickKnobTemp
+@onready var knob:Sprite2D = $CollisionShape2D/JoystickKnobTemp
 @onready var max_distance:float  = $CollisionShape2D.shape.radius
 
 var click : bool = false

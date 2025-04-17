@@ -91,10 +91,10 @@ freeze = true
 script = ExtResource("6_fmuel")
 
 [node name="Border" type="ReferenceRect" parent="MicroscopeControls"]
-offset_left = -260.0
-offset_top = -373.0
-offset_right = -37.0
-offset_bottom = 75.0
+offset_left = -244.0
+offset_top = -324.0
+offset_right = -49.0
+offset_bottom = 38.0
 mouse_filter = 1
 border_color = Color(1, 1, 1, 1)
 border_width = 2.0
@@ -143,7 +143,7 @@ grow_horizontal = 2
 
 [node name="Joystick" parent="MicroscopeControls/Border" instance=ExtResource("3_psukr")]
 z_index = 1
-position = Vector2(113, 212)
+position = Vector2(98, 252)
 
 [node name="Sprite2D" type="Sprite2D" parent="MicroscopeControls"]
 position = Vector2(-149, 112)
