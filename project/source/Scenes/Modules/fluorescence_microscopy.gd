@@ -1,7 +1,7 @@
 extends Node2D
 
 func _ready() -> void:
-	$focus_control.focus_changed.connect(_on_focus_control_focus_changed)
+	$Border/focus_control.focus_changed.connect(_on_focus_control_focus_changed)
 
 func _on_computer_screen_click_signal() -> void:
 	get_node("Computer/PopupControl").visible = true

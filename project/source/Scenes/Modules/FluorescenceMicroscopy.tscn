@@ -50,22 +50,46 @@ z_index = 1
 position = Vector2(889, 472)
 scale = Vector2(0.952876, 0.952876)
 
-[node name="Joystick" parent="." instance=ExtResource("3_psukr")]
-z_index = 5
-position = Vector2(1167, 421)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(641, 360)
 
-[node name="focus_control" parent="." instance=ExtResource("8_b47o4")]
-offset_left = 1057.0
-offset_top = 96.9999
-offset_right = 1057.0
-offset_bottom = 96.9999
-scale = Vector2(1.75, 1.75)
-
 [node name="Fridge" parent="." instance=ExtResource("9_pfw6q")]
 position = Vector2(-105, 156)
+
+[node name="Border" type="ReferenceRect" parent="."]
+offset_left = 1052.0
+offset_top = 59.0
+offset_right = 1275.0
+offset_bottom = 507.0
+mouse_filter = 1
+border_color = Color(1, 1, 1, 1)
+border_width = 2.0
+editor_only = false
+
+[node name="Background" type="ColorRect" parent="Border"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.265681, 0.2907, 0.376152, 1)
+
+[node name="focus_control" parent="Border" instance=ExtResource("8_b47o4")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -62.0
+offset_top = 16.0
+offset_right = 62.0
+offset_bottom = 140.0
+grow_horizontal = 2
+
+[node name="Joystick" parent="Border" instance=ExtResource("3_psukr")]
+z_index = 1
+position = Vector2(113, 212)
 
 [connection signal="mount_slide" from="Background/Microscope" to="." method="_on_microscope_mount_slide"]
 [connection signal="screen_click_signal" from="Computer" to="." method="_on_computer_screen_click_signal"]
