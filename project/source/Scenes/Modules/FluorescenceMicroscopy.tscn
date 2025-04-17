@@ -45,10 +45,12 @@ shape = SubResource("RectangleShape2D_y5o7s")
 position = Vector2(-367, -239)
 scale = Vector2(0.7, 0.7)
 
-[node name="Computer" parent="." instance=ExtResource("3_0ypcw")]
+[node name="Computer" parent="." node_paths=PackedStringArray("joystick", "focus_control") instance=ExtResource("3_0ypcw")]
 z_index = 1
 position = Vector2(889, 472)
 scale = Vector2(0.952876, 0.952876)
+joystick = NodePath("../Border/Joystick")
+focus_control = NodePath("../Border/focus_control")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(641, 360)
@@ -92,4 +94,3 @@ z_index = 1
 position = Vector2(113, 212)
 
 [connection signal="mount_slide" from="Background/Microscope" to="." method="_on_microscope_mount_slide"]
-[connection signal="screen_click_signal" from="Computer" to="." method="_on_computer_screen_click_signal"]

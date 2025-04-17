@@ -7,8 +7,6 @@
 [ext_resource type="Script" path="res://Scenes/Objects/content_screen.gd" id="7_hy7wm"]
 [ext_resource type="Texture2D" uid="uid://b2u2vyu06gaor" path="res://favicon.png" id="7_jbvos"]
 [ext_resource type="Shader" path="res://Scenes/UI/microscope_focus_blur.gdshader" id="8_whtpd"]
-[ext_resource type="Texture2D" uid="uid://d1qovw5njn0ce" path="res://Images/ImageCells/BPAE/A1/Dapi/10x.jpg" id="9_cfhj1"]
-
 [ext_resource type="PackedScene" uid="uid://css145ipgmvbb" path="res://Scenes/UI/MacroPanel.tscn" id="10_env1g"]
 [ext_resource type="FontFile" uid="uid://c5jqyemsa330f" path="res://UI/Roboto/Roboto-Black.ttf" id="10_scboh"]
 [ext_resource type="PackedScene" uid="uid://bh6iocygbfwtj" path="res://Scenes/UI/ChannelsPanel.tscn" id="10_t3byj"]
@@ -22,6 +20,9 @@ size = Vector2(201, 158)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bup2y"]
 size = Vector2(10, 10)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nikp"]
+bg_color = Color(0.154876, 0.154876, 0.154876, 1)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_geey7"]
 shader = ExtResource("8_whtpd")
 shader_parameter/blur_amount = null
@@ -29,9 +30,6 @@ shader_parameter/brightness = null
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_asecs"]
 load_path = "res://.godot/imported/20250224_bpae_10xA1c1.jpg-cb16dc5bc2ce6dbdaae2b86db9de67f3.ctex"
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nikp"]
-bg_color = Color(0.154876, 0.154876, 0.154876, 1)
 
 [node name="Computer" type="StaticBody2D"]
 position = Vector2(158, 103)
@@ -124,21 +122,6 @@ unique_name_in_owner = true
 script = ExtResource("7_hy7wm")
 metadata/_edit_lock_ = true
 
-[node name="CellImage" type="Node2D" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen"]
-metadata/_edit_lock_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/CellImage"]
-visible = false
-material = SubResource("ShaderMaterial_geey7")
-position = Vector2(-2.01993, 10.0002)
-scale = Vector2(0.103162, 0.0979609)
-texture = SubResource("CompressedTexture2D_asecs")
-
-region_enabled = true
-region_rect = Rect2(783.903, 752.302, 500, 600)
-region_filter_clip_enabled = true
-metadata/_edit_lock_ = true
-
 [node name="AcquisitonPanel" type="Control" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen"]
 layout_mode = 3
 anchors_preset = 8
@@ -188,6 +171,7 @@ offset_right = 236.0
 offset_bottom = 216.0
 scale = Vector2(0.629, 0.5)
 
+
 [node name="Play_Button" type="Button" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel"]
 layout_mode = 0
 offset_left = 151.337
@@ -196,6 +180,19 @@ offset_bottom = 434.0
 scale = Vector2(0.025, 0.025)
 icon = ExtResource("14_1rr6n")
 flat = true
+
+[node name="CellImage" type="Sprite2D" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen"]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_geey7")
+position = Vector2(-2.01993, 10.0002)
+scale = Vector2(0.103162, 0.0979609)
+texture = SubResource("CompressedTexture2D_asecs")
+region_enabled = true
+region_rect = Rect2(783.903, 752.302, 500, 600)
+region_filter_clip_enabled = true
+metadata/_edit_lock_ = true
+
 
 [node name="ExitButton" type="Button" parent="PopupControl/PanelContainer/VBoxContainer"]
 layout_mode = 2
