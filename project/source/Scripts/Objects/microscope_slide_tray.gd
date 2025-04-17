@@ -5,6 +5,9 @@ extends Sprite2D
 @export var slide_tray_left_open: Texture 
 @export var slide_tray_right_open: Texture
 @export var tray_open_light_off: Texture
+@export var slide_tray_right_open_light_on: Texture
+@export var slide_tray_left_open_light_on: Texture
+
 var can_slide_mount: bool = false
 var slide: DraggableMicroscopeSlide
 signal mount_slide(slide: DraggableMicroscopeSlide)
@@ -36,10 +39,7 @@ func _on_area_input(side: String) -> void:
 		right_open = !right_open
 		
 	if right_open and left_open:
-		if light_on:
-			texture = tray_open_light_on
-		else:
-			texture = tray_open_light_off
+		texture = tray_open_light_off
 	elif right_open:
 		texture = slide_tray_right_open
 	elif left_open:
@@ -79,3 +79,13 @@ func _on_light_switch_input_event(viewport: Node, event: InputEvent, shape_idx: 
 				texture = tray_open_light_on
 			else:
 				texture = tray_open_light_off
+		elif right_open and !left_open:
+			if light_on:
+				texture = slide_tray_right_open_light_on
+			else:
+				texture = slide_tray_right_open
+		elif !right_open and left_open:
+			if light_on:
+				texture = slide_tray_left_open_light_on
+			else:
+				texture = slide_tray_left_open
