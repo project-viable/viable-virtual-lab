@@ -110,7 +110,7 @@ scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 theme_override_constants/separation = 250
 
-[node name="RITC" type="Button" parent="Panel/HBoxContainer2"]
+[node name="TRITC" type="Button" parent="Panel/HBoxContainer2"]
 self_modulate = Color(1, 0.0405029, 0.0223527, 1)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -123,7 +123,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_mqfu8")
 theme_override_styles/normal = SubResource("StyleBoxFlat_aabya")
 toggle_mode = true
 button_group = ExtResource("2_28d1o")
-text = "RITC
+text = "TRITC
 "
 
 [node name="Cy5" type="Button" parent="Panel/HBoxContainer2"]
@@ -168,6 +168,6 @@ text = "Combo
 
 [connection signal="pressed" from="Panel/HBoxContainer/Dapi" to="." method="_on_dapi_pressed"]
 [connection signal="pressed" from="Panel/HBoxContainer/FITC" to="." method="_on_fitc_pressed"]
-[connection signal="pressed" from="Panel/HBoxContainer2/RITC" to="." method="_on_ritc_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer2/TRITC" to="." method="_on_ritc_pressed"]
 [connection signal="pressed" from="Panel/HBoxContainer2/Cy5" to="." method="_on_cy_5_pressed"]
 [connection signal="pressed" from="Panel/HBoxContainer3/Combo" to="." method="_on_combo_pressed"]

@@ -1,13 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://cm1ln611t82pr"]
+[gd_scene load_steps=8 format=3 uid="uid://cm1ln611t82pr"]
 
 [ext_resource type="Texture2D" uid="uid://cwfhudjaswg0r" path="res://Images/microscope.PNG" id="1_okq74"]
+[ext_resource type="Script" path="res://Scenes/Objects/microscope.gd" id="1_vq476"]
 [ext_resource type="Texture2D" uid="uid://bt2xiig86fh6l" path="res://Images/microscope_light_switch.png" id="2_8kmsl"]
 [ext_resource type="PackedScene" uid="uid://ch0l2jx71m6nv" path="res://Scenes/Objects/microscope_slide_tray.tscn" id="2_uexeg"]
+[ext_resource type="Texture2D" uid="uid://xfp1trlnmn43" path="res://Images/slide_tray_right_open_light_on.png" id="5_kmy0n"]
+[ext_resource type="Texture2D" uid="uid://bjxq48e6eaesp" path="res://Images/slide_tray_left_open_light_on.png" id="6_qrrim"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tv1ns"]
 radius = 68.3495
 
 [node name="Microscope" type="Node2D"]
+script = ExtResource("1_vq476")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(550, 451)
@@ -30,5 +34,8 @@ shape = SubResource("CircleShape2D_tv1ns")
 [node name="microscope_slide_tray" parent="." instance=ExtResource("2_uexeg")]
 position = Vector2(548, 253)
 scale = Vector2(0.168465, 0.123953)
+slide_tray_right_open_light_on = ExtResource("5_kmy0n")
+slide_tray_left_open_light_on = ExtResource("6_qrrim")
 
 [connection signal="input_event" from="light_switch" to="microscope_slide_tray" method="_on_light_switch_input_event"]
+[connection signal="mount_slide" from="microscope_slide_tray" to="." method="_on_microscope_slide_tray_mount_slide"]
