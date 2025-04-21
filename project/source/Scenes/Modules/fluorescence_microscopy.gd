@@ -7,7 +7,7 @@ func _on_computer_screen_click_signal() -> void:
 	
 
 func _on_microscope_mount_slide(slide: DraggableMicroscopeSlide) -> void:
-	if slide and slide.slide_orientation_up:
-		$Computer.current_slide = slide.slide_name
+	if slide:
+		$Computer.current_slide = slide
 	else:
 		$Computer.current_slide = ""
