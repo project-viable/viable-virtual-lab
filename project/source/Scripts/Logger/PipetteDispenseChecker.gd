@@ -8,8 +8,6 @@ class_name PipetteDispenseChecker
 func check_action(params: Dictionary) -> void:
 	if params['action_type'] == 'transferSubstance' and params.get('substances'):
 		print(params['action_type'])
-		# Jian said that this check isn't too important.
-		# Leaving it commented to 
 		#for substance: Substance in params['substances']:
 			#if substance.name != 'DNASubstance':
 				#continue
