@@ -17,8 +17,9 @@ var right_open: bool = false
 var light_on: bool = false
 
 func _ready() -> void:
-	$left_area.connect("pressed", _on_area_input.bind("left"))
-	$right_area.connect("pressed", _on_area_input.bind("right"))
+	$left_area.pressed.connect(_on_area_input.bind("left"))
+	$right_area.pressed.connect(_on_area_input.bind("right"))
+	_update_display()
 
 func _process(delta: float) -> void:
 	if can_slide_mount and slide :
