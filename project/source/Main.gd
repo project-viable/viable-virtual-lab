@@ -10,12 +10,18 @@ func check_action(params: Dictionary) -> void:
 	for strategy in check_strategies:
 		strategy.check_action(params)
 
-#instanciates scene and adds it as a child of $Scene. Gets rid of any scene that's already been loaded, and hides the menu.
-func set_scene(scene: PackedScene) -> void:
+func _unload_current_module() -> void:
 	LabLog.clear_logs()
 	for child in $Scene.get_children():
 		child.queue_free()
-	
+
+func return_to_menu() -> void:
+	_unload_current_module()
+	current_module_scene = null
+
+#instanciates scene and adds it as a child of $Scene. Gets rid of any scene that's already been loaded, and hides the menu.
+func set_scene(scene: PackedScene) -> void:
+	_unload_current_module()
 	var new_scene := scene.instantiate()
 	$Scene.add_child(new_scene)
 	current_module_scene = new_scene

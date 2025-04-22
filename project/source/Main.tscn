@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=17 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Menu.gd" id="1"]
 [ext_resource type="Script" path="res://Main.gd" id="2"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" path="res://Mixtures.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://Images/VIABLE_Logo_Transparent.png" id="11"]
 [ext_resource type="FontFile" path="res://UI/RobotoMedium28.tres" id="12"]
-[ext_resource type="Script" path="res://Scenes/Modules/exit_module_button.gd" id="13_v23vn"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 content_margin_left = 10.0
@@ -123,6 +122,10 @@ text = "Options"
 layout_mode = 2
 theme_override_fonts/font = ExtResource("12")
 text = "About"
+
+[node name="ExitModuleButton" type="Button" parent="Menu/MainMenu/Content"]
+layout_mode = 2
+text = "Return to Main Menu"
 
 [node name="ModuleSelect" type="GridContainer" parent="Menu"]
 anchors_preset = 13
@@ -593,22 +596,6 @@ bbcode_enabled = true
 selection_enabled = true
 metadata/_tab_index = 3
 
-[node name="Exit Module" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 4
-
-[node name="Node2D" type="Node2D" parent="Menu/LogButton/LogMenu/Exit Module"]
-position = Vector2(212, 51)
-script = ExtResource("13_v23vn")
-
-[node name="ExitModuleButton" type="Button" parent="Menu/LogButton/LogMenu/Exit Module/Node2D"]
-offset_left = -63.0
-offset_top = 52.0
-offset_right = 75.0
-offset_bottom = 79.0
-text = "Exit Module"
-
 [node name="LabLogPopup" type="Control" parent="Menu"]
 layout_mode = 3
 anchors_preset = 3
@@ -662,6 +649,7 @@ script = ExtResource("10")
 [connection signal="pressed" from="Menu/MainMenu/Content/SelectModuleButton" to="Menu" method="_on_SelectModuleButton_pressed"]
 [connection signal="pressed" from="Menu/MainMenu/Content/OptionsButton" to="Menu" method="_on_OptionsButton_pressed"]
 [connection signal="pressed" from="Menu/MainMenu/Content/AboutButton" to="Menu" method="_on_AboutButton_pressed"]
+[connection signal="pressed" from="Menu/MainMenu/Content/ExitModuleButton" to="Menu" method="_on_exit_module_button_pressed"]
 [connection signal="pressed" from="Menu/AboutScreen/VBoxContainer/CloseButton" to="Menu" method="_on_About_CloseButton_pressed"]
 [connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
 [connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="Menu" method="_on_ObjectTooltipsToggle_toggled"]
@@ -672,4 +660,3 @@ script = ExtResource("10")
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/ContinueButton" to="Menu" method="_on_FinalReport_ContinueButton_pressed"]
 [connection signal="pressed" from="Menu/LogButton" to="Menu" method="_on_LogButton_pressed"]
 [connection signal="tab_changed" from="Menu/LogButton/LogMenu" to="Menu" method="SetLogNotificationCounts"]
-[connection signal="pressed" from="Menu/LogButton/LogMenu/Exit Module/Node2D/ExitModuleButton" to="Menu/LogButton/LogMenu/Exit Module/Node2D" method="_on_exit_module_button_pressed"]

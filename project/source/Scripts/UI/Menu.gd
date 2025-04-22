@@ -243,3 +243,6 @@ func _on_PopupTimeout_value_changed(value: float) -> void:
 
 static func log_category_to_string(category: LogMessage.Category) -> String:
 	return LogMessage.Category.keys()[category].to_lower()
+
+func _on_exit_module_button_pressed() -> void:
+	$"..".return_to_menu()
