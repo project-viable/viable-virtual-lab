@@ -67,18 +67,8 @@ check_strategies = Array[ExtResource("2_45sle")]([ExtResource("9")])
 layer = 128
 script = ExtResource("1")
 
-[node name="MainMenu" type="Control" parent="Menu"]
-layout_mode = 3
+[node name="Background" type="TextureRect" parent="Menu"]
 anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Background" type="TextureRect" parent="Menu/MainMenu"]
-layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -89,7 +79,25 @@ offset_right = 640.0
 offset_bottom = 360.0
 texture = ExtResource("3")
 
-[node name="Content" type="VBoxContainer" parent="Menu/MainMenu"]
+[node name="MenuPages" type="Control" parent="Menu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenu" type="Control" parent="Menu/MenuPages"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="VBoxContainer" parent="Menu/MenuPages/MainMenu"]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -100,7 +108,7 @@ offset_top = -96.5
 offset_right = 200.0
 offset_bottom = 96.5
 
-[node name="Logo" type="TextureRect" parent="Menu/MainMenu/Content"]
+[node name="Logo" type="TextureRect" parent="Menu/MenuPages/MainMenu/Content"]
 visible = false
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
@@ -108,26 +116,27 @@ texture = ExtResource("11")
 expand_mode = 1
 stretch_mode = 7
 
-[node name="SelectModuleButton" type="Button" parent="Menu/MainMenu/Content"]
+[node name="SelectModuleButton" type="Button" parent="Menu/MenuPages/MainMenu/Content"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("12")
 text = "Select Module"
 
-[node name="OptionsButton" type="Button" parent="Menu/MainMenu/Content"]
+[node name="OptionsButton" type="Button" parent="Menu/MenuPages/MainMenu/Content"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("12")
 text = "Options"
 
-[node name="AboutButton" type="Button" parent="Menu/MainMenu/Content"]
+[node name="AboutButton" type="Button" parent="Menu/MenuPages/MainMenu/Content"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("12")
 text = "About"
 
-[node name="ExitModuleButton" type="Button" parent="Menu/MainMenu/Content"]
+[node name="ExitModuleButton" type="Button" parent="Menu/MenuPages/MainMenu/Content"]
 layout_mode = 2
 text = "Return to Main Menu"
 
-[node name="ModuleSelect" type="GridContainer" parent="Menu"]
+[node name="ModuleSelect" type="GridContainer" parent="Menu/MenuPages"]
+layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
@@ -136,8 +145,9 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 3
 
-[node name="AboutScreen" type="PanelContainer" parent="Menu"]
+[node name="AboutScreen" type="PanelContainer" parent="Menu/MenuPages"]
 visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -146,18 +156,18 @@ anchor_bottom = 0.5
 offset_left = -400.0
 offset_top = -235.0
 offset_right = 400.0
-offset_bottom = 235.0
+offset_bottom = 240.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/AboutScreen"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuPages/AboutScreen"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Menu/AboutScreen/VBoxContainer"]
+[node name="Label" type="Label" parent="Menu/MenuPages/AboutScreen/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 text = "About"
 horizontal_alignment = 1
 
-[node name="Text" type="RichTextLabel" parent="Menu/AboutScreen/VBoxContainer"]
+[node name="Text" type="RichTextLabel" parent="Menu/MenuPages/AboutScreen/VBoxContainer"]
 custom_minimum_size = Vector2(600, 400)
 layout_mode = 2
 bbcode_enabled = true
@@ -403,12 +413,13 @@ The following tools, projects, and assets are used under their respective licens
 									   See the License for the specific language governing permissions and
 									   limitations under the License."
 
-[node name="CloseButton" type="Button" parent="Menu/AboutScreen/VBoxContainer"]
+[node name="CloseButton" type="Button" parent="Menu/MenuPages/AboutScreen/VBoxContainer"]
 layout_mode = 2
 text = "Close"
 
-[node name="OptionsScreen" type="PanelContainer" parent="Menu"]
+[node name="OptionsScreen" type="PanelContainer" parent="Menu/MenuPages"]
 visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -419,37 +430,37 @@ offset_top = -84.5
 offset_right = 150.0
 offset_bottom = 84.5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/OptionsScreen"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuPages/OptionsScreen"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Menu/OptionsScreen/VBoxContainer"]
+[node name="Label" type="Label" parent="Menu/MenuPages/OptionsScreen/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 text = "Options"
 horizontal_alignment = 1
 
-[node name="MouseDragToggle" type="CheckButton" parent="Menu/OptionsScreen/VBoxContainer"]
+[node name="MouseDragToggle" type="CheckButton" parent="Menu/MenuPages/OptionsScreen/VBoxContainer"]
 visible = false
 layout_mode = 2
 text = "Enable Dragging Camera3D with Mouse"
 
-[node name="ObjectTooltipsToggle" type="CheckButton" parent="Menu/OptionsScreen/VBoxContainer"]
+[node name="ObjectTooltipsToggle" type="CheckButton" parent="Menu/MenuPages/OptionsScreen/VBoxContainer"]
 layout_mode = 2
 text = "Object Tooltips"
 
-[node name="PopupDuration" type="HSplitContainer" parent="Menu/OptionsScreen/VBoxContainer"]
+[node name="PopupDuration" type="HSplitContainer" parent="Menu/MenuPages/OptionsScreen/VBoxContainer"]
 layout_mode = 2
 
-[node name="PopupDurationTitle" type="Label" parent="Menu/OptionsScreen/VBoxContainer/PopupDuration"]
+[node name="PopupDurationTitle" type="Label" parent="Menu/MenuPages/OptionsScreen/VBoxContainer/PopupDuration"]
 layout_mode = 2
 text = "Popup Duration"
 
-[node name="PopupTimeout" type="SpinBox" parent="Menu/OptionsScreen/VBoxContainer/PopupDuration"]
+[node name="PopupTimeout" type="SpinBox" parent="Menu/MenuPages/OptionsScreen/VBoxContainer/PopupDuration"]
 layout_mode = 2
 max_value = 5.0
 step = 0.5
 
-[node name="CloseButton" type="Button" parent="Menu/OptionsScreen/VBoxContainer"]
+[node name="CloseButton" type="Button" parent="Menu/MenuPages/OptionsScreen/VBoxContainer"]
 layout_mode = 2
 text = "Close"
 
@@ -646,15 +657,15 @@ editor_only = false
 position = Vector2(-2, -2)
 script = ExtResource("10")
 
-[connection signal="pressed" from="Menu/MainMenu/Content/SelectModuleButton" to="Menu" method="_on_SelectModuleButton_pressed"]
-[connection signal="pressed" from="Menu/MainMenu/Content/OptionsButton" to="Menu" method="_on_OptionsButton_pressed"]
-[connection signal="pressed" from="Menu/MainMenu/Content/AboutButton" to="Menu" method="_on_AboutButton_pressed"]
-[connection signal="pressed" from="Menu/MainMenu/Content/ExitModuleButton" to="Menu" method="_on_exit_module_button_pressed"]
-[connection signal="pressed" from="Menu/AboutScreen/VBoxContainer/CloseButton" to="Menu" method="_on_About_CloseButton_pressed"]
-[connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
-[connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="Menu" method="_on_ObjectTooltipsToggle_toggled"]
-[connection signal="value_changed" from="Menu/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="Menu" method="_on_PopupTimeout_value_changed"]
-[connection signal="pressed" from="Menu/OptionsScreen/VBoxContainer/CloseButton" to="Menu" method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Menu/MenuPages/MainMenu/Content/SelectModuleButton" to="Menu" method="_on_SelectModuleButton_pressed"]
+[connection signal="pressed" from="Menu/MenuPages/MainMenu/Content/OptionsButton" to="Menu" method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="Menu/MenuPages/MainMenu/Content/AboutButton" to="Menu" method="_on_AboutButton_pressed"]
+[connection signal="pressed" from="Menu/MenuPages/MainMenu/Content/ExitModuleButton" to="Menu" method="_on_exit_module_button_pressed"]
+[connection signal="pressed" from="Menu/MenuPages/AboutScreen/VBoxContainer/CloseButton" to="Menu" method="_on_About_CloseButton_pressed"]
+[connection signal="toggled" from="Menu/MenuPages/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
+[connection signal="toggled" from="Menu/MenuPages/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="Menu" method="_on_ObjectTooltipsToggle_toggled"]
+[connection signal="value_changed" from="Menu/MenuPages/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="Menu" method="_on_PopupTimeout_value_changed"]
+[connection signal="pressed" from="Menu/MenuPages/OptionsScreen/VBoxContainer/CloseButton" to="Menu" method="_on_CloseButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/MainMenuButton" to="Menu" method="_on_FinalReport_MainMenuButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/RestartModuleButton" to="Menu" method="_on_FinalReport_RestartModuleButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/ContinueButton" to="Menu" method="_on_FinalReport_ContinueButton_pressed"]

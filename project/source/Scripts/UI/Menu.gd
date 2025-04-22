@@ -43,7 +43,7 @@ func _ready() -> void:
 			var new_button := module_button.instantiate()
 			new_button.set_data(module_data)
 			new_button.connect("pressed", Callable(self, &"_load_module").bind(module_data))
-			$ModuleSelect.add_child(new_button)
+			$MenuPages/ModuleSelect.add_child(new_button)
 
 	#connect the log signals
 	LabLog.connect("new_message", Callable(self, "_on_New_Log_Message"))
@@ -64,17 +64,22 @@ func _process(delta: float) -> void:
 			logs.remove_at(0)
 
 func _unhandled_key_input(e: InputEvent) -> void:
-	# Only toggle the menu when we're in a module.
-	if e.is_action_pressed(&"ToggleMenu") and $"..".current_module_scene != null:
-		$MenuPages.visible = not $MenuPages.visible
+	if e.is_action_pressed(&"ToggleMenu"):
+		# A page other than the main pause menu is being shown; return to the pause menu.
+		if $MenuPages.visible and not $MenuPages/MainMenu.visible:
+			_switch_to_menu_page($MenuPages/MainMenu)
+		# Toggle the pause menu only if we're in a module.
+		elif $"..".current_module_scene != null:
+			$MenuPages.visible = not $MenuPages.visible
 
 func _load_module(module: ModuleData) -> void:
 	get_parent().set_scene(module.scene)
 
 	_switch_to_menu_page($MenuPages/MainMenu)
-	$MenuPages/MainMenu/Background.hide()
+	$Background.hide()
 	$MenuPages/MainMenu/Content/Logo.show()
 	$MenuPages/MainMenu/Content/ExitModuleButton.show()
+	$MenuPages.hide()
 
 	current_module = module
 	$LogButton.show()
@@ -202,7 +207,7 @@ func _on_FinalReport_ContinueButton_pressed() -> void:
 	_switch_to_menu_page($MenuPages/MainMenu)
 
 func _on_About_CloseButton_pressed() -> void:
-	$AboutScreen.hide()
+	_switch_to_menu_page($MenuPages/MainMenu)
 
 func _on_OptionsButton_pressed() -> void:
 	_switch_to_menu_page($MenuPages/OptionsScreen)
@@ -211,7 +216,7 @@ func _on_OptionsButton_pressed() -> void:
 	$MenuPages/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout.value = GameSettings.popup_timeout
 
 func _on_CloseButton_pressed() -> void:
-	$OptionsScreen.hide()
+	_switch_to_menu_page($MenuPages/MainMenu)
 
 func _on_MouseDragToggle_toggled(button_pressed: bool) -> void:
 	GameSettings.mouse_camera_drag = button_pressed
@@ -233,8 +238,8 @@ func _switch_to_main_menu() -> void:
 
 	_switch_to_menu_page($MenuPages/MainMenu)
 	$MenuPages/MainMenu/Content/Logo.hide()
-	$MenuPages/MainMenu/Content/ExitModuleButton.show()
-	$MenuPages/MainMenu/Background.show()
+	$MenuPages/MainMenu/Content/ExitModuleButton.hide()
+	$Background.show()
 
 	$LogButton.hide() #until we load a module
 	$LogButton/LogMenu.hide()
@@ -244,7 +249,7 @@ func _switch_to_main_menu() -> void:
 # Only one of the UI elements in `$MenuPages` can be shown at once. These are
 # the UI elements that show up in the middle of the screen, and them overlapping is problematic.
 func _switch_to_menu_page(menu: Control) -> void:
-	if not $MenuPages.contains(menu): return
+	if not $MenuPages.get_children().has(menu): return
 	for m in $MenuPages.get_children():
 		m.hide()
 	menu.show()
