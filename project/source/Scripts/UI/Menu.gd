@@ -79,6 +79,7 @@ func _load_module(module: ModuleData) -> void:
 	$Background.hide()
 	$MenuPages/PauseMenu/Content/Logo.show()
 	$MenuPages/PauseMenu/Content/ExitModuleButton.show()
+	$MenuPages/PauseMenu/Content/RestartModuleButton.show()
 	$MenuPages.hide()
 
 	current_module = module
@@ -239,6 +240,7 @@ func _switch_to_main_menu() -> void:
 	_switch_to_menu_page($MenuPages/PauseMenu)
 	$MenuPages/PauseMenu/Content/Logo.hide()
 	$MenuPages/PauseMenu/Content/ExitModuleButton.hide()
+	$MenuPages/PauseMenu/Content/RestartModuleButton.hide()
 	$Background.show()
 
 	$LogButton.hide() #until we load a module
@@ -253,3 +255,9 @@ func _switch_to_menu_page(menu: Control) -> void:
 	for m in $MenuPages.get_children():
 		m.hide()
 	menu.show()
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+
+func _on_restart_module_button_pressed() -> void:
+	_load_module(current_module)

@@ -135,6 +135,14 @@ text = "About"
 layout_mode = 2
 text = "Return to Main Menu"
 
+[node name="RestartModuleButton" type="Button" parent="Menu/MenuPages/PauseMenu/Content"]
+layout_mode = 2
+text = "Restart Module"
+
+[node name="QuitButton" type="Button" parent="Menu/MenuPages/PauseMenu/Content"]
+layout_mode = 2
+text = "Quit"
+
 [node name="ModuleSelect" type="GridContainer" parent="Menu/MenuPages"]
 layout_mode = 1
 anchors_preset = 13
@@ -661,6 +669,8 @@ script = ExtResource("10")
 [connection signal="pressed" from="Menu/MenuPages/PauseMenu/Content/OptionsButton" to="Menu" method="_on_OptionsButton_pressed"]
 [connection signal="pressed" from="Menu/MenuPages/PauseMenu/Content/AboutButton" to="Menu" method="_on_AboutButton_pressed"]
 [connection signal="pressed" from="Menu/MenuPages/PauseMenu/Content/ExitModuleButton" to="Menu" method="_on_exit_module_button_pressed"]
+[connection signal="pressed" from="Menu/MenuPages/PauseMenu/Content/RestartModuleButton" to="Menu" method="_on_restart_module_button_pressed"]
+[connection signal="pressed" from="Menu/MenuPages/PauseMenu/Content/QuitButton" to="Menu" method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Menu/MenuPages/AboutScreen/VBoxContainer/CloseButton" to="Menu" method="_on_About_CloseButton_pressed"]
 [connection signal="toggled" from="Menu/MenuPages/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
 [connection signal="toggled" from="Menu/MenuPages/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="Menu" method="_on_ObjectTooltipsToggle_toggled"]
