@@ -66,8 +66,8 @@ func _process(delta: float) -> void:
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"ToggleMenu"):
 		# A page other than the main pause menu is being shown; return to the pause menu.
-		if $MenuPages.visible and not $MenuPages/MainMenu.visible:
-			_switch_to_menu_page($MenuPages/MainMenu)
+		if $MenuPages.visible and not $MenuPages/PauseMenu.visible:
+			_switch_to_menu_page($MenuPages/PauseMenu)
 		# Toggle the pause menu only if we're in a module.
 		elif $"..".current_module_scene != null:
 			$MenuPages.visible = not $MenuPages.visible
@@ -75,10 +75,10 @@ func _unhandled_key_input(e: InputEvent) -> void:
 func _load_module(module: ModuleData) -> void:
 	get_parent().set_scene(module.scene)
 
-	_switch_to_menu_page($MenuPages/MainMenu)
+	_switch_to_menu_page($MenuPages/PauseMenu)
 	$Background.hide()
-	$MenuPages/MainMenu/Content/Logo.show()
-	$MenuPages/MainMenu/Content/ExitModuleButton.show()
+	$MenuPages/PauseMenu/Content/Logo.show()
+	$MenuPages/PauseMenu/Content/ExitModuleButton.show()
 	$MenuPages.hide()
 
 	current_module = module
@@ -204,10 +204,10 @@ func _on_FinalReport_RestartModuleButton_pressed() -> void:
 	$FinalReport.hide()
 
 func _on_FinalReport_ContinueButton_pressed() -> void:
-	_switch_to_menu_page($MenuPages/MainMenu)
+	_switch_to_menu_page($MenuPages/PauseMenu)
 
 func _on_About_CloseButton_pressed() -> void:
-	_switch_to_menu_page($MenuPages/MainMenu)
+	_switch_to_menu_page($MenuPages/PauseMenu)
 
 func _on_OptionsButton_pressed() -> void:
 	_switch_to_menu_page($MenuPages/OptionsScreen)
@@ -216,7 +216,7 @@ func _on_OptionsButton_pressed() -> void:
 	$MenuPages/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout.value = GameSettings.popup_timeout
 
 func _on_CloseButton_pressed() -> void:
-	_switch_to_menu_page($MenuPages/MainMenu)
+	_switch_to_menu_page($MenuPages/PauseMenu)
 
 func _on_MouseDragToggle_toggled(button_pressed: bool) -> void:
 	GameSettings.mouse_camera_drag = button_pressed
@@ -236,9 +236,9 @@ func _on_exit_module_button_pressed() -> void:
 func _switch_to_main_menu() -> void:
 	$"..".unload_current_module()
 
-	_switch_to_menu_page($MenuPages/MainMenu)
-	$MenuPages/MainMenu/Content/Logo.hide()
-	$MenuPages/MainMenu/Content/ExitModuleButton.hide()
+	_switch_to_menu_page($MenuPages/PauseMenu)
+	$MenuPages/PauseMenu/Content/Logo.hide()
+	$MenuPages/PauseMenu/Content/ExitModuleButton.hide()
 	$Background.show()
 
 	$LogButton.hide() #until we load a module
