@@ -43,7 +43,7 @@ func _ready() -> void:
 			var new_button := module_button.instantiate()
 			new_button.set_data(module_data)
 			new_button.connect("pressed", Callable(self, &"_load_module").bind(module_data))
-			$MenuPages/ModuleSelect.add_child(new_button)
+			$%Modules.add_child(new_button)
 
 	#connect the log signals
 	LabLog.connect("new_message", Callable(self, "_on_New_Log_Message"))
@@ -261,3 +261,6 @@ func _on_quit_button_pressed() -> void:
 
 func _on_restart_module_button_pressed() -> void:
 	_load_module(current_module)
+
+func _on_module_select_close_button_pressed() -> void:
+	_switch_to_menu_page($MenuPages/PauseMenu)
