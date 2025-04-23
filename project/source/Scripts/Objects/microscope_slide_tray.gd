@@ -40,6 +40,11 @@ func _on_area_input(side: String) -> void:
 
 	_update_display()
 
+	if can_slide_mount and slide and (not left_open or not right_open):
+		slide.hide()
+	elif slide and (left_open or right_open):
+		slide.show()
+
 func _on_whole_area_body_entered(body: Node2D) -> void:
 	if right_open and left_open:
 		slide = body
