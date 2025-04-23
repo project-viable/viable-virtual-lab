@@ -36,15 +36,15 @@ func _on_area_input(side: String) -> void:
 	if side == "left":
 		left_open = !left_open
 		if left_open:
-				LabLog.log("Opened left microscope door", false, false)
-			else:
-				LabLog.log("Closed left microscope door", false, false)
+			LabLog.log("Opened left microscope door", false, false)
+		else:
+			LabLog.log("Closed left microscope door", false, false)
 	else:
 		right_open = !right_open
 		if left_open:
-				LabLog.log("Opened right microscope door", false, false)
-			else:
-				LabLog.log("Closed right microscope door", false, false)
+			LabLog.log("Opened right microscope door", false, false)
+		else:
+			LabLog.log("Closed right microscope door", false, false)
 		
 	if right_open and left_open:
 		texture = tray_open_light_off
@@ -63,13 +63,17 @@ func _on_area_input(side: String) -> void:
 
 
 func _on_whole_area_body_entered(body: Node2D) -> void:
+	LabLog.log("Slide placed", false, false)
 	if right_open and left_open:
 		slide = body
 		can_slide_mount = true
+		LabLog.log("Slide " + slide.slide_name + " can mount", false, false)
 	else:
+		LabLog.log("Slide " + slide.slide_name + " cannot mount", false, false)
 		can_slide_mount = false
 
 func _on_whole_area_body_exited(body: Node2D) -> void:
+		LabLog.log("Slide " + slide.slide_name + " removed", false, false)
 		can_slide_mount = false
 		mount_slide.emit(null)
 		

@@ -121,6 +121,7 @@ func _on_power_exposure_combo_change(selected_channel: String, attribute: String
 		channels_exposure[selected_channel] = value
 
 func _on_play_button_pressed() -> void:
+	LabLog.log("New image being generated for " + current_channel, false, false)
 	if (current_channel != "Combo"):
 		var image_path: String = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide, current_channel, zoom_level]
 
@@ -198,4 +199,3 @@ func create_combo_image() -> Image:
 func adjust_brightness() -> void:
 	var material: ShaderMaterial = cell_image_node.material as ShaderMaterial
 	material.set_shader_parameter("brightness", brightness)
-
