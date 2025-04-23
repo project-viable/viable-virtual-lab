@@ -11,8 +11,8 @@ Each of the groups we've defined (see below) is essentially an Interface. They a
 To continue with the example above:
 - A Pipette has been dragged onto another object, and has the option to interact with it.
 - The Pipette wants to dispense some liquid into the other object, if it can.
-- The Pipette uses [is_in_group()](https://docs.godotengine.org/en/3.5/classes/class_node.html#class-node-method-is-in-group) to see if the other object is in the `Container` group.
-- If the other object is in the group `Container`, the Pipette knows that it can accept liquids, and that it has an `AddContents()` function.
+- The Pipette uses [is_in_group()](https://docs.godotengine.org/en/4.3/classes/class_node.html#class-node-method-is-in-group) to see if the other object is in the `Container` group.
+- If the other object is in the group `Container`, the Pipette knows that it can accept liquids, and that it has an `add_contents()` function.
 -Knowing this, the Pipette can safely call that function to actually do the interaction.
 
 It is also worth noting that objects can be added to and removed from these groups dynamically. For example, a micropipette can only interact with a trashcan if it has a tip on it.

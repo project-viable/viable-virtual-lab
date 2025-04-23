@@ -17,7 +17,7 @@ To do this, we fill out a field in the `Resources` tab of the export window.
 
 ![image](./images/deployment/HTML5%20Export%20Extras.png)
 
-### For more information about exporting to the web, check out the official Godot documentation [here](https://docs.godotengine.org/en/3.5/tutorials/export/exporting_for_web.html)
+### For more information about exporting to the web, check out the official Godot documentation [here](https://docs.godotengine.org/en/4.3/tutorials/export/exporting_for_web.html)
 
 ### Deployment
 Currently, we are using GitHub Pages to deploy our build.

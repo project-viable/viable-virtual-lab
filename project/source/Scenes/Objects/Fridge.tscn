@@ -1,14 +1,34 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckpsbn3v00xyb"]
+[gd_scene load_steps=22 format=3 uid="uid://beqq06mcfr5hj"]
 
 [ext_resource type="Script" path="res://Scripts/Objects/Fridge.gd" id="1_8tmrn"]
-[ext_resource type="Texture2D" uid="uid://bfvser5ktrsim" path="res://Images/fridge.png" id="2_dkfy3"]
+[ext_resource type="Texture2D" uid="uid://ctr2ysvm6fpfs" path="res://Images/fridge.png" id="2_dkfy3"]
+[ext_resource type="Script" path="res://Scenes/Objects/panel_container.gd" id="3_b3tey"]
 [ext_resource type="Texture2D" uid="uid://dyra1limph5n6" path="res://Images/fridge_inside.png" id="3_dhf2e"]
+[ext_resource type="Script" path="res://Scenes/Objects/fridge_inside.gd" id="3_yb7mv"]
+[ext_resource type="Texture2D" uid="uid://chtvgtf7spbaj" path="res://Images/Microscope_Slide_A_Right_Side_Up.png" id="5_vh6dd"]
+[ext_resource type="Script" path="res://Scripts/DraggableMicroscopeSlide.gd" id="6_bg712"]
+[ext_resource type="Texture2D" uid="uid://dhsk2pe8ci6gq" path="res://Images/Microscope_Slide_B_Right_Side_Up.png" id="6_wckev"]
+[ext_resource type="Texture2D" uid="uid://dn06wvuu6buto" path="res://Images/Microscope_Slide_C_Right_Side_Up.png" id="8_pwwkm"]
+[ext_resource type="Texture2D" uid="uid://bt2lod7gkampi" path="res://Images/Microscope_Slide_A_Oiled_Right_Side_Up.png.png" id="8_sa622"]
+[ext_resource type="Texture2D" uid="uid://btog8l238q7k4" path="res://Images/Microscope_Slide_A_Right_Side_Down.png" id="9_t5rk8"]
+[ext_resource type="Texture2D" uid="uid://bd5et4ofepu8b" path="res://Images/Microscope_Slide_B_Oiled_Right_Side_Up.png.png" id="10_4h88m"]
+[ext_resource type="Texture2D" uid="uid://bcqsdpsk7e7kv" path="res://Images/Microscope_Slide_A_Oiled_Right_Side_Down.png" id="10_gps4a"]
+[ext_resource type="Texture2D" uid="uid://ovitl23p43m8" path="res://Images/Microscope_Slide_C_Oiled_Right_Side_Up.png" id="12_5xu3k"]
+[ext_resource type="Texture2D" uid="uid://b1led5r45sh6v" path="res://Images/Microscope_Slide_B_Right_Side_Down.png" id="13_6iee6"]
+[ext_resource type="Texture2D" uid="uid://bufud2600q0v0" path="res://Images/Microscope_Slide_B_Oiled_Right_Side_Down.png" id="14_a1upi"]
+[ext_resource type="Texture2D" uid="uid://e8ad5bblp1qq" path="res://Images/Microscope_Slide_C_Right_Side_Down.png" id="17_blr2a"]
+[ext_resource type="Texture2D" uid="uid://v51iq0phufag" path="res://Images/Microscope_Slide_C_Oiled_Right_Side_Down.png" id="18_l5qjj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tn2l3"]
 size = Vector2(213, 201)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r2b3d"]
+size = Vector2(379.359, 114.69)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u0pbe"]
+size = Vector2(226, 205)
+
 [node name="Fridge" type="StaticBody2D" groups=["LabObjects"]]
-z_index = -1
 collision_layer = 2
 input_pickable = true
 script = ExtResource("1_8tmrn")
@@ -25,8 +45,11 @@ shape = SubResource("RectangleShape2D_tn2l3")
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -22.0
+offset_top = -81.0
+offset_right = 18.0
+offset_bottom = -41.0
+mouse_filter = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="Control"]
 layout_mode = 0
@@ -34,16 +57,22 @@ offset_left = 135.0
 offset_top = 97.0
 offset_right = 539.0
 offset_bottom = 494.0
+mouse_filter = 2
+script = ExtResource("3_b3tey")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
 layout_mode = 2
+mouse_filter = 2
 
-[node name="FridgeInside" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer"]
+[node name="FridgeInside" type="Node2D" parent="Control/PanelContainer/VBoxContainer"]
+script = ExtResource("3_yb7mv")
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside"]
 position = Vector2(183, 227)
 scale = Vector2(0.302758, 0.302758)
 texture = ExtResource("3_dhf2e")
 
-[node name="TemperatureLabel" type="Label" parent="Control/PanelContainer/VBoxContainer/FridgeInside"]
+[node name="TemperatureLabel" type="Label" parent="Control/PanelContainer/VBoxContainer/FridgeInside/Sprite2D"]
 offset_left = -568.111
 offset_top = -663.897
 offset_right = -142.111
@@ -51,9 +80,67 @@ offset_bottom = -336.897
 theme_override_font_sizes/font_size = 80
 text = "32 °C"
 
+[node name="SlideA" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+position = Vector2(127, 213)
+scale = Vector2(0.226698, 0.226698)
+collision_layer = 4
+collision_mask = 9
+input_pickable = true
+script = ExtResource("6_bg712")
+slide_name = "A1"
+right_side_up = ExtResource("5_vh6dd")
+right_side_up_oiled = ExtResource("8_sa622")
+right_side_down = ExtResource("9_t5rk8")
+right_side_down_oiled = ExtResource("10_gps4a")
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/SlideA"]
+texture = ExtResource("5_vh6dd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/SlideA"]
+shape = SubResource("RectangleShape2D_r2b3d")
+
+[node name="SlideB" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+position = Vector2(127, 260)
+scale = Vector2(0.226698, 0.226698)
+collision_layer = 4
+collision_mask = 9
+input_pickable = true
+script = ExtResource("6_bg712")
+slide_name = "B1"
+right_side_up = ExtResource("6_wckev")
+right_side_up_oiled = ExtResource("10_4h88m")
+right_side_down = ExtResource("13_6iee6")
+right_side_down_oiled = ExtResource("14_a1upi")
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/SlideB"]
+texture = ExtResource("6_wckev")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/SlideB"]
+shape = SubResource("RectangleShape2D_r2b3d")
+
+[node name="SlideC" type="CharacterBody2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside" groups=["Slides"]]
+position = Vector2(127, 306)
+scale = Vector2(0.226698, 0.226698)
+collision_layer = 4
+collision_mask = 9
+input_pickable = true
+script = ExtResource("6_bg712")
+slide_name = "C1"
+right_side_up = ExtResource("8_pwwkm")
+right_side_up_oiled = ExtResource("12_5xu3k")
+right_side_down = ExtResource("17_blr2a")
+right_side_down_oiled = ExtResource("18_l5qjj")
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/SlideC"]
+texture = ExtResource("8_pwwkm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/VBoxContainer/FridgeInside/SlideC"]
+shape = SubResource("RectangleShape2D_r2b3d")
+
 [node name="GridContainer" type="GridContainer" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+mouse_filter = 2
 columns = 3
 
 [node name="Button1" type="Button" parent="Control/PanelContainer/VBoxContainer/GridContainer"]
@@ -119,6 +206,15 @@ text = "         Enter         "
 layout_mode = 2
 text = "         Exit         "
 
+[node name="InsidePopup" type="Area2D" parent="Control/PanelContainer"]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/PanelContainer/InsidePopup"]
+position = Vector2(193, 270.5)
+shape = SubResource("RectangleShape2D_u0pbe")
+debug_color = Color(0.888634, 0.0926687, 0.761513, 0.42)
+
 [connection signal="input_event" from="." to="." method="_on_fridge_click_event"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button1" to="." method="_on_Button1_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/Button2" to="." method="_on_Button2_pressed"]
@@ -134,3 +230,5 @@ text = "         Exit         "
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer/DeleteButton" to="." method="_on_DeleteButton_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer2/EnterButton" to="." method="_on_EnterButton_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/GridContainer2/Exit" to="." method="_on_ExitButton_pressed"]
+[connection signal="body_entered" from="Control/PanelContainer/InsidePopup" to="Control/PanelContainer" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Control/PanelContainer/InsidePopup" to="Control/PanelContainer" method="_on_area_2d_body_exited"]
