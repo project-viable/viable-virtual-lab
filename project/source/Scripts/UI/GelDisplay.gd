@@ -29,6 +29,8 @@ func _ready() -> void:
 	# load gel band images once instead of per band
 	band_images.append(load('res://Images/GelBand.png'))
 	band_images.append(load('res://Images/GelBand_UV.png'))
+	
+	self.global_position = get_viewport_rect().size / 2
 
 #
 # NOTE: This function expects a list of lists of the format:
