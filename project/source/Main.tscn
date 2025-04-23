@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=18 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Menu.gd" id="1"]
 [ext_resource type="Script" path="res://Main.gd" id="2"]
@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://Images/VIABLE_Logo_Transparent.png" id="11"]
 [ext_resource type="FontFile" path="res://UI/RobotoMedium28.tres" id="12"]
 [ext_resource type="Script" path="res://Scenes/Modules/exit_module_button.gd" id="13_v23vn"]
-[ext_resource type="Script" path="res://Scenes/Modules/restart_module_button.gd" id="14_qk2yt"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 content_margin_left = 10.0
@@ -610,22 +609,6 @@ offset_right = 75.0
 offset_bottom = 79.0
 text = "Exit Module"
 
-[node name="Restart Module" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 5
-
-[node name="Node2D" type="Node2D" parent="Menu/LogButton/LogMenu/Restart Module"]
-position = Vector2(212, 51)
-script = ExtResource("14_qk2yt")
-
-[node name="RestartModuleButton" type="Button" parent="Menu/LogButton/LogMenu/Restart Module/Node2D"]
-offset_left = -63.0
-offset_top = 52.0
-offset_right = 75.0
-offset_bottom = 79.0
-text = "Restart Module"
-
 [node name="LabLogPopup" type="Control" parent="Menu"]
 layout_mode = 3
 anchors_preset = 3
@@ -690,4 +673,3 @@ script = ExtResource("10")
 [connection signal="pressed" from="Menu/LogButton" to="Menu" method="_on_LogButton_pressed"]
 [connection signal="tab_changed" from="Menu/LogButton/LogMenu" to="Menu" method="SetLogNotificationCounts"]
 [connection signal="pressed" from="Menu/LogButton/LogMenu/Exit Module/Node2D/ExitModuleButton" to="Menu/LogButton/LogMenu/Exit Module/Node2D" method="_on_exit_module_button_pressed"]
-[connection signal="pressed" from="Menu/LogButton/LogMenu/Restart Module/Node2D/RestartModuleButton" to="Menu/LogButton/LogMenu/Restart Module/Node2D" method="_on_restart_module_button_pressed"]
