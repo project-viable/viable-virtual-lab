@@ -43,15 +43,18 @@ func _on_body_exited(body: Node2D) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		# Only start dragging if mouse is over the oil bottle
-		if event.pressed and mouse_over:
+		if event.pressed and mouse_over and current_slide == null:
+			# Only start dragging if there's no slide overlapping
 			dragging = true
 			drag_offset = get_global_mouse_position() - global_position
-		elif not event.pressed and dragging:
-			dragging = false
+		elif not event.pressed:
+			if dragging:
+				dragging = false
+			# Apply oil to slide if one is present
 			if current_slide != null:
-				# Emit signal with the slide we're applying oil to
+				print("Applying oil to: ", current_slide.name)
 				apply_oil.emit(current_slide)
+
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
