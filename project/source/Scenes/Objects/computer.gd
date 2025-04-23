@@ -166,7 +166,7 @@ func create_combo_image() -> Image:
 		img.convert(Image.FORMAT_RGBA8)
 
 		opacities_sum += opacity
-		images.append({"Image": img, "Opacity" :opacity})
+		images.append({"Image": img, "Opacity" :opacity, "Channel": channel})
 		brightness = max(brightness, opacity)
 	
 	var compiled_image := Image.create(width, height, false, Image.FORMAT_RGBA8)
@@ -175,16 +175,33 @@ func create_combo_image() -> Image:
 	for i in images:
 		var img: Image = i["Image"]
 		var opacity: float = i["Opacity"] / opacities_sum
+		var rgb_array: Array[float] = get_rgb(i["Channel"])
+		var r: float = rgb_array[0]
+		var g: float = rgb_array[1]
+		var b: float = rgb_array[2]
 		for x in range(width):
 			for y in range(height):
 				var base_color: Color = compiled_image.get_pixel(x, y)
 				var overlay_color: Color = img.get_pixel(x, y)
+				var intensity: float = max(overlay_color.r, overlay_color.b, overlay_color.g)
+				overlay_color = overlay_color.blend(Color(intensity * r, intensity * g, intensity * b,1))
 				overlay_color.a *= opacity
-				compiled_image.set_pixel(x, y, base_color.blend(overlay_color))
+				var final_color: Color = base_color.blend(overlay_color)
+				compiled_image.set_pixel(x, y, final_color)
 	
 	return compiled_image
 
 func adjust_brightness() -> void:
 	var material: ShaderMaterial = cell_image_node.material as ShaderMaterial
 	material.set_shader_parameter("brightness", brightness)
-
+	
+func get_rgb(channel: String) -> Array[float]:
+	if channel == "Dapi":
+		return [0,0,1]
+	if channel == "FITC":
+		return [0,1,0]
+	if channel == "TRITC":
+		return [1,0,0]
+	else:
+		return [1,0.75,0.8]
+		
