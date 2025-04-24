@@ -1,5 +1,5 @@
 extends Control
-signal button_press(button_value: int)
+signal button_press(button_value: String)
 
 @onready var buttons: Array[BaseButton] = ($"%4xButton".button_group).get_buttons()
 @onready var button_values: Dictionary = {

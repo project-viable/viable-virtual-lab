@@ -147,7 +147,7 @@ func _on_play_button_pressed() -> void:
 	adjust_brightness()
 	cell_image_node.visible = true
 
-func _on_content_screen_update_zoom(button_value: String) -> void:
+func _on_macro_panel_button_press(button_value: String) -> void:
 	zoom_level = button_value
 
 func calculate_brightness_percentage(channel: String) -> float:
@@ -195,7 +195,6 @@ func create_combo_image() -> Image:
 func adjust_brightness() -> void:
 	var material: ShaderMaterial = cell_image_node.material as ShaderMaterial
 	material.set_shader_parameter("brightness", brightness)
-
 
 func _on_app_icon_pressed() -> void:
 	$%MicroscopeProgram.show()
