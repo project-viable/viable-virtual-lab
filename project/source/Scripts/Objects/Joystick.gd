@@ -13,9 +13,11 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 	#if event is InputEventScreenTouch:
 		var dist:float = event.position.distance_to(outer_area.global_position)
 		if not click:
+			LabLog.log("Moving image with joystick", true, false)
 			if dist < max_distance:
 				click = true
 		else:
+			LabLog.log("No longer moving image with joystick", true, false)
 			knob.position = Vector2(0,0)
 			click = false
 

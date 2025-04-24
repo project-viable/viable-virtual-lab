@@ -35,8 +35,16 @@ func _on_area_input(side: String) -> void:
 		
 	if side == "left":
 		left_open = !left_open
+		if left_open:
+			LabLog.log("Opened left microscope door", false, false)
+		else:
+			LabLog.log("Closed left microscope door", false, false)
 	else:
 		right_open = !right_open
+		if left_open:
+			LabLog.log("Opened right microscope door", false, false)
+		else:
+			LabLog.log("Closed right microscope door", false, false)
 		
 	if right_open and left_open:
 		texture = tray_open_light_off
@@ -51,18 +59,21 @@ func _on_area_input(side: String) -> void:
 		slide.hide()
 	elif slide and (left_open or right_open):
 		slide.show()
-		
 				
 
 
 func _on_whole_area_body_entered(body: Node2D) -> void:
+	LabLog.log("Slide placed", false, false)
 	if right_open and left_open:
 		slide = body
 		can_slide_mount = true
+		LabLog.log("Slide " + slide.slide_name + " can mount", false, false)
 	else:
+		LabLog.log("Slide " + slide.slide_name + " cannot mount", false, false)
 		can_slide_mount = false
 
 func _on_whole_area_body_exited(body: Node2D) -> void:
+		LabLog.log("Slide " + slide.slide_name + " removed", false, false)
 		can_slide_mount = false
 		mount_slide.emit(null)
 		
@@ -73,6 +84,10 @@ func _update_light_switch_color() -> void:
 func _on_light_switch_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		light_on = !light_on
+		if light_on:
+			LabLog.log("Turned microscope light on", false, false)
+		else:
+			LabLog.log("Turned microscope light off", false, false)
 		_update_light_switch_color()
 		if right_open and left_open:
 			if light_on:
