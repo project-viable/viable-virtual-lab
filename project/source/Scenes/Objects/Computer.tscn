@@ -110,20 +110,38 @@ icon = ExtResource("14_1rr6n")
 flat = true
 expand_icon = true
 
-[node name="MacroPanel" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer" instance=ExtResource("10_env1g")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 30)
+[node name="MacroWrapper" type="Control" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="ChannelsPanel" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer" instance=ExtResource("10_t3byj")]
+[node name="MacroPanel" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/MacroWrapper" instance=ExtResource("10_env1g")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 100)
+layout_mode = 0
+scale = Vector2(0.6, 0.6)
+
+[node name="ChannelsWrapper" type="Control" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+
+[node name="ChannelsPanel" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/ChannelsWrapper" instance=ExtResource("10_t3byj")]
+unique_name_in_owner = true
+layout_mode = 2
+offset_right = 0.0
+offset_bottom = 100.0
+scale = Vector2(0.6, 0.6)
 script = ExtResource("11_u2afq")
 
-[node name="PowerExposure" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer" instance=ExtResource("11_anhd5")]
+[node name="PowerExposureWrapper" type="Control" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PowerExposure" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/PowerExposureWrapper" instance=ExtResource("11_anhd5")]
 unique_name_in_owner = true
 layout_mode = 2
+offset_top = 10.0
+offset_right = 0.0
+offset_bottom = 10.0
+scale = Vector2(0.6, 0.6)
 size_flags_vertical = 3
 
 [node name="CellImage" type="TextureRect" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram"]
@@ -137,7 +155,7 @@ expand_mode = 1
 [connection signal="pressed" from="Screen/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="Screen/VBoxContainer/Desktop/AppIcon" to="." method="_on_app_icon_pressed"]
 [connection signal="pressed" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/Play_Button" to="." method="_on_play_button_pressed"]
-[connection signal="channel_selected" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/ChannelsPanel" to="." method="_on_channels_panel_channel_selected"]
-[connection signal="combo_change" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/PowerExposure" to="." method="_on_power_exposure_combo_change"]
-[connection signal="exposure_change" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/PowerExposure" to="." method="_on_exposure_change"]
-[connection signal="power_change" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/PowerExposure" to="." method="_on_power_change"]
+[connection signal="channel_selected" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/ChannelsWrapper/ChannelsPanel" to="." method="_on_channels_panel_channel_selected"]
+[connection signal="combo_change" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/PowerExposureWrapper/PowerExposure" to="." method="_on_power_exposure_combo_change"]
+[connection signal="exposure_change" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/PowerExposureWrapper/PowerExposure" to="." method="_on_exposure_change"]
+[connection signal="power_change" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/PowerExposureWrapper/PowerExposure" to="." method="_on_power_change"]
