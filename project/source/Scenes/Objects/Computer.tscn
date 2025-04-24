@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dtltidc1e8ikc"]
+[gd_scene load_steps=15 format=3 uid="uid://dtltidc1e8ikc"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/computer.gd" id="1_qhp2f"]
 [ext_resource type="Texture2D" uid="uid://cqmb14y7dw7nj" path="res://Images/Computer_Screen.png" id="2_pfloe"]
@@ -16,6 +16,9 @@ size = Vector2(201, 158)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nikp"]
 bg_color = Color(0.154876, 0.154876, 0.154876, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubrs7"]
+bg_color = Color(0.12, 0.1092, 0.1164, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vc0s8"]
 shader = ExtResource("8_whtpd")
@@ -85,15 +88,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 metadata/_edit_lock_ = true
 
-[node name="Panel" type="Panel" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram"]
+[node name="AcquisitionPanel" type="Panel" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8nikp")
 metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/AcquisitionPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -103,7 +107,7 @@ grow_vertical = 2
 theme_override_constants/separation = 6
 metadata/_edit_lock_ = true
 
-[node name="Play_Button" type="Button" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer"]
+[node name="Play_Button" type="Button" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/AcquisitionPanel/VBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -112,12 +116,12 @@ flat = true
 expand_icon = true
 metadata/_edit_lock_ = true
 
-[node name="MacroWrapper" type="Control" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer"]
+[node name="MacroWrapper" type="Control" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/AcquisitionPanel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="MacroPanel" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/MacroWrapper" instance=ExtResource("10_env1g")]
+[node name="MacroPanel" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/AcquisitionPanel/VBoxContainer/MacroWrapper" instance=ExtResource("10_env1g")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 10.0
@@ -127,12 +131,12 @@ offset_bottom = 7.0
 scale = Vector2(0.6, 0.6)
 metadata/_edit_lock_ = true
 
-[node name="ChannelsWrapper" type="Control" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer"]
+[node name="ChannelsWrapper" type="Control" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/AcquisitionPanel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 67)
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="ChannelsPanel" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/ChannelsWrapper" instance=ExtResource("10_t3byj")]
+[node name="ChannelsPanel" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/AcquisitionPanel/VBoxContainer/ChannelsWrapper" instance=ExtResource("10_t3byj")]
 unique_name_in_owner = true
 offset_left = 10.0
 offset_top = 7.0
@@ -141,12 +145,12 @@ offset_bottom = 47.0
 scale = Vector2(0.6, 0.6)
 metadata/_edit_lock_ = true
 
-[node name="PowerExposureWrapper" type="Control" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer"]
+[node name="PowerExposureWrapper" type="Control" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/AcquisitionPanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 metadata/_edit_lock_ = true
 
-[node name="PowerExposure" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/PowerExposureWrapper" instance=ExtResource("11_anhd5")]
+[node name="PowerExposure" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/AcquisitionPanel/VBoxContainer/PowerExposureWrapper" instance=ExtResource("11_anhd5")]
 unique_name_in_owner = true
 layout_mode = 2
 offset_left = 10.0
@@ -157,10 +161,26 @@ scale = Vector2(0.6, 0.6)
 size_flags_vertical = 3
 metadata/_edit_lock_ = true
 
-[node name="CellImage" type="TextureRect" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram"]
+[node name="DisplayPanel" type="Panel" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ubrs7")
+
+[node name="CellImage" type="TextureRect" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/DisplayPanel"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_vc0s8")
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 expand_mode = 1
 metadata/_edit_lock_ = true
@@ -168,8 +188,8 @@ metadata/_edit_lock_ = true
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="pressed" from="Screen/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="Screen/VBoxContainer/Desktop/AppIcon" to="." method="_on_app_icon_pressed"]
-[connection signal="pressed" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/Play_Button" to="." method="_on_play_button_pressed"]
-[connection signal="channel_selected" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/ChannelsWrapper/ChannelsPanel" to="." method="_on_channels_panel_channel_selected"]
-[connection signal="combo_change" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/PowerExposureWrapper/PowerExposure" to="." method="_on_power_exposure_combo_change"]
-[connection signal="exposure_change" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/PowerExposureWrapper/PowerExposure" to="." method="_on_exposure_change"]
-[connection signal="power_change" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/Panel/VBoxContainer/PowerExposureWrapper/PowerExposure" to="." method="_on_power_change"]
+[connection signal="pressed" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/AcquisitionPanel/VBoxContainer/Play_Button" to="." method="_on_play_button_pressed"]
+[connection signal="channel_selected" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/AcquisitionPanel/VBoxContainer/ChannelsWrapper/ChannelsPanel" to="." method="_on_channels_panel_channel_selected"]
+[connection signal="combo_change" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/AcquisitionPanel/VBoxContainer/PowerExposureWrapper/PowerExposure" to="." method="_on_power_exposure_combo_change"]
+[connection signal="exposure_change" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/AcquisitionPanel/VBoxContainer/PowerExposureWrapper/PowerExposure" to="." method="_on_exposure_change"]
+[connection signal="power_change" from="Screen/VBoxContainer/Desktop/MicroscopeProgram/AcquisitionPanel/VBoxContainer/PowerExposureWrapper/PowerExposure" to="." method="_on_power_change"]
