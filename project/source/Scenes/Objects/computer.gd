@@ -1,16 +1,17 @@
 extends StaticBody2D
 
-signal screen_click_signal()
 signal channel_select(channel: String)
+
+# These should be set to the connected devices used to adjust the microscope.
+@export var joystick: Joystick
+@export var focus_control: FocusControl
+
 var is_clicked: bool = false
 var zoom_level: String = "None"
-
 var current_slide: String = ""
 var delay: int = 0
 var brightness: float = 0.0
-
-@onready var cell_image_node: Sprite2D = $"./PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/CellImage/Sprite2D"
-@onready var joystick:Area2D = $"../Joystick"
+@onready var cell_image_node: Sprite2D = $%CellImage
 @onready var direction:Vector2 = Vector2(0,0)
 
 var current_channel : String = ""
@@ -33,17 +34,20 @@ var current_channel : String = ""
 
 func _ready() -> void:
 	$PopupControl.hide()
-  
+	focus_control.focus_changed.connect(_on_focus_control_focus_changed)
+
 func _process(delta: float) -> void:
 	var content_screen:Node2D = $"%ContentScreen"
 	if joystick: direction = joystick.get_velocity()
 	content_screen.direction = direction
 
+func _on_focus_control_focus_changed(level: float) -> void:
+	cell_image_node.material.set("shader_parameter/blur_amount", level)
 
 # Emits a signal to the FlourescenceMicroscope Node, used to zoom into the computer screen
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and not is_clicked:
-		screen_click_signal.emit()
+		$PopupControl.visible = true
 		is_clicked = true
 		
 
