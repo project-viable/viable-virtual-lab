@@ -11,10 +11,6 @@ tooltip = "FluorescenceMicroscopy"
 scene = ExtResource("1_hl2bj")
 instructions_bb_code = "[b]Fluorescence Microscopy[/b]
 
-# Fluorescence Microscopy
-
-## Instructions
-
 1) Click on the light switch and turn microscope light on
 2) Remove the cell slide from the sample fridge
 3) Ensure the temperature of the fridge is between 32 and 42 degrees Celsius. Otherwise, cells will die. Only apply oil to the cell sample slide if viewing the cell image at the magnification level  100x. Applying it to the other magnifications can cause the image to deteriorate or the objective to be ruined.
