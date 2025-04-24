@@ -115,18 +115,26 @@ func _on_play_button_pressed() -> void:
 		var slide_tray: Sprite2D = get_node("../Background/Microscope/microscope_slide_tray")
 		if slide_tray.light_on or slide_tray.left_open or slide_tray.right_open:
 			LabLog.warn("Ensure the light is turned off and both tray doors are closed")
-		# uncertain of expected behavior in this case
+		# unsure of expected behavior
 		return
 	elif current_slide != null and not current_slide.slide_orientation_up:
 		LabLog.warn("Ensure the slide is facing the correct direction in the slide tray")
-		# uncertain of expected behavior in this case
+		# unsure of expected behavior
+		return
+	elif current_slide.oiled_up and zoom_level != "100x":
+		LabLog.warn("Zoom oil should only be used for 100x magnification")
+		# unsure of expected behavior
+		return
+	elif not current_slide.oiled_up and zoom_level == "100x":
+		LabLog.warn("Zoom oil is required for 100x magnification")
+		# unsure of expected behavior
 		return
 	if (current_channel != "Combo"):
 		var image_path: String = ""
 		if current_slide == null:
 			image_path = "res://Images/ImageCells/EmptySlide.jpg"
 		else:
-			image_path = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide.name, current_channel, zoom_level]
+			image_path = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide.slide_name, current_channel, zoom_level]
 
 
 		delay = channels_exposure[current_channel]
@@ -176,7 +184,7 @@ func create_combo_image() -> Image:
 		if current_slide == null:
 			image_path = "res://Images/ImageCells/EmptySlide.jpg"
 		else:
-			image_path = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide.name, current_channel, zoom_level]
+			image_path = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide.slide_name, current_channel, zoom_level]
 		var img: Image = Image.new()
 		var img_resource := ResourceLoader.load(image_path)
 		img = img_resource.get_image()
@@ -204,3 +212,5 @@ func create_combo_image() -> Image:
 func adjust_brightness() -> void:
 	var material: ShaderMaterial = cell_image_node.material as ShaderMaterial
 	material.set_shader_parameter("brightness", brightness)
+	if brightness > 0.5:
+		LabLog.warn("Overexposing the slide may kill the cells or bleach the dyes")
