@@ -2,6 +2,8 @@ extends StaticBody2D
 
 signal channel_select(channel: String)
 
+const PAN_SPEED := 500
+
 # These should be set to the connected devices used to adjust the microscope.
 @export var joystick: Joystick
 @export var focus_control: FocusControl
@@ -11,8 +13,9 @@ var zoom_level: String = "None"
 var current_slide: String = ""
 var delay: int = 0
 var brightness: float = 0.0
+
 @onready var cell_image_node: TextureRect = $%CellImage
-@onready var direction:Vector2 = Vector2(0,0)
+@onready var cell_image_container: Control = $%CellImageContainer
 
 var current_channel : String = ""
 # Measures power in percent
@@ -38,9 +41,9 @@ func _ready() -> void:
 	focus_control.focus_changed.connect(_on_focus_control_focus_changed)
 
 func _process(delta: float) -> void:
-	#var content_screen:Node2D = $"%ContentScreen"
-	if joystick: direction = joystick.get_velocity()
-	#content_screen.direction = direction
+	var direction := joystick.get_velocity() if joystick else Vector2.ZERO
+	cell_image_node.position -= direction * delta * PAN_SPEED
+	cell_image_node.position = cell_image_node.position.clamp(cell_image_container.size - cell_image_node.size, Vector2.ZERO)
 
 func _on_focus_control_focus_changed(level: float) -> void:
 	cell_image_node.material.set("shader_parameter/blur_amount", level)

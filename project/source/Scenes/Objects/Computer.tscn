@@ -166,9 +166,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_ubrs7")
 
-[node name="CellImage" type="TextureRect" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/DisplayPanel"]
+[node name="CellImageContainer" type="Control" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/DisplayPanel"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_vc0s8")
+clip_contents = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -181,6 +181,13 @@ offset_right = 200.0
 offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CellImage" type="TextureRect" parent="Screen/VBoxContainer/Desktop/MicroscopeProgram/DisplayPanel/CellImageContainer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_vc0s8")
+layout_mode = 1
+offset_right = 800.0
+offset_bottom = 600.0
 size_flags_horizontal = 3
 expand_mode = 1
 metadata/_edit_lock_ = true
