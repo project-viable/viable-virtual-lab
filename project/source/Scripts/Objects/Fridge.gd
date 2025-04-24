@@ -13,6 +13,7 @@ func _ready() -> void:
 #When a user clicks on the fridge,the panel for inside the fridge opens
 func _on_fridge_click_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
+		LabLog.log("Entered fridge", true, false)
 		click = true
 		$Control.visible = true #show popup menu
 	else:
@@ -40,6 +41,7 @@ func get_temperature() -> int:
 		if int_temp >= 0 && int_temp <= 50:	
 			return int_temp
 		else:
+			LabLog.warn("Invalid temperature!", false, false)
 			print("Invalid temperature")
 			valid_temperature = false
 			return temperature
@@ -96,6 +98,7 @@ func _on_Button9_pressed() -> void:
 	display_temperature()#Display new temperature
 
 func _on_ClearButton_pressed() -> void: #Clear array to cancel input/return null when getTemperature is called
+	LabLog.log("Temperature cleared", false, false)
 	temperature_array.clear()
 	display_temperature()
 
@@ -109,9 +112,11 @@ func _on_DeleteButton_pressed() -> void:
 
 func _on_EnterButton_pressed() -> void:
 	temperature = get_temperature()
+	LabLog.log("Temperature changed to " + str(temperature) + " degrees C", false, false)
 	print("temperature = " ,temperature)
 	display_temperature()
 	temperature_array.clear()
 	
 func _on_ExitButton_pressed() -> void:
+	LabLog.log("Exited fridge", true, false)
 	$Control.hide() #Closing the fridge

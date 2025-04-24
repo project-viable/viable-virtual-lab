@@ -1,10 +1,9 @@
+class_name FocusControl
 extends Control
 
 @onready var left_area: Control = $left_area
 @onready var right_area: Control = $right_area
 @onready var knob_sprite: Sprite2D = $focus_knob
-
-var microscope_image: Sprite2D
 
 # Knob properties
 var current_angle: float = 0.0
@@ -16,7 +15,7 @@ var snap_angle: float = 360.0 / snap_positions
 
 var FOCUS_CHANGE: float = 0.05 
 
-
+signal focus_changed(level: float)
 
 func _ready() -> void:
 	left_area.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -24,14 +23,10 @@ func _ready() -> void:
 	
 	left_area.gui_input.connect(_on_left_area_input)
 	right_area.gui_input.connect(_on_right_area_input)
-	
-	var parent: Node = get_parent()
-	microscope_image = parent.get_node_or_null("Computer/PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/CellImage/Sprite2D") as Sprite2D
-
 
 	# Initing to random blur level
 	focus_level = randf_range(0.75, 1)
-	update_focus(focus_level)
+	focus_changed.emit(focus_level)
 
 func _on_left_area_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
@@ -43,6 +38,7 @@ func _on_right_area_input(event: InputEvent) -> void:
 
 
 func snap_left() -> void:
+	LabLog.log("Focused down", false, false)
 	# Increment the angle to the next snap position
 	current_angle -= snap_angle
 
@@ -55,9 +51,10 @@ func snap_left() -> void:
 	# Update focus level (0 to 1)
 	focus_level = max(0, focus_level - FOCUS_CHANGE)
 
-	update_focus(focus_level)
+	focus_changed.emit(focus_level)
 	
 func snap_right() -> void:
+	LabLog.log("Focused up", false, false)
 	# Increment the angle to the next snap position
 	current_angle += snap_angle
 
@@ -70,8 +67,4 @@ func snap_right() -> void:
 	# Update focus level (0 to 1)
 	focus_level = min(1, focus_level + FOCUS_CHANGE)
 	
-	update_focus(focus_level)
-	
-func update_focus(level: float) -> void:
-	if microscope_image.material:
-		microscope_image.material.set("shader_parameter/blur_amount", level)
+	focus_changed.emit(focus_level)

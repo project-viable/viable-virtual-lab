@@ -34,55 +34,28 @@ func get_all_files_in_folder(path: String) -> Array[String]:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Due to having one module, the MainMenu should be hidden by default
-	# When more modules are added, it is likely a good idea to show MainMenu by default
-	$MainMenu.show()
-	$ModuleSelect.hide()
-	$OptionsScreen.hide()
-	$AboutScreen.hide()
-	$LogButton.hide() #until we load a module
-	$LogButton/LogMenu.hide()
-	$FinalReport.hide()
-	$LabLogPopup.hide()
-	$MainMenu/Content/Logo.hide()
-	
+	_switch_to_main_menu()
+
 	#Set up the module select buttons
 	for file in get_all_files_in_folder(module_directory):
 		var module_data: ModuleData = load(module_directory + file)
 		if module_data.show:
 			var new_button := module_button.instantiate()
 			new_button.set_data(module_data)
-			new_button.connect("pressed", Callable(self, "module_selected").bind(module_data))
-			$ModuleSelect.add_child(new_button)
-	
+			new_button.connect("pressed", Callable(self, &"_load_module").bind(module_data))
+			$%Modules.add_child(new_button)
+
 	#connect the log signals
 	LabLog.connect("new_message", Callable(self, "_on_New_Log_Message"))
 	LabLog.connect("ReportShown", Callable(self, "_on_LabLog_Report_Shown"))
 	LabLog.connect("logs_cleared", Callable(self, "_on_Logs_Cleared"))
-	
+
 	set_log_notification_counts()
 	$LogButton/LogMenu.set_tab_icon(1, load("res://Images/Dot-Blue.png"))
 	$LogButton/LogMenu.set_tab_icon(2, load("res://Images/Dot-Yellow.png"))
 	$LogButton/LogMenu.set_tab_icon(3, load("res://Images/Dot-Red.png"))
-	
-	# Since there is one module, it should boot directly into this scene
-	#var module: ModuleData = load(module_directory + "GelElectrophoresis.tres")
-	#module_selected(module)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("ToggleMenu"):
-		if $MainMenu.visible:
-			$MainMenu.hide()
-		else:
-			$MainMenu.show()
-			$ModuleSelect.show()
-			$AboutScreen.hide()
-			$LogButton/LogMenu.hide()
-			$OptionsScreen.hide()
-			$MainMenu/Background.visible = (get_parent().current_module_scene == null)
-			$MainMenu/Content/Logo.visible = not (get_parent().current_module_scene == null)
-			
 	if logs != []:
 		# Need to display log message(s)
 		if !popup_active:
@@ -90,21 +63,35 @@ func _process(delta: float) -> void:
 				show_popup(logs[0])
 			logs.remove_at(0)
 
+func _unhandled_key_input(e: InputEvent) -> void:
+	if e.is_action_pressed(&"ToggleMenu"):
+		# A page other than the main pause menu is being shown; return to the pause menu.
+		if $MenuScreens.visible and not $MenuScreens/PauseMenu.visible:
+			_switch_to_menu_screen($MenuScreens/PauseMenu)
+		# Toggle the pause menu only if we're in a module.
+		elif $"..".current_module_scene != null:
+			$MenuScreens.visible = not $MenuScreens.visible
 
-func module_selected(module: ModuleData) -> void:
+func _load_module(module: ModuleData) -> void:
 	get_parent().set_scene(module.scene)
-	$ModuleSelect.hide()
+
+	_switch_to_menu_screen($MenuScreens/PauseMenu)
+	$Background.hide()
+	$MenuScreens/PauseMenu/Content/Logo.show()
+	$MenuScreens/PauseMenu/Content/ExitModuleButton.show()
+	$MenuScreens/PauseMenu/Content/RestartModuleButton.show()
+	$MenuScreens.hide()
+
 	current_module = module
 	$LogButton.show()
 	$LogButton/LogMenu/Instructions.text = module.instructions_bb_code
 	$LogButton/LogMenu/Instructions.show()
 
 func _on_SelectModuleButton_pressed() -> void:
-	$MainMenu.hide()
-	$ModuleSelect.show()
+	_switch_to_menu_screen($MenuScreens/ModuleSelect)
 
 func _on_AboutButton_pressed() -> void:
-	$AboutScreen.show()
+	_switch_to_menu_screen($MenuScreens/AboutScreen)
 
 func _on_LogButton_pressed() -> void:
 	$LogButton/LogMenu.visible = ! $LogButton/LogMenu.visible
@@ -166,21 +153,21 @@ func set_log_notification_counts(tab: int = -1) -> void:
 		#Do not ever clear error notifications
 		#elif $LogButton/LogMenu.current_tab == 3:
 		#	unread_logs[LogMessage.Category.ERROR] = 0
-	
+
 	if unread_logs[LogMessage.Category.LOG] == 0:
 		$LogButton/LogMenu.set_tab_title(1, "Log")
 		$LogButton/Notifications/Log.hide()
 	else:
 		$LogButton/LogMenu.set_tab_title(1, "Log (" + str(unread_logs[LogMessage.Category.LOG]) + "!)")
 		$LogButton/Notifications/Log.show()
-	
+
 	if unread_logs[LogMessage.Category.WARNING] == 0:
 		$LogButton/LogMenu.set_tab_title(2, "Warnings")
 		$LogButton/Notifications/Warning.hide()
 	else:
 		$LogButton/LogMenu.set_tab_title(2, "Warnings (" + str(unread_logs[LogMessage.Category.WARNING]) + "!)")
 		$LogButton/Notifications/Warning.show()
-	
+
 	if unread_logs[LogMessage.Category.ERROR] == 0:
 		$LogButton/LogMenu.set_tab_title(3, "Errors")
 		$LogButton/Notifications/Error.hide()
@@ -195,14 +182,14 @@ func _on_LabLog_Report_Shown() -> void:
 		logs_text += "[color=yellow]-" + warning.message + "[/color]\n"
 	for error in LabLog.get_logs(LogMessage.Category.ERROR):
 		logs_text += "[color=red]-" + error.message + "[/color]\n"
-	
+
 	if logs_text != "":
 		logs_text = "You weren't perfect though - here's some notes:\n" + logs_text
 		$FinalReport/VBoxContainer/Logs.text = logs_text
 		$FinalReport/VBoxContainer/Logs.show()
 	else:
 		$FinalReport/VBoxContainer/Logs.hide()
-	
+
 	#Setup the rest of the popup
 	$FinalReport/VBoxContainer/ModuleName.text = "You completed the \"" + current_module.name + "\" module!"
 	$FinalReport/VBoxContainer/ModuleIcon.texture = current_module.thumbnail
@@ -218,19 +205,19 @@ func _on_FinalReport_RestartModuleButton_pressed() -> void:
 	$FinalReport.hide()
 
 func _on_FinalReport_ContinueButton_pressed() -> void:
-	$FinalReport.hide()
+	_switch_to_menu_screen($MenuScreens/PauseMenu)
 
 func _on_About_CloseButton_pressed() -> void:
-	$AboutScreen.hide()
+	_switch_to_menu_screen($MenuScreens/PauseMenu)
 
 func _on_OptionsButton_pressed() -> void:
-	$OptionsScreen.show()
-	$OptionsScreen/VBoxContainer/MouseDragToggle.button_pressed = GameSettings.mouse_camera_drag
-	$OptionsScreen/VBoxContainer/ObjectTooltipsToggle.button_pressed = GameSettings.object_tooltips
-	$OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout.value = GameSettings.popup_timeout
+	_switch_to_menu_screen($MenuScreens/OptionsScreen)
+	$MenuScreens/OptionsScreen/VBoxContainer/MouseDragToggle.button_pressed = GameSettings.mouse_camera_drag
+	$MenuScreens/OptionsScreen/VBoxContainer/ObjectTooltipsToggle.button_pressed = GameSettings.object_tooltips
+	$MenuScreens/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout.value = GameSettings.popup_timeout
 
 func _on_CloseButton_pressed() -> void:
-	$OptionsScreen.hide()
+	_switch_to_menu_screen($MenuScreens/PauseMenu)
 
 func _on_MouseDragToggle_toggled(button_pressed: bool) -> void:
 	GameSettings.mouse_camera_drag = button_pressed
@@ -243,3 +230,37 @@ func _on_PopupTimeout_value_changed(value: float) -> void:
 
 static func log_category_to_string(category: LogMessage.Category) -> String:
 	return LogMessage.Category.keys()[category].to_lower()
+
+func _on_exit_module_button_pressed() -> void:
+	_switch_to_main_menu()
+
+func _switch_to_main_menu() -> void:
+	$"..".unload_current_module()
+
+	_switch_to_menu_screen($MenuScreens/PauseMenu)
+	$MenuScreens/PauseMenu/Content/Logo.hide()
+	$MenuScreens/PauseMenu/Content/ExitModuleButton.hide()
+	$MenuScreens/PauseMenu/Content/RestartModuleButton.hide()
+	$Background.show()
+
+	$LogButton.hide() #until we load a module
+	$LogButton/LogMenu.hide()
+	$FinalReport.hide()
+	$LabLogPopup.hide()
+
+# Only one of the UI elements in `$MenuScreens` can be shown at once. These are
+# the UI elements that show up in the middle of the screen, and them overlapping is problematic.
+func _switch_to_menu_screen(menu: Control) -> void:
+	if not $MenuScreens.get_children().has(menu): return
+	for m in $MenuScreens.get_children():
+		m.hide()
+	menu.show()
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+
+func _on_restart_module_button_pressed() -> void:
+	_load_module(current_module)
+
+func _on_module_select_close_button_pressed() -> void:
+	_switch_to_menu_screen($MenuScreens/PauseMenu)

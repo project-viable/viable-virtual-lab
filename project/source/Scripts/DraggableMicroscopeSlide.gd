@@ -52,6 +52,7 @@ func _process(delta: float) -> void:
 		is_selected.emit(self, is_dragging)
 		
 		if get_global_mouse_position().distance_to(initial_mouse_pos) < 3: # User clicked, toggles orientation
+			LabLog.log("Slide " + slide_name + " switched orientation", false, false)
 			slide_orientation_up = !slide_orientation_up
 	
 		

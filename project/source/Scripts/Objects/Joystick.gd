@@ -1,8 +1,9 @@
+class_name Joystick
 extends Area2D
 #Could try doing this with a virtual joystick setup and having users click and then drag 
 
 @onready var outer_area:CollisionShape2D = $CollisionShape2D
-@onready var knob:Sprite2D = $JoystickKnobTemp
+@onready var knob:Sprite2D = $CollisionShape2D/JoystickKnobTemp
 @onready var max_distance:float  = $CollisionShape2D.shape.radius
 
 var click : bool = false
@@ -12,9 +13,11 @@ func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void
 	#if event is InputEventScreenTouch:
 		var dist:float = event.position.distance_to(outer_area.global_position)
 		if not click:
+			LabLog.log("Moving image with joystick", true, false)
 			if dist < max_distance:
 				click = true
 		else:
+			LabLog.log("No longer moving image with joystick", true, false)
 			knob.position = Vector2(0,0)
 			click = false
 
