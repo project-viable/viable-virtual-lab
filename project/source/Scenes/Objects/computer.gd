@@ -114,6 +114,8 @@ func _on_power_exposure_combo_change(selected_channel: String, attribute: String
 		channels_exposure[selected_channel] = value
 
 func _on_play_button_pressed() -> void:
+	if(current_channel == "" || current_slide == ""):
+		return
 	if (current_channel != "Combo"):
 		var image_path: String = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide, current_channel, zoom_level]
 
@@ -191,6 +193,7 @@ func create_combo_image() -> Image:
 				overlay_color = overlay_color.blend(Color(intensity * r, intensity * g, intensity * b,1))
 				overlay_color.a *= opacity
 				var final_color: Color = base_color.blend(overlay_color)
+				final_color.clamp()
 				compiled_image.set_pixel(x, y, final_color)
 	
 	return compiled_image
