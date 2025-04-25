@@ -200,7 +200,7 @@ func create_combo_image() -> Image:
 		if current_slide == null:
 			image_path = "res://Images/ImageCells/EmptySlide.jpg"
 		else:
-			image_path = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide.slide_name, current_channel, zoom_level]
+			image_path = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide.slide_name, channel, zoom_level]
 		var img: Image = Image.new()
 		var img_resource := ResourceLoader.load(image_path)
 		img = img_resource.get_image()
