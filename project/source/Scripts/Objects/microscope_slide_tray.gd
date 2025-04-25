@@ -23,7 +23,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if can_slide_mount and slide :
-		slide.global_position = $whole_area/CollisionShape2D.global_position	
+		slide.global_position = $whole_area/CollisionShape2D.global_position
 		if not light_on and not left_open and not right_open: # Tray needs to be closed
 			mount_slide.emit(slide)
 		else:
@@ -45,6 +45,7 @@ func _on_area_input(side: String) -> void:
 			LabLog.log("Opened right microscope door", false, false)
 		else:
 			LabLog.log("Closed right microscope door", false, false)
+
 	_update_display()
 
 	if can_slide_mount and slide and (not left_open or not right_open):
