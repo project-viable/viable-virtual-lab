@@ -1,15 +1,6 @@
-[gd_resource type="Resource" script_class="ModuleData" load_steps=3 format=3 uid="uid://ct2buu7x0tve8"]
+# Fluorescence Microscopy
 
-[ext_resource type="Script" path="res://Scripts/Resources/ModuleData.gd" id="1_bou2b"]
-[ext_resource type="PackedScene" uid="uid://dpm1gs1fyv4gg" path="res://Scenes/Modules/FluorescenceMicroscopy.tscn" id="1_hl2bj"]
-
-[resource]
-script = ExtResource("1_bou2b")
-show = true
-name = "FluorescenceMicroscopy"
-tooltip = "FluorescenceMicroscopy"
-scene = ExtResource("1_hl2bj")
-instructions_bb_code = "[b]Fluorescence Microscopy[/b]
+## Instructions
 
 1) Click on the light switch and turn microscope light on
 2) Remove the cell slide from the sample fridge
@@ -27,4 +18,3 @@ instructions_bb_code = "[b]Fluorescence Microscopy[/b]
 14) Select one of the four magnification levels (10x, 20x, 40x, or 100x). 
 15) Using the Joystick, navigate through the cell image.
 16) To switch out the cell slide, exit the microscope interface and computer window. Open the microscope's environmental chamber and remove the cell sample slide. Repeat steps 2-13.
-"
