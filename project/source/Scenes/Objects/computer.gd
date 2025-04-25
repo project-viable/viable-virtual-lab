@@ -2,6 +2,8 @@ extends StaticBody2D
 
 signal channel_select(channel: String)
 
+const PAN_SPEED := 500
+
 # These should be set to the connected devices used to adjust the microscope.
 @export var joystick: Joystick
 @export var focus_control: FocusControl
@@ -11,8 +13,9 @@ var zoom_level: String = "None"
 var current_slide: String = ""
 var delay: int = 0
 var brightness: float = 0.0
-@onready var cell_image_node: Sprite2D = $%CellImage
-@onready var direction:Vector2 = Vector2(0,0)
+
+@onready var cell_image_node: TextureRect = $%CellImage
+@onready var cell_image_container: Control = $%CellImageContainer
 
 var current_channel : String = ""
 # Measures power in percent
@@ -33,13 +36,14 @@ var current_channel : String = ""
 }
 
 func _ready() -> void:
-	$PopupControl.hide()
+	$Screen.hide()
+	$%MicroscopeProgram.hide()
 	focus_control.focus_changed.connect(_on_focus_control_focus_changed)
 
 func _process(delta: float) -> void:
-	var content_screen:Node2D = $"%ContentScreen"
-	if joystick: direction = joystick.get_velocity()
-	content_screen.direction = direction
+	var direction := joystick.get_velocity() if joystick else Vector2.ZERO
+	cell_image_node.position -= direction * delta * PAN_SPEED
+	cell_image_node.position = cell_image_node.position.clamp(cell_image_container.size - cell_image_node.size, Vector2.ZERO)
 
 func _on_focus_control_focus_changed(level: float) -> void:
 	cell_image_node.material.set("shader_parameter/blur_amount", level)
@@ -48,14 +52,14 @@ func _on_focus_control_focus_changed(level: float) -> void:
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	LabLog.log("Entered computer", true, false)
 	if event is InputEventMouseButton and event.pressed and not is_clicked:
-		$PopupControl.visible = true
+		$Screen.show()
 		is_clicked = true
 		
 
 # Used for exiting the computer
 func _on_exit_button_pressed() -> void:
 	LabLog.log("Exited computer", true, false)
-	get_node("PopupControl").visible = false
+	$Screen.hide()
 	is_clicked = false
 
 
@@ -63,43 +67,43 @@ func _on_channels_panel_channel_selected(channel: String) -> void:
 	LabLog.log("Changed channel to " + channel, false, false)
 	current_channel = channel
 	channel_select.emit(channel)
-	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = false
-	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/DapiLabelContainer.visible = false
-	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/FITCLabelContainer.visible = false
-	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/TRITCLabelContainer.visible = false
-	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/Cy5LabelContainer.visible = false
-	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/ComboPanel.visible = false
+	$%PowerExposure/PanelLabel.visible = false
+	$%PowerExposure/GeneralPanel/DapiLabelContainer.visible = false
+	$%PowerExposure/GeneralPanel/FITCLabelContainer.visible = false
+	$%PowerExposure/GeneralPanel/TRITCLabelContainer.visible = false
+	$%PowerExposure/GeneralPanel/Cy5LabelContainer.visible = false
+	$%PowerExposure/ComboPanel.visible = false
 	
 	match channel:
 		"Combo":
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/ComboPanel.visible = true
+			$%PowerExposure/PanelLabel.visible = true
+			$%PowerExposure/ComboPanel.visible = true
 		"Dapi":
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/DapiLabelContainer.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
+			$%PowerExposure/PanelLabel.visible = true
+			$%PowerExposure/GeneralPanel.visible = true
+			$%PowerExposure/GeneralPanel/DapiLabelContainer.visible = true
+			$%PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
+			$%PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
 		"FITC":
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/FITCLabelContainer.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
+			$%PowerExposure/PanelLabel.visible = true
+			$%PowerExposure/GeneralPanel.visible = true
+			$%PowerExposure/GeneralPanel/FITCLabelContainer.visible = true
+			$%PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
+			$%PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
 
 		"TRITC":
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/TRITCLabelContainer.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
+			$%PowerExposure/PanelLabel.visible = true
+			$%PowerExposure/GeneralPanel.visible = true
+			$%PowerExposure/GeneralPanel/TRITCLabelContainer.visible = true
+			$%PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
+			$%PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
 
 		"Cy5":
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/Cy5LabelContainer.visible = true
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
-			$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
+			$%PowerExposure/PanelLabel.visible = true
+			$%PowerExposure/GeneralPanel.visible = true
+			$%PowerExposure/GeneralPanel/Cy5LabelContainer.visible = true
+			$%PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
+			$%PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
 
 
 func _on_exposure_change(new_exposure: float) -> void:
@@ -153,7 +157,7 @@ func _on_play_button_pressed() -> void:
 	adjust_brightness()
 	cell_image_node.visible = true
 
-func _on_content_screen_update_zoom(button_value: String) -> void:
+func _on_macro_panel_button_press(button_value: String) -> void:
 	zoom_level = button_value
 
 func calculate_brightness_percentage(channel: String) -> float:
@@ -219,3 +223,6 @@ func get_rgb(channel: String) -> Array[float]:
 		return [1,0,0]
 	else:
 		return [1,0.75,0.8]
+
+func _on_app_icon_pressed() -> void:
+	$%MicroscopeProgram.show()
