@@ -35,6 +35,7 @@ void fragment() {
 
 		vec4 original_color = texture(TEXTURE, uv);
 		COLOR = mix(original_color, blurred_color, blur_amount);
-		COLOR.rgb += vec3(brightness);
 	}
+
+	COLOR.rgb += vec3(brightness);
 }
