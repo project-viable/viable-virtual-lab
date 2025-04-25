@@ -50,8 +50,8 @@ func _on_focus_control_focus_changed(level: float) -> void:
 
 # Emits a signal to the FlourescenceMicroscope Node, used to zoom into the computer screen
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	LabLog.log("Entered computer", true, false)
 	if event is InputEventMouseButton and event.pressed and not is_clicked:
+		LabLog.log("Entered computer", true, false)
 		$Screen.show()
 		is_clicked = true
 		
