@@ -58,13 +58,13 @@ func _on_whole_area_body_entered(body: Node2D) -> void:
 	if right_open and left_open:
 		slide = body
 		can_slide_mount = true
-		LabLog.log("Slide " + slide.slide_name + " can mount", false, false)
+		LabLog.log("Slide can mount", false, false)
 	else:
-		LabLog.log("Slide " + slide.slide_name + " cannot mount", false, false)
+		LabLog.log("Slide cannot mount", false, false)
 		can_slide_mount = false
 
 func _on_whole_area_body_exited(body: Node2D) -> void:
-		LabLog.log("Slide " + slide.slide_name + " removed", false, false)
+		LabLog.log("Slide removed", false, false)
 		can_slide_mount = false
 		mount_slide.emit(null)
 
