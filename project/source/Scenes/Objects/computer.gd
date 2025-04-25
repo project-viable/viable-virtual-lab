@@ -1,16 +1,17 @@
 extends StaticBody2D
 
-signal screen_click_signal()
 signal channel_select(channel: String)
+
+# These should be set to the connected devices used to adjust the microscope.
+@export var joystick: Joystick
+@export var focus_control: FocusControl
+
 var is_clicked: bool = false
 var zoom_level: String = "None"
-
 var current_slide: String = ""
 var delay: int = 0
 var brightness: float = 0.0
-
-@onready var cell_image_node: Sprite2D = $"./PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/CellImage/Sprite2D"
-@onready var joystick:Area2D = $"../Joystick"
+@onready var cell_image_node: Sprite2D = $%CellImage
 @onready var direction:Vector2 = Vector2(0,0)
 
 var current_channel : String = ""
@@ -33,27 +34,33 @@ var current_channel : String = ""
 
 func _ready() -> void:
 	$PopupControl.hide()
-  
+	focus_control.focus_changed.connect(_on_focus_control_focus_changed)
+
 func _process(delta: float) -> void:
 	var content_screen:Node2D = $"%ContentScreen"
 	if joystick: direction = joystick.get_velocity()
 	content_screen.direction = direction
 
+func _on_focus_control_focus_changed(level: float) -> void:
+	cell_image_node.material.set("shader_parameter/blur_amount", level)
 
 # Emits a signal to the FlourescenceMicroscope Node, used to zoom into the computer screen
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	LabLog.log("Entered computer", true, false)
 	if event is InputEventMouseButton and event.pressed and not is_clicked:
-		screen_click_signal.emit()
+		$PopupControl.visible = true
 		is_clicked = true
 		
 
 # Used for exiting the computer
 func _on_exit_button_pressed() -> void:
+	LabLog.log("Exited computer", true, false)
 	get_node("PopupControl").visible = false
 	is_clicked = false
 
 
 func _on_channels_panel_channel_selected(channel: String) -> void:
+	LabLog.log("Changed channel to " + channel, false, false)
 	current_channel = channel
 	channel_select.emit(channel)
 	$PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel/PowerExposure/PanelLabel.visible = false
@@ -96,20 +103,25 @@ func _on_channels_panel_channel_selected(channel: String) -> void:
 
 
 func _on_exposure_change(new_exposure: float) -> void:
+	LabLog.log("Changed exposure to " + str(new_exposure) + "msec for the " + current_channel + " channel", false, false)
 	channels_exposure[current_channel] = new_exposure
 
 
 func _on_power_change(new_power: float) -> void:
+	LabLog.log("Changed power to " + str(new_power) + "% for the " + current_channel + " channel", false, false)
 	channels_power[current_channel] = new_power
 
 
 func _on_power_exposure_combo_change(selected_channel: String, attribute: String, value: float) -> void:
 	if(attribute == "Power"):
+		LabLog.log("Changed power to " + str(value) + "% for the " + selected_channel + " channel in combo", false, false)
 		channels_power[selected_channel] = value
 	else:
+		LabLog.log("Changed exposure to " + str(value) + "msec for the " + selected_channel + " channel in combo", false, false)
 		channels_exposure[selected_channel] = value
 
 func _on_play_button_pressed() -> void:
+	LabLog.log("New image being generated for " + current_channel, false, false)
 	if (current_channel != "Combo"):
 		var image_path: String = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide, current_channel, zoom_level]
 
@@ -187,4 +199,3 @@ func create_combo_image() -> Image:
 func adjust_brightness() -> void:
 	var material: ShaderMaterial = cell_image_node.material as ShaderMaterial
 	material.set_shader_parameter("brightness", brightness)
-
