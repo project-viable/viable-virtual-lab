@@ -38,3 +38,4 @@ slide_tray_right_open_light_on = ExtResource("5_kmy0n")
 slide_tray_left_open_light_on = ExtResource("6_qrrim")
 
 [connection signal="input_event" from="light_switch" to="microscope_slide_tray" method="_on_light_switch_input_event"]
+[connection signal="mount_slide" from="microscope_slide_tray" to="." method="_on_microscope_slide_tray_mount_slide"]
