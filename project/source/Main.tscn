@@ -157,6 +157,8 @@ offset_left = -400.0
 offset_top = -235.0
 offset_right = 400.0
 offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuScreens/AboutScreen"]
 layout_mode = 2
@@ -429,6 +431,8 @@ offset_left = -150.0
 offset_top = -84.5
 offset_right = 150.0
 offset_bottom = 84.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuScreens/OptionsScreen"]
 layout_mode = 2

@@ -38,6 +38,7 @@ func _on_right_area_input(event: InputEvent) -> void:
 
 
 func snap_left() -> void:
+	LabLog.log("Focused down", false, false)
 	# Increment the angle to the next snap position
 	current_angle -= snap_angle
 
@@ -53,6 +54,7 @@ func snap_left() -> void:
 	focus_changed.emit(focus_level)
 	
 func snap_right() -> void:
+	LabLog.log("Focused up", false, false)
 	# Increment the angle to the next snap position
 	current_angle += snap_angle
 

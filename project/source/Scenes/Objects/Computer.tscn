@@ -1,4 +1,5 @@
 [gd_scene load_steps=20 format=3 uid="uid://dtltidc1e8ikc"]
+
 [ext_resource type="Script" path="res://Scenes/Objects/computer.gd" id="1_qhp2f"]
 [ext_resource type="Texture2D" uid="uid://cqmb14y7dw7nj" path="res://Images/Computer_Screen.png" id="2_pfloe"]
 [ext_resource type="Script" path="res://Scenes/Objects/main_screen.gd" id="3_yvw0i"]
@@ -171,7 +172,6 @@ offset_right = 236.0
 offset_bottom = 216.0
 scale = Vector2(0.629, 0.5)
 
-
 [node name="Play_Button" type="Button" parent="PopupControl/PanelContainer/VBoxContainer/Screen/ContentScreen/AcquisitonPanel"]
 layout_mode = 0
 offset_left = 151.337
@@ -192,7 +192,6 @@ region_enabled = true
 region_rect = Rect2(783.903, 752.302, 500, 600)
 region_filter_clip_enabled = true
 metadata/_edit_lock_ = true
-
 
 [node name="ExitButton" type="Button" parent="PopupControl/PanelContainer/VBoxContainer"]
 layout_mode = 2
