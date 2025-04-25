@@ -1,4 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://dpm1gs1fyv4gg"]
+
+[gd_scene load_steps=20 format=3 uid="uid://dpm1gs1fyv4gg"]
+
 
 [ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="1_bc34u"]
 [ext_resource type="Script" path="res://Scenes/Modules/fluorescence_microscopy.gd" id="1_q60rk"]
@@ -12,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cywu72ubqmqcv" path="res://Images/joystick_final.png" id="10_q6h74"]
 [ext_resource type="Texture2D" uid="uid://dssj1r0fiy1ba" path="res://Images/Joystick_Knob_temp.png" id="11_5u4fk"]
 [ext_resource type="Texture2D" uid="uid://6dai70p6cl8w" path="res://Images/focus_outer_area.png" id="12_q72eu"]
+[ext_resource type="PackedScene" uid="uid://6tou436jn4fv" path="res://Scenes/Objects/zoom_oil.tscn" id="13_zoomoil"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1w4j"]
 size = Vector2(1278.5, 565)
@@ -82,6 +85,9 @@ position = Vector2(641, 360)
 
 [node name="Fridge" parent="." instance=ExtResource("9_pfw6q")]
 position = Vector2(-105, 156)
+
+[node name="ZoomOil" parent="." instance=ExtResource("13_zoomoil")]
+position = Vector2(338, -60)
 
 [node name="MicroscopeControls" type="RigidBody2D" parent="." groups=["LabObjects"]]
 position = Vector2(1313, 419)
