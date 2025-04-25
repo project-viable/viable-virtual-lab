@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bxwnksqona14c" path="res://Images/Dot-Blue.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://cm63yepobpmlk" path="res://Images/Dot-Yellow.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://Images/Dot-Red.png" id="8"]
-[ext_resource type="Resource" path="res://MistakeCheckers/MixtureChecker.tres" id="9"]
+[ext_resource type="Resource" uid="uid://ig5fr0g7xm80" path="res://MistakeCheckers/MixtureChecker.tres" id="9"]
 [ext_resource type="Script" path="res://Mixtures.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://Images/VIABLE_Logo_Transparent.png" id="11"]
 [ext_resource type="FontFile" path="res://UI/RobotoMedium28.tres" id="12"]

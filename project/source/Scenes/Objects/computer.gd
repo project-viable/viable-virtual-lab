@@ -10,7 +10,7 @@ const PAN_SPEED := 500
 
 var is_clicked: bool = false
 var zoom_level: String = "None"
-var current_slide: String = ""
+var current_slide: DraggableMicroscopeSlide = null
 var delay: int = 0
 var brightness: float = 0.0
 
@@ -125,14 +125,33 @@ func _on_power_exposure_combo_change(selected_channel: String, attribute: String
 		channels_exposure[selected_channel] = value
 
 func _on_play_button_pressed() -> void:
-	if(current_channel == "" || current_slide == ""):
+	# check status of slide before processing
+	if current_slide == null: 
+		var slide_tray: Sprite2D = get_node("../Background/Microscope/microscope_slide_tray")
+		if slide_tray.light_on or slide_tray.left_open or slide_tray.right_open:
+			LabLog.warn("Ensure the light is turned off and both tray doors are closed")
+		# unsure of expected behavior
+		return
+	elif current_slide != null and not current_slide.slide_orientation_up:
+		LabLog.warn("Ensure the slide is facing the correct direction in the slide tray")
+		# unsure of expected behavior
+		return
+	elif current_slide.oiled_up and zoom_level != "100x":
+		LabLog.warn("Zoom oil should only be used for 100x magnification")
+		# unsure of expected behavior
+		return
+	elif not current_slide.oiled_up and zoom_level == "100x":
+		LabLog.warn("Zoom oil is required for 100x magnification")
+		# unsure of expected behavior
 		return
 	LabLog.log("New image being generated for " + current_channel, false, false)
 	if (current_channel != "Combo"):
-		var image_path: String = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide, current_channel, zoom_level]
-
-		if current_slide == "":
+		var image_path: String = ""
+		if current_slide == null:
 			image_path = "res://Images/ImageCells/EmptySlide.jpg"
+		else:
+			image_path = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide.slide_name, current_channel, zoom_level]
+
 
 		delay = channels_exposure[current_channel]
 		brightness = clamp((calculate_brightness_percentage(current_channel) * 2) - 1, -1.0, 1.0)
@@ -177,7 +196,11 @@ func create_combo_image() -> Image:
 		var opacity := calculate_brightness_percentage(channel)
 		if (opacity == 0.0):
 			continue
-		var image_path: String = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide, channel, zoom_level]
+		var image_path: String = ""
+		if current_slide == null:
+			image_path = "res://Images/ImageCells/EmptySlide.jpg"
+		else:
+			image_path = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide.slide_name, current_channel, zoom_level]
 		var img: Image = Image.new()
 		var img_resource := ResourceLoader.load(image_path)
 		img = img_resource.get_image()
@@ -213,7 +236,9 @@ func create_combo_image() -> Image:
 func adjust_brightness() -> void:
 	var material: ShaderMaterial = cell_image_node.material as ShaderMaterial
 	material.set_shader_parameter("brightness", brightness)
-	
+	if brightness > 0.5:
+		LabLog.warn("Overexposing the slide may kill the cells or bleach the dyes")
+
 func get_rgb(channel: String) -> Array[float]:
 	if channel == "Dapi":
 		return [0,0,1]

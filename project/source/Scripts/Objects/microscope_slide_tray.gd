@@ -24,7 +24,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if can_slide_mount and slide :
 		slide.global_position = $whole_area/CollisionShape2D.global_position
-		if light_on and not left_open and not right_open: # Tray needs to be closed
+		if not light_on and not left_open and not right_open: # Tray needs to be closed
 			mount_slide.emit(slide)
 		else:
 			mount_slide.emit(null)

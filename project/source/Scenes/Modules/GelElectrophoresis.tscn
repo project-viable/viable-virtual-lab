@@ -32,7 +32,7 @@
 [ext_resource type="Script" path="res://Scripts/Logger/ProcedureChecker.gd" id="29"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/Pipettes/P200.tscn" id="30"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/Pipettes/P20.tscn" id="31"]
-[ext_resource type="Resource" path="res://MistakeCheckers/GelElectrophoresis/GelHeatingTimeChecker.tres" id="32"]
+[ext_resource type="Resource" uid="uid://cu31qfbl4f6yw" path="res://MistakeCheckers/GelElectrophoresis/GelHeatingTimeChecker.tres" id="32"]
 [ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="34"]
 
 [sub_resource type="RectangleShape2D" id="4"]

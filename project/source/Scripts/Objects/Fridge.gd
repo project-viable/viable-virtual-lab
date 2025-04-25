@@ -33,6 +33,11 @@ func get_temperature() -> int:
 			
 		int_temp = int(temp)
 		
+		LabLog.log("Setting fridge temp to " + temp)
+		if int_temp > 42:
+			LabLog.warn("A tempurature above 42 degrees C could damage the slides")
+		if int_temp < 32:
+			LabLog.warn("A tempurature below 32 degrees C could damage the slides")
 		if int_temp >= 0 && int_temp <= 50:	
 			return int_temp
 		else:
