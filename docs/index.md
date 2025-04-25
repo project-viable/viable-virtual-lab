@@ -21,7 +21,7 @@ https://docs.godotengine.org/en/4.3/
 5. [Object Groups](/docs/reference/groups/index.md)
 6. [Using Subscenes](/docs/reference/subscenemanagers.md)
 7. [HTML5 Export and Deployment](/docs/reference/deployment.md)
-8. [Microscope Module](/docs/reference/microscope_module.md)
+8. [Microscope Module](/docs/reference/fluorescent_microscope_module.md)
 
 ## Reference
 1. [Modules](/docs/reference/modules.md)
@@ -37,6 +37,7 @@ https://docs.godotengine.org/en/4.3/
 11. [Game Settings](/docs/reference/gamesettings.md)
 12. [DimensionSprites](/docs/reference/dimensionsprite.md)
 13. [Object Slot](/docs/reference/objectslot.md)
+14. [Fluorescent Microscope Module](/docs/reference/fluorescent_microscope_module.md)
 
 ## Examples
 1. [LabObject Examples](/docs/examples/examples-labobjects.md)
