@@ -61,7 +61,7 @@ func _load_module(module: ModuleData) -> void:
 
 	_switch_to_menu_screen($MenuScreens/PauseMenu)
 	$Background.hide()
-	$MenuScreens/PauseMenu/Content/Logo.show()
+	$MenuScreens/PauseMenu/Content/Logo.hide()
 	$MenuScreens/PauseMenu/Content/ExitModuleButton.show()
 	$MenuScreens/PauseMenu/Content/RestartModuleButton.show()
 	$MenuScreens.hide()
