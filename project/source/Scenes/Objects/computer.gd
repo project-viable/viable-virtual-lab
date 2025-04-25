@@ -50,8 +50,8 @@ func _on_focus_control_focus_changed(level: float) -> void:
 
 # Emits a signal to the FlourescenceMicroscope Node, used to zoom into the computer screen
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	LabLog.log("Entered computer", true, false)
 	if event is InputEventMouseButton and event.pressed and not is_clicked:
+		LabLog.log("Entered computer", true, false)
 		$Screen.show()
 		is_clicked = true
 		
@@ -200,7 +200,7 @@ func create_combo_image() -> Image:
 		if current_slide == null:
 			image_path = "res://Images/ImageCells/EmptySlide.jpg"
 		else:
-			image_path = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide.slide_name, current_channel, zoom_level]
+			image_path = "res://Images/ImageCells/BPAE/%s/%s/%s.jpg" %[current_slide.slide_name, channel, zoom_level]
 		var img: Image = Image.new()
 		var img_resource := ResourceLoader.load(image_path)
 		img = img_resource.get_image()
