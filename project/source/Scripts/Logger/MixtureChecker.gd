@@ -24,12 +24,12 @@ func check_action(params: Dictionary) -> void:
 				var volume: float = substance['volume']
 				var target_volume:float = target_substance.get(substance_name)['volume']
 				print('volume: ', volume, ', target volume: ', target_volume)
-				if not is_equal_approx(volume, target_volume):
-					has_error = true
-					if volume < target_volume:
-						LabLog.warn('Used too little ' + substance_name + ' for making ' + combined_substance_name)
-					elif volume > target_volume:
-						LabLog.warn('Used too much ' + substance_name + ' for making ' + combined_substance_name)
+				#if not is_equal_approx(volume, target_volume):
+					#has_error = true
+					#if volume < target_volume:
+						#LabLog.warn('Used too little ' + substance_name + ' for making ' + combined_substance_name)
+					#elif volume > target_volume:
+						#LabLog.warn('Used too much ' + substance_name + ' for making ' + combined_substance_name)
 			if not has_error:
 				LabLog.log('Created ' + combined_substance_name)
 				return

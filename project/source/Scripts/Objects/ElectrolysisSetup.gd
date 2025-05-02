@@ -51,15 +51,15 @@ func run_current(voltage: float, time: float, print_text := false) -> void:
 		# run current through the container
 		mounted_container.run_current(voltage, time)
 
+		if(!$GelSimMenu.visible):
+			$GelSimMenu.visible = true
+			$GelSimMenu/GelDisplay.open()
+
 		# update the gel display
 		var content: LabObject = $ObjectSlot.get_object()
 		if(content != null):
 			if(content.is_in_group('Gel Boat')):
 				$GelSimMenu/GelDisplay.update_bands(content.calculate_positions())
-
-		if(!$GelSimMenu.visible):
-			$GelSimMenu.visible = true
-			$GelSimMenu/GelDisplay.open()
 
 func terminal_connected(terminal: LabObject, contact: LabObject) -> bool:
 	return $PosTerminal.connected() || $NegTerminal.connected()

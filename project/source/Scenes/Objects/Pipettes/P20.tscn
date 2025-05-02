@@ -1,30 +1,25 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://d0nmsr8hudjdd"]
 
-[ext_resource path="res://Scenes/Objects/Pipettes/Pipette.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Images/Label_P20.png" type="Texture2D" id=2]
+[ext_resource type="PackedScene" uid="uid://b04fv7l4pv0k2" path="res://Scenes/Objects/Pipettes/Pipette.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://cxgy0nojuq11j" path="res://Images/Label_P20.png" id="2"]
 
-[node name="P20" instance=ExtResource( 1 )]
+[node name="P20" instance=ExtResource("1")]
+min_capacity = 2.0
+max_capacity = 20.0
 display_name = "P20 Pipette"
-minCapacity = 2.0
-maxCapacity = 20.0
 
 [node name="Border" parent="Menu" index="1"]
-anchor_left = 0.379
-offset_left = 307.88
-offset_top = -281.0
-offset_right = 463.0
-offset_bottom = 219.0
-__meta__ = {
-"_edit_group_": true
-}
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Bottom" parent="Menu/Border/VolumeDialLabels" index="2"]
-theme_override_colors/font_color = Color( 1, 0, 0, 1 )
+theme_override_colors/font_color = Color(1, 0, 0, 1)
 
 [node name="PipetteSizeLabel" type="TextureRect" parent="Menu/Border" index="6"]
+layout_mode = 0
 offset_left = 220.0
 offset_top = 440.0
 offset_right = 316.0
 offset_bottom = 536.0
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 2 )
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2")

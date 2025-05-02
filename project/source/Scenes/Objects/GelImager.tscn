@@ -1,33 +1,33 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://bd5kjn1jdvkpj"]
 
-[ext_resource path="res://Scripts/Objects/GelImager.gd" type="Script" id=1]
-[ext_resource path="res://Images/Resized_Images/imager.png" type="Texture2D" id=2]
-[ext_resource path="res://Images/redX.png" type="Texture2D" id=3]
-[ext_resource path="res://Scenes/Objects/ObjectSlot.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/UI/GelDisplay.tscn" type="PackedScene" id=7]
+[ext_resource type="Script" path="res://Scripts/Objects/GelImager.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://eouqdtcf7tx3" path="res://Images/Resized_Images/imager.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://b8liaegx1v3x7" path="res://Images/redX.png" id="3"]
+[ext_resource type="PackedScene" path="res://Scenes/Objects/ObjectSlot.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://cpv7cti6d86xn" path="res://Scenes/UI/GelDisplay.tscn" id="7"]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 96.0625, 76.75 )
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(192.125, 153.5)
 
 [node name="GelImager" type="RigidBody2D" groups=["Gel Imager"]]
 collision_layer = 0
 collision_mask = 0
-mode = 1
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2( 0, -30 )
-texture = ExtResource( 2 )
+position = Vector2(0, -30)
+texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( -0.5, -29 )
-polygon = PackedVector2Array( 0.5, -125, -66.5, -124, -88.5, -110, -106.5, -30, -104.5, 119, -93.5, 124, 104.5, 122, 106.5, 113, 106.5, -34, 90.5, -111, 71.5, -124 )
+position = Vector2(-0.5, -29)
+polygon = PackedVector2Array(0.5, -125, -66.5, -124, -88.5, -110, -106.5, -30, -104.5, 119, -93.5, 124, 104.5, 122, 106.5, 113, 106.5, -34, 90.5, -111, 71.5, -124)
 
 [node name="ImagingMenu" type="CanvasLayer" parent="."]
 
 [node name="PanelContainer" type="PanelContainer" parent="ImagingMenu"]
 physics_interpolation_mode = 1
 visible = false
+anchors_preset = -1
 anchor_left = 0.314
 anchor_top = 0.262
 anchor_right = 0.314
@@ -39,16 +39,13 @@ offset_bottom = 211.36
 
 [node name="ColorRect" type="ColorRect" parent="ImagingMenu/PanelContainer"]
 visible = false
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 239.0
-offset_bottom = 195.0
-color = Color( 0, 0, 0, 1 )
+layout_mode = 2
+color = Color(0, 0, 0, 1)
 
-[node name="GelDisplay" parent="ImagingMenu" instance=ExtResource( 7 )]
+[node name="GelDisplay" parent="ImagingMenu" instance=ExtResource("7")]
 visible = false
-position = Vector2( 373, 332 )
-scale = Vector2( 0.5, 0.5 )
+position = Vector2(373, 332)
+scale = Vector2(0.5, 0.5)
 
 [node name="CloseButton" type="Button" parent="ImagingMenu"]
 visible = false
@@ -58,13 +55,13 @@ offset_right = 244.0
 offset_bottom = 254.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
-icon = ExtResource( 3 )
+icon = ExtResource("3")
 
-[node name="ObjectSlot" parent="." instance=ExtResource( 4 )]
+[node name="ObjectSlot" parent="." instance=ExtResource("4")]
+lock_rotation = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectSlot"]
-position = Vector2( -2, 17 )
-shape = SubResource( 2 )
+position = Vector2(-2, 17)
+shape = SubResource("2")
 
 [connection signal="pressed" from="ImagingMenu/CloseButton" to="." method="_on_CloseButton_pressed"]
-[connection signal="input_event" from="ObjectSlot" to="ObjectSlot" method="_on_ObjectSlot_input_event"]
