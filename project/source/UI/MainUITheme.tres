@@ -1,22 +1,22 @@
-[gd_resource type="Theme" load_steps=14 format=2]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://dnl552a0ac6ua"]
 
-[ext_resource path="res://UI/BackgroundStylebox.tres" type="StyleBox" id=1]
-[ext_resource path="res://UI/ButtonNormalStylebox.tres" type="StyleBox" id=2]
-[ext_resource path="res://UI/ButtonDisabledStylebox.tres" type="StyleBox" id=3]
-[ext_resource path="res://UI/ButtonPressedStylebox.tres" type="StyleBox" id=4]
-[ext_resource path="res://UI/ButtonFocusStylebox.tres" type="StyleBox" id=5]
-[ext_resource path="res://UI/ButtonHoverStylebox.tres" type="StyleBox" id=6]
-[ext_resource path="res://UI/RobotoMedium16.tres" type="DynamicFont" id=7]
-[ext_resource path="res://UI/GrabberHighlight.tres" type="StyleBox" id=8]
-[ext_resource path="res://UI/GrabberPressed.tres" type="StyleBox" id=9]
-[ext_resource path="res://UI/Grabber.tres" type="StyleBox" id=10]
+[ext_resource type="StyleBox" path="res://UI/BackgroundStylebox.tres" id="1"]
+[ext_resource type="StyleBox" path="res://UI/ButtonNormalStylebox.tres" id="2"]
+[ext_resource type="StyleBox" path="res://UI/ButtonDisabledStylebox.tres" id="3"]
+[ext_resource type="StyleBox" path="res://UI/ButtonPressedStylebox.tres" id="4"]
+[ext_resource type="StyleBox" uid="uid://co6eq5jxq4ama" path="res://UI/ButtonFocusStylebox.tres" id="5"]
+[ext_resource type="StyleBox" path="res://UI/ButtonHoverStylebox.tres" id="6"]
+[ext_resource type="FontFile" path="res://UI/RobotoMedium16.tres" id="7"]
+[ext_resource type="StyleBox" path="res://UI/GrabberHighlight.tres" id="8"]
+[ext_resource type="StyleBox" path="res://UI/GrabberPressed.tres" id="9"]
+[ext_resource type="StyleBox" path="res://UI/Grabber.tres" id="10"]
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id="4"]
 content_margin_left = 6.0
-content_margin_right = 6.0
 content_margin_top = 6.0
+content_margin_right = 6.0
 content_margin_bottom = 6.0
-bg_color = Color( 0.866667, 0.866667, 0.866667, 1 )
+bg_color = Color(0.866667, 0.866667, 0.866667, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -26,28 +26,28 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id="5"]
 content_margin_left = 6.0
-content_margin_right = 6.0
 content_margin_top = 6.0
+content_margin_right = 6.0
 content_margin_bottom = 6.0
-bg_color = Color( 0.231373, 0.231373, 0.231373, 1 )
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color( 0.490196, 0.490196, 0.490196, 1 )
+border_color = Color(0.490196, 0.490196, 0.490196, 1)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id="6"]
 content_margin_left = 6.0
-content_margin_right = 6.0
 content_margin_top = 6.0
+content_margin_right = 6.0
 content_margin_bottom = 6.0
-bg_color = Color( 1, 1, 1, 1 )
+bg_color = Color(1, 1, 1, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -58,49 +58,49 @@ corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
 [resource]
-default_font = ExtResource( 7 )
-Button/colors/font_color = Color( 0, 0.670588, 0.666667, 1 )
-Button/colors/font_color_disabled = Color( 0.313726, 0.717647, 0.713726, 0.388235 )
-Button/colors/font_color_focus = Color( 0, 0.670588, 0.666667, 1 )
-Button/colors/font_color_hover = Color( 0, 0.670588, 0.666667, 1 )
-Button/colors/font_color_pressed = Color( 0, 0.670588, 0.666667, 1 )
-Button/styles/disabled = ExtResource( 3 )
-Button/styles/focus = ExtResource( 5 )
-Button/styles/hover = ExtResource( 6 )
-Button/styles/normal = ExtResource( 2 )
-Button/styles/pressed = ExtResource( 4 )
-HScrollBar/styles/grabber = ExtResource( 10 )
-HScrollBar/styles/grabber_highlight = ExtResource( 8 )
-HScrollBar/styles/grabber_pressed = ExtResource( 9 )
-HScrollBar/styles/scroll = ExtResource( 2 )
-HScrollBar/styles/scroll_focus = ExtResource( 5 )
-HSlider/styles/slider = ExtResource( 3 )
-Label/colors/font_color = Color( 0, 0, 0, 1 )
-LineEdit/colors/cursor_color = Color( 0, 0.952941, 0.94902, 1 )
-LineEdit/colors/font_color = Color( 0, 0.670588, 0.666667, 1 )
-LineEdit/styles/focus = ExtResource( 5 )
-LineEdit/styles/normal = ExtResource( 6 )
-LineEdit/styles/read_only = ExtResource( 3 )
-Panel/styles/panel = ExtResource( 1 )
-PanelContainer/styles/panel = ExtResource( 1 )
-PopupMenu/styles/panel = ExtResource( 1 )
-PopupMenu/styles/panel_disabled = ExtResource( 3 )
-RichTextLabel/colors/default_color = Color( 0, 0, 0, 1 )
-TabContainer/colors/font_color_bg = Color( 0, 0, 0, 1 )
-TabContainer/colors/font_color_disabled = Color( 0.313726, 0.717647, 0.713726, 0.388235 )
-TabContainer/colors/font_color_fg = Color( 0, 0.670588, 0.666667, 1 )
-TabContainer/styles/panel = ExtResource( 1 )
-TabContainer/styles/tab_bg = SubResource( 4 )
-TabContainer/styles/tab_disabled = SubResource( 5 )
-TabContainer/styles/tab_fg = SubResource( 6 )
-TextEdit/colors/caret_color = Color( 0, 0.952941, 0.94902, 1 )
-TextEdit/colors/font_color = Color( 0, 0.670588, 0.666667, 1 )
-TextEdit/styles/focus = ExtResource( 5 )
-TextEdit/styles/normal = ExtResource( 6 )
-TextEdit/styles/read_only = ExtResource( 3 )
-VScrollBar/styles/grabber = ExtResource( 10 )
-VScrollBar/styles/grabber_highlight = ExtResource( 8 )
-VScrollBar/styles/grabber_pressed = ExtResource( 9 )
-VScrollBar/styles/scroll = ExtResource( 2 )
-VScrollBar/styles/scroll_focus = ExtResource( 5 )
-VSlider/styles/slider = ExtResource( 3 )
+default_font = ExtResource("7")
+Button/colors/font_color = Color(0, 0.670588, 0.666667, 1)
+Button/colors/font_color_disabled = Color(0.313726, 0.717647, 0.713726, 0.388235)
+Button/colors/font_color_focus = Color(0, 0.670588, 0.666667, 1)
+Button/colors/font_color_hover = Color(0, 0.670588, 0.666667, 1)
+Button/colors/font_color_pressed = Color(0, 0.670588, 0.666667, 1)
+Button/styles/disabled = ExtResource("3")
+Button/styles/focus = ExtResource("5")
+Button/styles/hover = ExtResource("6")
+Button/styles/normal = ExtResource("2")
+Button/styles/pressed = ExtResource("4")
+HScrollBar/styles/grabber = ExtResource("10")
+HScrollBar/styles/grabber_highlight = ExtResource("8")
+HScrollBar/styles/grabber_pressed = ExtResource("9")
+HScrollBar/styles/scroll = ExtResource("2")
+HScrollBar/styles/scroll_focus = ExtResource("5")
+HSlider/styles/slider = ExtResource("3")
+Label/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/colors/cursor_color = Color(0, 0.952941, 0.94902, 1)
+LineEdit/colors/font_color = Color(0, 0.670588, 0.666667, 1)
+LineEdit/styles/focus = ExtResource("5")
+LineEdit/styles/normal = ExtResource("6")
+LineEdit/styles/read_only = ExtResource("3")
+Panel/styles/panel = ExtResource("1")
+PanelContainer/styles/panel = ExtResource("1")
+PopupMenu/styles/panel = ExtResource("1")
+PopupMenu/styles/panel_disabled = ExtResource("3")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+TabContainer/colors/font_color_bg = Color(0, 0, 0, 1)
+TabContainer/colors/font_color_disabled = Color(0.313726, 0.717647, 0.713726, 0.388235)
+TabContainer/colors/font_color_fg = Color(0, 0.670588, 0.666667, 1)
+TabContainer/styles/panel = ExtResource("1")
+TabContainer/styles/tab_bg = SubResource("4")
+TabContainer/styles/tab_disabled = SubResource("5")
+TabContainer/styles/tab_fg = SubResource("6")
+TextEdit/colors/caret_color = Color(0, 0.952941, 0.94902, 1)
+TextEdit/colors/font_color = Color(0, 0.670588, 0.666667, 1)
+TextEdit/styles/focus = ExtResource("5")
+TextEdit/styles/normal = ExtResource("6")
+TextEdit/styles/read_only = ExtResource("3")
+VScrollBar/styles/grabber = ExtResource("10")
+VScrollBar/styles/grabber_highlight = ExtResource("8")
+VScrollBar/styles/grabber_pressed = ExtResource("9")
+VScrollBar/styles/scroll = ExtResource("2")
+VScrollBar/styles/scroll_focus = ExtResource("5")
+VSlider/styles/slider = ExtResource("3")

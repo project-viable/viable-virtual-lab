@@ -1,24 +1,28 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=20 format=3 uid="uid://ch4jildorp0b3"]
 
-[ext_resource path="res://Scripts/UI/Menu.gd" type="Script" id=1]
-[ext_resource path="res://Main.gd" type="Script" id=2]
-[ext_resource path="res://Images/MainMenu-Background.png" type="Texture" id=3]
-[ext_resource path="res://Images/HamburgerMenu.png" type="Texture" id=4]
-[ext_resource path="res://Images/Gel Electrophoresis Icon.png" type="Texture" id=5]
-[ext_resource path="res://Images/Dot-Blue.png" type="Texture" id=6]
-[ext_resource path="res://Images/Dot-Yellow.png" type="Texture" id=7]
-[ext_resource path="res://Images/Dot-Red.png" type="Texture" id=8]
-[ext_resource path="res://MistakeCheckers/MixtureChecker.tres" type="Resource" id=9]
-[ext_resource path="res://Mixtures.gd" type="Script" id=10]
-[ext_resource path="res://Images/VIABLE_Logo_Transparent.png" type="Texture" id=11]
-[ext_resource path="res://UI/RobotoMedium28.tres" type="DynamicFont" id=12]
+[ext_resource type="Script" path="res://Scripts/UI/Menu.gd" id="1"]
+[ext_resource type="Script" path="res://Main.gd" id="2"]
+[ext_resource type="Script" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
+[ext_resource type="Texture2D" uid="uid://bdg0qubi6xt7d" path="res://Images/MainMenu-Background.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://dgmytdnqonu6s" path="res://Images/HamburgerMenu.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://b3mapaem4gat2" path="res://Images/Gel Electrophoresis Icon.png" id="5"]
+[ext_resource type="Script" path="res://Scripts/Resources/ModuleData.gd" id="5_1a5hp"]
+[ext_resource type="Texture2D" uid="uid://bxwnksqona14c" path="res://Images/Dot-Blue.png" id="6"]
+[ext_resource type="Resource" uid="uid://ct2buu7x0tve8" path="res://Modules/FluorescenceMicroscopy.tres" id="6_wqw1h"]
+[ext_resource type="Texture2D" uid="uid://cm63yepobpmlk" path="res://Images/Dot-Yellow.png" id="7"]
+[ext_resource type="Resource" path="res://Modules/GelElectrophoresis.tres" id="7_d1bo7"]
+[ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://Images/Dot-Red.png" id="8"]
+[ext_resource type="Resource" uid="uid://ig5fr0g7xm80" path="res://MistakeCheckers/MixtureChecker.tres" id="9"]
+[ext_resource type="Script" path="res://Mixtures.gd" id="10"]
+[ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://Images/VIABLE_Logo_Transparent.png" id="11"]
+[ext_resource type="FontFile" path="res://UI/RobotoMedium28.tres" id="12"]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id="1"]
 content_margin_left = 10.0
-content_margin_right = 10.0
 content_margin_top = 10.0
+content_margin_right = 10.0
 content_margin_bottom = 10.0
-bg_color = Color( 0.866667, 0.866667, 1, 1 )
+bg_color = Color(0.866667, 0.866667, 1, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -28,12 +32,12 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id="2"]
 content_margin_left = 10.0
-content_margin_right = 10.0
 content_margin_top = 10.0
+content_margin_right = 10.0
 content_margin_bottom = 10.0
-bg_color = Color( 1, 1, 0.866667, 1 )
+bg_color = Color(1, 1, 0.866667, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -43,12 +47,12 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id="3"]
 content_margin_left = 10.0
-content_margin_right = 10.0
 content_margin_top = 10.0
+content_margin_right = 10.0
 content_margin_bottom = 10.0
-bg_color = Color( 1, 0.866667, 0.866667, 1 )
+bg_color = Color(1, 0.866667, 0.866667, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -59,352 +63,123 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
 [node name="Main" type="Node2D"]
-script = ExtResource( 2 )
-CheckStrategies = [ ExtResource( 9 ) ]
+script = ExtResource("2")
+check_strategies = Array[ExtResource("2_45sle")]([ExtResource("9")])
 
 [node name="Menu" type="CanvasLayer" parent="."]
 layer = 128
-script = ExtResource( 1 )
+script = ExtResource("1")
+all_modules = Array[ExtResource("5_1a5hp")]([ExtResource("6_wqw1h"), ExtResource("7_d1bo7")])
 
-[node name="MainMenu" type="Control" parent="Menu"]
+[node name="Background" type="TextureRect" parent="Menu"]
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("3")
 
-[node name="Background" type="TextureRect" parent="Menu/MainMenu"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -640.0
-margin_top = -360.0
-margin_right = 640.0
-margin_bottom = 360.0
-texture = ExtResource( 3 )
-
-[node name="Content" type="VBoxContainer" parent="Menu/MainMenu"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -200.0
-margin_top = -96.5
-margin_right = 200.0
-margin_bottom = 96.5
-
-[node name="Logo" type="TextureRect" parent="Menu/MainMenu/Content"]
-visible = false
-margin_right = 400.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 400, 100 )
-texture = ExtResource( 11 )
-expand = true
-stretch_mode = 7
-
-[node name="SelectModuleButton" type="Button" parent="Menu/MainMenu/Content"]
-visible = false
-margin_right = 400.0
-margin_bottom = 41.0
-custom_fonts/font = ExtResource( 12 )
-text = "Select Module"
-
-[node name="OptionsButton" type="Button" parent="Menu/MainMenu/Content"]
-margin_right = 400.0
-margin_bottom = 41.0
-custom_fonts/font = ExtResource( 12 )
-text = "Options"
-
-[node name="AboutButton" type="Button" parent="Menu/MainMenu/Content"]
-margin_top = 45.0
-margin_right = 400.0
-margin_bottom = 86.0
-custom_fonts/font = ExtResource( 12 )
-text = "About"
-
-[node name="ModuleSelect" type="GridContainer" parent="Menu"]
-visible = false
-anchor_left = 0.5
-anchor_right = 0.5
+[node name="MenuScreens" type="Control" parent="Menu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 3
 
-[node name="AboutScreen" type="PanelContainer" parent="Menu"]
-visible = false
+[node name="PauseMenu" type="Control" parent="Menu/MenuScreens"]
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -400.0
-margin_top = -235.0
-margin_right = 400.0
-margin_bottom = 235.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/AboutScreen"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 790.0
-margin_bottom = 465.0
+[node name="Content" type="VBoxContainer" parent="Menu/MenuScreens/PauseMenu"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -96.5
+offset_right = 200.0
+offset_bottom = 96.5
 
-[node name="Label" type="Label" parent="Menu/AboutScreen/VBoxContainer"]
-margin_right = 780.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 0, 20 )
+[node name="Logo" type="TextureRect" parent="Menu/MenuScreens/PauseMenu/Content"]
+visible = false
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+texture = ExtResource("11")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SelectModuleButton" type="Button" parent="Menu/MenuScreens/PauseMenu/Content"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12")
+text = "Select Module"
+
+[node name="RestartModuleButton" type="Button" parent="Menu/MenuScreens/PauseMenu/Content"]
+visible = false
+layout_mode = 2
+text = "Restart Module"
+
+[node name="ExitModuleButton" type="Button" parent="Menu/MenuScreens/PauseMenu/Content"]
+visible = false
+layout_mode = 2
+text = "Return to Main Menu"
+
+[node name="OptionsButton" type="Button" parent="Menu/MenuScreens/PauseMenu/Content"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12")
+text = "Options"
+
+[node name="AboutButton" type="Button" parent="Menu/MenuScreens/PauseMenu/Content"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("12")
 text = "About"
-align = 1
 
-[node name="Text" type="RichTextLabel" parent="Menu/AboutScreen/VBoxContainer"]
-margin_top = 24.0
-margin_right = 780.0
-margin_bottom = 424.0
-rect_min_size = Vector2( 600, 400 )
+[node name="QuitButton" type="Button" parent="Menu/MenuScreens/PauseMenu/Content"]
+layout_mode = 2
+text = "Quit"
+
+[node name="AboutScreen" type="PanelContainer" parent="Menu/MenuScreens"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -235.0
+offset_right = 400.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuScreens/AboutScreen"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/MenuScreens/AboutScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+text = "About"
+horizontal_alignment = 1
+
+[node name="Text" type="RichTextLabel" parent="Menu/MenuScreens/AboutScreen/VBoxContainer"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 2
 bbcode_enabled = true
-bbcode_text = "This project is a web-based simulation framework that intends to provide virtual lab experience to users without access to a physical lab space. The framework is built to allow users the freedom to experiment and make mistakes in a controlled environment, with user mistakes carrying through to future steps and influencing the final result as they would in a real lab environment.
-
-This project was developed by Jonas Courtney, Jeffrey Collins, Conor Harris, Michael Jordan, Tyler Hand, and Justin Astalos as part of the 2023-2024 CS Senior Capstone class, sponsored by Jian Wei Tay and Kristin Moore.
-
-
-
-License Information:
-The following tools, projects, and assets are used under their respective licenses, provided here.
-	Godot:
-		This game uses Godot Engine, available under the following license:
-	    Copyright (c) 2014-present Godot Engine contributors. Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
-
-	    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-	    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-	    THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-	FreeType:
-		Portions of this software are copyright © 1996-2019 The FreeType Project (www.freetype.org). All rights reserved.
-
-	ENet:
-	    Copyright (c) 2002-2020 Lee Salzman
-
-	    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-	    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-	    THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-	mbed TLS:
-	    Copyright The Mbed TLS Contributors
-
-	    Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
-
-	    http://www.apache.org/licenses/LICENSE-2.0
-
-	    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-
-	Roboto Font:
-																		Apache License
-									                           Version 2.0, January 2004
-									                        http://www.apache.org/licenses/
-
-									   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
-
-									   1. Definitions.
-
-									      \"License\" shall mean the terms and conditions for use, reproduction,
-									      and distribution as defined by Sections 1 through 9 of this document.
-
-									      \"Licensor\" shall mean the copyright owner or entity authorized by
-									      the copyright owner that is granting the License.
-
-									      \"Legal Entity\" shall mean the union of the acting entity and all
-									      other entities that control, are controlled by, or are under common
-									      control with that entity. For the purposes of this definition,
-									      \"control\" means (i) the power, direct or indirect, to cause the
-									      direction or management of such entity, whether by contract or
-									      otherwise, or (ii) ownership of fifty percent (50%) or more of the
-									      outstanding shares, or (iii) beneficial ownership of such entity.
-
-									      \"You\" (or \"Your\") shall mean an individual or Legal Entity
-									      exercising permissions granted by this License.
-
-									      \"Source\" form shall mean the preferred form for making modifications,
-									      including but not limited to software source code, documentation
-									      source, and configuration files.
-
-									      \"Object\" form shall mean any form resulting from mechanical
-									      transformation or translation of a Source form, including but
-									      not limited to compiled object code, generated documentation,
-									      and conversions to other media types.
-
-									      \"Work\" shall mean the work of authorship, whether in Source or
-									      Object form, made available under the License, as indicated by a
-									      copyright notice that is included in or attached to the work
-									      (an example is provided in the Appendix below).
-
-									      \"Derivative Works\" shall mean any work, whether in Source or Object
-									      form, that is based on (or derived from) the Work and for which the
-									      editorial revisions, annotations, elaborations, or other modifications
-									      represent, as a whole, an original work of authorship. For the purposes
-									      of this License, Derivative Works shall not include works that remain
-									      separable from, or merely link (or bind by name) to the interfaces of,
-									      the Work and Derivative Works thereof.
-
-									      \"Contribution\" shall mean any work of authorship, including
-									      the original version of the Work and any modifications or additions
-									      to that Work or Derivative Works thereof, that is intentionally
-									      submitted to Licensor for inclusion in the Work by the copyright owner
-									      or by an individual or Legal Entity authorized to submit on behalf of
-									      the copyright owner. For the purposes of this definition, \"submitted\"
-									      means any form of electronic, verbal, or written communication sent
-									      to the Licensor or its representatives, including but not limited to
-									      communication on electronic mailing lists, source code control systems,
-									      and issue tracking systems that are managed by, or on behalf of, the
-									      Licensor for the purpose of discussing and improving the Work, but
-									      excluding communication that is conspicuously marked or otherwise
-									      designated in writing by the copyright owner as \"Not a Contribution.\"
-
-									      \"Contributor\" shall mean Licensor and any individual or Legal Entity
-									      on behalf of whom a Contribution has been received by Licensor and
-									      subsequently incorporated within the Work.
-
-									   2. Grant of Copyright License. Subject to the terms and conditions of
-									      this License, each Contributor hereby grants to You a perpetual,
-									      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-									      copyright license to reproduce, prepare Derivative Works of,
-									      publicly display, publicly perform, sublicense, and distribute the
-									      Work and such Derivative Works in Source or Object form.
-
-									   3. Grant of Patent License. Subject to the terms and conditions of
-									      this License, each Contributor hereby grants to You a perpetual,
-									      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-									      (except as stated in this section) patent license to make, have made,
-									      use, offer to sell, sell, import, and otherwise transfer the Work,
-									      where such license applies only to those patent claims licensable
-									      by such Contributor that are necessarily infringed by their
-									      Contribution(s) alone or by combination of their Contribution(s)
-									      with the Work to which such Contribution(s) was submitted. If You
-									      institute patent litigation against any entity (including a
-									      cross-claim or counterclaim in a lawsuit) alleging that the Work
-									      or a Contribution incorporated within the Work constitutes direct
-									      or contributory patent infringement, then any patent licenses
-									      granted to You under this License for that Work shall terminate
-									      as of the date such litigation is filed.
-
-									   4. Redistribution. You may reproduce and distribute copies of the
-									      Work or Derivative Works thereof in any medium, with or without
-									      modifications, and in Source or Object form, provided that You
-									      meet the following conditions:
-
-									      (a) You must give any other recipients of the Work or
-									          Derivative Works a copy of this License; and
-
-									      (b) You must cause any modified files to carry prominent notices
-									          stating that You changed the files; and
-
-									      (c) You must retain, in the Source form of any Derivative Works
-									          that You distribute, all copyright, patent, trademark, and
-									          attribution notices from the Source form of the Work,
-									          excluding those notices that do not pertain to any part of
-									          the Derivative Works; and
-
-									      (d) If the Work includes a \"NOTICE\" text file as part of its
-									          distribution, then any Derivative Works that You distribute must
-									          include a readable copy of the attribution notices contained
-									          within such NOTICE file, excluding those notices that do not
-									          pertain to any part of the Derivative Works, in at least one
-									          of the following places: within a NOTICE text file distributed
-									          as part of the Derivative Works; within the Source form or
-									          documentation, if provided along with the Derivative Works; or,
-									          within a display generated by the Derivative Works, if and
-									          wherever such third-party notices normally appear. The contents
-									          of the NOTICE file are for informational purposes only and
-									          do not modify the License. You may add Your own attribution
-									          notices within Derivative Works that You distribute, alongside
-									          or as an addendum to the NOTICE text from the Work, provided
-									          that such additional attribution notices cannot be construed
-									          as modifying the License.
-
-									      You may add Your own copyright statement to Your modifications and
-									      may provide additional or different license terms and conditions
-									      for use, reproduction, or distribution of Your modifications, or
-									      for any such Derivative Works as a whole, provided Your use,
-									      reproduction, and distribution of the Work otherwise complies with
-									      the conditions stated in this License.
-
-									   5. Submission of Contributions. Unless You explicitly state otherwise,
-									      any Contribution intentionally submitted for inclusion in the Work
-									      by You to the Licensor shall be under the terms and conditions of
-									      this License, without any additional terms or conditions.
-									      Notwithstanding the above, nothing herein shall supersede or modify
-									      the terms of any separate license agreement you may have executed
-									      with Licensor regarding such Contributions.
-
-									   6. Trademarks. This License does not grant permission to use the trade
-									      names, trademarks, service marks, or product names of the Licensor,
-									      except as required for reasonable and customary use in describing the
-									      origin of the Work and reproducing the content of the NOTICE file.
-
-									   7. Disclaimer of Warranty. Unless required by applicable law or
-									      agreed to in writing, Licensor provides the Work (and each
-									      Contributor provides its Contributions) on an \"AS IS\" BASIS,
-									      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-									      implied, including, without limitation, any warranties or conditions
-									      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-									      PARTICULAR PURPOSE. You are solely responsible for determining the
-									      appropriateness of using or redistributing the Work and assume any
-									      risks associated with Your exercise of permissions under this License.
-
-									   8. Limitation of Liability. In no event and under no legal theory,
-									      whether in tort (including negligence), contract, or otherwise,
-									      unless required by applicable law (such as deliberate and grossly
-									      negligent acts) or agreed to in writing, shall any Contributor be
-									      liable to You for damages, including any direct, indirect, special,
-									      incidental, or consequential damages of any character arising as a
-									      result of this License or out of the use or inability to use the
-									      Work (including but not limited to damages for loss of goodwill,
-									      work stoppage, computer failure or malfunction, or any and all
-									      other commercial damages or losses), even if such Contributor
-									      has been advised of the possibility of such damages.
-
-									   9. Accepting Warranty or Additional Liability. While redistributing
-									      the Work or Derivative Works thereof, You may choose to offer,
-									      and charge a fee for, acceptance of support, warranty, indemnity,
-									      or other liability obligations and/or rights consistent with this
-									      License. However, in accepting such obligations, You may act only
-									      on Your own behalf and on Your sole responsibility, not on behalf
-									      of any other Contributor, and only if You agree to indemnify,
-									      defend, and hold each Contributor harmless for any liability
-									      incurred by, or claims asserted against, such Contributor by reason
-									      of your accepting any such warranty or additional liability.
-
-									   END OF TERMS AND CONDITIONS
-
-									   APPENDIX: How to apply the Apache License to your work.
-
-									      To apply the Apache License to your work, attach the following
-									      boilerplate notice, with the fields enclosed by brackets \"[]\"
-									      replaced with your own identifying information. (Don't include
-									      the brackets!)  The text should be enclosed in the appropriate
-									      comment syntax for the file format. We also recommend that a
-									      file or class name and description of purpose be included on the
-									      same \"printed page\" as the copyright notice for easier
-									      identification within third-party archives.
-
-									   Copyright [yyyy] [name of copyright owner]
-
-									   Licensed under the Apache License, Version 2.0 (the \"License\");
-									   you may not use this file except in compliance with the License.
-									   You may obtain a copy of the License at
-
-									       http://www.apache.org/licenses/LICENSE-2.0
-
-									   Unless required by applicable law or agreed to in writing, software
-									   distributed under the License is distributed on an \"AS IS\" BASIS,
-									   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-									   See the License for the specific language governing permissions and
-									   limitations under the License."
 text = "This project is a web-based simulation framework that intends to provide virtual lab experience to users without access to a physical lab space. The framework is built to allow users the freedom to experiment and make mistakes in a controlled environment, with user mistakes carrying through to future steps and influencing the final result as they would in a real lab environment.
 
-This project was developed by Jonas Courtney, Jeffrey Collins, Conor Harris, Michael Jordan, Tyler Hand, and Justin Astalos as part of the 2023-2024 CS Senior Capstone class, sponsored by Jian Wei Tay and Kristin Moore.
+This project was developed by Jonas Courtney, Jeffrey Collins, Conor Harris, Michael Jordan, Tyler Hand, and Justin Astalos as part of the 2023-2024 CS Senior Capstone class, sponsored by Jian Wei Tay and Kristin Moore. Most graphics used within the simulation were created by Sahba Setareh.
 
 
 
@@ -472,7 +247,7 @@ The following tools, projects, and assets are used under their respective licens
 									      source, and configuration files.
 
 									      \"Object\" form shall mean any form resulting from mechanical
-									      transformation or translation of a Source form, including but
+									      transformation or position of a Source form, including but
 									      not limited to compiled object code, generated documentation,
 									      and conversions to other media types.
 
@@ -644,315 +419,305 @@ The following tools, projects, and assets are used under their respective licens
 									   See the License for the specific language governing permissions and
 									   limitations under the License."
 
-[node name="CloseButton" type="Button" parent="Menu/AboutScreen/VBoxContainer"]
-margin_top = 428.0
-margin_right = 780.0
-margin_bottom = 455.0
+[node name="CloseButton" type="Button" parent="Menu/MenuScreens/AboutScreen/VBoxContainer"]
+layout_mode = 2
 text = "Close"
 
-[node name="OptionsScreen" type="PanelContainer" parent="Menu"]
+[node name="OptionsScreen" type="PanelContainer" parent="Menu/MenuScreens"]
 visible = false
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = -84.5
-margin_right = 150.0
-margin_bottom = 84.5
+offset_left = -150.0
+offset_top = -84.5
+offset_right = 150.0
+offset_bottom = 84.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/OptionsScreen"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 290.0
-margin_bottom = 159.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuScreens/OptionsScreen"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="Menu/OptionsScreen/VBoxContainer"]
-margin_right = 280.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 0, 20 )
+[node name="Label" type="Label" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 text = "Options"
-align = 1
+horizontal_alignment = 1
 
-[node name="MouseDragToggle" type="CheckButton" parent="Menu/OptionsScreen/VBoxContainer"]
+[node name="MouseDragToggle" type="CheckButton" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
 visible = false
-margin_top = 24.0
-margin_right = 339.4
-margin_bottom = 64.0
-text = "Enable Dragging Camera with Mouse"
+layout_mode = 2
+text = "Enable Dragging Camera3D with Mouse"
 
-[node name="ObjectTooltipsToggle" type="CheckButton" parent="Menu/OptionsScreen/VBoxContainer"]
-margin_top = 24.0
-margin_right = 280.0
-margin_bottom = 64.0
+[node name="ObjectTooltipsToggle" type="CheckButton" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
+layout_mode = 2
 text = "Object Tooltips"
 
-[node name="PopupDuration" type="HSplitContainer" parent="Menu/OptionsScreen/VBoxContainer"]
-margin_top = 68.0
-margin_right = 280.0
-margin_bottom = 95.0
+[node name="PopupDuration" type="HSplitContainer" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
+layout_mode = 2
 
-[node name="PopupDurationTitle" type="Label" parent="Menu/OptionsScreen/VBoxContainer/PopupDuration"]
-margin_top = 4.0
-margin_right = 112.0
-margin_bottom = 23.0
-grow_horizontal = 0
+[node name="PopupDurationTitle" type="Label" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration"]
+layout_mode = 2
 text = "Popup Duration"
 
-[node name="PopupTimeout" type="SpinBox" parent="Menu/OptionsScreen/VBoxContainer/PopupDuration"]
-margin_left = 124.0
-margin_right = 280.0
-margin_bottom = 27.0
+[node name="PopupTimeout" type="SpinBox" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration"]
+layout_mode = 2
 max_value = 5.0
 step = 0.5
 
-[node name="CloseButton" type="Button" parent="Menu/OptionsScreen/VBoxContainer"]
-margin_top = 99.0
-margin_right = 280.0
-margin_bottom = 126.0
+[node name="CloseButton" type="Button" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="ModuleSelect" type="PanelContainer" parent="Menu/MenuScreens"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuScreens/ModuleSelect"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/MenuScreens/ModuleSelect/VBoxContainer"]
+layout_mode = 2
+text = "Modules"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Menu/MenuScreens/ModuleSelect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Modules" type="GridContainer" parent="Menu/MenuScreens/ModuleSelect/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 3
+
+[node name="Blank" type="Control" parent="Menu/MenuScreens/ModuleSelect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="Menu/MenuScreens/ModuleSelect/VBoxContainer"]
+layout_mode = 2
 text = "Close"
 
 [node name="FinalReport" type="PanelContainer" parent="Menu"]
 visible = false
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -200.5
-margin_top = -170.0
-margin_right = 200.5
-margin_bottom = 170.0
+offset_left = -200.5
+offset_top = -170.0
+offset_right = 200.5
+offset_bottom = 170.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/FinalReport"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 394.0
-margin_bottom = 333.0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="Menu/FinalReport/VBoxContainer"]
-margin_right = 387.0
-margin_bottom = 14.0
+layout_mode = 2
 text = "Final Report"
-align = 1
+horizontal_alignment = 1
 
 [node name="Spacer2" type="Control" parent="Menu/FinalReport/VBoxContainer"]
-margin_top = 18.0
-margin_right = 387.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 
 [node name="ModuleIcon" type="TextureRect" parent="Menu/FinalReport/VBoxContainer"]
-margin_top = 42.0
-margin_right = 387.0
-margin_bottom = 106.0
-rect_min_size = Vector2( 64, 64 )
-texture = ExtResource( 5 )
-expand = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("5")
+expand_mode = 1
 stretch_mode = 6
 
 [node name="ModuleName" type="Label" parent="Menu/FinalReport/VBoxContainer"]
-margin_top = 110.0
-margin_right = 387.0
-margin_bottom = 124.0
+layout_mode = 2
 text = "You completed the module \"whatever\"!"
-align = 1
+horizontal_alignment = 1
 
 [node name="Spacer1" type="Control" parent="Menu/FinalReport/VBoxContainer"]
-margin_top = 128.0
-margin_right = 387.0
-margin_bottom = 148.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 
 [node name="Logs" type="RichTextLabel" parent="Menu/FinalReport/VBoxContainer"]
-margin_top = 152.0
-margin_right = 387.0
-margin_bottom = 302.0
-rect_min_size = Vector2( 0, 150 )
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
 bbcode_enabled = true
-bbcode_text = "You made some mistakes:
--You messed up"
 text = "You made some mistakes:
 -You messed up"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Menu/FinalReport/VBoxContainer"]
-margin_top = 306.0
-margin_right = 387.0
-margin_bottom = 326.0
+layout_mode = 2
 
 [node name="MainMenuButton" type="Button" parent="Menu/FinalReport/VBoxContainer/HBoxContainer"]
-margin_right = 83.0
-margin_bottom = 20.0
+layout_mode = 2
 text = "Main Menu"
 
 [node name="RestartModuleButton" type="Button" parent="Menu/FinalReport/VBoxContainer/HBoxContainer"]
-margin_left = 87.0
-margin_right = 196.0
-margin_bottom = 20.0
+layout_mode = 2
 text = "Restart Module"
 
 [node name="ContinueButton" type="Button" parent="Menu/FinalReport/VBoxContainer/HBoxContainer"]
-margin_left = 200.0
-margin_right = 387.0
-margin_bottom = 20.0
+layout_mode = 2
 text = "Continue in Freeform Mode"
 
 [node name="LogButton" type="TextureButton" parent="Menu"]
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -32.0
-margin_bottom = 32.0
-texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 4 )
-texture_hover = ExtResource( 4 )
-texture_disabled = ExtResource( 4 )
-texture_focused = ExtResource( 4 )
+offset_left = -32.0
+offset_bottom = 32.0
+texture_normal = ExtResource("4")
+texture_pressed = ExtResource("4")
+texture_hover = ExtResource("4")
+texture_disabled = ExtResource("4")
+texture_focused = ExtResource("4")
 
 [node name="Notifications" type="HBoxContainer" parent="Menu/LogButton"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 2
 
 [node name="Log" type="TextureRect" parent="Menu/LogButton/Notifications"]
-margin_right = 8.0
-margin_bottom = 32.0
-texture = ExtResource( 6 )
+layout_mode = 2
+texture = ExtResource("6")
 stretch_mode = 3
 
 [node name="Warning" type="TextureRect" parent="Menu/LogButton/Notifications"]
-margin_left = 12.0
-margin_right = 20.0
-margin_bottom = 32.0
-texture = ExtResource( 7 )
+layout_mode = 2
+texture = ExtResource("7")
 stretch_mode = 3
 
 [node name="Error" type="TextureRect" parent="Menu/LogButton/Notifications"]
-margin_left = 24.0
-margin_right = 32.0
-margin_bottom = 32.0
-texture = ExtResource( 8 )
+layout_mode = 2
+texture = ExtResource("8")
 stretch_mode = 3
 
 [node name="LogMenu" type="TabContainer" parent="Menu/LogButton"]
-visible = false
+custom_minimum_size = Vector2(450, 300)
+layout_mode = 0
 anchor_left = -10.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 10.0
-margin_left = -48.0
-margin_bottom = 12.0
+offset_left = -48.0
+offset_bottom = 12.0
 grow_horizontal = 0
 grow_vertical = 0
-rect_min_size = Vector2( 450, 300 )
-tab_align = 2
+tab_alignment = 2
+current_tab = 1
 
 [node name="Instructions" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 41.0
-margin_right = -10.0
-margin_bottom = -10.0
+visible = false
+layout_mode = 2
 focus_mode = 2
 bbcode_enabled = true
 selection_enabled = true
+metadata/_tab_index = 0
 
 [node name="Log" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 41.0
-margin_right = -10.0
-margin_bottom = -10.0
+layout_mode = 2
 focus_mode = 2
-custom_styles/normal = SubResource( 1 )
+theme_override_styles/normal = SubResource("1")
 bbcode_enabled = true
 selection_enabled = true
+metadata/_tab_index = 1
 
 [node name="Warnings" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 41.0
-margin_right = -10.0
-margin_bottom = -10.0
+layout_mode = 2
 focus_mode = 2
-custom_styles/normal = SubResource( 2 )
+theme_override_styles/normal = SubResource("2")
 bbcode_enabled = true
 selection_enabled = true
+metadata/_tab_index = 2
 
 [node name="Errors" type="RichTextLabel" parent="Menu/LogButton/LogMenu"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 41.0
-margin_right = -10.0
-margin_bottom = -10.0
+layout_mode = 2
 focus_mode = 2
-custom_styles/normal = SubResource( 3 )
+theme_override_styles/normal = SubResource("3")
 bbcode_enabled = true
 selection_enabled = true
+metadata/_tab_index = 3
 
 [node name="LabLogPopup" type="Control" parent="Menu"]
-visible = false
+layout_mode = 3
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -371.0
-margin_top = -121.0
-margin_right = -5.0
-margin_bottom = -5.0
-__meta__ = {
-"_edit_group_": true
-}
+offset_left = -371.0
+offset_top = -121.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="Panel" type="Panel" parent="Menu/LabLogPopup"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/LabLogPopup/Panel"]
-margin_left = 9.0
-margin_top = 9.0
-margin_right = 363.0
-margin_bottom = 113.0
+layout_mode = 0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 363.0
+offset_bottom = 113.0
 grow_horizontal = 2
 
 [node name="Type" type="Label" parent="Menu/LabLogPopup/Panel/VBoxContainer"]
-margin_right = 354.0
-margin_bottom = 19.0
-align = 1
+layout_mode = 2
+horizontal_alignment = 1
 uppercase = true
 
 [node name="Description" type="RichTextLabel" parent="Menu/LabLogPopup/Panel/VBoxContainer"]
-margin_top = 23.0
-margin_right = 354.0
-margin_bottom = 43.0
-fit_content_height = true
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Border" type="ReferenceRect" parent="Menu/LabLogPopup"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-border_color = Color( 1, 1, 1, 1 )
+border_color = Color(1, 1, 1, 1)
 border_width = 5.0
 editor_only = false
 
 [node name="Scene" type="Node2D" parent="."]
 
 [node name="Mixtures" type="Node2D" parent="."]
-position = Vector2( -2, -2 )
-script = ExtResource( 10 )
+position = Vector2(-2, -2)
+script = ExtResource("10")
 
-[connection signal="pressed" from="Menu/MainMenu/Content/SelectModuleButton" to="Menu" method="_on_SelectModuleButton_pressed"]
-[connection signal="pressed" from="Menu/MainMenu/Content/OptionsButton" to="Menu" method="_on_OptionsButton_pressed"]
-[connection signal="pressed" from="Menu/MainMenu/Content/AboutButton" to="Menu" method="_on_AboutButton_pressed"]
-[connection signal="pressed" from="Menu/AboutScreen/VBoxContainer/CloseButton" to="Menu" method="_on_About_CloseButton_pressed"]
-[connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
-[connection signal="toggled" from="Menu/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="Menu" method="_on_ObjectTooltipsToggle_toggled"]
-[connection signal="value_changed" from="Menu/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="Menu" method="_on_PopupTimeout_value_changed"]
-[connection signal="pressed" from="Menu/OptionsScreen/VBoxContainer/CloseButton" to="Menu" method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/SelectModuleButton" to="Menu" method="_on_SelectModuleButton_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/RestartModuleButton" to="Menu" method="_on_restart_module_button_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/ExitModuleButton" to="Menu" method="_on_exit_module_button_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/OptionsButton" to="Menu" method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/AboutButton" to="Menu" method="_on_AboutButton_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/QuitButton" to="Menu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/AboutScreen/VBoxContainer/CloseButton" to="Menu" method="_on_About_CloseButton_pressed"]
+[connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
+[connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="Menu" method="_on_ObjectTooltipsToggle_toggled"]
+[connection signal="value_changed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="Menu" method="_on_PopupTimeout_value_changed"]
+[connection signal="pressed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/CloseButton" to="Menu" method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/ModuleSelect/VBoxContainer/CloseButton" to="Menu" method="_on_module_select_close_button_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/MainMenuButton" to="Menu" method="_on_FinalReport_MainMenuButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/RestartModuleButton" to="Menu" method="_on_FinalReport_RestartModuleButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/ContinueButton" to="Menu" method="_on_FinalReport_ContinueButton_pressed"]

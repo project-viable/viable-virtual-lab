@@ -20,6 +20,8 @@ The MixManager exists as a central touchpoint for all reactions that happen in a
 
 To mix two substances together, simply pass them as an array argument to the MixManager's mix() function. This will look through the list of input arrays (with the order of inputs not mattering) and, if a matching array is found, the output substance will be created and its `init_mixed()` function will be called with the reactant substances as an array argument. Following this, the created substance will be returned from `mix()`, and this new substance should be put in place of the substances that created it, which should be deleted after mixing finishes.
 
+To check if a substance was mixed correctly according to the module or the main `check_action` functions, it is important to call `report_action(objects_involed: Array, actionType: String, params: Dictionary)`.
+
 ### 3 - Custom MixManagers
 
  In addition to a dictionary of pairs representing mix outcomes, a custom MixManager also needs a dedicated folder to hold the substances for its specific module (specifically, their `.tscn` files), which will be used for loading and creating them on-the-fly during the mixing process, and all substance names entered into the manager's `outcomes` dictionary must be **identical** to the scene names for each substance involved, otherwise the manager will be unable to find them.

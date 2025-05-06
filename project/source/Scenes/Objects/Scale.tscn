@@ -1,80 +1,70 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://bdfkn4vc3t1ld"]
 
-[ext_resource path="res://Scripts/Objects/Scale.gd" type="Script" id=1]
-[ext_resource path="res://Images/Resized_Images/scale.png" type="Texture" id=2]
+[ext_resource type="Script" path="res://Scripts/Objects/Scale.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://4qpidnuobn6p" path="res://Images/Resized_Images/scale.png" id="2"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 63, 33 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(126, 66)
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 42.5, 33 )
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(85, 66)
 
 [node name="Scale" type="RigidBody2D" groups=["LabObjects", "Scale"]]
 input_pickable = true
 gravity_scale = 0.0
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
+script = ExtResource("1")
 draggable = true
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -2, 7 )
-scale = Vector2( 0.950783, 0.950783 )
-texture = ExtResource( 2 )
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, 7)
+scale = Vector2(0.950783, 0.950783)
+texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -1, 1 )
-shape = SubResource( 1 )
+position = Vector2(-1, 1)
+shape = SubResource("1")
 
 [node name="Control" type="Control" parent="."]
 visible = false
-margin_left = -55.0
-margin_top = 35.0
+layout_mode = 3
+anchors_preset = 0
+offset_left = -55.0
+offset_top = 35.0
 
 [node name="PanelContainer" type="PanelContainer" parent="Control"]
-margin_right = 110.0
-margin_bottom = 120.0
+layout_mode = 0
+offset_right = 110.0
+offset_bottom = 120.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 103.0
-margin_bottom = 113.0
+layout_mode = 2
 
 [node name="Title" type="Label" parent="Control/PanelContainer/VBoxContainer"]
-margin_right = 96.0
-margin_bottom = 14.0
+layout_mode = 2
 text = "Scale"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Tare_Button" type="Button" parent="Control/PanelContainer/VBoxContainer"]
-margin_top = 18.0
-margin_right = 96.0
-margin_bottom = 38.0
+layout_mode = 2
 text = "Tare"
 
 [node name="Exit_Button" type="Button" parent="Control/PanelContainer/VBoxContainer"]
-margin_top = 42.0
-margin_right = 96.0
-margin_bottom = 62.0
+layout_mode = 2
 text = "Exit"
 
 [node name="Weight_Value" type="Label" parent="Control/PanelContainer/VBoxContainer"]
-margin_top = 66.0
-margin_right = 96.0
-margin_bottom = 80.0
+layout_mode = 2
 text = "0.0"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -0.5, 1 )
-shape = SubResource( 2 )
+position = Vector2(-0.5, 1)
+shape = SubResource("2")
 
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/Tare_Button" to="." method="_on_Tare_Button_pressed"]
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/Exit_Button" to="." method="_on_Exit_Button_pressed"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

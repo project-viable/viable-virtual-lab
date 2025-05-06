@@ -4,20 +4,20 @@ class_name Substance
 # This object models a substance that can be placed into containers and mixed
 # with other substances to produce a result.
 
-var color = Color('#4bd87e') # dictates what color to display in the substance's container
-var volume = 1 # volume is used as the default measure to keep consistency between solids and liquids
-var density = 1.0 # used for calculating mass based on the volume
+var color: Color = Color('#4bd87e') # dictates what color to display in the substance's container
+var volume: float = 1 # volume is used as the default measure to keep consistency between solids and liquids
+var density: float = 1.0 # used for calculating mass based on the volume
 
-var total_run_time = 0 # used for calculating time ran under current
+var total_run_time: float = 0 # used for calculating time ran under current
 
-func init_mixed(parent_substances):
+func init_mixed(parent_substances: Array[Substance]) -> void:
 	# this function is called when the substance is created by mixing 
 	# other substances together.
 	
 	# determine the new color of the substance from its parents
-	var new_color = null
-	for substance in parent_substances:
-		var subst_color = substance.get_properties()['color']
+	var new_color: Variant = null
+	for substance: Substance in parent_substances:
+		var subst_color: Color = substance.get_properties()['color']
 		
 		if(new_color == null):
 			new_color = subst_color
@@ -26,7 +26,7 @@ func init_mixed(parent_substances):
 	
 	color = new_color
 
-func init_created(properties):
+func init_created(properties: Dictionary) -> void:
 	# this function is called when the substance is created from a source container.
 	if(properties.has('color')):
 		color = properties['color']
@@ -37,45 +37,45 @@ func init_created(properties):
 	if(properties.has('density')):
 		density = properties['density']
 
-func get_volume():
+func get_volume() -> float:
 	return volume
 
-func set_volume(value):
+func set_volume(value: float) -> void:
 	volume = value
 
-func get_mass():
+func get_mass() -> float:
 	return (volume * density)
 
-func get_density():
+func get_density() -> float:
 	return density
 
-func get_properties():
+func get_properties() -> Dictionary:
 	return { 
 		"color": color,
 		"volume": volume,
 		"density": density
 	}
 	
-func heat(heatTime):
+func heat(heat_time: float) -> void:
 	pass
 
-func chill(chillTime):
+func chill(chill_time: float) -> void:
 	pass
 	
-func run_current(voltage, time):
+func run_current(voltage: float, time: float) -> void:
 	pass
 
-func GetMain():
+func get_main() -> Node2D:
 	return get_tree().current_scene
 
-func GetCurrentModuleScene():
-	return get_tree().current_scene.currentModuleScene
+func get_current_module_scene() -> Node2D:
+	return get_tree().current_scene.current_module_scene
 
-func ReportAction(objectsInvolved: Array, actionType: String, params: Dictionary):
-	print("Reporting an action of type " + actionType + " involving " + str(objectsInvolved) + ". Params are " + str(params))
+func report_action(objects_involved: Array, action_type: String, params: Dictionary) -> void:
+	print("Reporting an action of type " + action_type + " involving " + str(objects_involved) + ". Params are " + str(params))
 	
 	#This function asks for these as arguments, and then manually adds them here, to remind/force you to provide them
-	params['objectsInvolved'] = objectsInvolved
-	params['actionType'] = actionType
-	GetMain().CheckAction(params)
-	GetCurrentModuleScene().CheckAction(params)
+	params['objects_involved'] = objects_involved
+	params['action_type'] = action_type
+	get_main().check_action(params)
+	get_current_module_scene().check_action(params)

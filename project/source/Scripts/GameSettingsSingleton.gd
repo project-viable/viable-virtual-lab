@@ -1,5 +1,5 @@
 extends Node
 
-var mouseCameraDrag = true
-var objectTooltips = true
-var popupTimeout = 2.0
+var mouse_camera_drag: bool = true
+var object_tooltips: bool = true
+var popup_timeout: float = 2.0

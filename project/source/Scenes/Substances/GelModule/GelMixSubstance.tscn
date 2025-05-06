@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scenes/Substances/GelModule/GelMixSubstance.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Substances/GelModule/GelMixSubstance.gd" type="Script" id=1]
 
 [node name="GelMixSubstance" type="Node2D" groups=["Chillable", "Conductive", "Gel", "Heatable", "Liquid Substance", "Weighable"]]
 script = ExtResource( 1 )

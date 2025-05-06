@@ -2,24 +2,25 @@ extends LabObject
 
 # Currently the same as DummySourceContainer to use for testing
 
-export (PackedScene) var substance = null
-var contents = null
+@export var substance: PackedScene = null
+var contents:Node = null
 
-func _ready():
+func _ready() -> void:
+	super()
 	if substance == null:
 		substance = load('res://Scenes/Objects/BufferSolutionSubstance.tscn')
-	contents = substance.instance()
+	contents = substance.instantiate()
 
-func CheckContents(group):
-	return contents.is_in_group(group)
+func check_contents(group: StringName) -> Array[bool]:
+	return [contents.is_in_group(group)] if contents else []
 
-func TakeContents():
+func take_contents(_volume: float = -1) -> Array[Substance]:
 	if substance == null:
-		return null
+		return []
 	
-	var new_content = substance.instance()
+	var new_content:Node = substance.instantiate()
 	print("Dispensed some of TAE Buffer Solution")
 	return [new_content]
 
-func AddContents(new_contents):
+func add_contents(new_contents:Array[Substance]) -> void:
 	pass

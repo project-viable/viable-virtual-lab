@@ -1,78 +1,79 @@
-tool
+@tool
 extends LabObject
 
-var running = false
-export (int) var time_delay = 0.005
+var running: bool = false
+@export var time_delay: float = 0.005
 
-func Ready():
+func _ready() -> void:
+	super()
 	add_to_group("CurrentConductors", true)
-	$CurrentConductor.SetVolts(0)
-	$CurrentConductor.SetTime(0)
+	$CurrentConductor.set_volts(0)
+	$CurrentConductor.set_time(0)
 
-func TryInteract(others):
-	pass
+func try_interact(others: Array[LabObject]) -> bool:
+	return false
 
-func terminal_connected(_terminal, _contact):
+func terminal_connected(_terminal: LabObject, _contact: LabObject) -> bool:
 	return $PosTerminal.connected() || $NegTerminal.connected()
 
-func _on_VoltsInput_value_changed(value):
-	$CurrentConductor.SetVolts(value)
+func _on_VoltsInput_value_changed(value: float) -> void:
+	$CurrentConductor.set_volts(value)
 
-func _on_TimeInput_value_changed(value):
-	$CurrentConductor.SetTime(value)
+func _on_TimeInput_value_changed(value: float) -> void:
+	$CurrentConductor.set_time(value)
 	
-func ToggleInputsEditable():
+func toggle_inputs_editable() -> void:
 	$UserInput/VoltsInput.editable = !running
 	$UserInput/TimeInput.editable = !running	
 	
-func ToggleRunCurrentText():
+func toggle_run_current_text() -> void:
 	if running:
 		$UserInput/RunCurrent.text = "STOP"
 	else:
 		$UserInput/RunCurrent.text = "START"
 		
-func current_reversed():
-	return true if ($PosTerminal.plugged_electrode.get_parent().current_direction == 0) else false
+func current_reversed() -> bool:
+	return $PosTerminal.plugged_electrode.get_parent().current_direction == 0
 
-func _on_RunCurrent_pressed():
+func _on_RunCurrent_pressed() -> void:
 	if running:
-		running = !running
-		ToggleRunCurrentText()
-		ToggleInputsEditable()
+		running = false
+		toggle_run_current_text()
+		toggle_inputs_editable()
 		return
 		
-	if $CurrentConductor.GetTime() == 0:
+	if $CurrentConductor.get_time() == 0:
 		return
 	
-	var other_device = get_other_device()
+	var other_device := get_other_device()
 	
 	if other_device.has_method('able_to_run_current'):
 		if other_device.able_to_run_current():
-			var time_ran = 0
-			var voltage_mod = -1 if (current_reversed()) else 1
+			var time_ran := 0.0
+			var voltage_mod: float = -1 if (current_reversed()) else 1
 			# Notify of potential errors only once
-			ReportAction([self, other_device], "runCurrent", {'voltage': $CurrentConductor.GetVolts() * voltage_mod})
+			report_action([self, other_device], "runCurrent", {'voltage': $CurrentConductor.get_volts() * voltage_mod})
 			
 			# Update running state and button text
-			running = !running
-			ToggleRunCurrentText()
-			ToggleInputsEditable()
+			running = true
+			toggle_run_current_text()
+			toggle_inputs_editable()
 			
 			# This calls run_current on the designated device at an equally timed interval
 			# This loop will also stop short of the desired time if the user presses "STOP"
-			while time_ran <= $CurrentConductor.GetTime():
+			while time_ran <= $CurrentConductor.get_time():
 				if !running:
 					break
-				var timestep = get_physics_process_delta_time()
+				var timestep := get_physics_process_delta_time()
 				# Get the connection
 				if $PosTerminal.connected() && $NegTerminal.connected():
 					if other_device.has_method("run_current"):
 						
-						other_device.run_current($CurrentConductor.GetVolts() * voltage_mod, timestep)
+						other_device.run_current($CurrentConductor.get_volts() * voltage_mod, timestep)
 						
 						time_ran += timestep
 						
-						yield(get_tree().create_timer(time_delay), "timeout")
+						await get_tree().create_timer(time_delay).timeout
 						
 					else:
 						print("Other device ", other_device, " needs a run_current() method")
@@ -81,20 +82,20 @@ func _on_RunCurrent_pressed():
 					print("At least one terminal is disconnected")
 					break
 			
-			#running = !running
-			#ToggleRunCurrentText()
-			#ToggleInputsEditable()
+			running = false
+			toggle_run_current_text()
+			toggle_inputs_editable()
 	else:
 		print("Device cannot run current")
 
-func get_other_device():
+func get_other_device() -> LabObject:
 	if $PosTerminal == null || $NegTerminal == null:
 		return
-	var pos_parent = $PosTerminal.plugged_electrode.get_parent()
-	var neg_parent = $NegTerminal.plugged_electrode.get_parent()
+	var pos_parent: ContactWire = $PosTerminal.plugged_electrode.get_parent()
+	var neg_parent: ContactWire = $NegTerminal.plugged_electrode.get_parent()
 	
 	# Union of both terminal connections
-	var connections = pos_parent.connections
+	var connections := pos_parent.connections
 	for connection in neg_parent.connections:
 		if not connections.has(connection):
 			connections.append(connection)

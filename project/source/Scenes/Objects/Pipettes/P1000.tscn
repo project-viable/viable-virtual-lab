@@ -1,20 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://b7bp1h8o4qgkw"]
 
-[ext_resource path="res://Scenes/Objects/Pipettes/Pipette.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Images/Label_P1000.png" type="Texture" id=2]
+[ext_resource type="PackedScene" uid="uid://b04fv7l4pv0k2" path="res://Scenes/Objects/Pipettes/Pipette.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://bwk4lemjevh1o" path="res://Images/Label_P1000.png" id="2"]
 
-[node name="P1000" instance=ExtResource( 1 )]
-DisplayName = "P1000 Pipette"
-minCapacity = 200.0
-maxCapacity = 1000.0
-displayIncrementTop = 1000.0
-displayIncrementMiddle = 100.0
-displayIncrementBottom = 10.0
+[node name="P1000" instance=ExtResource("1")]
+min_capacity = 200.0
+max_capacity = 1000.0
+display_increment_top = 1000.0
+display_increment_middle = 100.0
+display_increment_bottom = 10.0
+display_name = "P1000 Pipette"
 
 [node name="PipetteSizeLabel" type="TextureRect" parent="Menu/Border" index="6"]
-margin_left = 220.0
-margin_top = 440.0
-margin_right = 316.0
-margin_bottom = 536.0
-rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 2 )
+layout_mode = 0
+offset_left = 220.0
+offset_top = 440.0
+offset_right = 316.0
+offset_bottom = 536.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2")

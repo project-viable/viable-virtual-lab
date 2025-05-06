@@ -1,34 +1,34 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" script_class="ModuleData" load_steps=4 format=3 uid="uid://qyvthme13vqx"]
 
-[ext_resource path="res://Scripts/Resources/ModuleData.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Modules/GelElectrophoresis.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Images/Gel Electrophoresis Icon.png" type="Texture" id=3]
+[ext_resource type="Script" path="res://Scripts/Resources/ModuleData.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://5k1jgd6pvw4r" path="res://Scenes/Modules/GelElectrophoresis.tscn" id="2"]
+[ext_resource type="Texture2D" uid="uid://b3mapaem4gat2" path="res://Images/Gel Electrophoresis Icon.png" id="3"]
 
 [resource]
-script = ExtResource( 1 )
-Show = true
-Name = "Gel Electrophoresis"
-Tooltip = "Learn how to do Gel Electrophoresis."
-Thumbnail = ExtResource( 3 )
-Scene = ExtResource( 2 )
-InstructionsBBCode = "[b]Gel Electrophoresis[/b]
+script = ExtResource("1")
+show = true
+name = "Gel Electrophoresis"
+tooltip = "Learn how to do Gel Electrophoresis."
+thumbnail = ExtResource("3")
+scene = ExtResource("2")
+instructions_bb_code = "[b]Gel Electrophoresis[/b]
 
 [b]To make the gel:[/b]
-1) Use the scoopula, weigh boat and scale to measure 7.84 g of agarose powder (this may require changing the scoopula to Tap mode by tapping on it, and tapping some off into an empty flask), and add it to an empty flask.
+1) Use the scoopula, weigh boat and scale to measure 7.84 g of agarose powder.
 2) Use the graduated cylinder to measure 50 mL of buffer solution, and add it to the same flask.
 3) Tap the flask and press Mix to mix the gel solution.
 4) Place the flask into the microwave and microwave for 60 seconds, then remove.
 5) Pour the gel solution from the flask into the gel boat, and drag the gel comb into the gel boat.
-6) Tap the gel boat and press Let Cool to solidify the gel, then remove the gel comb by clicking and dragging it.
+6) Tap the gel boat and press Let Cool to solidify the gel, then remove the gel comb by clicking the button 'Remove Comb'.
 
 [b]To run the gel:[/b]
-7) Place a tip onto the pipette using the tip box, and tap the pipette to adjust its amount to 5.0 uL.
+7) Place a tip onto the pipette using the tip box, and tap the pipette to adjust its amount to 5.0 µL.
 8) Use the pipette to take a DNA sample and place it into the gel, then move the pipette to the waste bin to dispose of the tip.
 9) Repeat steps 7-8 for all DNA samples.
 10) Use the graduated cylinder and an empty flask to fill the electrolysis setup with 50 mL of buffer solution, using the Fill portion at the top.
 11) Place the gel boat into the electrolysis setup and hook up the color-coded positive and negative wires to the current source.
-12) Set the current source to 400 milliamps and 120 volts, with a running time of 60 minutes.
-13) Press START and watch the gel run in accelerated time (this should take 60 seconds).
+12) Set the current source to 120 volts and a running time of 20 minutes.
+13) Press START and watch the gel run in accelerated time (this should take 20 seconds).
 
 [b]To image the gel:[/b]
 14) Once the gel running has finished, remove the gel boat from the electrolysis setup and place it into the gel imager.

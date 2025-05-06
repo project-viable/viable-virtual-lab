@@ -1,15 +1,18 @@
 extends LabObject
 
-var contents = null
-var substance = null
+var contents: Substance = null
+var substance: PackedScene = null
 
-func CheckContents(group):
-	return contents.is_in_group(group)
+func check_contents(group: StringName) -> Array[bool]:
+	if contents:
+		return [contents.is_in_group(group)]
+	else:
+		return []
 
-func TakeContents():
+func take_contents(_volume: float = -1) -> Array[Substance]:
 	if substance == null:
-		return null
+		return []
 	
-	var new_content = substance.instance()
+	var new_content: Substance = substance.instantiate()
 	print("Dispensed some of the stored substance")
 	return [new_content]

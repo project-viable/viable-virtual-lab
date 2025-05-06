@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://3tnjoc15p5br"]
 
-[ext_resource path="res://Scripts/Objects/LabObject.gd" type="Script" id=1]
-[ext_resource path="res://Images/Resized_Images/Gel_Comb.png" type="Texture" id=2]
+[ext_resource type="Script" path="res://Scripts/Objects/LabObject.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://djw6a85ou15jr" path="res://Images/Resized_Images/Gel_Comb.png" id="2"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 42, 12 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(84, 24)
 
 [node name="GelComb" type="RigidBody2D" groups=["Gel Comb", "LabObjects"]]
 z_index = 2
@@ -12,11 +12,11 @@ collision_layer = 2
 input_pickable = true
 gravity_scale = 0.0
 can_sleep = false
-script = ExtResource( 1 )
-DisplayName = "Gel Comb"
+script = ExtResource("1")
+display_name = "Gel Comb"
 
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource("1")

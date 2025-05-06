@@ -1,15 +1,18 @@
 extends LabObject
 
-export (PackedScene) var objectToSpawn: PackedScene = null
-export (String) var label = "New Object"
-export (Vector2) var offset = Vector2(0, 0)
+@export var object_to_spawn: PackedScene = null
+@export var label: String = "New Object"
+@export var offset: Vector2 = Vector2(0, 0)
 
-func _ready():
-	._ready() #super()
+func _ready() -> void:
+	super()
 	$Label.text = label
 
-func TryActIndependently():
-	if objectToSpawn:
-		var newObject = objectToSpawn.instance()
-		get_parent().add_child(newObject)
-		newObject.global_position = self.global_position + offset
+func try_act_independently() -> bool:
+	if object_to_spawn:
+		var new_object: Node2D = object_to_spawn.instantiate()
+		get_parent().add_child(new_object)
+		new_object.global_position = self.global_position + offset
+		return true
+
+	return false

@@ -1,0 +1,175 @@
+
+[gd_scene load_steps=20 format=3 uid="uid://dpm1gs1fyv4gg"]
+
+
+[ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="1_bc34u"]
+[ext_resource type="Script" path="res://Scenes/Modules/fluorescence_microscopy.gd" id="1_q60rk"]
+[ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="2_3x61r"]
+[ext_resource type="PackedScene" uid="uid://dtltidc1e8ikc" path="res://Scenes/Objects/Computer.tscn" id="3_0ypcw"]
+[ext_resource type="PackedScene" uid="uid://dj8378rcmjta0" path="res://Scenes/Objects/Joystick.tscn" id="3_psukr"]
+[ext_resource type="PackedScene" uid="uid://cm1ln611t82pr" path="res://Scenes/Objects/microscope.tscn" id="4_nth22"]
+[ext_resource type="Script" path="res://Scripts/Objects/microscope_view_controls.gd" id="6_fmuel"]
+[ext_resource type="PackedScene" uid="uid://b7038o1t6lkhh" path="res://Scenes/Objects/focus_control.tscn" id="8_b47o4"]
+[ext_resource type="PackedScene" uid="uid://beqq06mcfr5hj" path="res://Scenes/Objects/Fridge.tscn" id="9_pfw6q"]
+[ext_resource type="Texture2D" uid="uid://cywu72ubqmqcv" path="res://Images/joystick_final.png" id="10_q6h74"]
+[ext_resource type="Texture2D" uid="uid://dssj1r0fiy1ba" path="res://Images/Joystick_Knob_temp.png" id="11_5u4fk"]
+[ext_resource type="Texture2D" uid="uid://6dai70p6cl8w" path="res://Images/focus_outer_area.png" id="12_q72eu"]
+[ext_resource type="PackedScene" uid="uid://6tou436jn4fv" path="res://Scenes/Objects/zoom_oil.tscn" id="13_zoomoil"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1w4j"]
+size = Vector2(1278.5, 565)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5o7s"]
+size = Vector2(1243.75, 139.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3j5h"]
+bg_color = Color(1, 0.215686, 0.215686, 1)
+border_width_left = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bfnky"]
+bg_color = Color(0.72549, 0.156863, 0.156863, 1)
+border_width_left = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trgr5"]
+bg_color = Color(1, 0.384314, 0.384314, 1)
+border_width_left = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bx62t"]
+size = Vector2(116, 71)
+
+[node name="FluorescenceMicroscopy" type="Node2D"]
+position = Vector2(1, -1)
+script = ExtResource("1_q60rk")
+
+[node name="LabBoundary" type="Area2D" parent="."]
+position = Vector2(640, 280)
+script = ExtResource("1_bc34u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LabBoundary"]
+shape = SubResource("RectangleShape2D_g1w4j")
+
+[node name="Background" type="Node2D" parent="."]
+z_index = -1
+position = Vector2(641, 354)
+
+[node name="LabCounter1" type="Sprite2D" parent="Background"]
+scale = Vector2(1.0084, 1)
+texture = ExtResource("2_3x61r")
+
+[node name="Countertop" type="StaticBody2D" parent="Background"]
+position = Vector2(-6, 291)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Countertop"]
+position = Vector2(6.125, 0)
+shape = SubResource("RectangleShape2D_y5o7s")
+
+[node name="Microscope" parent="Background" instance=ExtResource("4_nth22")]
+position = Vector2(-367, -239)
+scale = Vector2(0.7, 0.7)
+
+[node name="Computer" parent="." node_paths=PackedStringArray("joystick", "focus_control") instance=ExtResource("3_0ypcw")]
+z_index = 1
+position = Vector2(889, 472)
+scale = Vector2(0.952876, 0.952876)
+joystick = NodePath("../MicroscopeControls/Border/Joystick")
+focus_control = NodePath("../MicroscopeControls/Border/focus_control")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(641, 360)
+
+[node name="Fridge" parent="." instance=ExtResource("9_pfw6q")]
+position = Vector2(-105, 156)
+
+[node name="ZoomOil" parent="." instance=ExtResource("13_zoomoil")]
+position = Vector2(338, -60)
+
+[node name="MicroscopeControls" type="RigidBody2D" parent="." groups=["LabObjects"]]
+position = Vector2(1313, 419)
+collision_layer = 2
+input_pickable = true
+can_sleep = false
+lock_rotation = true
+freeze = true
+script = ExtResource("6_fmuel")
+
+[node name="Border" type="ReferenceRect" parent="MicroscopeControls"]
+offset_left = -244.0
+offset_top = -324.0
+offset_right = -49.0
+offset_bottom = 38.0
+mouse_filter = 1
+border_color = Color(1, 1, 1, 1)
+border_width = 2.0
+editor_only = false
+
+[node name="Background" type="ColorRect" parent="MicroscopeControls/Border"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.265681, 0.2907, 0.376152, 1)
+
+[node name="CloseButton" type="Button" parent="MicroscopeControls/Border/Background"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+theme_override_colors/font_disabled_color = Color(0.65098, 0.65098, 0.65098, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = SubResource("StyleBoxFlat_p3j5h")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_bfnky")
+theme_override_styles/hover = SubResource("StyleBoxFlat_trgr5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bfnky")
+theme_override_styles/normal = SubResource("StyleBoxFlat_p3j5h")
+text = "X"
+
+[node name="focus_control" parent="MicroscopeControls/Border" instance=ExtResource("8_b47o4")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -62.0
+offset_top = 16.0
+offset_right = 62.0
+offset_bottom = 140.0
+grow_horizontal = 2
+
+[node name="Joystick" parent="MicroscopeControls/Border" instance=ExtResource("3_psukr")]
+z_index = 1
+position = Vector2(98, 252)
+
+[node name="JoystickSprite" type="Sprite2D" parent="MicroscopeControls"]
+position = Vector2(-194, 114)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("10_q6h74")
+
+[node name="JoystickKnobSprite" type="Sprite2D" parent="MicroscopeControls"]
+position = Vector2(-196.4, 93)
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("11_5u4fk")
+
+[node name="FocusControlSprite" type="Sprite2D" parent="MicroscopeControls"]
+position = Vector2(-140, 104)
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("12_q72eu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MicroscopeControls"]
+position = Vector2(-165, 111.5)
+shape = SubResource("RectangleShape2D_bx62t")
+
+[connection signal="mount_slide" from="Background/Microscope" to="." method="_on_microscope_mount_slide"]

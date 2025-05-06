@@ -1,15 +1,15 @@
 extends MistakeChecker
 class_name HeatingTimeChecker
 
-export(float) var CorrectTimeToMicrowave = 60
-export(String) var TooLongMessage
-export(String) var TooShortMessage
+@export var correct_time_to_microwave: float = 60
+@export var too_long_message: String
+@export var too_short_message: String
 
-func CheckAction(params: Dictionary):
+func check_action(params: Dictionary) -> void:
 	#Check if this action is even applicable to this checker:
-	if params['actionType'] == 'heat' and params.get('heatTime'):
+	if params['action_type'] == 'heat' and params.get('heat_time'):
 		#Now that we know we can check it, see if the user made a mistake:
-		if params['heatTime'] < CorrectTimeToMicrowave:
-			LabLog.Warn(TooShortMessage)
-		elif params['heatTime'] > CorrectTimeToMicrowave:
-			LabLog.Warn(TooLongMessage)
+		if params['heat_time'] < correct_time_to_microwave:
+			LabLog.warn(too_short_message)
+		elif params['heat_time'] > correct_time_to_microwave:
+			LabLog.warn(too_long_message)

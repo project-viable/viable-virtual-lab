@@ -1,9 +1,9 @@
 extends Button
 
-var sceneToLoad
+var scene_to_load: PackedScene
 
-func SetData(data: ModuleData):
-	text = data.Name
-	hint_tooltip = data.Tooltip
-	icon = data.Thumbnail #TODO: if this is not provided, the button is invisible. Have some default texture to use if Thumbnail is null?
-	sceneToLoad = data.Scene
+func set_data(data: ModuleData) -> void:
+	text = data.name
+	tooltip_text = data.tooltip
+	icon = data.thumbnail #TODO: if this is not provided, the button is invisible. Have some default texture to use if thumbnail is null?
+	scene_to_load = data.scene

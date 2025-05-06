@@ -13,6 +13,8 @@ To run the project locally, you need to clone or download the repo from GitHub.
 To try it out once you've got the project files, you'll need to go to Project/Tools and run the Godot Engine executable there. Once that pops up you'll have to import the project itself, which is in Project/Source. You should only need to import it once on the computer you're using. Once you've imported it, you can open the project. From there, you can run the game by hitting the play button in the upper right.
 ![image](https://github.com/jcourt325/BiofrontiersCapstone/assets/65268611/47f6327b-9051-4bbf-96ea-3f7009dcd14e)
 
-# Documentation
+## Contributing
+Please follow the [official GDScript style guide](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html) when contributing code.
 
+## Documentation
 See [Documentation Home](/docs/index.md)
