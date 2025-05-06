@@ -3,7 +3,7 @@ class_name DraggableMicroscopeSlide
 # If the user closes the fridge, the slides will still persist outside
 # Users can also store the slides back into the fridge
 # Selects the slide to be dragged
-@onready var scene_root: Node2D = get_tree().current_scene
+@onready var scene_root: Node2D = get_owner()
 
 signal is_selected
 

@@ -9,7 +9,7 @@ const PAN_SPEED := 500
 @export var focus_control: FocusControl
 
 var is_clicked: bool = false
-var zoom_level: String = "None"
+var zoom_level: String = "10x"
 var current_slide: DraggableMicroscopeSlide = null
 var delay: int = 0
 var brightness: float = 0.0
@@ -162,15 +162,15 @@ func _on_play_button_pressed() -> void:
 		cell_image_node.visible = true
 		return
 	var texture := ImageTexture.create_from_image(create_combo_image())
-	delay = max(channels_exposure["Dapi"],
-				channels_exposure["FITC"],
-				channels_exposure["TRITC"],
-				channels_exposure["Cy5"])
-	# Account for slow image processing
-	if(delay - 1000 > 0):
-		delay = delay - 1000
-	# Delays the visibility of the image based on the miliseconds the user put in
-	await get_tree().create_timer((delay/1000)).timeout
+	#delay = max(channels_exposure["Dapi"],
+				#channels_exposure["FITC"],
+				#channels_exposure["TRITC"],
+				#channels_exposure["Cy5"])
+	## Account for slow image processing
+	#if(delay - 1000 > 0):
+		#delay = delay - 1000
+	## Delays the visibility of the image based on the miliseconds the user put in
+	#await get_tree().create_timer((delay/1000)).timeout
 	cell_image_node.texture = texture
 	brightness = clamp((brightness * 2) - 1, -1.0, 1.0)
 	adjust_brightness()

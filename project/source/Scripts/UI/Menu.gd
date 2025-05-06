@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+@export var all_modules: Array[ModuleData]
+
 var module_directory: String = "res://Modules/"
 var module_button: PackedScene = load("res://Scenes/UI/ModuleSelectButton.tscn")
 
@@ -15,30 +17,12 @@ var unread_logs: Dictionary = {
 var popup_active: bool = false
 var logs: Array[LogMessage] = []
 
-#This function is mostly copied from online.
-#It seems like godot 3.5 does not have a convenient function for this.
-func get_all_files_in_folder(path: String) -> Array[String]:
-	var result: Array[String] = []
-
-	var dir: DirAccess = DirAccess.open(path)
-	if dir != null:
-		dir.list_dir_begin()  #skip . and .. but don't skop hidden files# TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-		var file_name: String = dir.get_next()
-		while file_name != "":
-			if not dir.current_is_dir():
-				result.append(file_name)
-			file_name = dir.get_next()
-	else:
-		print("Couldn't open \"" + path + "\"")
-	return result
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_switch_to_main_menu()
 
 	#Set up the module select buttons
-	for file in get_all_files_in_folder(module_directory):
-		var module_data: ModuleData = load(module_directory + file)
+	for module_data in all_modules:
 		if module_data.show:
 			var new_button := module_button.instantiate()
 			new_button.set_data(module_data)
@@ -77,7 +61,7 @@ func _load_module(module: ModuleData) -> void:
 
 	_switch_to_menu_screen($MenuScreens/PauseMenu)
 	$Background.hide()
-	$MenuScreens/PauseMenu/Content/Logo.show()
+	$MenuScreens/PauseMenu/Content/Logo.hide()
 	$MenuScreens/PauseMenu/Content/ExitModuleButton.show()
 	$MenuScreens/PauseMenu/Content/RestartModuleButton.show()
 	$MenuScreens.hide()

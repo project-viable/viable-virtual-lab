@@ -41,11 +41,10 @@ func set_has_tip(new_val: bool) -> void:
 
 func set_draw_volume(new_val: float) -> void:
 	draw_volume = new_val
-	
-	if draw_volume < min_capacity:
-		LabLog.warn("Setting this micropipette to a volume lower than its minimum (" + str(min_capacity) + ") could break it!")
-	elif draw_volume > max_capacity:
-		LabLog.warn("Setting this micropipette to a volume higher than its maximum (" + str(max_capacity) + ") could break it!")
+	#if draw_volume < min_capacity:
+		#LabLog.warn("Setting this micropipette to a volume lower than its minimum (" + str(min_capacity) + ") could break it!")
+	#elif draw_volume > max_capacity:
+		#LabLog.warn("Setting this micropipette to a volume higher than its maximum (" + str(max_capacity) + ") could break it!")
 	
 	setup_volume_display()
 

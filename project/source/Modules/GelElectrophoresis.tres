@@ -1,16 +1,16 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" script_class="ModuleData" load_steps=4 format=3 uid="uid://qyvthme13vqx"]
 
-[ext_resource path="res://Scripts/Resources/ModuleData.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Modules/GelElectrophoresis.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Images/Gel Electrophoresis Icon.png" type="Texture2D" id=3]
+[ext_resource type="Script" path="res://Scripts/Resources/ModuleData.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://5k1jgd6pvw4r" path="res://Scenes/Modules/GelElectrophoresis.tscn" id="2"]
+[ext_resource type="Texture2D" uid="uid://b3mapaem4gat2" path="res://Images/Gel Electrophoresis Icon.png" id="3"]
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource("1")
 show = true
 name = "Gel Electrophoresis"
 tooltip = "Learn how to do Gel Electrophoresis."
-thumbnail = ExtResource( 3 )
-scene = ExtResource( 2 )
+thumbnail = ExtResource("3")
+scene = ExtResource("2")
 instructions_bb_code = "[b]Gel Electrophoresis[/b]
 
 [b]To make the gel:[/b]
