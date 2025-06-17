@@ -1,2 +1,6 @@
 /project/source/.import/
 /project/source/.godot/
+
+# For ConTeXt.
+*.log
+*.tuc
