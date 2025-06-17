@@ -12,7 +12,7 @@ config_version=5
 
 config/name="VIABLE Virtual Lab"
 run/main_scene="res://Main.tscn"
-config/features=PackedStringArray("4.3")
+config/features=PackedStringArray("4.4")
 boot_splash/image="res://Images/MainMenu-Background.png"
 config/icon="res://favicon.png"
 

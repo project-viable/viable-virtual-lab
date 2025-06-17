@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ModuleData" load_steps=3 format=3 uid="uid://ct2buu7x0tve8"]
 
-[ext_resource type="Script" path="res://Scripts/Resources/ModuleData.gd" id="1_bou2b"]
+[ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://Scripts/Resources/ModuleData.gd" id="1_bou2b"]
 [ext_resource type="PackedScene" uid="uid://dpm1gs1fyv4gg" path="res://Scenes/Modules/FluorescenceMicroscopy.tscn" id="1_hl2bj"]
 
 [resource]

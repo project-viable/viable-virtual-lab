@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://dij7fep65ye75" path="res://Images/PositiveTerminal.png" id="3"]
 [ext_resource type="PackedScene" uid="uid://cpv7cti6d86xn" path="res://Scenes/UI/GelDisplay.tscn" id="4"]
 [ext_resource type="Texture2D" uid="uid://ctbseq5helqq4" path="res://Images/Resized_Images/Gel_Rig.png" id="5"]
-[ext_resource type="Script" path="res://Scripts/Objects/ElectrolysisSetup.gd" id="6"]
-[ext_resource type="Script" path="res://Scripts/Objects/ElectrodeTerminal.gd" id="7"]
+[ext_resource type="Script" uid="uid://d15m3r7i8quxo" path="res://Scripts/Objects/ElectrolysisSetup.gd" id="6"]
+[ext_resource type="Script" uid="uid://bmcifeu1x3y8n" path="res://Scripts/Objects/ElectrodeTerminal.gd" id="7"]
 [ext_resource type="Texture2D" uid="uid://b8liaegx1v3x7" path="res://Images/redX.png" id="8"]
 
 [sub_resource type="RectangleShape2D" id="1"]

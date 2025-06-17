@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://bdhcog70hlavt" path="res://Scenes/Objects/SubsceneManager.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://diuvd0c2tau3q" path="res://Images/Gel_Tray_empty.png" id="2"]
-[ext_resource type="Script" path="res://Scripts/Objects/GelMoldSubsceneManager.gd" id="3"]
+[ext_resource type="Script" uid="uid://0mn57by26myx" path="res://Scripts/Objects/GelMoldSubsceneManager.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://cju415ixxlq0p" path="res://Images/Gel_Tray_empty_zoomed.png" id="4"]
-[ext_resource type="PackedScene" uid="uid://bd7rqx0nct31h" path="res://Scenes/Objects/GelWell.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://c30as4hbwqhmx" path="res://Scenes/Objects/GelWell.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/GelWellPipetteProxy.tscn" id="7"]
 [ext_resource type="Texture2D" uid="uid://0tum643no1du" path="res://Images/Gel_Tray_filled.png" id="8"]
 

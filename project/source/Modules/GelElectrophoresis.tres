@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ModuleData" load_steps=4 format=3 uid="uid://qyvthme13vqx"]
 
-[ext_resource type="Script" path="res://Scripts/Resources/ModuleData.gd" id="1"]
+[ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://Scripts/Resources/ModuleData.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://5k1jgd6pvw4r" path="res://Scenes/Modules/GelElectrophoresis.tscn" id="2"]
 [ext_resource type="Texture2D" uid="uid://b3mapaem4gat2" path="res://Images/Gel Electrophoresis Icon.png" id="3"]
 

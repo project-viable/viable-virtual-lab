@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bh6iocygbfwtj"]
 
-[ext_resource type="Script" path="res://Scripts/UI/channels_panel.gd" id="1_0x52q"]
+[ext_resource type="Script" uid="uid://b7u6vbw2ugdc" path="res://Scripts/UI/channels_panel.gd" id="1_0x52q"]
 [ext_resource type="FontFile" uid="uid://c5jqyemsa330f" path="res://UI/Roboto/Roboto-Black.ttf" id="1_8laf3"]
-[ext_resource type="ButtonGroup" path="res://UI/ZoomButtonGroup.tres" id="2_28d1o"]
+[ext_resource type="ButtonGroup" uid="uid://b2r6nsccpunhd" path="res://UI/ZoomButtonGroup.tres" id="2_28d1o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p50rb"]
 content_margin_left = 30.0

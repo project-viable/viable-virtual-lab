@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://6tou436jn4fv"]
 
-[ext_resource type="Script" path="res://Scripts/Objects/zoom_oil.gd" id="1_klcqn"]
+[ext_resource type="Script" uid="uid://dvtccsy6vj2gj" path="res://Scripts/Objects/zoom_oil.gd" id="1_klcqn"]
 [ext_resource type="Texture2D" uid="uid://d2i3ln4s1xwdv" path="res://Images/zoom_oil.png" id="2_1rgl7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enofe"]

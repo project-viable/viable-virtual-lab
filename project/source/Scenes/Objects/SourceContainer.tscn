@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://cowfxnf6s31pm"]
 
-[ext_resource type="Script" path="res://Scripts/Objects/SourceContainer.gd" id="1"]
+[ext_resource type="Script" uid="uid://ctg8bnggmtt8f" path="res://Scripts/Objects/SourceContainer.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://d1mkaw208j1vl" path="res://Images/Resized_Images/Erlenmeyerflask_container.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://c8tdr25oe74eq" path="res://Images/Resized_Images/microcentrifuge_container.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://sb2vpjbdln67" path="res://Images/Resized_Images/Erlenmeyerflask_liquid.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://vgonknoyfid1" path="res://Images/FillSprites/microcentrifuge_liquid.png" id="5"]
-[ext_resource type="PackedScene" path="res://Scenes/Objects/DummyLiquidSubstance.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://cfad4sevgou8e" path="res://Scenes/Objects/DummyLiquidSubstance.tscn" id="6"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(40, 64)

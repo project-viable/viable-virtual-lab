@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dj8378rcmjta0"]
 
-[ext_resource type="Script" path="res://Scripts/Objects/Joystick.gd" id="2_mmdlm"]
+[ext_resource type="Script" uid="uid://d3afoajx2rop0" path="res://Scripts/Objects/Joystick.gd" id="2_mmdlm"]
 [ext_resource type="Texture2D" uid="uid://dssj1r0fiy1ba" path="res://Images/Joystick_Knob_temp.png" id="2_o8l0x"]
 [ext_resource type="Texture2D" uid="uid://cywu72ubqmqcv" path="res://Images/joystick_final.png" id="2_quk4p"]
 

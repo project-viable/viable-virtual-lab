@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://dkcx1eh8cr13a"]
 
-[ext_resource path="res://Scripts/Substances/GelModule/DNASubstance.gd" type="Script" id=1]
+[ext_resource type="Script" uid="uid://cyf7fr1djbske" path="res://Scripts/Substances/GelModule/DNASubstance.gd" id="1"]
 
 [node name="DNASubstance" type="Node2D" groups=["DNA", "Liquid Substance"]]
-script = ExtResource( 1 )
+script = ExtResource("1")

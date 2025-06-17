@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cpv7cti6d86xn"]
 
 [ext_resource type="Texture2D" uid="uid://vkrp2oglrde5" path="res://Images/Gel_Wells.png" id="1"]
-[ext_resource type="Script" path="res://Scripts/UI/GelDisplay.gd" id="2"]
+[ext_resource type="Script" uid="uid://dq7vyspo7u48o" path="res://Scripts/UI/GelDisplay.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://b8liaegx1v3x7" path="res://Images/redX.png" id="3"]
 
 [sub_resource type="StyleBoxFlat" id="4"]

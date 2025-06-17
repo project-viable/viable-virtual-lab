@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bdfkn4vc3t1ld"]
 
-[ext_resource type="Script" path="res://Scripts/Objects/Scale.gd" id="1"]
+[ext_resource type="Script" uid="uid://durqp8or55qrk" path="res://Scripts/Objects/Scale.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://4qpidnuobn6p" path="res://Images/Resized_Images/scale.png" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]

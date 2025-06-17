@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://c30as4hbwqhmx"]
 
-[ext_resource type="Script" path="res://Scripts/Objects/GelWell.gd" id="1"]
+[ext_resource type="Script" uid="uid://jbgi1mfw01ai" path="res://Scripts/Objects/GelWell.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://gm3hb5qisvlk" path="res://Images/Not Allowed Symbol.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://dx6dranr175q4" path="res://Images/Green Gunk.png" id="3"]
 

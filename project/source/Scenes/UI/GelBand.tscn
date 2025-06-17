@@ -1,25 +1,25 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://ug6hck5vjr7b"]
 
-[ext_resource path="res://Images/GelBand.png" type="Texture2D" id=1]
-[ext_resource path="res://Scripts/UI/GelBand.gd" type="Script" id=2]
+[ext_resource type="Texture2D" uid="uid://c17kmqau0xuo8" path="res://Images/GelBand.png" id="1"]
+[ext_resource type="Script" uid="uid://bf88f3rwifcg7" path="res://Scripts/UI/GelBand.gd" id="2"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 24.5, 1.5 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(49, 3)
 
 [node name="GelBand" type="CharacterBody2D" groups=["Gel Band"]]
-position = Vector2( -1, 5 )
+position = Vector2(-1, 5)
 collision_layer = 4
 collision_mask = 4
-script = ExtResource( 2 )
+script = ExtResource("2")
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2( 0, -4.75 )
-scale = Vector2( 1, 0.269231 )
-texture = ExtResource( 1 )
+position = Vector2(0, -4.75)
+scale = Vector2(1, 0.269231)
+texture = ExtResource("1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.5, -4.5 )
-shape = SubResource( 1 )
+position = Vector2(0.5, -4.5)
+shape = SubResource("1")

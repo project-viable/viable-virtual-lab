@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=3 uid="uid://b04fv7l4pv0k2"]
 
-[ext_resource type="Script" path="res://Scripts/DimensionSprite.gd" id="1"]
-[ext_resource type="Script" path="res://Scripts/Objects/Pipette.gd" id="2"]
+[ext_resource type="Script" uid="uid://b0xa26ubolug" path="res://Scripts/DimensionSprite.gd" id="1"]
+[ext_resource type="Script" uid="uid://2m2engyq7up6" path="res://Scripts/Objects/Pipette.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://ndoyd04ilqyo" path="res://Images/Resized_Images/Pipette_with_notip.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://b35y8esb054uy" path="res://Images/Resized_Images/Pipette_with_tip.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://bhsxeri71of6q" path="res://Images/Pipette_Closeup_Background.png" id="5"]
@@ -85,7 +85,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7n30k"]
 _data = {
-"MoveArrows": SubResource("15")
+&"MoveArrows": SubResource("15")
 }
 
 [node name="Pipette" type="RigidBody2D" groups=["LabObjects"]]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bd5kjn1jdvkpj"]
 
-[ext_resource type="Script" path="res://Scripts/Objects/GelImager.gd" id="1"]
+[ext_resource type="Script" uid="uid://vid42bbwa1cn" path="res://Scripts/Objects/GelImager.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://eouqdtcf7tx3" path="res://Images/Resized_Images/imager.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://b8liaegx1v3x7" path="res://Images/redX.png" id="3"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/ObjectSlot.tscn" id="4"]
