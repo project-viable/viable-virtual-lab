@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=14 format=3 uid="uid://dnl552a0ac6ua"]
 
 [ext_resource type="StyleBox" path="res://UI/BackgroundStylebox.tres" id="1"]
-[ext_resource type="StyleBox" path="res://UI/ButtonNormalStylebox.tres" id="2"]
+[ext_resource type="StyleBox" uid="uid://xx64mutayadc" path="res://UI/ButtonNormalStylebox.tres" id="2"]
 [ext_resource type="StyleBox" path="res://UI/ButtonDisabledStylebox.tres" id="3"]
 [ext_resource type="StyleBox" path="res://UI/ButtonPressedStylebox.tres" id="4"]
 [ext_resource type="StyleBox" uid="uid://co6eq5jxq4ama" path="res://UI/ButtonFocusStylebox.tres" id="5"]

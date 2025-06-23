@@ -67,43 +67,44 @@ func _on_channels_panel_channel_selected(channel: String) -> void:
 	LabLog.log("Changed channel to " + channel, false, false)
 	current_channel = channel
 	channel_select.emit(channel)
-	$%PowerExposure/PanelLabel.visible = false
-	$%PowerExposure/GeneralPanel/DapiLabelContainer.visible = false
-	$%PowerExposure/GeneralPanel/FITCLabelContainer.visible = false
-	$%PowerExposure/GeneralPanel/TRITCLabelContainer.visible = false
-	$%PowerExposure/GeneralPanel/Cy5LabelContainer.visible = false
-	$%PowerExposure/ComboPanel.visible = false
+	$%PowerExposure/VBoxContainer/PanelLabel.visible = false
+	$%PowerExposure/VBoxContainer/GeneralPanel/DapiLabelContainer.visible = false
+	$%PowerExposure/VBoxContainer/GeneralPanel/FITCLabelContainer.visible = false
+	$%PowerExposure/VBoxContainer/GeneralPanel/TRITCLabelContainer.visible = false
+	$%PowerExposure/VBoxContainer/GeneralPanel/Cy5LabelContainer.visible = false
+	$%PowerExposure/VBoxContainer/ComboPanel.visible = false
+	$%PowerExposure/VBoxContainer/GeneralPanel.visible = false
 	
 	match channel:
 		"Combo":
-			$%PowerExposure/PanelLabel.visible = true
-			$%PowerExposure/ComboPanel.visible = true
+			$%PowerExposure/VBoxContainer/PanelLabel.visible = true
+			$%PowerExposure/VBoxContainer/ComboPanel.visible = true
 		"Dapi":
-			$%PowerExposure/PanelLabel.visible = true
-			$%PowerExposure/GeneralPanel.visible = true
-			$%PowerExposure/GeneralPanel/DapiLabelContainer.visible = true
-			$%PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
-			$%PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
+			$%PowerExposure/VBoxContainer/PanelLabel.visible = true
+			$%PowerExposure/VBoxContainer/GeneralPanel.visible = true
+			$%PowerExposure/VBoxContainer/GeneralPanel/DapiLabelContainer.visible = true
+			$%PowerExposure/VBoxContainer/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
+			$%PowerExposure/VBoxContainer/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
 		"FITC":
-			$%PowerExposure/PanelLabel.visible = true
-			$%PowerExposure/GeneralPanel.visible = true
-			$%PowerExposure/GeneralPanel/FITCLabelContainer.visible = true
-			$%PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
-			$%PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
+			$%PowerExposure/VBoxContainer/PanelLabel.visible = true
+			$%PowerExposure/VBoxContainer/GeneralPanel.visible = true
+			$%PowerExposure/VBoxContainer/GeneralPanel/FITCLabelContainer.visible = true
+			$%PowerExposure/VBoxContainer/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
+			$%PowerExposure/VBoxContainer/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
 
 		"TRITC":
-			$%PowerExposure/PanelLabel.visible = true
-			$%PowerExposure/GeneralPanel.visible = true
-			$%PowerExposure/GeneralPanel/TRITCLabelContainer.visible = true
-			$%PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
-			$%PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
+			$%PowerExposure/VBoxContainer/PanelLabel.visible = true
+			$%PowerExposure/VBoxContainer/GeneralPanel.visible = true
+			$%PowerExposure/VBoxContainer/GeneralPanel/TRITCLabelContainer.visible = true
+			$%PowerExposure/VBoxContainer/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
+			$%PowerExposure/VBoxContainer/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
 
 		"Cy5":
-			$%PowerExposure/PanelLabel.visible = true
-			$%PowerExposure/GeneralPanel.visible = true
-			$%PowerExposure/GeneralPanel/Cy5LabelContainer.visible = true
-			$%PowerExposure/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
-			$%PowerExposure/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
+			$%PowerExposure/VBoxContainer/PanelLabel.visible = true
+			$%PowerExposure/VBoxContainer/GeneralPanel.visible = true
+			$%PowerExposure/VBoxContainer/GeneralPanel/Cy5LabelContainer.visible = true
+			$%PowerExposure/VBoxContainer/GeneralPanel/HBoxContainer4/PowerSlider.value = 75
+			$%PowerExposure/VBoxContainer/GeneralPanel/HBoxContainer5/ExposureSlider.value = 1000
 
 
 func _on_exposure_change(new_exposure: float) -> void:
@@ -176,8 +177,8 @@ func _on_play_button_pressed() -> void:
 	adjust_brightness()
 	cell_image_node.visible = true
 
-func _on_macro_panel_button_press(button_value: String) -> void:
-	zoom_level = button_value
+func _on_macro_panel_zoom_value(zoom: String) -> void:
+	zoom_level = zoom
 
 func calculate_brightness_percentage(channel: String) -> float:
 	if(channels_power[channel] != 0.0):
