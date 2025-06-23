@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cpax3ed6lg0e2"]
 
-[ext_resource type="Script" path="res://Scripts/Objects/GraduatedCylinder.gd" id="1"]
+[ext_resource type="Script" uid="uid://bm71fked5dfgn" path="res://Scripts/Objects/GraduatedCylinder.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://bd7nxviy5qand" path="res://Images/Resized_Images/graduated_cylinder_container.png" id="2"]
-[ext_resource type="Script" path="res://Scripts/Objects/VolumeContainer.gd" id="3"]
+[ext_resource type="Script" uid="uid://c7g3m8o0om5gr" path="res://Scripts/Objects/VolumeContainer.gd" id="3"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(32, 170)

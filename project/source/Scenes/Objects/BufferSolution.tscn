@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://c8wcl2dhnikp1"]
 
-[ext_resource path="res://Scripts/Objects/BufferSolution.gd" type="Script" id=1]
-[ext_resource path="res://Scripts/Objects/VolumeContainer.gd" type="Script" id=2]
-[ext_resource path="res://Images/TAE Buffer Solution.png" type="Texture2D" id=3]
+[ext_resource type="Script" uid="uid://1kkm72tu2k1w" path="res://Scripts/Objects/BufferSolution.gd" id="1"]
+[ext_resource type="Script" uid="uid://c7g3m8o0om5gr" path="res://Scripts/Objects/VolumeContainer.gd" id="2"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 21.5 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(20, 43)
+
+[sub_resource type="Resource" id="Resource_7gtip"]
+metadata/__load_path__ = "res://Images/TAE Buffer Solution.png"
 
 [node name="BufferSolution" type="RigidBody2D" groups=["Buffer Solution Container", "LabObjects"]]
 collision_layer = 2
@@ -13,16 +15,16 @@ input_pickable = true
 mode = 3
 gravity_scale = 0.0
 can_sleep = false
-script = ExtResource( 1 )
+script = ExtResource("1")
 draggable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 0.5 )
-shape = SubResource( 1 )
+position = Vector2(0, 0.5)
+shape = SubResource("1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2( 0.00571875, 0.00571875 )
-texture = ExtResource( 3 )
+scale = Vector2(0.00571875, 0.00571875)
+texture = SubResource("Resource_7gtip")
 
 [node name="VolumeContainer" type="Node2D" parent="." groups=["VolumeContainers"]]
-script = ExtResource( 2 )
+script = ExtResource("2")

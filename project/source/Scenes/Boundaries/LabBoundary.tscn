@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dhx7svmclbqm6"]
 
-[ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="1"]
+[ext_resource type="Script" uid="uid://dw0jk61dnhedo" path="res://Scripts/Boundaries/LabBoundary.gd" id="1"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 

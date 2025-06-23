@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b6ak8mmd81jv2"]
 
-[ext_resource type="Script" path="res://Scripts/UI/PowerAndExposure.gd" id="1_0asmr"]
+[ext_resource type="Script" uid="uid://dk7vngmcvnd0c" path="res://Scripts/UI/PowerAndExposure.gd" id="1_0asmr"]
 [ext_resource type="FontFile" uid="uid://c5jqyemsa330f" path="res://UI/Roboto/Roboto-Black.ttf" id="1_1jwrc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jfwfh"]

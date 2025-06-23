@@ -1,14 +1,12 @@
-
 [gd_scene load_steps=20 format=3 uid="uid://dpm1gs1fyv4gg"]
 
-
-[ext_resource type="Script" path="res://Scripts/Boundaries/LabBoundary.gd" id="1_bc34u"]
-[ext_resource type="Script" path="res://Scenes/Modules/fluorescence_microscopy.gd" id="1_q60rk"]
+[ext_resource type="Script" uid="uid://dw0jk61dnhedo" path="res://Scripts/Boundaries/LabBoundary.gd" id="1_bc34u"]
+[ext_resource type="Script" uid="uid://wouq1d1oii6b" path="res://Scenes/Modules/fluorescence_microscopy.gd" id="1_q60rk"]
 [ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="2_3x61r"]
 [ext_resource type="PackedScene" uid="uid://dtltidc1e8ikc" path="res://Scenes/Objects/Computer.tscn" id="3_0ypcw"]
 [ext_resource type="PackedScene" uid="uid://dj8378rcmjta0" path="res://Scenes/Objects/Joystick.tscn" id="3_psukr"]
 [ext_resource type="PackedScene" uid="uid://cm1ln611t82pr" path="res://Scenes/Objects/microscope.tscn" id="4_nth22"]
-[ext_resource type="Script" path="res://Scripts/Objects/microscope_view_controls.gd" id="6_fmuel"]
+[ext_resource type="Script" uid="uid://ce6p8rivyr541" path="res://Scripts/Objects/microscope_view_controls.gd" id="6_fmuel"]
 [ext_resource type="PackedScene" uid="uid://b7038o1t6lkhh" path="res://Scenes/Objects/focus_control.tscn" id="8_b47o4"]
 [ext_resource type="PackedScene" uid="uid://beqq06mcfr5hj" path="res://Scenes/Objects/Fridge.tscn" id="9_pfw6q"]
 [ext_resource type="Texture2D" uid="uid://cywu72ubqmqcv" path="res://Images/joystick_final.png" id="10_q6h74"]

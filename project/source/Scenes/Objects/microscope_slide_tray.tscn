@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ch0l2jx71m6nv"]
 
 [ext_resource type="Texture2D" uid="uid://qss8fduiuddr" path="res://Images/slide_tray_closed.PNG" id="1_6ny3m"]
-[ext_resource type="Script" path="res://Scripts/Objects/microscope_slide_tray.gd" id="2_wv2i2"]
+[ext_resource type="Script" uid="uid://ceiigii00ijax" path="res://Scripts/Objects/microscope_slide_tray.gd" id="2_wv2i2"]
 [ext_resource type="Texture2D" uid="uid://0fsetou3bpcl" path="res://Images/slide_tray_open_light_on.PNG" id="3_nfjtj"]
 [ext_resource type="Texture2D" uid="uid://bfpsuxqrq8ck" path="res://Images/slide_tray_left_open.PNG" id="4_vb41o"]
 [ext_resource type="Texture2D" uid="uid://ducsf3hy4m7y2" path="res://Images/slide_tray_right_open.PNG" id="5_j778n"]

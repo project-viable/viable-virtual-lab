@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://ddhnpk4kvi0ns"]
 
-[ext_resource path="res://Scripts/Substances/GelModule/AgarPowderSubstance.gd" type="Script" id=1]
+[ext_resource type="Script" uid="uid://cxbylb28v3a0q" path="res://Scripts/Substances/GelModule/AgarPowderSubstance.gd" id="1"]
 
 [node name="AgarPowderSubstance" type="Node2D" groups=["Chillable", "Granular Substance", "Heatable", "Mixable", "Solid Substance", "Weighable"]]
-script = ExtResource( 1 )
+script = ExtResource("1")
