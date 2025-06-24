@@ -521,22 +521,20 @@ request resolves issue \#123, then the description should include \type{Resolves
 merged, but it {\it does} make it much easier to see what issues should be closed when the pull
 request is merged.
 
-Add all six other people from the team as reviewers for your pull request. If you encounter a pull
-request that doesn't have everyone added as a reviewer, then you may add them yourself. If you have
-anything you're unsure of or you want reviewers to test something specific, then include those
-details in the pull request description or in a comment.
+Add at least one person as a reviewer for your pull request. If you have anything you're unsure of
+or you want reviewers to test something specific, then include those details in the pull request
+description or in a comment.
 
 \subject{Reviewing and merging pull requests}
 If you can, try to regularly look through and review existing pull requests. If you're fairly
-confident that a pull request is correct, then leave an approval on it. Otherwise, leave a review
-requesting changes with a comment explaining what you think needs to be changed. If you want to
-reference specific lines in your review, then you can click on the \quotation{+} button on the line
-in the diff viewer and drag to select more lines.
+confident that a pull request is correct, then leave an approval on it. If you're confident that
+something is incorrect, leave a review requesting changes with a comment explaining what you think
+needs to be changed. If you want to reference specific lines in your review, then you can click on
+the \quotation{+} button on the line in the diff viewer and drag to select more lines.
 
-Before it can be merged, a pull request must be approved by at least two people and must not have
+Before it can be merged, a pull request must be approved by at least one person and must not have
 any requested changes. Once those requirements are met, anybody can merge the pull request. Note
-that this means that if you are looking at a pull request that already has one approval, you can
-approve and merge it all in one fell swoop.
+that this means you can merge a pull request immediately after approving it.
 
 After successfully merging a pull request, delete the topic branch using the \quotation{Delete
 branch} button on the pull request page.
