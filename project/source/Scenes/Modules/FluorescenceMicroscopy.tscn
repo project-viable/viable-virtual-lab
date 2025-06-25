@@ -42,7 +42,6 @@ border_color = Color(1, 1, 1, 1)
 size = Vector2(116, 71)
 
 [node name="FluorescenceMicroscopy" type="Node2D"]
-position = Vector2(1, -1)
 script = ExtResource("1_q60rk")
 
 [node name="LabBoundary" type="Area2D" parent="."]
@@ -126,9 +125,9 @@ offset_bottom = 20.0
 grow_horizontal = 0
 theme_override_colors/font_disabled_color = Color(0.65098, 0.65098, 0.65098, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
 theme_override_styles/focus = SubResource("StyleBoxFlat_p3j5h")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_bfnky")
 theme_override_styles/hover = SubResource("StyleBoxFlat_trgr5")

@@ -1,50 +1,55 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6ak8mmd81jv2"]
+[gd_scene load_steps=6 format=3 uid="uid://b6ak8mmd81jv2"]
 
 [ext_resource type="Script" uid="uid://dk7vngmcvnd0c" path="res://Scripts/UI/PowerAndExposure.gd" id="1_0asmr"]
 [ext_resource type="FontFile" uid="uid://c5jqyemsa330f" path="res://UI/Roboto/Roboto-Black.ttf" id="1_1jwrc"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jfwfh"]
-content_margin_left = 30.0
-content_margin_right = 30.0
-bg_color = Color(1, 1, 1, 1)
-border_width_bottom = 3
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ya67"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.678431, 0.678431, 0.678431, 1)
+border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5iqk"]
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jfwfh"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(1, 1, 1, 1)
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
 [node name="PowerExposure" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 237.0
-offset_bottom = 105.0
+offset_bottom = 143.0
 script = ExtResource("1_0asmr")
 
-[node name="PanelLabel" type="Label" parent="."]
-visible = false
-self_modulate = Color(0.6, 0.6, 0.6, 1)
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-offset_top = -12.0
-offset_right = 762.0
-offset_bottom = 118.0
-scale = Vector2(0.0919469, 0.0919469)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_1jwrc")
-theme_override_font_sizes/font_size = 100
-theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "LED Power And Exposure
-"
+offset_right = 239.0
+offset_bottom = 142.0
+theme_override_constants/separation = 0
 
-[node name="GeneralPanel" type="Panel" parent="."]
+[node name="PanelLabel" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_5ya67")
+text = "LED Power And Exposure"
+
+[node name="GeneralPanel" type="Panel" parent="VBoxContainer"]
 visible = false
 self_modulate = Color(0.541176, 0.541176, 0.541176, 1)
 clip_contents = true
-layout_mode = 0
-offset_right = 237.0
-offset_bottom = 105.0
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5iqk")
 
-[node name="DapiLabelContainer" type="HBoxContainer" parent="GeneralPanel"]
+[node name="DapiLabelContainer" type="HBoxContainer" parent="VBoxContainer/GeneralPanel"]
 visible = false
 clip_contents = true
 layout_mode = 1
@@ -53,7 +58,7 @@ offset_bottom = 125.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="DapiLabel" type="Label" parent="GeneralPanel/DapiLabelContainer"]
+[node name="DapiLabel" type="Label" parent="VBoxContainer/GeneralPanel/DapiLabelContainer"]
 self_modulate = Color(0.329412, 0.298039, 0.87451, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -62,7 +67,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "Dapi"
 
-[node name="FITCLabelContainer" type="HBoxContainer" parent="GeneralPanel"]
+[node name="FITCLabelContainer" type="HBoxContainer" parent="VBoxContainer/GeneralPanel"]
 visible = false
 clip_contents = true
 layout_mode = 0
@@ -71,7 +76,7 @@ offset_bottom = 125.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="FITCLabel" type="Label" parent="GeneralPanel/FITCLabelContainer"]
+[node name="FITCLabel" type="Label" parent="VBoxContainer/GeneralPanel/FITCLabelContainer"]
 self_modulate = Color(0.160784, 0.52549, 0.262745, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -80,7 +85,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "FITC"
 
-[node name="TRITCLabelContainer" type="HBoxContainer" parent="GeneralPanel"]
+[node name="TRITCLabelContainer" type="HBoxContainer" parent="VBoxContainer/GeneralPanel"]
 visible = false
 clip_contents = true
 layout_mode = 0
@@ -89,17 +94,16 @@ offset_bottom = 125.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="TRITCLabel" type="Label" parent="GeneralPanel/TRITCLabelContainer"]
+[node name="TRITCLabel" type="Label" parent="VBoxContainer/GeneralPanel/TRITCLabelContainer"]
 self_modulate = Color(1, 0.0392157, 0.0235294, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "TRITC
-"
+text = "TRITC"
 
-[node name="Cy5LabelContainer" type="HBoxContainer" parent="GeneralPanel"]
+[node name="Cy5LabelContainer" type="HBoxContainer" parent="VBoxContainer/GeneralPanel"]
 visible = false
 clip_contents = true
 layout_mode = 0
@@ -108,7 +112,7 @@ offset_bottom = 125.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="Cy5Label" type="Label" parent="GeneralPanel/Cy5LabelContainer"]
+[node name="Cy5Label" type="Label" parent="VBoxContainer/GeneralPanel/Cy5LabelContainer"]
 self_modulate = Color(1, 0.0392157, 0.984314, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -117,7 +121,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "Cy5"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="GeneralPanel"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/GeneralPanel"]
 clip_contents = true
 layout_mode = 0
 offset_top = 18.0
@@ -126,26 +130,29 @@ offset_bottom = 143.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="LEDPowerLabel" type="Label" parent="GeneralPanel/HBoxContainer2"]
+[node name="LEDPowerLabel" type="Label" parent="VBoxContainer/GeneralPanel/HBoxContainer2"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "LED Power:
-"
+text = "LED Power:"
 
-[node name="LEDPowerVal" type="Label" parent="GeneralPanel/HBoxContainer2"]
+[node name="LEDPowerVal" type="Label" parent="VBoxContainer/GeneralPanel/HBoxContainer2"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "0%"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="GeneralPanel"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/GeneralPanel"]
 clip_contents = true
 layout_mode = 0
 offset_top = 58.0
@@ -154,17 +161,16 @@ offset_bottom = 183.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="ExposureTimeLabel" type="Label" parent="GeneralPanel/HBoxContainer3"]
+[node name="ExposureTimeLabel" type="Label" parent="VBoxContainer/GeneralPanel/HBoxContainer3"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "Exposure Time:
-"
+text = "Exposure Time:"
 
-[node name="ExposureTimeVal" type="Label" parent="GeneralPanel/HBoxContainer3"]
+[node name="ExposureTimeVal" type="Label" parent="VBoxContainer/GeneralPanel/HBoxContainer3"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -173,7 +179,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "1 msec"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="GeneralPanel"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/GeneralPanel"]
 clip_contents = true
 layout_mode = 0
 offset_left = 3.0
@@ -183,12 +189,11 @@ offset_bottom = 163.0
 scale = Vector2(0.111, 1)
 focus_mode = 1
 
-[node name="PowerSlider" type="HSlider" parent="GeneralPanel/HBoxContainer4"]
+[node name="PowerSlider" type="HSlider" parent="VBoxContainer/GeneralPanel/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
-tick_count = 10
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="GeneralPanel"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer/GeneralPanel"]
 clip_contents = true
 layout_mode = 0
 offset_left = 3.0
@@ -198,24 +203,22 @@ offset_bottom = 203.0
 scale = Vector2(0.111, 1)
 focus_mode = 1
 
-[node name="ExposureSlider" type="HSlider" parent="GeneralPanel/HBoxContainer5"]
+[node name="ExposureSlider" type="HSlider" parent="VBoxContainer/GeneralPanel/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
 max_value = 5000.0
 value = 1.0
-tick_count = 10
 
-[node name="ComboPanel" type="Panel" parent="."]
+[node name="ComboPanel" type="Panel" parent="VBoxContainer"]
 visible = false
 self_modulate = Color(0.541176, 0.541176, 0.541176, 1)
 clip_contents = true
-layout_mode = 0
-offset_right = 237.0
-offset_bottom = 365.0
+custom_minimum_size = Vector2(0, 375)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5iqk")
 
-[node name="DapiLabelContainer" type="HBoxContainer" parent="ComboPanel"]
+[node name="DapiLabelContainer" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 1
 offset_right = 262.0
@@ -223,7 +226,7 @@ offset_bottom = 125.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="DapiLabel" type="Label" parent="ComboPanel/DapiLabelContainer"]
+[node name="DapiLabel" type="Label" parent="VBoxContainer/ComboPanel/DapiLabelContainer"]
 self_modulate = Color(0.329412, 0.298039, 0.87451, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -232,7 +235,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "Dapi"
 
-[node name="FITCLabelContainer" type="HBoxContainer" parent="ComboPanel"]
+[node name="FITCLabelContainer" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_top = 90.0
@@ -241,7 +244,7 @@ offset_bottom = 215.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="FITCLabel" type="Label" parent="ComboPanel/FITCLabelContainer"]
+[node name="FITCLabel" type="Label" parent="VBoxContainer/ComboPanel/FITCLabelContainer"]
 self_modulate = Color(0.160784, 0.52549, 0.262745, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -250,7 +253,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "FITC"
 
-[node name="TRITCLabelContainer" type="HBoxContainer" parent="ComboPanel"]
+[node name="TRITCLabelContainer" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_top = 180.0
@@ -259,17 +262,16 @@ offset_bottom = 305.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="TRITCLabel" type="Label" parent="ComboPanel/TRITCLabelContainer"]
+[node name="TRITCLabel" type="Label" parent="VBoxContainer/ComboPanel/TRITCLabelContainer"]
 self_modulate = Color(1, 0.0392157, 0.0235294, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "TRITC
-"
+text = "TRITC"
 
-[node name="Cy5LabelContainer" type="HBoxContainer" parent="ComboPanel"]
+[node name="Cy5LabelContainer" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_top = 270.0
@@ -278,7 +280,7 @@ offset_bottom = 395.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="Cy5Label" type="Label" parent="ComboPanel/Cy5LabelContainer"]
+[node name="Cy5Label" type="Label" parent="VBoxContainer/ComboPanel/Cy5LabelContainer"]
 self_modulate = Color(1, 0.0392157, 0.984314, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -287,7 +289,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "Cy5"
 
-[node name="DapiPower" type="HBoxContainer" parent="ComboPanel"]
+[node name="DapiPower" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_top = 14.0
@@ -296,17 +298,16 @@ offset_bottom = 139.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="LEDPowerLabel" type="Label" parent="ComboPanel/DapiPower"]
+[node name="LEDPowerLabel" type="Label" parent="VBoxContainer/ComboPanel/DapiPower"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "LED Power:
-"
+text = "LED Power:"
 
-[node name="LEDPowerVal" type="Label" parent="ComboPanel/DapiPower"]
+[node name="LEDPowerVal" type="Label" parent="VBoxContainer/ComboPanel/DapiPower"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -315,26 +316,25 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "75%"
 
-[node name="DapiExposure" type="HBoxContainer" parent="ComboPanel"]
+[node name="DapiExposure" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
-offset_top = 54.0
-offset_right = 1153.0
-offset_bottom = 179.0
+offset_top = 47.0
+offset_right = 1227.0
+offset_bottom = 287.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="ExposureTimeLabel" type="Label" parent="ComboPanel/DapiExposure"]
+[node name="ExposureTimeLabel" type="Label" parent="VBoxContainer/ComboPanel/DapiExposure"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "Exposure Time:
-"
+text = "Exposure Time:"
 
-[node name="ExposureTimeVal" type="Label" parent="ComboPanel/DapiExposure"]
+[node name="ExposureTimeVal" type="Label" parent="VBoxContainer/ComboPanel/DapiExposure"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -343,7 +343,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "1000 msec"
 
-[node name="FITCPower" type="HBoxContainer" parent="ComboPanel"]
+[node name="FITCPower" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_top = 104.0
@@ -352,17 +352,16 @@ offset_bottom = 229.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="LEDPowerLabel" type="Label" parent="ComboPanel/FITCPower"]
+[node name="LEDPowerLabel" type="Label" parent="VBoxContainer/ComboPanel/FITCPower"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "LED Power:
-"
+text = "LED Power:"
 
-[node name="LEDPowerVal" type="Label" parent="ComboPanel/FITCPower"]
+[node name="LEDPowerVal" type="Label" parent="VBoxContainer/ComboPanel/FITCPower"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -371,26 +370,25 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "75%"
 
-[node name="FITCExposure" type="HBoxContainer" parent="ComboPanel"]
+[node name="FITCExposure" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_top = 144.0
-offset_right = 1153.0
+offset_right = 1227.0
 offset_bottom = 269.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="ExposureTimeLabel" type="Label" parent="ComboPanel/FITCExposure"]
+[node name="ExposureTimeLabel" type="Label" parent="VBoxContainer/ComboPanel/FITCExposure"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "Exposure Time:
-"
+text = "Exposure Time:"
 
-[node name="ExposureTimeVal" type="Label" parent="ComboPanel/FITCExposure"]
+[node name="ExposureTimeVal" type="Label" parent="VBoxContainer/ComboPanel/FITCExposure"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -399,7 +397,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "1000 msec"
 
-[node name="TRITCPower" type="HBoxContainer" parent="ComboPanel"]
+[node name="TRITCPower" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_top = 194.0
@@ -408,17 +406,16 @@ offset_bottom = 319.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="LEDPowerLabel" type="Label" parent="ComboPanel/TRITCPower"]
+[node name="LEDPowerLabel" type="Label" parent="VBoxContainer/ComboPanel/TRITCPower"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "LED Power:
-"
+text = "LED Power:"
 
-[node name="LEDPowerVal" type="Label" parent="ComboPanel/TRITCPower"]
+[node name="LEDPowerVal" type="Label" parent="VBoxContainer/ComboPanel/TRITCPower"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -427,7 +424,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "75%"
 
-[node name="TRITCExposure" type="HBoxContainer" parent="ComboPanel"]
+[node name="TRITCExposure" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_top = 234.0
@@ -436,17 +433,16 @@ offset_bottom = 359.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="ExposureTimeLabel" type="Label" parent="ComboPanel/TRITCExposure"]
+[node name="ExposureTimeLabel" type="Label" parent="VBoxContainer/ComboPanel/TRITCExposure"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "Exposure Time:
-"
+text = "Exposure Time:"
 
-[node name="ExposureTimeVal" type="Label" parent="ComboPanel/TRITCExposure"]
+[node name="ExposureTimeVal" type="Label" parent="VBoxContainer/ComboPanel/TRITCExposure"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -455,7 +451,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "1000 msec"
 
-[node name="Cy5Power" type="HBoxContainer" parent="ComboPanel"]
+[node name="Cy5Power" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_top = 284.0
@@ -464,17 +460,16 @@ offset_bottom = 409.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="LEDPowerLabel" type="Label" parent="ComboPanel/Cy5Power"]
+[node name="LEDPowerLabel" type="Label" parent="VBoxContainer/ComboPanel/Cy5Power"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "LED Power:
-"
+text = "LED Power:"
 
-[node name="LEDPowerVal" type="Label" parent="ComboPanel/Cy5Power"]
+[node name="LEDPowerVal" type="Label" parent="VBoxContainer/ComboPanel/Cy5Power"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -483,7 +478,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "75%"
 
-[node name="Cy5Exposure" type="HBoxContainer" parent="ComboPanel"]
+[node name="Cy5Exposure" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_top = 324.0
@@ -492,17 +487,16 @@ offset_bottom = 449.0
 scale = Vector2(0.111304, 0.111719)
 focus_mode = 1
 
-[node name="ExposureTimeLabel" type="Label" parent="ComboPanel/Cy5Exposure"]
+[node name="ExposureTimeLabel" type="Label" parent="VBoxContainer/ComboPanel/Cy5Exposure"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_1jwrc")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
-text = "Exposure Time:
-"
+text = "Exposure Time:"
 
-[node name="ExposureTimeVal" type="Label" parent="ComboPanel/Cy5Exposure"]
+[node name="ExposureTimeVal" type="Label" parent="VBoxContainer/ComboPanel/Cy5Exposure"]
 self_modulate = Color(0.6, 0.6, 0.6, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -511,7 +505,7 @@ theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_jfwfh")
 text = "1000 msec"
 
-[node name="DapiPowerSlider" type="HBoxContainer" parent="ComboPanel"]
+[node name="DapiPowerSlider" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_left = 3.0
@@ -521,13 +515,12 @@ offset_bottom = 155.0
 scale = Vector2(0.111, 1)
 focus_mode = 1
 
-[node name="PowerSlider" type="HSlider" parent="ComboPanel/DapiPowerSlider"]
+[node name="PowerSlider" type="HSlider" parent="VBoxContainer/ComboPanel/DapiPowerSlider"]
 layout_mode = 2
 size_flags_horizontal = 3
 value = 75.0
-tick_count = 10
 
-[node name="DapiExposureSlider" type="HBoxContainer" parent="ComboPanel"]
+[node name="DapiExposureSlider" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_left = 3.0
@@ -537,15 +530,14 @@ offset_bottom = 195.0
 scale = Vector2(0.111, 1)
 focus_mode = 1
 
-[node name="ExposureSlider" type="HSlider" parent="ComboPanel/DapiExposureSlider"]
+[node name="ExposureSlider" type="HSlider" parent="VBoxContainer/ComboPanel/DapiExposureSlider"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
 max_value = 5000.0
 value = 1000.0
-tick_count = 10
 
-[node name="FITCPowerSlider" type="HBoxContainer" parent="ComboPanel"]
+[node name="FITCPowerSlider" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_left = 3.0
@@ -555,13 +547,12 @@ offset_bottom = 245.0
 scale = Vector2(0.111, 1)
 focus_mode = 1
 
-[node name="PowerSlider" type="HSlider" parent="ComboPanel/FITCPowerSlider"]
+[node name="PowerSlider" type="HSlider" parent="VBoxContainer/ComboPanel/FITCPowerSlider"]
 layout_mode = 2
 size_flags_horizontal = 3
 value = 75.0
-tick_count = 10
 
-[node name="FITCExposureSlider" type="HBoxContainer" parent="ComboPanel"]
+[node name="FITCExposureSlider" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_left = 3.0
@@ -571,15 +562,14 @@ offset_bottom = 285.0
 scale = Vector2(0.111, 1)
 focus_mode = 1
 
-[node name="ExposureSlider" type="HSlider" parent="ComboPanel/FITCExposureSlider"]
+[node name="ExposureSlider" type="HSlider" parent="VBoxContainer/ComboPanel/FITCExposureSlider"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
 max_value = 5000.0
 value = 1000.0
-tick_count = 10
 
-[node name="RITCPowerSlider" type="HBoxContainer" parent="ComboPanel"]
+[node name="RITCPowerSlider" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_left = 3.0
@@ -589,13 +579,12 @@ offset_bottom = 335.0
 scale = Vector2(0.111, 1)
 focus_mode = 1
 
-[node name="PowerSlider" type="HSlider" parent="ComboPanel/RITCPowerSlider"]
+[node name="PowerSlider" type="HSlider" parent="VBoxContainer/ComboPanel/RITCPowerSlider"]
 layout_mode = 2
 size_flags_horizontal = 3
 value = 75.0
-tick_count = 10
 
-[node name="RITCExposureSlider" type="HBoxContainer" parent="ComboPanel"]
+[node name="RITCExposureSlider" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_left = 3.0
@@ -605,15 +594,14 @@ offset_bottom = 375.0
 scale = Vector2(0.111, 1)
 focus_mode = 1
 
-[node name="ExposureSlider" type="HSlider" parent="ComboPanel/RITCExposureSlider"]
+[node name="ExposureSlider" type="HSlider" parent="VBoxContainer/ComboPanel/RITCExposureSlider"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
 max_value = 5000.0
 value = 1000.0
-tick_count = 10
 
-[node name="Cy5PowerSlider" type="HBoxContainer" parent="ComboPanel"]
+[node name="Cy5PowerSlider" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_left = 3.0
@@ -623,13 +611,12 @@ offset_bottom = 425.0
 scale = Vector2(0.111, 1)
 focus_mode = 1
 
-[node name="PowerSlider" type="HSlider" parent="ComboPanel/Cy5PowerSlider"]
+[node name="PowerSlider" type="HSlider" parent="VBoxContainer/ComboPanel/Cy5PowerSlider"]
 layout_mode = 2
 size_flags_horizontal = 3
 value = 75.0
-tick_count = 10
 
-[node name="Cy5ExposureSlider" type="HBoxContainer" parent="ComboPanel"]
+[node name="Cy5ExposureSlider" type="HBoxContainer" parent="VBoxContainer/ComboPanel"]
 clip_contents = true
 layout_mode = 0
 offset_left = 3.0
@@ -639,21 +626,20 @@ offset_bottom = 465.0
 scale = Vector2(0.111, 1)
 focus_mode = 1
 
-[node name="ExposureSlider" type="HSlider" parent="ComboPanel/Cy5ExposureSlider"]
+[node name="ExposureSlider" type="HSlider" parent="VBoxContainer/ComboPanel/Cy5ExposureSlider"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
 max_value = 5000.0
 value = 1000.0
-tick_count = 10
 
-[connection signal="value_changed" from="GeneralPanel/HBoxContainer4/PowerSlider" to="." method="_on_power_slider_value_changed"]
-[connection signal="value_changed" from="GeneralPanel/HBoxContainer5/ExposureSlider" to="." method="_on_exposure_slider_value_changed"]
-[connection signal="value_changed" from="ComboPanel/DapiPowerSlider/PowerSlider" to="." method="_on_Dapi_power_slider_value_changed"]
-[connection signal="value_changed" from="ComboPanel/DapiExposureSlider/ExposureSlider" to="." method="_on_Dapi_exposure_slider_value_changed"]
-[connection signal="value_changed" from="ComboPanel/FITCPowerSlider/PowerSlider" to="." method="_on_FITC_power_slider_value_changed"]
-[connection signal="value_changed" from="ComboPanel/FITCExposureSlider/ExposureSlider" to="." method="_on_FITC_exposure_slider_value_changed"]
-[connection signal="value_changed" from="ComboPanel/RITCPowerSlider/PowerSlider" to="." method="_on_RITC_power_slider_value_changed"]
-[connection signal="value_changed" from="ComboPanel/RITCExposureSlider/ExposureSlider" to="." method="_on_RITC_exposure_slider_value_changed"]
-[connection signal="value_changed" from="ComboPanel/Cy5PowerSlider/PowerSlider" to="." method="_on_Cy5_power_slider_value_changed"]
-[connection signal="value_changed" from="ComboPanel/Cy5ExposureSlider/ExposureSlider" to="." method="_on_Cy5_exposure_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/GeneralPanel/HBoxContainer4/PowerSlider" to="." method="_on_power_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/GeneralPanel/HBoxContainer5/ExposureSlider" to="." method="_on_exposure_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/ComboPanel/DapiPowerSlider/PowerSlider" to="." method="_on_Dapi_power_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/ComboPanel/DapiExposureSlider/ExposureSlider" to="." method="_on_Dapi_exposure_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/ComboPanel/FITCPowerSlider/PowerSlider" to="." method="_on_FITC_power_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/ComboPanel/FITCExposureSlider/ExposureSlider" to="." method="_on_FITC_exposure_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/ComboPanel/RITCPowerSlider/PowerSlider" to="." method="_on_RITC_power_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/ComboPanel/RITCExposureSlider/ExposureSlider" to="." method="_on_RITC_exposure_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/ComboPanel/Cy5PowerSlider/PowerSlider" to="." method="_on_Cy5_power_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/ComboPanel/Cy5ExposureSlider/ExposureSlider" to="." method="_on_Cy5_exposure_slider_value_changed"]
