@@ -1,9 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=5 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="1_5wocf"]
+[ext_resource type="PackedScene" uid="uid://b5ff3gy87ykja" path="res://combined_scenes/flask.tscn" id="2_e4xug"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wocf"]
+size = Vector2(1430, 222)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4xug"]
+size = Vector2(1194, 17)
 
 [node name="Combined" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
 texture = ExtResource("1_5wocf")
+
+[node name="Counter" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Counter"]
+position = Vector2(645, 676)
+shape = SubResource("RectangleShape2D_5wocf")
+
+[node name="Shelf" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf"]
+position = Vector2(639, 356.5)
+shape = SubResource("RectangleShape2D_e4xug")
+one_way_collision = true
+metadata/_edit_lock_ = true
+
+[node name="Shelf2" type="StaticBody2D" parent="."]
+position = Vector2(0, -228)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf2"]
+position = Vector2(639, 356.5)
+shape = SubResource("RectangleShape2D_e4xug")
+one_way_collision = true
+metadata/_edit_lock_ = true
+
+[node name="Flask" parent="." instance=ExtResource("2_e4xug")]
+position = Vector2(134, 470)
