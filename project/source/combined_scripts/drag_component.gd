@@ -27,9 +27,16 @@ func _ready() -> void:
 	else: interact_sprite.material = _shader_mat
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if _is_dragging:
 		body.global_position = get_global_mouse_position() + _offset
+
+		if abs(body.global_rotation) > 0.001:
+			var is_rotating_clockwise := body.global_rotation < 0
+			body.global_rotation -= body.global_rotation * delta * 50
+
+			if is_rotating_clockwise: body.global_rotation = min(0.0, body.global_rotation)
+			else: body.global_rotation = max(0.0, body.global_rotation)
 
 func _process(_delta: float) -> void:
 	_shader_mat.set(&"shader_parameter/enabled", _is_hovering_sprite() and not _is_dragging)

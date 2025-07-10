@@ -45,7 +45,7 @@ metadata/_edit_lock_ = true
 position = Vector2(469, 298)
 
 [node name="Flask2" parent="." instance=ExtResource("2_e4xug")]
-position = Vector2(554, 295)
+position = Vector2(551, 297)
 
 [node name="GraduatedCylinder" parent="." instance=ExtResource("3_iy3xr")]
 position = Vector2(701, 253)
