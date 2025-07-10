@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2owhv1drxs7p"]
+
+[ext_resource type="Texture2D" uid="uid://bmhpbk84rjeks" path="res://Images/Resized_Images/Pipette_tip_box_opened.png" id="1_gs6p0"]
+[ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_cxa2o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gs6p0"]
+size = Vector2(106, 43)
+
+[node name="PipetteTipBox" type="RigidBody2D"]
+
+[node name="PipetteTipBoxOpened" type="Sprite2D" parent="."]
+texture = ExtResource("1_gs6p0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 15.5)
+shape = SubResource("RectangleShape2D_gs6p0")
+
+[node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_sprite")]
+script = ExtResource("2_cxa2o")
+body = NodePath("..")
+interact_sprite = NodePath("../PipetteTipBoxOpened")
+metadata/_custom_type_script = "uid://bsonh03rfuf2p"
