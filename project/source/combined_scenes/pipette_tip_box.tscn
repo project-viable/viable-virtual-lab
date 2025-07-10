@@ -7,6 +7,7 @@
 size = Vector2(106, 43)
 
 [node name="PipetteTipBox" type="RigidBody2D"]
+collision_layer = 0
 
 [node name="PipetteTipBoxOpened" type="Sprite2D" parent="."]
 texture = ExtResource("1_gs6p0")
