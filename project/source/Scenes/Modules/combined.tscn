@@ -39,4 +39,7 @@ one_way_collision = true
 metadata/_edit_lock_ = true
 
 [node name="Flask" parent="." instance=ExtResource("2_e4xug")]
-position = Vector2(134, 470)
+position = Vector2(469, 298)
+
+[node name="Flask2" parent="." instance=ExtResource("2_e4xug")]
+position = Vector2(554, 295)
