@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=7 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="1_5wocf"]
 [ext_resource type="PackedScene" uid="uid://b5ff3gy87ykja" path="res://combined_scenes/flask.tscn" id="2_e4xug"]
 [ext_resource type="PackedScene" uid="uid://b7ygbkawlsvn8" path="res://combined_scenes/graduated_cylinder.tscn" id="3_iy3xr"]
+[ext_resource type="PackedScene" uid="uid://t5vephauatf2" path="res://combined_scenes/pipette.tscn" id="4_t02aw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wocf"]
 size = Vector2(1430, 222)
@@ -47,3 +48,6 @@ position = Vector2(554, 295)
 
 [node name="GraduatedCylinder" parent="." instance=ExtResource("3_iy3xr")]
 position = Vector2(701, 253)
+
+[node name="RigidBody2D" parent="." instance=ExtResource("4_t02aw")]
+position = Vector2(124, 247)
