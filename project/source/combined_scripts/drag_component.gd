@@ -32,7 +32,6 @@ func _physics_process(_delta: float) -> void:
 		body.global_position = get_global_mouse_position() + _offset
 
 func _process(_delta: float) -> void:
-	print(_is_hovering_sprite())
 	_shader_mat.set(&"shader_parameter/enabled", _is_hovering_sprite() and not _is_dragging)
 
 func _unhandled_input(e: InputEvent) -> void:

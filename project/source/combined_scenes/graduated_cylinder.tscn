@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7ygbkawlsvn8"]
+
+[ext_resource type="Texture2D" uid="uid://bd7nxviy5qand" path="res://Images/Resized_Images/graduated_cylinder_container.png" id="1_q1dm3"]
+[ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_ufkpi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ufkpi"]
+size = Vector2(20, 170)
+
+[node name="GraduatedCylinder" type="RigidBody2D"]
+
+[node name="GraduatedCylinderContainer" type="Sprite2D" parent="."]
+texture = ExtResource("1_q1dm3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ufkpi")
+
+[node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_sprite")]
+script = ExtResource("2_ufkpi")
+body = NodePath("..")
+interact_sprite = NodePath("../GraduatedCylinderContainer")
+metadata/_custom_type_script = "uid://bsonh03rfuf2p"
