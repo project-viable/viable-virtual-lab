@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform vec3 outline_color : source_color = vec3(1, 1, 0);
+uniform vec3 outline_color : source_color = vec3(0, 0, 0);
 uniform bool enabled = false;
 uniform int radius = 5;
 
