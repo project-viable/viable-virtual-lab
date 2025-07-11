@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=13 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="1_5wocf"]
 [ext_resource type="PackedScene" uid="uid://b5ff3gy87ykja" path="res://combined_scenes/flask.tscn" id="2_e4xug"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dl7pwqhm483yt" path="res://combined_scenes/agarose_bottle.tscn" id="7_yik3d"]
 [ext_resource type="PackedScene" uid="uid://du0xgct56vfqx" path="res://combined_scenes/tae_bottle.tscn" id="8_yik3d"]
 [ext_resource type="PackedScene" uid="uid://cs2tep7cd3vxf" path="res://combined_scenes/microwave.tscn" id="9_y4qw0"]
+[ext_resource type="PackedScene" uid="uid://dbb4h6gqfr7wb" path="res://combined_scenes/microcentrifuge_tube.tscn" id="10_bi7f4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wocf"]
 size = Vector2(1430, 222)
@@ -72,3 +73,6 @@ position = Vector2(940, 301)
 
 [node name="Microwave" parent="." instance=ExtResource("9_y4qw0")]
 position = Vector2(162, 480)
+
+[node name="MicrocentrifugeTube" parent="." instance=ExtResource("10_bi7f4")]
+position = Vector2(403, 486)
