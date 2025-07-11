@@ -1,0 +1,27 @@
+## A `CanvasGroup` that can be outlined and can check whether any child sprites are hovered.
+class_name SelectableCanvasGroup
+extends CanvasGroup
+
+
+@export var outline_thickness: float = 5
+@export var outline_color: Color = Color.BLACK
+@export var is_outlined: bool = false
+
+
+var _shader_mat: ShaderMaterial = ShaderMaterial.new()
+
+
+func _ready() -> void:
+	_shader_mat.shader = preload("res://shaders/outline.gdshader")
+	material = _shader_mat
+
+func _process(_delta: float) -> void:
+	fit_margin = outline_thickness + 5
+	_shader_mat.set(&"shader_parameter/enabled", is_outlined)
+	_shader_mat.set(&"shader_parameter/radius", outline_thickness)
+	_shader_mat.set(&"shader_parameter/outline_color", outline_color)
+
+# True if the mouse is hovering any `Sprite2D`s that are children of this node.
+func is_mouse_hovering() -> bool:
+	return find_children("", "Sprite2D") \
+			.any(func(s: Sprite2D) -> bool: return s.is_pixel_opaque(s.get_local_mouse_position()))

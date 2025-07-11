@@ -6,25 +6,13 @@ extends Node2D
 ## The body to be dragged.
 @export var body: RigidBody2D
 
-## When the mouse is over this sprite, it will be highlighted, and pressing the
-## left mouse button while hovering it will allow it to be dragged.
-@export var interact_sprite: Sprite2D
+## This will be outlined when the mouse is hovering it, and clicking while
+## hovering will allow dragging.
+@export var interact_canvas_group: SelectableCanvasGroup
 
 
 var _offset: Vector2 = Vector2.ZERO
 var _is_dragging: bool = false
-var _shader_mat: ShaderMaterial = ShaderMaterial.new()
-
-
-func _ready() -> void:
-	_shader_mat.shader = preload("res://shaders/outline.gdshader")
-	
-	var top_material := interact_sprite.material
-	while top_material:
-		top_material = top_material.next_pass
-
-	if top_material: top_material.next_pass = _shader_mat
-	else: interact_sprite.material = _shader_mat
 
 
 func _physics_process(delta: float) -> void:
@@ -39,11 +27,10 @@ func _physics_process(delta: float) -> void:
 		body.global_position = body.to_global(body.get_local_mouse_position() - _offset)
 
 func _process(_delta: float) -> void:
-	_shader_mat.set(&"shader_parameter/enabled", _is_hovering_sprite() and not _is_dragging)
-	_shader_mat.set(&"shader_parameter/sprite_scale", interact_sprite.global_scale)
+	interact_canvas_group.is_outlined = interact_canvas_group.is_mouse_hovering() and not _is_dragging
 
 func _unhandled_input(e: InputEvent) -> void:
-	if e.is_action_pressed(&"DragLabObject") and _is_hovering_sprite():
+	if e.is_action_pressed(&"DragLabObject") and interact_canvas_group.is_mouse_hovering():
 		_is_dragging = true
 		body.set_deferred(&"freeze", true)
 
@@ -57,6 +44,3 @@ func _unhandled_input(e: InputEvent) -> void:
 	elif e.is_action_released(&"DragLabObject") and _is_dragging:
 		_is_dragging = false
 		body.set_deferred(&"freeze", false)
-
-func _is_hovering_sprite() -> bool:
-	return interact_sprite.is_pixel_opaque(interact_sprite.get_local_mouse_position())
