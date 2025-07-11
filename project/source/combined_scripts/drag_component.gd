@@ -40,6 +40,7 @@ func _physics_process(delta: float) -> void:
 
 func _process(_delta: float) -> void:
 	_shader_mat.set(&"shader_parameter/enabled", _is_hovering_sprite() and not _is_dragging)
+	_shader_mat.set(&"shader_parameter/sprite_scale", interact_sprite.global_scale)
 
 func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"DragLabObject") and _is_hovering_sprite():
