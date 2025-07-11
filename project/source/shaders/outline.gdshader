@@ -1,12 +1,13 @@
 shader_type canvas_item;
 
-uniform vec3 outline_color : source_color = vec3(0, 0, 0);
+uniform vec3 outline_color : source_color = vec3(1, 0.2, 0.1);
+uniform float alpha_threshold: hint_range(0.0, 1.0) = 0.1;
 uniform bool enabled = false;
 uniform int radius = 5;
 
 void fragment()
 {
-	if (texture(TEXTURE, UV).a < 0.001)
+	if (texture(TEXTURE, UV).a < alpha_threshold)
 	{
 		if (enabled)
 		{
@@ -17,7 +18,7 @@ void fragment()
 				{
 					vec2 pixel_offset = vec2(float(i), float(j));
 					vec2 offset_uv = UV + pixel_offset * TEXTURE_PIXEL_SIZE;
-					if (texture(TEXTURE, offset_uv).a > 0.001)
+					if (texture(TEXTURE, offset_uv).a > alpha_threshold)
 					{
 						amount_nearby += 1.0 - min(1.0, length(pixel_offset) / float(radius));
 					}
