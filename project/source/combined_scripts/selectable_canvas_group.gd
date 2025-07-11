@@ -4,7 +4,7 @@ extends CanvasGroup
 
 
 @export var outline_thickness: float = 5
-@export var outline_color: Color = Color.BLACK
+@export var outline_color: Color = Color.YELLOW
 @export var is_outlined: bool = false
 
 
