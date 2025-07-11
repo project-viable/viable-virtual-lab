@@ -13,6 +13,7 @@ extends Node2D
 
 var _offset: Vector2 = Vector2.ZERO
 var _is_dragging: bool = false
+var _velocity: Vector2 = Vector2.ZERO
 
 
 func _physics_process(delta: float) -> void:
@@ -24,7 +25,9 @@ func _physics_process(delta: float) -> void:
 			if is_rotating_clockwise: body.global_rotation = min(0.0, body.global_rotation)
 			else: body.global_rotation = max(0.0, body.global_rotation)
 
-		body.global_position = body.to_global(body.get_local_mouse_position() - _offset)
+		var dest_pos := body.to_global(body.get_local_mouse_position() - _offset)
+		_velocity = (dest_pos - body.global_position) / delta
+		body.global_position = dest_pos
 
 func _process(_delta: float) -> void:
 	interact_canvas_group.is_outlined = interact_canvas_group.is_mouse_hovering() and not _is_dragging
@@ -44,3 +47,7 @@ func _unhandled_input(e: InputEvent) -> void:
 	elif e.is_action_released(&"DragLabObject") and _is_dragging:
 		_is_dragging = false
 		body.set_deferred(&"freeze", false)
+
+		# Fling the body after dragging depending on how it was moving when being dragged.
+		var global_offset := body.to_global(_offset) - body.global_position
+		body.call_deferred(&"apply_impulse", _velocity / 10.0, global_offset)
