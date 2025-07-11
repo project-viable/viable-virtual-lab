@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://5orfeca6lgvk"]
+
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_t800u"]
+[ext_resource type="Texture2D" uid="uid://ctbseq5helqq4" path="res://Images/Resized_Images/Gel_Rig.png" id="2_wqfps"]
+[ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_wqfps"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t800u"]
+size = Vector2(129, 58)
+
+[node name="GelBox" type="RigidBody2D"]
+collision_layer = 0
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("1_t800u")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="GelRig" type="Sprite2D" parent="SelectableCanvasGroup"]
+texture = ExtResource("2_wqfps")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 2)
+shape = SubResource("RectangleShape2D_t800u")
+
+[node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
+script = ExtResource("3_wqfps")
+body = NodePath("..")
+interact_canvas_group = NodePath("../SelectableCanvasGroup")
+metadata/_custom_type_script = "uid://bsonh03rfuf2p"
