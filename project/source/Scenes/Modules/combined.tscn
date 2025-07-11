@@ -54,7 +54,8 @@ position = Vector2(551, 297)
 position = Vector2(701, 253)
 
 [node name="RigidBody2D" parent="." instance=ExtResource("4_t02aw")]
-position = Vector2(124, 247)
+position = Vector2(339, 329)
+rotation = -1.57729
 
 [node name="PipetteTipBox" parent="." instance=ExtResource("5_vwsp8")]
 position = Vector2(224, 304)
