@@ -46,6 +46,13 @@ func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"DragLabObject") and _is_hovering_sprite():
 		_is_dragging = true
 		body.set_deferred(&"freeze", true)
+
+		# Move the body to the front by moving it to the end of its parent's children.
+		var body_parent: Node = body.get_parent()
+		if body_parent:
+			body_parent.call_deferred(&"remove_child", body)
+			body_parent.call_deferred(&"add_child", body)
+
 		_offset = body.get_local_mouse_position()
 	elif e.is_action_released(&"DragLabObject") and _is_dragging:
 		_is_dragging = false
