@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://du0xgct56vfqx"]
+
+[ext_resource type="Texture2D" uid="uid://bwkmd8uade2g6" path="res://Images/Resized_Images/TEA_Buffer.png" id="1_qjy23"]
+[ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_ak4uf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqhjd"]
+size = Vector2(35, 85)
+
+[node name="TAEBottle" type="RigidBody2D"]
+collision_layer = 0
+
+[node name="TeaBuffer" type="Sprite2D" parent="."]
+texture = ExtResource("1_qjy23")
+
+[node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_sprite")]
+script = ExtResource("2_ak4uf")
+body = NodePath("..")
+interact_sprite = NodePath("../TeaBuffer")
+metadata/_custom_type_script = "uid://bsonh03rfuf2p"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_rqhjd")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=11 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="1_5wocf"]
 [ext_resource type="PackedScene" uid="uid://b5ff3gy87ykja" path="res://combined_scenes/flask.tscn" id="2_e4xug"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b2owhv1drxs7p" path="res://combined_scenes/pipette_tip_box.tscn" id="5_vwsp8"]
 [ext_resource type="PackedScene" uid="uid://cgju3rlfrqslw" path="res://combined_scenes/weigh_boat.tscn" id="6_vj1mp"]
 [ext_resource type="PackedScene" uid="uid://dl7pwqhm483yt" path="res://combined_scenes/agarose_bottle.tscn" id="7_yik3d"]
+[ext_resource type="PackedScene" uid="uid://du0xgct56vfqx" path="res://combined_scenes/tae_bottle.tscn" id="8_yik3d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wocf"]
 size = Vector2(1430, 222)
@@ -63,3 +64,6 @@ position = Vector2(788, 330)
 
 [node name="AgaroseBottle" parent="." instance=ExtResource("7_yik3d")]
 position = Vector2(890, 307)
+
+[node name="TAEBottle" parent="." instance=ExtResource("8_yik3d")]
+position = Vector2(940, 301)
