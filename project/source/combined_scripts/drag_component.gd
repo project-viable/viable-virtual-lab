@@ -16,6 +16,11 @@ var _is_dragging: bool = false
 var _velocity: Vector2 = Vector2.ZERO
 
 
+func _ready() -> void:
+	# We put these in a group just to make it faster for `Selectables` to find all drag
+	# components.
+	add_to_group(&"drag_component")
+
 func _physics_process(delta: float) -> void:
 	if _is_dragging:
 		if abs(body.global_rotation) > 0.001:
@@ -30,10 +35,10 @@ func _physics_process(delta: float) -> void:
 		body.global_position = dest_pos
 
 func _process(_delta: float) -> void:
-	interact_canvas_group.is_outlined = interact_canvas_group.is_mouse_hovering() and not _is_dragging
+	interact_canvas_group.is_outlined = _is_hovering() and not _is_dragging
 
 func _unhandled_input(e: InputEvent) -> void:
-	if e.is_action_pressed(&"DragLabObject") and interact_canvas_group.is_mouse_hovering():
+	if e.is_action_pressed(&"DragLabObject") and _is_hovering():
 		_is_dragging = true
 		body.set_deferred(&"freeze", true)
 
@@ -51,3 +56,5 @@ func _unhandled_input(e: InputEvent) -> void:
 		# Fling the body after dragging depending on how it was moving when being dragged.
 		var global_offset := body.to_global(_offset) - body.global_position
 		body.call_deferred(&"apply_impulse", _velocity / 10.0, global_offset)
+
+func _is_hovering() -> bool: return Selectables.hovered_drag_component == self

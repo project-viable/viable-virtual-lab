@@ -20,6 +20,7 @@ config/icon="res://favicon.png"
 
 LabLog="*res://Scripts/LabLogSingleton.gd"
 GameSettings="*res://Scripts/GameSettingsSingleton.gd"
+Selectables="*res://combined_scripts/selectables_singleton.gd"
 
 [debug]
 

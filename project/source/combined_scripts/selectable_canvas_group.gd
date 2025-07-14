@@ -8,6 +8,9 @@ extends CanvasGroup
 @export var is_outlined: bool = false
 
 
+var draw_order_this_frame: int = 0
+
+
 var _shader_mat: ShaderMaterial = ShaderMaterial.new()
 
 
@@ -20,6 +23,10 @@ func _process(_delta: float) -> void:
 	_shader_mat.set(&"shader_parameter/enabled", is_outlined)
 	_shader_mat.set(&"shader_parameter/radius", outline_thickness)
 	_shader_mat.set(&"shader_parameter/outline_color", outline_color)
+
+# Hacky way to determine which one is drawn on top.
+func _draw() -> void:
+	draw_order_this_frame = Selectables.get_next_index()
 
 # True if the mouse is hovering any `Sprite2D`s that are children of this node.
 func is_mouse_hovering() -> bool:
