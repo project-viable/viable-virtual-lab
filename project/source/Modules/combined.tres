@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ModuleData" load_steps=3 format=3 uid="uid://d3tt3s0try6s7"]
+
+[ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://Scripts/Resources/ModuleData.gd" id="1_c6v6y"]
+[ext_resource type="PackedScene" uid="uid://bnn7yyuvh6jsj" path="res://Scenes/Modules/combined.tscn" id="1_fy200"]
+
+[resource]
+script = ExtResource("1_c6v6y")
+show = true
+name = "Temp"
+tooltip = ""
+scene = ExtResource("1_fy200")
+instructions_bb_code = ""
+metadata/_custom_type_script = "uid://dr8kufon8ubeo"

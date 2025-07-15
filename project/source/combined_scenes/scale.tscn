@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://gfmuo2b5e2b5"]
+
+[ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="1_o87w1"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_ceiaq"]
+[ext_resource type="Texture2D" uid="uid://4qpidnuobn6p" path="res://Images/Resized_Images/scale.png" id="3_7y61a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssuie"]
+size = Vector2(125, 39)
+
+[node name="Scale" type="RigidBody2D"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_ssuie")
+
+[node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
+script = ExtResource("1_o87w1")
+body = NodePath("..")
+interact_canvas_group = NodePath("../SelectableCanvasGroup")
+metadata/_custom_type_script = "uid://bsonh03rfuf2p"
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("2_ceiaq")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="Scale" type="Sprite2D" parent="SelectableCanvasGroup"]
+texture = ExtResource("3_7y61a")

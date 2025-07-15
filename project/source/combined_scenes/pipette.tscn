@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://t5vephauatf2"]
+
+[ext_resource type="Texture2D" uid="uid://b35y8esb054uy" path="res://Images/Resized_Images/Pipette_with_tip.png" id="1_da3ja"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_drsrt"]
+[ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_h00ti"]
+
+[node name="RigidBody2D" type="RigidBody2D"]
+collision_layer = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-13, -64, -3, -64, -3, 2, 3, 80, 9, 3, 9, -10, 13, -10, 13, -71, -8, -71)
+
+[node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
+script = ExtResource("2_h00ti")
+body = NodePath("..")
+interact_canvas_group = NodePath("../SelectableCanvasGroup")
+metadata/_custom_type_script = "uid://bsonh03rfuf2p"
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("2_drsrt")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="PipetteWithTip" type="Sprite2D" parent="SelectableCanvasGroup"]
+texture = ExtResource("1_da3ja")

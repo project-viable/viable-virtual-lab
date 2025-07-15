@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=21 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://crqlu3uq74012" path="res://Scripts/UI/Menu.gd" id="1"]
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cm63yepobpmlk" path="res://Images/Dot-Yellow.png" id="7"]
 [ext_resource type="Resource" uid="uid://qyvthme13vqx" path="res://Modules/GelElectrophoresis.tres" id="7_d1bo7"]
 [ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://Images/Dot-Red.png" id="8"]
+[ext_resource type="Resource" uid="uid://d3tt3s0try6s7" path="res://Modules/combined.tres" id="8_sc1dx"]
 [ext_resource type="Resource" uid="uid://ig5fr0g7xm80" path="res://MistakeCheckers/MixtureChecker.tres" id="9"]
 [ext_resource type="Script" uid="uid://da2myq6tjf26d" path="res://Mixtures.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://Images/VIABLE_Logo_Transparent.png" id="11"]
@@ -69,7 +70,7 @@ check_strategies = Array[ExtResource("2_45sle")]([ExtResource("9")])
 [node name="Menu" type="CanvasLayer" parent="."]
 layer = 128
 script = ExtResource("1")
-all_modules = Array[ExtResource("5_1a5hp")]([ExtResource("6_wqw1h"), ExtResource("7_d1bo7")])
+all_modules = Array[ExtResource("5_1a5hp")]([ExtResource("6_wqw1h"), ExtResource("7_d1bo7"), ExtResource("8_sc1dx")])
 
 [node name="Background" type="TextureRect" parent="Menu"]
 anchors_preset = 8
