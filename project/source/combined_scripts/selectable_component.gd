@@ -29,10 +29,12 @@ func _unhandled_input(e: InputEvent) -> void:
 		is_held = true
 		start_holding()
 		started_holding.emit()
+		GameState.is_dragging = true
 	elif e.is_action_released(&"DragLabObject") and is_held:
 		stopped_holding.emit()
 		stop_holding()
 		is_held = false
+		GameState.is_dragging = false
 
 ## (virtual) called when the sprite group is clicked.
 func start_holding() -> void: pass
