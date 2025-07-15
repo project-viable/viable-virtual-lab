@@ -52,4 +52,3 @@ static func _get_absolute_z_index(n: Node) -> int:
 		return _get_absolute_z_index(n.get_parent()) + n.z_index
 	else:
 		return n.z_index
-

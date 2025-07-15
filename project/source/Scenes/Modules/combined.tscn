@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=18 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="1_5wocf"]
 [ext_resource type="PackedScene" uid="uid://b5ff3gy87ykja" path="res://combined_scenes/flask.tscn" id="2_e4xug"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://5orfeca6lgvk" path="res://combined_scenes/gel_box.tscn" id="12_sdlgg"]
 [ext_resource type="PackedScene" uid="uid://b4q3npoc5c7fy" path="res://combined_scenes/power_supply.tscn" id="13_36q3s"]
 [ext_resource type="PackedScene" uid="uid://cug6kav5s55iq" path="res://combined_scenes/gel_imager.tscn" id="14_eg6i0"]
+[ext_resource type="PackedScene" uid="uid://c1af3h23bqbvv" path="res://combined_scenes/scoopula.tscn" id="15_aby4o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wocf"]
 size = Vector2(1430, 222)
@@ -92,3 +93,6 @@ position = Vector2(712, 538)
 
 [node name="GelImager" parent="." instance=ExtResource("14_eg6i0")]
 position = Vector2(1136, 484)
+
+[node name="Scoopula" parent="." instance=ExtResource("15_aby4o")]
+position = Vector2(1033, 291)
