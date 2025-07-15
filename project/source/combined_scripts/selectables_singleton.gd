@@ -5,9 +5,9 @@ class_name SelectableSingleton
 extends Node2D
 
 
-## Set to the "best" `DragComponent` currently being highlighted, so that the
-## components themselves can know if they are the correct choice.
-var hovered_drag_component: DragComponent = null
+## Set to the "best" `SelectableComponent` currently being highlighted, so that the components
+## themselves can know if they are the correct choice.
+var hovered_component: SelectableComponent = null
 
 
 # The "draw index" of the next `SelectableCanvasGroup` to call `_draw`. The
@@ -22,18 +22,20 @@ func _draw() -> void:
 	_next_index = 0
 
 func _process(_delta: float) -> void:
-	hovered_drag_component = null
+	hovered_component = null
 	_hovered_z_index = RenderingServer.CANVAS_ITEM_Z_MIN
-	for c in get_tree().get_nodes_in_group(&"drag_component"):
-		if c is DragComponent:
+
+	# Find the topmost 
+	for c in get_tree().get_nodes_in_group(&"selectable_component"):
+		if c is SelectableComponent:
 			var z := _get_absolute_z_index(c.interact_canvas_group)
 			var draw_order: int = c.interact_canvas_group.draw_order_this_frame
 
 			if c.interact_canvas_group.is_mouse_hovering() \
-					and (not hovered_drag_component
+					and (not hovered_component
 						or z > _hovered_z_index
 						or draw_order > _hovered_draw_order and not z < _hovered_z_index):
-				hovered_drag_component = c
+				hovered_component = c
 				_hovered_z_index = z
 				_hovered_draw_order = draw_order
 
