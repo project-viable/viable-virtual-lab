@@ -21,6 +21,8 @@ config/icon="res://favicon.png"
 LabLog="*res://Scripts/LabLogSingleton.gd"
 GameSettings="*res://Scripts/GameSettingsSingleton.gd"
 Selectables="*res://combined_scripts/selectables_singleton.gd"
+InteractionHandler="*res://combined_scripts/interaction_handler_singleton.gd"
+GameState="*res://combined_scripts/states.gd"
 
 [debug]
 
