@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqc2dtt648v3m"]
+
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_85rdh"]
+[ext_resource type="Texture2D" uid="uid://55ncav7vyiwi" path="res://Images/Resized_Images/Bin_Hazard.png" id="2_30e3j"]
+[ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_30e3j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nf2rl"]
+size = Vector2(69, 92)
+
+[node name="BiohazardBin" type="RigidBody2D"]
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("1_85rdh")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="BinHazard" type="Sprite2D" parent="SelectableCanvasGroup"]
+texture = ExtResource("2_30e3j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_nf2rl")
+
+[node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
+script = ExtResource("3_30e3j")
+body = NodePath("..")
+interact_canvas_group = NodePath("../SelectableCanvasGroup")
+metadata/_custom_type_script = "uid://bsonh03rfuf2p"
