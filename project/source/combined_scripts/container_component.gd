@@ -3,7 +3,7 @@ class_name ContainerComponent
 extends Node2D
 
 
-var substances: Array[SubstanceInstance] = []
+@export var substances: Array[SubstanceInstance] = []
 
 
 func mix(amount: float) -> void:
