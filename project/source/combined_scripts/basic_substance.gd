@@ -27,3 +27,6 @@ func take_volume(v: float) -> SubstanceInstance:
 	result.volume = amount_to_take
 	volume -= amount_to_take
 	return result
+
+# Used by `SolutionSubstance` to determine how quickly to mix this in.
+func get_solubility(_solvent: BasicSubstance) -> float: return 0.0
