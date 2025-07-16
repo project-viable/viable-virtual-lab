@@ -3,8 +3,8 @@ class_name SolutionSubstance
 extends SubstanceInstance
 
 
-var solvent: BasicSubstance = BasicSubstance.new()
-var solutes: Array[BasicSubstance] = []
+@export var solvent: BasicSubstance = BasicSubstance.new()
+@export var solutes: Array[BasicSubstance] = []
 
 
 func clone() -> SolutionSubstance:
