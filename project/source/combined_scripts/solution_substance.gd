@@ -44,6 +44,7 @@ func get_color() -> Color:
 func try_incorporate(s: SubstanceInstance) -> bool:
 	if not (s is SolutionSubstance) or not solvent.try_incorporate(s.solvent): return false
 	for other_solute: BasicSubstance in s.solutes: add_solute(other_solute)
+	return true
 
 # We can only mix in basic substances that are soluble.
 func mix_from(s: SubstanceInstance, mix_amount: float) -> SubstanceInstance:
