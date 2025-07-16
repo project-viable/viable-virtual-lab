@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_cwbd0"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_d8lky"]
 [ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_iwbat"]
-[ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_caubw"]
+[ext_resource type="Script" uid="uid://ddnlp8fmwwyw8" path="res://combined_scripts/microwave_interaction.gd" id="5_iwbat"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0lrr"]
 size = Vector2(273, 152)
@@ -37,8 +37,34 @@ metadata/_custom_type_script = "uid://6sh30cc4wi2"
 position = Vector2(1.5, 3)
 shape = SubResource("RectangleShape2D_a0lrr")
 
-[node name="InteractionComponent" type="Node2D" parent="." node_paths=PackedStringArray("interaction_area", "body")]
-script = ExtResource("5_caubw")
+[node name="InteractionComponent" type="Node" parent="." node_paths=PackedStringArray("timer", "interaction_area", "body")]
+script = ExtResource("5_iwbat")
+timer = NodePath("../MicrowaveTimer")
 interaction_area = NodePath("../InteractionArea")
 body = NodePath("..")
 metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = -1
+offset_left = 85.0
+offset_top = 12.0
+offset_right = 128.0
+offset_bottom = 39.0
+size_flags_horizontal = 8
+text = "Start"
+metadata/_edit_use_anchors_ = true
+
+[node name="StopButton" type="Button" parent="."]
+offset_left = 86.0
+offset_top = 46.0
+offset_right = 127.0
+offset_bottom = 73.0
+text = "Stop"
+
+[node name="MicrowaveTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_exited" from="InteractionArea" to="InteractionComponent" method="_on_interaction_area_area_exited"]
+[connection signal="pressed" from="StartButton" to="InteractionComponent" method="_on_start_button_pressed"]
+[connection signal="pressed" from="StopButton" to="InteractionComponent" method="_on_microwave_stopped"]
+[connection signal="timeout" from="MicrowaveTimer" to="InteractionComponent" method="_on_microwave_stopped"]

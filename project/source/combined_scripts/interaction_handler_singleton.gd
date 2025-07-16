@@ -2,6 +2,10 @@ extends Node
 var interactables: Array[PhysicsBody2D] = []
 var interactor: RigidBody2D
 
+func _process(delta: float) -> void:
+	if not GameState.is_dragging:
+		interactables = []
+
 func _input(event: InputEvent) -> void:
 	if GameState.is_dragging:
 		if event.is_action_released("click") and interactables:
