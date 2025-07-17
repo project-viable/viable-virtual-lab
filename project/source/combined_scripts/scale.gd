@@ -1,14 +1,17 @@
 extends RigidBody2D
 
 var tare_weight: float = 0.0
+var current_weight: float = 0.0 #in terms of grams
 
 func _physics_process(_delta: float) -> void:
 	
-	var current_weight: float = 0.0
+	current_weight = 0.0
 	
-	#for node: Node2D in $Area2D.get_overlapping_bodies():
-		#if node is RigidBody2D:
-			#print("something on the scale")
+	for node: Node2D in $Area2D.get_overlapping_bodies():
+		if node is RigidBody2D:
+			current_weight += node.mass
+
+	$CanvasLayer/Control/PanelContainer/VBoxContainer/Weight_Value.text = "%.2f" % [current_weight - tare_weight]
 	
 	
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -22,3 +25,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	$CanvasLayer/Control.visible = false
+	tare_weight = 0.0
+	
+
+func _on_tare_button_pressed() -> void:
+	tare_weight = current_weight

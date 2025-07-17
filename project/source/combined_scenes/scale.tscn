@@ -83,7 +83,7 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="CanvasLayer/Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "Scale"
+text = "Scale (g)"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -99,3 +99,4 @@ text = "Tare"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/VBoxContainer/Tare_Button" to="." method="_on_tare_button_pressed"]
