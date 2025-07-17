@@ -47,6 +47,26 @@ func _process(delta: float) -> void:
 				show_popup(logs[0])
 			logs.remove_at(0)
 
+	$SubstanceLabel.clear()
+	if Selectables.hovered_component is DragComponent:
+		for cc: ContainerComponent in Selectables.hovered_component.body.find_children("", "ContainerComponent", false):
+			for sc in cc.substances:
+				$SubstanceLabel.push_color(sc.get_color())
+				if sc is BasicSubstance:
+					$SubstanceLabel.add_text("%s" % [sc.data.name])
+				elif sc is SolutionSubstance:
+					var solutes_name := ""
+					var first := true
+					for solute: BasicSubstance in sc.solutes:
+						if not first: solutes_name += ", "
+						solutes_name += solute.data.name
+						first = false
+					$SubstanceLabel.add_text("solution (%s) {%s}" % [sc.solvent.data.name, solutes_name])
+				else:
+					$SubstanceLabel.add_text("?")
+				$SubstanceLabel.pop()
+				$SubstanceLabel.newline()
+
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"ToggleMenu"):
 		# A page other than the main pause menu is being shown; return to the pause menu.
