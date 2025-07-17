@@ -37,7 +37,6 @@ volume = 100.0
 metadata/_custom_type_script = "uid://5sjgduop7hjw"
 
 [node name="AgaroseBottle" type="RigidBody2D"]
-collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -0.5)

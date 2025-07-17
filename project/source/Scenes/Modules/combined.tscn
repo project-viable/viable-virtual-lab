@@ -100,7 +100,7 @@ position = Vector2(1136, 484)
 position = Vector2(1033, 291)
 
 [node name="Scale" parent="." instance=ExtResource("16_c15s6")]
-position = Vector2(1143, 318)
+position = Vector2(1126, 323)
 
 [node name="BiohazardBin" parent="." instance=ExtResource("17_6se67")]
 position = Vector2(83, 66)
