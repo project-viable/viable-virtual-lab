@@ -31,7 +31,8 @@ func get_volume() -> float: return solvent.get_volume()
 
 # For simplicity, we just do a weighted sum of the component colors.
 func get_color() -> Color:
-	var total_volume := get_volume()
+	var total_volume := solvent.get_volume()
+	for s in solutes: total_volume += s.get_volume()
 
 	if total_volume < 0.00001: return solvent.get_color()
 
