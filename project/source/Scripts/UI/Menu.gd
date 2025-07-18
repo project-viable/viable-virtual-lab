@@ -47,9 +47,15 @@ func _process(delta: float) -> void:
 				show_popup(logs[0])
 			logs.remove_at(0)
 
-	$SubstanceLabel.clear()
+	# THIS STUFF IS TEMPORARY. SUBSTANCES WILL EVENTUALLY BE DISPLAYED IN THE CONTAINERS THEMSELVES,
+	# AND MIXING WILL BE DONE WITH A STIR ROD OR BY SWIRLING.
 	if Selectables.hovered_component is DragComponent:
-		for cc: ContainerComponent in Selectables.hovered_component.body.find_children("", "ContainerComponent", false):
+		var containers: Array[ContainerComponent] = []
+		containers.assign(Selectables.hovered_component.body.find_children("", "ContainerComponent", false))
+
+		# Show substances in the hovered object.
+		$SubstanceLabel.clear()
+		for cc in containers:
 			for sc in cc.substances:
 				$SubstanceLabel.push_color(sc.get_color())
 				if sc is BasicSubstance:
@@ -66,6 +72,11 @@ func _process(delta: float) -> void:
 					$SubstanceLabel.add_text("?")
 				$SubstanceLabel.pop()
 				$SubstanceLabel.newline()
+
+		# Mix stuff under the cursor when holding the M key.
+		if Input.is_action_pressed(&"mix_container"):
+			for cc in containers:
+				cc.mix(delta)
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"ToggleMenu"):
