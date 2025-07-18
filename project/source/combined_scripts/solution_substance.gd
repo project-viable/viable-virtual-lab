@@ -48,9 +48,9 @@ func try_incorporate(s: SubstanceInstance) -> bool:
 	return true
 
 # We can only mix in basic substances that are soluble.
-func mix_from(s: SubstanceInstance, mix_amount: float) -> SubstanceInstance:
+func mix_from(s: SubstanceInstance, env: SubstanceEnvironment, delta: float) -> SubstanceInstance:
 	if not (s is BasicSubstance): return null
-	var amount_to_take: float = mix_amount * s.get_solubility(solvent)
+	var amount_to_take: float = delta * env.mix_amount * s.get_solubility(solvent)
 	if amount_to_take < 0.00001: return null
 	add_solute(s.take_volume(amount_to_take))
 	return null

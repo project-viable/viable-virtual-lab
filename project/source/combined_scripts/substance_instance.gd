@@ -37,10 +37,9 @@ func get_color() -> Color: return Color.WHITE
 ## store the reference `s`.
 func try_incorporate(_s: SubstanceInstance) -> bool: return false
 
-## (virtual) Attempt to mix `s` into this substance by `mix_amount`. `mix_amount` does not
-## correspond with any physical unit, but the amount of substance mixed in should, generally
-## speaking, scale linearly with `mix_amount` multiplied by some other constants (like the
-## solubility of `s` if this is a solution).
+## (virtual) Attempt to mix `s` into this substance for `delta` seconds. The amount mixed in will
+## also probably depend on `env.mix_amount`, which should be approximately proportional to the
+## amount mixed in.
 ##
 ## If this function returns a non-null `SubstanceInstance`, then this substance will be replaced
 ## with it. This might be used, for example, to convert a solvent into a solution when something
@@ -48,7 +47,7 @@ func try_incorporate(_s: SubstanceInstance) -> bool: return false
 ##
 ## In this case, `s` should be assumed *not* to be a copy, and its state after calling this
 ## function should reflect any substance taken, which will usually not be all of `s`.
-func mix_from(_s: SubstanceInstance, _mix_amount: float) -> SubstanceInstance: return null
+func mix_from(_s: SubstanceInstance, _env: SubstanceEnvironment, _delta: float) -> SubstanceInstance: return null
 
 ## (virtual) Take *up to* `v` milliliters of this substance and return a new `SubstanceInstance`
 ## from what was taken. If `v` is greater than the current volume, then the full volume will be
