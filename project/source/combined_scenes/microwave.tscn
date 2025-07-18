@@ -37,15 +37,15 @@ metadata/_custom_type_script = "uid://6sh30cc4wi2"
 position = Vector2(1.5, 3)
 shape = SubResource("RectangleShape2D_a0lrr")
 
-[node name="InteractionComponent" type="Node" parent="." node_paths=PackedStringArray("timer", "interaction_area", "body")]
+[node name="InteractionComponent" type="Node" parent="." node_paths=PackedStringArray("timer", "timer_label", "interaction_area", "body")]
 script = ExtResource("5_iwbat")
 timer = NodePath("../MicrowaveTimer")
+timer_label = NodePath("../TimerLabel")
 interaction_area = NodePath("../InteractionArea")
 body = NodePath("..")
 metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
 
 [node name="StartButton" type="Button" parent="."]
-anchors_preset = -1
 offset_left = 85.0
 offset_top = 12.0
 offset_right = 128.0
@@ -62,9 +62,15 @@ offset_bottom = 73.0
 text = "Stop"
 
 [node name="MicrowaveTimer" type="Timer" parent="."]
-one_shot = true
+
+[node name="TimerLabel" type="Label" parent="."]
+offset_left = 86.0
+offset_top = -56.0
+offset_right = 128.0
+offset_bottom = -37.0
+horizontal_alignment = 1
 
 [connection signal="area_exited" from="InteractionArea" to="InteractionComponent" method="_on_interaction_area_area_exited"]
 [connection signal="pressed" from="StartButton" to="InteractionComponent" method="_on_start_button_pressed"]
 [connection signal="pressed" from="StopButton" to="InteractionComponent" method="_on_microwave_stopped"]
-[connection signal="timeout" from="MicrowaveTimer" to="InteractionComponent" method="_on_microwave_stopped"]
+[connection signal="timeout" from="MicrowaveTimer" to="InteractionComponent" method="_on_microwave_timer_timeout"]
