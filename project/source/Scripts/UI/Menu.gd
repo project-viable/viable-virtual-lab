@@ -56,18 +56,20 @@ func _process(delta: float) -> void:
 		# Show substances in the hovered object.
 		$SubstanceLabel.clear()
 		for cc in containers:
+			$SubstanceLabel.add_text("(%s °C, %.02f)" % [cc.environment.temperature, cc.environment.mix_amount])
+			$SubstanceLabel.newline()
 			for sc in cc.substances:
 				$SubstanceLabel.push_color(sc.get_color())
 				if sc is BasicSubstance:
-					$SubstanceLabel.add_text("%s" % [sc.data.name])
+					$SubstanceLabel.add_text("%.02f mL %s" % [sc.get_volume(), sc.data.name])
 				elif sc is SolutionSubstance:
 					var solutes_name := ""
 					var first := true
 					for solute: BasicSubstance in sc.solutes:
 						if not first: solutes_name += ", "
-						solutes_name += solute.data.name
+						solutes_name += "%.02f mL %s" % [solute.get_volume(), solute.data.name]
 						first = false
-					$SubstanceLabel.add_text("solution (%s) {%s}" % [sc.solvent.data.name, solutes_name])
+					$SubstanceLabel.add_text("solution (%.02f mL %s) {%s}" % [sc.solvent.get_volume(), sc.solvent.data.name, solutes_name])
 				else:
 					$SubstanceLabel.add_text("?")
 				$SubstanceLabel.pop()
