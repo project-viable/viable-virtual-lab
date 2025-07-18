@@ -29,4 +29,5 @@ func take_volume(v: float) -> SubstanceInstance:
 	return result
 
 # Used by `SolutionSubstance` to determine how quickly to mix this in.
-func get_solubility(_solvent: BasicSubstance) -> float: return 0.0
+func get_solubility(solvent: BasicSubstance) -> float:
+	return data.solubilities.get(solvent.data.name, 0.0)

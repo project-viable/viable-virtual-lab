@@ -11,8 +11,5 @@ extends Resource
 @export var density: float = 1.0
 @export var color: Color = Color.WHITE
 
-## Melting point in °C.
-@export var melting_point: float = 0.0
-
-## Boiling point in °C.
-@export var boiling_point: float = 0.0
+## Maps solvent names to their solubilities.
+@export var solubilities: Dictionary[String, float] = {}
