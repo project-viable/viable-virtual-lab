@@ -3,13 +3,6 @@ class_name SubstanceInstance
 extends Resource
 
 
-enum State
-{
-	SOLID,
-	LIQUID,
-}
-
-
 ## (virtual) Make a deep copy of this substance. This needs to be here because `Resource::duplicate`
 ## doesn't behave super nicely with arrays and stuff.
 func clone() -> SubstanceInstance: return duplicate(true)
