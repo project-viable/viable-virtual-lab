@@ -37,17 +37,15 @@ func get_color() -> Color: return Color.WHITE
 ## store the reference `s`.
 func try_incorporate(_s: SubstanceInstance) -> bool: return false
 
-## (virtual) Attempt to mix `s` into this substance for `delta` seconds. The amount mixed in will
-## also probably depend on `env.mix_amount`, which should be approximately proportional to the
-## amount mixed in.
+## Do a single tick worth of processing. `container` is the container node that this substance is
+## in. `delta` is the length of the tick in seconds.
 ##
-## If this function returns a non-null `SubstanceInstance`, then this substance will be replaced
-## with it. This might be used, for example, to convert a solvent into a solution when something
-## is mixed into it.
+## It is okay to modify `container.substances` in this function. Note that `container.substances`
+## will contain this substance, so it's a good idea when doing any reactions to ensure that the
+## other reagent is not this one.
 ##
-## In this case, `s` should be assumed *not* to be a copy, and its state after calling this
-## function should reflect any substance taken, which will usually not be all of `s`.
-func mix_from(_s: SubstanceInstance, _env: SubstanceEnvironment, _delta: float) -> SubstanceInstance: return null
+## This function should be used for any mixing or reactions.
+func process(_container: ContainerComponent, _delta: float) -> void: pass
 
 ## (virtual) Take *up to* `v` milliliters of this substance and return a new `SubstanceInstance`
 ## from what was taken. If `v` is greater than the current volume, then the full volume will be

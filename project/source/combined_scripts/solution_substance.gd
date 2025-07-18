@@ -47,13 +47,12 @@ func try_incorporate(s: SubstanceInstance) -> bool:
 	for other_solute: BasicSubstance in s.solutes: add_solute(other_solute)
 	return true
 
-# We can only mix in basic substances that are soluble.
-func mix_from(s: SubstanceInstance, env: SubstanceEnvironment, delta: float) -> SubstanceInstance:
-	if not (s is BasicSubstance): return null
-	var amount_to_take: float = delta * env.mix_amount * s.get_solubility(solvent)
-	if amount_to_take < 0.00001: return null
-	add_solute(s.take_volume(amount_to_take))
-	return null
+func process(container: ContainerComponent, delta: float) -> void:
+	for s in container.substances:
+		if s is BasicSubstance:
+			var amount_to_take: float = delta * container.mix_amount * s.get_solubility(solvent)
+			if amount_to_take >= 0.00001:
+				add_solute(s.take_volume(amount_to_take))
 
 # Will take an even ratio of the solvent and solutes.
 func take_volume(v: float) -> SolutionSubstance:

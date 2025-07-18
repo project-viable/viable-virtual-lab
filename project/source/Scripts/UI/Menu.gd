@@ -56,7 +56,7 @@ func _process(delta: float) -> void:
 		# Show substances in the hovered object.
 		$SubstanceLabel.clear()
 		for cc in containers:
-			$SubstanceLabel.add_text("(%s °C, %.02f)" % [cc.environment.temperature, cc.environment.mix_amount])
+			$SubstanceLabel.add_text("(%s °C, %.02f)" % [cc.temperature, cc.mix_amount])
 			$SubstanceLabel.newline()
 			for sc in cc.substances:
 				$SubstanceLabel.push_color(sc.get_color())

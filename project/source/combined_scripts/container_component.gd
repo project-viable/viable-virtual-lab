@@ -3,8 +3,17 @@ class_name ContainerComponent
 extends Node2D
 
 
-@export var environment: SubstanceEnvironment = SubstanceEnvironment.new()
 @export var substances: Array[SubstanceInstance] = []
+
+## Temperature in °C. For simplicity, it is assumed that an entire container is always in thermal
+## equilibrium.
+@export var temperature: float = 20.0
+
+## The amount of "mixiness" of the stuff in the container. This approximately corresponds with mass
+## diffusivity, but is not given in any particular units. Substances can use this to determine how
+## quickly to mix or perform reactions. Like temperature, this is *also* considered to be
+## homogeneous throughout the container.
+@export var mix_amount: float = 0.0
 
 
 # Even when not actively being mixed, substances in a container will slowly diffuse.
@@ -13,19 +22,17 @@ const _mix_amount_stagnation_rate: float = 0.1
 
 
 func _physics_process(delta: float) -> void:
-	for i in range(0, len(substances)):
-		for j in range(0, len(substances)):
-			if i == j: continue
-			var new_substance := substances[j].mix_from(substances[i], environment, delta)
-			if new_substance: substances[j] = new_substance
+	# We need to duplicate the substance array because substances may modify the original one in
+	# their `process` function.
+	for s: SubstanceInstance in substances.duplicate():
+		s.process(self, delta)
 	
 	_remove_empty_substances()
 
-	environment.mix_amount = max(environment.mix_amount -_mix_amount_stagnation_rate * delta, _base_mix_amount)
+	mix_amount = max(mix_amount -_mix_amount_stagnation_rate * delta, _base_mix_amount)
 
 # Increase the amount of turbulence in the container
-func mix(amount: float) -> void:
-	environment.mix_amount += amount
+func mix(amount: float) -> void: mix_amount += amount
 
 # `s` should be a copy.
 func add(s: SubstanceInstance) -> void:
