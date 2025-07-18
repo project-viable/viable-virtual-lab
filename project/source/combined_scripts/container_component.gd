@@ -19,6 +19,8 @@ extends Node2D
 # Even when not actively being mixed, substances in a container will slowly diffuse.
 const _base_mix_amount: float = 0.1
 const _mix_amount_stagnation_rate: float = 0.1
+const _temp_equalizing_rate: float = 0.1
+const _room_temperature: float = 20.0
 
 
 func _physics_process(delta: float) -> void:
@@ -30,6 +32,12 @@ func _physics_process(delta: float) -> void:
 	_remove_empty_substances()
 
 	mix_amount = max(mix_amount -_mix_amount_stagnation_rate * delta, _base_mix_amount)
+
+	## Move the temperature towards room temperature
+	if temperature < _room_temperature:
+		temperature = min(temperature + _temp_equalizing_rate * delta, _room_temperature)
+	else:
+		temperature = max(temperature - _temp_equalizing_rate * delta, _room_temperature)
 
 # Increase the amount of turbulence in the container
 func mix(amount: float) -> void: mix_amount += amount
