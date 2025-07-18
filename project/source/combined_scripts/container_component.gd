@@ -13,7 +13,7 @@ extends Node2D
 ## diffusivity, but is not given in any particular units. Substances can use this to determine how
 ## quickly to mix or perform reactions. Like temperature, this is *also* considered to be
 ## homogeneous throughout the container.
-@export var mix_amount: float = 0.0
+@export var mix_amount: float = _base_mix_amount
 
 
 # Even when not actively being mixed, substances in a container will slowly diffuse.
