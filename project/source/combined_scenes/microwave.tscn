@@ -37,40 +37,94 @@ metadata/_custom_type_script = "uid://6sh30cc4wi2"
 position = Vector2(1.5, 3)
 shape = SubResource("RectangleShape2D_a0lrr")
 
-[node name="InteractionComponent" type="Node" parent="." node_paths=PackedStringArray("timer", "timer_label", "interaction_area", "body")]
-script = ExtResource("5_iwbat")
-timer = NodePath("../MicrowaveTimer")
-timer_label = NodePath("../TimerLabel")
-interaction_area = NodePath("../InteractionArea")
-body = NodePath("..")
-metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
-
-[node name="StartButton" type="Button" parent="."]
-offset_left = 85.0
-offset_top = 12.0
-offset_right = 128.0
-offset_bottom = 39.0
-size_flags_horizontal = 8
-text = "Start"
-metadata/_edit_use_anchors_ = true
-
 [node name="StopButton" type="Button" parent="."]
-offset_left = 86.0
-offset_top = 46.0
-offset_right = 127.0
-offset_bottom = 73.0
+offset_left = 92.0
+offset_top = 48.0
+offset_right = 133.0
+offset_bottom = 75.0
+scale = Vector2(0.75, 0.75)
 text = "Stop"
-
-[node name="MicrowaveTimer" type="Timer" parent="."]
 
 [node name="TimerLabel" type="Label" parent="."]
 offset_left = 86.0
 offset_top = -56.0
 offset_right = 128.0
 offset_bottom = -37.0
+text = "0:00"
 horizontal_alignment = 1
 
-[connection signal="area_exited" from="InteractionArea" to="InteractionComponent" method="_on_interaction_area_area_exited"]
-[connection signal="pressed" from="StartButton" to="InteractionComponent" method="_on_start_button_pressed"]
+[node name="Keypad" type="GridContainer" parent="."]
+offset_left = 83.0
+offset_top = -27.0
+offset_right = 222.0
+offset_bottom = 126.0
+scale = Vector2(0.339272, 0.339272)
+theme_override_constants/v_separation = 15
+columns = 3
+
+[node name="Button1" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "1"
+
+[node name="Button2" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "2"
+
+[node name="Button3" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "3"
+
+[node name="Button4" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "4"
+
+[node name="Button5" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "5"
+
+[node name="Button6" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "6"
+
+[node name="Button7" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "7"
+
+[node name="Button8" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "8"
+
+[node name="Button9" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "9"
+
+[node name="Clear" type="Button" parent="Keypad"]
+custom_minimum_size = Vector2(43, 0)
+layout_mode = 2
+text = "Clear"
+
+[node name="Button0" type="Button" parent="Keypad"]
+custom_minimum_size = Vector2(43, 0)
+layout_mode = 2
+text = "0"
+
+[node name="StartButton" type="Button" parent="Keypad"]
+custom_minimum_size = Vector2(43, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+text = "Start"
+
+[node name="MicrowaveTimer" type="Timer" parent="."]
+
+[node name="InteractionComponent" type="Node" parent="." node_paths=PackedStringArray("timer", "timer_label", "key_pad", "interaction_area", "body")]
+script = ExtResource("5_iwbat")
+timer = NodePath("../MicrowaveTimer")
+timer_label = NodePath("../TimerLabel")
+key_pad = NodePath("../Keypad")
+interaction_area = NodePath("../InteractionArea")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
+
 [connection signal="pressed" from="StopButton" to="InteractionComponent" method="_on_microwave_stopped"]
 [connection signal="timeout" from="MicrowaveTimer" to="InteractionComponent" method="_on_microwave_timer_timeout"]
