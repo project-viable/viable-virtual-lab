@@ -5,7 +5,7 @@ extends InteractionComponent
 @export var key_pad: GridContainer
 
 var heatable_component: HeatableComponent
-var input_time: int = 0 # TODO: Temp placeholder, need to implement user input
+var input_time: int = 0
 var is_microwaving: bool = false
 var is_object_inside: bool = false
 var total_seconds_left: int = 0
@@ -49,7 +49,7 @@ func _on_start_button_pressed() -> void:
 		is_microwaving = true
 		
 		timer.start()
-		print("Heating for %s seconds!" % [input_time])
+		print("Heating %s" % [interactor.name])
 		
 	elif not is_object_inside:
 		print("Theres nothing in the Microwave!")
@@ -63,16 +63,17 @@ func _on_microwave_stopped() -> void:
 		timer.stop()
 		is_microwaving = false
 		interactor.set_deferred(&"visible", true)
+		is_object_inside = false
 		heatable_component.heat(total_seconds - total_seconds_left)
 		
-		# Update input_time for the next "start" press
-		input_time = total_seconds_left
+		# Update total_seconds for the next "start" press if the user doesn't clear
+		total_seconds = total_seconds_left
 
 ## Updates the TimerLabel to countdown the timer
 func _on_microwave_timer_timeout() -> void:
 	if total_seconds_left > 0:
 		total_seconds_left -= 1
-		
+		input_time -= 1
 		# Convert seconds to minutes and seconds
 		var minutes: int = total_seconds_left / 60
 		var seconds: int = total_seconds_left % 60
@@ -104,8 +105,11 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 		"Start":
 			_on_start_button_pressed()
 			
-		_:	
-			input_time = (input_time * 10 + int(button_value)) % 10000  # Keep it 4 digits max
+		_:
+			if str(input_time).length() >= 4: # Keep it 4 digits max
+				return
+				
+			input_time = (input_time * 10 + int(button_value))  
 			
 			# If the user input is 300, it should be in the form 3:00
 			var minutes: int = input_time / 100
