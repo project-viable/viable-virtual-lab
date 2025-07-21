@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cs2tep7cd3vxf"]
+[gd_scene load_steps=7 format=3 uid="uid://cs2tep7cd3vxf"]
 
 [ext_resource type="Texture2D" uid="uid://bnjnwv1adqmky" path="res://Images/Resized_Images/Microwave_closed.png" id="1_a0lrr"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_cwbd0"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_d8lky"]
+[ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_iwbat"]
+[ext_resource type="Script" uid="uid://ddnlp8fmwwyw8" path="res://combined_scripts/microwave_interaction.gd" id="5_iwbat"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0lrr"]
 size = Vector2(273, 152)
@@ -26,3 +28,103 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="MicrowaveClosed" type="Sprite2D" parent="SelectableCanvasGroup"]
 texture = ExtResource("1_a0lrr")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+script = ExtResource("4_iwbat")
+metadata/_custom_type_script = "uid://6sh30cc4wi2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(1.5, 3)
+shape = SubResource("RectangleShape2D_a0lrr")
+
+[node name="StopButton" type="Button" parent="."]
+offset_left = 92.0
+offset_top = 48.0
+offset_right = 133.0
+offset_bottom = 75.0
+scale = Vector2(0.75, 0.75)
+text = "Stop"
+
+[node name="TimerLabel" type="Label" parent="."]
+offset_left = 86.0
+offset_top = -56.0
+offset_right = 128.0
+offset_bottom = -37.0
+text = "0:00"
+horizontal_alignment = 1
+
+[node name="Keypad" type="GridContainer" parent="."]
+offset_left = 83.0
+offset_top = -27.0
+offset_right = 222.0
+offset_bottom = 126.0
+scale = Vector2(0.339272, 0.339272)
+theme_override_constants/v_separation = 15
+columns = 3
+
+[node name="Button1" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "1"
+
+[node name="Button2" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "2"
+
+[node name="Button3" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "3"
+
+[node name="Button4" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "4"
+
+[node name="Button5" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "5"
+
+[node name="Button6" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "6"
+
+[node name="Button7" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "7"
+
+[node name="Button8" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "8"
+
+[node name="Button9" type="Button" parent="Keypad"]
+layout_mode = 2
+text = "9"
+
+[node name="Clear" type="Button" parent="Keypad"]
+custom_minimum_size = Vector2(43, 0)
+layout_mode = 2
+text = "Clear"
+
+[node name="Button0" type="Button" parent="Keypad"]
+custom_minimum_size = Vector2(43, 0)
+layout_mode = 2
+text = "0"
+
+[node name="StartButton" type="Button" parent="Keypad"]
+custom_minimum_size = Vector2(43, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+text = "Start"
+
+[node name="MicrowaveTimer" type="Timer" parent="."]
+
+[node name="InteractionComponent" type="Node" parent="." node_paths=PackedStringArray("timer", "timer_label", "key_pad", "interaction_area", "body")]
+script = ExtResource("5_iwbat")
+timer = NodePath("../MicrowaveTimer")
+timer_label = NodePath("../TimerLabel")
+key_pad = NodePath("../Keypad")
+interaction_area = NodePath("../InteractionArea")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
+
+[connection signal="pressed" from="StopButton" to="InteractionComponent" method="_on_microwave_stopped"]
+[connection signal="timeout" from="MicrowaveTimer" to="InteractionComponent" method="_on_microwave_timer_timeout"]

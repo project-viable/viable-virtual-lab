@@ -62,7 +62,7 @@ position = Vector2(551, 297)
 [node name="GraduatedCylinder" parent="." instance=ExtResource("3_iy3xr")]
 position = Vector2(701, 253)
 
-[node name="RigidBody2D" parent="." instance=ExtResource("4_t02aw")]
+[node name="Pipette" parent="." instance=ExtResource("4_t02aw")]
 position = Vector2(339, 329)
 rotation = -1.57729
 

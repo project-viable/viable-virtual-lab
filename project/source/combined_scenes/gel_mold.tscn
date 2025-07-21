@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cys6ccja2bnxo"]
+[gd_scene load_steps=7 format=3 uid="uid://cys6ccja2bnxo"]
 
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_ar43o"]
 [ext_resource type="Texture2D" uid="uid://cna470ikaxrwy" path="res://Images/Resized_Images/Gel_tray.png" id="2_b175k"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_b175k"]
+[ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_0cqv1"]
+[ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_u177l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_of7eg"]
 size = Vector2(81, 31)
@@ -26,3 +28,17 @@ script = ExtResource("3_b175k")
 body = NodePath("..")
 interact_canvas_group = NodePath("../SelectableCanvasGroup")
 metadata/_custom_type_script = "uid://bsonh03rfuf2p"
+
+[node name="InteractionArea" type="Area2D" parent="."]
+script = ExtResource("4_0cqv1")
+metadata/_custom_type_script = "uid://6sh30cc4wi2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(-0.5, 4.5)
+shape = SubResource("RectangleShape2D_of7eg")
+
+[node name="InteractionComponent" type="Node2D" parent="." node_paths=PackedStringArray("interaction_area", "body")]
+script = ExtResource("5_u177l")
+interaction_area = NodePath("../InteractionArea")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://bdcoyj8ye48sb"

@@ -9,6 +9,8 @@ extends SelectableComponent
 var _offset: Vector2 = Vector2.ZERO
 var _velocity: Vector2 = Vector2.ZERO
 
+# The body's interaction area for toggling area monitoring
+var interaction_area: InteractionArea
 
 func _physics_process(delta: float) -> void:
 	if is_held:
@@ -25,6 +27,14 @@ func _physics_process(delta: float) -> void:
 
 func start_holding() -> void:
 		body.set_deferred(&"freeze", true)
+		
+		# Get the body's interaction_area
+		for node in body.get_children():
+			if node is InteractionArea:
+				interaction_area = node
+				break
+				
+		interaction_area.set_deferred(&"monitoring", false) # A body that is dragged should not be able to detect anything
 
 		# Move the body to the front by moving it to the end of its parent's children.
 		var body_parent: Node = body.get_parent()
@@ -36,6 +46,7 @@ func start_holding() -> void:
 
 func stop_holding() -> void:
 		body.set_deferred(&"freeze", false)
+		interaction_area.set_deferred(&"monitoring", true) # Re-enable detection when the body is not being dragged
 
 		# Fling the body after dragging depending on how it was moving when being dragged.
 		var global_offset := body.to_global(_offset) - body.global_position

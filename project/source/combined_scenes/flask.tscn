@@ -1,13 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5ff3gy87ykja"]
+[gd_scene load_steps=7 format=3 uid="uid://b5ff3gy87ykja"]
 
 [ext_resource type="Texture2D" uid="uid://d1mkaw208j1vl" path="res://Images/Resized_Images/Erlenmeyerflask_container.png" id="1_cfopd"]
+[ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="1_o52xj"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_ax7oq"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_rr7fa"]
+[ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_p00t2"]
+[ext_resource type="Script" uid="uid://boyv0jo3f0vm0" path="res://combined_scripts/heatable_component.gd" id="6_6iauc"]
 
 [node name="Flask" type="RigidBody2D"]
 collision_layer = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-10, -45, -10, -21, -29, 35, -29, 45, 30, 45, 30, 35, 9, -21, 9, -46)
+
+[node name="InteractionArea" type="Area2D" parent="."]
+script = ExtResource("1_o52xj")
+metadata/_custom_type_script = "uid://6sh30cc4wi2"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InteractionArea"]
 polygon = PackedVector2Array(-10, -45, -10, -21, -29, 35, -29, 45, 30, 45, 30, 35, 9, -21, 9, -46)
 
 [node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
@@ -22,3 +32,14 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="ErlenmeyerflaskContainer" type="Sprite2D" parent="SelectableCanvasGroup"]
 texture = ExtResource("1_cfopd")
+
+[node name="InteractionComponent" type="Node" parent="." node_paths=PackedStringArray("interaction_area", "body")]
+script = ExtResource("5_p00t2")
+interaction_area = NodePath("../InteractionArea")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
+
+[node name="HeatableComponent" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("6_6iauc")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://boyv0jo3f0vm0"
