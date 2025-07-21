@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://dl7pwqhm483yt"]
 
 [ext_resource type="Texture2D" uid="uid://c16pk6aqn5d2t" path="res://Images/Resized_Images/Agarose_Powder.png" id="1_eomqc"]
-[ext_resource type="Script" uid="uid://bsy5umsidbnia" path="res://combined_scenes/agarose_bottle.gd" id="1_kdefj"]
+[ext_resource type="Script" uid="uid://bsy5umsidbnia" path="res://combined_scripts/agarose_bottle.gd" id="1_kdefj"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_fwobd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_lsgmi"]
 [ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="2_ynrri"]
