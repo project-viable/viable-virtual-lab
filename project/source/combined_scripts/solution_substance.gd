@@ -50,7 +50,7 @@ func try_incorporate(s: SubstanceInstance) -> bool:
 func process(container: ContainerComponent, delta: float) -> void:
 	for s in container.substances:
 		if s is BasicSubstance:
-			var amount_to_take: float = delta * container.mix_amount * s.get_solubility(solvent)
+			var amount_to_take: float = delta * container.mix_amount * s.get_solubility(container, solvent)
 			if amount_to_take >= 0.00001:
 				add_solute(s.take_volume(amount_to_take))
 

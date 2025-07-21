@@ -29,5 +29,9 @@ func take_volume(v: float) -> SubstanceInstance:
 	return result
 
 # Used by `SolutionSubstance` to determine how quickly to mix this in.
-func get_solubility(solvent: BasicSubstance) -> float:
-	return data.solubilities.get(solvent.data.name, 0.0)
+func get_solubility(container: ContainerComponent, solvent: BasicSubstance) -> float:
+	var solubility_data: SolubilityData = data.solubilities.get(solvent.data.name)
+	if not solubility_data or container.temperature < solubility_data.min_temp:
+		return 0.0
+	else:
+		return solubility_data.base_solubility

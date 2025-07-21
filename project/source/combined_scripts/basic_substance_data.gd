@@ -12,4 +12,4 @@ extends Resource
 @export var color: Color = Color.WHITE
 
 ## Maps solvent names to their solubilities.
-@export var solubilities: Dictionary[String, float] = {}
+@export var solubilities: Dictionary[String, SolubilityData] = {}
