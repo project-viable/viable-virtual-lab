@@ -21,6 +21,21 @@ func try_incorporate(s: SubstanceInstance) -> bool:
 	else:
 		return false
 
+func process(container: ContainerComponent, delta: float) -> void:
+	var is_soluble := func (s: SubstanceInstance) -> bool:
+		return s is BasicSubstance and container.mix_amount * s.get_solubility(container, self) > 0.0
+
+	# If anything is soluble in this, replace it with a solution substance with this as the
+	# solvent. Without this, every substance that can dissolve something else would have to be
+	# manually made into a `SolutionSubstance`.
+	if container.substances.any(is_soluble):
+		var i := container.substances.find(self)
+		if i != -1:
+			var solution := SolutionSubstance.new()
+			solution.solvent = self
+			container.substances[i] = solution
+			solution.process(container, delta)
+
 func take_volume(v: float) -> SubstanceInstance:
 	var amount_to_take: float = clamp(v, 0.0, volume)
 	var result := clone()
