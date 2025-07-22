@@ -53,6 +53,11 @@ func add(s: SubstanceInstance) -> void:
 	if not did_incorporate:
 		substances.append(s)
 
+# Total volume in the container, in mL.
+func get_total_volume() -> float:
+	return substances.map(func(s: SubstanceInstance) -> float: return s.get_volume()) \
+			.reduce(func(a: float, b: float) -> float: return a + b)
+
 # Take the given volume from the first substance.
 func take_volume(v: float) -> SubstanceInstance:
 	if not substances: return SubstanceInstance.new()
