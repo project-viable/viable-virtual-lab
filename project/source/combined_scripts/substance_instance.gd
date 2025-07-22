@@ -17,7 +17,7 @@ func get_volume() -> float: return substance_volume
 ## (virtual) Get the color to be displayed.
 func get_color() -> Color: return Color.WHITE
 
-## (virtual) Set the volume, in millileters.
+## (virtual) Set the substance volume within the container, in millileters.
 func set_volume(vol: float) -> void: substance_volume = vol
 
 ## (virtual) Attempt to incorporate the substance `s`; return true if it was incorporated. If a

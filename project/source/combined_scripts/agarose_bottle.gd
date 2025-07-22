@@ -6,5 +6,5 @@ func _init() -> void:
 	var agarose_powder:SubstanceInstance = SubstanceInstance.new()
 	add(agarose_powder)
 	#setting agarose powder volume in terms of mL
-	agarose_powder.set_volume(2.0)
+	agarose_powder.set_volume(4.0)
 	pass
