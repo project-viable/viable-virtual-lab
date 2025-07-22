@@ -11,7 +11,7 @@ func clone() -> SubstanceInstance: return duplicate(true)
 func get_density() -> float: return 1.0
 
 ## (virtual) Get the volume, in millileters.
-func get_volume() -> float: return 0.0
+func get_volume() -> float: return 2.0
 
 ## (virtual) Get the color to be displayed.
 func get_color() -> Color: return Color.WHITE

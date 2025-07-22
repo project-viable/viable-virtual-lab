@@ -39,6 +39,7 @@ func _physics_process(delta: float) -> void:
 		temperature = min(temperature + _temp_equalizing_rate * delta, _room_temperature)
 	else:
 		temperature = max(temperature - _temp_equalizing_rate * delta, _room_temperature)
+		pass
 
 # Increase the amount of turbulence in the container
 func mix(amount: float) -> void: mix_amount += amount
@@ -71,7 +72,16 @@ func _remove_empty_substances() -> void:
 		substances.filter(func(s: SubstanceInstance) -> bool: return s.get_volume() >= 0.00001))
 
 func set_container_mass(new_mass: float) -> void:
-	container_mass = new_mass
+	container_mass += new_mass
 	
 func get_container_mass() -> float:
-	return container_mass
+	return container_mass 
+
+func get_substances_mass() -> float:
+	var total_substance_mass: float = 0.0
+	if !substances.is_empty():
+		for substance in substances:
+			total_substance_mass += (substance.get_density() * substance.get_volume())
+		return total_substance_mass
+	else:
+		return 0.0

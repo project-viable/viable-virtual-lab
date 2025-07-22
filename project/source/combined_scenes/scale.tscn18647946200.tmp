@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://gfmuo2b5e2b5"]
+
+[ext_resource type="Script" uid="uid://ceswiywyrstxd" path="res://combined_scripts/scale.gd" id="1_ceiaq"]
+[ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="1_o87w1"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_ceiaq"]
+[ext_resource type="Texture2D" uid="uid://4qpidnuobn6p" path="res://Images/Resized_Images/scale.png" id="3_7y61a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssuie"]
+size = Vector2(125, 39)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o87w1"]
+size = Vector2(85, 14)
+
+[node name="Scale" type="RigidBody2D"]
+position = Vector2(981, 281)
+script = ExtResource("1_ceiaq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_ssuie")
+
+[node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
+script = ExtResource("1_o87w1")
+body = NodePath("..")
+interact_canvas_group = NodePath("../SelectableCanvasGroup")
+metadata/_custom_type_script = "uid://bsonh03rfuf2p"
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("2_ceiaq")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="Scale" type="Sprite2D" parent="SelectableCanvasGroup"]
+texture = ExtResource("3_7y61a")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -29)
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_o87w1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchor_left = -0.117
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1130.76
+offset_top = 281.0
+offset_right = -244.0
+offset_bottom = -439.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = -965.0
+offset_top = 317.0
+offset_right = -668.0
+offset_bottom = 425.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Scale (g)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Weight_Value" type="Label" parent="CanvasLayer/Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "0.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tare_Button" type="Button" parent="CanvasLayer/Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Tare"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/VBoxContainer/Tare_Button" to="." method="_on_tare_button_pressed"]

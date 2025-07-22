@@ -9,7 +9,7 @@ func _physics_process(_delta: float) -> void:
 	
 	for node: Node2D in $Area2D.get_overlapping_bodies():
 		if node is ContainerComponent:
-			current_weight += node.get_container_mass()
+			current_weight += (node.get_container_mass() + node.get_substances_mass())
 
 	$CanvasLayer/Control/PanelContainer/VBoxContainer/Weight_Value.text = "%.2f" % [current_weight - tare_weight]
 	
