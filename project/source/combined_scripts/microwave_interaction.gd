@@ -1,8 +1,10 @@
 extends InteractionComponent
 ## Microwave Interaction
-@export var timer: Timer
-@export var timer_label: Label
-@export var key_pad: GridContainer
+@export var timer: Timer # Microwave Timer Node
+@export var timer_label: Label # TimerLabel
+@export var key_pad: GridContainer 
+@export var key_pad_area: Area2D # If clicked on, should activate zoom
+@export var camera: Camera2D
 
 var container_to_heat: ContainerComponent
 var input_time: int = 0
@@ -16,6 +18,7 @@ func _ready() -> void:
 	# Connect all buttons in the keypad
 	for button: Button in key_pad.get_children():
 		button.pressed.connect(_on_keypad_button_pressed.bind(button.text))
+		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
 func _process(_delta: float) -> void:
 	if body == GameState.interactable: # Something is interacting with the Microwave
@@ -131,3 +134,18 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 
 func update_timer_display(minutes: int, seconds: int) -> void:
 	timer_label.text = "%d:%02d" % [minutes, seconds]
+
+
+func _input(event: InputEvent) -> void:
+	if GameState.target_camera == camera and event.is_action_pressed("ExitCameraZoom"):
+		# If the keypad is not zoomed in, buttons can't be clicked on. 
+		for button: Button in key_pad.get_children():
+			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+## Handles when the area is clicked on
+func _on_keypad_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("click"):
+		GameState.target_camera = camera
+		# Keypad buttons should be clickable if zoomed in on
+		for button: Button in key_pad.get_children():
+			button.mouse_filter = Control.MOUSE_FILTER_STOP
