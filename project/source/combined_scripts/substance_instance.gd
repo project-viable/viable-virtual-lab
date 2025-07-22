@@ -2,6 +2,7 @@
 class_name SubstanceInstance
 extends Resource
 
+var substance_volume: float = 0.0
 
 ## (virtual) Make a deep copy of this substance. This needs to be here because `Resource::duplicate`
 ## doesn't behave super nicely with arrays and stuff.
@@ -11,10 +12,13 @@ func clone() -> SubstanceInstance: return duplicate(true)
 func get_density() -> float: return 1.0
 
 ## (virtual) Get the volume, in millileters.
-func get_volume() -> float: return 2.0
+func get_volume() -> float: return substance_volume
 
 ## (virtual) Get the color to be displayed.
 func get_color() -> Color: return Color.WHITE
+
+## (virtual) Set the volume, in millileters.
+func set_volume(vol: float) -> void: substance_volume = vol
 
 ## (virtual) Attempt to incorporate the substance `s`; return true if it was incorporated. If a
 ## substance `s` is added to a container, the container will first try to incorporate it into all

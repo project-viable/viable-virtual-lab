@@ -81,9 +81,9 @@ offset_bottom = -680.0
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
 offset_left = 14.0
-offset_top = 596.0
+offset_top = 569.0
 offset_right = 311.0
-offset_bottom = 705.0
+offset_bottom = 713.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer"]
 layout_mode = 2
@@ -103,6 +103,10 @@ step = 0.01
 layout_mode = 2
 text = "0"
 
+[node name="btnScoop" type="Button" parent="CanvasLayer/Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Scoop"
+
 [node name="btnDispense" type="Button" parent="CanvasLayer/Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
@@ -110,4 +114,5 @@ text = "Dispense"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="value_changed" from="CanvasLayer/Control/PanelContainer/VBoxContainer/sliderDispenseQty" to="." method="_on_slider_dispense_qty_value_changed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/VBoxContainer/btnScoop" to="." method="_on_btn_scoop_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/VBoxContainer/btnDispense" to="." method="_on_btn_dispense_pressed"]

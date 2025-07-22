@@ -4,8 +4,6 @@ extends ContainerComponent
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	#If the scoopula is dragged over a container with a substance in it, the fill sprite will appear.
 	if body is ContainerComponent:
-		if!body.substances.is_empty():
-			$FillSprite.visible = true
 		$CanvasLayer/Control.visible = true
 		set_deferred("freeze", true)
 		#The scoopula menu is under a canvas layer so that it sticks to the bottom left corner of the viewport when visible
@@ -17,15 +15,47 @@ func _on_slider_dispense_qty_value_changed(value: float) -> void:
 	$CanvasLayer/Control/PanelContainer/VBoxContainer/lblDispenseQty.text = str(value) + " mL"	
 
 
-func _on_btn_dispense_pressed(body: Node2D) -> void:
-	var vol_dispensed: float = $CanvasLayer/Control/PanelContainer/VBoxContainer/sliderDispenseQty.value/substances[0].get_density()
+func _on_btn_scoop_pressed() -> void:
+	var vol_to_take: float = $CanvasLayer/Control/PanelContainer/VBoxContainer/sliderDispenseQty.value
 	
-	#Add contents to receiving object
-	#Update current volume remaining
-	var taken_volume: SubstanceInstance = substances[0].take_volume(vol_dispensed)
-	if body is ContainerComponent and !body.substances.is_empty():
-		body.add(taken_volume)
-	else:
+	if vol_to_take != 0.0:
+		for body:ContainerComponent in $Area2D.get_overlapping_bodies():
+			if !body.substances.is_empty() and body.name != "Scoopula":
+				$FillSprite.visible = true
+				
+				#Add contents to scoopula and update object's substance volume
+				body.substances[0].set_volume(body.substances[0].get_volume()-vol_to_take)
+				var temp: SubstanceInstance = SubstanceInstance.new()
+				temp.set_volume(vol_to_take)
+				var vol_taken: SubstanceInstance = temp
+				add(vol_taken)
+				print("new agarose bottle powder volume: ", body.substances[0].get_volume())
+			else:
+				pass
+			#
+		print("new scoopula volume: ", substances[0].get_volume())
+
+
+func _on_btn_dispense_pressed() -> void:
+	if substances.is_empty():
 		pass
-	print(substances[0].get_volume()*substances[0].get_density())
-	$FillSprite.visible = false
+	else:
+		
+		var vol_to_dispense: float = substances[0].get_volume()
+		if vol_to_dispense != 0.0:
+			for body:ContainerComponent in $Area2D.get_overlapping_bodies():
+				print(body.name)
+				if body.substances.is_empty() and body.name != "Scoopula":
+					
+					#Add contents to receiving object
+					#Reset scoopula
+					body.add(take_volume(vol_to_dispense))
+					body.substances[0].set_volume(vol_to_dispense)
+					print(body.name, " substances volume now: ", body.substances[0].get_volume())
+					substances.clear()
+					$FillSprite.visible = false
+				else:
+					pass
+			
+			print("scoopula empty?: ", substances.is_empty())
+	
