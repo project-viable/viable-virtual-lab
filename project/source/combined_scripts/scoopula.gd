@@ -20,7 +20,7 @@ func _on_btn_scoop_pressed() -> void:
 	
 	if vol_to_take != 0.0:
 		for body:ContainerComponent in $Area2D.get_overlapping_bodies():
-			if !body.substances.is_empty() and body.name != "Scoopula":
+			if !body.substances.is_empty():
 				$FillSprite.visible = true
 				
 				#Add contents to scoopula and update object's substance volume
@@ -44,18 +44,13 @@ func _on_btn_dispense_pressed() -> void:
 		var vol_to_dispense: float = substances[0].get_volume()
 		if vol_to_dispense != 0.0:
 			for body:ContainerComponent in $Area2D.get_overlapping_bodies():
-				print(body.name)
-				if body.substances.is_empty() and body.name != "Scoopula":
-					
 					#Add contents to receiving object
 					#Reset scoopula
 					body.add(take_volume(vol_to_dispense))
-					body.substances[0].set_volume(vol_to_dispense)
+					body.substances[0].set_volume(body.substances[0].get_volume()+vol_to_dispense)
 					print(body.name, " substances volume now: ", body.substances[0].get_volume())
 					substances.clear()
 					$FillSprite.visible = false
-				else:
-					pass
 			
 			print("scoopula empty?: ", substances.is_empty())
 	
