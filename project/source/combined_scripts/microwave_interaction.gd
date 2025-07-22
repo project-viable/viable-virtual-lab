@@ -4,7 +4,7 @@ extends InteractionComponent
 @export var timer_label: Label
 @export var key_pad: GridContainer
 
-var heatable_component: HeatableComponent
+var container_to_heat: ContainerComponent
 var input_time: int = 0
 var is_microwaving: bool = false
 var is_object_inside: bool = false
@@ -29,9 +29,9 @@ func _process(_delta: float) -> void:
 		GameState.interactable = null
 
 func interact(interactor: PhysicsBody2D) -> void:
-	heatable_component = find_heatable_component(interactor)
+	container_to_heat = find_container(interactor)
 	
-	if heatable_component:
+	if container_to_heat:
 		is_object_inside = true
 		
 		# Change properties of the interactor
@@ -64,7 +64,15 @@ func _on_microwave_stopped() -> void:
 		is_microwaving = false
 		interactor.set_deferred(&"visible", true)
 		is_object_inside = false
-		heatable_component.heat(total_seconds - total_seconds_left)
+
+		# TODO: This calculation should be handled by the `ContainerComponent` and substances
+		# themselves.
+		#
+		# This is very approximately equal to the amount of heating you would get if the container
+		# were full of only water.
+		var temp_increase: float = 160.0 * (total_seconds - total_seconds_left) \
+			/ container_to_heat.get_total_volume()
+		container_to_heat.temperature += temp_increase
 		
 		# Update total_seconds for the next "start" press if the user doesn't clear
 		total_seconds = total_seconds_left
@@ -84,14 +92,14 @@ func _on_microwave_timer_timeout() -> void:
 		timer.stop()
 		_on_microwave_stopped()
 
-func find_heatable_component(interactor: PhysicsBody2D) -> HeatableComponent:
-	# Only objects that have the HeatableComponent can use the microwave
-	var heat_component: HeatableComponent
+func find_container(interactor: PhysicsBody2D) -> ContainerComponent:
+	# Only objects that have a `ContainerComponent` as a direct child can be microwaved. `
+	var container: ContainerComponent
 	for node in interactor.get_children():
-		if node is HeatableComponent:
-			heat_component = node
+		if node is ContainerComponent:
+			container = node
 	
-	return heat_component
+	return container
 	
 func _on_interaction_area_area_exited(area: Area2D) -> void:
 	if GameState.is_dragging and area.get_owner() == interactor: # Trigger only if that object is explicitely dragged out 

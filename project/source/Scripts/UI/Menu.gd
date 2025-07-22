@@ -47,6 +47,39 @@ func _process(delta: float) -> void:
 				show_popup(logs[0])
 			logs.remove_at(0)
 
+	# THIS STUFF IS TEMPORARY. SUBSTANCES WILL EVENTUALLY BE DISPLAYED IN THE CONTAINERS THEMSELVES,
+	# AND MIXING WILL BE DONE WITH A STIR ROD OR BY SWIRLING.
+	if Selectables.hovered_component is DragComponent:
+		var containers: Array[ContainerComponent] = []
+		containers.assign(Selectables.hovered_component.body.find_children("", "ContainerComponent", false))
+
+		# Show substances in the hovered object.
+		$SubstanceLabel.clear()
+		for cc in containers:
+			$SubstanceLabel.add_text("(%.02f°C, %.02f)" % [cc.temperature, cc.mix_amount])
+			$SubstanceLabel.newline()
+			for sc in cc.substances:
+				$SubstanceLabel.push_color(sc.get_color())
+				if sc is BasicSubstance:
+					$SubstanceLabel.add_text("%.02f mL %s" % [sc.get_volume(), sc.data.name])
+				elif sc is SolutionSubstance:
+					var solutes_name := ""
+					var first := true
+					for solute: BasicSubstance in sc.solutes:
+						if not first: solutes_name += ", "
+						solutes_name += "%.02f mL %s" % [solute.get_volume(), solute.data.name]
+						first = false
+					$SubstanceLabel.add_text("solution (%.02f mL %s) {%s}" % [sc.solvent.get_volume(), sc.solvent.data.name, solutes_name])
+				else:
+					$SubstanceLabel.add_text("?")
+				$SubstanceLabel.pop()
+				$SubstanceLabel.newline()
+
+		# Mix stuff under the cursor when holding the M key.
+		if Input.is_action_pressed(&"mix_container"):
+			for cc in containers:
+				cc.mix(delta)
+
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"ToggleMenu"):
 		# A page other than the main pause menu is being shown; return to the pause menu.

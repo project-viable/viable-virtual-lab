@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5ff3gy87ykja"]
+[gd_scene load_steps=6 format=3 uid="uid://b5ff3gy87ykja"]
 
 [ext_resource type="Texture2D" uid="uid://d1mkaw208j1vl" path="res://Images/Resized_Images/Erlenmeyerflask_container.png" id="1_cfopd"]
 [ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="1_o52xj"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_ax7oq"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_rr7fa"]
 [ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_p00t2"]
-[ext_resource type="Script" uid="uid://boyv0jo3f0vm0" path="res://combined_scripts/heatable_component.gd" id="6_6iauc"]
 
 [node name="Flask" type="RigidBody2D"]
 collision_layer = 0
@@ -38,8 +37,3 @@ script = ExtResource("5_p00t2")
 interaction_area = NodePath("../InteractionArea")
 body = NodePath("..")
 metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
-
-[node name="HeatableComponent" type="Node" parent="." node_paths=PackedStringArray("body")]
-script = ExtResource("6_6iauc")
-body = NodePath("..")
-metadata/_custom_type_script = "uid://boyv0jo3f0vm0"
