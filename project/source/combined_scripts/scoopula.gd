@@ -3,7 +3,8 @@ extends ContainerComponent
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	#If the scoopula is dragged over a container with a substance in it, the fill sprite will appear.
-	if body is ContainerComponent:
+	print(self.name)
+	if body is ContainerComponent and body.name != "Scoopula":
 		$CanvasLayer/Control.visible = true
 		set_deferred("freeze", true)
 		#The scoopula menu is under a canvas layer so that it sticks to the bottom left corner of the viewport when visible
