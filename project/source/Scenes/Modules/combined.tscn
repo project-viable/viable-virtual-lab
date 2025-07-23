@@ -69,12 +69,6 @@ rotation = -1.57729
 [node name="PipetteTipBox" parent="." instance=ExtResource("5_vwsp8")]
 position = Vector2(224, 304)
 
-[node name="WeighBoat" parent="." instance=ExtResource("6_vj1mp")]
-position = Vector2(788, 330)
-
-[node name="AgaroseBottle" parent="." instance=ExtResource("7_yik3d")]
-position = Vector2(890, 307)
-
 [node name="TAEBottle" parent="." instance=ExtResource("8_yik3d")]
 position = Vector2(940, 301)
 
@@ -99,8 +93,14 @@ position = Vector2(1136, 484)
 [node name="Scoopula" parent="." instance=ExtResource("15_aby4o")]
 position = Vector2(1033, 291)
 
-[node name="Scale" parent="." instance=ExtResource("16_c15s6")]
-position = Vector2(1126, 323)
-
 [node name="BiohazardBin" parent="." instance=ExtResource("17_6se67")]
 position = Vector2(83, 66)
+
+[node name="WeighBoat" parent="." instance=ExtResource("6_vj1mp")]
+position = Vector2(804, 330)
+
+[node name="Scale" parent="." instance=ExtResource("16_c15s6")]
+position = Vector2(1134, 325)
+
+[node name="AgaroseBottle" parent="." instance=ExtResource("7_yik3d")]
+position = Vector2(889, 305)

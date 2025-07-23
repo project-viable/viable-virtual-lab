@@ -15,7 +15,7 @@ extends Node2D
 ## homogeneous throughout the container.
 @export var mix_amount: float = _base_mix_amount
 
-var container_mass: float = 0.0
+@export var container_mass: float = 6.0
 
 # Even when not actively being mixed, substances in a container will slowly diffuse.
 const _base_mix_amount: float = 0.1
@@ -73,12 +73,6 @@ func _remove_empty_substances() -> void:
 
 func get_volume() -> float:
 	return 2.0
-
-func set_container_mass(new_mass: float) -> void:
-	container_mass += new_mass
-	
-func get_container_mass() -> float:
-	return container_mass 
 
 func get_substances_mass() -> float:
 	var total_substance_mass: float = 0.0
