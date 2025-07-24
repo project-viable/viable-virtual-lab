@@ -117,14 +117,14 @@ text = "Start"
 
 [node name="MicrowaveTimer" type="Timer" parent="."]
 
-[node name="InteractionComponent" type="Node" parent="." node_paths=PackedStringArray("timer", "timer_label", "key_pad", "interaction_area", "body")]
+[node name="MicrowaveInteraction" type="Node2D" parent="." node_paths=PackedStringArray("timer", "timer_label", "key_pad", "interaction_area", "body")]
 script = ExtResource("5_iwbat")
 timer = NodePath("../MicrowaveTimer")
 timer_label = NodePath("../TimerLabel")
 key_pad = NodePath("../Keypad")
 interaction_area = NodePath("../InteractionArea")
 body = NodePath("..")
-metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
+metadata/_custom_type_script = "uid://ddnlp8fmwwyw8"
 
-[connection signal="pressed" from="StopButton" to="InteractionComponent" method="_on_microwave_stopped"]
-[connection signal="timeout" from="MicrowaveTimer" to="InteractionComponent" method="_on_microwave_timer_timeout"]
+[connection signal="pressed" from="StopButton" to="MicrowaveInteraction" method="_on_microwave_stopped"]
+[connection signal="timeout" from="MicrowaveTimer" to="MicrowaveInteraction" method="_on_microwave_timer_timeout"]

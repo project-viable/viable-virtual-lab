@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_3s6eo"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_cxa2o"]
 [ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_s8ros"]
-[ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_f63uk"]
+[ext_resource type="Script" uid="uid://di0ooxn48b40x" path="res://combined_scripts/pipette_box_interaction.gd" id="5_s8ros"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gs6p0"]
 size = Vector2(106, 43)
@@ -37,8 +37,8 @@ metadata/_custom_type_script = "uid://6sh30cc4wi2"
 position = Vector2(0, 15.5)
 shape = SubResource("RectangleShape2D_gs6p0")
 
-[node name="InteractionComponent" type="Node2D" parent="." node_paths=PackedStringArray("interaction_area", "body")]
-script = ExtResource("5_f63uk")
+[node name="PipetteBoxInteraction" type="Node2D" parent="." node_paths=PackedStringArray("interaction_area", "body")]
+script = ExtResource("5_s8ros")
 interaction_area = NodePath("../InteractionArea")
 body = NodePath("..")
-metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
+metadata/_custom_type_script = "uid://di0ooxn48b40x"
