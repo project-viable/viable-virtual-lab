@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://gfmuo2b5e2b5"]
+[gd_scene load_steps=8 format=3 uid="uid://gfmuo2b5e2b5"]
 
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="1_o87w1"]
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_ssuie"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_ceiaq"]
 [ext_resource type="Texture2D" uid="uid://4qpidnuobn6p" path="res://Images/Resized_Images/scale.png" id="3_7y61a"]
 [ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_7y61a"]
@@ -11,6 +12,9 @@ size = Vector2(125, 39)
 
 [node name="Scale" type="RigidBody2D"]
 collision_layer = 0
+script = ExtResource("1_ssuie")
+default_mode = 2
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0.5)

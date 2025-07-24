@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cs2tep7cd3vxf"]
+[gd_scene load_steps=8 format=3 uid="uid://cs2tep7cd3vxf"]
 
 [ext_resource type="Texture2D" uid="uid://bnjnwv1adqmky" path="res://Images/Resized_Images/Microwave_closed.png" id="1_a0lrr"]
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_caubw"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_cwbd0"]
 [ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_iwbat"]
 [ext_resource type="Script" uid="uid://ddnlp8fmwwyw8" path="res://combined_scripts/microwave_interaction.gd" id="5_iwbat"]
@@ -13,6 +14,8 @@ size = Vector2(49, 59)
 
 [node name="Microwave" type="RigidBody2D"]
 collision_layer = 0
+script = ExtResource("1_caubw")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, 3)
