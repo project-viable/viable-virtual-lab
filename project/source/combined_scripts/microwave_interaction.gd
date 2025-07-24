@@ -1,4 +1,6 @@
 extends InteractionComponent
+class_name MicrowaveInteraction
+
 ## Microwave Interaction
 @export var timer: Timer
 @export var timer_label: Label
@@ -17,20 +19,14 @@ func _ready() -> void:
 	for button: Button in key_pad.get_children():
 		button.pressed.connect(_on_keypad_button_pressed.bind(button.text))
 		
-func _process(_delta: float) -> void:
-	if body == GameState.interactable: # Something is interacting with the Microwave
-		if not is_object_inside:
-			interactable = body
-			interactor = GameState.interactor
-			interact(interactor)
-		else:
-			print("Something is already inside the microwave!")
-			
-		GameState.interactable = null
+
 
 func interact(interactor: PhysicsBody2D) -> void:
+	if is_object_inside:
+		print("Something is already inside the microwave!")
+		return
+		
 	container_to_heat = find_container(interactor)
-	
 	if container_to_heat:
 		is_object_inside = true
 		
@@ -59,11 +55,12 @@ func _on_start_button_pressed() -> void:
 
 ## Triggered either by the "stop" button or the timer ran out
 func _on_microwave_stopped() -> void:
+	interactor.set_deferred(&"visible", true)
+	is_object_inside = false
+	
 	if is_microwaving:
 		timer.stop()
 		is_microwaving = false
-		interactor.set_deferred(&"visible", true)
-		is_object_inside = false
 
 		# TODO: This calculation should be handled by the `ContainerComponent` and substances
 		# themselves.
