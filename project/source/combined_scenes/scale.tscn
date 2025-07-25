@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://gfmuo2b5e2b5"]
+[gd_scene load_steps=9 format=3 uid="uid://gfmuo2b5e2b5"]
 
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="1_o87w1"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_ssuie"]
@@ -10,10 +10,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssuie"]
 size = Vector2(125, 39)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vhatv"]
+size = Vector2(102, 5)
+
 [node name="Scale" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource("1_ssuie")
-default_mode = 2
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -46,3 +48,11 @@ script = ExtResource("5_ssuie")
 interaction_area = NodePath("../InteractionArea")
 body = NodePath("..")
 metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
+
+[node name="Surface" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Surface"]
+position = Vector2(1, -17.5)
+shape = SubResource("RectangleShape2D_vhatv")
+one_way_collision = true
+debug_color = Color(0.404972, 0.46678, 1, 0.42)
