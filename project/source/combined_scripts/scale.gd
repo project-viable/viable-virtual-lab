@@ -17,7 +17,7 @@ func _physics_process(_delta: float) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	#We only care about weighing objects that can actually be weighed on a scale in real life.
 	#Having this if statement will ensure that when the scale is dragged around the screen it won't try to weigh a shelf or something.
-	print(body)
+	#print(body)
 	if body is RigidBody2D and body.find_child("ContainerComponent"):
 		#The scale menu is under a canvas layer so that it sticks to the bottom left corner of the viewport when visible
 		set_deferred("freeze", true)
