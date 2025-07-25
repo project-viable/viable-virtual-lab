@@ -24,4 +24,5 @@ func _process(_delta: float) -> void:
 
 # Virtual. Should be implemented in the node that extends this class
 func interact(_interactor: PhysicsBody2D) -> void:
-	assert(false, "Please add interact() to the %s's script that extends InteractionComponent." % [interactable.name])
+	assert(false, "%s currently does not handle any interactions. \
+	Please add interact() to the %s's script that extends InteractionComponent." % [interactable.name, interactable.name])
