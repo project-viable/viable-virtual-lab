@@ -15,7 +15,6 @@ func _ready() -> void:
 
 	stop_dragging()
 
-
 # `start_dragging` and `stop_dragging` don't actually handle any drag logic; they just change the
 # physics to allow for dragging.
 func start_dragging() -> void:
