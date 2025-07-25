@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void:
 
 func start_holding() -> void:
 		body.start_dragging()
-		
+
 		# Get the body's interaction_area
 		for node in body.get_children():
 			if node is InteractionArea:
@@ -36,7 +36,12 @@ func start_holding() -> void:
 				
 		interaction_area.set_deferred(&"monitoring", false) # A body that is dragged should not be able to detect anything
 
-		body.move_to_front()
+		# We can't just use `move_to_front` because it doesn't properly reorder the `_draw` calls,
+		# whose specific order is required to determine which one is in front.
+		var body_parent := body.get_parent()
+		if body_parent:
+			body_parent.call_deferred(&"remove_child", body)
+			body_parent.call_deferred(&"add_child", body)
 
 		_offset = body.get_local_mouse_position()
 
