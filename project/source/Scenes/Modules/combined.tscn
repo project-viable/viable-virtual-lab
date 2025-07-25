@@ -71,6 +71,7 @@ position = Vector2(224, 304)
 
 [node name="TAEBottle" parent="." instance=ExtResource("8_yik3d")]
 position = Vector2(940, 301)
+collision_layer = 1
 
 [node name="Microwave" parent="." instance=ExtResource("9_y4qw0")]
 position = Vector2(162, 480)
@@ -98,6 +99,7 @@ position = Vector2(83, 66)
 
 [node name="WeighBoat" parent="." instance=ExtResource("6_vj1mp")]
 position = Vector2(804, 330)
+script = null
 
 [node name="Scale" parent="." instance=ExtResource("16_c15s6")]
 position = Vector2(1134, 325)

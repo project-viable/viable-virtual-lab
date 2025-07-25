@@ -72,7 +72,7 @@ func _remove_empty_substances() -> void:
 		substances.filter(func(s: SubstanceInstance) -> bool: return s.get_volume() >= 0.00001))
 
 func get_volume() -> float:
-	return 2.0
+	return 100.0
 
 func get_substances_mass() -> float:
 	var total_substance_mass: float = 0.0
