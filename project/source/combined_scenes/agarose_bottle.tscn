@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://dl7pwqhm483yt"]
+[gd_scene load_steps=16 format=3 uid="uid://dl7pwqhm483yt"]
 
 [ext_resource type="Texture2D" uid="uid://c16pk6aqn5d2t" path="res://Images/Resized_Images/Agarose_Powder.png" id="1_eomqc"]
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_w1h17"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_fwobd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_lsgmi"]
 [ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="2_ynrri"]
@@ -38,6 +39,8 @@ metadata/_custom_type_script = "uid://5sjgduop7hjw"
 
 [node name="AgaroseBottle" type="RigidBody2D"]
 collision_layer = 0
+script = ExtResource("1_w1h17")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -0.5)

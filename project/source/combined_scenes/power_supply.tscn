@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4q3npoc5c7fy"]
+[gd_scene load_steps=8 format=3 uid="uid://b4q3npoc5c7fy"]
 
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_7lagc"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_80iu8"]
 [ext_resource type="Texture2D" uid="uid://bmnvdginitg4v" path="res://Images/Resized_Images/Power_Box.png" id="2_3yhad"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_3yhad"]
@@ -11,6 +12,8 @@ size = Vector2(98, 36)
 
 [node name="PowerSupply" type="RigidBody2D"]
 collision_layer = 0
+script = ExtResource("1_7lagc")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("1_80iu8")

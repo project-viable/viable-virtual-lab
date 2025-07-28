@@ -2,7 +2,7 @@ extends Node
 class_name InteractionComponent
 
 @export var interaction_area: InteractionArea # The parent should always have an InteractionArea if this component is used
-@export var body: RigidBody2D # Should be the parent of this component
+@export var body: LabBody # Should be the parent of this component
 
 var interactable: PhysicsBody2D
 var interactor: PhysicsBody2D
