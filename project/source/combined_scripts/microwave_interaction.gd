@@ -59,8 +59,9 @@ func _on_start_button_pressed() -> void:
 
 ## Triggered either by the "stop" button or the timer ran out
 func _on_microwave_stopped() -> void:
-	interactor.set_deferred(&"visible", true)
-	is_object_inside = false
+	if is_object_inside:
+		interactor.set_deferred(&"visible", true)
+		is_object_inside = false
 	
 	if is_microwaving:
 		timer.stop()
