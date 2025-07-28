@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://t5vephauatf2"]
 
+[ext_resource type="Script" uid="uid://bvktn342w1r7o" path="res://combined_scripts/pipette.gd" id="1_5ngtk"]
 [ext_resource type="Texture2D" uid="uid://b35y8esb054uy" path="res://Images/Resized_Images/Pipette_with_tip.png" id="1_da3ja"]
-[ext_resource type="Script" uid="uid://bvktn342w1r7o" path="res://combined_scripts/pipette.gd" id="1_y22yk"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_drsrt"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_h00ti"]
 [ext_resource type="Texture2D" uid="uid://ndoyd04ilqyo" path="res://Images/Resized_Images/Pipette_with_notip.png" id="4_5ngtk"]
@@ -10,7 +10,8 @@
 
 [node name="Pipette" type="RigidBody2D"]
 collision_layer = 0
-script = ExtResource("1_y22yk")
+script = ExtResource("1_5ngtk")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionPolygon2DNoTip" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(4, 60, 9, -10, 13, -10, 13, -71, -8, -71, -13, -64, -3, -64, -3, 1, 2, 60, 3, 61)

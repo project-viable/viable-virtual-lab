@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7ygbkawlsvn8"]
+[gd_scene load_steps=8 format=3 uid="uid://b7ygbkawlsvn8"]
 
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_5k7v7"]
 [ext_resource type="Texture2D" uid="uid://bd7nxviy5qand" path="res://Images/Resized_Images/graduated_cylinder_container.png" id="1_q1dm3"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_8riox"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_ufkpi"]
@@ -11,6 +12,8 @@ size = Vector2(20, 170)
 
 [node name="GraduatedCylinder" type="RigidBody2D"]
 collision_layer = 0
+script = ExtResource("1_5k7v7")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)

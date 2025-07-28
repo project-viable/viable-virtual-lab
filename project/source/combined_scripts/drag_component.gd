@@ -4,7 +4,7 @@ extends SelectableComponent
 
 
 ## The body to be dragged.
-@export var body: RigidBody2D
+@export var body: LabBody
 
 var _offset: Vector2 = Vector2.ZERO
 var _velocity: Vector2 = Vector2.ZERO
@@ -26,8 +26,8 @@ func _physics_process(delta: float) -> void:
 		body.global_position = dest_pos
 
 func start_holding() -> void:
-		body.set_deferred(&"freeze", true)
-		
+		body.start_dragging()
+
 		# Get the body's interaction_area
 		for node in body.get_children():
 			if node is InteractionArea:
@@ -36,8 +36,9 @@ func start_holding() -> void:
 				
 		interaction_area.set_deferred(&"monitoring", false) # A body that is dragged should not be able to detect anything
 
-		# Move the body to the front by moving it to the end of its parent's children.
-		var body_parent: Node = body.get_parent()
+		# We can't just use `move_to_front` because it doesn't properly reorder the `_draw` calls,
+		# whose specific order is required to determine which one is in front.
+		var body_parent := body.get_parent()
 		if body_parent:
 			body_parent.call_deferred(&"remove_child", body)
 			body_parent.call_deferred(&"add_child", body)
@@ -45,9 +46,9 @@ func start_holding() -> void:
 		_offset = body.get_local_mouse_position()
 
 func stop_holding() -> void:
-		body.set_deferred(&"freeze", false)
-		interaction_area.set_deferred(&"monitoring", true) # Re-enable detection when the body is not being dragged
+	body.stop_dragging()
+	interaction_area.set_deferred(&"monitoring", true) # Re-enable detection when the body is not being dragged
 
-		# Fling the body after dragging depending on how it was moving when being dragged.
-		var global_offset := body.to_global(_offset) - body.global_position
-		body.call_deferred(&"apply_impulse", _velocity / 10.0, global_offset)
+	# Fling the body after dragging depending on how it was moving when being dragged.
+	var global_offset := body.to_global(_offset) - body.global_position
+	body.call_deferred(&"apply_impulse", _velocity / 10.0, global_offset)

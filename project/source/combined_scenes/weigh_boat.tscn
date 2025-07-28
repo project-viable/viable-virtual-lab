@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://cgju3rlfrqslw"]
+[gd_scene load_steps=8 format=3 uid="uid://cgju3rlfrqslw"]
 
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_ngt2v"]
 [ext_resource type="Texture2D" uid="uid://ducrr5q5wxen8" path="res://Images/Resized_Images/Weigh_Boat.png" id="1_yrign"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_4pv8k"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_hqtdt"]
@@ -11,6 +12,8 @@ size = Vector2(117, 18)
 
 [node name="WeighBoat" type="RigidBody2D"]
 collision_layer = 0
+script = ExtResource("1_ngt2v")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0)

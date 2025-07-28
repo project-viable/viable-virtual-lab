@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends LabBody
 class_name Pipe # TODO: Since the old sinmulaton uses a class_name Pipette already, had to change the name. Should name it Pipette when the old stuff is gone
 
 var has_tip: bool = false:

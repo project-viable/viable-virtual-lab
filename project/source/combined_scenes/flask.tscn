@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5ff3gy87ykja"]
+[gd_scene load_steps=7 format=3 uid="uid://b5ff3gy87ykja"]
 
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_6iauc"]
 [ext_resource type="Texture2D" uid="uid://d1mkaw208j1vl" path="res://Images/Resized_Images/Erlenmeyerflask_container.png" id="1_cfopd"]
 [ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="1_o52xj"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_ax7oq"]
@@ -8,6 +9,8 @@
 
 [node name="Flask" type="RigidBody2D"]
 collision_layer = 0
+script = ExtResource("1_6iauc")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-10, -45, -10, -21, -29, 35, -29, 45, 30, 45, 30, 35, 9, -21, 9, -46)

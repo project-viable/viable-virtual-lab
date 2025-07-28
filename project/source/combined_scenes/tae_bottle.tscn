@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://du0xgct56vfqx"]
+[gd_scene load_steps=15 format=3 uid="uid://du0xgct56vfqx"]
 
 [ext_resource type="Texture2D" uid="uid://bwkmd8uade2g6" path="res://Images/Resized_Images/TEA_Buffer.png" id="1_qjy23"]
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_vo5hq"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_ak4uf"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_rqhjd"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="4_jcpv6"]
@@ -30,6 +31,8 @@ metadata/_custom_type_script = "uid://5sjgduop7hjw"
 
 [node name="TAEBottle" type="RigidBody2D"]
 collision_layer = 0
+script = ExtResource("1_vo5hq")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
 script = ExtResource("2_ak4uf")
