@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://dbb4h6gqfr7wb"]
 
-[ext_resource type="Texture2D" uid="uid://c8tdr25oe74eq" path="res://Images/Resized_Images/microcentrifuge_container.png" id="1_tqygg"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_v7kqd"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_g55dw"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_w81e0"]
 [ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_ulp6r"]
+[ext_resource type="Texture2D" uid="uid://bbfk8vird0720" path="res://UpdatedAssets/LabObjects/Microcentrifuge_Tube.svg" id="4_v7kqd"]
 [ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_v7kqd"]
 
 [node name="MicrocentrifugeTube" type="RigidBody2D"]
@@ -13,7 +13,7 @@ script = ExtResource("1_v7kqd")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-6, 1, -2, 28, 4, 28, 8, 1, 8, -27, -6, -27)
+polygon = PackedVector2Array(-7, 1, -3, 28, 5, 28, 9, 1, 9, -28, -7, -28)
 
 [node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
 script = ExtResource("2_g55dw")
@@ -26,15 +26,16 @@ script = ExtResource("2_w81e0")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="MicrocentrifugeContainer" type="Sprite2D" parent="SelectableCanvasGroup"]
-scale = Vector2(0.03, 0.03)
-texture = ExtResource("1_tqygg")
+position = Vector2(1, 0)
+scale = Vector2(0.149663, 0.149663)
+texture = ExtResource("4_v7kqd")
 
 [node name="InteractionArea" type="Area2D" parent="."]
 script = ExtResource("4_ulp6r")
 metadata/_custom_type_script = "uid://6sh30cc4wi2"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InteractionArea"]
-polygon = PackedVector2Array(-6, 1, -2, 28, 4, 28, 8, 1, 8, -27, -6, -27)
+polygon = PackedVector2Array(-7, 1, -3, 28, 5, 28, 9, 1, 9, -28, -7, -28)
 
 [node name="InteractionComponent" type="Node2D" parent="." node_paths=PackedStringArray("interaction_area", "body")]
 script = ExtResource("5_v7kqd")

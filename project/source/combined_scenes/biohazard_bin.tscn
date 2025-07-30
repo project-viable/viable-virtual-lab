@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_85rdh"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_jx3lu"]
-[ext_resource type="Texture2D" uid="uid://55ncav7vyiwi" path="res://Images/Resized_Images/Bin_Hazard.png" id="2_30e3j"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_30e3j"]
+[ext_resource type="Texture2D" uid="uid://b0qriex5es36u" path="res://UpdatedAssets/LabObjects/BiohazardBin.svg" id="3_jx3lu"]
 [ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_fus4i"]
 [ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_jx3lu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nf2rl"]
-size = Vector2(69, 92)
+size = Vector2(112, 84)
 
 [node name="BiohazardBin" type="RigidBody2D"]
 script = ExtResource("1_jx3lu")
@@ -19,10 +19,10 @@ script = ExtResource("1_85rdh")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="BinHazard" type="Sprite2D" parent="SelectableCanvasGroup"]
-texture = ExtResource("2_30e3j")
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_jx3lu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_nf2rl")
 
 [node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
@@ -36,7 +36,6 @@ script = ExtResource("4_fus4i")
 metadata/_custom_type_script = "uid://6sh30cc4wi2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_nf2rl")
 
 [node name="InteractionComponent" type="Node2D" parent="." node_paths=PackedStringArray("interaction_area", "body")]

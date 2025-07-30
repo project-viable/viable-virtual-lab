@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://b2owhv1drxs7p"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_f63uk"]
-[ext_resource type="Texture2D" uid="uid://bmhpbk84rjeks" path="res://Images/Resized_Images/Pipette_tip_box_opened.png" id="1_gs6p0"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_3s6eo"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_cxa2o"]
+[ext_resource type="Texture2D" uid="uid://dcwybereklqk1" path="res://UpdatedAssets/LabObjects/Pipette_Tip_Box.svg" id="4_f63uk"]
 [ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_s8ros"]
 [ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_f63uk"]
 
@@ -29,8 +29,10 @@ metadata/_custom_type_script = "uid://bsonh03rfuf2p"
 script = ExtResource("2_3s6eo")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="PipetteTipBoxOpened" type="Sprite2D" parent="SelectableCanvasGroup"]
-texture = ExtResource("1_gs6p0")
+[node name="PipetteTipBox" type="Sprite2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, -70)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_f63uk")
 
 [node name="InteractionArea" type="Area2D" parent="."]
 script = ExtResource("4_s8ros")
