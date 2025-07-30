@@ -17,8 +17,9 @@ var is_zoomed_in: bool = false
 func _ready() -> void:
 	super()
 	# Connect all buttons in the keypad
-	for button: Button in key_pad.get_children():
-		button.pressed.connect(_on_keypad_button_pressed.bind(button.text))
+	for button: TextureButton in key_pad.get_children():
+		var button_label: Label = button.get_node("Label")
+		button.pressed.connect(_on_keypad_button_pressed.bind(button_label.text))
 		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
 func _process(_delta: float) -> void:
@@ -142,7 +143,7 @@ func _input(event: InputEvent) -> void:
 		is_zoomed_in = false
 		
 		# Buttons can't be clicked on if zoomed out. 
-		for button: Button in key_pad.get_children():
+		for button: TextureButton in key_pad.get_children():
 			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 ## Handles when the area is clicked on. If so zoom in on the microwave
@@ -152,5 +153,5 @@ func _on_keypad_area_input_event(_viewport: Node, event: InputEvent, _shape_idx:
 		GameState.target_camera = camera
 		
 		# Keypad buttons should be clickable if zoomed in on
-		for button: Button in key_pad.get_children():
+		for button: TextureButton in key_pad.get_children():
 			button.mouse_filter = Control.MOUSE_FILTER_STOP
