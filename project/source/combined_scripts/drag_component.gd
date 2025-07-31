@@ -48,8 +48,7 @@ func _unhandled_input(e: InputEvent) -> void:
 	# Since the `SelectableComponent` is no longer considered hovered while this is being dragged,
 	# `press` will not activate when the button is pressed. So it needs to be handled here
 	# instead.
-	if e.is_action_pressed(&"DragLabObject") and is_active() \
-			and not Interaction.target_interact_area:
+	if e.is_action_pressed(&"DragLabObject") and is_active():
 		body.stop_dragging()
 		Interaction.active_drag_component = null
 		Interaction.clear_interaction_stack()
