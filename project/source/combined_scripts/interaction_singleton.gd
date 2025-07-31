@@ -38,11 +38,6 @@ var _hovered_draw_order: int = 0
 var _interact_area_stack: Array[InteractableArea] = []
 
 
-static var _action_kinds: Dictionary[StringName, InteractInfo.Kind] = {
-	&"DragLabObject": InteractInfo.Kind.PRIMARY,
-}
-
-
 func _draw() -> void:
 	_next_draw_order = 0
 
@@ -99,16 +94,18 @@ func _process(_delta: float) -> void:
 		hovered_selectable_component = null
 
 func _unhandled_input(e: InputEvent) -> void:
-	if e is InputEventAction:
-		var kind: InteractInfo.Kind = _action_kinds.get(e.action)
-		if not kind: return
+	var kind := InteractInfo.Kind.PRIMARY
+	if e.is_action_pressed(&"DragLabObject"):
+		kind = InteractInfo.Kind.PRIMARY
+	else:
+		return
 
-		var state: InteractState = interactions.get(kind)
-		if not state: return
+	var state: InteractState = interactions.get(kind)
+	if not state: return
 
-		if state.target:
-			if e.pressed: state.target.start_interact(kind)
-			else: state.target.stop_interact(kind)
+	if state.target:
+		if e.is_pressed(): state.target.start_interact(kind)
+		elif e.is_released(): state.target.stop_interact(kind)
 
 func get_next_draw_order() -> int:
 	_next_draw_order += 1
