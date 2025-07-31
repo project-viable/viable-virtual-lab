@@ -4,7 +4,11 @@ extends Node2D
 
 class InteractState:
 	var info: InteractInfo = null
-	var target: InteractableArea = null
+
+	# This can point to an `InteractableArea` or a `SelectableComponent`. Both of them have
+	# hovering and interacting behavior, but there's no way in Godot to have an interface that they
+	# can both implement, so the type just has to be switched on.
+	var target: Node2D = null
 	var is_pressed: bool = false
 
 
@@ -42,36 +46,24 @@ func _draw() -> void:
 	_next_draw_order = 0
 
 func _process(_delta: float) -> void:
+	var new_interactions: Dictionary[InteractInfo.Kind, InteractState] = {}
+
 	if active_drag_component:
-		var new_interactions: Dictionary[InteractInfo.Kind, InteractState] = {}
+		# As a special case, the active drag component is allowed to be interacted with by itself
+		# so it can be dropped. This is here first so that it has the lowest priority.
+		#
+		# TODO: somehow make this less of a special case?
+		var drag_interact_state := InteractState.new()
+		drag_interact_state.info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Drop")
+		drag_interact_state.target = active_drag_component
+		new_interactions.set(InteractInfo.Kind.PRIMARY, drag_interact_state)
+
 		for a in _interact_area_stack:
 			for info in a.get_interactions():
 				var s := InteractState.new()
 				s.info = info
 				s.target = a
 				new_interactions.set(info.kind, s)
-
-		for kind: InteractInfo.Kind in interactions.keys():
-			var state: InteractState = interactions[kind]
-			var new_state: InteractState = new_interactions.get(kind)
-
-			# Never retarget an interaction while it's being pressed (this would introduce bizarre
-			# behavior where you could click and drag something and it would show a button prompt
-			# for something unrelated when the mouse moves to the wrong spot.
-			if not state or state.is_pressed: continue
-
-			# Interaction was retargeted.
-			if state.target and (not new_state or new_state.target != state.target):
-				state.target.stop_targeting(state.info.kind)
-
-			if new_state:
-				if new_state.target != state.target:
-					new_state.target.start_targeting(new_state.info.kind)
-				state.info = new_state.info
-				state.target = new_state.target
-			else:
-				state.info = null
-				state.target = null
 	else:
 		hovered_selectable_component = null
 		_hovered_z_index = RenderingServer.CANVAS_ITEM_Z_MIN
@@ -90,6 +82,35 @@ func _process(_delta: float) -> void:
 					_hovered_z_index = z
 					_hovered_draw_order = draw_order
 
+		if hovered_selectable_component:
+			var s := InteractState.new()
+			# TODO: the `SelectableComponent` itself should decide what the interaction is called.
+			s.info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Grab")
+			s.target = hovered_selectable_component
+			new_interactions.set(InteractInfo.Kind.PRIMARY, s)
+
+	for kind: InteractInfo.Kind in interactions.keys():
+		var state: InteractState = interactions[kind]
+		var new_state: InteractState = new_interactions.get(kind)
+
+		# Never retarget an interaction while it's being pressed (this would introduce bizarre
+		# behavior where you could click and drag something and it would show a button prompt
+		# for something unrelated when the mouse moves to the wrong spot.
+		if not state or state.is_pressed: continue
+
+		# Interaction was retargeted.
+		if state.target and (not new_state or new_state.target != state.target):
+			_stop_targeting(state.target, state.info.kind)
+
+		if new_state:
+			if new_state.target != state.target:
+				_start_targeting(new_state.target, new_state.info.kind)
+			state.info = new_state.info
+			state.target = new_state.target
+		else:
+			state.info = null
+			state.target = null
+
 	if held_selectable_component or active_drag_component:
 		hovered_selectable_component = null
 
@@ -104,8 +125,8 @@ func _unhandled_input(e: InputEvent) -> void:
 	if not state: return
 
 	if state.target:
-		if e.is_pressed(): state.target.start_interact(kind)
-		elif e.is_released(): state.target.stop_interact(kind)
+		if e.is_pressed(): _start_interact(state.target, kind)
+		elif e.is_released(): _stop_interact(state.target, kind)
 
 func get_next_draw_order() -> int:
 	_next_draw_order += 1
@@ -123,8 +144,20 @@ func on_interaction_area_exited(area: InteractableArea) -> void:
 func clear_interaction_stack() -> void:
 	_interact_area_stack.clear()
 	for state: InteractState in interactions.values():
-		if state.target:
-			state.target.stop_targeting(state.info.kind)
+		if state.target: _stop_targeting(state.target, state.info.kind)
+
+func _start_targeting(target: Node2D, kind: InteractInfo.Kind) -> void:
+	if target is InteractableArea: target.start_targeting(kind)
+	elif target is SelectableComponent: target.start_targeting()
+func _stop_targeting(target: Node2D, kind: InteractInfo.Kind) -> void:
+	if target is InteractableArea: target.stop_targeting(kind)
+	elif target is SelectableComponent: target.stop_targeting()
+func _start_interact(target: Node2D, kind: InteractInfo.Kind) -> void:
+	if target is InteractableArea: target.start_interact(kind)
+	elif target is SelectableComponent: target.start_interact()
+func _stop_interact(target: Node2D, kind: InteractInfo.Kind) -> void:
+	if target is InteractableArea: target.stop_interact(kind)
+	elif target is SelectableComponent: target.stop_interact()
 
 # Don't know if this is 100% correct, but it works for now. Get the "absolute" z-index of a node,
 # taking into account relative z indices.

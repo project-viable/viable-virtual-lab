@@ -31,6 +31,10 @@ func _physics_process(delta: float) -> void:
 		body.global_position = dest_pos
 
 func press() -> void:
+	if is_active(): stop_dragging()
+	else: start_dragging()
+
+func start_dragging() -> void:
 	body.start_dragging()
 	Interaction.active_drag_component = self
 	interaction_area.set_deferred(&"monitoring", false) # A body that is dragged should not be able to detect anything
@@ -44,23 +48,16 @@ func press() -> void:
 
 	_offset = body.get_local_mouse_position()
 
-func _unhandled_input(e: InputEvent) -> void:
-	# Since the `SelectableComponent` is no longer considered hovered while this is being dragged,
-	# `press` will not activate when the button is pressed. So it needs to be handled here
-	# instead.
-	if e.is_action_pressed(&"DragLabObject") and is_active():
-		body.stop_dragging()
-		Interaction.active_drag_component = null
-		Interaction.clear_interaction_stack()
-		interaction_area.set_deferred(&"monitoring", true) # Re-enable detection when the body is not being dragged
+## Can be safely called from elsewhere. Also cancels any interaction that was pressed down.
+func stop_dragging() -> void:
+	body.stop_dragging()
+	Interaction.active_drag_component = null
+	Interaction.clear_interaction_stack()
+	interaction_area.set_deferred(&"monitoring", true) # Re-enable detection when the body is not being dragged
 
-		# Fling the body after dragging depending on how it was moving when being dragged.
-		var global_offset := body.to_global(_offset) - body.global_position
-		body.call_deferred(&"apply_impulse", _velocity / 10.0, global_offset)
-
-	# If this is called first, then the this will be grabbed and immediately released.
-	super(e)
-
+	# Fling the body after dragging depending on how it was moving when being dragged.
+	var global_offset := body.to_global(_offset) - body.global_position
+	body.call_deferred(&"apply_impulse", _velocity / 10.0, global_offset)
 
 
 func is_active() -> bool: return Interaction.active_drag_component == self
