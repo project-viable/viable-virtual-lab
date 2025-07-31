@@ -47,6 +47,27 @@ func _process(delta: float) -> void:
 				show_popup(logs[0])
 			logs.remove_at(0)
 
+	# [kind, name, prompt panel]
+	var buttons: Array[Array] = [
+		[InteractInfo.Kind.PRIMARY, "Left click", $%PrimaryPrompt],
+		[InteractInfo.Kind.SECONDARY, "Right click", $%SecondaryPrompt],
+	]
+
+	for b in buttons:
+		var kind: InteractInfo.Kind = b[0]
+		var name: String = b[1]
+		var prompt_panel: Control = b[2]
+
+		var state: Interaction.InteractState = Interaction.interactions.get(kind)
+		if state.info:
+			prompt_panel.show()
+			var label: Label = prompt_panel.get_node("Label")
+			label.text = "%s: %s" % [name, state.info.description]
+			var color: Color = Color.GRAY if state.is_pressed else Color.WHITE
+			label.add_theme_color_override(&"font_color", color)
+		else:
+			prompt_panel.hide()
+
 	# THIS STUFF IS TEMPORARY. SUBSTANCES WILL EVENTUALLY BE DISPLAYED IN THE CONTAINERS THEMSELVES,
 	# AND MIXING WILL BE DONE WITH A STIR ROD OR BY SWIRLING.
 	if Interaction.hovered_selectable_component is DragComponent:
