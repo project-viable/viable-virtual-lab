@@ -35,7 +35,6 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_5ngtk")
 
 [node name="InteractionArea" type="Area2D" parent="."]
-visible = false
 script = ExtResource("4_yutq4")
 metadata/_custom_type_script = "uid://6sh30cc4wi2"
 
