@@ -116,7 +116,7 @@ func _process(_delta: float) -> void:
 
 func _unhandled_input(e: InputEvent) -> void:
 	var kind := InteractInfo.Kind.PRIMARY
-	if e.is_action_pressed(&"DragLabObject"):
+	if e.is_action(&"DragLabObject"):
 		kind = InteractInfo.Kind.PRIMARY
 	else:
 		return
@@ -125,8 +125,12 @@ func _unhandled_input(e: InputEvent) -> void:
 	if not state: return
 
 	if state.target:
-		if e.is_pressed(): _start_interact(state.target, kind)
-		elif e.is_released(): _stop_interact(state.target, kind)
+		if e.is_pressed():
+			state.is_pressed = true
+			_start_interact(state.target, kind)
+		elif e.is_released():
+			state.is_pressed = false
+			_stop_interact(state.target, kind)
 
 func get_next_draw_order() -> int:
 	_next_draw_order += 1
