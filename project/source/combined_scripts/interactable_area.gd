@@ -4,6 +4,7 @@ extends Area2D
 
 
 func _ready() -> void:
+	collision_mask = 0b10
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 
@@ -27,7 +28,7 @@ func start_targeting(_kind: InteractInfo.Kind) -> void: pass
 func stop_targeting(_kind: InteractInfo.Kind) -> void: pass
 
 func _on_body_entered(body: Node2D) -> void:
-	if body == Interaction.held_drag_component.body:
+	if Interaction.active_drag_component and body == Interaction.active_drag_component.body:
 		Interaction.on_interaction_area_entered(self)
 
 func _on_body_exited(_body: Node2D) -> void:

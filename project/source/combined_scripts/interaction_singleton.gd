@@ -53,6 +53,7 @@ func _process(_delta: float) -> void:
 			for info in a.get_interactions():
 				var s := InteractState.new()
 				s.info = info
+				s.target = a
 				new_interactions.set(info.kind, s)
 
 		for kind: InteractInfo.Kind in interactions.keys():
@@ -69,9 +70,10 @@ func _process(_delta: float) -> void:
 				state.target.stop_targeting(state.info.kind)
 
 			if new_state:
+				if new_state.target != state.target:
+					new_state.target.start_targeting(new_state.info.kind)
 				state.info = new_state.info
 				state.target = new_state.target
-				state.target.start_targeting(state.info.kind)
 			else:
 				state.info = null
 				state.target = null

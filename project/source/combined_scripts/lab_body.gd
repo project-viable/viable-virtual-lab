@@ -10,6 +10,10 @@ var _child_physics_object_layers: Dictionary[PhysicsBody2D, int] = {}
 
 
 func _ready() -> void:
+	#  We need collisions in layer 2 so that interaction areas detect this object.
+	freeze_mode = FREEZE_MODE_KINEMATIC
+	collision_layer = 0b10
+
 	for p: PhysicsBody2D in find_children("", "PhysicsBody2D", false):
 		_child_physics_object_layers.set(p, p.collision_layer)
 
