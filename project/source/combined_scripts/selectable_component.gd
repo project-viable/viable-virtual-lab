@@ -26,8 +26,7 @@ func _ready() -> void:
 	add_to_group(&"selectable_component")
 
 func _process(_delta: float) -> void:
-	interact_canvas_group.is_outlined = _is_hovering() and not is_held() \
-			and not Input.is_action_pressed(&"DragLabObject")
+	interact_canvas_group.is_outlined = _is_hovering() and not is_held()
 
 # `start_targeting`, `stop_targeting`, `start_interact`, and `stop_interact` are all automatically
 # called in `Interaction` (the singleton).

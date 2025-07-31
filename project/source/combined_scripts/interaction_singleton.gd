@@ -116,8 +116,10 @@ func _process(_delta: float) -> void:
 
 func _unhandled_input(e: InputEvent) -> void:
 	var kind := InteractInfo.Kind.PRIMARY
-	if e.is_action(&"DragLabObject"):
+	if e.is_action(&"interact_primary"):
 		kind = InteractInfo.Kind.PRIMARY
+	elif e.is_action(&"interact_secondary"):
+		kind = InteractInfo.Kind.SECONDARY
 	else:
 		return
 
