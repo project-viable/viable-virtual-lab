@@ -54,7 +54,7 @@ func _process(_delta: float) -> void:
 		#
 		# TODO: somehow make this less of a special case?
 		var drag_interact_state := InteractState.new()
-		drag_interact_state.info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Drop")
+		drag_interact_state.info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
 		drag_interact_state.target = active_drag_component
 		new_interactions.set(InteractInfo.Kind.PRIMARY, drag_interact_state)
 
@@ -85,7 +85,7 @@ func _process(_delta: float) -> void:
 		if hovered_selectable_component:
 			var s := InteractState.new()
 			# TODO: the `SelectableComponent` itself should decide what the interaction is called.
-			s.info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Grab")
+			s.info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up")
 			s.target = hovered_selectable_component
 			new_interactions.set(InteractInfo.Kind.PRIMARY, s)
 
