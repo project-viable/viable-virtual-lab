@@ -88,10 +88,10 @@ position = Vector2(162, 511)
 position = Vector2(368, 551)
 
 [node name="GelMold" parent="." instance=ExtResource("11_l4mh3")]
-position = Vector2(450, 570)
+position = Vector2(457, 577)
 
 [node name="GelBox" parent="." instance=ExtResource("12_sdlgg")]
-position = Vector2(580, 560)
+position = Vector2(582, 563)
 
 [node name="PowerSupply" parent="." instance=ExtResource("13_36q3s")]
 position = Vector2(715, 570)

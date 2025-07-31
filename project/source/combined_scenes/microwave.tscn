@@ -48,6 +48,7 @@ scale = Vector2(0.0332971, 0.0332971)
 texture_normal = ExtResource("5_caubw")
 
 [node name="Label" type="Label" parent="StopButton"]
+layout_mode = 0
 offset_left = 192.0
 offset_top = 256.0
 offset_right = 236.0
@@ -96,6 +97,7 @@ layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
 [node name="Label" type="Label" parent="Keypad/Button2"]
+layout_mode = 0
 offset_left = 173.0
 offset_top = 192.0
 offset_right = 206.0
@@ -111,6 +113,7 @@ layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
 [node name="Label" type="Label" parent="Keypad/Button3"]
+layout_mode = 0
 offset_left = 190.0
 offset_top = 192.0
 offset_right = 222.0
@@ -126,6 +129,7 @@ layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
 [node name="Label" type="Label" parent="Keypad/Button4"]
+layout_mode = 0
 offset_left = 157.0
 offset_top = 192.0
 offset_right = 192.0
@@ -141,6 +145,7 @@ layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
 [node name="Label" type="Label" parent="Keypad/Button5"]
+layout_mode = 0
 offset_left = 173.0
 offset_top = 192.0
 offset_right = 206.0
@@ -156,6 +161,7 @@ layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
 [node name="Label" type="Label" parent="Keypad/Button6"]
+layout_mode = 0
 offset_left = 190.0
 offset_top = 192.0
 offset_right = 222.0
@@ -171,6 +177,7 @@ layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
 [node name="Label" type="Label" parent="Keypad/Button7"]
+layout_mode = 0
 offset_left = 157.0
 offset_top = 192.0
 offset_right = 192.0
@@ -186,6 +193,7 @@ layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
 [node name="Label" type="Label" parent="Keypad/Button8"]
+layout_mode = 0
 offset_left = 173.0
 offset_top = 192.0
 offset_right = 206.0
@@ -201,6 +209,7 @@ layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
 [node name="Label" type="Label" parent="Keypad/Button9"]
+layout_mode = 0
 offset_left = 190.0
 offset_top = 192.0
 offset_right = 222.0
@@ -217,6 +226,7 @@ layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
 [node name="Label" type="Label" parent="Keypad/Clear"]
+layout_mode = 0
 offset_left = 192.0
 offset_top = 256.0
 offset_right = 236.0
@@ -232,6 +242,7 @@ layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
 [node name="Label" type="Label" parent="Keypad/Button0"]
+layout_mode = 0
 offset_left = 173.0
 offset_top = 192.0
 offset_right = 206.0
@@ -250,6 +261,7 @@ size_flags_vertical = 3
 texture_normal = ExtResource("5_caubw")
 
 [node name="Label" type="Label" parent="Keypad/StartButton"]
+layout_mode = 0
 offset_left = 192.0
 offset_top = 256.0
 offset_right = 236.0
