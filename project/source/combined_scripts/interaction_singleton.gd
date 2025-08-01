@@ -3,13 +3,23 @@ extends Node2D
 
 
 class InteractState:
-	var info: InteractInfo = null
+	var info: InteractInfo
+
+	# The use component doing the acting. This will be null if the target is acting by itself just
+	# with the held object.
+	var source: UseComponent
 
 	# This can point to an `InteractableArea` or a `SelectableComponent`. Both of them have
 	# hovering and interacting behavior, but there's no way in Godot to have an interface that they
 	# can both implement, so the type just has to be switched on.
-	var target: Node2D = null
+	var target: Node2D
 	var is_pressed: bool = false
+
+
+	func _init(p_info: InteractInfo = null, p_source: UseComponent = null, p_target: Node2D = null) -> void:
+		info = p_info
+		source = p_source
+		target = p_target
 
 
 ## Set to the "best" `SelectableComponent` currently being highlighted, so that the components
@@ -64,6 +74,16 @@ func _process(_delta: float) -> void:
 				s.info = info
 				s.target = a
 				new_interactions.set(info.kind, s)
+
+		# `UseComponent`s take priority over `InteractableArea`s.
+		for c: UseComponent in active_drag_component.body.find_children("", "UseComponent", false):
+			if not _interact_area_stack:
+				for info in c.get_interactions(null):
+					new_interactions.set(info.kind, InteractState.new(info, c, null))
+
+			for a in _interact_area_stack:
+				for info in c.get_interactions(a):
+					new_interactions.set(info.kind, InteractState.new(info, c, a))
 	else:
 		hovered_selectable_component = null
 		_hovered_z_index = RenderingServer.CANVAS_ITEM_Z_MIN
