@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1af3h23bqbvv"]
+[gd_scene load_steps=6 format=3 uid="uid://c1af3h23bqbvv"]
 
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="1_1hguf"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_sbaom"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_g0l2j"]
 [ext_resource type="Texture2D" uid="uid://ci8a1mnsvq05o" path="res://Images/Resized_Images/Spatula.png" id="3_1hguf"]
-[ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_a840k"]
-[ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_sbaom"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g0l2j"]
 size = Vector2(110.989, 12.3673)
@@ -33,18 +31,3 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 [node name="Sprite2D" type="Sprite2D" parent="SelectableCanvasGroup"]
 position = Vector2(-9.53674e-07, -2.38419e-07)
 texture = ExtResource("3_1hguf")
-
-[node name="InteractionArea" type="Area2D" parent="."]
-script = ExtResource("4_a840k")
-metadata/_custom_type_script = "uid://6sh30cc4wi2"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2(1.17049, -0.238485)
-rotation = -1.3439
-shape = SubResource("RectangleShape2D_g0l2j")
-
-[node name="InteractionComponent" type="Node2D" parent="." node_paths=PackedStringArray("interaction_area", "body")]
-script = ExtResource("5_sbaom")
-interaction_area = NodePath("../InteractionArea")
-body = NodePath("..")
-metadata/_custom_type_script = "uid://bdcoyj8ye48sb"

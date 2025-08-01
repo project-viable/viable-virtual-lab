@@ -1,11 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://t5vephauatf2"]
+[gd_scene load_steps=5 format=3 uid="uid://t5vephauatf2"]
 
 [ext_resource type="Texture2D" uid="uid://b35y8esb054uy" path="res://Images/Resized_Images/Pipette_with_tip.png" id="1_da3ja"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_y22yk"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_drsrt"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_h00ti"]
-[ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_yutq4"]
-[ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_y22yk"]
 
 [node name="RigidBody2D" type="RigidBody2D"]
 collision_layer = 0
@@ -27,16 +25,3 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="PipetteWithTip" type="Sprite2D" parent="SelectableCanvasGroup"]
 texture = ExtResource("1_da3ja")
-
-[node name="InteractionArea" type="Area2D" parent="."]
-script = ExtResource("4_yutq4")
-metadata/_custom_type_script = "uid://6sh30cc4wi2"
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InteractionArea"]
-polygon = PackedVector2Array(-13, -64, -3, -64, -3, 2, 3, 80, 9, 3, 9, -10, 13, -10, 13, -71, -8, -71)
-
-[node name="InteractionComponent" type="Node2D" parent="." node_paths=PackedStringArray("interaction_area", "body")]
-script = ExtResource("5_y22yk")
-interaction_area = NodePath("../InteractionArea")
-body = NodePath("..")
-metadata/_custom_type_script = "uid://bdcoyj8ye48sb"

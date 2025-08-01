@@ -39,7 +39,6 @@ func start_interact() -> void:
 			Interaction.held_selectable_component = self
 			start_holding()
 			started_holding.emit()
-			GameState.is_dragging = true
 		PressMode.PRESS:
 			press()
 			pressed.emit()
@@ -48,7 +47,6 @@ func stop_interact() -> void:
 	stopped_holding.emit()
 	stop_holding()
 	Interaction.held_selectable_component = null
-	GameState.is_dragging = false
 
 ## (virtual) called when the sprite group is clicked (only when `press_mode` is `HOLD`).
 func start_holding() -> void: pass

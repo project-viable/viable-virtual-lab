@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cs2tep7cd3vxf"]
+[gd_scene load_steps=7 format=3 uid="uid://cs2tep7cd3vxf"]
 
 [ext_resource type="Texture2D" uid="uid://bnjnwv1adqmky" path="res://Images/Resized_Images/Microwave_closed.png" id="1_a0lrr"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_caubw"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_cwbd0"]
-[ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_iwbat"]
-[ext_resource type="Script" uid="uid://ddnlp8fmwwyw8" path="res://combined_scripts/microwave_interaction.gd" id="5_iwbat"]
+[ext_resource type="Script" uid="uid://kyg3yiaw5rp2" path="res://combined_scripts/microwave_interactable_area.gd" id="5_caubw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0lrr"]
 size = Vector2(273, 152)
@@ -27,14 +26,6 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="MicrowaveClosed" type="Sprite2D" parent="SelectableCanvasGroup"]
 texture = ExtResource("1_a0lrr")
-
-[node name="InteractionArea" type="Area2D" parent="."]
-script = ExtResource("4_iwbat")
-metadata/_custom_type_script = "uid://6sh30cc4wi2"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2(1.5, 3)
-shape = SubResource("RectangleShape2D_a0lrr")
 
 [node name="StopButton" type="Button" parent="."]
 offset_left = 92.0
@@ -117,17 +108,6 @@ text = "Start"
 
 [node name="MicrowaveTimer" type="Timer" parent="."]
 
-[node name="InteractionComponent" type="Node" parent="." node_paths=PackedStringArray("timer", "timer_label", "key_pad", "key_pad_area", "camera", "interaction_area", "body")]
-script = ExtResource("5_iwbat")
-timer = NodePath("../MicrowaveTimer")
-timer_label = NodePath("../TimerLabel")
-key_pad = NodePath("../Keypad")
-key_pad_area = NodePath("../KeypadArea")
-camera = NodePath("../ZoomCamera")
-interaction_area = NodePath("../InteractionArea")
-body = NodePath("..")
-metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
-
 [node name="ZoomCamera" type="Camera2D" parent="."]
 editor_description = "A template for the TransitionCamera in Main to transition to when necessary."
 zoom = Vector2(4, 4)
@@ -141,6 +121,20 @@ monitorable = false
 position = Vector2(106.5, -0.5)
 shape = SubResource("RectangleShape2D_iwbat")
 
-[connection signal="pressed" from="StopButton" to="InteractionComponent" method="_on_microwave_stopped"]
-[connection signal="timeout" from="MicrowaveTimer" to="InteractionComponent" method="_on_microwave_timer_timeout"]
-[connection signal="input_event" from="KeypadArea" to="InteractionComponent" method="_on_keypad_area_input_event"]
+[node name="InteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("body", "timer", "timer_label", "key_pad", "key_pad_area", "camera")]
+script = ExtResource("5_caubw")
+body = NodePath("..")
+timer = NodePath("../MicrowaveTimer")
+timer_label = NodePath("../TimerLabel")
+key_pad = NodePath("../Keypad")
+key_pad_area = NodePath("../KeypadArea")
+camera = NodePath("../ZoomCamera")
+metadata/_custom_type_script = "uid://8jbti40eodk6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+position = Vector2(1.5, 3)
+shape = SubResource("RectangleShape2D_a0lrr")
+
+[connection signal="pressed" from="StopButton" to="InteractableArea" method="_on_microwave_stopped"]
+[connection signal="timeout" from="MicrowaveTimer" to="InteractableArea" method="_on_microwave_timer_timeout"]
+[connection signal="input_event" from="KeypadArea" to="InteractableArea" method="_on_keypad_area_input_event"]
