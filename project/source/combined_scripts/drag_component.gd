@@ -50,10 +50,7 @@ func stop_dragging() -> void:
 	body.stop_dragging()
 	Interaction.active_drag_component = null
 	Interaction.clear_interaction_stack()
-
-	# Fling the body after dragging depending on how it was moving when being dragged.
-	var global_offset := body.to_global(_offset) - body.global_position
-	body.call_deferred(&"apply_impulse", _velocity / 10.0, global_offset)
+	body.set_deferred(&"linear_velocity", _velocity / 5.0)
 
 
 func is_active() -> bool: return Interaction.active_drag_component == self
