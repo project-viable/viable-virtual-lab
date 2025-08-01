@@ -24,27 +24,27 @@ class InteractState:
 	func start_targeting() -> void:
 		if not info: return
 		if source: source.start_targeting(target as InteractableArea, info.kind)
-		if target is InteractableArea: target.start_targeting(info.kind)
+		elif target is InteractableArea: target.start_targeting(info.kind)
 		elif target is SelectableComponent: target.start_targeting()
 
 	func stop_targeting() -> void:
 		if not info: return
 		if source: source.stop_targeting(target as InteractableArea, info.kind)
-		if target is InteractableArea: target.stop_targeting(info.kind)
+		elif target is InteractableArea: target.stop_targeting(info.kind)
 		elif target is SelectableComponent: target.stop_targeting()
 
 	func start_interact() -> void:
 		is_pressed = true
 		if not info: return
 		if source: source.start_use(target as InteractableArea, info.kind)
-		if target is InteractableArea: target.start_interact(info.kind)
+		elif target is InteractableArea: target.start_interact(info.kind)
 		elif target is SelectableComponent: target.start_interact()
 
 	func stop_interact() -> void:
 		is_pressed = false
 		if not info: return
 		if source: source.stop_use(target as InteractableArea, info.kind)
-		if target is InteractableArea: target.stop_interact(info.kind)
+		elif target is InteractableArea: target.stop_interact(info.kind)
 		elif target is SelectableComponent: target.stop_interact()
 
 
@@ -146,9 +146,11 @@ func _process(_delta: float) -> void:
 			state.stop_targeting()
 
 		if new_state:
+			if new_state.target != state.target or new_state.source != state.source:
+				new_state.start_targeting()
 			state.info = new_state.info
+			state.source = new_state.source
 			state.target = new_state.target
-			state.start_targeting()
 		else:
 			state.info = null
 			state.target = null
