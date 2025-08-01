@@ -21,6 +21,33 @@ class InteractState:
 		source = p_source
 		target = p_target
 
+	func start_targeting() -> void:
+		if not info: return
+		if source: source.start_targeting(target as InteractableArea, info.kind)
+		if target is InteractableArea: target.start_targeting(info.kind)
+		elif target is SelectableComponent: target.start_targeting()
+
+	func stop_targeting() -> void:
+		if not info: return
+		if source: source.stop_targeting(target as InteractableArea, info.kind)
+		if target is InteractableArea: target.stop_targeting(info.kind)
+		elif target is SelectableComponent: target.stop_targeting()
+
+	func start_interact() -> void:
+		is_pressed = true
+		if not info: return
+		if source: source.start_use(target as InteractableArea, info.kind)
+		if target is InteractableArea: target.start_interact(info.kind)
+		elif target is SelectableComponent: target.start_interact()
+
+	func stop_interact() -> void:
+		is_pressed = false
+		if not info: return
+		if source: source.stop_use(target as InteractableArea, info.kind)
+		if target is InteractableArea: target.stop_interact(info.kind)
+		elif target is SelectableComponent: target.stop_interact()
+
+
 
 ## Set to the "best" `SelectableComponent` currently being highlighted, so that the components
 ## themselves can know if they are the correct choice. This will always be null if the user
@@ -70,10 +97,7 @@ func _process(_delta: float) -> void:
 
 		for a in _interact_area_stack:
 			for info in a.get_interactions():
-				var s := InteractState.new()
-				s.info = info
-				s.target = a
-				new_interactions.set(info.kind, s)
+				new_interactions.set(info.kind, InteractState.new(info, null, a))
 
 		# `UseComponent`s take priority over `InteractableArea`s.
 		for c: UseComponent in active_drag_component.body.find_children("", "UseComponent", false):
@@ -103,10 +127,9 @@ func _process(_delta: float) -> void:
 					_hovered_draw_order = draw_order
 
 		if hovered_selectable_component:
-			var s := InteractState.new()
-			# TODO: the `SelectableComponent` itself should decide what the interaction is called.
-			s.info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up")
-			s.target = hovered_selectable_component
+			var s := InteractState.new(
+				InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up"), null,
+				hovered_selectable_component)
 			new_interactions.set(InteractInfo.Kind.PRIMARY, s)
 
 	for kind: InteractInfo.Kind in interactions.keys():
@@ -120,13 +143,12 @@ func _process(_delta: float) -> void:
 
 		# Interaction was retargeted.
 		if state.target and (not new_state or new_state.target != state.target):
-			_stop_targeting(state.target, state.info.kind)
+			state.stop_targeting()
 
 		if new_state:
-			if new_state.target != state.target:
-				_start_targeting(new_state.target, new_state.info.kind)
 			state.info = new_state.info
 			state.target = new_state.target
+			state.start_targeting()
 		else:
 			state.info = null
 			state.target = null
@@ -147,12 +169,8 @@ func _unhandled_input(e: InputEvent) -> void:
 	if not state: return
 
 	if state.target:
-		if e.is_pressed():
-			state.is_pressed = true
-			_start_interact(state.target, kind)
-		elif e.is_released():
-			state.is_pressed = false
-			_stop_interact(state.target, kind)
+		if e.is_pressed(): state.start_interact()
+		elif e.is_released(): state.stop_interact()
 
 func get_next_draw_order() -> int:
 	_next_draw_order += 1
@@ -170,20 +188,7 @@ func on_interaction_area_exited(area: InteractableArea) -> void:
 func clear_interaction_stack() -> void:
 	_interact_area_stack.clear()
 	for state: InteractState in interactions.values():
-		if state.target: _stop_targeting(state.target, state.info.kind)
-
-func _start_targeting(target: Node2D, kind: InteractInfo.Kind) -> void:
-	if target is InteractableArea: target.start_targeting(kind)
-	elif target is SelectableComponent: target.start_targeting()
-func _stop_targeting(target: Node2D, kind: InteractInfo.Kind) -> void:
-	if target is InteractableArea: target.stop_targeting(kind)
-	elif target is SelectableComponent: target.stop_targeting()
-func _start_interact(target: Node2D, kind: InteractInfo.Kind) -> void:
-	if target is InteractableArea: target.start_interact(kind)
-	elif target is SelectableComponent: target.start_interact()
-func _stop_interact(target: Node2D, kind: InteractInfo.Kind) -> void:
-	if target is InteractableArea: target.stop_interact(kind)
-	elif target is SelectableComponent: target.stop_interact()
+		if state.target: state.stop_targeting()
 
 # Don't know if this is 100% correct, but it works for now. Get the "absolute" z-index of a node,
 # taking into account relative z indices.
