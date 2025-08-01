@@ -102,7 +102,7 @@ func _process(delta: float) -> void:
 				cc.mix(delta)
 
 func _unhandled_key_input(e: InputEvent) -> void:
-	if e.is_action_pressed(&"ToggleMenu") and not GameState.is_camera_zoomed:
+	if e.is_action_pressed(&"ToggleMenu") and not TransitionCamera.is_camera_zoomed:
 		# A page other than the main pause menu is being shown; return to the pause menu.
 		if $MenuScreens.visible and not $MenuScreens/PauseMenu.visible:
 			_switch_to_menu_screen($MenuScreens/PauseMenu)
