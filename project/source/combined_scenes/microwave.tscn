@@ -129,7 +129,6 @@ timer_label = NodePath("../TimerLabel")
 key_pad = NodePath("../Keypad")
 key_pad_area = NodePath("../KeypadArea")
 camera = NodePath("../ZoomCamera")
-metadata/_custom_type_script = "uid://8jbti40eodk6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
 position = Vector2(1.5, 3)

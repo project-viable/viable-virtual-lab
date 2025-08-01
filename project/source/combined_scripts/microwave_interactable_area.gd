@@ -5,7 +5,7 @@ extends InteractableArea
 @export var body: LabBody
 @export var timer: Timer # Microwave Timer Node
 @export var timer_label: Label # TimerLabel
-@export var key_pad: GridContainer 
+@export var key_pad: GridContainer
 @export var key_pad_area: Area2D # If clicked on, should activate zoom
 @export var camera: Camera2D
 
@@ -28,6 +28,14 @@ func _ready() -> void:
 	for button: Button in key_pad.get_children():
 		button.pressed.connect(_on_keypad_button_pressed.bind(button.text))
 		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+func _input(event: InputEvent) -> void:
+	if is_zoomed_in and event.is_action_pressed("ExitCameraZoom"):
+		is_zoomed_in = false
+
+		# Buttons can't be clicked on if zoomed out.
+		for button: Button in key_pad.get_children():
+			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func get_interactions() -> Array[InteractInfo]:
 	if contained_object: return []
@@ -67,7 +75,7 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 			if str(input_time).length() >= 4: # Keep it 4 digits max
 				return
 
-			input_time = (input_time * 10 + int(button_value))  
+			input_time = (input_time * 10 + int(button_value))
 
 			# If the user input is 300, it should be in the form 3:00
 			var minutes: int = input_time / 100
@@ -82,7 +90,7 @@ func _on_keypad_area_input_event(_viewport: Node, event: InputEvent, _shape_idx:
 	if event.is_action_pressed("click") and not is_zoomed_in:
 		is_zoomed_in = true
 		TransitionCamera.target_camera = camera
-		
+
 		# Keypad buttons should be clickable if zoomed in on
 		for button: Button in key_pad.get_children():
 			button.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -91,13 +99,13 @@ func _on_keypad_area_input_event(_viewport: Node, event: InputEvent, _shape_idx:
 func _on_start_button_pressed() -> void:
 	if contained_object and not is_microwaving:
 		is_microwaving = true
-		
+
 		timer.start()
 		print("Heating %s" % [contained_object.name])
-		
+
 	elif not contained_object:
 		print("Theres nothing in the Microwave!")
-	
+
 	elif is_microwaving:
 		print("Something is currently being microwaved!")
 
@@ -117,7 +125,7 @@ func _on_microwave_stopped() -> void:
 		var temp_increase: float = 160.0 * (total_seconds - total_seconds_left) \
 			/ container_to_heat.get_total_volume()
 		container_to_heat.temperature += temp_increase
-		
+
 		# Update total_seconds for the next "start" press if the user doesn't clear
 		total_seconds = total_seconds_left
 
@@ -132,9 +140,9 @@ func _on_microwave_timer_timeout() -> void:
 		# Convert seconds to minutes and seconds
 		var minutes: int = total_seconds_left / 60
 		var seconds: int = total_seconds_left % 60
-		
+
 		update_timer_display(minutes, seconds)
-	
+
 	else:
 		timer.stop()
 		_on_microwave_stopped()
