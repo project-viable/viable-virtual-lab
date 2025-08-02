@@ -112,11 +112,13 @@ func _on_start_button_pressed() -> void:
 
 ## Triggered either by the "stop" button or the timer ran out
 func _on_microwave_stopped() -> void:
+	if contained_object:
+		contained_object.set_deferred(&"visible", true)
+		contained_object = null
+		
 	if is_microwaving:
 		timer.stop()
 		is_microwaving = false
-		contained_object.set_deferred(&"visible", true)
-		contained_object = null
 
 		# TODO: This calculation should be handled by the `ContainerComponent` and substances
 		# themselves.
