@@ -47,11 +47,32 @@ func _process(delta: float) -> void:
 				show_popup(logs[0])
 			logs.remove_at(0)
 
+	# [kind, name, prompt panel]
+	var buttons: Array[Array] = [
+		[InteractInfo.Kind.PRIMARY, "Left click", $%PrimaryPrompt],
+		[InteractInfo.Kind.SECONDARY, "Right click", $%SecondaryPrompt],
+	]
+
+	for b in buttons:
+		var kind: InteractInfo.Kind = b[0]
+		var name: String = b[1]
+		var prompt_panel: Control = b[2]
+
+		var state: Interaction.InteractState = Interaction.interactions.get(kind)
+		if state.info:
+			prompt_panel.show()
+			var label: Label = prompt_panel.get_node("Label")
+			label.text = "%s: %s" % [name, state.info.description]
+			var color: Color = Color.GRAY if state.is_pressed else Color.WHITE
+			label.add_theme_color_override(&"font_color", color)
+		else:
+			prompt_panel.hide()
+
 	# THIS STUFF IS TEMPORARY. SUBSTANCES WILL EVENTUALLY BE DISPLAYED IN THE CONTAINERS THEMSELVES,
 	# AND MIXING WILL BE DONE WITH A STIR ROD OR BY SWIRLING.
-	if Selectables.hovered_component is DragComponent:
+	if Interaction.hovered_selectable_component is DragComponent:
 		var containers: Array[ContainerComponent] = []
-		containers.assign(Selectables.hovered_component.body.find_children("", "ContainerComponent", false))
+		containers.assign(Interaction.hovered_selectable_component.body.find_children("", "ContainerComponent", false))
 
 		# Show substances in the hovered object.
 		$SubstanceLabel.clear()
@@ -81,7 +102,7 @@ func _process(delta: float) -> void:
 				cc.mix(delta)
 
 func _unhandled_key_input(e: InputEvent) -> void:
-	if e.is_action_pressed(&"ToggleMenu") and not GameState.is_camera_zoomed:
+	if e.is_action_pressed(&"ToggleMenu") and not TransitionCamera.is_camera_zoomed:
 		# A page other than the main pause menu is being shown; return to the pause menu.
 		if $MenuScreens.visible and not $MenuScreens/PauseMenu.visible:
 			_switch_to_menu_screen($MenuScreens/PauseMenu)

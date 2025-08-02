@@ -1,10 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://dl7pwqhm483yt"]
+[gd_scene load_steps=14 format=3 uid="uid://dl7pwqhm483yt"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_w1h17"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_fwobd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_lsgmi"]
-[ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="2_ynrri"]
-[ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_ao4kq"]
 [ext_resource type="Texture2D" uid="uid://dxm0iobbxvvg7" path="res://UpdatedAssets/LabObjects/Bottle_Agarose.svg" id="5_w1h17"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="6_irog7"]
 [ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://combined_scripts/substance_instance.gd" id="7_w1h17"]
@@ -53,16 +51,6 @@ body = NodePath("..")
 interact_canvas_group = NodePath("../SelectableCanvasGroup")
 metadata/_custom_type_script = "uid://bsonh03rfuf2p"
 
-[node name="InteractionArea" type="Area2D" parent="."]
-visible = false
-script = ExtResource("2_ynrri")
-metadata/_custom_type_script = "uid://6sh30cc4wi2"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2(0, 11.5)
-scale = Vector2(0.482142, 0.482142)
-shape = SubResource("RectangleShape2D_eomqc")
-
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("2_lsgmi")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
@@ -70,12 +58,6 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 [node name="AgarosePowder" type="Sprite2D" parent="SelectableCanvasGroup"]
 scale = Vector2(0.202699, 0.202699)
 texture = ExtResource("5_w1h17")
-
-[node name="InteractionComponent" type="Node2D" parent="." node_paths=PackedStringArray("interaction_area", "body")]
-script = ExtResource("5_ao4kq")
-interaction_area = NodePath("../InteractionArea")
-body = NodePath("..")
-metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
 
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("6_irog7")
