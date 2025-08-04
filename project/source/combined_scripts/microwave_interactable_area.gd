@@ -13,7 +13,7 @@ extends InteractableArea
 var container_to_heat: ContainerComponent
 var input_time: int = 0
 var is_microwaving: bool = false
-var contained_object: LabBody = null
+var contained_drag_component: DragComponent = null
 var total_seconds_left: int = 0
 var total_seconds: int = 0
 var is_zoomed_in: bool = false
@@ -39,19 +39,20 @@ func _input(event: InputEvent) -> void:
 			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func get_interactions() -> Array[InteractInfo]:
-	if contained_object: return []
+	if contained_drag_component: return []
 	else: return [_interaction]
 
 func start_interact(_k: InteractInfo.Kind) -> void:
-	var interactor := Interaction.active_drag_component.body
-	container_to_heat = find_container(interactor)
+	var interactor := Interaction.active_drag_component
+	container_to_heat = find_container(interactor.body)
 
 	if container_to_heat:
-		contained_object = interactor
+		contained_drag_component = interactor
 
 		# Change properties of the interactor
-		interactor.set_deferred(&"visible", false)
-		Interaction.active_drag_component.stop_dragging()
+		interactor.body.hide()
+		interactor.enable_interaction = false
+		interactor.stop_dragging()
 	else:
 		print("%s cannot be heated!" % [interactor.name])
 
@@ -98,13 +99,13 @@ func _on_keypad_area_input_event(_viewport: Node, event: InputEvent, _shape_idx:
 
 ## Start microwaving the object
 func _on_start_button_pressed() -> void:
-	if contained_object and not is_microwaving:
+	if contained_drag_component and not is_microwaving:
 		is_microwaving = true
 
 		timer.start()
-		print("Heating %s" % [contained_object.name])
+		print("Heating %s" % [contained_drag_component.body.name])
 
-	elif not contained_object:
+	elif not contained_drag_component:
 		print("Theres nothing in the Microwave!")
 
 	elif is_microwaving:
@@ -112,9 +113,10 @@ func _on_start_button_pressed() -> void:
 
 ## Triggered either by the "stop" button or the timer ran out
 func _on_microwave_stopped() -> void:
-	if contained_object:
-		contained_object.set_deferred(&"visible", true)
-		contained_object = null
+	if contained_drag_component:
+		contained_drag_component.body.show()
+		contained_drag_component.enable_interaction = true
+		contained_drag_component = null
 		
 	if is_microwaving:
 		timer.stop()
