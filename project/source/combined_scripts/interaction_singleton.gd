@@ -9,9 +9,9 @@ class InteractState:
 	# with the held object.
 	var source: UseComponent
 
-	# This can point to an `InteractableArea` or a `SelectableComponent`. Both of them have
-	# hovering and interacting behavior, but there's no way in Godot to have an interface that they
-	# can both implement, so the type just has to be switched on.
+	# This can point to an `InteractableArea` or an `InteractableComponent`. Both of them have
+	# hovering and interacting behavior, but there's no way in Godot to have an interface that
+	# they can both implement, so the type just has to be switched on.
 	var target: Node2D
 	var is_pressed: bool = false
 
@@ -25,43 +25,35 @@ class InteractState:
 		if not info: return
 		if source: source.start_targeting(target as InteractableArea, info.kind)
 		elif target is InteractableArea: target.start_targeting(info.kind)
-		elif target is SelectableComponent: target.start_targeting()
+		elif target is InteractableComponent: target.start_targeting(info.kind)
 
 	func stop_targeting() -> void:
 		if not info: return
 		if source: source.stop_targeting(target as InteractableArea, info.kind)
 		elif target is InteractableArea: target.stop_targeting(info.kind)
-		elif target is SelectableComponent: target.stop_targeting()
+		elif target is InteractableComponent: target.stop_targeting(info.kind)
 
 	func start_interact() -> void:
 		is_pressed = true
 		if not info: return
 		if source: source.start_use(target as InteractableArea, info.kind)
 		elif target is InteractableArea: target.start_interact(info.kind)
-		elif target is SelectableComponent: target.start_interact()
+		elif target is InteractableComponent: target.start_interact(info.kind)
 
 	func stop_interact() -> void:
 		is_pressed = false
 		if not info: return
 		if source: source.stop_use(target as InteractableArea, info.kind)
 		elif target is InteractableArea: target.stop_interact(info.kind)
-		elif target is SelectableComponent: target.stop_interact()
+		elif target is InteractableComponent: target.stop_interact(info.kind)
 
-
-
-## Set to the "best" `SelectableComponent` currently being highlighted, so that the components
-## themselves can know if they are the correct choice. This will always be null if the user
-## currently has a selectable component held down or is dragging a drag component.
-var hovered_selectable_component: SelectableComponent = null
-
-## If any, set to the `SelectableComponent` that is currently held (i.e., its press mode is `HOLD`,
-## it was clicked, and it has not been released yet). This is set directly by
-## `SelectableComponent`.
-var held_selectable_component: SelectableComponent = null
 
 ## Set to the `DragComponent` currently being dragged, if it exists. This is set directly by
 ## `DragComponent`.
 var active_drag_component: DragComponent = null
+
+## Current `InteractableComponent`, if any, being hovered.
+var hovered_interactable_component: InteractableComponent = null
 
 ## Current potential interactions by kind.
 var interactions: Dictionary[InteractInfo.Kind, InteractState] = {
@@ -74,8 +66,6 @@ var interactions: Dictionary[InteractInfo.Kind, InteractState] = {
 # idea that the order they call `_draw` would correspond with the which one is on top (if `_draw`
 # is called later, then it is on top).
 var _next_draw_order: int = 0
-var _hovered_z_index: int = RenderingServer.CANVAS_ITEM_Z_MIN
-var _hovered_draw_order: int = 0
 var _interact_area_stack: Array[InteractableArea] = []
 
 
@@ -90,10 +80,8 @@ func _process(_delta: float) -> void:
 		# so it can be dropped. This is here first so that it has the lowest priority.
 		#
 		# TODO: somehow make this less of a special case?
-		var drag_interact_state := InteractState.new()
-		drag_interact_state.info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
-		drag_interact_state.target = active_drag_component
-		new_interactions.set(InteractInfo.Kind.PRIMARY, drag_interact_state)
+		for info in active_drag_component.get_interactions():
+			new_interactions.set(info.kind, InteractState.new(info, null, active_drag_component))
 
 		for a in _interact_area_stack:
 			for info in a.get_interactions():
@@ -109,28 +97,28 @@ func _process(_delta: float) -> void:
 				for info in c.get_interactions(a):
 					new_interactions.set(info.kind, InteractState.new(info, c, a))
 	else:
-		hovered_selectable_component = null
-		_hovered_z_index = RenderingServer.CANVAS_ITEM_Z_MIN
+		hovered_interactable_component = null
+		var hovered_z_index := RenderingServer.CANVAS_ITEM_Z_MIN
+		var hovered_draw_order := 0
 
 		# Find the topmost thing that can be clicked on.
-		for c in get_tree().get_nodes_in_group(&"selectable_component"):
-			if c is SelectableComponent:
-				var z := _get_absolute_z_index(c.interact_canvas_group)
-				var draw_order: int = c.interact_canvas_group.draw_order_this_frame
+		for c in get_tree().get_nodes_in_group(&"interactable_component"):
+			if c is InteractableComponent:
+				var z: int = c.get_absolute_z_index()
+				var draw_order: int = c.get_draw_order()
 
-				if c.interact_canvas_group.is_mouse_hovering() \
-						and (not hovered_selectable_component
-							or z > _hovered_z_index
-							or draw_order > _hovered_draw_order and not z < _hovered_z_index):
-					hovered_selectable_component = c
-					_hovered_z_index = z
-					_hovered_draw_order = draw_order
+				if c.is_hovered() \
+						and (not hovered_interactable_component
+							or z > hovered_z_index
+							or draw_order > hovered_draw_order and not z < hovered_z_index):
+					hovered_interactable_component = c
+					hovered_z_index = z
+					hovered_draw_order = draw_order
 
-		if hovered_selectable_component:
-			var s := InteractState.new(
-				InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up"), null,
-				hovered_selectable_component)
-			new_interactions.set(InteractInfo.Kind.PRIMARY, s)
+		if hovered_interactable_component:
+			for info in hovered_interactable_component.get_interactions():
+				var s := InteractState.new(info, null, hovered_interactable_component)
+				new_interactions.set(info.kind, s)
 
 	for kind: InteractInfo.Kind in interactions.keys():
 		var state: InteractState = interactions[kind]
@@ -154,9 +142,6 @@ func _process(_delta: float) -> void:
 		else:
 			state.info = null
 			state.target = null
-
-	if held_selectable_component or active_drag_component:
-		hovered_selectable_component = null
 
 func _unhandled_input(e: InputEvent) -> void:
 	var kind := InteractInfo.Kind.PRIMARY
@@ -191,13 +176,3 @@ func clear_interaction_stack() -> void:
 	_interact_area_stack.clear()
 	for state: InteractState in interactions.values():
 		if state.target: state.stop_targeting()
-
-# Don't know if this is 100% correct, but it works for now. Get the "absolute" z-index of a node,
-# taking into account relative z indices.
-static func _get_absolute_z_index(n: Node) -> int:
-	if not (n is CanvasItem):
-		return 0
-	elif n.z_as_relative:
-		return _get_absolute_z_index(n.get_parent()) + n.z_index
-	else:
-		return n.z_index
