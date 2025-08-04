@@ -11,8 +11,11 @@ var _offset: Vector2 = Vector2.ZERO
 var _velocity: Vector2 = Vector2.ZERO
 
 
+static var _pick_up_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up")
+static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
+
+
 func _ready() -> void:
-	super()
 	press_mode = PressMode.PRESS
 
 func _physics_process(delta: float) -> void:
@@ -32,9 +35,14 @@ func press() -> void:
 	if is_active(): stop_dragging()
 	else: start_dragging()
 
+func get_interactions() -> Array[InteractInfo]:
+	if is_active(): return [_put_down_interaction]
+	else: return [_pick_up_interaction]
+
 func start_dragging() -> void:
 	body.start_dragging()
 	Interaction.active_drag_component = self
+	interact_canvas_group.is_outlined = false
 
 	# We can't just use `move_to_front` because it doesn't properly reorder the `_draw` calls,
 	# whose specific order is required to determine which one is in front.
@@ -50,7 +58,7 @@ func stop_dragging() -> void:
 	body.stop_dragging()
 	Interaction.active_drag_component = null
 	Interaction.clear_interaction_stack()
+	interact_canvas_group.is_outlined = true
 	body.set_deferred(&"linear_velocity", _velocity / 5.0)
-
 
 func is_active() -> bool: return Interaction.active_drag_component == self
