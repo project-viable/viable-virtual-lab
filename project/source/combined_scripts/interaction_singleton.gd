@@ -84,11 +84,14 @@ func _process(_delta: float) -> void:
 			new_interactions.set(info.kind, InteractState.new(info, null, active_drag_component))
 
 		for a in _interact_area_stack:
+			if not a.enable_interaction: continue
 			for info in a.get_interactions():
 				new_interactions.set(info.kind, InteractState.new(info, null, a))
 
 		# `UseComponent`s take priority over `InteractableArea`s.
 		for c: UseComponent in active_drag_component.body.find_children("", "UseComponent", false):
+			if not c.enable_interaction: continue
+
 			if not _interact_area_stack:
 				for info in c.get_interactions(null):
 					new_interactions.set(info.kind, InteractState.new(info, c, null))
@@ -103,7 +106,7 @@ func _process(_delta: float) -> void:
 
 		# Find the topmost thing that can be clicked on.
 		for c in get_tree().get_nodes_in_group(&"interactable_component"):
-			if c is InteractableComponent:
+			if c is InteractableComponent and c.enable_interaction:
 				var z: int = c.get_absolute_z_index()
 				var draw_order: int = c.get_draw_order()
 
