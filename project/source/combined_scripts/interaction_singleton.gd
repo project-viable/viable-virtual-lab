@@ -90,7 +90,7 @@ func _process(_delta: float) -> void:
 
 		# `UseComponent`s take priority over `InteractableArea`s.
 		for c: UseComponent in active_drag_component.body.find_children("", "UseComponent", false):
-			if not c.enable_interaction: continue
+			#if not c.enable_interaction: continue
 
 			if not _interact_area_stack:
 				for info in c.get_interactions(null):
@@ -158,9 +158,8 @@ func _unhandled_input(e: InputEvent) -> void:
 	var state: InteractState = interactions.get(kind)
 	if not state: return
 
-	if state.target:
-		if e.is_pressed(): state.start_interact()
-		elif e.is_released(): state.stop_interact()
+	if e.is_pressed(): state.start_interact()
+	elif e.is_released(): state.stop_interact()
 
 func get_next_draw_order() -> int:
 	_next_draw_order += 1
