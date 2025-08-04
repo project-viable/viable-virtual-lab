@@ -4,6 +4,10 @@ class_name InteractableComponent
 extends Node2D
 
 
+## When set to false, this component will be ignored as a potential target of interactions.
+@export var enable_interaction: bool = true
+
+
 func _enter_tree() -> void:
 	# Needs to be set so that the `Interaction` singleton can quickly find it.
 	add_to_group(&"interactable_component")

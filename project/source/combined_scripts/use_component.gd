@@ -4,6 +4,10 @@ class_name UseComponent
 extends Node2D
 
 
+## When set to false, this component will be ignored as a potential source of interactions.
+@export var enable_interaction: bool = true
+
+
 ## (virtual) get the interactions that this component can currently do on the interactable area
 ## `area`. If the parent object of this isn't currently overlapping any `InteractableArea`s, then
 ## `area` will be null. This allows 
