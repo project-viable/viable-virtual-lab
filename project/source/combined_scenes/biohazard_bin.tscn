@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_30e3j"]
 [ext_resource type="Texture2D" uid="uid://b0qriex5es36u" path="res://UpdatedAssets/LabObjects/BiohazardBin.svg" id="3_jx3lu"]
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nf2rl"]
 size = Vector2(112, 84)
 

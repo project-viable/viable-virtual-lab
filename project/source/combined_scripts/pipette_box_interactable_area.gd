@@ -11,4 +11,8 @@ func get_interactions() -> Array[InteractInfo]:
 	
 func start_interact(_kind: InteractInfo.Kind) -> void:
 	pipette = Interaction.active_drag_component.body 
+	if pipette.has_tip:
+		print("Pipette already has a tip!")
+		return
+		
 	pipette.has_tip = true
