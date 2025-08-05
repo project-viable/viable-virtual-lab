@@ -1,15 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://cs2tep7cd3vxf"]
+[gd_scene load_steps=8 format=3 uid="uid://cs2tep7cd3vxf"]
 
-[ext_resource type="Texture2D" uid="uid://bnjnwv1adqmky" path="res://Images/Resized_Images/Microwave_closed.png" id="1_a0lrr"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_caubw"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_cwbd0"]
-[ext_resource type="Script" uid="uid://kyg3yiaw5rp2" path="res://combined_scripts/microwave_interactable_area.gd" id="5_caubw"]
+[ext_resource type="Texture2D" uid="uid://bruixvdw7rapf" path="res://updated_assets/lab_objects/microwave.svg" id="3_iwbat"]
+[ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://updated_assets/icons_and_buttons/button_2.svg" id="5_caubw"]
+[ext_resource type="Script" uid="uid://kyg3yiaw5rp2" path="res://combined_scripts/microwave_interactable_area.gd" id="5_iwbat"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0lrr"]
 size = Vector2(273, 152)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwbat"]
-size = Vector2(49, 59)
+size = Vector2(53, 59)
 
 [node name="Microwave" type="RigidBody2D"]
 collision_layer = 0
@@ -25,86 +26,240 @@ script = ExtResource("2_cwbd0")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="MicrowaveClosed" type="Sprite2D" parent="SelectableCanvasGroup"]
-texture = ExtResource("1_a0lrr")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_iwbat")
 
-[node name="StopButton" type="Button" parent="."]
-offset_left = 92.0
-offset_top = 48.0
-offset_right = 133.0
-offset_bottom = 75.0
-scale = Vector2(0.75, 0.75)
+[node name="StopButton" type="TextureButton" parent="."]
+self_modulate = Color(1, 0.203922, 0.203922, 1)
+offset_left = 83.0
+offset_top = 34.0
+offset_right = 1107.0
+offset_bottom = 802.0
+scale = Vector2(0.0332971, 0.0332971)
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="StopButton"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 256.0
+offset_right = 236.0
+offset_bottom = 275.0
+scale = Vector2(14.4149, 14.4149)
 text = "Stop"
+horizontal_alignment = 1
 
 [node name="TimerLabel" type="Label" parent="."]
-offset_left = 86.0
-offset_top = -56.0
-offset_right = 128.0
-offset_bottom = -37.0
+offset_left = 78.0
+offset_top = -53.0
+offset_right = 120.0
+offset_bottom = -34.0
 text = "0:00"
 horizontal_alignment = 1
 
 [node name="Keypad" type="GridContainer" parent="."]
-offset_left = 83.0
-offset_top = -27.0
-offset_right = 222.0
-offset_bottom = 126.0
-scale = Vector2(0.339272, 0.339272)
+offset_left = 71.0
+offset_top = -25.0
+offset_right = 3151.0
+offset_bottom = 3092.0
+scale = Vector2(0.0191429, 0.0190965)
 theme_override_constants/v_separation = 15
 columns = 3
 
-[node name="Button1" type="Button" parent="Keypad"]
+[node name="Button1" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
 mouse_filter = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button1"]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 192.0
+offset_right = 192.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "1"
+horizontal_alignment = 1
 
-[node name="Button2" type="Button" parent="Keypad"]
+[node name="Button2" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button2"]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 192.0
+offset_right = 206.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "2"
+horizontal_alignment = 1
 
-[node name="Button3" type="Button" parent="Keypad"]
+[node name="Button3" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button3"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 192.0
+offset_right = 222.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "3"
+horizontal_alignment = 1
 
-[node name="Button4" type="Button" parent="Keypad"]
+[node name="Button4" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button4"]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 192.0
+offset_right = 192.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "4"
+horizontal_alignment = 1
 
-[node name="Button5" type="Button" parent="Keypad"]
+[node name="Button5" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button5"]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 192.0
+offset_right = 206.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "5"
+horizontal_alignment = 1
 
-[node name="Button6" type="Button" parent="Keypad"]
+[node name="Button6" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button6"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 192.0
+offset_right = 222.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "6"
+horizontal_alignment = 1
 
-[node name="Button7" type="Button" parent="Keypad"]
+[node name="Button7" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button7"]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 192.0
+offset_right = 192.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "7"
+horizontal_alignment = 1
 
-[node name="Button8" type="Button" parent="Keypad"]
+[node name="Button8" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button8"]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 192.0
+offset_right = 206.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "8"
+horizontal_alignment = 1
 
-[node name="Button9" type="Button" parent="Keypad"]
+[node name="Button9" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button9"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 192.0
+offset_right = 222.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "9"
+horizontal_alignment = 1
 
-[node name="Clear" type="Button" parent="Keypad"]
+[node name="Clear" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.686275, 0.686275, 0.686275, 1)
 custom_minimum_size = Vector2(43, 0)
 layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Clear"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 256.0
+offset_right = 236.0
+offset_bottom = 275.0
+scale = Vector2(14.4149, 14.4149)
 text = "Clear"
+horizontal_alignment = 1
 
-[node name="Button0" type="Button" parent="Keypad"]
+[node name="Button0" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 custom_minimum_size = Vector2(43, 0)
 layout_mode = 2
-text = "0"
+texture_normal = ExtResource("5_caubw")
 
-[node name="StartButton" type="Button" parent="Keypad"]
+[node name="Label" type="Label" parent="Keypad/Button0"]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 192.0
+offset_right = 206.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="StartButton" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.2, 0.776471, 0.0313726, 1)
 custom_minimum_size = Vector2(43, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 3
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/StartButton"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 256.0
+offset_right = 236.0
+offset_bottom = 275.0
+scale = Vector2(14.4149, 14.4149)
 text = "Start"
+horizontal_alignment = 1
 
 [node name="MicrowaveTimer" type="Timer" parent="."]
 
@@ -114,15 +269,16 @@ zoom = Vector2(4, 4)
 position_smoothing_speed = 1.0
 
 [node name="KeypadArea" type="Area2D" parent="."]
+position = Vector2(-4, 4)
 monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KeypadArea"]
-position = Vector2(106.5, -0.5)
+position = Vector2(104.5, -0.5)
 shape = SubResource("RectangleShape2D_iwbat")
 
 [node name="InteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("body", "timer", "timer_label", "key_pad", "key_pad_area", "camera")]
-script = ExtResource("5_caubw")
+script = ExtResource("5_iwbat")
 body = NodePath("..")
 timer = NodePath("../MicrowaveTimer")
 timer_label = NodePath("../TimerLabel")

@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_p46ws"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_w2ofj"]
-[ext_resource type="Texture2D" uid="uid://eouqdtcf7tx3" path="res://Images/Resized_Images/imager.png" id="2_ncblq"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_ncblq"]
+[ext_resource type="Texture2D" uid="uid://cslhw30pcab3a" path="res://UpdatedAssets/LabObjects/Imager.svg" id="3_p46ws"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w2ofj"]
 size = Vector2(170, 197)
@@ -18,8 +19,8 @@ script = ExtResource("1_w2ofj")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="Imager" type="Sprite2D" parent="SelectableCanvasGroup"]
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_ncblq")
+scale = Vector2(0.327149, 0.327149)
+texture = ExtResource("3_p46ws")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)

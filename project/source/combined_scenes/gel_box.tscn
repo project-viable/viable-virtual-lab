@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_r7so7"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_t800u"]
-[ext_resource type="Texture2D" uid="uid://ctbseq5helqq4" path="res://Images/Resized_Images/Gel_Rig.png" id="2_wqfps"]
+[ext_resource type="Texture2D" uid="uid://diqycgd18toud" path="res://UpdatedAssets/LabObjects/Gel_Rig_Empty.svg" id="3_r7so7"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_wqfps"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t800u"]
-size = Vector2(129, 58)
+size = Vector2(94, 47)
 
 [node name="GelBox" type="RigidBody2D"]
 collision_layer = 0
@@ -18,10 +18,11 @@ script = ExtResource("1_t800u")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="GelRig" type="Sprite2D" parent="SelectableCanvasGroup"]
-texture = ExtResource("2_wqfps")
+scale = Vector2(0.095, 0.095)
+texture = ExtResource("3_r7so7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 2)
+position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_t800u")
 
 [node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]

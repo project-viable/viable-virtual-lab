@@ -1,12 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://gfmuo2b5e2b5"]
+[gd_scene load_steps=10 format=3 uid="uid://gfmuo2b5e2b5"]
 
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="1_o87w1"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_ssuie"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_ceiaq"]
-[ext_resource type="Texture2D" uid="uid://4qpidnuobn6p" path="res://Images/Resized_Images/scale.png" id="3_7y61a"]
+[ext_resource type="Texture2D" uid="uid://ceb3fqgxtqtqf" path="res://UpdatedAssets/LabObjects/Scale.svg" id="4_ssuie"]
+[ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://UpdatedAssets/IconsAndButtons/Button_2.svg" id="7_vhatv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssuie"]
-size = Vector2(125, 39)
+size = Vector2(125, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vhatv"]
 size = Vector2(102, 5)
@@ -17,7 +18,7 @@ script = ExtResource("1_ssuie")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0.5)
+position = Vector2(0.5, -2)
 shape = SubResource("RectangleShape2D_ssuie")
 
 [node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
@@ -31,7 +32,9 @@ script = ExtResource("2_ceiaq")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="Scale" type="Sprite2D" parent="SelectableCanvasGroup"]
-texture = ExtResource("3_7y61a")
+position = Vector2(1, -24)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("4_ssuie")
 
 [node name="Surface" type="StaticBody2D" parent="."]
 
@@ -40,3 +43,28 @@ position = Vector2(1, -17.5)
 shape = SubResource("RectangleShape2D_vhatv")
 one_way_collision = true
 debug_color = Color(0.404972, 0.46678, 1, 0.42)
+
+[node name="TareButton" type="TextureButton" parent="."]
+offset_left = 19.0
+offset_top = -15.0
+offset_right = 1043.0
+offset_bottom = 753.0
+scale = Vector2(0.0293785, 0.0293785)
+texture_normal = ExtResource("7_vhatv")
+
+[node name="Label" type="Label" parent="TareButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -9.5
+offset_right = 20.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.00617)
+theme_override_font_sizes/font_size = 200
+text = "Tare"

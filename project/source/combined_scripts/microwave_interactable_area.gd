@@ -25,8 +25,9 @@ var _interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put in microwav
 func _ready() -> void:
 	super()
 	# Connect all buttons in the keypad
-	for button: Button in key_pad.get_children():
-		button.pressed.connect(_on_keypad_button_pressed.bind(button.text))
+	for button: TextureButton in key_pad.get_children():
+		var button_label: Label = button.get_node("Label")
+		button.pressed.connect(_on_keypad_button_pressed.bind(button_label.text))
 		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func _input(event: InputEvent) -> void:
@@ -34,7 +35,7 @@ func _input(event: InputEvent) -> void:
 		is_zoomed_in = false
 
 		# Buttons can't be clicked on if zoomed out.
-		for button: Button in key_pad.get_children():
+		for button: TextureButton in key_pad.get_children():
 			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func get_interactions() -> Array[InteractInfo]:
@@ -92,7 +93,7 @@ func _on_keypad_area_input_event(_viewport: Node, event: InputEvent, _shape_idx:
 		TransitionCamera.target_camera = camera
 
 		# Keypad buttons should be clickable if zoomed in on
-		for button: Button in key_pad.get_children():
+		for button: TextureButton in key_pad.get_children():
 			button.mouse_filter = Control.MOUSE_FILTER_STOP
 
 ## Start microwaving the object
@@ -111,11 +112,13 @@ func _on_start_button_pressed() -> void:
 
 ## Triggered either by the "stop" button or the timer ran out
 func _on_microwave_stopped() -> void:
+	if contained_object:
+		contained_object.set_deferred(&"visible", true)
+		contained_object = null
+		
 	if is_microwaving:
 		timer.stop()
 		is_microwaving = false
-		contained_object.set_deferred(&"visible", true)
-		contained_object = null
 
 		# TODO: This calculation should be handled by the `ContainerComponent` and substances
 		# themselves.

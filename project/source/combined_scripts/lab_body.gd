@@ -16,8 +16,10 @@ func _ready() -> void:
 
 	for p: PhysicsBody2D in find_children("", "PhysicsBody2D", false):
 		_child_physics_object_layers.set(p, p.collision_layer)
-
-	stop_dragging()
+	
+	# Bodies with the freeze property set to true will initially not fall when the game starts
+	if not freeze:
+		stop_dragging()
 
 # `start_dragging` and `stop_dragging` don't actually handle any drag logic; they just change the
 # physics to allow for dragging.

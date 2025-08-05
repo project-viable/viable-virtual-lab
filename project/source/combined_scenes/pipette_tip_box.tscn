@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2owhv1drxs7p"]
+[gd_scene load_steps=7 format=3 uid="uid://b2owhv1drxs7p"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_f63uk"]
-[ext_resource type="Texture2D" uid="uid://bmhpbk84rjeks" path="res://Images/Resized_Images/Pipette_tip_box_opened.png" id="1_gs6p0"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_3s6eo"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_cxa2o"]
+[ext_resource type="Texture2D" uid="uid://dcwybereklqk1" path="res://updated_assets/lab_objects/pipette_tip_box.svg" id="4_f63uk"]
+[ext_resource type="Texture2D" uid="uid://c3cm22o72hi0e" path="res://updated_assets/lab_objects/pipette_tip.svg" id="7_02ny6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gs6p0"]
 size = Vector2(106, 43)
@@ -27,5 +28,40 @@ metadata/_custom_type_script = "uid://bsonh03rfuf2p"
 script = ExtResource("2_3s6eo")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="PipetteTipBoxOpened" type="Sprite2D" parent="SelectableCanvasGroup"]
-texture = ExtResource("1_gs6p0")
+[node name="Tips" type="Node2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, 3)
+
+[node name="Sprite2D" type="Sprite2D" parent="SelectableCanvasGroup/Tips"]
+position = Vector2(-43.6, -61.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_02ny6")
+
+[node name="Sprite2D2" type="Sprite2D" parent="SelectableCanvasGroup/Tips"]
+position = Vector2(-27.6, -61.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_02ny6")
+
+[node name="Sprite2D3" type="Sprite2D" parent="SelectableCanvasGroup/Tips"]
+position = Vector2(-11.6, -61.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_02ny6")
+
+[node name="Sprite2D4" type="Sprite2D" parent="SelectableCanvasGroup/Tips"]
+position = Vector2(4.39999, -61.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_02ny6")
+
+[node name="Sprite2D5" type="Sprite2D" parent="SelectableCanvasGroup/Tips"]
+position = Vector2(36.4, -61.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_02ny6")
+
+[node name="Sprite2D6" type="Sprite2D" parent="SelectableCanvasGroup/Tips"]
+position = Vector2(20.4, -61.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_02ny6")
+
+[node name="PipetteTipBox" type="Sprite2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, -70)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_f63uk")
