@@ -1,14 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5ff3gy87ykja"]
+[gd_scene load_steps=7 format=3 uid="uid://b5ff3gy87ykja"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_6iauc"]
+[ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="2_6iauc"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_ax7oq"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_rr7fa"]
+[ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://combined_scripts/substance_display_polygon.gd" id="3_lx5v4"]
 [ext_resource type="Texture2D" uid="uid://c5pkfaov7ufug" path="res://updated_assets/lab_objects/erlenmeyer_flask.svg" id="5_6iauc"]
 
 [node name="Flask" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource("1_6iauc")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="ContainerComponent" type="Node2D" parent="."]
+script = ExtResource("2_6iauc")
+max_volume = 50.0
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="." node_paths=PackedStringArray("source")]
+scale = Vector2(0.19, 0.19)
+polygon = PackedVector2Array(-136.842, 215.789, -115.789, 242.105, 115.789, 242.105, 136.842, 215.789, 47.3684, -78.9474, 47.3684, -252.632, -47.3684, -252.632, -47.3684, -84.2105)
+script = ExtResource("3_lx5v4")
+source = NodePath("../ContainerComponent")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 scale = Vector2(0.2, 0.2)
