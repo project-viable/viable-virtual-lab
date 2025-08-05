@@ -9,6 +9,7 @@
 [node name="Pipette" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource("1_yutq4")
+is_tip_contaminated = true
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

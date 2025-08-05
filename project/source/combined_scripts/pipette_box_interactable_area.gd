@@ -14,5 +14,6 @@ func start_interact(_kind: InteractInfo.Kind) -> void:
 	if pipette.has_tip:
 		print("Pipette already has a tip!")
 		return
-		
+	
 	pipette.has_tip = true
+	pipette.is_tip_contaminated = false
