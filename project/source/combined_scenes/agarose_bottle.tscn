@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_w1h17"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_fwobd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_lsgmi"]
-[ext_resource type="Texture2D" uid="uid://dxm0iobbxvvg7" path="res://UpdatedAssets/LabObjects/Bottle_Agarose.svg" id="5_w1h17"]
+[ext_resource type="Texture2D" uid="uid://dxm0iobbxvvg7" path="res://updated_assets/lab_objects/bottle_agarose.svg" id="5_w1h17"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="6_irog7"]
 [ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://combined_scripts/substance_instance.gd" id="7_w1h17"]
 [ext_resource type="Script" uid="uid://dmam7f2mtik2" path="res://combined_scripts/basic_substance_data.gd" id="8_upaf2"]
