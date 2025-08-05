@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_ar43o"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_u177l"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_b175k"]
-[ext_resource type="Texture2D" uid="uid://b3jxeuh2e6u2y" path="res://UpdatedAssets/LabObjects/Gel_Tray_Empty.svg" id="3_u177l"]
+[ext_resource type="Texture2D" uid="uid://b3jxeuh2e6u2y" path="res://updated_assets/LabObjects/gel_tray_empty.svg" id="3_u177l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_of7eg"]
 size = Vector2(74, 25.75)

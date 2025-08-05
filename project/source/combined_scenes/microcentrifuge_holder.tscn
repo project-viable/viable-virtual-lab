@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_y0nf6"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_lhjef"]
-[ext_resource type="Texture2D" uid="uid://4gatp66jseq6" path="res://UpdatedAssets/LabObjects/Microcentrifuge_Holder.svg" id="3_ufhtq"]
+[ext_resource type="Texture2D" uid="uid://4gatp66jseq6" path="res://updated_assets/LabObjects/microcentrifuge_holder.svg" id="3_ufhtq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h3rdw"]
 size = Vector2(140, 57)

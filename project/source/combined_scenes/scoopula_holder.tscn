@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_4aecl"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_epgyh"]
-[ext_resource type="Texture2D" uid="uid://b533er73htfu6" path="res://UpdatedAssets/LabObjects/Scoopula_Holder.svg" id="3_jp3dn"]
+[ext_resource type="Texture2D" uid="uid://b533er73htfu6" path="res://updated_assets/LabObjects/scoopula_holder.svg" id="3_jp3dn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4aecl"]
 size = Vector2(27, 80)
