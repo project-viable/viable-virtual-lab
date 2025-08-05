@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_v7kqd"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_g55dw"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_w81e0"]
-[ext_resource type="Texture2D" uid="uid://bbfk8vird0720" path="res://updated_assets/LabObjects/microcentrifuge_tube.svg" id="4_v7kqd"]
+[ext_resource type="Texture2D" uid="uid://bbfk8vird0720" path="res://updated_assets/lab_objects/microcentrifuge_tube.svg" id="4_v7kqd"]
 
 [node name="MicrocentrifugeTube" type="RigidBody2D"]
 collision_layer = 0

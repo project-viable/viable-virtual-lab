@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_5k7v7"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_8riox"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_ufkpi"]
-[ext_resource type="Texture2D" uid="uid://dgvoldiasgww7" path="res://updated_assets/LabObjects/graduated_cylinder.svg" id="4_5k7v7"]
+[ext_resource type="Texture2D" uid="uid://dgvoldiasgww7" path="res://updated_assets/lab_objects/graduated_cylinder.svg" id="4_5k7v7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ufkpi"]
 size = Vector2(26, 171)
