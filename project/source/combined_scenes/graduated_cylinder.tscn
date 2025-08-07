@@ -8,7 +8,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ufkpi"]
 size = Vector2(26, 171)
 
-[node name="GraduatedCylinder" type="RigidBody2D"]
+[node name="GraduatedCylinder" type="RigidBody2D" groups=["Emptyable"]]
 collision_layer = 0
 script = ExtResource("1_5k7v7")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"

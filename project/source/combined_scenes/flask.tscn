@@ -1,12 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5ff3gy87ykja"]
+[gd_scene load_steps=5 format=3 uid="uid://b5ff3gy87ykja"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_6iauc"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_ax7oq"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_rr7fa"]
 [ext_resource type="Texture2D" uid="uid://c5pkfaov7ufug" path="res://updated_assets/lab_objects/erlenmeyer_flask.svg" id="5_6iauc"]
-[ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="5_p00t2"]
 
-[node name="Flask" type="RigidBody2D"]
+[node name="Flask" type="RigidBody2D" groups=["Emptyable"]]
 collision_layer = 0
 script = ExtResource("1_6iauc")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
@@ -28,7 +27,3 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 [node name="ErlenmeyerflaskContainer" type="Sprite2D" parent="SelectableCanvasGroup"]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_6iauc")
-
-[node name="ContainerComponent" type="Node2D" parent="."]
-script = ExtResource("5_p00t2")
-metadata/_custom_type_script = "uid://sscbm7kfq4jj"
