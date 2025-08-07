@@ -3,6 +3,10 @@ class_name InteractableArea
 extends Area2D
 
 
+## When set to false, this area will be ignored as a potential target of interactions.
+@export var enable_interaction: bool = true
+
+
 func _ready() -> void:
 	collision_mask = 0b10
 	body_entered.connect(_on_body_entered)

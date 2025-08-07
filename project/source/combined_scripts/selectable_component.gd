@@ -1,6 +1,6 @@
 ## Imbues a `SelectableCanvasGroup` with the power of being clicked.
 class_name SelectableComponent
-extends Node2D
+extends InteractableComponent
 
 
 enum PressMode
@@ -22,31 +22,33 @@ signal stopped_holding()
 @export var press_mode: PressMode = PressMode.HOLD
 
 
-func _ready() -> void:
-	add_to_group(&"selectable_component")
+func is_hovered() -> bool: return interact_canvas_group.is_mouse_hovering()
+func get_draw_order() -> int: return interact_canvas_group.draw_order_this_frame
+func get_absolute_z_index() -> int: return Util.get_absolute_z_index(interact_canvas_group)
 
-func _process(_delta: float) -> void:
-	interact_canvas_group.is_outlined = _is_hovering() and not is_held()
+func get_interactions() -> Array[InteractInfo]:
+	# TODO: Use a better system instead of only having the single left-click interaction with a
+	# hard-coded name.
+	return [InteractInfo.new(InteractInfo.Kind.PRIMARY, "Activate")]
 
-# `start_targeting`, `stop_targeting`, `start_interact`, and `stop_interact` are all automatically
-# called in `Interaction` (the singleton).
-func start_targeting() -> void: pass
-func stop_targeting() -> void: pass
+func start_targeting(_k: InteractInfo.Kind) -> void:
+	interact_canvas_group.is_outlined = true
 
-func start_interact() -> void:
+func stop_targeting(_k: InteractInfo.Kind) -> void:
+	interact_canvas_group.is_outlined = false
+
+func start_interact(_k: InteractInfo.Kind) -> void:
 	match press_mode:
 		PressMode.HOLD:
-			Interaction.held_selectable_component = self
 			start_holding()
 			started_holding.emit()
 		PressMode.PRESS:
 			press()
 			pressed.emit()
 
-func stop_interact() -> void:
+func stop_interact(_k: InteractInfo.Kind) -> void:
 	stopped_holding.emit()
 	stop_holding()
-	Interaction.held_selectable_component = null
 
 ## (virtual) called when the sprite group is clicked (only when `press_mode` is `HOLD`).
 func start_holding() -> void: pass
@@ -56,7 +58,3 @@ func stop_holding() -> void: pass
 
 ## (virtual) called when the sprite group is simply clicked (only when `press_mode` is `PRESS`).
 func press() -> void: pass
-
-func is_held() -> bool: return Interaction.held_selectable_component == self
-
-func _is_hovering() -> bool: return Interaction.hovered_selectable_component == self
