@@ -9,10 +9,10 @@ func get_interactions() -> Array[InteractInfo]:
 	if interactor is Pipe and interactor.has_tip:
 		info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Dispose tip")
 
-	elif interactor.is_in_group("Emptyable") and interactor.has_node("ContainerComponent"): 
+	elif interactor.is_in_group("Emptyable"): 
 		container_component = get_container_compoenent(interactor)
 		
-		if container_component.substances:
+		if container_component and container_component.substances:
 			info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Remove Contents")
 	
 	if info:
@@ -30,5 +30,8 @@ func start_interact(_kind: InteractInfo.Kind) -> void:
 			
 ## Gets the container variable of the interactor 
 func get_container_compoenent(interactor: LabBody) -> ContainerComponent:
-	var container: ContainerComponent = interactor.get_node_or_null("ContainerComponent")
-	return container
+	var container: Array[Node] = interactor.find_children("", "ContainerComponent", false)
+	if container:
+		return container.front()
+	
+	return null
