@@ -3,6 +3,10 @@ class_name ContainerComponent
 extends Node2D
 
 
+## Total volume of the container, in mL. This doesn't affect the behavior of this component at all,
+## but can be used to help with visuals, for example.
+@export var max_volume: float = 10.0
+
 @export var substances: Array[SubstanceInstance] = []
 
 ## Temperature in °C. For simplicity, it is assumed that an entire container is always in thermal
