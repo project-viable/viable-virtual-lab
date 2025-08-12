@@ -9,7 +9,7 @@ void fragment()
 	vec4 c = textureLod(screen_texture, SCREEN_UV, 0.0);
 
 	// Basic pulsating effect.
-	c.a *= (cos(TIME * 5.0) + 1.0) / 4.0;
+	c *= mix(0.3, 0.6, (cos(TIME * 5.0) + 1.0) / 4.0);
 
 	// For `CanvasGroup`.
 	if (c.a > 0.0001)
