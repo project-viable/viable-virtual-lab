@@ -5,7 +5,15 @@ extends ObjectSlotInteractableArea
 ## `RemoteTransform2D`. This node should never be rotated nor scaled.
 
 
+## Any attachment point, regardless of group, will be able to attach to this.
+@export var allow_all_attachment_points: bool = false
+## If `allow_all_attachment_points` is not set to true, then only attachment points with these
+## groups will be allowed.
 @export var allowed_point_groups: Array[StringName] = []
+
+## Any `LabBody` will be able to directly attach to this.
+@export var allow_all_bodies: bool = false
+## If `allow_all_bodies` is not true, then only `LabBody`s in these groups can be attached.
 @export var allowed_body_groups: Array[StringName] = []
 
 
@@ -60,7 +68,7 @@ func _find_attachment_offset(body: LabBody) -> Variant:
 	var ap := _find_attachment_point(body)
 	if ap: return -ap.position
 
-	if not allowed_body_groups or allowed_body_groups.any(func(g: StringName) -> bool: return body.is_in_group(g)):
+	if allow_all_bodies or allowed_body_groups.any(func(g: StringName) -> bool: return body.is_in_group(g)):
 		var bbox := Util.get_bounding_box(body)
 		# Bottom of the box.
 		return -bbox.position - bbox.size * Vector2(0.5, 1.0)
@@ -70,7 +78,7 @@ func _find_attachment_offset(body: LabBody) -> Variant:
 
 func _find_attachment_point(body: LabBody) -> AttachmentPoint:
 	for a: AttachmentPoint in body.find_children("", "AttachmentPoint", false):
-		if not allowed_point_groups or allowed_point_groups.any(func(g: StringName) -> bool: return a.is_in_group(g)):
+		if allow_all_attachment_points or allowed_point_groups.any(func(g: StringName) -> bool: return a.is_in_group(g)):
 			return a
 	
 	return null
