@@ -36,6 +36,7 @@ window/stretch/aspect="ignore"
 [global_group]
 
 Emptyable=""
+attachment:microcentrifuge_tube=""
 
 [gui]
 

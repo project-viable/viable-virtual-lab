@@ -129,6 +129,18 @@ freeze = true
 [node name="MicrocentrifugeHolder" parent="." instance=ExtResource("18_xe06v")]
 position = Vector2(426, 557)
 
+[node name="AttachmentInteractableArea" parent="MicrocentrifugeHolder" index="0" node_paths=PackedStringArray("contained_object")]
+contained_object = NodePath("../../MicrocentrifugeTube")
+
+[node name="AttachmentInteractableArea2" parent="MicrocentrifugeHolder" index="1" node_paths=PackedStringArray("contained_object")]
+contained_object = NodePath("../../MicrocentrifugeTube2")
+
+[node name="AttachmentInteractableArea3" parent="MicrocentrifugeHolder" index="2" node_paths=PackedStringArray("contained_object")]
+contained_object = NodePath("../../MicrocentrifugeTube3")
+
+[node name="AttachmentInteractableArea4" parent="MicrocentrifugeHolder" index="3" node_paths=PackedStringArray("contained_object")]
+contained_object = NodePath("../../MicrocentrifugeTube4")
+
 [node name="MainSceneCamera" type="Camera2D" parent="."]
 position = Vector2(640, 360)
 
@@ -137,3 +149,5 @@ position = Vector2(641, 360)
 offset = Vector2(0.78, 0)
 script = ExtResource("18_1qt3r")
 main_scene_camera = NodePath("../MainSceneCamera")
+
+[editable path="MicrocentrifugeHolder"]
