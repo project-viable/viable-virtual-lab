@@ -34,24 +34,18 @@ static func make_sprite_ghost(node: Node2D) -> Node2D:
 
 # Get a bounding box for the full collision of a `CollisionObject2D`. This can be used, for
 # example, to automatically find where the "bottom" of an object is.
-#
-# TODO: This might not be 100% accurate, since it fails to take into account transforms of
-# `CollisionShape2D`s.
 static func get_bounding_box(obj: CollisionObject2D) -> Rect2:
-	var shapes: Array[CollisionShape2D] = []
-	shapes.assign(
-		obj.find_children("", "CollisionShape2D", false)
-			.filter(func(s: CollisionShape2D) -> bool: return s.shape != null))
-
 	var rect := Rect2()
 	var first := true
-	for s: CollisionShape2D in obj.find_children("", "CollisionShape2D", false):
-		if s.shape:
+	for o in obj.get_shape_owners():
+		var transform: Transform2D = obj.shape_owner_get_transform(o)
+		for i in range(0, obj.shape_owner_get_shape_count(o)):
+			var s := obj.shape_owner_get_shape(o, i)
 			if first:
-				rect = s.shape.get_rect()
+				rect = transform * s.get_rect()
 				first = false
 			else:
-				rect = rect.merge(s.shape.get_rect())
+				rect = rect.merge(transform * s.get_rect())
 
 	return rect
 
