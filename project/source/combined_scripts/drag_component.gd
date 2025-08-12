@@ -58,7 +58,6 @@ func stop_dragging() -> void:
 	body.stop_dragging()
 	Interaction.active_drag_component = null
 	Interaction.clear_interaction_stack()
-	interact_canvas_group.is_outlined = true
 	body.set_deferred(&"linear_velocity", _velocity / 5.0)
 
 func is_active() -> bool: return Interaction.active_drag_component == self
