@@ -9,6 +9,7 @@ extends ObjectSlotInteractableArea
 
 
 var _remote_transform := RemoteTransform2D.new()
+var _ghost_sprite: Node2D = null
 
 
 func _ready() -> void:
@@ -19,6 +20,20 @@ func _physics_process(_delta: float) -> void:
 	# The user started dragging the contained object, so we release it.
 	if Interaction.active_drag_component and Interaction.active_drag_component.body == contained_object:
 		remove_object()
+
+func start_targeting(_k: InteractInfo.Kind) -> void:
+	if not Interaction.active_drag_component or not Interaction.active_drag_component.body:
+		return
+
+	var ap := _find_attachment_point(Interaction.active_drag_component.body)
+	if not ap: return
+
+	_ghost_sprite = Util.make_sprite_ghost(Interaction.active_drag_component.body)
+	_ghost_sprite.position = -ap.position
+	call_deferred(&"add_child", _ghost_sprite)
+
+func stop_targeting(_k: InteractInfo.Kind) -> void:
+	call_deferred(&"remove_child", _ghost_sprite)
 
 func can_place(body: LabBody) -> bool:
 	return _find_attachment_point(body) != null
