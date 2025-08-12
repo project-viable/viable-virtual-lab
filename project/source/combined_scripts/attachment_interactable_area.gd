@@ -48,7 +48,8 @@ func can_place(body: LabBody) -> bool:
 	return _find_attachment_offset(body) is Vector2
 
 func on_place_object() -> void:
-	Interaction.active_drag_component.stop_dragging()
+	if Interaction.active_drag_component:
+		Interaction.active_drag_component.stop_dragging()
 	contained_object.start_dragging()
 
 	var offset: Variant = _find_attachment_offset(contained_object)

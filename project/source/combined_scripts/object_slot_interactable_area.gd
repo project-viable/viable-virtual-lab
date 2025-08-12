@@ -13,6 +13,18 @@ signal object_removed(body: LabBody)
 @export var place_prompt: String = "Place"
 
 
+func _ready() -> void:
+	super()
+
+	# The contained object may be set such that the simulation starts with the object locked in. In
+	# that case, we have to manually place it. We have to set `contained_object` to null first,
+	# however, since `place_object` expects that there be no contained object.
+	if contained_object:
+		var obj := contained_object
+		contained_object = null
+		if not place_object(obj):
+			print("Warning: failed to put object %s in slot %s" % [obj, self])
+
 func get_interactions() -> Array[InteractInfo]:
 	if not contained_object and can_place(Interaction.active_drag_component.body):
 		return [InteractInfo.new(InteractInfo.Kind.PRIMARY, place_prompt)]
@@ -36,7 +48,7 @@ func on_remove_object() -> void: pass
 
 ## Call this to attempt to place an object. Returns true if the object was placed.
 func place_object(body: LabBody) -> bool:
-	if not contained_object and can_place(Interaction.active_drag_component.body):
+	if not contained_object and can_place(body):
 		_place_object_unchecked(body)
 		return true
 
