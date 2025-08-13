@@ -1,31 +1,17 @@
-## Microwave Interaction
-extends InteractableArea
+extends LabBody
 
 
-@export var body: LabBody
-@export var timer: Timer # Microwave Timer Node
-@export var timer_label: Label # TimerLabel
-@export var key_pad: GridContainer
-@export var key_pad_area: Area2D # If clicked on, should activate zoom
-@export var camera: Camera2D
-
-
-var container_to_heat: ContainerComponent
 var input_time: int = 0
 var is_microwaving: bool = false
-var contained_drag_component: DragComponent = null
 var total_seconds_left: int = 0
 var total_seconds: int = 0
 var is_zoomed_in: bool = false
 
 
-var _interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put in microwave")
-
-
 func _ready() -> void:
 	super()
 	# Connect all buttons in the keypad
-	for button: TextureButton in key_pad.get_children():
+	for button: TextureButton in $Keypad.get_children():
 		var button_label: Label = button.get_node("Label")
 		button.pressed.connect(_on_keypad_button_pressed.bind(button_label.text))
 		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -35,26 +21,8 @@ func _input(event: InputEvent) -> void:
 		is_zoomed_in = false
 
 		# Buttons can't be clicked on if zoomed out.
-		for button: TextureButton in key_pad.get_children():
+		for button: TextureButton in $Keypad.get_children():
 			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-func get_interactions() -> Array[InteractInfo]:
-	if contained_drag_component: return []
-	else: return [_interaction]
-
-func start_interact(_k: InteractInfo.Kind) -> void:
-	var interactor := Interaction.active_drag_component
-	container_to_heat = find_container(interactor.body)
-
-	if container_to_heat:
-		contained_drag_component = interactor
-
-		# Change properties of the interactor
-		interactor.body.hide()
-		interactor.enable_interaction = false
-		interactor.stop_dragging()
-	else:
-		print("%s cannot be heated!" % [interactor.name])
 
 func find_container(interactor: PhysicsBody2D) -> ContainerComponent:
 	# Only objects that have a `ContainerComponent` as a direct child can be microwaved. `
@@ -69,7 +37,7 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 	match button_value:
 		"Clear":
 			input_time = 0
-			timer_label.text = "0:00"
+			$TimerLabel.text = "0:00"
 		"Start":
 			_on_start_button_pressed()
 
@@ -91,51 +59,52 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 func _on_keypad_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("click") and not is_zoomed_in:
 		is_zoomed_in = true
-		TransitionCamera.target_camera = camera
+		TransitionCamera.target_camera = $ZoomCamera
 
 		# Keypad buttons should be clickable if zoomed in on
-		for button: TextureButton in key_pad.get_children():
+		for button: TextureButton in $Keypad.get_children():
 			button.mouse_filter = Control.MOUSE_FILTER_STOP
 
 ## Start microwaving the object
 func _on_start_button_pressed() -> void:
-	if contained_drag_component and not is_microwaving:
+	var obj: LabBody = $ObjectContainmentInteractableArea.contained_object
+
+	if obj and not is_microwaving:
 		is_microwaving = true
 
-		timer.start()
-		print("Heating %s" % [contained_drag_component.body.name])
-
-	elif not contained_drag_component:
+		$MicrowaveTimer.start()
+		print("Heating %s" % [obj.name])
+	elif not obj:
 		print("Theres nothing in the Microwave!")
-
 	elif is_microwaving:
 		print("Something is currently being microwaved!")
 
 ## Triggered either by the "stop" button or the timer ran out
 func _on_microwave_stopped() -> void:
-	if contained_drag_component:
-		contained_drag_component.body.show()
-		contained_drag_component.enable_interaction = true
-		contained_drag_component = null
-		
 	if is_microwaving:
-		timer.stop()
+		$MicrowaveTimer.stop()
 		is_microwaving = false
 
-		# TODO: This calculation should be handled by the `ContainerComponent` and substances
-		# themselves.
-		#
-		# This is very approximately equal to the amount of heating you would get if the container
-		# were full of only water.
-		var temp_increase: float = 160.0 * (total_seconds - total_seconds_left) \
-			/ container_to_heat.get_total_volume()
-		container_to_heat.temperature += temp_increase
+		var obj: LabBody = $ObjectContainmentInteractableArea.contained_object
+		if obj:
+			var container_to_heat := find_container(obj)
+			if container_to_heat:
+				# TODO: This calculation should be handled by the `ContainerComponent` and
+				# substances themselves.
+				#
+				# This is very approximately equal to the amount of heating you would get if the
+				# container were full of only water.
+				var temp_increase: float = 160.0 * (total_seconds - total_seconds_left) \
+					/ container_to_heat.get_total_volume()
+				container_to_heat.temperature += temp_increase
 
 		# Update total_seconds for the next "start" press if the user doesn't clear
 		total_seconds = total_seconds_left
 
+	$ObjectContainmentInteractableArea.remove_object()
+
 func update_timer_display(minutes: int, seconds: int) -> void:
-	timer_label.text = "%d:%02d" % [minutes, seconds]
+	$TimerLabel.text = "%d:%02d" % [minutes, seconds]
 
 ## Updates the TimerLabel to countdown the timer
 func _on_microwave_timer_timeout() -> void:
@@ -149,5 +118,5 @@ func _on_microwave_timer_timeout() -> void:
 		update_timer_display(minutes, seconds)
 
 	else:
-		timer.stop()
+		$MicrowaveTimer.stop()
 		_on_microwave_stopped()
