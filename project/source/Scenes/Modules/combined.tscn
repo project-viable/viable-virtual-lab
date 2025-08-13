@@ -104,6 +104,9 @@ position = Vector2(1032, 300)
 [node name="ScoopulaHolder" parent="." instance=ExtResource("14_82fmo")]
 position = Vector2(1025, 303)
 
+[node name="AttachmentInteractableArea" parent="ScoopulaHolder" index="0" node_paths=PackedStringArray("contained_object")]
+contained_object = NodePath("../../Scoopula")
+
 [node name="Scale" parent="." instance=ExtResource("16_c15s6")]
 position = Vector2(1142, 340)
 
@@ -150,4 +153,5 @@ offset = Vector2(0.78, 0)
 script = ExtResource("18_1qt3r")
 main_scene_camera = NodePath("../MainSceneCamera")
 
+[editable path="ScoopulaHolder"]
 [editable path="MicrocentrifugeHolder"]

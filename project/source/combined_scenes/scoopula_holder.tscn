@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqwtudfa80qn"]
+[gd_scene load_steps=7 format=3 uid="uid://cqwtudfa80qn"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_4aecl"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_epgyh"]
 [ext_resource type="Texture2D" uid="uid://b533er73htfu6" path="res://updated_assets/lab_objects/scoopula_holder.svg" id="3_jp3dn"]
+[ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="4_epgyh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epgyh"]
+size = Vector2(27, 100)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4aecl"]
 size = Vector2(27, 80)
@@ -10,6 +14,17 @@ size = Vector2(27, 80)
 [node name="ScoopulaHolder" type="RigidBody2D"]
 script = ExtResource("1_4aecl")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="AttachmentInteractableArea" type="Area2D" parent="."]
+position = Vector2(7.5, 50)
+script = ExtResource("4_epgyh")
+allowed_body_groups = Array[StringName]([&"attachment:scoopula"])
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
+position = Vector2(0, -44)
+shape = SubResource("RectangleShape2D_epgyh")
+debug_color = Color(0.921745, 5.49653e-05, 0.690079, 0.42)
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("2_epgyh")
