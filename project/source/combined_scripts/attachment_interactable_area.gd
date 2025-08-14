@@ -53,7 +53,7 @@ func on_place_object() -> void:
 	contained_object.start_dragging()
 
 	var offset: Variant = _find_attachment_offset(contained_object)
-	if offset:
+	if offset is Vector2:
 		_remote_transform.position = offset
 		_remote_transform.remote_path = contained_object.get_path()
 
