@@ -32,6 +32,10 @@ func start_dragging() -> void:
 		p.set_deferred(&"collision_layer", 0)
 
 func stop_dragging() -> void:
+	# Contact wires will always be floating 
+	if is_in_group(&"contact_wire"):
+		return 
+		
 	set_deferred(&"collision_mask", 1)
 	set_deferred(&"freeze", false)
 
