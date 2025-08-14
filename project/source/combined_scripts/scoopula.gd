@@ -1,11 +1,14 @@
-extends ContainerComponent
+extends LabBody
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	#If the scoopula is dragged over a container with a substance in it, the scoopula menu will appear.
 	#The scoopula menu is under a canvas layer so that it sticks to the bottom left corner of the viewport when visible
-	if body is RigidBody2D and body.find_child("ContainerComponent"):
+	print(body.name)
+	if body is LabBody and body.find_child("ContainerComponent"):
 		$CanvasLayer/Control.visible = true
+		var new_container_comp:ContainerComponent = ContainerComponent.new()
+		self.add_child(new_container_comp)
 		set_deferred("freeze", true)
 	else:
 		$CanvasLayer/Control.visible = false
@@ -18,15 +21,15 @@ func _on_slider_dispense_qty_value_changed(value: float) -> void:
 func _on_btn_scoop_pressed() -> void:
 	var vol_to_take: float = $CanvasLayer/Control/PanelContainer/VBoxContainer/sliderDispenseQty.value
 	#If the user wants to scoop up over 0 mL, they can interact with scooping system
-	if vol_to_take != 0.0 and vol_to_take < self.get_volume():
-		for body:RigidBody2D in $Area2D.get_overlapping_bodies():
+	if vol_to_take != 0.0 and vol_to_take < self.find_child("ContainerComponent").get_volume():
+		for body:LabBody in $Area2D.get_overlapping_bodies():
 			if body.find_child("ContainerComponent") and !body.find_child("ContainerComponent").substances.is_empty():
 				#Add contents to scoopula and update containers's substance volume
 				var temp_container: BasicSubstance = body.find_child("ContainerComponent").substances[0].duplicate()
 				body.find_child("ContainerComponent").substances[0].volume -= vol_to_take
 				#print(body.name, "after being scooped from has volume of: ", body.find_child("ContainerComponent").get_total_volume())
 				temp_container.volume = vol_to_take
-				self.add(temp_container)
+				self.find_child("ContainerComponent").add(temp_container)
 				#print("My scoopula after scooping has volume of: ", self.get_total_volume())
 				
 				$FillSprite.visible = true
@@ -38,11 +41,11 @@ func _on_btn_scoop_pressed() -> void:
 
 
 func _on_btn_dispense_pressed() -> void:
-	if substances.is_empty():
+	if self.find_child("ContainerComponent").substances.is_empty():
 		print("scoopula is empty")
 	else:
 		#the volume of substance held by the scoopula
-		var vol_to_dispense: float = substances[0].get_volume()
+		var vol_to_dispense: float = self.find_child("ContainerComponent").substances[0].get_volume()
 		#as long as the scoopula isn't empty, the user can dispense substances from it
 		var body:RigidBody2D = $Area2D.get_overlapping_bodies()[1]
 		#Add contents to receiving container if it isn't full
@@ -52,10 +55,10 @@ func _on_btn_dispense_pressed() -> void:
 			
 			var temp_container: ContainerComponent = self.duplicate()
 			body.find_child("ContainerComponent").add(temp_container.take_volume(vol_to_dispense))
-			substances.clear()
+			self.find_child("ContainerComponent").substances.clear()
 			$FillSprite.visible = false
 			#print(body.name, " after being dumped into has volume of: ", body.find_child("ContainerComponent").get_total_volume())
 		else:
 			print(body.name, "is already full")
 	
-	print("scoopula empty?: ", substances.is_empty())
+	print("scoopula empty?: ", self.find_child("ContainerComponent").substances.is_empty())

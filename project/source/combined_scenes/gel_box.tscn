@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_r7so7"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_t800u"]
-[ext_resource type="Texture2D" uid="uid://diqycgd18toud" path="res://UpdatedAssets/LabObjects/Gel_Rig_Empty.svg" id="3_r7so7"]
+[ext_resource type="Texture2D" uid="uid://diqycgd18toud" path="res://updated_assets/lab_objects/gel_rig_empty.svg" id="3_r7so7"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_wqfps"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t800u"]

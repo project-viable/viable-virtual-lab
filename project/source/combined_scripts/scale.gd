@@ -1,17 +1,17 @@
-extends RigidBody2D
+extends LabBody
 
 var tare_weight: float = 0.0
 var current_weight: float = 0.0 #in terms of grams
 
-func _physics_process(_delta: float) -> void:
-	for node: Node2D in $Area2D.get_overlapping_bodies():
-		if node is RigidBody2D and node.find_child("ContainerComponent"):
-			current_weight = (node.find_child("ContainerComponent").container_mass + node.find_child("ContainerComponent").get_substances_mass())
-			#print ("get_substances_mass: ", node.find_child("ContainerComponent").get_substances_mass())
-			#print ("container_mass: ", node.find_child("ContainerComponent").container_mass)
-			
-	$CanvasLayer/Control/PanelContainer/VBoxContainer/Weight_Value.text = "%.2f" % [current_weight-tare_weight]
-	#print ("current_weight-tare_weight: ", current_weight-tare_weight)
+#func _physics_process(_delta: float) -> void:
+	#for node: Node2D in $Area2D.get_overlapping_bodies():
+		#if node is RigidBody2D and node.find_child("ContainerComponent"):
+			#current_weight = (node.find_child("ContainerComponent").container_mass + node.find_child("ContainerComponent").get_substances_mass())
+			##print ("get_substances_mass: ", node.find_child("ContainerComponent").get_substances_mass())
+			##print ("container_mass: ", node.find_child("ContainerComponent").container_mass)
+			#
+	#$CanvasLayer/Control/PanelContainer/VBoxContainer/Weight_Value.text = "%.2f" % [current_weight-tare_weight]
+	##print ("current_weight-tare_weight: ", current_weight-tare_weight)
 	
 	
 func _on_area_2d_body_entered(body: Node2D) -> void:
