@@ -1,14 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4q3npoc5c7fy"]
+[gd_scene load_steps=11 format=3 uid="uid://b4q3npoc5c7fy"]
 
-[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_7lagc"]
+[ext_resource type="Script" uid="uid://bepsdcjab3t21" path="res://combined_scripts/power_supply.gd" id="1_7lagc"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_80iu8"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_3yhad"]
-[ext_resource type="Texture2D" uid="uid://bi5tvuv5gh5u" path="res://UpdatedAssets/LabObjects/Powerbox.svg" id="3_7lagc"]
-[ext_resource type="Texture2D" uid="uid://crtq0m4w5xpmy" path="res://UpdatedAssets/IconsAndButtons/Plus_Symbol.svg" id="7_5dnns"]
-[ext_resource type="Texture2D" uid="uid://spcel0l2t7ec" path="res://UpdatedAssets/IconsAndButtons/Minus_Symbol.svg" id="8_07yqv"]
+[ext_resource type="Texture2D" uid="uid://bi5tvuv5gh5u" path="res://updated_assets/lab_objects/powerbox.svg" id="3_7lagc"]
+[ext_resource type="Texture2D" uid="uid://crtq0m4w5xpmy" path="res://updated_assets/icons_and_buttons/plus_symbol.svg" id="7_5dnns"]
+[ext_resource type="Script" uid="uid://brj1u83e5o6i6" path="res://combined_scripts/attachment_power_supply_outlet.gd" id="7_07yqv"]
+[ext_resource type="Texture2D" uid="uid://spcel0l2t7ec" path="res://updated_assets/icons_and_buttons/minus_symbol.svg" id="8_07yqv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80iu8"]
 size = Vector2(98, 38)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k6dxr"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7lagc"]
+radius = 7.0
 
 [node name="PowerSupply" type="RigidBody2D"]
 collision_layer = 0
@@ -60,3 +67,33 @@ texture = ExtResource("7_5dnns")
 position = Vector2(-36, 4)
 scale = Vector2(0.016, 0.016)
 texture = ExtResource("8_07yqv")
+
+[node name="AttachmentPostiveOutlet" type="Area2D" parent="."]
+position = Vector2(-36, -11)
+script = ExtResource("7_07yqv")
+allowed_point_groups = Array[StringName]([&"attachment:contact_wire"])
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentPostiveOutlet"]
+shape = SubResource("CircleShape2D_k6dxr")
+debug_color = Color(0.960415, 0, 0.51616, 0.42)
+
+[node name="AttachmentNegativeOutlet" type="Area2D" parent="."]
+position = Vector2(-36, 5)
+script = ExtResource("7_07yqv")
+expected_outlet_charge = 1
+allowed_point_groups = Array[StringName]([&"attachment:contact_wire"])
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentNegativeOutlet"]
+shape = SubResource("CircleShape2D_7lagc")
+debug_color = Color(0.799247, 0.420694, 0.0500949, 0.42)
+
+[connection signal="object_placed" from="AttachmentPostiveOutlet" to="AttachmentPostiveOutlet" method="_on_object_placed"]
+[connection signal="object_removed" from="AttachmentPostiveOutlet" to="." method="unplug_handler"]
+[connection signal="wire_connected" from="AttachmentPostiveOutlet" to="." method="_on_wire_connected"]
+[connection signal="object_placed" from="AttachmentNegativeOutlet" to="AttachmentNegativeOutlet" method="_on_object_placed"]
+[connection signal="object_removed" from="AttachmentNegativeOutlet" to="." method="unplug_handler"]
+[connection signal="wire_connected" from="AttachmentNegativeOutlet" to="." method="_on_wire_connected"]
