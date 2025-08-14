@@ -387,6 +387,81 @@ If we have reached the end of a sprint, then we will discuss {\it as a team} whe
 state of \type{dev} is in good enough shape to be merged into \type{main}. If we agree, then one of
 us will create a pull request from \type{dev} to \type{main} and merge it in.
 
+\subject{Updating topic branches}
+Let's say you have checked out the topic branch \type{topic/a}, which is being worked on by
+someone else. When pulling these changes, always use the command \type{git pull --rebase}.
+Alternatively, if you set the config option \type{pull.rebase} to \type{true}, then \type{git pull}
+by itself will automatically use the rebase strategy.
+
+Let's say that \type{topic/a} originally looked like this:
+
+\startMidFig
+\startMPcode
+dev := 1;
+topic := 0;
+
+connect_branches(dev, topic, 2);
+
+make_branch(dev, 5.5, "dev", dev_color)(0, 1, 2, 3);
+make_branch(topic, 5.5, "topic/a", topic_a_color)(2, 3);
+\stopMPcode
+\stopMidFig
+
+In order to keep their branch up to date, they rebased \type{topic/a} on top of \type{dev}. If you
+were to fetch these changes without updating your local branch, then your local repository would
+look like this:
+
+\startMidFig
+\startMPcode
+dev := 2;
+origin_topic := 1;
+topic := 0;
+
+connect_branches(dev, origin_topic, 4);
+connect_branches(dev, topic, 2);
+
+make_branch(dev, 5.5, "dev", dev_color)(0, 1, 2, 3);
+make_branch(origin_topic, 5.5, "origin/topic/a", topic_a_color)(4, 5);
+make_branch(topic, 5.5, "topic/a", topic_a_color)(2, 3);
+\stopMPcode
+\stopMidFig
+
+By default, \type{git pull} will fetch these changes and then merge \type{origin/topic/a} into
+\type{topic/a}, which will produce something that looks like this:
+
+\startMidFig
+\startMPcode
+dev := 2;
+origin_topic := 1;
+topic := 0;
+
+connect_branches(dev, origin_topic, 4);
+connect_branches(dev, topic, 2);
+connect_branches(origin_topic, topic, 6);
+
+make_branch(dev, 6.5, "dev", dev_color)(0, 1, 2, 3);
+make_branch(origin_topic, 6.5, "origin/topic/a", topic_a_color)(4, 5);
+make_branch(topic, 6.5, "topic/a", topic_a_color)(2, 3, 6);
+\stopMPcode
+\stopMidFig
+
+This is undesirable, since it results in an extra merge commit with two different versions of the
+same branch as parents. On the other hand, using \type{git pull --rebase} will give the history:
+
+\startMidFig
+\startMPcode
+dev := 1;
+topic := 0;
+
+connect_branches(dev, topic, 4);
+
+make_branch(dev, 5.5, "dev", dev_color)(0, 1, 2, 3);
+make_branch(topic, 5.5, "topic/a", topic_a_color)(4, 5);
+\stopMPcode
+\stopMidFig
+
+which is much cleaner.
+
 \subject{Incorporating changes from \type{dev}}
 Let's say you want to add some feature, so you create a branch from \type{dev} called
 \type{topic/add-feature}. At the same time, someone else fixes a bug in the branch

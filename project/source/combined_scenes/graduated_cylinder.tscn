@@ -1,19 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7ygbkawlsvn8"]
+[gd_scene load_steps=6 format=3 uid="uid://b7ygbkawlsvn8"]
 
-[ext_resource type="Texture2D" uid="uid://bd7nxviy5qand" path="res://Images/Resized_Images/graduated_cylinder_container.png" id="1_q1dm3"]
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_5k7v7"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_8riox"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_ufkpi"]
-[ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_y55fb"]
-[ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_5k7v7"]
+[ext_resource type="Texture2D" uid="uid://dn3h2fdnrisw6" path="res://updated_assets/lab_objects/graduated_cylinder.svg" id="4_5k7v7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ufkpi"]
-size = Vector2(20, 170)
+size = Vector2(26, 171)
 
 [node name="GraduatedCylinder" type="RigidBody2D"]
 collision_layer = 0
+script = ExtResource("1_5k7v7")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
+position = Vector2(0, 14.5)
 shape = SubResource("RectangleShape2D_ufkpi")
 
 [node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
@@ -26,19 +27,6 @@ metadata/_custom_type_script = "uid://bsonh03rfuf2p"
 script = ExtResource("2_8riox")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="GraduatedCylinderContainer" type="Sprite2D" parent="SelectableCanvasGroup"]
-texture = ExtResource("1_q1dm3")
-
-[node name="InteractionArea" type="Area2D" parent="."]
-script = ExtResource("4_y55fb")
-metadata/_custom_type_script = "uid://6sh30cc4wi2"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_ufkpi")
-
-[node name="InteractionComponent" type="Node2D" parent="." node_paths=PackedStringArray("interaction_area", "body")]
-script = ExtResource("5_5k7v7")
-interaction_area = NodePath("../InteractionArea")
-body = NodePath("..")
-metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
+[node name="GraduatedCylinderContainer2" type="Sprite2D" parent="SelectableCanvasGroup"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_5k7v7")

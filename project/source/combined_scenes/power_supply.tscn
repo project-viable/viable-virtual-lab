@@ -1,26 +1,31 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4q3npoc5c7fy"]
+[gd_scene load_steps=10 format=3 uid="uid://b4q3npoc5c7fy"]
 
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_7lagc"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_80iu8"]
-[ext_resource type="Texture2D" uid="uid://bmnvdginitg4v" path="res://Images/Resized_Images/Power_Box.png" id="2_3yhad"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_3yhad"]
-[ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="4_k6dxr"]
-[ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_7lagc"]
+[ext_resource type="Texture2D" uid="uid://bi5tvuv5gh5u" path="res://UpdatedAssets/LabObjects/Powerbox.svg" id="3_7lagc"]
+[ext_resource type="Texture2D" uid="uid://crtq0m4w5xpmy" path="res://UpdatedAssets/IconsAndButtons/Plus_Symbol.svg" id="7_5dnns"]
+[ext_resource type="Texture2D" uid="uid://spcel0l2t7ec" path="res://UpdatedAssets/IconsAndButtons/Minus_Symbol.svg" id="8_07yqv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80iu8"]
-size = Vector2(98, 36)
+size = Vector2(98, 38)
 
 [node name="PowerSupply" type="RigidBody2D"]
 collision_layer = 0
+script = ExtResource("1_7lagc")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("1_80iu8")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="PowerBox" type="Sprite2D" parent="SelectableCanvasGroup"]
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("2_3yhad")
+position = Vector2(0, -8)
+scale = Vector2(0.174763, 0.174763)
+texture = ExtResource("3_7lagc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_80iu8")
 
 [node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
@@ -29,15 +34,29 @@ body = NodePath("..")
 interact_canvas_group = NodePath("../SelectableCanvasGroup")
 metadata/_custom_type_script = "uid://bsonh03rfuf2p"
 
-[node name="InteractionArea" type="Area2D" parent="."]
-script = ExtResource("4_k6dxr")
-metadata/_custom_type_script = "uid://6sh30cc4wi2"
+[node name="StartButton" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 25.0
+offset_top = -8.0
+offset_right = 43.0
+offset_bottom = 3.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-shape = SubResource("RectangleShape2D_80iu8")
+[node name="StartLabel" type="Label" parent="StartButton"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 42.0
+offset_bottom = 28.0
+scale = Vector2(0.388818, 0.388818)
+text = "Start"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="InteractionComponent" type="Node2D" parent="." node_paths=PackedStringArray("interaction_area", "body")]
-script = ExtResource("5_7lagc")
-interaction_area = NodePath("../InteractionArea")
-body = NodePath("..")
-metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
+[node name="PlusSymbol" type="Sprite2D" parent="."]
+position = Vector2(-36, -12)
+scale = Vector2(0.0155412, 0.0155412)
+texture = ExtResource("7_5dnns")
+
+[node name="MinusSymbol" type="Sprite2D" parent="."]
+position = Vector2(-36, 4)
+scale = Vector2(0.016, 0.016)
+texture = ExtResource("8_07yqv")

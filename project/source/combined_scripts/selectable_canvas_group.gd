@@ -26,7 +26,7 @@ func _process(_delta: float) -> void:
 
 # Hacky way to determine which one is drawn on top.
 func _draw() -> void:
-	draw_order_this_frame = Selectables.get_next_index()
+	draw_order_this_frame = Interaction.get_next_draw_order()
 
 # True if the mouse is hovering any `Sprite2D`s that are children of this node.
 func is_mouse_hovering() -> bool:

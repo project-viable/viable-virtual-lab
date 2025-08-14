@@ -1,18 +1,18 @@
 [gd_scene load_steps=15 format=3 uid="uid://dl7pwqhm483yt"]
 
-[ext_resource type="Texture2D" uid="uid://c16pk6aqn5d2t" path="res://Images/Resized_Images/Agarose_Powder.png" id="1_eomqc"]
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_w1h17"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_fwobd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_lsgmi"]
-[ext_resource type="Script" uid="uid://bdcoyj8ye48sb" path="res://combined_scripts/interaction_component.gd" id="5_ao4kq"]
+[ext_resource type="Texture2D" uid="uid://dxm0iobbxvvg7" path="res://updated_assets/lab_objects/bottle_agarose.svg" id="5_w1h17"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="6_irog7"]
-[ext_resource type="Script" uid="uid://6sh30cc4wi2" path="res://combined_scripts/interaction_area.gd" id="6_w1h17"]
+[ext_resource type="Script" uid="uid://8jbti40eodk6" path="res://combined_scripts/interactable_area.gd" id="6_w1h17"]
 [ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://combined_scripts/substance_instance.gd" id="7_w1h17"]
 [ext_resource type="Script" uid="uid://dmam7f2mtik2" path="res://combined_scripts/basic_substance_data.gd" id="8_upaf2"]
 [ext_resource type="Script" uid="uid://cckgm2byotfq0" path="res://combined_scripts/solubility_data.gd" id="9_s0bp6"]
 [ext_resource type="Script" uid="uid://5sjgduop7hjw" path="res://combined_scripts/basic_substance.gd" id="10_dksvt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eomqc"]
-size = Vector2(35, 77)
+size = Vector2(99.5557, 134.815)
 
 [sub_resource type="Resource" id="Resource_irog7"]
 script = ExtResource("9_s0bp6")
@@ -37,9 +37,12 @@ volume = 100.0
 metadata/_custom_type_script = "uid://5sjgduop7hjw"
 
 [node name="AgaroseBottle" type="RigidBody2D"]
+script = ExtResource("1_w1h17")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -0.5)
+position = Vector2(0, 11.5)
+scale = Vector2(0.482142, 0.482142)
 shape = SubResource("RectangleShape2D_eomqc")
 
 [node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
@@ -50,7 +53,6 @@ metadata/_custom_type_script = "uid://bsonh03rfuf2p"
 
 [node name="InteractionArea" type="Area2D" parent="."]
 script = ExtResource("6_w1h17")
-metadata/_custom_type_script = "uid://6sh30cc4wi2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 position = Vector2(-0.5, -0.5)
@@ -61,15 +63,20 @@ script = ExtResource("2_lsgmi")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="AgarosePowder" type="Sprite2D" parent="SelectableCanvasGroup"]
-texture = ExtResource("1_eomqc")
-
-[node name="InteractionComponent" type="Node2D" parent="." node_paths=PackedStringArray("interaction_area", "body")]
-script = ExtResource("5_ao4kq")
-interaction_area = NodePath("../InteractionArea")
-body = NodePath("..")
-metadata/_custom_type_script = "uid://bdcoyj8ye48sb"
+scale = Vector2(0.202699, 0.202699)
+texture = ExtResource("5_w1h17")
 
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("6_irog7")
 substances = Array[ExtResource("7_w1h17")]([SubResource("Resource_7fbys")])
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+
+[node name="Label" type="Label" parent="."]
+offset_left = -13.0
+offset_top = 7.0
+offset_right = 47.0
+offset_bottom = 48.0
+scale = Vector2(0.446575, 0.446575)
+text = "Agarose
+Powder"
+horizontal_alignment = 1

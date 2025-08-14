@@ -1,11 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=23 format=3 uid="uid://bnn7yyuvh6jsj"]
 
-[ext_resource type="Texture2D" uid="uid://mba7i08n5ag6" path="res://Images/Resized_Images/Background.png" id="1_5wocf"]
+[ext_resource type="Texture2D" uid="uid://csifb4mbnybmu" path="res://updated_assets/background.png" id="1_1qt3r"]
 [ext_resource type="PackedScene" uid="uid://b5ff3gy87ykja" path="res://combined_scenes/flask.tscn" id="2_e4xug"]
 [ext_resource type="PackedScene" uid="uid://b7ygbkawlsvn8" path="res://combined_scenes/graduated_cylinder.tscn" id="3_iy3xr"]
 [ext_resource type="PackedScene" uid="uid://t5vephauatf2" path="res://combined_scenes/pipette.tscn" id="4_t02aw"]
 [ext_resource type="PackedScene" uid="uid://b2owhv1drxs7p" path="res://combined_scenes/pipette_tip_box.tscn" id="5_vwsp8"]
-[ext_resource type="PackedScene" uid="uid://cgju3rlfrqslw" path="res://combined_scenes/weigh_boat.tscn" id="6_vj1mp"]
+[ext_resource type="PackedScene" uid="uid://cv7hfgxrraic0" path="res://combined_scenes/weigh_boat.tscn" id="6_vj1mp"]
 [ext_resource type="PackedScene" uid="uid://dl7pwqhm483yt" path="res://combined_scenes/agarose_bottle.tscn" id="7_yik3d"]
 [ext_resource type="PackedScene" uid="uid://du0xgct56vfqx" path="res://combined_scenes/tae_bottle.tscn" id="8_yik3d"]
 [ext_resource type="PackedScene" uid="uid://cs2tep7cd3vxf" path="res://combined_scenes/microwave.tscn" id="9_y4qw0"]
@@ -13,39 +13,44 @@
 [ext_resource type="PackedScene" uid="uid://cys6ccja2bnxo" path="res://combined_scenes/gel_mold.tscn" id="11_l4mh3"]
 [ext_resource type="PackedScene" uid="uid://5orfeca6lgvk" path="res://combined_scenes/gel_box.tscn" id="12_sdlgg"]
 [ext_resource type="PackedScene" uid="uid://b4q3npoc5c7fy" path="res://combined_scenes/power_supply.tscn" id="13_36q3s"]
+[ext_resource type="PackedScene" uid="uid://cqwtudfa80qn" path="res://combined_scenes/scoopula_holder.tscn" id="14_82fmo"]
 [ext_resource type="PackedScene" uid="uid://cug6kav5s55iq" path="res://combined_scenes/gel_imager.tscn" id="14_eg6i0"]
 [ext_resource type="PackedScene" uid="uid://c1af3h23bqbvv" path="res://combined_scenes/scoopula.tscn" id="15_aby4o"]
-[ext_resource type="PackedScene" uid="uid://gfmuo2b5e2b5" path="res://combined_scenes/scale.tscn" id="16_c15s6"]
+[ext_resource type="PackedScene" uid="uid://b42qa84sy7cg8" path="res://combined_scenes/scale.tscn" id="16_c15s6"]
 [ext_resource type="PackedScene" uid="uid://dqc2dtt648v3m" path="res://combined_scenes/biohazard_bin.tscn" id="17_6se67"]
+[ext_resource type="Script" uid="uid://b8kjtd0vdnq42" path="res://combined_scripts/transition_camera.gd" id="18_1qt3r"]
+[ext_resource type="PackedScene" uid="uid://bt321lhs647bu" path="res://combined_scenes/microcentrifuge_holder.tscn" id="18_xe06v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wocf"]
 size = Vector2(1430, 222)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4xug"]
-size = Vector2(1194, 17)
+size = Vector2(1217, 17)
 
 [node name="Combined" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
-texture = ExtResource("1_5wocf")
+scale = Vector2(0.664301, 0.664301)
+texture = ExtResource("1_1qt3r")
 
 [node name="Counter" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Counter"]
-position = Vector2(645, 676)
+position = Vector2(654, 702)
 shape = SubResource("RectangleShape2D_5wocf")
 
 [node name="Shelf" type="StaticBody2D" parent="."]
+position = Vector2(2, 13)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf"]
-position = Vector2(639, 356.5)
+position = Vector2(642.5, 356.5)
 shape = SubResource("RectangleShape2D_e4xug")
 one_way_collision = true
 metadata/_edit_lock_ = true
 
 [node name="Shelf2" type="StaticBody2D" parent="."]
-position = Vector2(0, -228)
+position = Vector2(0, -256)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf2"]
 position = Vector2(639, 356.5)
@@ -54,55 +59,81 @@ one_way_collision = true
 metadata/_edit_lock_ = true
 
 [node name="Flask" parent="." instance=ExtResource("2_e4xug")]
-position = Vector2(469, 298)
+position = Vector2(468, 310)
 
 [node name="Flask2" parent="." instance=ExtResource("2_e4xug")]
-position = Vector2(551, 297)
+position = Vector2(553, 312)
 
 [node name="GraduatedCylinder" parent="." instance=ExtResource("3_iy3xr")]
-position = Vector2(701, 253)
+position = Vector2(696, 257)
 
 [node name="Pipette" parent="." instance=ExtResource("4_t02aw")]
-position = Vector2(339, 329)
+position = Vector2(340, 340)
 rotation = -1.57729
 
 [node name="PipetteTipBox" parent="." instance=ExtResource("5_vwsp8")]
-position = Vector2(224, 304)
-
-[node name="TAEBottle" parent="." instance=ExtResource("8_yik3d")]
-position = Vector2(940, 301)
-collision_layer = 1
-
-[node name="Microwave" parent="." instance=ExtResource("9_y4qw0")]
-position = Vector2(162, 480)
-
-[node name="MicrocentrifugeTube" parent="." instance=ExtResource("10_bi7f4")]
-position = Vector2(368, 529)
-
-[node name="GelMold" parent="." instance=ExtResource("11_l4mh3")]
-position = Vector2(449, 539)
-
-[node name="GelBox" parent="." instance=ExtResource("12_sdlgg")]
-position = Vector2(578, 527)
-
-[node name="PowerSupply" parent="." instance=ExtResource("13_36q3s")]
-position = Vector2(712, 538)
-
-[node name="GelImager" parent="." instance=ExtResource("14_eg6i0")]
-position = Vector2(1136, 484)
-
-[node name="Scoopula" parent="." instance=ExtResource("15_aby4o")]
-position = Vector2(1033, 291)
-
-[node name="BiohazardBin" parent="." instance=ExtResource("17_6se67")]
-position = Vector2(83, 66)
+position = Vector2(158, 318)
 
 [node name="WeighBoat" parent="." instance=ExtResource("6_vj1mp")]
-position = Vector2(804, 330)
-script = null
-
-[node name="Scale" parent="." instance=ExtResource("16_c15s6")]
-position = Vector2(1134, 325)
+position = Vector2(787, 349)
 
 [node name="AgaroseBottle" parent="." instance=ExtResource("7_yik3d")]
-position = Vector2(889, 305)
+position = Vector2(882, 312)
+
+[node name="TAEBottle" parent="." instance=ExtResource("8_yik3d")]
+position = Vector2(945, 315)
+
+[node name="Microwave" parent="." instance=ExtResource("9_y4qw0")]
+position = Vector2(162, 511)
+
+[node name="GelMold" parent="." instance=ExtResource("11_l4mh3")]
+position = Vector2(808, 585)
+
+[node name="GelBox" parent="." instance=ExtResource("12_sdlgg")]
+position = Vector2(582, 563)
+
+[node name="PowerSupply" parent="." instance=ExtResource("13_36q3s")]
+position = Vector2(715, 570)
+
+[node name="GelImager" parent="." instance=ExtResource("14_eg6i0")]
+position = Vector2(1138, 491)
+
+[node name="Scoopula" parent="." instance=ExtResource("15_aby4o")]
+position = Vector2(1032, 300)
+
+[node name="ScoopulaHolder" parent="." instance=ExtResource("14_82fmo")]
+position = Vector2(1025, 303)
+
+[node name="Scale" parent="." instance=ExtResource("16_c15s6")]
+position = Vector2(1142, 340)
+
+[node name="BiohazardBin" parent="." instance=ExtResource("17_6se67")]
+position = Vector2(145, 41)
+
+[node name="MicrocentrifugeTube" parent="." instance=ExtResource("10_bi7f4")]
+position = Vector2(383, 552)
+freeze = true
+
+[node name="MicrocentrifugeTube2" parent="." instance=ExtResource("10_bi7f4")]
+position = Vector2(469, 552)
+freeze = true
+
+[node name="MicrocentrifugeTube3" parent="." instance=ExtResource("10_bi7f4")]
+position = Vector2(441, 552)
+freeze = true
+
+[node name="MicrocentrifugeTube4" parent="." instance=ExtResource("10_bi7f4")]
+position = Vector2(411, 552)
+freeze = true
+
+[node name="MicrocentrifugeHolder" parent="." instance=ExtResource("18_xe06v")]
+position = Vector2(426, 557)
+
+[node name="MainSceneCamera" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="TransitionCamera" type="Camera2D" parent="." node_paths=PackedStringArray("main_scene_camera")]
+position = Vector2(641, 360)
+offset = Vector2(0.78, 0)
+script = ExtResource("18_1qt3r")
+main_scene_camera = NodePath("../MainSceneCamera")

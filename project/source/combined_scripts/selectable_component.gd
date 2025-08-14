@@ -1,8 +1,16 @@
 ## Imbues a `SelectableCanvasGroup` with the power of being clicked.
 class_name SelectableComponent
-extends Node2D
+extends InteractableComponent
 
 
+enum PressMode
+{
+	HOLD, ## This should be used for any "clicking and dragging" behavior. On mouse down, `is_held()` will be true until the mouse is released.
+	PRESS, ## Activate immediately upon mouse down. `is_held()` is never true. This should be used for buttons that you click once.
+}
+
+
+signal pressed()
 signal started_holding()
 signal stopped_holding()
 
@@ -10,36 +18,43 @@ signal stopped_holding()
 ## This will be outlined when it's hovered, and clicking will cause it to be held.
 @export var interact_canvas_group: SelectableCanvasGroup
 
-
-## True when the mouse was clicked on the canvas group and is still being held down. By default,
-## nothing in particular happens while a selectable component is held; this should be either done
-## in the parent by connecting to the signals, or by making a class derived from this (for an
-## example, see `DragComponent`).
-var is_held: bool = false
+## Determines how clicking interacts with this component.
+@export var press_mode: PressMode = PressMode.HOLD
 
 
-func _ready() -> void:
-	add_to_group(&"selectable_component")
+func is_hovered() -> bool: return interact_canvas_group.is_mouse_hovering()
+func get_draw_order() -> int: return interact_canvas_group.draw_order_this_frame
+func get_absolute_z_index() -> int: return Util.get_absolute_z_index(interact_canvas_group)
 
-func _process(_delta: float) -> void:
-	interact_canvas_group.is_outlined = _is_hovering() and not is_held
+func get_interactions() -> Array[InteractInfo]:
+	# TODO: Use a better system instead of only having the single left-click interaction with a
+	# hard-coded name.
+	return [InteractInfo.new(InteractInfo.Kind.PRIMARY, "Activate")]
 
-func _unhandled_input(e: InputEvent) -> void:
-	if e.is_action_pressed(&"DragLabObject") and _is_hovering():
-		is_held = true
-		start_holding()
-		started_holding.emit()
-		GameState.is_dragging = true
-	elif e.is_action_released(&"DragLabObject") and is_held:
-		stopped_holding.emit()
-		stop_holding()
-		is_held = false
-		GameState.is_dragging = false
+func start_targeting(_k: InteractInfo.Kind) -> void:
+	interact_canvas_group.is_outlined = true
 
-## (virtual) called when the sprite group is clicked.
+func stop_targeting(_k: InteractInfo.Kind) -> void:
+	interact_canvas_group.is_outlined = false
+
+func start_interact(_k: InteractInfo.Kind) -> void:
+	match press_mode:
+		PressMode.HOLD:
+			start_holding()
+			started_holding.emit()
+		PressMode.PRESS:
+			press()
+			pressed.emit()
+
+func stop_interact(_k: InteractInfo.Kind) -> void:
+	stopped_holding.emit()
+	stop_holding()
+
+## (virtual) called when the sprite group is clicked (only when `press_mode` is `HOLD`).
 func start_holding() -> void: pass
 
-## (virtual) called when the sprite group is let go of.
+## (virtual) called when the sprite group is let go of (only when `press_mode` is `HOLD`).
 func stop_holding() -> void: pass
 
-func _is_hovering() -> bool: return Selectables.hovered_component == self
+## (virtual) called when the sprite group is simply clicked (only when `press_mode` is `PRESS`).
+func press() -> void: pass

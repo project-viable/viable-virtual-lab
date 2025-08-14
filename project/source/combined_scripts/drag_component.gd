@@ -4,16 +4,22 @@ extends SelectableComponent
 
 
 ## The body to be dragged.
-@export var body: RigidBody2D
+@export var body: LabBody
+
 
 var _offset: Vector2 = Vector2.ZERO
 var _velocity: Vector2 = Vector2.ZERO
 
-# The body's interaction area for toggling area monitoring
-var interaction_area: InteractionArea
+
+static var _pick_up_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up")
+static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
+
+
+func _ready() -> void:
+	press_mode = PressMode.PRESS
 
 func _physics_process(delta: float) -> void:
-	if is_held:
+	if is_active():
 		if abs(body.global_rotation) > 0.001:
 			var is_rotating_clockwise := body.global_rotation < 0
 			body.global_rotation -= body.global_rotation * delta * 50
@@ -25,29 +31,34 @@ func _physics_process(delta: float) -> void:
 		_velocity = (dest_pos - body.global_position) / delta
 		body.global_position = dest_pos
 
-func start_holding() -> void:
-		body.set_deferred(&"freeze", true)
-		
-		# Get the body's interaction_area
-		for node in body.get_children():
-			if node is InteractionArea:
-				interaction_area = node
-				break
-				
-		interaction_area.set_deferred(&"monitoring", false) # A body that is dragged should not be able to detect anything
+func press() -> void:
+	if is_active(): stop_dragging()
+	else: start_dragging()
 
-		# Move the body to the front by moving it to the end of its parent's children.
-		var body_parent: Node = body.get_parent()
-		if body_parent:
-			body_parent.call_deferred(&"remove_child", body)
-			body_parent.call_deferred(&"add_child", body)
+func get_interactions() -> Array[InteractInfo]:
+	if is_active(): return [_put_down_interaction]
+	else: return [_pick_up_interaction]
 
-		_offset = body.get_local_mouse_position()
+func start_dragging() -> void:
+	body.start_dragging()
+	Interaction.active_drag_component = self
+	interact_canvas_group.is_outlined = false
 
-func stop_holding() -> void:
-		body.set_deferred(&"freeze", false)
-		interaction_area.set_deferred(&"monitoring", true) # Re-enable detection when the body is not being dragged
+	# We can't just use `move_to_front` because it doesn't properly reorder the `_draw` calls,
+	# whose specific order is required to determine which one is in front.
+	var body_parent := body.get_parent()
+	if body_parent:
+		body_parent.call_deferred(&"remove_child", body)
+		body_parent.call_deferred(&"add_child", body)
 
-		# Fling the body after dragging depending on how it was moving when being dragged.
-		var global_offset := body.to_global(_offset) - body.global_position
-		body.call_deferred(&"apply_impulse", _velocity / 10.0, global_offset)
+	_offset = body.get_local_mouse_position()
+
+## Can be safely called from elsewhere. Also cancels any interaction that was pressed down.
+func stop_dragging() -> void:
+	body.stop_dragging()
+	Interaction.active_drag_component = null
+	Interaction.clear_interaction_stack()
+	interact_canvas_group.is_outlined = true
+	body.set_deferred(&"linear_velocity", _velocity / 5.0)
+
+func is_active() -> bool: return Interaction.active_drag_component == self
