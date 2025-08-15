@@ -18,7 +18,7 @@ metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 [node name="AttachmentInteractableArea" type="Area2D" parent="."]
 position = Vector2(7.5, 50)
 script = ExtResource("4_epgyh")
-allowed_body_groups = Array[StringName]([&"attachment:scoopula"])
+body_groups = Array[StringName]([&"attachment:scoopula"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]

@@ -5,6 +5,13 @@ extends InteractableArea
 ## `RemoteTransform2D`. This node should never be rotated nor scaled.
 
 
+enum GroupFilterType
+{
+	WHITELIST, ## Only allow attachment points/bodies that have at least one of the listed groups.
+	BLACKLIST, ## Only allow attachment points/bodies that are not in any of the listed groups.
+}
+
+
 signal object_placed(body: LabBody)
 signal object_removed(body: LabBody)
 
@@ -24,17 +31,19 @@ signal object_removed(body: LabBody)
 @export var contained_object: LabBody = null
 
 @export_group("Object Group Filtering")
-## Any attachment point, regardless of group, will be able to attach to this.
-@export var allow_all_attachment_points: bool = false
-## If `allow_all_attachment_points` is not set to true, then only attachment points with these
-## groups will be allowed.
-@export var allowed_point_groups: Array[StringName] = []
+## Groups names used to filter what `AttachmentPoint`s are allowed to attach. Depending on whether
+## `point_group_filter_type` is whitelist or blacklist, this will either allow or disallow
+## attachment points with any of the listed groups.
+@export var point_groups: Array[StringName] = []
+## Determines how `point_groups` is used to determine what `AttachmentPoint`s are allowed.
+@export var point_group_filter_type: GroupFilterType = GroupFilterType.WHITELIST
 
-## Any `LabBody` will be able to directly attach to this.
-@export var allow_all_bodies: bool = false
-## If `allow_all_bodies` is not true, then only `LabBody`s in these groups can be attached.
-@export var allowed_body_groups: Array[StringName] = []
-
+## Groups names used to filter what `LabBody`s are allowed to attach. Depending on whether
+## `body_group_filter_type` is whitelist or blacklist, this will either allow or disallow bodies
+## with any of the listed groups.
+@export var body_groups: Array[StringName] = []
+## Determines how `body_groups` is used to determine what `LabBody`s are allowed.
+@export var body_group_filter_type: GroupFilterType = GroupFilterType.WHITELIST
 
 # Drag component of the contained object. Used to enable and disable interaction with it.
 var _drag_component: DragComponent = null
@@ -146,7 +155,7 @@ func _find_attachment_offset(body: LabBody) -> Variant:
 	var ap := _find_attachment_point(body)
 	if ap: return -ap.position
 
-	if allow_all_bodies or allowed_body_groups.any(func(g: StringName) -> bool: return body.is_in_group(g)):
+	if _matches_filter(body_groups, body_group_filter_type, body):
 		var bbox := Util.get_bounding_box(body)
 		# Bottom of the box.
 		return -bbox.position - bbox.size * Vector2(0.5, 1.0)
@@ -155,7 +164,12 @@ func _find_attachment_offset(body: LabBody) -> Variant:
 
 func _find_attachment_point(body: LabBody) -> AttachmentPoint:
 	for a: AttachmentPoint in body.find_children("", "AttachmentPoint", false):
-		if allow_all_attachment_points or allowed_point_groups.any(func(g: StringName) -> bool: return a.is_in_group(g)):
+		if _matches_filter(point_groups, point_group_filter_type, a):
 			return a
 	
 	return null
+
+static func _matches_filter(groups: Array[StringName], method: GroupFilterType, node: Node2D) -> bool:
+	var is_in_any_group := groups.any(func(g: StringName) -> bool: return node.is_in_group(g))
+	if method == GroupFilterType.WHITELIST: return is_in_any_group
+	else: return not is_in_any_group

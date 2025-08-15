@@ -18,7 +18,7 @@ metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 [node name="AttachmentInteractableArea" type="Area2D" parent="."]
 position = Vector2(-49, -18)
 script = ExtResource("2_ufhtq")
-allowed_point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
+point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
 
@@ -30,7 +30,7 @@ debug_color = Color(0.954008, 0.0952036, 0.484962, 0.42)
 [node name="AttachmentInteractableArea2" type="Area2D" parent="."]
 position = Vector2(-17, -18)
 script = ExtResource("2_ufhtq")
-allowed_point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
+point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
 
@@ -42,7 +42,7 @@ debug_color = Color(0.954008, 0.0952036, 0.484962, 0.42)
 [node name="AttachmentInteractableArea3" type="Area2D" parent="."]
 position = Vector2(16, -18)
 script = ExtResource("2_ufhtq")
-allowed_point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
+point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
 
@@ -54,7 +54,7 @@ debug_color = Color(0.954008, 0.0952036, 0.484962, 0.42)
 [node name="AttachmentInteractableArea4" type="Area2D" parent="."]
 position = Vector2(49, -18)
 script = ExtResource("2_ufhtq")
-allowed_point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
+point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
 

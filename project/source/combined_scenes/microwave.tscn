@@ -283,7 +283,7 @@ show_ghost_sprite = false
 hide_object = true
 place_prompt = "Put in microwave"
 selectable_canvas_group = NodePath("../SelectableCanvasGroup")
-allow_all_bodies = true
+body_group_filter_type = 1
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectContainmentInteractableArea"]
