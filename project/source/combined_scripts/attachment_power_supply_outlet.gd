@@ -1,29 +1,33 @@
 extends AttachmentInteractableArea
 
-@export var expected_outlet_charge: Wire.Charge
+@export var outlet_charge: Wire.Charge
 
 ## Emits a signal carrying the wire and the outlet's charge that wire was trying to interact with
-signal wire_connected(wire: Wire, expected_outlet_charge: Wire.Charge)
+signal wire_connected(wire: Wire, outlet_charge: Wire.Charge)
 
-var interacting_wire: Wire
+var interacting_wire: DragComponent
 
 func get_interactions() -> Array[InteractInfo]:
 	var info: InteractInfo
-	if can_place(Interaction.active_drag_component.body) and not contained_object:
+	if can_place(Interaction.active_drag_component.body):
+		interacting_wire = Interaction.active_drag_component
 		info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Connect Wire")
 		return [info]
 
 	return []
 
 func start_interact(_k: InteractInfo.Kind) -> void:
-	super(_k)
 	if contained_object:
-		print("A wire is already plugged in!")
-	
+		print("A wire is already connected to the %s outlet!" % [Wire.Charge.keys()[outlet_charge]])
+		interacting_wire.stop_dragging()
+		interacting_wire.body.position.y -= 50
+		return
+		
+	super(_k)
+		
 
 func can_place(body: LabBody) -> bool:
 	return body.is_in_group("contact_wire")
 
-func _on_object_placed(body: LabBody) -> void:
-	interacting_wire = body
-	wire_connected.emit(contained_object, expected_outlet_charge)
+func _on_object_placed(_body: LabBody) -> void:
+	wire_connected.emit(contained_object, outlet_charge)

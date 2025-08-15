@@ -82,7 +82,7 @@ debug_color = Color(0.960415, 0, 0.51616, 0.42)
 [node name="AttachmentNegativeOutlet" type="Area2D" parent="."]
 position = Vector2(-36, 5)
 script = ExtResource("7_07yqv")
-expected_outlet_charge = 1
+outlet_charge = 1
 allowed_point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
@@ -91,6 +91,7 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_7lagc")
 debug_color = Color(0.799247, 0.420694, 0.0500949, 0.42)
 
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="object_placed" from="AttachmentPostiveOutlet" to="AttachmentPostiveOutlet" method="_on_object_placed"]
 [connection signal="object_removed" from="AttachmentPostiveOutlet" to="." method="unplug_handler"]
 [connection signal="wire_connected" from="AttachmentPostiveOutlet" to="." method="_on_wire_connected"]

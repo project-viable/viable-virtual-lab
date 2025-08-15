@@ -161,21 +161,17 @@ script = ExtResource("21_kobiv")
 
 [node name="RedContactWire" parent="ContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(686, 455)
-collision_layer = 2
 
 [node name="RedContactWire2" parent="ContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(718, 455)
-collision_layer = 2
 
 [node name="BlackContactWire" parent="ContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(686, 479)
-collision_layer = 2
 texture = ExtResource("22_kobiv")
 charge = 1
 
 [node name="BlackContactWire2" parent="ContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(718, 479)
-collision_layer = 2
 texture = ExtResource("22_kobiv")
 charge = 1
 
