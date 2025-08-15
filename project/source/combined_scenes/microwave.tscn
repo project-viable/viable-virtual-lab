@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_cwbd0"]
 [ext_resource type="Texture2D" uid="uid://bruixvdw7rapf" path="res://updated_assets/lab_objects/microwave.svg" id="3_iwbat"]
 [ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://updated_assets/icons_and_buttons/button_2.svg" id="5_caubw"]
-[ext_resource type="Script" uid="uid://b3sgxo0w05r88" path="res://combined_scripts/object_containment_interactable_area.gd" id="6_caubw"]
+[ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="5_iwbat"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0lrr"]
 size = Vector2(273, 152)
@@ -278,11 +278,13 @@ position = Vector2(104.5, -0.5)
 shape = SubResource("RectangleShape2D_iwbat")
 
 [node name="ObjectContainmentInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
-script = ExtResource("6_caubw")
+script = ExtResource("5_iwbat")
+show_ghost_sprite = false
+hide_object = true
+place_prompt = "Put in microwave"
 selectable_canvas_group = NodePath("../SelectableCanvasGroup")
 allow_all_bodies = true
-place_prompt = "Put in microwave"
-metadata/_custom_type_script = "uid://b3sgxo0w05r88"
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectContainmentInteractableArea"]
 position = Vector2(1.5, 3)
