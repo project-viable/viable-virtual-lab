@@ -13,12 +13,17 @@ signal object_removed(body: LabBody)
 @export var show_ghost_sprite: bool = true
 ## If true, then the attached object will be made invisible an impossible to pick up.
 @export var hide_object: bool = false
+## Prompt shown when hovering with an object that can be placed.
 @export var place_prompt: String = "Place"
-@export var contained_object: LabBody = null
 
 ## If not null, this will be outlined when the user is targeting this.
 @export var selectable_canvas_group: SelectableCanvasGroup = null
 
+## Object currently attached. If this is set in the editor, then this object will automatically be
+## attached when the game starts.
+@export var contained_object: LabBody = null
+
+@export_group("Object Group Filtering")
 ## Any attachment point, regardless of group, will be able to attach to this.
 @export var allow_all_attachment_points: bool = false
 ## If `allow_all_attachment_points` is not set to true, then only attachment points with these
