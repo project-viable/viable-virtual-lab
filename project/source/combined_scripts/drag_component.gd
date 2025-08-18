@@ -39,6 +39,9 @@ func get_interactions() -> Array[InteractInfo]:
 	if is_active(): return [_put_down_interaction]
 	else: return [_pick_up_interaction]
 
+func start_targeting(_k: InteractInfo.Kind) -> void:
+	if not is_active(): interact_canvas_group.is_outlined = true
+
 func start_dragging() -> void:
 	body.start_dragging()
 	Interaction.active_drag_component = self
@@ -58,7 +61,6 @@ func stop_dragging() -> void:
 	body.stop_dragging()
 	Interaction.active_drag_component = null
 	Interaction.clear_interaction_stack()
-	interact_canvas_group.is_outlined = true
 	body.set_deferred(&"linear_velocity", _velocity / 5.0)
 
 func is_active() -> bool: return Interaction.active_drag_component == self
