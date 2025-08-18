@@ -68,10 +68,11 @@ position = Vector2(-36, 4)
 scale = Vector2(0.016, 0.016)
 texture = ExtResource("8_07yqv")
 
-[node name="AttachmentPostiveOutlet" type="Area2D" parent="."]
+[node name="AttachmentPostiveOutlet" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
 position = Vector2(-36, -11)
 script = ExtResource("7_07yqv")
-allowed_point_groups = Array[StringName]([&"attachment:contact_wire"])
+selectable_canvas_group = NodePath("../SelectableCanvasGroup")
+point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
 
@@ -79,11 +80,12 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_k6dxr")
 debug_color = Color(0.960415, 0, 0.51616, 0.42)
 
-[node name="AttachmentNegativeOutlet" type="Area2D" parent="."]
+[node name="AttachmentNegativeOutlet" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
 position = Vector2(-36, 5)
 script = ExtResource("7_07yqv")
 outlet_charge = 1
-allowed_point_groups = Array[StringName]([&"attachment:contact_wire"])
+selectable_canvas_group = NodePath("../SelectableCanvasGroup")
+point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
 
