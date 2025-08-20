@@ -41,13 +41,18 @@ var _wire_connected_to_positive_output: Wire
 var _wire_connected_to_negative_output: Wire
 var _is_zoomed_in: bool = false
 var _should_increment: bool = false
+
+var _buttons: Array[TextureButton]
+var _current_pressed_button: TextureButton
 var _time: int = 0 # Time in seconds
 var _volts: int = 50 
-var _buttons: Array[TextureButton]
-
-var _current_pressed_button: TextureButton
 var _delta_time: int = 1
 var _delta_volts: int = 1
+
+# How much it should increment by if the button is held down long enough
+var _time_increment: int = 60
+var _volts_increment: int = 50
+
 var _wait_time_threshold: float = .05
 
 func _ready() -> void:
@@ -123,10 +128,10 @@ func _on_timer_timeout() -> void:
 	var config_type: ConfigType = button_function_dict[_current_pressed_button]["type"]
 	
 	if is_pressed and config_type == ConfigType.TIME:
-		gradually_change(button_function, config_type, 60)
+		gradually_change(button_function, config_type, _time_increment)
 
 	elif is_pressed and config_type == ConfigType.VOLT:
-		gradually_change(button_function, config_type, 50)
+		gradually_change(button_function, config_type, _volts_increment)
 		
 func _on_screen_button_pressed(button: TextureButton) -> void:
 	_current_pressed_button = button
@@ -140,6 +145,30 @@ func _on_screen_button_released(button: TextureButton) -> void:
 	_delta_volts = 1
 	_should_increment = false
 	
+
+func gradually_change(button_func: Callable, type: ConfigType, increment_value: int) -> void:
+	# Get either _time or _volts
+	var target_var_value: int = button_func.call()
+	
+	# Decrease the Timer's wait time to gradually increase the speed of changing values
+	if (target_var_value % increment_value != 0 or $Timer.wait_time > _wait_time_threshold) and not _should_increment:
+		$Timer.wait_time = max($Timer.wait_time - 0.0025, .05)
+	
+	# Start incrementing the value by a set amount
+	else:
+		_should_increment = true
+		$Timer.wait_time = .3 # Values change more slowly
+		$Timer.start() # Timer needs to start again to update the wait_time
+		change_delta_rate(type, increment_value)
+		
+## Updates the delta for time or volts to a set increment
+func change_delta_rate(type: ConfigType, new_delta: int) -> void:
+	if type == ConfigType.TIME:
+		_delta_time = new_delta 
+		
+	elif type == ConfigType.VOLT:
+		_delta_volts = new_delta
+
 func increment_time() -> int:
 	_time += _delta_time
 	update_timer_display()
@@ -173,26 +202,3 @@ func decrement_volts() -> int:
 	
 func _update_volt_display() -> void:
 	$Screen/VoltageContainer/HBoxContainer/Volts.text = "%d" % [_volts]
-
-func gradually_change(button_func: Callable, type: ConfigType, increment_value: int) -> void:
-	# Get either _time or _volts
-	var target_var_value: int = button_func.call()
-	
-	# Decrease the Timer's wait time to gradually increase the speed of changing values
-	if (target_var_value % increment_value != 0 or $Timer.wait_time > _wait_time_threshold) and not _should_increment:
-		$Timer.wait_time = max($Timer.wait_time - 0.0025, .05)
-	
-	# Start incrementing the value by a set amount
-	else:
-		_should_increment = true
-		$Timer.wait_time = .3 # Values change more slowly
-		$Timer.start() # Timer needs to start again to update the wait_time
-		change_delta_rate(type, increment_value)
-		
-## Updates the delta for time or volts to a set increment
-func change_delta_rate(type: ConfigType, new_delta: int) -> void:
-	if type == ConfigType.TIME:
-		_delta_time = new_delta 
-		
-	elif type == ConfigType.VOLT:
-		_delta_volts = new_delta
