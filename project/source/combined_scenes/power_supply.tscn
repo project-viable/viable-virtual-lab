@@ -27,7 +27,7 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.462745, 0.862745, 0.988235, 1)
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
@@ -43,7 +43,7 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.462745, 0.862745, 0.988235, 1)
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
@@ -199,7 +199,7 @@ size_flags_horizontal = 8
 text = "V"
 
 [node name="IncrementTime" type="TextureButton" parent="Screen"]
-self_modulate = Color(0.399986, 0.99514, 0.995763, 1)
+self_modulate = Color(0.982343, 0.982342, 0.982342, 1)
 offset_left = 11.0
 offset_top = -13.0
 offset_right = 1035.0
@@ -230,7 +230,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DecrementTime" type="TextureButton" parent="Screen"]
-self_modulate = Color(0.399986, 0.99514, 0.995763, 1)
+self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
 offset_left = 11.0
 offset_top = -9.0
 offset_right = 1035.0
@@ -262,7 +262,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="IncrementVolts" type="TextureButton" parent="Screen"]
-self_modulate = Color(0.399986, 0.99514, 0.995763, 1)
+self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
 offset_left = 11.0
 offset_top = -4.0
 offset_right = 1035.0
@@ -293,7 +293,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DecrementVolts" type="TextureButton" parent="Screen"]
-self_modulate = Color(0.399986, 0.99514, 0.995763, 1)
+self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
 offset_left = 11.0
 offset_right = 1035.0
 offset_bottom = 768.0
