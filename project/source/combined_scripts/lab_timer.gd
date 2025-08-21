@@ -8,7 +8,7 @@ signal timeout()
 
 
 # These are basically copied from the built-in timer code.
-@export var process_callback: Timer.TimerProcessCallback = Timer.TimerProcessCallback.TIMER_PROCESS_IDLE
+@export_custom(PROPERTY_HINT_ENUM, "Physics,Idle") var process_callback: Timer.TimerProcessCallback = Timer.TimerProcessCallback.TIMER_PROCESS_IDLE
 @export_range(0.001, 4096, 0.001, "or_greater", "exp", "suffix:s") var wait_time: float = 1.0
 @export var one_shot: bool = false
 @export var autostart: bool = false
