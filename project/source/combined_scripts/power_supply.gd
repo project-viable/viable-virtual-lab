@@ -46,8 +46,8 @@ var _should_increment: bool = false
 
 var _buttons: Array[TextureButton]
 var _current_pressed_button: TextureButton
-var _time: int = 0 # Time in seconds
-var _volts: int = 50 
+var time: int = 0 # Time in seconds
+var volts: int = 50 
 var _delta_time: int = 1
 var _delta_volts: int = 1
 var time_string_input: String = ""
@@ -59,7 +59,7 @@ var _volts_increment: int = 50
 var _wait_time_threshold: float = .05
 
 func _ready() -> void:
-	voltage_line_edit.text = "%d" % [_volts]
+	voltage_line_edit.text = "%d" % [volts]
 	for button: TextureButton in find_children("", "TextureButton", true):
 		_buttons.append(button)
 		button.button_down.connect(_on_screen_button_pressed.bind(button))
@@ -67,7 +67,7 @@ func _ready() -> void:
 
 func _on_start_button_pressed() -> void:
 	var circuit_ready: bool = positive_connected and negative_connected
-	activate_power_supply.emit(_volts, _time, circuit_ready) #TODO stuff should happen once wires are connected to the gel rig
+	activate_power_supply.emit(volts, time, circuit_ready) #TODO stuff should happen once wires are connected to the gel rig
 
 func _on_wire_connected(wire: Wire, target_outlet_charge: Wire.Charge) -> void:
 	var is_charge_matching: bool = wire.charge == target_outlet_charge
@@ -113,10 +113,6 @@ func _input(event: InputEvent) -> void:
 		time_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
-	if event.is_action_pressed("ui_text_backspace") and time_line_edit.has_focus():
-		time_string_input = time_string_input.left(-1)
-		update_timer_display()
-		
 func _on_screen_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_pressed():
 		TransitionCamera.target_camera = $ZoomCamera
@@ -150,8 +146,6 @@ func _on_screen_button_pressed(button: TextureButton) -> void:
 	button_function_dict[_current_pressed_button]["function"].call() # Call once for single clicks
 	$Timer.start()
 	
-		
-
 func _on_screen_button_released(button: TextureButton) -> void:
 	$Timer.stop()
 	$Timer.wait_time = 0.15
@@ -184,16 +178,16 @@ func change_delta_rate(type: ConfigType, new_delta: int) -> void:
 		_delta_volts = new_delta
 
 func increment_time() -> int:
-	_time += _delta_time
+	time += _delta_time
 	update_timer_display()
-	return _time
+	return time
 	
 func decrement_time() -> int:
-	if _time > 0:
-		_time -= _delta_time
+	if time > 0:
+		time -= _delta_time
 		update_timer_display()
 	
-	return _time
+	return time
 		
 func update_timer_display() -> void:
 	var minutes: int
@@ -204,63 +198,27 @@ func update_timer_display() -> void:
 		var temp_time: int = int(time_string_input)
 		minutes = temp_time / 100
 		seconds = temp_time % 100
-		_time = minutes * 60 + seconds
+		time = minutes * 60 + seconds
 		
 	else: # Button inputs
-		minutes = _time / 60
-		seconds = _time % 60
+		minutes = time / 60
+		seconds = time % 60
 	
 	$Screen/TimeContainer/HBoxContainer/Time.text = "%02d:%02d" % [minutes, seconds]
 
 func increment_volts() -> int:
-	_volts += _delta_volts
-	_volts = min(_volts, 999)
+	volts += _delta_volts
+	volts = min(volts, 999)
 	_update_volt_display()
 	
-	return _volts
+	return volts
 	
 func decrement_volts() -> int:
-	if _volts > 0:
-		_volts -= _delta_volts
+	if volts > 0:
+		volts -= _delta_volts
 		_update_volt_display()
 	
-	return _volts
+	return volts
 	
 func _update_volt_display() -> void:
-	voltage_line_edit.text = "%d" % [_volts]
-
-## Basically just using this to get number input
-func _on_time_line_edit_text_changed(new_text: String) -> void:
-	var line_edit: LineEdit = time_line_edit
-	if time_string_input.length() < 4 and new_text.is_valid_int():
-		time_string_input += new_text
-	
-	line_edit.text = ""
-	update_timer_display()
-
-
-func _on_line_edit_focus_exited() -> void:
-	# Since time is in seconds, the string should be what's shown exactly on the screen
-	# In this case the minutes and seconds concatenated to one another
-	time_string_input = str(_time / 60) + str(_time % 60)
-
-
-func _on_voltage_line_edit_text_changed(new_text: String) -> void:
-	var column: int = voltage_line_edit.caret_column
-	var filtered_text: String = ""
-	
-	var regex: RegEx = RegEx.new()
-	regex.compile("\\d+")
-	
-	var numbers: Array[RegExMatch] = regex.search_all(new_text)
-	
-	for number in numbers:
-		filtered_text += str(number.get_string())
-	
-	voltage_line_edit.text = filtered_text
-	voltage_line_edit.caret_column = column
-	_volts = int(voltage_line_edit.text)
-
-func _on_voltage_line_edit_focus_exited() -> void:
-	if voltage_line_edit.text.is_empty():
-		_update_volt_display()
+	voltage_line_edit.text = "%d" % [volts]
