@@ -14,7 +14,7 @@ func get_interactions() -> Array[InteractInfo]:
 		infos.append(InteractInfo.new(InteractInfo.Kind.SECONDARY, "Slow down time"))
 	if _speed_index + 1 < len(_speeds):
 		infos.append(InteractInfo.new(InteractInfo.Kind.PRIMARY, "Speed up time"))
-	
+
 	return infos
 
 func start_interact(k: InteractInfo.Kind) -> void:
@@ -22,4 +22,4 @@ func start_interact(k: InteractInfo.Kind) -> void:
 		InteractInfo.Kind.PRIMARY: _speed_index += 1
 		InteractInfo.Kind.SECONDARY: _speed_index -= 1
 
-	Engine.time_scale = _speeds[_speed_index]
+	LabTime.time_scale = _speeds[_speed_index]

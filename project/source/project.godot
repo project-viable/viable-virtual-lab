@@ -21,6 +21,7 @@ config/icon="res://favicon.png"
 LabLog="*res://Scripts/LabLogSingleton.gd"
 GameSettings="*res://Scripts/GameSettingsSingleton.gd"
 Interaction="*res://combined_scripts/interaction_singleton.gd"
+LabTime="*res://combined_scripts/lab_time_singleton.gd"
 
 [debug]
 
