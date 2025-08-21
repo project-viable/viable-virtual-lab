@@ -31,7 +31,7 @@ func get_color() -> Color: return Color.WHITE
 func try_incorporate(_s: SubstanceInstance) -> bool: return false
 
 ## Do a single tick worth of processing. `container` is the container node that this substance is
-## in. `delta` is the length of the tick in seconds.
+## in. `delta` is the length of the tick in seconds, measured in lab time.
 ##
 ## It is okay to modify `container.substances` in this function. Note that `container.substances`
 ## will contain this substance, so it's a good idea when doing any reactions to ensure that the
