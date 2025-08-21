@@ -5,4 +5,4 @@ extends Node
 
 
 ## Multiplier on the rate that time passes in the simulation.
-var time_scale: float
+var time_scale: float = 1.0
