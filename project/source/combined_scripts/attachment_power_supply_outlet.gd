@@ -20,7 +20,6 @@ func start_interact(_k: InteractInfo.Kind) -> void:
 	if contained_object:
 		print("A wire is already connected to the %s outlet!" % [Wire.Charge.keys()[outlet_charge]])
 		interacting_wire.stop_dragging()
-		interacting_wire.body.position.y -= 50
 		return
 		
 	super(_k)
