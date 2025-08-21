@@ -57,7 +57,6 @@ var _wait_time_threshold: float = .05
 
 func _ready() -> void:
 	$Screen/VoltageContainer/HBoxContainer/Volts.text = "%d" % [_volts]
-	Engine.max_fps = 60
 	for button: TextureButton in find_children("", "TextureButton", true):
 		_buttons.append(button)
 		button.button_down.connect(_on_screen_button_pressed.bind(button))
