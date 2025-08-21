@@ -58,4 +58,3 @@ func _do_process(delta: float) -> void:
 		else: stop()
 
 		timeout.emit()
-

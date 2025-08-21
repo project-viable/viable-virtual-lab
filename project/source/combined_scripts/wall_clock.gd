@@ -9,7 +9,7 @@ var _cur_time: float = INITIAL_TIME
 
 
 func _process(delta: float) -> void:
-	_cur_time += delta
+	_cur_time += delta * LabTime.time_scale
 
 	$HourHand.rotation = 2.0 * PI * fmod(_cur_time / (60.0 * 60.0), 12.0) / 12.0
 	$MinuteHand.rotation = 2.0 * PI * fmod(_cur_time / 60.0, 60.0) / 60.0
