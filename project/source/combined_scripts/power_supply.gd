@@ -50,7 +50,15 @@ var time: int = 0 # Time in seconds
 var volts: int = 50 
 var _delta_time: int = 1
 var _delta_volts: int = 1
-var time_string_input: String = ""
+
+# When the user is typing in a time like 1230, convert to 12:30 and convert time to seconds
+var time_string_input: String = "":
+	set(value):
+		time_string_input = value
+		var minutes: int = int(time_string_input) / 100
+		var seconds: int = int(time_string_input) % 100
+		time = minutes * 60 + seconds
+		update_timer_display()
 
 # How much it should increment by if the button is held down long enough
 var _time_increment: int = 60
@@ -190,20 +198,8 @@ func decrement_time() -> int:
 	return time
 		
 func update_timer_display() -> void:
-	var minutes: int
-	var seconds: int
-	
-	# If a user is typing in a number like 1230, convert it to 12:30 and update _time in seconds
-	if time_line_edit.has_focus():
-		var temp_time: int = int(time_string_input)
-		minutes = temp_time / 100
-		seconds = temp_time % 100
-		time = minutes * 60 + seconds
-		
-	else: # Button inputs
-		minutes = time / 60
-		seconds = time % 60
-	
+	var minutes: int = time / 60
+	var seconds: int = time % 60
 	$Screen/TimeContainer/HBoxContainer/Time.text = "%02d:%02d" % [minutes, seconds]
 
 func increment_volts() -> int:
