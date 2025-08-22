@@ -35,9 +35,11 @@ window/stretch/aspect="ignore"
 
 [global_group]
 
-Emptyable=""
 attachment:microcentrifuge_tube=""
 attachment:scoopula=""
+contact_wire=""
+emptyable=""
+attachment:contact_wire=""
 
 [gui]
 
