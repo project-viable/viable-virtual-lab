@@ -43,7 +43,7 @@ func start_targeting(_k: InteractInfo.Kind) -> void:
 	if not is_active(): interact_canvas_group.is_outlined = true
 
 func start_dragging() -> void:
-	body.start_dragging()
+	body.set_physics_mode(LabBody.PhysicsMode.KINEMATIC)
 	Interaction.active_drag_component = self
 	interact_canvas_group.is_outlined = false
 
@@ -58,7 +58,7 @@ func start_dragging() -> void:
 
 ## Can be safely called from elsewhere. Also cancels any interaction that was pressed down.
 func stop_dragging() -> void:
-	body.stop_dragging()
+	body.set_physics_mode(LabBody.PhysicsMode.FREE)
 	Interaction.active_drag_component = null
 	Interaction.clear_interaction_stack()
 	body.set_deferred(&"linear_velocity", _velocity / 5.0)

@@ -108,7 +108,7 @@ func on_place_object() -> void:
 		if hide_object: _drag_component.enable_interaction = false
 
 	if hide_object: contained_object.hide()
-	contained_object.start_dragging()
+	contained_object.set_physics_mode(LabBody.PhysicsMode.KINEMATIC)
 
 	var offset: Variant = _find_attachment_offset(contained_object)
 	if offset is Vector2:
@@ -120,7 +120,7 @@ func on_remove_object() -> void:
 
 	if hide_object:
 		contained_object.show()
-		contained_object.stop_dragging()
+		contained_object.set_physics_mode(LabBody.PhysicsMode.FREE)
 		_drag_component.enable_interaction = true
 
 ## Call this to attempt to place an object. Returns true if the object was placed.

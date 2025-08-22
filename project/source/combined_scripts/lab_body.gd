@@ -29,11 +29,6 @@ func _ready() -> void:
 
 	set_physics_mode(physics_mode)
 
-# `start_dragging` and `stop_dragging` don't actually handle any drag logic; they just change the
-# physics to allow for dragging.
-func start_dragging() -> void: set_physics_mode(PhysicsMode.KINEMATIC)
-func stop_dragging() -> void: set_physics_mode(PhysicsMode.FREE)
-
 func set_physics_mode(mode: PhysicsMode) -> void:
 	var new_collision_mask := 0
 	var new_freeze := false
