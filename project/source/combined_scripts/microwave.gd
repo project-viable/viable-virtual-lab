@@ -96,8 +96,7 @@ func _on_microwave_stopped() -> void:
 				# container were full of only water.
 				var volume := container_to_heat.get_total_volume()
 				if volume > 0.0:
-					var temp_increase: float = 160.0 * (_total_seconds - _total_seconds_left) \
-						/ container_to_heat.get_total_volume()
+					var temp_increase: float = 160.0 * (_total_seconds - _total_seconds_left) / volume
 					container_to_heat.temperature += temp_increase
 
 		# Update _total_seconds for the next "start" press if the user doesn't clear
