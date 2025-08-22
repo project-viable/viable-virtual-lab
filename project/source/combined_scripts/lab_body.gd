@@ -3,6 +3,13 @@ class_name LabBody
 extends RigidBody2D
 
 
+enum PhysicsMode
+{
+	DRAG, ## Not affected by gravity, but can interact with `InteractableArea`s when being dragged.
+	FREE, ## Affected by gravity and will collide with shelves.
+}
+
+
 # Keep track of collision layers of any child physics objects. For example, the scale has a child
 # `StaticBody2D` with one-way collision that acts as the surface for objects to be set on, which
 # should be disabled while the object is being dragged.
@@ -23,17 +30,30 @@ func _ready() -> void:
 
 # `start_dragging` and `stop_dragging` don't actually handle any drag logic; they just change the
 # physics to allow for dragging.
-func start_dragging() -> void:
-	set_deferred(&"collision_mask", 0)
-	set_deferred(&"freeze", true)
+func start_dragging() -> void: set_physics_mode(PhysicsMode.DRAG)
+func stop_dragging() -> void: set_physics_mode(PhysicsMode.FREE)
 
-	for p: PhysicsBody2D in _child_physics_object_layers.keys():
-		_child_physics_object_layers[p] = p.collision_layer
-		p.set_deferred(&"collision_layer", 0)
+func set_physics_mode(mode: PhysicsMode) -> void:
+	var new_collision_mask := 0
+	var new_freeze := false
 
-func stop_dragging() -> void:
-	set_deferred(&"collision_mask", 1)
-	set_deferred(&"freeze", false)
+	match mode:
+		PhysicsMode.DRAG:
+			new_collision_mask = 0
+			new_freeze = true
 
-	for p: PhysicsBody2D in _child_physics_object_layers.keys():
-		p.set_deferred(&"collision_layer", _child_physics_object_layers[p])
+			# Save physics states of child physics bodies.
+			for p: PhysicsBody2D in _child_physics_object_layers.keys():
+				_child_physics_object_layers[p] = p.collision_layer
+				p.set_deferred(&"collision_layer", 0)
+
+
+		PhysicsMode.FREE:
+			new_collision_mask = 1
+			new_freeze = false
+
+			for p: PhysicsBody2D in _child_physics_object_layers.keys():
+				p.set_deferred(&"collision_layer", _child_physics_object_layers[p])
+
+	set_deferred(&"collision_mask", new_collision_mask)
+	set_deferred(&"freeze", new_freeze)
