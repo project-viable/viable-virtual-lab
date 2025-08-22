@@ -5,7 +5,7 @@ extends RigidBody2D
 
 enum PhysicsMode
 {
-	DRAG, ## Not affected by gravity, but can interact with `InteractableArea`s when being dragged.
+	KINEMATIC, ## Not affected by gravity, but can interact with `InteractableArea`s when being dragged.
 	FREE, ## Affected by gravity and will collide with shelves.
 }
 
@@ -31,7 +31,7 @@ func _ready() -> void:
 
 # `start_dragging` and `stop_dragging` don't actually handle any drag logic; they just change the
 # physics to allow for dragging.
-func start_dragging() -> void: set_physics_mode(PhysicsMode.DRAG)
+func start_dragging() -> void: set_physics_mode(PhysicsMode.KINEMATIC)
 func stop_dragging() -> void: set_physics_mode(PhysicsMode.FREE)
 
 func set_physics_mode(mode: PhysicsMode) -> void:
@@ -39,7 +39,7 @@ func set_physics_mode(mode: PhysicsMode) -> void:
 	var new_freeze := false
 
 	match mode:
-		PhysicsMode.DRAG:
+		PhysicsMode.KINEMATIC:
 			new_collision_mask = 0
 			new_freeze = true
 
