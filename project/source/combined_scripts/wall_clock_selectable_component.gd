@@ -1,25 +1,22 @@
 extends SelectableComponent
 
 
-static var _speeds: Array[float] = [1.0, 2.0, 5.0, 10.0, 100.0]
+var _is_held := false
+var _time_held := 0.0
 
 
-var _speed_index: int = 0
-
+func _process(delta: float) -> void:
+	_time_held += delta
+	if _is_held:
+		LabTime.time_scale = ease(_time_held / 3.0, 2.0) * 100.0 + 1.0
 
 func get_interactions() -> Array[InteractInfo]:
-	var infos: Array[InteractInfo] = []
+	return [InteractInfo.new(InteractInfo.Kind.PRIMARY, "(hold) Speed up time")]
 
-	if _speed_index > 0:
-		infos.append(InteractInfo.new(InteractInfo.Kind.SECONDARY, "Slow down time"))
-	if _speed_index + 1 < len(_speeds):
-		infos.append(InteractInfo.new(InteractInfo.Kind.PRIMARY, "Speed up time"))
+func start_interact(_k: InteractInfo.Kind) -> void:
+	_time_held = 0.0
+	_is_held = true
 
-	return infos
-
-func start_interact(k: InteractInfo.Kind) -> void:
-	match k:
-		InteractInfo.Kind.PRIMARY: _speed_index += 1
-		InteractInfo.Kind.SECONDARY: _speed_index -= 1
-
-	LabTime.time_scale = _speeds[_speed_index]
+func stop_interact(_k: InteractInfo.Kind) -> void:
+	_is_held = false
+	LabTime.time_scale = 1.0
