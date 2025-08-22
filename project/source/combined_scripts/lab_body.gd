@@ -10,6 +10,7 @@ enum PhysicsMode
 }
 
 
+@export var interact_canvas_group: SelectableCanvasGroup = null
 @export var physics_mode: PhysicsMode = PhysicsMode.FREE
 
 
@@ -28,6 +29,9 @@ func _ready() -> void:
 		_child_physics_object_layers.set(p, p.collision_layer)
 
 	set_physics_mode(physics_mode)
+
+	if not interact_canvas_group:
+		interact_canvas_group = Util.find_child_of_type(self, "SelectableCanvasGroup")
 
 func set_physics_mode(mode: PhysicsMode) -> void:
 	var new_collision_mask := 0
