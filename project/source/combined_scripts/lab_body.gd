@@ -10,6 +10,9 @@ enum PhysicsMode
 }
 
 
+@export var physics_mode: PhysicsMode = PhysicsMode.FREE
+
+
 # Keep track of collision layers of any child physics objects. For example, the scale has a child
 # `StaticBody2D` with one-way collision that acts as the surface for objects to be set on, which
 # should be disabled while the object is being dragged.
@@ -23,10 +26,8 @@ func _ready() -> void:
 
 	for p: PhysicsBody2D in find_children("", "PhysicsBody2D", false):
 		_child_physics_object_layers.set(p, p.collision_layer)
-	
-	# Bodies with the freeze property set to true will initially not fall when the game starts
-	if not freeze:
-		stop_dragging()
+
+	set_physics_mode(physics_mode)
 
 # `start_dragging` and `stop_dragging` don't actually handle any drag logic; they just change the
 # physics to allow for dragging.
@@ -46,7 +47,6 @@ func set_physics_mode(mode: PhysicsMode) -> void:
 			for p: PhysicsBody2D in _child_physics_object_layers.keys():
 				_child_physics_object_layers[p] = p.collision_layer
 				p.set_deferred(&"collision_layer", 0)
-
 
 		PhysicsMode.FREE:
 			new_collision_mask = 1
