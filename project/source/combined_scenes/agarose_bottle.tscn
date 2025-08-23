@@ -37,6 +37,7 @@ volume = 100.0
 metadata/_custom_type_script = "uid://5sjgduop7hjw"
 
 [node name="AgaroseBottle" type="RigidBody2D"]
+collision_layer = 0
 script = ExtResource("1_w1h17")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 

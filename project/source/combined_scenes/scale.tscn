@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b42qa84sy7cg8"]
+[gd_scene load_steps=8 format=3 uid="uid://gfmuo2b5e2b5"]
 
 [ext_resource type="Script" uid="uid://ceswiywyrstxd" path="res://combined_scripts/scale.gd" id="1_ceiaq"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="1_o87w1"]
@@ -67,3 +67,5 @@ grow_vertical = 2
 scale = Vector2(1, 1.00617)
 theme_override_font_sizes/font_size = 200
 text = "Tare"
+
+[connection signal="child_entered_tree" from="Surface/CollisionShape2D" to="." method="_on_collision_shape_2d_child_entered_tree"]

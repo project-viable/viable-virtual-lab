@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1af3h23bqbvv"]
+[gd_scene load_steps=10 format=3 uid="uid://c1af3h23bqbvv"]
 
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="1_1hguf"]
 [ext_resource type="Script" uid="uid://n4l5a5hvyrld" path="res://combined_scripts/scoopula.gd" id="1_a840k"]
@@ -6,11 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://yrxt2sxidd3c" path="res://Images/FillSprites/scoopula_fill.png" id="4_g0l2j"]
 [ext_resource type="Texture2D" uid="uid://cak418sbeesy5" path="res://updated_assets/lab_objects/scoopula.svg" id="4_sbaom"]
 [ext_resource type="Script" uid="uid://bpxiht7xu8mss" path="res://combined_scripts/interactable_component.gd" id="5_sbaom"]
+[ext_resource type="Script" uid="uid://8jbti40eodk6" path="res://combined_scripts/interactable_area.gd" id="7_nolfa"]
+[ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="8_h2xov"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbaom"]
-size = Vector2(21, 24)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2xov"]
+size = Vector2(21, 27)
 
 [node name="Scoopula" type="RigidBody2D"]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_a840k")
 
 [node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
@@ -22,12 +26,6 @@ metadata/_custom_type_script = "uid://bsonh03rfuf2p"
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(1.17049, -0.238485)
 polygon = PackedVector2Array(7.82951, -34.7615, 2.82951, -29.7615, 1.82951, -26.7615, 1.82951, -23.7615, 1.82951, 56.2385, -3.17049, 56.2385, -3.17049, -27.7615, -4.17049, -29.7615, -7.17049, -32.7615, -9.17049, -34.7615, -10.1705, -37.7615, -10.1705, -46.7615, -10.1705, -52.7615, -9.17049, -54.7615, -7.17049, -55.7615, 5.82951, -55.7615, 7.82951, -54.7615, 8.82951, -53.7615, 8.82951, -51.7615, 8.82951, -37.7615)
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0.5, -45)
-shape = SubResource("RectangleShape2D_sbaom")
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("2_g0l2j")
@@ -43,9 +41,9 @@ script = ExtResource("5_sbaom")
 
 [node name="FillSprite" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-9.96848, 48.937)
-rotation = -1.31423
-scale = Vector2(0.0196264, 0.0156335)
+position = Vector2(0.777375, -43.5091)
+rotation = 3.14159
+scale = Vector2(0.0325691, 0.027463)
 texture = ExtResource("4_g0l2j")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -78,6 +76,8 @@ vertical_alignment = 1
 
 [node name="sliderDispenseQty" type="HSlider" parent="CanvasLayer/Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
 max_value = 2.0
 step = 0.01
 
@@ -94,7 +94,21 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "Dispense"
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[node name="InteractableArea" type="Area2D" parent="."]
+script = ExtResource("7_nolfa")
+metadata/_custom_type_script = "uid://8jbti40eodk6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+position = Vector2(0.5, -43.5)
+shape = SubResource("RectangleShape2D_h2xov")
+
+[node name="ContainerComponent" type="Node2D" parent="."]
+script = ExtResource("8_h2xov")
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+
 [connection signal="value_changed" from="CanvasLayer/Control/PanelContainer/VBoxContainer/sliderDispenseQty" to="." method="_on_slider_dispense_qty_value_changed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/VBoxContainer/btnScoop" to="." method="_on_btn_scoop_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/VBoxContainer/btnDispense" to="." method="_on_btn_dispense_pressed"]
+[connection signal="body_entered" from="InteractableArea" to="." method="_on_interactable_area_body_entered"]
+[connection signal="body_exited" from="InteractableArea" to="." method="_on_interactable_area_body_exited"]
+[connection signal="input_event" from="InteractableArea" to="." method="_on_interactable_area_input_event_scoop"]
+[connection signal="input_event" from="InteractableArea" to="." method="_on_interactable_area_input_event_dispense"]
