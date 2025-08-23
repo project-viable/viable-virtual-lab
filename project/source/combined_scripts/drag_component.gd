@@ -24,13 +24,11 @@ func start_targeting(_k: InteractInfo.Kind) -> void:
 	if not is_active(): interact_canvas_group.is_outlined = true
 
 func start_dragging() -> void:
-	Interaction.active_drag_component = self
 	interact_canvas_group.is_outlined = false
 	body.start_dragging()
 
 ## Can be safely called from elsewhere. Also cancels any interaction that was pressed down.
 func stop_dragging() -> void:
-	Interaction.active_drag_component = null
 	body.stop_dragging()
 
-func is_active() -> bool: return Interaction.active_drag_component == self
+func is_active() -> bool: return body.is_active()

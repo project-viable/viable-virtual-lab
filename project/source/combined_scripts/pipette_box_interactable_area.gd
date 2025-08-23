@@ -4,13 +4,13 @@ var info: InteractInfo = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Add Tip")
 var pipette: LabBody = null
 
 func get_interactions() -> Array[InteractInfo]:
-	if Interaction.active_drag_component.body is Pipe:
+	if Interaction.held_body is Pipe:
 		return [info]
 	
 	return []
 	
 func start_interact(_kind: InteractInfo.Kind) -> void:
-	pipette = Interaction.active_drag_component.body 
+	pipette = Interaction.held_body 
 	if pipette.has_tip:
 		print("Pipette already has a tip!")
 		return

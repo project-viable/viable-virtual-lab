@@ -12,6 +12,8 @@ class InteractState:
 	# This can point to an `InteractableArea` or an `InteractableComponent`. Both of them have
 	# hovering and interacting behavior, but there's no way in Godot to have an interface that
 	# they can both implement, so the type just has to be switched on.
+	#
+	# It can also be the currently held `LabBody`.
 	var target: Node2D
 	var is_pressed: bool = false
 
@@ -39,6 +41,8 @@ class InteractState:
 		if source: source.start_use(target as InteractableArea, info.kind)
 		elif target is InteractableArea: target.start_interact(info.kind)
 		elif target is InteractableComponent: target.start_interact(info.kind)
+		# TODO: This probably shouldn't be here.
+		elif target is LabBody: target.stop_dragging()
 
 	func stop_interact() -> void:
 		is_pressed = false
@@ -48,9 +52,8 @@ class InteractState:
 		elif target is InteractableComponent: target.stop_interact(info.kind)
 
 
-## Set to the `DragComponent` currently being dragged, if it exists. This is set directly by
-## `DragComponent`.
-var active_drag_component: DragComponent = null
+## `LabBody` currently being held.
+var held_body: LabBody = null
 
 ## Current `InteractableComponent`, if any, being hovered.
 var hovered_interactable_component: InteractableComponent = null
@@ -75,13 +78,13 @@ func _draw() -> void:
 func _process(_delta: float) -> void:
 	var new_interactions: Dictionary[InteractInfo.Kind, InteractState] = {}
 
-	if active_drag_component:
-		# As a special case, the active drag component is allowed to be interacted with by itself
+	if held_body:
+		# As a special case, the currently held object is allowed to be interacted with by itself
 		# so it can be dropped. This is here first so that it has the lowest priority.
 		#
 		# TODO: somehow make this less of a special case?
-		for info in active_drag_component.get_interactions():
-			new_interactions.set(info.kind, InteractState.new(info, null, active_drag_component))
+		var drop_info := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
+		new_interactions.set(drop_info.kind, InteractState.new(drop_info, null, held_body))
 
 		for a in _interact_area_stack:
 			if not a.enable_interaction: continue
@@ -89,7 +92,7 @@ func _process(_delta: float) -> void:
 				new_interactions.set(info.kind, InteractState.new(info, null, a))
 
 		# `UseComponent`s take priority over `InteractableArea`s.
-		for c: UseComponent in active_drag_component.body.find_children("", "UseComponent", false):
+		for c: UseComponent in held_body.find_children("", "UseComponent", false):
 			#if not c.enable_interaction: continue
 
 			if not _interact_area_stack:
@@ -165,8 +168,8 @@ func get_next_draw_order() -> int:
 	_next_draw_order += 1
 	return _next_draw_order - 1
 
-# When a body `b` enters an `InteractableArea` and `active_drag_component.body` is equal to `b`, that
-# interaction area should call this function, passing itself as the argument.
+# When a body `b` enters an `InteractableArea` and `held_body` is equal to `b`, that interaction
+# area should call this function, passing itself as the argument.
 func on_interaction_area_entered(area: InteractableArea) -> void:
 	_interact_area_stack.append(area)
 

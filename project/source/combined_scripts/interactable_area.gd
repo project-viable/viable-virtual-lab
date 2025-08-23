@@ -32,8 +32,7 @@ func start_targeting(_kind: InteractInfo.Kind) -> void: pass
 func stop_targeting(_kind: InteractInfo.Kind) -> void: pass
 
 func _on_body_entered(body: Node2D) -> void:
-	if Interaction.active_drag_component and body == Interaction.active_drag_component.body \
-			and not body.is_ancestor_of(self):
+	if body == Interaction.held_body and not body.is_ancestor_of(self):
 		Interaction.on_interaction_area_entered(self)
 
 func _on_body_exited(_body: Node2D) -> void:

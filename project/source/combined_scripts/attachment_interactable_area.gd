@@ -45,8 +45,6 @@ signal object_removed(body: LabBody)
 ## Determines how `body_groups` is used to determine what `LabBody`s are allowed.
 @export var body_group_filter_type: GroupFilterType = GroupFilterType.WHITELIST
 
-# Drag component of the contained object. Used to enable and disable interaction with it.
-var _drag_component: DragComponent = null
 
 var _remote_transform := RemoteTransform2D.new()
 var _ghost_sprite: Node2D = null
@@ -68,11 +66,11 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	# The user started dragging the contained object, so we release it.
-	if Interaction.active_drag_component and Interaction.active_drag_component.body == contained_object:
+	if Interaction.held_body == contained_object:
 		remove_object()
 
 func get_interactions() -> Array[InteractInfo]:
-	if not contained_object and can_place(Interaction.active_drag_component.body):
+	if not contained_object and can_place(Interaction.held_body):
 		return [InteractInfo.new(InteractInfo.Kind.PRIMARY, place_prompt)]
 	else:
 		return []
@@ -80,14 +78,13 @@ func get_interactions() -> Array[InteractInfo]:
 func start_targeting(_k: InteractInfo.Kind) -> void:
 	if selectable_canvas_group: selectable_canvas_group.is_outlined = true
 
-	if not Interaction.active_drag_component or not Interaction.active_drag_component.body:
-		return
+	if not Interaction.held_body: return
 
-	var offset: Variant = _find_attachment_offset(Interaction.active_drag_component.body)
+	var offset: Variant = _find_attachment_offset(Interaction.held_body)
 	if offset is not Vector2: return
 
 	if show_ghost_sprite:
-		_ghost_sprite = Util.make_sprite_ghost(Interaction.active_drag_component.body)
+		_ghost_sprite = Util.make_sprite_ghost(Interaction.held_body)
 		_ghost_sprite.position = offset
 		call_deferred(&"add_child", _ghost_sprite)
 
@@ -96,16 +93,15 @@ func stop_targeting(_k: InteractInfo.Kind) -> void:
 	call_deferred(&"remove_child", _ghost_sprite)
 
 func start_interact(_k: InteractInfo.Kind) -> void:
-	_place_object_unchecked(Interaction.active_drag_component.body)
+	_place_object_unchecked(Interaction.held_body)
 
 func can_place(body: LabBody) -> bool:
 	return _find_attachment_offset(body) is Vector2
 
 func on_place_object() -> void:
-	_drag_component = Interaction.active_drag_component
-	if _drag_component:
-		_drag_component.stop_dragging()
-		if hide_object: _drag_component.enable_interaction = false
+	if Interaction.held_body: Interaction.held_body.stop_dragging()
+	# TODO: Make it possible to disable this on the `LabBody` itself.
+	#if hide_object: _drag_component.enable_interaction = false
 
 	if hide_object: contained_object.hide()
 	contained_object.set_physics_mode(LabBody.PhysicsMode.KINEMATIC)
@@ -121,7 +117,7 @@ func on_remove_object() -> void:
 	if hide_object:
 		contained_object.show()
 		contained_object.set_physics_mode(LabBody.PhysicsMode.FREE)
-		_drag_component.enable_interaction = true
+		#_drag_component.enable_interaction = true
 
 ## Call this to attempt to place an object. Returns true if the object was placed.
 func place_object(body: LabBody) -> bool:

@@ -10,7 +10,6 @@ enum PhysicsMode
 }
 
 
-@export var interact_canvas_group: SelectableCanvasGroup = null
 @export var physics_mode: PhysicsMode = PhysicsMode.FREE
 
 
@@ -35,9 +34,6 @@ func _ready() -> void:
 
 	set_physics_mode(physics_mode)
 
-	if not interact_canvas_group:
-		interact_canvas_group = Util.find_child_of_type(self, "SelectableCanvasGroup")
-
 func _physics_process(delta: float) -> void:
 	if is_active():
 		if abs(global_rotation) > 0.001:
@@ -52,6 +48,7 @@ func _physics_process(delta: float) -> void:
 		global_position = dest_pos
 
 func start_dragging() -> void:
+	Interaction.held_body = self
 	set_physics_mode(PhysicsMode.KINEMATIC)
 
 	# We can't just use `move_to_front` because it doesn't properly reorder the `_draw` calls,
@@ -65,6 +62,7 @@ func start_dragging() -> void:
 
 ## Can be safely called from elsewhere. Also cancels any interaction that was pressed down.
 func stop_dragging() -> void:
+	Interaction.held_body = null
 	set_physics_mode(PhysicsMode.FREE)
 	Interaction.clear_interaction_stack()
 	set_deferred(&"linear_velocity", _velocity / 5.0)
@@ -94,4 +92,4 @@ func set_physics_mode(mode: PhysicsMode) -> void:
 	set_deferred(&"freeze", new_freeze)
 
 func is_active() -> bool:
-	return Interaction.active_drag_component and Interaction.active_drag_component.body == self
+	return Interaction.held_body == self
