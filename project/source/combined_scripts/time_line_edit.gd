@@ -1,6 +1,9 @@
 extends LineEdit
 @export var power_supply: LabBody
 
+## Doesn't actually write to a line, but instead this is used to get user input
+## Which in turn updates the Time display on the power supply
+
 var text_input: String = "":
 	set(value):
 		text_input = value
@@ -19,13 +22,14 @@ func _on_editing_toggled(_toggled_on: bool) -> void:
 	
 	# Account for special cases.
 	# For example, a time of 01:05 should result in a string of 105
-	# Or a time of 00:05 should result in a string being 5
+	# Or a time of 00:05 should result in a string being 5 and not 05, the 0 being from the minutes
 	if minutes > 0:
 		text_input = "%d%02d" % [minutes, seconds]
 	elif seconds > 0:
 		text_input = str(seconds)
 	elif seconds == 0:
 		text_input = ""
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_text_backspace") and has_focus():
 		text_input = text_input.left(-1)

@@ -114,8 +114,10 @@ func _unplug_handler(body: Node2D) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ExitCameraZoom"):
+		_on_screen_button_released(_current_pressed_button) # Special case where the user zooms out while still holding down left click
 		_is_zoomed_in = false
 		for button in _buttons:
+			button.disabled = true
 			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
 		time_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -126,6 +128,7 @@ func _on_screen_input_event(_viewport: Node, event: InputEvent, _shape_idx: int)
 		TransitionCamera.target_camera = $ZoomCamera
 		_is_zoomed_in = true
 		for button in _buttons:
+			button.disabled = false
 			button.mouse_filter = Control.MOUSE_FILTER_STOP
 		
 		time_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -154,7 +157,7 @@ func _on_screen_button_pressed(button: TextureButton) -> void:
 	button_function_dict[_current_pressed_button]["function"].call() # Call once for single clicks
 	$Timer.start()
 	
-func _on_screen_button_released(button: TextureButton) -> void:
+func _on_screen_button_released(_button: TextureButton) -> void:
 	$Timer.stop()
 	$Timer.wait_time = 0.15
 	_delta_time = 1
