@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://ch8ljtcuvjg48"]
+
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_5u6i1"]
+[ext_resource type="Script" uid="uid://dbt7erpalpnhb" path="res://combined_scripts/wall_clock.gd" id="1_rsrms"]
+[ext_resource type="Texture2D" uid="uid://0xiaiifrrfih" path="res://updated_assets/temp/clock.png" id="1_u36x7"]
+[ext_resource type="Script" uid="uid://dx5r3q07g68eq" path="res://combined_scripts/wall_clock_selectable_component.gd" id="4_uqfjn"]
+
+[node name="WallClock" type="Node2D"]
+script = ExtResource("1_rsrms")
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("1_5u6i1")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="Clock" type="Sprite2D" parent="SelectableCanvasGroup"]
+position = Vector2(1.13687e-13, 2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_u36x7")
+region_enabled = true
+region_rect = Rect2(0, 0, 509.995, 500)
+
+[node name="HourHand" type="Sprite2D" parent="."]
+position = Vector2(6.77626e-21, 0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_u36x7")
+offset = Vector2(0, -48)
+region_enabled = true
+region_rect = Rect2(591.471, 107.471, 47.3301, 190.396)
+
+[node name="MinuteHand" type="Sprite2D" parent="."]
+position = Vector2(6.77626e-21, 0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_u36x7")
+offset = Vector2(0, -65)
+region_enabled = true
+region_rect = Rect2(537.076, 70.3813, 44.8862, 227.486)
+
+[node name="SecondHand" type="Sprite2D" parent="."]
+position = Vector2(6.77626e-21, 0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_u36x7")
+offset = Vector2(0, -65)
+region_enabled = true
+region_rect = Rect2(638.063, 70.3813, 35.2378, 227.486)
+
+[node name="SelectableComponent" type="Node2D" parent="." node_paths=PackedStringArray("interact_canvas_group")]
+script = ExtResource("4_uqfjn")
+interact_canvas_group = NodePath("../SelectableCanvasGroup")
+metadata/_custom_type_script = "uid://musakg3k6s1l"

@@ -28,20 +28,22 @@ const _room_temperature: float = 20.0
 
 
 func _physics_process(delta: float) -> void:
+	var lab_delta := delta * LabTime.time_scale
+
 	# We need to duplicate the substance array because substances may modify the original one in
 	# their `process` function.
 	for s: SubstanceInstance in substances.duplicate():
-		s.process(self, delta)
+		s.process(self, lab_delta)
 	
 	_remove_empty_substances()
 
-	mix_amount = max(mix_amount -_mix_amount_stagnation_rate * delta, _base_mix_amount)
+	mix_amount = max(mix_amount -_mix_amount_stagnation_rate * lab_delta, _base_mix_amount)
 
 	## Move the temperature towards room temperature
 	if temperature < _room_temperature:
-		temperature = min(temperature + _temp_equalizing_rate * delta, _room_temperature)
+		temperature = min(temperature + _temp_equalizing_rate * lab_delta, _room_temperature)
 	else:
-		temperature = max(temperature - _temp_equalizing_rate * delta, _room_temperature)
+		temperature = max(temperature - _temp_equalizing_rate * lab_delta, _room_temperature)
 
 # Increase the amount of turbulence in the container
 func mix(amount: float) -> void: mix_amount += amount
