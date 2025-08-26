@@ -135,11 +135,11 @@ func _on_screen_input_event(_viewport: Node, event: InputEvent, _shape_idx: int)
 		voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
 		
 func _on_screen_mouse_entered() -> void:
-	$DragComponent.enable_interaction = false
+	enable_interaction = false
 
 func _on_screen_mouse_exited() -> void:
 	if not _is_zoomed_in:
-		$DragComponent.enable_interaction = true
+		enable_interaction = true
  
 func _on_timer_timeout() -> void:
 	var is_pressed: bool = _current_pressed_button.button_pressed
