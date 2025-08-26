@@ -73,8 +73,8 @@ static func _make_sprite_ghost_impl(node: Node2D) -> Node2D:
 		return new_node
 
 # Find the first child of `n` that is of type `type`. If it doesn't exist, return null.
-static func find_child_of_type(n: Node, type: String) -> Node:
+static func find_child_of_type(n: Node, type: Variant) -> Node:
 	for c in n.get_children():
-		if c.is_class(type): return c
+		if is_instance_of(c, type): return c
 
 	return null
