@@ -70,9 +70,9 @@ func _process(delta: float) -> void:
 
 	# THIS STUFF IS TEMPORARY. SUBSTANCES WILL EVENTUALLY BE DISPLAYED IN THE CONTAINERS THEMSELVES,
 	# AND MIXING WILL BE DONE WITH A STIR ROD OR BY SWIRLING.
-	if Interaction.hovered_interactable_component is DragComponent:
+	if Interaction.hovered_interactable is LabBody:
 		var containers: Array[ContainerComponent] = []
-		containers.assign(Interaction.hovered_interactable_component.body.find_children("", "ContainerComponent", false))
+		containers.assign(Interaction.hovered_interactable.find_children("", "ContainerComponent", false))
 
 		# Show substances in the hovered object.
 		$SubstanceLabel.clear()

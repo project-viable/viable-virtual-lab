@@ -6,29 +6,6 @@ extends SelectableComponent
 ## The body to be dragged.
 @export var body: LabBody
 
-static var _pick_up_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up")
-static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
 
-
-func _ready() -> void: press_mode = PressMode.PRESS
-
-func press() -> void:
-	if is_active(): stop_dragging()
-	else: start_dragging()
-
-func get_interactions() -> Array[InteractInfo]:
-	if is_active(): return [_put_down_interaction]
-	else: return [_pick_up_interaction]
-
-func start_targeting(_k: InteractInfo.Kind) -> void:
-	if not is_active(): interact_canvas_group.is_outlined = true
-
-func start_dragging() -> void:
-	interact_canvas_group.is_outlined = false
-	body.start_dragging()
-
-## Can be safely called from elsewhere. Also cancels any interaction that was pressed down.
-func stop_dragging() -> void:
-	body.stop_dragging()
-
-func is_active() -> bool: return body.is_active()
+func _ready() -> void:
+	enable_interaction = false

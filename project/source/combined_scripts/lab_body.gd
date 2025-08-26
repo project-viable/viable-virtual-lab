@@ -10,7 +10,16 @@ enum PhysicsMode
 }
 
 
+static var _pick_up_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up")
+static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
+
+
 @export var physics_mode: PhysicsMode = PhysicsMode.FREE
+## [SelectableCanvasGroup] that will be outlined when hovered and can be clicked to pick this
+## object up. If set to [code]null[/code], this will automatically be set to the first
+## [SelectableCanvasGroup] child of this [LabBody].
+@export var interact_canvas_group: SelectableCanvasGroup = null
+@export var enable_interaction: bool = true
 
 
 # Keep track of collision layers of any child physics objects. For example, the scale has a child
@@ -23,7 +32,10 @@ var _velocity: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	# Needed by `Interaction` to find this object.
-	add_to_group(&"lab_body")
+	add_to_group(&"interactable_component")
+
+	if not interact_canvas_group:
+		interact_canvas_group = Util.find_child_of_type(self, SelectableCanvasGroup)
 
 	# We need collisions in layer 2 so that interaction areas detect this object.
 	freeze_mode = FREEZE_MODE_KINEMATIC
@@ -46,6 +58,41 @@ func _physics_process(delta: float) -> void:
 		var dest_pos := to_global(get_local_mouse_position() - _offset)
 		_velocity = (dest_pos - global_position) / delta
 		global_position = dest_pos
+
+func get_interactions() -> Array[InteractInfo]:
+	if is_active(): return [_put_down_interaction]
+	else: return [_pick_up_interaction]
+
+func start_targeting(_k: InteractInfo.Kind) -> void:
+	if not is_active() and interact_canvas_group:
+		interact_canvas_group.is_outlined = true
+
+func stop_targeting(_kind: InteractInfo.Kind) -> void:
+	if interact_canvas_group:
+		interact_canvas_group.is_outlined = false
+
+func start_interact(_kind: InteractInfo.Kind) -> void:
+	if is_active(): stop_dragging()
+	else: start_dragging()
+
+func stop_interact(_kind: InteractInfo.Kind) -> void:
+	pass
+
+# These do the same thing as the corresponding [InteractableComponent] functions.
+func is_hovered() -> bool:
+	if interact_canvas_group: 
+		return interact_canvas_group.is_mouse_hovering()
+	return false
+
+func get_draw_order() -> int:
+	if interact_canvas_group:
+		return interact_canvas_group.draw_order_this_frame
+	return 0
+
+func get_absolute_z_index() -> int:
+	if interact_canvas_group:
+		return Util.get_absolute_z_index(interact_canvas_group)
+	return 0
 
 func start_dragging() -> void:
 	Interaction.held_body = self
