@@ -179,5 +179,7 @@ charge = 1
 [node name="WallClock" parent="." instance=ExtResource("21_8cc2w")]
 position = Vector2(132, 176)
 
+[connection signal="valid_connection" from="GelBox" to="PowerSupply" method="_on_gel_box_valid_connection"]
+
 [editable path="ScoopulaHolder"]
 [editable path="MicrocentrifugeHolder"]
