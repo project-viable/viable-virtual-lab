@@ -30,7 +30,7 @@ script = ExtResource("2_3s6eo")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="Tips" type="Node2D" parent="SelectableCanvasGroup"]
-position = Vector2(0, 3)
+position = Vector2(0, 15)
 
 [node name="Sprite2D" type="Sprite2D" parent="SelectableCanvasGroup/Tips"]
 position = Vector2(-43.6, -61.2)

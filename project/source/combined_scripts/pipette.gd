@@ -5,3 +5,4 @@ class_name Pipe #TODO: Placeholder name since Pipette is already used in the old
 	set(value):
 		has_tip = value
 		$SelectableCanvasGroup/PipetteWithTip.visible = has_tip
+		$TipCollision.disabled = not has_tip
