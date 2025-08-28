@@ -61,6 +61,7 @@ func _ready() -> void:
 	# that case, we have to manually place it. We have to set `contained_object` to null first,
 	# however, since `place_object` expects that there be no contained object.
 	if contained_object:
+		await contained_object.ready
 		var obj := contained_object
 		contained_object = null
 		if not place_object(obj):
