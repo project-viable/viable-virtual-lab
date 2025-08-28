@@ -10,6 +10,8 @@ class_name PowerSupply
 @export var decrement_time_button: TextureButton
 @export var increment_volts_button: TextureButton
 @export var decrement_volts_button: TextureButton
+@export var time_line_edit: LineEdit
+@export var voltage_line_edit: LineEdit
 
 @onready var button_function_dict: Dictionary = {
 	increment_time_button: {
@@ -44,10 +46,19 @@ var _should_increment: bool = false
 
 var _buttons: Array[TextureButton]
 var _current_pressed_button: TextureButton
-var _time: int = 0 # Time in seconds
-var _volts: int = 50 
+var time: int = 0 # Time in seconds
+var volts: int = 50 
 var _delta_time: int = 1
 var _delta_volts: int = 1
+
+# When the user is typing in a time like 1230, convert to 12:30 and convert time to seconds
+var time_string_input: String = "":
+	set(value):
+		time_string_input = value
+		var minutes: int = int(time_string_input) / 100
+		var seconds: int = int(time_string_input) % 100
+		time = minutes * 60 + seconds
+		update_timer_display()
 
 # How much it should increment by if the button is held down long enough
 var _time_increment: int = 60
@@ -56,7 +67,7 @@ var _volts_increment: int = 50
 var _wait_time_threshold: float = .05
 
 func _ready() -> void:
-	$Screen/VoltageContainer/HBoxContainer/Volts.text = "%d" % [_volts]
+	voltage_line_edit.text = "%d" % [volts]
 	for button: TextureButton in find_children("", "TextureButton", true):
 		_buttons.append(button)
 		button.button_down.connect(_on_screen_button_pressed.bind(button))
@@ -64,7 +75,7 @@ func _ready() -> void:
 
 func _on_start_button_pressed() -> void:
 	var circuit_ready: bool = positive_connected and negative_connected
-	activate_power_supply.emit(_volts, _time, circuit_ready) #TODO stuff should happen once wires are connected to the gel rig
+	activate_power_supply.emit(volts, time, circuit_ready) #TODO stuff should happen once wires are connected to the gel rig
 
 func _on_wire_connected(wire: Wire, target_outlet_charge: Wire.Charge) -> void:
 	var is_charge_matching: bool = wire.charge == target_outlet_charge
@@ -103,17 +114,26 @@ func _unplug_handler(body: Node2D) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ExitCameraZoom"):
+		_on_screen_button_released(_current_pressed_button) # Special case where the user zooms out while still holding down left click
 		_is_zoomed_in = false
 		for button in _buttons:
+			button.disabled = true
 			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
+		
+		time_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		
 func _on_screen_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_pressed():
 		TransitionCamera.target_camera = $ZoomCamera
 		_is_zoomed_in = true
 		for button in _buttons:
+			button.disabled = false
 			button.mouse_filter = Control.MOUSE_FILTER_STOP
-
+		
+		time_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
+		voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
+		
 func _on_screen_mouse_entered() -> void:
 	$DragComponent.enable_interaction = false
 
@@ -136,8 +156,8 @@ func _on_screen_button_pressed(button: TextureButton) -> void:
 	_current_pressed_button = button
 	button_function_dict[_current_pressed_button]["function"].call() # Call once for single clicks
 	$Timer.start()
-
-func _on_screen_button_released(button: TextureButton) -> void:
+	
+func _on_screen_button_released(_button: TextureButton) -> void:
 	$Timer.stop()
 	$Timer.wait_time = 0.15
 	_delta_time = 1
@@ -169,35 +189,35 @@ func change_delta_rate(type: ConfigType, new_delta: int) -> void:
 		_delta_volts = new_delta
 
 func increment_time() -> int:
-	_time += _delta_time
+	time += _delta_time
 	update_timer_display()
-	return _time
+	return time
 	
 func decrement_time() -> int:
-	if _time > 0:
-		_time -= _delta_time
+	if time > 0:
+		time -= _delta_time
 		update_timer_display()
 	
-	return _time
+	return time
 		
 func update_timer_display() -> void:
-	var minutes: int = _time / 60
-	var seconds: int = _time % 60
-	$Screen/TimeContainer/HBoxContainer/Time.text = "%d:%02d" % [minutes, seconds]
+	var minutes: int = time / 60
+	var seconds: int = time % 60
+	$Screen/TimeContainer/HBoxContainer/Time.text = "%02d:%02d" % [minutes, seconds]
 
 func increment_volts() -> int:
-	_volts += _delta_volts
-	_volts = min(_volts, 999)
+	volts += _delta_volts
+	volts = min(volts, 999)
 	_update_volt_display()
 	
-	return _volts
+	return volts
 	
 func decrement_volts() -> int:
-	if _volts > 0:
-		_volts -= _delta_volts
+	if volts > 0:
+		volts -= _delta_volts
 		_update_volt_display()
 	
-	return _volts
+	return volts
 	
 func _update_volt_display() -> void:
-	$Screen/VoltageContainer/HBoxContainer/Volts.text = "%d" % [_volts]
+	voltage_line_edit.text = "%d" % [volts]
