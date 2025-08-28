@@ -31,6 +31,8 @@ var _velocity: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint(): return
+
 	# Needed by `Interaction` to find this object.
 	add_to_group(&"interactable_component")
 
@@ -48,6 +50,8 @@ func _ready() -> void:
 	set_physics_mode(physics_mode)
 
 func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint(): return
+
 	if is_active():
 		if abs(global_rotation) > 0.001:
 			var is_rotating_clockwise := global_rotation < 0
