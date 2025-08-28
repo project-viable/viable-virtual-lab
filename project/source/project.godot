@@ -41,6 +41,7 @@ attachment:scoopula=""
 contact_wire=""
 emptyable=""
 attachment:contact_wire=""
+attachment:pipette=""
 
 [gui]
 

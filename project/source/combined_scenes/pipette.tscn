@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://t5vephauatf2"]
+[gd_scene load_steps=8 format=3 uid="uid://t5vephauatf2"]
 
 [ext_resource type="Script" uid="uid://c42ut7hyyijbv" path="res://combined_scripts/pipette.gd" id="1_yutq4"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_drsrt"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_h00ti"]
 [ext_resource type="Texture2D" uid="uid://bibba5hteipn1" path="res://updated_assets/lab_objects/pipette.svg" id="4_y22yk"]
 [ext_resource type="Texture2D" uid="uid://c3cm22o72hi0e" path="res://updated_assets/lab_objects/pipette_tip.svg" id="5_5ngtk"]
+[ext_resource type="Script" path="res://combined_scripts/attachment_point.gd" id="6_y22yk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yutq4"]
 size = Vector2(3, 14.4)
@@ -42,3 +43,7 @@ visible = false
 position = Vector2(-0.5, 12)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_5ngtk")
+
+[node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:pipette"]]
+position = Vector2(3.5, -60)
+script = ExtResource("6_y22yk")
