@@ -17,6 +17,18 @@ var unread_logs: Dictionary = {
 var popup_active: bool = false
 var logs: Array[LogMessage] = []
 
+
+var _resolution_options: Array[Vector2i] = [
+	Vector2i(1280, 720),
+	Vector2i(1366, 768),
+	Vector2i(1600, 900),
+	Vector2i(1920, 1080),
+	Vector2i(2560, 1440),
+	Vector2i(3200, 1800),
+	Vector2i(3840, 2160),
+]
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_switch_to_main_menu()
@@ -38,6 +50,30 @@ func _ready() -> void:
 	$LogButton/LogMenu.set_tab_icon(1, load("res://Images/Dot-Blue.png"))
 	$LogButton/LogMenu.set_tab_icon(2, load("res://Images/Dot-Yellow.png"))
 	$LogButton/LogMenu.set_tab_icon(3, load("res://Images/Dot-Red.png"))
+
+	var max_resolution := DisplayServer.screen_get_usable_rect().size
+
+	var idx := 0
+	var saved_resolution_index := 0
+	var first := true
+
+	# Show relevant resolution options.
+	for r in _resolution_options:
+		# We always include the first resolution in the list even if it's too big to make sure we
+		# have one.
+		if first or r.x <= max_resolution.x and r.y <= max_resolution.y:
+			$%ResolutionDropdown.add_item("%s × %s" % [r.x, r.y])
+			$%ResolutionDropdown.set_item_metadata(idx, r)
+			if GameSettings.resolution == r:
+				saved_resolution_index = idx
+			first = false
+
+		idx += 1
+
+	# Set the resolution to the one matching the config. If the config resolution doesn't match
+	# any of the available ones, then it will automatically choose the first option.
+	$%ResolutionDropdown.select(saved_resolution_index)
+	_on_resolution_dropdown_item_selected(saved_resolution_index)
 
 func _process(delta: float) -> void:
 	if logs != []:
@@ -302,3 +338,12 @@ func _on_restart_module_button_pressed() -> void:
 
 func _on_module_select_close_button_pressed() -> void:
 	_switch_to_menu_screen($MenuScreens/PauseMenu)
+
+func _on_resolution_dropdown_item_selected(index: int) -> void:
+	var resolution: Variant = $%ResolutionDropdown.get_item_metadata(index)
+	if resolution is Vector2i:
+		GameSettings.resolution = resolution
+		get_window().size = resolution
+		get_window().move_to_center()
+	else:
+		push_warning("Tried to set invalid resolution %s" % [resolution])
