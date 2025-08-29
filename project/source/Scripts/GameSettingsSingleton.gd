@@ -22,6 +22,9 @@ var _saved_properties: Array[StringName] = [
 func _enter_tree() -> void:
 	load_from_file()
 
+func _exit_tree() -> void:
+	save_to_file()
+
 
 ## Save the current config state to the file [constant CONFIG_FILE_PATH].
 func save_to_file() -> void:
