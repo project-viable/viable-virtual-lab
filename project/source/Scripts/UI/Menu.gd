@@ -77,7 +77,7 @@ func _ready() -> void:
 	$%ResolutionDropdown.select(saved_resolution_index)
 	_on_resolution_dropdown_item_selected(saved_resolution_index)
 
-	_prompt_panel_stylebox_disallowed.set("bg_color", Color.SILVER)
+	_prompt_panel_stylebox_disallowed.bg_color.s *= 0.2
 
 func _process(delta: float) -> void:
 	if logs != []:
@@ -108,7 +108,9 @@ func _process(delta: float) -> void:
 
 			var label: Label = prompt_panel.get_node("Label")
 			label.text = "%s: %s" % [name, state.info.description]
-			var color: Color = Color.GRAY if state.is_pressed else Color.WHITE
+			var color: Color = Color.WHITE
+			if state.is_pressed or not state.info.allowed: color = Color.GRAY
+
 			label.add_theme_color_override(&"font_color", color)
 		else:
 			prompt_panel.hide()
