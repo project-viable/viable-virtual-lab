@@ -1,16 +1,17 @@
 extends InteractableArea
 
-var info: InteractInfo = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Add Tip")
-var pipette: LabBody = null
+var _info: InteractInfo = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Add Tip")
+var _disallowed_info: InteractInfo = InteractInfo.new(InteractInfo.Kind.PRIMARY, "(Tip is already attached)", false)
 
 func get_interactions() -> Array[InteractInfo]:
 	if Interaction.held_body is Pipe:
-		return [info]
-	
+		if Interaction.held_body.has_tip: return [_disallowed_info]
+		else: return [_info]
+
 	return []
-	
+
 func start_interact(_kind: InteractInfo.Kind) -> void:
-	pipette = Interaction.held_body 
+	var pipette: Pipe = Interaction.held_body
 	if pipette.has_tip:
 		print("Pipette already has a tip!")
 		return
