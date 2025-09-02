@@ -28,7 +28,7 @@
 \setuphead[subject][style=ssbfa,after={\blank[medium]}]
 \setuphead[section][style=ssbfa,after={\blank[medium]},number=no]
 
-\setupinteraction[state=start,color=black]
+\setupinteraction[state=start,color=Link,style=rm]
 
 \setupcombinedlist[content][alternative=c]
 
@@ -302,7 +302,7 @@ of type `Value`, so it's not necessary to check it.
 \stoptyping
 \stopCorrectCode
 
-\section{Branch types}
+\section[BranchTypes]{Branch types}
 \MarginHead{\type{main}}
 The \type{main} branch represents the \quotation{canonical} state of the project. I.e., if
 someone—in particular, a user rather than a developer—wants to try out VIABLE, then they should
@@ -404,8 +404,10 @@ If we have reached the end of a sprint, then we will discuss {\it as a team} whe
 state of \type{dev} is in good enough shape to be merged into \type{main}. If we agree, then one of
 us will create a pull request from \type{dev} to \type{main} and merge it in.
 
-\section{Prototype branches}
-
+\section{Prototyping}
+If you want to try something out or share an idea without having to worry about code quality or the
+bureaucracy surrounding topic branches, then you should use a prototype branch, named something like
+\type{proto/whatever}. See the \goto{branch types}[BranchTypes] section for more details.
 
 \section{Updating topic branches}
 Let's say you have checked out the topic branch \type{topic/a}, which is being worked on by
