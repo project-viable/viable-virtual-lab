@@ -18,6 +18,7 @@ var popup_active: bool = false
 var logs: Array[LogMessage] = []
 
 
+<<<<<<< HEAD
 var _resolution_options: Array[Vector2i] = [
 	Vector2i(1280, 720),
 	Vector2i(1366, 768),
@@ -28,9 +29,12 @@ var _resolution_options: Array[Vector2i] = [
 	Vector2i(3840, 2160),
 ]
 
-@onready var _prompt_panel_stylebox_allowed: StyleBox = $%PromptTemplate.get_theme_stylebox("panel").duplicate()
+@onready var _prompt_panel_stylebox_allowed: StyleBox = $%PrimaryPrompt.get_theme_stylebox("panel").duplicate()
 @onready var _prompt_panel_stylebox_disallowed: StyleBox = _prompt_panel_stylebox_allowed.duplicate()
+=======
 var _interaction_prompts: Dictionary[InteractInfo.Kind, PanelContainer] = {}
+
+>>>>>>> 21659e4 (Automatically generate prompts and interaction handling for all interactions)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -54,6 +58,7 @@ func _ready() -> void:
 	$LogButton/LogMenu.set_tab_icon(2, load("res://Images/Dot-Yellow.png"))
 	$LogButton/LogMenu.set_tab_icon(3, load("res://Images/Dot-Red.png"))
 
+<<<<<<< HEAD
 	var max_resolution := DisplayServer.screen_get_usable_rect().size
 
 	var idx := 0
@@ -80,12 +85,13 @@ func _ready() -> void:
 
 	_prompt_panel_stylebox_disallowed.bg_color.s *= 0.2
 	_prompt_panel_stylebox_disallowed.bg_color *= 0.5
-
+=======
 	# Make prompts for every interaction.
 	for k: InteractInfo.Kind in InteractInfo.Kind.values():
 		var c: PanelContainer = $%PromptTemplate.duplicate()
 		$%PromptTemplate.get_parent().add_child(c)
 		_interaction_prompts.set(k, c)
+>>>>>>> 21659e4 (Automatically generate prompts and interaction handling for all interactions)
 
 func _process(delta: float) -> void:
 	if logs != []:
@@ -95,8 +101,22 @@ func _process(delta: float) -> void:
 				show_popup(logs[0])
 			logs.remove_at(0)
 
+<<<<<<< HEAD
+	# [kind, name, prompt panel]
+	var buttons: Array[Array] = [
+		[InteractInfo.Kind.PRIMARY, "Left click", $%PrimaryPrompt],
+		[InteractInfo.Kind.SECONDARY, "Right click", $%SecondaryPrompt],
+		[InteractInfo.Kind.ZOOM, "Space", $%ZoomPrompt],
+	]
+
+	for b in buttons:
+		var kind: InteractInfo.Kind = b[0]
+		var name: String = b[1]
+		var prompt_panel: PanelContainer = b[2]
+=======
 	for kind: InteractInfo.Kind in _interaction_prompts.keys():
 		var prompt_panel: PanelContainer = _interaction_prompts.get(kind)
+>>>>>>> 21659e4 (Automatically generate prompts and interaction handling for all interactions)
 
 		var state: Interaction.InteractState = Interaction.interactions.get(kind)
 		if state.info:
@@ -107,9 +127,15 @@ func _process(delta: float) -> void:
 				prompt_panel.add_theme_stylebox_override("panel", _prompt_panel_stylebox_disallowed)
 
 			var label: Label = prompt_panel.get_node("Label")
-			label.text = "%s: %s" % [InteractInfo.kind_to_action(kind), state.info.description]
+<<<<<<< HEAD
+			label.text = "%s: %s" % [name, state.info.description]
 			var color: Color = Color.WHITE
 			if state.is_pressed or not state.info.allowed: color = Color.GRAY
+
+=======
+			label.text = "%s: %s" % [InteractInfo.kind_to_action(kind), state.info.description]
+			var color: Color = Color.GRAY if state.is_pressed else Color.WHITE
+>>>>>>> 21659e4 (Automatically generate prompts and interaction handling for all interactions)
 			label.add_theme_color_override(&"font_color", color)
 		else:
 			prompt_panel.hide()

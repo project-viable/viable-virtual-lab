@@ -24,6 +24,15 @@ var description: String = ""
 var allowed: bool = true
 
 
+static func kind_to_action(k: Kind) -> StringName:
+	match k:
+		Kind.PRIMARY: return &"interact_primary"
+		Kind.SECONDARY: return &"interact_secondary"
+		Kind.ZOOM: return &"interact_zoom"
+
+	return &""
+
+
 func _init(p_kind: Kind, p_description: String, p_allowed: bool = true) -> void:
 	kind = p_kind
 	description = p_description
