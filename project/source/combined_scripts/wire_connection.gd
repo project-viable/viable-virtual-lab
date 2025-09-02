@@ -1,70 +1,55 @@
-extends LabBody
-class_name WireConnectable
+extends Node2D
+class_name WireConnectableComponent
 ## Handles connection logic for objects that can have contact wires be 
 ## connected to their outlets.
 ## A signal is emitted that checks whether or not the object has valid wire connections
 ## For simplicity sake, a valid connection is when the charge of the wire matches the 
 ## charge of the outlet
 
+@export var body: LabBody
 
-# True if a positive contact wire is connected to the positive outlet
-@export var positive_connected: bool = false:
+var wire_connected_to_positive_terminal: Wire:
 	set(value):
-		positive_connected = value
+		wire_connected_to_positive_terminal = value
 		_check_connection_state()
-
-# True if a negative contact wire is connected to the negative outlet
-@export var negative_connected: bool = false:
+		
+var wire_connected_to_negative_terminal: Wire:
 	set(value):
-		negative_connected = value
+		wire_connected_to_negative_terminal = value
 		_check_connection_state()
-
-# Emitted whenevr a wire is connected to an outlet
-signal valid_connection(is_valid: bool)
-
-var _wire_connected_to_positive_output: Wire
-var _wire_connected_to_negative_output: Wire
 
 # Checks if a matching connection is made with the wire and outlet
 # Otherwise, warn the user that the connections may be incorrect
-func on_wire_connected(wire: Wire, target_outlet_charge: Wire.Charge) -> void:
-	var is_charge_matching: bool = wire.charge == target_outlet_charge
-	var is_outlet_positive: bool = target_outlet_charge == Wire.Charge.POSITIVE
+func on_wire_connected(wire: Wire, target_terminal_charge: Terminal.Charge) -> void:
+	var is_terminal_positive: bool = target_terminal_charge == Terminal.Charge.POSITIVE
 	
-	if is_charge_matching:
-		if is_outlet_positive:
-			positive_connected = true
-			_wire_connected_to_positive_output = wire
-			
-		else:
-			negative_connected = true
-			_wire_connected_to_negative_output = wire
-	
+	if is_terminal_positive:
+		wire_connected_to_positive_terminal = wire
+		
 	else:
-		if is_outlet_positive:
-			print("Connecting a Negative to a Positive!")
-			_wire_connected_to_positive_output = wire
-
-		else:
-			print("Connecting a Positive to a Negative!")
-			_wire_connected_to_negative_output = wire
-			
+		wire_connected_to_negative_terminal = wire
+	
 # Handle unplugging wires
 func unplug_handler(body: Node2D) -> void:
 	var clicked_on_wire: Wire = body
 	
-	if _wire_connected_to_positive_output and clicked_on_wire == _wire_connected_to_positive_output: # Pulling out the wire from positive outlet
-		positive_connected = false
-		_wire_connected_to_positive_output = null
+	if wire_connected_to_positive_terminal and clicked_on_wire == wire_connected_to_positive_terminal: # Pulling out the wire from positive outlet
+		wire_connected_to_positive_terminal = null
 		
-		
-	elif _wire_connected_to_negative_output and clicked_on_wire == _wire_connected_to_negative_output: # Pulling out the wire from negative outlet
-		negative_connected = false
-		_wire_connected_to_negative_output = null
+	elif wire_connected_to_negative_terminal and clicked_on_wire == wire_connected_to_negative_terminal: # Pulling out the wire from negative outlet
+		wire_connected_to_negative_terminal = null
 
 # Check if the wires are correctly connected to their respective outlets and emit a signal 
 func _check_connection_state() -> void:
-	if positive_connected and negative_connected:
-		valid_connection.emit(true)
+	if wire_connected_to_positive_terminal and wire_connected_to_negative_terminal:
+		SignalEventBus.on_wire_connection.emit(true, body)
+		
 	else:
-		valid_connection.emit(false)
+		SignalEventBus.on_wire_connection.emit(false, body)
+
+
+func get_positive_terminal_wire() -> Wire:
+	return wire_connected_to_positive_terminal
+	
+func get_negative_terminal_wire() -> Wire:
+	return wire_connected_to_negative_terminal

@@ -1,4 +1,4 @@
-extends WireConnectable
+extends LabBody
 class_name PowerSupply
 
 @export var increment_time_button: TextureButton
@@ -7,6 +7,7 @@ class_name PowerSupply
 @export var decrement_volts_button: TextureButton
 @export var time_line_edit: LineEdit
 @export var voltage_line_edit: LineEdit
+
 
 @onready var button_function_dict: Dictionary = {
 	increment_time_button: {
@@ -34,9 +35,17 @@ enum ConfigType{
 	VOLT
 }
 
+enum CurrentDirection{
+	FORWARD,
+	REVERSE
+}
+
 var _is_zoomed_in: bool = false
 var _should_increment: bool = false
-var _is_gel_box_ready: bool = false
+var _is_power_supply_connected: bool = false
+var _object_to_recieve_current: LabBody
+var positive_terminal_wire: Wire
+var negative_terminal_wire: Wire
 
 var _buttons: Array[TextureButton]
 var _current_pressed_button: TextureButton
@@ -66,11 +75,14 @@ func _ready() -> void:
 		_buttons.append(button)
 		button.button_down.connect(_on_screen_button_pressed.bind(button))
 		button.button_up.connect(_on_screen_button_released.bind(button))
+		
+	SignalEventBus.on_wire_connection.connect(_on_wire_connection)
 
 func _on_start_button_pressed() -> void:
-	var circuit_ready: bool = positive_connected and negative_connected and _is_gel_box_ready 
+	var circuit_ready: bool = _is_circuit_ready()
 	if circuit_ready:
-		activate_power_supply.emit(_volts, _time, circuit_ready) #TODO stuff should happen once wires are connected to the gel rig
+		var current_direction: CurrentDirection = get_current_direction()
+		activate_power_supply.emit(_volts, _time, current_direction) #TODO stuff should happen once wires are connected to the gel rig
 	else:
 		print("Something is wrong with the circuit! Check that the connections on the Power Supply and Gel Box are correct!")
 		
@@ -185,6 +197,42 @@ func _update_volt_display() -> void:
 	voltage_line_edit.text = "%d" % [volts]
 	$Screen/VoltageContainer/HBoxContainer/Volts.text = "%d" % [_volts]
 
-# Triggered whenever a wire is connected to the gel box
-func _on_gel_box_valid_connection(is_valid: bool) -> void:
-	_is_gel_box_ready = is_valid
+# Triggered whenever a wire is connected to an outlet for any object
+func _on_wire_connection(is_valid: bool, body: LabBody) -> void:
+	if body == self:
+		_is_power_supply_connected = is_valid
+	else:
+		if is_valid:
+			_object_to_recieve_current = body
+		else:
+			_object_to_recieve_current = null
+		
+func _is_circuit_ready() -> bool:
+	# Electrodes must be plugged in for both the power supply and the object
+	if not _is_power_supply_connected or not _object_to_recieve_current:
+		return false
+	
+	positive_terminal_wire = $WireConnectableComponent.get_positive_terminal_wire()
+	negative_terminal_wire = $WireConnectableComponent.get_negative_terminal_wire()
+	
+	# Both ends of a wire should not be on the power supply since that'll do nothing
+	if positive_terminal_wire.other_end == negative_terminal_wire:
+		return false
+		
+	return true
+
+## Returns a FORWARD or REVERSE direction depending on if both ends of a wire
+## match the same denoted terminal. A match returns FORWARD. Otherwise: REVERSE
+func get_current_direction() -> CurrentDirection:
+	var target: WireConnectableComponent = _object_to_recieve_current.find_children("", "WireConnectableComponent")[0]
+	var target_positive_terminal_wire: Wire = target.get_positive_terminal_wire()
+	var target_negative_terminal_wire: Wire = target.get_negative_terminal_wire()
+	
+	# Both ends of a wire is connected to a positive terminal, resulting in a forward current direction
+	if target_positive_terminal_wire.other_end == positive_terminal_wire \
+		and target_negative_terminal_wire.other_end == negative_terminal_wire:
+			return CurrentDirection.FORWARD
+	
+	# Ends of a wire are connected to different terminal denotations, resulting in a reversed current direction
+	else:
+		return CurrentDirection.REVERSE
