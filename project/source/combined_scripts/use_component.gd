@@ -23,7 +23,7 @@ func stop_targeting(_area: InteractableArea, _kind: InteractInfo.Kind) -> void: 
 
 ## (virtual) called when the user presses down the input for the interaction of kind `kind` while
 ## targeting the interactable area `area`.
-func start_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void: pass
+func start_use(_area: InteractableArea, _kind: InteractInfo.Kind, event: InputEvent = null) -> void: pass
 
 ## (virtual) called when the user releases the input for the interaction of kind `kind` while
 ## targeting the interactable area `area`.

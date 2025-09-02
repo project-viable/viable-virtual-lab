@@ -59,6 +59,7 @@ var hovered_interactable_component: InteractableComponent = null
 var interactions: Dictionary[InteractInfo.Kind, InteractState] = {
 	InteractInfo.Kind.PRIMARY: InteractState.new(),
 	InteractInfo.Kind.SECONDARY: InteractState.new(),
+	InteractInfo.Kind.TERNARY: InteractState.new(),
 }
 
 
@@ -152,6 +153,8 @@ func _unhandled_input(e: InputEvent) -> void:
 		kind = InteractInfo.Kind.PRIMARY
 	elif e.is_action(&"interact_secondary"):
 		kind = InteractInfo.Kind.SECONDARY
+	elif e.is_action(&"interact_ternary"):
+		kind = InteractInfo.Kind.TERNARY
 	else:
 		return
 

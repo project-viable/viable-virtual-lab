@@ -1,8 +1,8 @@
 [gd_scene load_steps=22 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://crqlu3uq74012" path="res://Scripts/UI/Menu.gd" id="1"]
-[ext_resource type="Script" uid="uid://xvdl5qhq7itj" path="res://Main.gd" id="2"]
-[ext_resource type="Script" uid="uid://dwrt1nvnkb1nd" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
+[ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
+[ext_resource type="Script" uid="uid://chwhrlyn51foq" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
 [ext_resource type="Texture2D" uid="uid://bdg0qubi6xt7d" path="res://Images/MainMenu-Background.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://dgmytdnqonu6s" path="res://Images/HamburgerMenu.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://b3mapaem4gat2" path="res://Images/Gel Electrophoresis Icon.png" id="5"]
@@ -757,6 +757,16 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_sc1dx")
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "right click"
+
+[node name="TernaryPrompt" type="PanelContainer" parent="Menu/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sc1dx")
+
+[node name="Label" type="Label" parent="Menu/VBoxContainer/TernaryPrompt"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "enter key"
 
 [node name="Scene" type="Node2D" parent="."]
 
