@@ -152,6 +152,8 @@ func _unhandled_input(e: InputEvent) -> void:
 		kind = InteractInfo.Kind.PRIMARY
 	elif e.is_action(&"interact_secondary"):
 		kind = InteractInfo.Kind.SECONDARY
+	elif e.is_action(&"interact_zoom"):
+		kind = InteractInfo.Kind.ZOOM
 	else:
 		return
 

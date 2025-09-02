@@ -769,6 +769,16 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "right click"
 
+[node name="ZoomPrompt" type="PanelContainer" parent="Menu/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sc1dx")
+
+[node name="Label" type="Label" parent="Menu/VBoxContainer/ZoomPrompt"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "space"
+
 [node name="Scene" type="Node2D" parent="."]
 
 [node name="Mixtures" type="Node2D" parent="."]

@@ -7,6 +7,7 @@ enum Kind
 {
 	PRIMARY, ## Left click by default.
 	SECONDARY, ## Right click by default.
+	ZOOM, ## Space by default.
 }
 
 

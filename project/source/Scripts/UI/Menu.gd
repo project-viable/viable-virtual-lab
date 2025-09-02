@@ -92,6 +92,7 @@ func _process(delta: float) -> void:
 	var buttons: Array[Array] = [
 		[InteractInfo.Kind.PRIMARY, "Left click", $%PrimaryPrompt],
 		[InteractInfo.Kind.SECONDARY, "Right click", $%SecondaryPrompt],
+		[InteractInfo.Kind.ZOOM, "Space", $%ZoomPrompt],
 	]
 
 	for b in buttons:
