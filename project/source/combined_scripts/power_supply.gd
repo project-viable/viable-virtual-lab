@@ -82,7 +82,7 @@ func _on_start_button_pressed() -> void:
 	var circuit_ready: bool = _is_circuit_ready()
 	if circuit_ready:
 		var current_direction: CurrentDirection = get_current_direction()
-		activate_power_supply.emit(_volts, _time, current_direction) #TODO stuff should happen once wires are connected to the gel rig
+		activate_power_supply.emit(volts, time, current_direction) #TODO stuff should happen once wires are connected to the gel rig
 	else:
 		print("Something is wrong with the circuit! Check that the connections on the Power Supply and Gel Box are correct!")
 		
@@ -195,7 +195,6 @@ func decrement_volts() -> int:
 	
 func _update_volt_display() -> void:
 	voltage_line_edit.text = "%d" % [volts]
-	$Screen/VoltageContainer/HBoxContainer/Volts.text = "%d" % [_volts]
 
 # Triggered whenever a wire is connected to an outlet for any object
 func _on_wire_connection(is_valid: bool, body: LabBody) -> void:
