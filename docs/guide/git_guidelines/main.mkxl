@@ -334,6 +334,14 @@ Once a topic branch is merged, it should be deleted—typically, this will be do
 of these branches means that their name isn't {\it that} important; it's best to try not to use a
 name that has been used before, but it's not a big deal if you do.
 
+\MarginHead{\type{proto/*}}
+Prototype branches are given a name in the form \type{proto/<name>}, where \type{<name>} is the name
+of the thing being prototyped. Prototype branches do not have to be kept updated with \type{dev} or
+any other branch. Their commit history does not have to be clean. Their code quality and formatting
+also do not have to be good. They are {\it never} merged directly into \type{dev}. If you want to
+use some specific code from a prototype branch in a topic branch, then you should grab the changes
+either using \type{git cherry-pick} or copy and paste.
+
 % TODO: Add diagrams for topic branches.
 
 \MarginHead{\type{hotfix/*}}
@@ -395,6 +403,9 @@ correctly. This doesn't necessarily mean that it should have zero bugs, but ther
 If we have reached the end of a sprint, then we will discuss {\it as a team} whether the current
 state of \type{dev} is in good enough shape to be merged into \type{main}. If we agree, then one of
 us will create a pull request from \type{dev} to \type{main} and merge it in.
+
+\section{Prototype branches}
+
 
 \section{Updating topic branches}
 Let's say you have checked out the topic branch \type{topic/a}, which is being worked on by
