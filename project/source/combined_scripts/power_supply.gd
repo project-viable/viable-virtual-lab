@@ -221,8 +221,9 @@ func _is_circuit_ready() -> bool:
 		
 	return true
 
-## Returns a FORWARD or REVERSE direction depending on if both ends of a wire
-## match the same denoted terminal. A match returns FORWARD. Otherwise: REVERSE
+## Determines the direction of current based on wire connections.
+## Returns FORWARD if each wire connects matching terminals (positive to positive, negative to negative),
+## otherwise returns REVERSE.
 func get_current_direction() -> CurrentDirection:
 	var target: WireConnectableComponent = _object_to_recieve_current.find_children("", "WireConnectableComponent")[0]
 	var target_positive_terminal_wire: Wire = target.get_positive_terminal_wire()
