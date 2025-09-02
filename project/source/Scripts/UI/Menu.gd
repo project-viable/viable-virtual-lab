@@ -100,6 +100,8 @@ func _process(delta: float) -> void:
 
 		var state: Interaction.InteractState = Interaction.interactions.get(kind)
 		if state.info:
+			var events := InputMap.action_get_events(InteractInfo.kind_to_action(kind))
+			var key_name: String = events.front().as_text() if events else "???"
 			prompt_panel.show()
 			if state.info.allowed:
 				prompt_panel.add_theme_stylebox_override("panel", _prompt_panel_stylebox_allowed)
@@ -107,7 +109,7 @@ func _process(delta: float) -> void:
 				prompt_panel.add_theme_stylebox_override("panel", _prompt_panel_stylebox_disallowed)
 
 			var label: Label = prompt_panel.get_node("Label")
-			label.text = "%s: %s" % [InteractInfo.kind_to_action(kind), state.info.description]
+			label.text = "%s: %s" % [key_name, state.info.description]
 			var color: Color = Color.WHITE
 			if state.is_pressed or not state.info.allowed: color = Color.GRAY
 			label.add_theme_color_override(&"font_color", color)
