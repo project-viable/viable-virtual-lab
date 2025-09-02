@@ -26,6 +26,11 @@
 
 \setuphead[title][style=ssbfb,alternative=middle]
 \setuphead[subject][style=ssbfa,after={\blank[medium]}]
+\setuphead[section][style=ssbfa,after={\blank[medium]},number=no]
+
+\setupinteraction[state=start,color=Link,style=rm]
+
+\setupcombinedlist[content][alternative=c]
 
 \definemargindata[InMarginHead][left][style=tf,width=\leftmarginwidth]
 
@@ -187,7 +192,11 @@
 
 \starttext
 \title{Project VIABLE—Git guidelines}
-\subject{Commit messages}
+
+\subject{Contents}
+\placecontent
+
+\section{Commit messages}
 This section is somewhat optional—ignore it if you would like, but it's recommended for the sake of
 consistency and clarity.
 
@@ -293,7 +302,7 @@ of type `Value`, so it's not necessary to check it.
 \stoptyping
 \stopCorrectCode
 
-\subject{Branch types}
+\section[BranchTypes]{Branch types}
 \MarginHead{\type{main}}
 The \type{main} branch represents the \quotation{canonical} state of the project. I.e., if
 someone—in particular, a user rather than a developer—wants to try out VIABLE, then they should
@@ -324,6 +333,14 @@ Once a topic branch is merged, it should be deleted—typically, this will be do
 \quotation{delete branch} button in the pull request page once it's closed. The short-lived nature
 of these branches means that their name isn't {\it that} important; it's best to try not to use a
 name that has been used before, but it's not a big deal if you do.
+
+\MarginHead{\type{proto/*}}
+Prototype branches are given a name in the form \type{proto/<name>}, where \type{<name>} is the name
+of the thing being prototyped. Prototype branches do not have to be kept updated with \type{dev} or
+any other branch. Their commit history does not have to be clean. Their code quality and formatting
+also do not have to be good. They are {\it never} merged directly into \type{dev}. If you want to
+use some specific code from a prototype branch in a topic branch, then you should grab the changes
+either using \type{git cherry-pick} or copy and paste.
 
 % TODO: Add diagrams for topic branches.
 
@@ -378,7 +395,7 @@ make_branch(dev, 5.5, "dev", dev_color)(-1, 0, 1, 2, 3, 5);
 \stopMPcode
 \stopMidFig
 
-\subject{The \type{main} branch}
+\section{The \type{main} branch}
 As much as is reasonably possible, \type{main} should {\it always} point to a commit that works
 correctly. This doesn't necessarily mean that it should have zero bugs, but there should be no
 \quotation{compile}-time errors, no runtime errors during normal usage, and no tests failing.
@@ -387,7 +404,12 @@ If we have reached the end of a sprint, then we will discuss {\it as a team} whe
 state of \type{dev} is in good enough shape to be merged into \type{main}. If we agree, then one of
 us will create a pull request from \type{dev} to \type{main} and merge it in.
 
-\subject{Updating topic branches}
+\section{Prototyping}
+If you want to try something out or share an idea without having to worry about code quality or the
+bureaucracy surrounding topic branches, then you should use a prototype branch, named something like
+\type{proto/whatever}. See the \goto{branch types}[BranchTypes] section for more details.
+
+\section{Updating topic branches}
 Let's say you have checked out the topic branch \type{topic/a}, which is being worked on by
 someone else. When pulling these changes, always use the command \type{git pull --rebase}.
 Alternatively, if you set the config option \type{pull.rebase} to \type{true}, then \type{git pull}
@@ -462,7 +484,7 @@ make_branch(topic, 5.5, "topic/a", topic_a_color)(4, 5);
 
 which is much cleaner.
 
-\subject{Incorporating changes from \type{dev}}
+\section{Incorporating changes from \type{dev}}
 Let's say you want to add some feature, so you create a branch from \type{dev} called
 \type{topic/add-feature}. At the same time, someone else fixes a bug in the branch
 \type{topic/fix-bug}:
@@ -533,7 +555,7 @@ The benefit of rebasing is that it is practically invisible. It appears as if
 \type{topic/add-feature} was directly branched from the most recent commit in \type{dev} and
 doesn't create noisy merge commits.
 
-\subject{Making issues}
+\section{Making issues}
 If you notice any problem or have any idea for a change you think would be good, make an issue.
 Don't hesitate to do this {\it even if you're unsure of whether it's a real problem or that we would
 ever address it}. When making an issue, please make sure to do the following:
@@ -557,7 +579,7 @@ ever address it}. When making an issue, please make sure to do the following:
 If you notice that an issue made by someone else doesn't have labels or isn't on the project board,
 you are welcome to add those yourself.
 
-\subject{Assigning yourself work}
+\section{Assigning yourself work}
 If you have a particular thing you want to work on, first look in the \quotation{In Progress} column
 of the project board to make sure that nobody else is already working on it. If not, look in the
 \quotation{Todo} column and see if someone has already created an issue for it. Otherwise, you may
@@ -570,7 +592,7 @@ comment on the issue page explaining what part you're doing. You may assign your
 that already has assignees as long as your work doesn't overlap with other peoples' work and you
 make it clear what you're working on.
 
-\subject{Topic branches}
+\section{Topic branches}
 Once you have assigned yourself work, create a topic branch. If your work corresponds with exactly
 one issue, then you can create the topic branch using the \quotation{Create a branch} button on the
 issue page, or you can make the branch by hand. Otherwise, you must create the branch by hand.
@@ -581,7 +603,7 @@ While working on your topic branch, please consider regularly incorporating chan
 This reduces the likelihood of running into merge conflicts and will prevent you from fixing stuff
 that has already been fixed.
 
-\subject{Making pull requests}
+\section{Making pull requests}
 When you feel that your topic branch is done and have pushed all of your changes upstream, create a
 pull request from the topic branch into \type{dev}.
 
@@ -600,7 +622,7 @@ Add at least one person as a reviewer for your pull request. If you have anythin
 or you want reviewers to test something specific, then include those details in the pull request
 description or in a comment.
 
-\subject{Reviewing and merging pull requests}
+\section{Reviewing and merging pull requests}
 If you can, try to regularly look through and review existing pull requests. If you're fairly
 confident that a pull request is correct, then leave an approval on it. If you're confident that
 something is incorrect, leave a review requesting changes with a comment explaining what you think
