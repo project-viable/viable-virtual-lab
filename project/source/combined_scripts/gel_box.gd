@@ -1,2 +1,0 @@
-extends WireConnectable
-class_name GelBox
