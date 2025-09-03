@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://du0xgct56vfqx"]
+[gd_scene load_steps=13 format=3 uid="uid://du0xgct56vfqx"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_vo5hq"]
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_ak4uf"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://combined_scripts/substance_instance.gd" id="5_6s205"]
 [ext_resource type="Script" uid="uid://5sjgduop7hjw" path="res://combined_scripts/basic_substance.gd" id="7_vo5hq"]
 [ext_resource type="Script" uid="uid://dmam7f2mtik2" path="res://combined_scripts/basic_substance_data.gd" id="8_bhtvw"]
-[ext_resource type="Script" uid="uid://dwugjsi3at7tt" path="res://combined_scripts/scoop_interactable_area.gd" id="10_7vpf6"]
 [ext_resource type="Script" uid="uid://cckgm2byotfq0" path="res://combined_scripts/solubility_data.gd" id="11_vo5hq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rqhjd"]
@@ -27,9 +26,6 @@ script = ExtResource("7_vo5hq")
 data = SubResource("Resource_7vpf6")
 volume = 100.0
 metadata/_custom_type_script = "uid://5sjgduop7hjw"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vo5hq"]
-size = Vector2(81, 107)
 
 [node name="TAEBottle" type="RigidBody2D"]
 collision_layer = 0
@@ -67,12 +63,3 @@ scale = Vector2(0.551095, 0.551095)
 text = "TAE
 Buffer"
 horizontal_alignment = 1
-
-[node name="ScoopInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container")]
-script = ExtResource("10_7vpf6")
-container = NodePath("../ContainerComponent")
-metadata/_custom_type_script = "uid://dwugjsi3at7tt"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoopInteractableArea"]
-position = Vector2(1.5, -8.5)
-shape = SubResource("RectangleShape2D_vo5hq")
