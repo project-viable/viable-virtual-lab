@@ -4,7 +4,7 @@ var container_component: ContainerComponent
 
 func get_interactions() -> Array[InteractInfo]:
 	var info: InteractInfo
-	interactor = Interaction.active_drag_component.body
+	interactor = Interaction.held_body
 
 	if interactor is Pipe and interactor.has_tip:
 		info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Dispose tip")

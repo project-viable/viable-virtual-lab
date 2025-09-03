@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dqc2dtt648v3m"]
+[gd_scene load_steps=6 format=3 uid="uid://dqc2dtt648v3m"]
 
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_85rdh"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_jx3lu"]
-[ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_30e3j"]
 [ext_resource type="Texture2D" uid="uid://b0qriex5es36u" path="res://updated_assets/lab_objects/biohazard_bin.svg" id="3_jx3lu"]
 [ext_resource type="Script" uid="uid://boree4ige5a05" path="res://combined_scripts/biohazard_bin_interactable_area.gd" id="5_fus4i"]
 
@@ -23,12 +22,6 @@ texture = ExtResource("3_jx3lu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_nf2rl")
-
-[node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
-script = ExtResource("3_30e3j")
-body = NodePath("..")
-interact_canvas_group = NodePath("../SelectableCanvasGroup")
-metadata/_custom_type_script = "uid://bsonh03rfuf2p"
 
 [node name="InteractableArea" type="Area2D" parent="."]
 script = ExtResource("5_fus4i")

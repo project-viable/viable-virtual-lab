@@ -1,4 +1,4 @@
-extends LabBody
+extends Node2D
 
 
 var _input_time: int = 0
@@ -9,7 +9,6 @@ var _is_zoomed_in: bool = false
 
 
 func _ready() -> void:
-	super()
 	# Connect all buttons in the keypad
 	for button: TextureButton in $Keypad.get_children():
 		var button_label: Label = button.get_node("Label")

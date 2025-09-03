@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://t5vephauatf2"]
+[gd_scene load_steps=7 format=3 uid="uid://t5vephauatf2"]
 
 [ext_resource type="Script" uid="uid://c42ut7hyyijbv" path="res://combined_scripts/pipette.gd" id="1_yutq4"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_drsrt"]
-[ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="2_h00ti"]
 [ext_resource type="Texture2D" uid="uid://bibba5hteipn1" path="res://updated_assets/lab_objects/pipette.svg" id="4_y22yk"]
 [ext_resource type="Texture2D" uid="uid://c3cm22o72hi0e" path="res://updated_assets/lab_objects/pipette_tip.svg" id="5_5ngtk"]
 [ext_resource type="Script" path="res://combined_scripts/attachment_point.gd" id="6_y22yk"]
@@ -23,12 +22,6 @@ polygon = PackedVector2Array(-7, -76, -7, -68, -12, -67, -14, -64, -14, -61, -11
 position = Vector2(3.5, 75.2)
 shape = SubResource("RectangleShape2D_yutq4")
 disabled = true
-
-[node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
-script = ExtResource("2_h00ti")
-body = NodePath("..")
-interact_canvas_group = NodePath("../SelectableCanvasGroup")
-metadata/_custom_type_script = "uid://bsonh03rfuf2p"
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("2_drsrt")

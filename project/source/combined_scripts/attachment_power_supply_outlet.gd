@@ -5,12 +5,12 @@ extends AttachmentInteractableArea
 ## Emits a signal carrying the wire and the outlet's charge that wire was trying to interact with
 signal wire_connected(wire: Wire, outlet_charge: Wire.Charge)
 
-var interacting_wire: DragComponent
+var interacting_wire: LabBody
 
 func get_interactions() -> Array[InteractInfo]:
 	var info: InteractInfo
-	if can_place(Interaction.active_drag_component.body):
-		interacting_wire = Interaction.active_drag_component
+	if can_place(Interaction.held_body):
+		interacting_wire = Interaction.held_body
 		info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Connect Wire")
 		return [info]
 

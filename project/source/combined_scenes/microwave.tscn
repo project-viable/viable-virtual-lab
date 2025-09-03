@@ -7,20 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://updated_assets/icons_and_buttons/button_2.svg" id="5_caubw"]
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="5_iwbat"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0lrr"]
-size = Vector2(273, 152)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwbat"]
 size = Vector2(53, 59)
 
-[node name="Microwave" type="RigidBody2D"]
-collision_layer = 0
-script = ExtResource("1_caubw")
-metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0lrr"]
+size = Vector2(273, 152)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, 3)
-shape = SubResource("RectangleShape2D_a0lrr")
+[node name="Microwave" type="Node2D"]
+script = ExtResource("1_caubw")
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("2_cwbd0")
