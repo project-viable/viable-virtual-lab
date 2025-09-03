@@ -78,6 +78,7 @@ func _ready() -> void:
 	_on_resolution_dropdown_item_selected(saved_resolution_index)
 
 	_prompt_panel_stylebox_disallowed.bg_color.s *= 0.2
+	_prompt_panel_stylebox_disallowed.bg_color *= 0.5
 
 func _process(delta: float) -> void:
 	if logs != []:
