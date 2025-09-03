@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbyk3b4kok1ym"]
+
+[ext_resource type="Texture2D" uid="uid://dysf6girxjwcd" path="res://updated_assets/lab_objects/pipette_stand.svg" id="1_f6gcr"]
+[ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="2_pn8um"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i31c7"]
+size = Vector2(46, 138)
+
+[node name="PipetteStand" type="Node2D"]
+
+[node name="PipetteStand" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_f6gcr")
+
+[node name="AttachmentInteractableArea" type="Area2D" parent="."]
+position = Vector2(0, -60)
+script = ExtResource("2_pn8um")
+place_prompt = "Hang pipette"
+point_groups = Array[StringName]([&"attachment:pipette"])
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
+position = Vector2(-1, 36)
+shape = SubResource("RectangleShape2D_i31c7")
