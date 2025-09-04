@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_cwbd0"]
 [ext_resource type="Texture2D" uid="uid://bruixvdw7rapf" path="res://updated_assets/lab_objects/microwave.svg" id="3_iwbat"]
 [ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://updated_assets/icons_and_buttons/button_2.svg" id="5_caubw"]
-[ext_resource type="Script" uid="uid://kyg3yiaw5rp2" path="res://combined_scripts/microwave_interactable_area.gd" id="5_iwbat"]
+[ext_resource type="Script" path="res://combined_scripts/microwave_interactable_area.gd" id="5_iwbat"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0lrr"]
 size = Vector2(273, 152)

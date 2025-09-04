@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://bpxiht7xu8mss" path="res://combined_scripts/interactable_component.gd" id="5_sbaom"]
 [ext_resource type="Script" uid="uid://8jbti40eodk6" path="res://combined_scripts/interactable_area.gd" id="7_nolfa"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="8_h2xov"]
-[ext_resource type="Script" uid="uid://btbgnyoe2k5xc" path="res://combined_scripts/scoopula_use_component.gd" id="9_fpj3u"]
+[ext_resource type="Script" path="res://combined_scripts/scoopula_use_component.gd" id="9_fpj3u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2xov"]
 size = Vector2(21, 27)
