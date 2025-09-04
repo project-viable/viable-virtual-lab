@@ -8,6 +8,8 @@ enum Kind
 	PRIMARY, ## Left click by default.
 	SECONDARY, ## Right click by default.
 	ZOOM, ## Space by default.
+	ADJUST_LEFT, ## A by default.
+	ADJUST_RIGHT, ## D by default.
 }
 
 
@@ -29,6 +31,8 @@ static func kind_to_action(k: Kind) -> StringName:
 		Kind.PRIMARY: return &"interact_primary"
 		Kind.SECONDARY: return &"interact_secondary"
 		Kind.ZOOM: return &"interact_zoom"
+		Kind.ADJUST_LEFT: return &"interact_adjust_left"
+		Kind.ADJUST_RIGHT: return &"interact_adjust_right"
 
 	return &""
 
