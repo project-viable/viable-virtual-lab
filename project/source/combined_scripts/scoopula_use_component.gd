@@ -4,12 +4,12 @@ extends UseComponent
 var vol_to_take: float
 
 func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
-	#if the scoopula is empty, return the interaction "scoop"
+	## If the scoopula is empty, return the interaction "scoop"
 	if area is ScoopInteractableArea and container.substances.is_empty() and $CanvasLayer/Control/PanelContainer/VBoxContainer/sliderDispenseQty.value == 0.0: 
-		return [InteractInfo.new(InteractInfo.Kind.PRIMARY, "Determine Scoop Quantity")]
+		return [InteractInfo.new(InteractInfo.Kind.PRIMARY, "Choose mL amount with arrow keys")]
 	elif area is ScoopInteractableArea and container.substances.is_empty() and $CanvasLayer/Control/PanelContainer/VBoxContainer/sliderDispenseQty.value != 0.0: 
 		return [InteractInfo.new(InteractInfo.Kind.SECONDARY, "Scoop")]
-	#if the scoopula is holding something, return the interaction "dispense"
+	## If the scoopula is holding something, return the interaction "dispense"
 	elif  area is ScoopInteractableArea and !container.substances.is_empty(): 
 		return [InteractInfo.new(InteractInfo.Kind.TERNARY, "Dispense")]
 	else: return []
@@ -17,6 +17,8 @@ func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 func start_use(_area: InteractableArea, _kind: InteractInfo.Kind, event: InputEvent = null) -> void:
 	match _kind:
 		0:
+			## The user will click to interact with the scoopula slider. Using the left and right arrow keys,
+			## the user can determine how many mL of a substance the user will pick up.
 			print("made it to 0")
 			$CanvasLayer/Control/PanelContainer/VBoxContainer/sliderDispenseQty.grab_focus()
 			print("made it to here after grabbing focus of slider")
@@ -29,14 +31,17 @@ func start_use(_area: InteractableArea, _kind: InteractInfo.Kind, event: InputEv
 				$CanvasLayer/Control/PanelContainer/VBoxContainer/sliderDispenseQty.value-= 0.01
 		1:
 			vol_to_take = $CanvasLayer/Control/PanelContainer/VBoxContainer/sliderDispenseQty.value
-			#If the user wants to scoop up over 0 mL, they can interact with scooping system
+			## If the user wants to scoop up over 0 mL, they can interact with scooping system
 			if vol_to_take != 0.0 and vol_to_take < container.get_volume():
 				for body:LabBody in get_parent().find_child("InteractableArea").get_overlapping_bodies():
+					## If the container being interacted with isn't empty but the amount the user wants to scoop is greater than the
+					## amount in said container, the user will be notified that they can't do that.
+					## Otherwise, the user can scoop like normal
 					if !body.find_child("ContainerComponent").substances.is_empty():
 						if vol_to_take > body.find_child("ContainerComponent").get_total_volume():
 							print("too many ml added to scoopula")
 						else:
-							#Add contents to scoopula and update containers's substance volume
+							## Add contents to scoopula and update containers's substance volume
 							var temp_container: BasicSubstance = body.find_child("ContainerComponent").substances[0].duplicate()
 							body.find_child("ContainerComponent").substances[0].volume -= vol_to_take
 							#print(body.name, "after being scooped from has volume of: ", body.find_child("ContainerComponent").get_total_volume())
@@ -54,15 +59,15 @@ func start_use(_area: InteractableArea, _kind: InteractInfo.Kind, event: InputEv
 			if container.substances.is_empty():
 				print("scoopula is empty")
 			else:
-				#the volume of substance held by the scoopula
+				## the volume of substance held by the scoopula
 				var vol_to_dispense: float = container.substances[0].get_volume()
-				#as long as the scoopula isn't empty, the user can dispense substances from it
+				## As long as the scoopula isn't empty, the user can dispense substances from it
 				for body:LabBody in get_parent().find_child("InteractableArea").get_overlapping_bodies():
-					#Add contents to receiving container if it isn't full
+					## Add contents to receiving container if it isn't full
 					if body.name != "Scoopula":
 						#print("body.find_child(ContainerComponent).get_volume(): ", body.find_child("ContainerComponent").get_volume())
 						if body.find_child("ContainerComponent").substances.is_empty() or (vol_to_dispense + body.find_child("ContainerComponent").get_total_volume() <=  body.find_child("ContainerComponent").get_volume()):
-							#Reset scoopula
+							## Reset scoopula
 							
 							var temp_container: ContainerComponent =container.duplicate()
 							body.find_child("ContainerComponent").add(temp_container.take_volume(vol_to_dispense))
