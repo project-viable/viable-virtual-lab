@@ -1,14 +1,14 @@
 [gd_scene load_steps=12 format=3 uid="uid://c1af3h23bqbvv"]
 
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="1_1hguf"]
-[ext_resource type="Script" uid="uid://n4l5a5hvyrld" path="res://combined_scripts/scoopula.gd" id="1_a840k"]
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_fpj3u"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_g0l2j"]
 [ext_resource type="Texture2D" uid="uid://yrxt2sxidd3c" path="res://Images/FillSprites/scoopula_fill.png" id="4_g0l2j"]
 [ext_resource type="Texture2D" uid="uid://cak418sbeesy5" path="res://updated_assets/lab_objects/scoopula.svg" id="4_sbaom"]
 [ext_resource type="Script" uid="uid://bpxiht7xu8mss" path="res://combined_scripts/interactable_component.gd" id="5_sbaom"]
-[ext_resource type="Script" uid="uid://8jbti40eodk6" path="res://combined_scripts/interactable_area.gd" id="7_nolfa"]
+[ext_resource type="Script" uid="uid://crjdhyhhnuyya" path="res://combined_scripts/scoopula_interactable_area.gd" id="7_fpj3u"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="8_h2xov"]
-[ext_resource type="Script" path="res://combined_scripts/scoopula_use_component.gd" id="9_fpj3u"]
+[ext_resource type="Script" uid="uid://btbgnyoe2k5xc" path="res://combined_scripts/scoopula_use_component.gd" id="9_fpj3u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2xov"]
 size = Vector2(21, 27)
@@ -19,7 +19,7 @@ bg_color = Color(0.254902, 0.0313726, 0.247059, 1)
 [node name="Scoopula" type="RigidBody2D"]
 collision_layer = 3
 collision_mask = 3
-script = ExtResource("1_a840k")
+script = ExtResource("1_fpj3u")
 
 [node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
 script = ExtResource("1_1hguf")
@@ -51,7 +51,7 @@ scale = Vector2(0.0325691, 0.027463)
 texture = ExtResource("4_g0l2j")
 
 [node name="InteractableArea" type="Area2D" parent="."]
-script = ExtResource("7_nolfa")
+script = ExtResource("7_fpj3u")
 metadata/_custom_type_script = "uid://8jbti40eodk6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
@@ -78,13 +78,14 @@ anchor_bottom = 1.0
 offset_left = 44.8
 offset_right = -1240.0
 offset_bottom = -680.0
+metadata/_edit_use_anchors_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="UseComponent/CanvasLayer/Control"]
 layout_mode = 0
-offset_left = 573.0
-offset_top = 601.0
-offset_right = 718.0
-offset_bottom = 683.0
+offset_left = 349.0
+offset_top = 623.0
+offset_right = 494.0
+offset_bottom = 705.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_fpj3u")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UseComponent/CanvasLayer/Control/PanelContainer"]
@@ -111,6 +112,6 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 
-[connection signal="body_entered" from="InteractableArea" to="." method="_on_interactable_area_body_entered"]
-[connection signal="body_exited" from="InteractableArea" to="." method="_on_interactable_area_body_exited"]
+[connection signal="body_entered" from="InteractableArea" to="InteractableArea" method="_on_interactable_area_body_entered"]
+[connection signal="body_exited" from="InteractableArea" to="InteractableArea" method="_on_interactable_area_body_exited"]
 [connection signal="value_changed" from="UseComponent/CanvasLayer/Control/PanelContainer/VBoxContainer/sliderDispenseQty" to="UseComponent" method="_on_slider_dispense_qty_value_changed"]

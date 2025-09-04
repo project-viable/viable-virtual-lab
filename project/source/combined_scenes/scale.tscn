@@ -44,6 +44,25 @@ shape = SubResource("RectangleShape2D_vhatv")
 one_way_collision = true
 debug_color = Color(0.404972, 0.46678, 1, 0.42)
 
+[node name="ZoomCamera" type="Camera2D" parent="."]
+zoom = Vector2(7, 7)
+
+[node name="InteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("body", "camera")]
+script = ExtResource("5_7y61a")
+body = NodePath("..")
+camera = NodePath("../ZoomCamera")
+metadata/_custom_type_script = "uid://8jbti40eodk6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+position = Vector2(1, -22)
+shape = SubResource("RectangleShape2D_jkoys")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1.5, -1.5)
+shape = SubResource("RectangleShape2D_7y61a")
+
 [node name="TareButton" type="TextureButton" parent="."]
 offset_left = 19.0
 offset_top = -15.0
@@ -69,24 +88,15 @@ scale = Vector2(1, 1.00617)
 theme_override_font_sizes/font_size = 200
 text = "Tare"
 
-[node name="ZoomCamera" type="Camera2D" parent="."]
-zoom = Vector2(7, 7)
-
-[node name="InteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("body", "camera")]
-script = ExtResource("5_7y61a")
-body = NodePath("..")
-camera = NodePath("../ZoomCamera")
-metadata/_custom_type_script = "uid://8jbti40eodk6"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
-position = Vector2(1, -22)
-shape = SubResource("RectangleShape2D_jkoys")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1.5, -1.5)
-shape = SubResource("RectangleShape2D_7y61a")
+[node name="WeightLabel" type="Label" parent="."]
+offset_left = -27.0
+offset_top = -10.0
+offset_right = 13.0
+offset_bottom = 2.0
+theme_override_font_sizes/font_size = 9
+text = "0.0  g"
 
 [connection signal="body_entered" from="InteractableArea" to="InteractableArea" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="InteractableArea" to="InteractableArea" method="_on_area_2d_body_exited"]
 [connection signal="input_event" from="Area2D" to="InteractableArea" method="_on_scale_use_input_event"]
+[connection signal="pressed" from="TareButton" to="InteractableArea" method="_on_tare_button_pressed"]
