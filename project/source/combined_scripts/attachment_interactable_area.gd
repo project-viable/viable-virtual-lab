@@ -68,7 +68,6 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	# The user started dragging the contained object, so we release it.
 	if contained_object != null and Interaction.held_body == contained_object:
-		print("poo %s, %s" % [self, contained_object])
 		remove_object()
 
 func get_interactions() -> Array[InteractInfo]:
