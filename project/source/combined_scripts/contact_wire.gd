@@ -5,8 +5,6 @@ class_name Wire #TODO: Previous simulation already uses "ContactWire". Replace t
 
 signal moved() # Emits whenever the contact wire is moved
 
-var red_contact_wire: Texture2D = preload("res://updated_assets/icons_and_buttons/contact_positive.svg")
-var black_contact_wire: Texture2D = preload("res://updated_assets/icons_and_buttons/contact_negative.svg")
 var prev_pos: Vector2
 var other_end: Wire
 

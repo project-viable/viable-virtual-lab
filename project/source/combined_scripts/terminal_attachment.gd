@@ -6,12 +6,12 @@ enum Charge{
 	NEGATIVE
 }
 
-@export var outlet_charge: Charge
+@export var terminal_charge: Charge
 
-
+var connected_wire: Wire
 
 ## Emits a signal carrying the wire and the outlet's charge that wire was trying to interact with
-signal wire_connected(wire: Wire, outlet_charge: Charge)
+signal wire_connected(wire: Wire, terminal_charge: Charge)
 
 var interacting_wire: DragComponent
 
@@ -26,7 +26,7 @@ func get_interactions() -> Array[InteractInfo]:
 
 func start_interact(_k: InteractInfo.Kind) -> void:
 	if contained_object:
-		print("A wire is already connected to the %s outlet!" % [Charge.keys()[outlet_charge]])
+		print("A wire is already connected to the %s outlet!" % [Charge.keys()[terminal_charge]])
 		interacting_wire.stop_dragging()
 		return
 		
@@ -37,4 +37,4 @@ func can_place(body: LabBody) -> bool:
 	return body.is_in_group("contact_wire")
 
 func _on_object_placed(_body: LabBody) -> void:
-	wire_connected.emit(contained_object, outlet_charge)
+	wire_connected.emit(contained_object, terminal_charge)

@@ -54,7 +54,7 @@ debug_color = Color(0.927163, 0.143775, 0.567313, 0.42)
 [node name="NegativeAttachmentInteractableArea2" type="Area2D" parent="."]
 position = Vector2(38, 12)
 script = ExtResource("5_r7so7")
-outlet_charge = 1
+terminal_charge = 1
 place_prompt = "Connect"
 point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"

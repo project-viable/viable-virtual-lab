@@ -149,7 +149,7 @@ debug_color = Color(0.960415, 0, 0.51616, 0.42)
 [node name="AttachmentNegativeOutlet" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
 position = Vector2(-36, 5)
 script = ExtResource("7_07yqv")
-outlet_charge = 1
+terminal_charge = 1
 selectable_canvas_group = NodePath("../SelectableCanvasGroup")
 point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://brj1u83e5o6i6"

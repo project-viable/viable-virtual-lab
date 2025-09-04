@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://crqlu3uq74012" path="res://Scripts/UI/Menu.gd" id="1"]
-[ext_resource type="Script" uid="uid://xvdl5qhq7itj" path="res://Main.gd" id="2"]
+[ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
 [ext_resource type="Script" uid="uid://dwrt1nvnkb1nd" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
 [ext_resource type="Texture2D" uid="uid://bdg0qubi6xt7d" path="res://Images/MainMenu-Background.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://dgmytdnqonu6s" path="res://Images/HamburgerMenu.png" id="4"]

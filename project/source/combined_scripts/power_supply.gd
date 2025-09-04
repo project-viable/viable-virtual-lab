@@ -43,7 +43,7 @@ enum CurrentDirection{
 var _is_zoomed_in: bool = false
 var _should_increment: bool = false
 var _is_power_supply_connected: bool = false
-var _object_to_recieve_current: LabBody
+var _object_to_recieve_current: WireConnectableComponent
 var positive_terminal_wire: Wire
 var negative_terminal_wire: Wire
 
@@ -196,13 +196,13 @@ func decrement_volts() -> int:
 func _update_volt_display() -> void:
 	voltage_line_edit.text = "%d" % [volts]
 
-# Triggered whenever a wire is connected to an outlet for any object
-func _on_wire_connection(is_valid: bool, body: LabBody) -> void:
-	if body == self:
-		_is_power_supply_connected = is_valid
+# Triggered whenever a wire is connected to terminal for any object
+func _on_wire_connection(is_every_terminal_connected: bool, component: WireConnectableComponent) -> void:
+	if component.body == self:
+		_is_power_supply_connected = is_every_terminal_connected
 	else:
-		if is_valid:
-			_object_to_recieve_current = body
+		if is_every_terminal_connected:
+			_object_to_recieve_current = component
 		else:
 			_object_to_recieve_current = null
 		
@@ -217,14 +217,21 @@ func _is_circuit_ready() -> bool:
 	# Both ends of a wire should not be on the power supply since that'll do nothing
 	if positive_terminal_wire.other_end == negative_terminal_wire:
 		return false
+	
+	# The other ends of the wires connected to the power supply must be connected to the target
+	# Prevents an edge case where the terminals for both the power supply and target are connected
+	# but the wires themselves are not connected to each other
+	if positive_terminal_wire.other_end in _object_to_recieve_current.get_connected_wires() \
+		and negative_terminal_wire.other_end in _object_to_recieve_current.get_connected_wires():
+			return true
 		
-	return true
+	return false
 
 ## Determines the direction of current based on wire connections.
 ## Returns FORWARD if each wire connects matching terminals (positive to positive, negative to negative),
 ## otherwise returns REVERSE.
 func get_current_direction() -> CurrentDirection:
-	var target: WireConnectableComponent = _object_to_recieve_current.find_children("", "WireConnectableComponent")[0]
+	var target: WireConnectableComponent = _object_to_recieve_current
 	var target_positive_terminal_wire: Wire = target.get_positive_terminal_wire()
 	var target_negative_terminal_wire: Wire = target.get_negative_terminal_wire()
 	

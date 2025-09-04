@@ -1,10 +1,8 @@
 extends Node2D
 class_name WireConnectableComponent
 ## Handles connection logic for objects that can have contact wires be 
-## connected to their outlets.
+## connected to their terminals.
 ## A signal is emitted that checks whether or not the object has valid wire connections
-## For simplicity sake, a valid connection is when the charge of the wire matches the 
-## charge of the outlet
 
 @export var body: LabBody
 
@@ -39,13 +37,13 @@ func unplug_handler(body: Node2D) -> void:
 	elif wire_connected_to_negative_terminal and clicked_on_wire == wire_connected_to_negative_terminal: # Pulling out the wire from negative outlet
 		wire_connected_to_negative_terminal = null
 
-# Check if the wires are correctly connected to their respective outlets and emit a signal 
+# Check if terminals are all connected, if so emit a signal 
 func _check_connection_state() -> void:
 	if wire_connected_to_positive_terminal and wire_connected_to_negative_terminal:
-		SignalEventBus.on_wire_connection.emit(true, body)
+		SignalEventBus.on_wire_connection.emit(true, self)
 		
 	else:
-		SignalEventBus.on_wire_connection.emit(false, body)
+		SignalEventBus.on_wire_connection.emit(false, self)
 
 
 func get_positive_terminal_wire() -> Wire:
@@ -53,3 +51,6 @@ func get_positive_terminal_wire() -> Wire:
 	
 func get_negative_terminal_wire() -> Wire:
 	return wire_connected_to_negative_terminal
+	
+func get_connected_wires() -> Array[Wire]:
+	return [wire_connected_to_positive_terminal, wire_connected_to_negative_terminal]
