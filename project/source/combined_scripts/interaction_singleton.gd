@@ -37,14 +37,14 @@ class InteractState:
 
 	func start_interact() -> void:
 		is_pressed = true
-		if not info: return
+		if not info or not info.allowed: return
 		if source: source.start_use(target as InteractableArea, info.kind)
 		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
 			target.start_interact(info.kind)
 
 	func stop_interact() -> void:
 		is_pressed = false
-		if not info: return
+		if not info or not info.allowed: return
 		if source: source.stop_use(target as InteractableArea, info.kind)
 		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
 			target.stop_interact(info.kind)

@@ -28,6 +28,8 @@ var _resolution_options: Array[Vector2i] = [
 	Vector2i(3840, 2160),
 ]
 
+@onready var _prompt_panel_stylebox_allowed: StyleBox = $%PrimaryPrompt.get_theme_stylebox("panel").duplicate()
+@onready var _prompt_panel_stylebox_disallowed: StyleBox = _prompt_panel_stylebox_allowed.duplicate()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -75,6 +77,9 @@ func _ready() -> void:
 	$%ResolutionDropdown.select(saved_resolution_index)
 	_on_resolution_dropdown_item_selected(saved_resolution_index)
 
+	_prompt_panel_stylebox_disallowed.bg_color.s *= 0.2
+	_prompt_panel_stylebox_disallowed.bg_color *= 0.5
+
 func _process(delta: float) -> void:
 	if logs != []:
 		# Need to display log message(s)
@@ -92,14 +97,21 @@ func _process(delta: float) -> void:
 	for b in buttons:
 		var kind: InteractInfo.Kind = b[0]
 		var name: String = b[1]
-		var prompt_panel: Control = b[2]
+		var prompt_panel: PanelContainer = b[2]
 
 		var state: Interaction.InteractState = Interaction.interactions.get(kind)
 		if state.info:
 			prompt_panel.show()
+			if state.info.allowed:
+				prompt_panel.add_theme_stylebox_override("panel", _prompt_panel_stylebox_allowed)
+			else:
+				prompt_panel.add_theme_stylebox_override("panel", _prompt_panel_stylebox_disallowed)
+
 			var label: Label = prompt_panel.get_node("Label")
 			label.text = "%s: %s" % [name, state.info.description]
-			var color: Color = Color.GRAY if state.is_pressed else Color.WHITE
+			var color: Color = Color.WHITE
+			if state.is_pressed or not state.info.allowed: color = Color.GRAY
+
 			label.add_theme_color_override(&"font_color", color)
 		else:
 			prompt_panel.hide()
