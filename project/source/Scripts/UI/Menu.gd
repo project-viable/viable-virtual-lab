@@ -75,6 +75,10 @@ func _ready() -> void:
 	$%ResolutionDropdown.select(saved_resolution_index)
 	_on_resolution_dropdown_item_selected(saved_resolution_index)
 
+	# The in-editor embedded game doesn't work well with unresizable windows.
+	if Engine.is_embedded_in_editor():
+		get_window().unresizable = false
+
 func _process(delta: float) -> void:
 	if logs != []:
 		# Need to display log message(s)
