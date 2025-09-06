@@ -33,6 +33,7 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body is LabBody and body.find_child("WeighInteractableArea", false):
 		get_parent().find_child("WeightLabel").text = "0.0 g"
 		tare_weight = 0.0
+		current_weight = 0.0
 
 func _on_tare_button_pressed() -> void:
 	tare_weight = current_weight
