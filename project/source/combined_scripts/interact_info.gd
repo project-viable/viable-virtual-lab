@@ -7,7 +7,6 @@ enum Kind
 {
 	PRIMARY, ## Left click by default.
 	SECONDARY, ## Right click by default.
-	TERNARY, ## Enter key by default.
 }
 
 

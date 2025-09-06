@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c1af3h23bqbvv"]
+[gd_scene load_steps=11 format=3 uid="uid://c1af3h23bqbvv"]
 
 [ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="1_1hguf"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_fpj3u"]
@@ -12,9 +12,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2xov"]
 size = Vector2(21, 27)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fpj3u"]
-bg_color = Color(0.254902, 0.0313726, 0.247059, 1)
 
 [node name="Scoopula" type="RigidBody2D"]
 collision_layer = 3
@@ -66,52 +63,3 @@ metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 script = ExtResource("9_fpj3u")
 container = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://c5xu35ldxvqog"
-
-[node name="CanvasLayer" type="CanvasLayer" parent="UseComponent"]
-
-[node name="Control" type="Control" parent="UseComponent/CanvasLayer"]
-visible = false
-layout_mode = 3
-anchor_left = -0.035
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 44.8
-offset_right = -1240.0
-offset_bottom = -680.0
-metadata/_edit_use_anchors_ = true
-
-[node name="PanelContainer" type="PanelContainer" parent="UseComponent/CanvasLayer/Control"]
-layout_mode = 0
-offset_left = 349.0
-offset_top = 623.0
-offset_right = 494.0
-offset_bottom = 705.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_fpj3u")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UseComponent/CanvasLayer/Control/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Title" type="Label" parent="UseComponent/CanvasLayer/Control/PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "Volume (mL)"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="sliderDispenseQty" type="HSlider" parent="UseComponent/CanvasLayer/Control/PanelContainer/VBoxContainer"]
-layout_mode = 2
-focus_neighbor_left = NodePath(".")
-focus_neighbor_right = NodePath(".")
-max_value = 2.0
-step = 0.01
-
-[node name="lblDispenseQty" type="Label" parent="UseComponent/CanvasLayer/Control/PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "0"
-
-[connection signal="body_entered" from="InteractableArea" to="InteractableArea" method="_on_interactable_area_body_entered"]
-[connection signal="body_exited" from="InteractableArea" to="InteractableArea" method="_on_interactable_area_body_exited"]
-[connection signal="value_changed" from="UseComponent/CanvasLayer/Control/PanelContainer/VBoxContainer/sliderDispenseQty" to="UseComponent" method="_on_slider_dispense_qty_value_changed"]
