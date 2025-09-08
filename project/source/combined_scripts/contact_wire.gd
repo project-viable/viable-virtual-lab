@@ -1,7 +1,10 @@
 @tool
 extends LabBody
 class_name Wire #TODO: Previous simulation already uses "ContactWire". Replace this when the old simulation is removed
+
 @export var texture: Texture2D
+
+var connected_component: WireConnectableComponent
 
 signal moved() # Emits whenever the contact wire is moved
 
@@ -18,3 +21,11 @@ func _ready() -> void:
 	super()
 	prev_pos = position
 	$SelectableCanvasGroup/Sprite2D.texture = texture
+
+
+## Get the [WireConnectableComponent] that's attached to the other end of the wire.
+func get_component_on_other_end() -> WireConnectableComponent:
+	if other_end and other_end.connected_component and connected_component != other_end.connected_component:
+		return other_end.connected_component
+		
+	return null

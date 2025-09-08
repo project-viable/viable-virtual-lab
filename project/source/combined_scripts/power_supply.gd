@@ -75,8 +75,7 @@ func _ready() -> void:
 		_buttons.append(button)
 		button.button_down.connect(_on_screen_button_pressed.bind(button))
 		button.button_up.connect(_on_screen_button_released.bind(button))
-		
-	SignalEventBus.on_wire_connection.connect(_on_wire_connection)
+	
 
 func _on_start_button_pressed() -> void:
 	var circuit_ready: bool = _is_circuit_ready()
@@ -196,36 +195,34 @@ func decrement_volts() -> int:
 func _update_volt_display() -> void:
 	voltage_line_edit.text = "%d" % [volts]
 
-# Triggered whenever a wire is connected to terminal for any object
-func _on_wire_connection(is_every_terminal_connected: bool, component: WireConnectableComponent) -> void:
-	if component.body == self:
-		_is_power_supply_connected = is_every_terminal_connected
-	else:
-		if is_every_terminal_connected:
-			_object_to_recieve_current = component
-		else:
-			_object_to_recieve_current = null
-		
+## Can be triggered from [signal WireConnectableComponent.terminals_connected] signal whenever a wire is 
+## connected to a terminal.
+func _on_wire_connection(is_every_terminal_connected: bool) -> void:
+	_is_power_supply_connected = is_every_terminal_connected
+
+## Checks if both terminals of the power supply are connected
+## and if the other ends of those wires are both connected to 
+## another object.
 func _is_circuit_ready() -> bool:
-	# Electrodes must be plugged in for both the power supply and the object
-	if not _is_power_supply_connected or not _object_to_recieve_current:
+	# Both terminals of the power supply must be connected
+	if not _is_power_supply_connected:
 		return false
 	
 	positive_terminal_wire = $WireConnectableComponent.get_positive_terminal_wire()
 	negative_terminal_wire = $WireConnectableComponent.get_negative_terminal_wire()
 	
-	# Both ends of a wire should not be on the power supply since that'll do nothing
-	if positive_terminal_wire.other_end == negative_terminal_wire:
-		return false
+	var positive_wire_other_end_component: WireConnectableComponent = positive_terminal_wire.get_component_on_other_end()
+	var negative_wire_other_end_component: WireConnectableComponent = negative_terminal_wire.get_component_on_other_end()
 	
-	# The other ends of the wires connected to the power supply must be connected to the target
-	# Prevents an edge case where the terminals for both the power supply and target are connected
-	# but the wires themselves are not connected to each other
-	if positive_terminal_wire.other_end in _object_to_recieve_current.get_connected_wires() \
-		and negative_terminal_wire.other_end in _object_to_recieve_current.get_connected_wires():
-			return true
-		
-	return false
+	# Both of the wires connected to the power supply must have their other ends
+	# be connected to the same target
+	if positive_wire_other_end_component == null \
+			or positive_wire_other_end_component != negative_wire_other_end_component:
+		return false
+
+	else:
+		_object_to_recieve_current = positive_wire_other_end_component
+		return true
 
 ## Determines the direction of current based on wire connections.
 ## Returns FORWARD if each wire connects matching terminals (positive to positive, negative to negative),
@@ -235,7 +232,7 @@ func get_current_direction() -> CurrentDirection:
 	var target_positive_terminal_wire: Wire = target.get_positive_terminal_wire()
 	var target_negative_terminal_wire: Wire = target.get_negative_terminal_wire()
 	
-	# Both ends of a wire is connected to a positive terminal, resulting in a forward current direction
+	# Both ends of a wire are connected to a positive terminal, resulting in a forward current direction
 	if target_positive_terminal_wire.other_end == positive_terminal_wire \
 		and target_negative_terminal_wire.other_end == negative_terminal_wire:
 			return CurrentDirection.FORWARD

@@ -6,6 +6,8 @@ class_name WireConnectableComponent
 
 @export var body: LabBody
 
+signal terminals_connected(is_every_terminal_connected: bool)
+
 var wire_connected_to_positive_terminal: Wire:
 	set(value):
 		wire_connected_to_positive_terminal = value
@@ -20,6 +22,7 @@ var wire_connected_to_negative_terminal: Wire:
 # Otherwise, warn the user that the connections may be incorrect
 func on_wire_connected(wire: Wire, target_terminal_charge: Terminal.Charge) -> void:
 	var is_terminal_positive: bool = target_terminal_charge == Terminal.Charge.POSITIVE
+	wire.connected_component = self
 	
 	if is_terminal_positive:
 		wire_connected_to_positive_terminal = wire
@@ -37,20 +40,16 @@ func unplug_handler(body: Node2D) -> void:
 	elif wire_connected_to_negative_terminal and clicked_on_wire == wire_connected_to_negative_terminal: # Pulling out the wire from negative outlet
 		wire_connected_to_negative_terminal = null
 
-# Check if terminals are all connected, if so emit a signal 
+# Check if terminals are all connected, if so emit a signal.
 func _check_connection_state() -> void:
 	if wire_connected_to_positive_terminal and wire_connected_to_negative_terminal:
-		SignalEventBus.on_wire_connection.emit(true, self)
+		terminals_connected.emit(true)
 		
 	else:
-		SignalEventBus.on_wire_connection.emit(false, self)
-
+		terminals_connected.emit(false)
 
 func get_positive_terminal_wire() -> Wire:
 	return wire_connected_to_positive_terminal
 	
 func get_negative_terminal_wire() -> Wire:
 	return wire_connected_to_negative_terminal
-	
-func get_connected_wires() -> Array[Wire]:
-	return [wire_connected_to_positive_terminal, wire_connected_to_negative_terminal]
