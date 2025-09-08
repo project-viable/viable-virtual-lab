@@ -13,6 +13,9 @@ func _ready() -> void:
 	super()
 	if other_end: other_end.other_end = self
 
+func _process(_delta: float) -> void:
+	queue_redraw()
+
 func _draw() -> void:
 	# Make sure only one of the two contacts does the drawing.
 	if other_end and get_instance_id() < other_end.get_instance_id():
