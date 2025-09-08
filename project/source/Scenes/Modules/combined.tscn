@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=26 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://csifb4mbnybmu" path="res://updated_assets/background.png" id="1_1qt3r"]
 [ext_resource type="PackedScene" uid="uid://b5ff3gy87ykja" path="res://combined_scenes/flask.tscn" id="2_e4xug"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://b8kjtd0vdnq42" path="res://combined_scripts/transition_camera.gd" id="18_1qt3r"]
 [ext_resource type="PackedScene" uid="uid://bt321lhs647bu" path="res://combined_scenes/microcentrifuge_holder.tscn" id="18_xe06v"]
 [ext_resource type="PackedScene" uid="uid://ch8ljtcuvjg48" path="res://combined_scenes/wall_clock.tscn" id="21_8cc2w"]
+[ext_resource type="PackedScene" uid="uid://dl30jw4aoct2h" path="res://combined_scenes/electrical_contact.tscn" id="23_kobiv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wocf"]
 size = Vector2(1430, 222)
@@ -162,6 +163,14 @@ main_scene_camera = NodePath("../MainSceneCamera")
 
 [node name="WallClock" parent="." instance=ExtResource("21_8cc2w")]
 position = Vector2(132, 176)
+
+[node name="ElectricalContact" parent="." node_paths=PackedStringArray("other_end") instance=ExtResource("23_kobiv")]
+position = Vector2(893, 546)
+other_end = NodePath("../ElectricalContact2")
+
+[node name="ElectricalContact2" parent="." node_paths=PackedStringArray("other_end") instance=ExtResource("23_kobiv")]
+position = Vector2(919, 546)
+other_end = NodePath("../ElectricalContact")
 
 [editable path="PipetteStand"]
 [editable path="ScoopulaHolder"]
