@@ -165,11 +165,11 @@ main_scene_camera = NodePath("../MainSceneCamera")
 position = Vector2(132, 176)
 
 [node name="ElectricalContact" parent="." node_paths=PackedStringArray("other_end") instance=ExtResource("23_kobiv")]
-position = Vector2(893, 546)
+position = Vector2(846, 527)
 other_end = NodePath("../ElectricalContact2")
 
 [node name="ElectricalContact2" parent="." node_paths=PackedStringArray("other_end") instance=ExtResource("23_kobiv")]
-position = Vector2(919, 546)
+position = Vector2(883, 534)
 other_end = NodePath("../ElectricalContact")
 
 [editable path="PipetteStand"]
