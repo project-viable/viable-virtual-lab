@@ -2,10 +2,10 @@ class_name ElectricalTerminal
 extends AttachmentInteractableArea
 
 
-enum Side { POSITIVE, NEGATIVE }
+enum Charge { POSITIVE, NEGATIVE }
 
 
-@export var side: Side
+@export var side: Charge = Charge.POSITIVE
 @export var electrical_component: ElectricalComponent
 
 
