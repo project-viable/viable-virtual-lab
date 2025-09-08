@@ -176,8 +176,9 @@ other_end = NodePath("../ElectricalContact1_1")
 position = Vector2(920, 477)
 other_end = NodePath("../ElectricalContact2_2")
 
-[node name="ElectricalContact2_2" parent="." instance=ExtResource("23_kobiv")]
+[node name="ElectricalContact2_2" parent="." node_paths=PackedStringArray("other_end") instance=ExtResource("23_kobiv")]
 position = Vector2(962, 485)
+other_end = NodePath("../ElectricalContact2_1")
 
 [editable path="PipetteStand"]
 [editable path="ScoopulaHolder"]

@@ -11,6 +11,7 @@ enum Direction
 
 
 @export var direction: Direction = Direction.LEFT
+@export var closeup: GelCloseup
 
 
 func _ready() -> void:

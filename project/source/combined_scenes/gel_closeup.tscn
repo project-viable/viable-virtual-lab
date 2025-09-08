@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnvd3ift0x65u"]
+
+[ext_resource type="Script" uid="uid://xpdcsb5ntfq5" path="res://combined_scripts/gel_closeup.gd" id="1_hupq2"]
+[ext_resource type="Texture2D" uid="uid://typec1hys1lw" path="res://updated_assets/temp/gel_closeup.png" id="2_ehs03"]
+[ext_resource type="Script" uid="uid://b8kjtd0vdnq42" path="res://combined_scripts/transition_camera.gd" id="3_j0y4k"]
+
+[node name="GelCloseup" type="Node2D"]
+script = ExtResource("1_hupq2")
+
+[node name="GelCloseup" type="Sprite2D" parent="."]
+position = Vector2(2.27374e-13, -9.53674e-07)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_ehs03")
+
+[node name="TransitionCamera" type="Camera2D" parent="."]
+position = Vector2(0, -13)
+zoom = Vector2(13, 13)
+script = ExtResource("3_j0y4k")
+metadata/_custom_type_script = "uid://b8kjtd0vdnq42"
