@@ -164,13 +164,20 @@ main_scene_camera = NodePath("../MainSceneCamera")
 [node name="WallClock" parent="." instance=ExtResource("21_8cc2w")]
 position = Vector2(132, 176)
 
-[node name="ElectricalContact" parent="." node_paths=PackedStringArray("other_end") instance=ExtResource("23_kobiv")]
+[node name="ElectricalContact1_1" parent="." node_paths=PackedStringArray("other_end") instance=ExtResource("23_kobiv")]
 position = Vector2(846, 527)
-other_end = NodePath("../ElectricalContact2")
+other_end = NodePath("../ElectricalContact1_2")
 
-[node name="ElectricalContact2" parent="." node_paths=PackedStringArray("other_end") instance=ExtResource("23_kobiv")]
+[node name="ElectricalContact1_2" parent="." node_paths=PackedStringArray("other_end") instance=ExtResource("23_kobiv")]
 position = Vector2(883, 534)
-other_end = NodePath("../ElectricalContact")
+other_end = NodePath("../ElectricalContact1_1")
+
+[node name="ElectricalContact2_1" parent="." node_paths=PackedStringArray("other_end") instance=ExtResource("23_kobiv")]
+position = Vector2(920, 477)
+other_end = NodePath("../ElectricalContact2_2")
+
+[node name="ElectricalContact2_2" parent="." instance=ExtResource("23_kobiv")]
+position = Vector2(962, 485)
 
 [editable path="PipetteStand"]
 [editable path="ScoopulaHolder"]
