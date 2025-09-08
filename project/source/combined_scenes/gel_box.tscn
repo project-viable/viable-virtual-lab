@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://5orfeca6lgvk"]
 
-[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_r7so7"]
+[ext_resource type="Script" uid="uid://rsjhjglern8" path="res://combined_scripts/gel_box.gd" id="1_dp6h2"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_t800u"]
 [ext_resource type="Texture2D" uid="uid://diqycgd18toud" path="res://updated_assets/lab_objects/gel_rig_empty.svg" id="3_r7so7"]
 [ext_resource type="Script" uid="uid://dvgbkilnua4yx" path="res://combined_scripts/electrical_terminal.gd" id="4_avcre"]
@@ -13,7 +13,7 @@ size = Vector2(94, 47)
 
 [node name="GelBox" type="RigidBody2D"]
 collision_layer = 0
-script = ExtResource("1_r7so7")
+script = ExtResource("1_dp6h2")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
@@ -41,6 +41,7 @@ shape = SubResource("CircleShape2D_dp6h2")
 [node name="ElectricalTerminal2" type="Area2D" parent="." node_paths=PackedStringArray("electrical_component")]
 position = Vector2(37, 12)
 script = ExtResource("4_avcre")
+side = 1
 electrical_component = NodePath("../ElectricalComponent")
 point_groups = Array[StringName]([&"attachment:electrical_contact"])
 metadata/_custom_type_script = "uid://dvgbkilnua4yx"
@@ -51,3 +52,5 @@ shape = SubResource("CircleShape2D_dp6h2")
 [node name="ElectricalComponent" type="Node2D" parent="."]
 script = ExtResource("5_dp6h2")
 metadata/_custom_type_script = "uid://dog4d1iyhcet0"
+
+[connection signal="voltage_changed" from="ElectricalComponent" to="." method="_on_electrical_component_voltage_changed"]
