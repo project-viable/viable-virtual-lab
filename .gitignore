@@ -4,3 +4,6 @@
 # For ConTeXt.
 *.log
 *.tuc
+
+# Krita
+*.kra
