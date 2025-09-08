@@ -42,6 +42,7 @@ contact_wire=""
 emptyable=""
 attachment:contact_wire=""
 attachment:pipette=""
+attachment:electrical_contact=""
 
 [gui]
 
