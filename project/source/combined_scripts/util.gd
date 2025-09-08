@@ -78,3 +78,29 @@ static func find_child_of_type(n: Node, type: Variant) -> Node:
 		if is_instance_of(c, type): return c
 
 	return null
+
+# Find the `ElectricalComponent` on the other end of a wire, or null if it's not connected.
+static func find_other_end_of_wire(contact: ElectricalContact) -> ElectricalComponent:
+	if contact and contact.other_end and contact.other_end.connected_terminal:
+		return contact.other_end.connected_terminal.electrical_component
+	else:
+		return null
+
+static func find_other_end_of_circuit(positive_contact: ElectricalContact, negative_contact: ElectricalContact) -> CircuitResult:
+	var pos_other_end := find_other_end_of_wire(positive_contact)
+	var neg_other_end := find_other_end_of_wire(negative_contact)
+
+	if pos_other_end != null and pos_other_end == neg_other_end:
+		var voltage_sign: float = 1.0 if positive_contact.other_end.connected_terminal.side == ElectricalTerminal.Charge.POSITIVE else -1.0
+		return CircuitResult.new(pos_other_end, voltage_sign)
+
+	return null
+
+
+class CircuitResult:
+	var electrical_component: ElectricalComponent
+	var voltage_sign: float = 0.0
+
+	func _init(p_electrical_component: ElectricalComponent, p_voltage_sign: float) -> void:
+		electrical_component = p_electrical_component
+		voltage_sign = p_voltage_sign
