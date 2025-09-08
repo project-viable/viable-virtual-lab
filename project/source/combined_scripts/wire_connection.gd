@@ -33,6 +33,7 @@ func on_wire_connected(wire: Wire, target_terminal_charge: Terminal.Charge) -> v
 # Handle unplugging wires
 func unplug_handler(body: Node2D) -> void:
 	var clicked_on_wire: Wire = body
+	clicked_on_wire.connected_component = null
 	
 	if wire_connected_to_positive_terminal and clicked_on_wire == wire_connected_to_positive_terminal: # Pulling out the wire from positive outlet
 		wire_connected_to_positive_terminal = null
