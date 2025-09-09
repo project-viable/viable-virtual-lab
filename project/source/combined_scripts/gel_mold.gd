@@ -1,3 +1,4 @@
+class_name GelMold
 extends LabBody
 
 
