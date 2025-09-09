@@ -39,3 +39,7 @@ func _update_sprite() -> void:
 
 	sprite.show()
 	sprite.scale.x = -0.2 if flip else 0.2
+
+
+func _on_zoom_interactable_area_zoomed() -> void:
+	if closeup: closeup.enter()

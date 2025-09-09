@@ -43,6 +43,7 @@ emptyable=""
 attachment:contact_wire=""
 attachment:pipette=""
 attachment:electrical_contact=""
+attachment:gel_mold=""
 
 [gui]
 
