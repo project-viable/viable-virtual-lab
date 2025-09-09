@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="6_r7so7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t800u"]
-size = Vector2(108, 53)
+size = Vector2(148, 74)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dp6h2"]
 
@@ -25,15 +25,15 @@ script = ExtResource("1_t800u")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="GelRig" type="Sprite2D" parent="SelectableCanvasGroup"]
-scale = Vector2(0.11, 0.11)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("3_r7so7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3.5)
+position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_t800u")
 
 [node name="ElectricalTerminal" type="Area2D" parent="." node_paths=PackedStringArray("electrical_component")]
-position = Vector2(-44, 13)
+position = Vector2(-60, 18)
 script = ExtResource("4_avcre")
 electrical_component = NodePath("../ElectricalComponent")
 point_groups = Array[StringName]([&"attachment:electrical_contact"])
@@ -44,7 +44,7 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_dp6h2")
 
 [node name="ElectricalTerminal2" type="Area2D" parent="." node_paths=PackedStringArray("electrical_component")]
-position = Vector2(43, 14)
+position = Vector2(59, 19)
 script = ExtResource("4_avcre")
 side = 1
 electrical_component = NodePath("../ElectricalComponent")
