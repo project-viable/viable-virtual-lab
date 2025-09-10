@@ -31,8 +31,8 @@ gdscript/warnings/untyped_declaration=2
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/resizable=false
 window/stretch/mode="canvas_items"
-window/stretch/aspect="ignore"
 
 [global_group]
 
@@ -41,6 +41,7 @@ attachment:scoopula=""
 contact_wire=""
 emptyable=""
 attachment:contact_wire=""
+attachment:pipette=""
 
 [gui]
 

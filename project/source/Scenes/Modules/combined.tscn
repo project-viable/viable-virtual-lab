@@ -1,8 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=28 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://csifb4mbnybmu" path="res://updated_assets/background.png" id="1_1qt3r"]
 [ext_resource type="PackedScene" uid="uid://b5ff3gy87ykja" path="res://combined_scenes/flask.tscn" id="2_e4xug"]
 [ext_resource type="PackedScene" uid="uid://b7ygbkawlsvn8" path="res://combined_scenes/graduated_cylinder.tscn" id="3_iy3xr"]
+[ext_resource type="PackedScene" uid="uid://bbyk3b4kok1ym" path="res://combined_scenes/pipette_stand.tscn" id="4_5fdni"]
 [ext_resource type="PackedScene" uid="uid://t5vephauatf2" path="res://combined_scenes/pipette.tscn" id="4_t02aw"]
 [ext_resource type="PackedScene" uid="uid://b2owhv1drxs7p" path="res://combined_scenes/pipette_tip_box.tscn" id="5_vwsp8"]
 [ext_resource type="PackedScene" uid="uid://cgju3rlfrqslw" path="res://combined_scenes/weigh_boat.tscn" id="6_vj1mp"]
@@ -71,9 +72,14 @@ position = Vector2(553, 312)
 [node name="GraduatedCylinder" parent="." instance=ExtResource("3_iy3xr")]
 position = Vector2(696, 257)
 
+[node name="PipetteStand" parent="." instance=ExtResource("4_5fdni")]
+position = Vector2(310, 286)
+
+[node name="AttachmentInteractableArea" parent="PipetteStand" index="1" node_paths=PackedStringArray("contained_object")]
+contained_object = NodePath("../../Pipette")
+
 [node name="Pipette" parent="." instance=ExtResource("4_t02aw")]
-position = Vector2(340, 340)
-rotation = -1.57729
+position = Vector2(308, 285)
 
 [node name="PipetteTipBox" parent="." instance=ExtResource("5_vwsp8")]
 position = Vector2(158, 318)
@@ -164,22 +170,27 @@ script = ExtResource("21_kobiv")
 
 [node name="RedContactWire" parent="ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(686, 455)
+enable_interaction = true
 
 [node name="RedContactWire2" parent="ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(718, 455)
+enable_interaction = true
 
 [node name="BlackContactWires" type="Node2D" parent="ContactWires"]
 
 [node name="BlackContactWire" parent="ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(686, 479)
 texture = ExtResource("22_kobiv")
+enable_interaction = true
 
 [node name="BlackContactWire2" parent="ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(718, 479)
 texture = ExtResource("22_kobiv")
+enable_interaction = true
 
 [node name="WallClock" parent="." instance=ExtResource("21_8cc2w")]
 position = Vector2(132, 176)
 
+[editable path="PipetteStand"]
 [editable path="ScoopulaHolder"]
 [editable path="MicrocentrifugeHolder"]

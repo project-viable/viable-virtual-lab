@@ -1,8 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://b4q3npoc5c7fy"]
+[gd_scene load_steps=23 format=3 uid="uid://b4q3npoc5c7fy"]
 
 [ext_resource type="Script" uid="uid://bepsdcjab3t21" path="res://combined_scripts/power_supply.gd" id="1_7lagc"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_80iu8"]
-[ext_resource type="Script" uid="uid://bsonh03rfuf2p" path="res://combined_scripts/drag_component.gd" id="3_3yhad"]
 [ext_resource type="Texture2D" uid="uid://bi5tvuv5gh5u" path="res://updated_assets/lab_objects/powerbox.svg" id="3_7lagc"]
 [ext_resource type="Texture2D" uid="uid://crtq0m4w5xpmy" path="res://updated_assets/icons_and_buttons/plus_symbol.svg" id="7_5dnns"]
 [ext_resource type="Script" uid="uid://brj1u83e5o6i6" path="res://combined_scripts/terminal_attachment.gd" id="7_07yqv"]
@@ -99,12 +98,6 @@ texture = ExtResource("3_7lagc")
 visible = false
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_80iu8")
-
-[node name="DragComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "interact_canvas_group")]
-script = ExtResource("3_3yhad")
-body = NodePath("..")
-interact_canvas_group = NodePath("../SelectableCanvasGroup")
-metadata/_custom_type_script = "uid://bsonh03rfuf2p"
 
 [node name="StartButton" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)

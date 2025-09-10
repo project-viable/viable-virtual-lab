@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://crqlu3uq74012" path="res://Scripts/UI/Menu.gd" id="1"]
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
-[ext_resource type="Script" uid="uid://dwrt1nvnkb1nd" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
+[ext_resource type="Script" uid="uid://chwhrlyn51foq" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
 [ext_resource type="Texture2D" uid="uid://bdg0qubi6xt7d" path="res://Images/MainMenu-Background.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://dgmytdnqonu6s" path="res://Images/HamburgerMenu.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://b3mapaem4gat2" path="res://Images/Gel Electrophoresis Icon.png" id="5"]
-[ext_resource type="Script" uid="uid://bpffm6mrl4myo" path="res://Scripts/Resources/ModuleData.gd" id="5_1a5hp"]
+[ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://Scripts/Resources/ModuleData.gd" id="5_1a5hp"]
 [ext_resource type="Texture2D" uid="uid://bxwnksqona14c" path="res://Images/Dot-Blue.png" id="6"]
 [ext_resource type="Resource" uid="uid://ct2buu7x0tve8" path="res://Modules/FluorescenceMicroscopy.tres" id="6_wqw1h"]
 [ext_resource type="Texture2D" uid="uid://cm63yepobpmlk" path="res://Images/Dot-Yellow.png" id="7"]
@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://Images/Dot-Red.png" id="8"]
 [ext_resource type="Resource" uid="uid://d3tt3s0try6s7" path="res://Modules/combined.tres" id="8_sc1dx"]
 [ext_resource type="Resource" uid="uid://ig5fr0g7xm80" path="res://MistakeCheckers/MixtureChecker.tres" id="9"]
-[ext_resource type="Script" uid="uid://dg56bsl8ka7ao" path="res://Mixtures.gd" id="10"]
+[ext_resource type="Script" uid="uid://da2myq6tjf26d" path="res://Mixtures.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://Images/VIABLE_Logo_Transparent.png" id="11"]
 [ext_resource type="FontFile" path="res://UI/RobotoMedium28.tres" id="12"]
 
@@ -433,7 +433,6 @@ layout_mode = 2
 text = "Close"
 
 [node name="OptionsScreen" type="PanelContainer" parent="Menu/MenuScreens"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -476,6 +475,18 @@ text = "Popup Duration"
 layout_mode = 2
 max_value = 5.0
 step = 0.5
+
+[node name="Resolution" type="HBoxContainer" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer/Resolution"]
+layout_mode = 2
+text = "Resolution"
+
+[node name="ResolutionDropdown" type="OptionButton" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer/Resolution"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="CloseButton" type="Button" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
 layout_mode = 2
@@ -774,6 +785,7 @@ script = ExtResource("10")
 [connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
 [connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="Menu" method="_on_ObjectTooltipsToggle_toggled"]
 [connection signal="value_changed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="Menu" method="_on_PopupTimeout_value_changed"]
+[connection signal="item_selected" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/Resolution/ResolutionDropdown" to="Menu" method="_on_resolution_dropdown_item_selected"]
 [connection signal="pressed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/CloseButton" to="Menu" method="_on_CloseButton_pressed"]
 [connection signal="pressed" from="Menu/MenuScreens/ModuleSelect/VBoxContainer/CloseButton" to="Menu" method="_on_module_select_close_button_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/MainMenuButton" to="Menu" method="_on_FinalReport_MainMenuButton_pressed"]

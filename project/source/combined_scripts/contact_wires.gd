@@ -2,7 +2,7 @@ extends Node2D
 @export var power_supply: PowerSupply
 
 func _process(_delta: float) -> void:
-	if Interaction.active_drag_component and Interaction.active_drag_component.body.find_children("", "WireConnectableComponent"):
+	if Interaction.held_body and Interaction.held_body.find_children("", "WireConnectableComponent"):
 		_on_moved()
 
 func _ready() -> void:

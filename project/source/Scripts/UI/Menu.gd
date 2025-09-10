@@ -17,6 +17,20 @@ var unread_logs: Dictionary = {
 var popup_active: bool = false
 var logs: Array[LogMessage] = []
 
+
+var _resolution_options: Array[Vector2i] = [
+	Vector2i(1280, 720),
+	Vector2i(1366, 768),
+	Vector2i(1600, 900),
+	Vector2i(1920, 1080),
+	Vector2i(2560, 1440),
+	Vector2i(3200, 1800),
+	Vector2i(3840, 2160),
+]
+
+@onready var _prompt_panel_stylebox_allowed: StyleBox = $%PrimaryPrompt.get_theme_stylebox("panel").duplicate()
+@onready var _prompt_panel_stylebox_disallowed: StyleBox = _prompt_panel_stylebox_allowed.duplicate()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_switch_to_main_menu()
@@ -39,6 +53,33 @@ func _ready() -> void:
 	$LogButton/LogMenu.set_tab_icon(2, load("res://Images/Dot-Yellow.png"))
 	$LogButton/LogMenu.set_tab_icon(3, load("res://Images/Dot-Red.png"))
 
+	var max_resolution := DisplayServer.screen_get_usable_rect().size
+
+	var idx := 0
+	var saved_resolution_index := 0
+	var first := true
+
+	# Show relevant resolution options.
+	for r in _resolution_options:
+		# We always include the first resolution in the list even if it's too big to make sure we
+		# have one.
+		if first or r.x <= max_resolution.x and r.y <= max_resolution.y:
+			$%ResolutionDropdown.add_item("%s × %s" % [r.x, r.y])
+			$%ResolutionDropdown.set_item_metadata(idx, r)
+			if GameSettings.resolution == r:
+				saved_resolution_index = idx
+			first = false
+
+		idx += 1
+
+	# Set the resolution to the one matching the config. If the config resolution doesn't match
+	# any of the available ones, then it will automatically choose the first option.
+	$%ResolutionDropdown.select(saved_resolution_index)
+	_on_resolution_dropdown_item_selected(saved_resolution_index)
+
+	_prompt_panel_stylebox_disallowed.bg_color.s *= 0.2
+	_prompt_panel_stylebox_disallowed.bg_color *= 0.5
+
 func _process(delta: float) -> void:
 	if logs != []:
 		# Need to display log message(s)
@@ -56,23 +97,30 @@ func _process(delta: float) -> void:
 	for b in buttons:
 		var kind: InteractInfo.Kind = b[0]
 		var name: String = b[1]
-		var prompt_panel: Control = b[2]
+		var prompt_panel: PanelContainer = b[2]
 
 		var state: Interaction.InteractState = Interaction.interactions.get(kind)
 		if state.info:
 			prompt_panel.show()
+			if state.info.allowed:
+				prompt_panel.add_theme_stylebox_override("panel", _prompt_panel_stylebox_allowed)
+			else:
+				prompt_panel.add_theme_stylebox_override("panel", _prompt_panel_stylebox_disallowed)
+
 			var label: Label = prompt_panel.get_node("Label")
 			label.text = "%s: %s" % [name, state.info.description]
-			var color: Color = Color.GRAY if state.is_pressed else Color.WHITE
+			var color: Color = Color.WHITE
+			if state.is_pressed or not state.info.allowed: color = Color.GRAY
+
 			label.add_theme_color_override(&"font_color", color)
 		else:
 			prompt_panel.hide()
 
 	# THIS STUFF IS TEMPORARY. SUBSTANCES WILL EVENTUALLY BE DISPLAYED IN THE CONTAINERS THEMSELVES,
 	# AND MIXING WILL BE DONE WITH A STIR ROD OR BY SWIRLING.
-	if Interaction.hovered_interactable_component is DragComponent:
+	if Interaction.hovered_interactable is LabBody:
 		var containers: Array[ContainerComponent] = []
-		containers.assign(Interaction.hovered_interactable_component.body.find_children("", "ContainerComponent", false))
+		containers.assign(Interaction.hovered_interactable.find_children("", "ContainerComponent", false))
 
 		# Show substances in the hovered object.
 		$SubstanceLabel.clear()
@@ -302,3 +350,12 @@ func _on_restart_module_button_pressed() -> void:
 
 func _on_module_select_close_button_pressed() -> void:
 	_switch_to_menu_screen($MenuScreens/PauseMenu)
+
+func _on_resolution_dropdown_item_selected(index: int) -> void:
+	var resolution: Variant = $%ResolutionDropdown.get_item_metadata(index)
+	if resolution is Vector2i:
+		GameSettings.resolution = resolution
+		get_window().size = resolution
+		get_window().move_to_center()
+	else:
+		push_warning("Tried to set invalid resolution %s" % [resolution])

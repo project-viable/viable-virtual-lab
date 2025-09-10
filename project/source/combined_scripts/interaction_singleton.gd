@@ -12,6 +12,8 @@ class InteractState:
 	# This can point to an `InteractableArea` or an `InteractableComponent`. Both of them have
 	# hovering and interacting behavior, but there's no way in Godot to have an interface that
 	# they can both implement, so the type just has to be switched on.
+	#
+	# It can also be the currently held `LabBody`.
 	var target: Node2D
 	var is_pressed: bool = false
 
@@ -24,36 +26,35 @@ class InteractState:
 	func start_targeting() -> void:
 		if not info: return
 		if source: source.start_targeting(target as InteractableArea, info.kind)
-		elif target is InteractableArea: target.start_targeting(info.kind)
-		elif target is InteractableComponent: target.start_targeting(info.kind)
+		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
+			target.start_targeting(info.kind)
 
 	func stop_targeting() -> void:
 		if not info: return
 		if source: source.stop_targeting(target as InteractableArea, info.kind)
-		elif target is InteractableArea: target.stop_targeting(info.kind)
-		elif target is InteractableComponent: target.stop_targeting(info.kind)
+		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
+			target.stop_targeting(info.kind)
 
 	func start_interact() -> void:
 		is_pressed = true
-		if not info: return
+		if not info or not info.allowed: return
 		if source: source.start_use(target as InteractableArea, info.kind)
-		elif target is InteractableArea: target.start_interact(info.kind)
-		elif target is InteractableComponent: target.start_interact(info.kind)
+		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
+			target.start_interact(info.kind)
 
 	func stop_interact() -> void:
 		is_pressed = false
-		if not info: return
+		if not info or not info.allowed: return
 		if source: source.stop_use(target as InteractableArea, info.kind)
-		elif target is InteractableArea: target.stop_interact(info.kind)
-		elif target is InteractableComponent: target.stop_interact(info.kind)
+		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
+			target.stop_interact(info.kind)
 
 
-## Set to the `DragComponent` currently being dragged, if it exists. This is set directly by
-## `DragComponent`.
-var active_drag_component: DragComponent = null
+## `LabBody` currently being held.
+var held_body: LabBody = null
 
-## Current `InteractableComponent`, if any, being hovered.
-var hovered_interactable_component: InteractableComponent = null
+## Current `InteractableComponent` or `LabBody`, if any, being hovered.
+var hovered_interactable: Node2D = null
 
 ## Current potential interactions by kind.
 var interactions: Dictionary[InteractInfo.Kind, InteractState] = {
@@ -75,13 +76,11 @@ func _draw() -> void:
 func _process(_delta: float) -> void:
 	var new_interactions: Dictionary[InteractInfo.Kind, InteractState] = {}
 
-	if active_drag_component:
-		# As a special case, the active drag component is allowed to be interacted with by itself
-		# so it can be dropped. This is here first so that it has the lowest priority.
-		#
-		# TODO: somehow make this less of a special case?
-		for info in active_drag_component.get_interactions():
-			new_interactions.set(info.kind, InteractState.new(info, null, active_drag_component))
+	if held_body:
+		# The currently held `LabBody` can also be interacted with (mostly to put it down),
+		var drop_info := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
+		for info in held_body.get_interactions():
+			new_interactions.set(info.kind, InteractState.new(info, null, held_body))
 
 		for a in _interact_area_stack:
 			if not a.enable_interaction: continue
@@ -89,7 +88,7 @@ func _process(_delta: float) -> void:
 				new_interactions.set(info.kind, InteractState.new(info, null, a))
 
 		# `UseComponent`s take priority over `InteractableArea`s.
-		for c: UseComponent in active_drag_component.body.find_children("", "UseComponent", false):
+		for c: UseComponent in held_body.find_children("", "UseComponent", false):
 			#if not c.enable_interaction: continue
 
 			if not _interact_area_stack:
@@ -100,27 +99,28 @@ func _process(_delta: float) -> void:
 				for info in c.get_interactions(a):
 					new_interactions.set(info.kind, InteractState.new(info, c, a))
 	else:
-		hovered_interactable_component = null
+		hovered_interactable = null
 		var hovered_z_index := RenderingServer.CANVAS_ITEM_Z_MIN
 		var hovered_draw_order := 0
 
 		# Find the topmost thing that can be clicked on.
 		for c in get_tree().get_nodes_in_group(&"interactable_component"):
-			if c is InteractableComponent and c.enable_interaction:
+			if (c is InteractableComponent or c is LabBody) and c.enable_interaction:
 				var z: int = c.get_absolute_z_index()
 				var draw_order: int = c.get_draw_order()
 
 				if c.is_hovered() \
-						and (not hovered_interactable_component
+						and (not hovered_interactable
 							or z > hovered_z_index
 							or draw_order > hovered_draw_order and not z < hovered_z_index):
-					hovered_interactable_component = c
+					hovered_interactable = c
 					hovered_z_index = z
 					hovered_draw_order = draw_order
 
-		if hovered_interactable_component:
-			for info in hovered_interactable_component.get_interactions():
-				var s := InteractState.new(info, null, hovered_interactable_component)
+		if hovered_interactable:
+			assert(hovered_interactable is InteractableComponent or hovered_interactable is LabBody)
+			for info: InteractInfo in hovered_interactable.get_interactions():
+				var s := InteractState.new(info, null, hovered_interactable)
 				new_interactions.set(info.kind, s)
 
 	for kind: InteractInfo.Kind in interactions.keys():
@@ -165,8 +165,8 @@ func get_next_draw_order() -> int:
 	_next_draw_order += 1
 	return _next_draw_order - 1
 
-# When a body `b` enters an `InteractableArea` and `active_drag_component.body` is equal to `b`, that
-# interaction area should call this function, passing itself as the argument.
+# When a body `b` enters an `InteractableArea` and `held_body` is equal to `b`, that interaction
+# area should call this function, passing itself as the argument.
 func on_interaction_area_entered(area: InteractableArea) -> void:
 	_interact_area_stack.append(area)
 
