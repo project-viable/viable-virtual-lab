@@ -1,19 +1,15 @@
 @tool
 extends LabBody
 class_name Wire #TODO: Previous simulation already uses "ContactWire". Replace this when the old simulation is removed
-@export var texture: Texture2D
-@export var charge: Charge
 
-enum Charge{
-	POSITIVE,
-	NEGATIVE
-}
+@export var texture: Texture2D
+
+var connected_component: WireConnectableComponent
 
 signal moved() # Emits whenever the contact wire is moved
 
-var red_contact_wire: Texture2D = preload("res://updated_assets/icons_and_buttons/contact_positive.svg")
-var black_contact_wire: Texture2D = preload("res://updated_assets/icons_and_buttons/contact_negative.svg")
 var prev_pos: Vector2
+var other_end: Wire
 
 func _process(_delta: float) -> void:
 	if not Engine.is_editor_hint():
@@ -25,7 +21,11 @@ func _ready() -> void:
 	super()
 	prev_pos = position
 	$SelectableCanvasGroup/Sprite2D.texture = texture
-	if texture == red_contact_wire:
-		charge = Charge.POSITIVE
-	else:
-		charge = Charge.NEGATIVE
+
+
+## Get the [WireConnectableComponent] that's attached to the other end of the wire.
+func get_component_on_other_end() -> WireConnectableComponent:
+	if other_end and other_end.connected_component and connected_component != other_end.connected_component:
+		return other_end.connected_component
+		
+	return null

@@ -166,21 +166,27 @@ main_scene_camera = NodePath("../MainSceneCamera")
 [node name="ContactWires" type="Node2D" parent="."]
 script = ExtResource("21_kobiv")
 
-[node name="RedContactWire" parent="ContactWires" instance=ExtResource("21_gvdu8")]
+[node name="RedContactWires" type="Node2D" parent="ContactWires"]
+
+[node name="RedContactWire" parent="ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(686, 455)
+enable_interaction = true
 
-[node name="RedContactWire2" parent="ContactWires" instance=ExtResource("21_gvdu8")]
+[node name="RedContactWire2" parent="ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(718, 455)
+enable_interaction = true
 
-[node name="BlackContactWire" parent="ContactWires" instance=ExtResource("21_gvdu8")]
+[node name="BlackContactWires" type="Node2D" parent="ContactWires"]
+
+[node name="BlackContactWire" parent="ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(686, 479)
 texture = ExtResource("22_kobiv")
-charge = 1
+enable_interaction = true
 
-[node name="BlackContactWire2" parent="ContactWires" instance=ExtResource("21_gvdu8")]
+[node name="BlackContactWire2" parent="ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(718, 479)
 texture = ExtResource("22_kobiv")
-charge = 1
+enable_interaction = true
 
 [node name="WallClock" parent="." instance=ExtResource("21_8cc2w")]
 position = Vector2(132, 176)

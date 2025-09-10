@@ -2,16 +2,24 @@ extends Node2D
 @export var power_supply: PowerSupply
 
 func _process(_delta: float) -> void:
-	if Interaction.held_body is PowerSupply:
+	if Interaction.held_body and Interaction.held_body.find_children("", "WireConnectableComponent"):
 		_on_moved()
 
 func _ready() -> void:
-	for contact_wire: Wire in get_children():
+	for contact_wire: Wire in get_tree().get_nodes_in_group("contact_wire"):
 		contact_wire.connect("moved", _on_moved)
-		
+	
+	# Each contact wire should know about its other end
+	for child: Node2D in get_children():
+		var wires: Array[Node] = child.get_children()
+		wires[0].other_end = wires[1]
+		wires[1].other_end = wires[0]
+
 func _draw() -> void:
-	draw_line($RedContactWire.position, $RedContactWire2.position, "black")
-	draw_line($BlackContactWire.position, $BlackContactWire2.position, "black")
+	# Draw a black line between each pair of wire contact
+	for child: Node2D in get_children():
+		var wires: Array[Node] = child.get_children()
+		draw_line(wires[0].position, wires[1].position, "black")
 
 ## Keep the wires on the top-most level whenever it moves. This accounts for when its moving 
 ## While connected to the Power Supply
