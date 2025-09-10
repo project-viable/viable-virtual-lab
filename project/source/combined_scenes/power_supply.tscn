@@ -112,10 +112,9 @@ text = "Start"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlusTerminal" type="Area2D" parent="." node_paths=PackedStringArray("electrical_component")]
+[node name="PlusTerminal" type="Area2D" parent="."]
 position = Vector2(-36, -12)
 script = ExtResource("4_07yqv")
-electrical_component = NodePath("")
 place_prompt = "Plug in"
 point_groups = Array[StringName]([&"attachment:electrical_contact"])
 metadata/_custom_type_script = "uid://dvgbkilnua4yx"
@@ -123,11 +122,10 @@ metadata/_custom_type_script = "uid://dvgbkilnua4yx"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlusTerminal"]
 shape = SubResource("CircleShape2D_07yqv")
 
-[node name="MinusTerminal" type="Area2D" parent="." node_paths=PackedStringArray("electrical_component")]
+[node name="MinusTerminal" type="Area2D" parent="."]
 position = Vector2(-36, 4)
 script = ExtResource("4_07yqv")
 side = 1
-electrical_component = NodePath("")
 place_prompt = "Plug in"
 point_groups = Array[StringName]([&"attachment:electrical_contact"])
 metadata/_custom_type_script = "uid://dvgbkilnua4yx"
