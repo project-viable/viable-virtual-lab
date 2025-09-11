@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://t5vephauatf2"]
+[gd_scene load_steps=11 format=3 uid="uid://t5vephauatf2"]
 
 [ext_resource type="Script" uid="uid://c42ut7hyyijbv" path="res://combined_scripts/pipette.gd" id="1_yutq4"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_drsrt"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://c3cm22o72hi0e" path="res://updated_assets/lab_objects/pipette_tip.svg" id="5_5ngtk"]
 [ext_resource type="Script" uid="uid://bodolp8r6h4jn" path="res://combined_scripts/pipette_use_component.gd" id="6_5ngtk"]
 [ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://combined_scripts/attachment_point.gd" id="6_y22yk"]
-[ext_resource type="Texture2D" uid="uid://cjb413qewnype" path="res://updated_assets/temp/zoomed_pipette_tip.png" id="7_5ngtk"]
 [ext_resource type="Script" uid="uid://d2513rrgava7d" path="res://combined_scripts/subscene.gd" id="8_f8tg8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yutq4"]
@@ -102,18 +101,6 @@ horizontal_alignment = 1
 
 [node name="PopupTimer" type="Timer" parent="."]
 one_shot = true
-
-[node name="ZoomPanelContainer" type="PanelContainer" parent="."]
-visible = false
-offset_left = 18.0
-offset_top = -56.0
-offset_right = 187.0
-offset_bottom = 93.0
-
-[node name="TextureRect" type="TextureRect" parent="ZoomPanelContainer"]
-layout_mode = 2
-texture = ExtResource("7_5ngtk")
-expand_mode = 1
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 7
