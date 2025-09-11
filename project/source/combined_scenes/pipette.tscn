@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://t5vephauatf2"]
+[gd_scene load_steps=12 format=3 uid="uid://t5vephauatf2"]
 
 [ext_resource type="Script" uid="uid://c42ut7hyyijbv" path="res://combined_scripts/pipette.gd" id="1_yutq4"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_drsrt"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bodolp8r6h4jn" path="res://combined_scripts/pipette_use_component.gd" id="6_5ngtk"]
 [ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://combined_scripts/attachment_point.gd" id="6_y22yk"]
 [ext_resource type="Texture2D" uid="uid://cjb413qewnype" path="res://updated_assets/temp/zoomed_pipette_tip.png" id="7_5ngtk"]
+[ext_resource type="Script" uid="uid://d2513rrgava7d" path="res://combined_scripts/subscene.gd" id="8_f8tg8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yutq4"]
 size = Vector2(3, 14.4)
@@ -121,6 +122,23 @@ collision_mask = 7
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(3.5, 75)
 shape = SubResource("RectangleShape2D_5ngtk")
+
+[node name="Subscene" type="ReferenceRect" parent="."]
+offset_left = 116.0
+offset_top = -73.0
+offset_right = 151.0
+offset_bottom = 151.0
+script = ExtResource("8_f8tg8")
+
+[node name="Pipette" type="Sprite2D" parent="Subscene"]
+position = Vector2(16, 69)
+texture = ExtResource("4_y22yk")
+region_enabled = true
+region_rect = Rect2(503.87, 588.06, 48, 137)
+
+[node name="PipetteTip" type="Sprite2D" parent="Subscene"]
+position = Vector2(-3, -134)
+texture = ExtResource("5_5ngtk")
 
 [connection signal="volume_changed" from="UseComponent" to="." method="_on_use_component_volume_changed"]
 [connection signal="timeout" from="PopupTimer" to="." method="_on_popup_timer_timeout"]
