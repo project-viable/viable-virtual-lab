@@ -48,6 +48,10 @@ attachment:gel_mold=""
 
 theme/custom="res://UI/MainUITheme.tres"
 theme/custom_font="res://UI/RobotoMedium16.tres"
+theme/default_font_antialiasing=2
+theme/default_font_hinting=2
+theme/default_font_multichannel_signed_distance_field=true
+theme/default_font_generate_mipmaps=true
 common/drop_mouse_on_gui_input_disabled=true
 
 [input]
