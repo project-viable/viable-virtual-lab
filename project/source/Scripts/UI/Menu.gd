@@ -17,7 +17,12 @@ var unread_logs: Dictionary = {
 var popup_active: bool = false
 var logs: Array[LogMessage] = []
 
-@onready var main: Main = get_parent()
+@onready var main: Main = (func () -> Main:
+	var n: Node = self
+	while not (n is Main) and n != null:
+		n = n.get_parent()
+	return n
+).call()
 
 
 var _resolution_options: Array[Vector2i] = [
