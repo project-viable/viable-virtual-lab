@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=23 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://crqlu3uq74012" path="res://Scripts/UI/Menu.gd" id="1"]
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
@@ -70,6 +70,9 @@ content_margin_right = 10.0
 content_margin_bottom = 10.0
 bg_color = Color(0.254732, 0.0295399, 0.248016, 1)
 border_color = Color(0.959161, 0.945137, 0.997527, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_sc1dx"]
+viewport_path = NodePath("MainCanvasLayer/TextureRect/MainViewport")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("2")
@@ -762,17 +765,17 @@ text = "left click"
 
 [node name="MainCanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="MainCanvasLayer"]
+[node name="TextureRect" type="TextureRect" parent="MainCanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-stretch = true
+texture = SubResource("ViewportTexture_sc1dx")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="MainViewport" type="SubViewport" parent="MainCanvasLayer/SubViewportContainer"]
+[node name="MainViewport" type="SubViewport" parent="MainCanvasLayer/TextureRect"]
 unique_name_in_owner = true
 handle_input_locally = false
 physics_object_picking = true
@@ -781,7 +784,7 @@ size_2d_override = Vector2i(1280, 720)
 size_2d_override_stretch = true
 render_target_update_mode = 4
 
-[node name="MainScene" type="Node2D" parent="MainCanvasLayer/SubViewportContainer/MainViewport"]
+[node name="MainScene" type="Node2D" parent="MainCanvasLayer/TextureRect/MainViewport"]
 unique_name_in_owner = true
 
 [node name="Mixtures" type="Node2D" parent="."]
