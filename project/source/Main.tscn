@@ -760,7 +760,28 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "left click"
 
-[node name="Scene" type="Node2D" parent="."]
+[node name="MainCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="MainCanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MainViewport" type="SubViewport" parent="MainCanvasLayer/SubViewportContainer"]
+unique_name_in_owner = true
+handle_input_locally = false
+physics_object_picking = true
+size = Vector2i(1280, 720)
+size_2d_override = Vector2i(1280, 720)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="MainScene" type="Node2D" parent="MainCanvasLayer/SubViewportContainer/MainViewport"]
+unique_name_in_owner = true
 
 [node name="Mixtures" type="Node2D" parent="."]
 position = Vector2(-2, -2)
@@ -783,4 +804,3 @@ script = ExtResource("10")
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/RestartModuleButton" to="Menu" method="_on_FinalReport_RestartModuleButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/ContinueButton" to="Menu" method="_on_FinalReport_ContinueButton_pressed"]
 [connection signal="pressed" from="Menu/LogButton" to="Menu" method="_on_LogButton_pressed"]
-[connection signal="tab_changed" from="Menu/LogButton/LogMenu" to="Menu" method="SetLogNotificationCounts"]

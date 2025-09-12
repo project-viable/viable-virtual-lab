@@ -147,7 +147,7 @@ func _process(_delta: float) -> void:
 			state.info = null
 			state.target = null
 
-func _unhandled_input(e: InputEvent) -> void:
+func _input(e: InputEvent) -> void:
 	var kind := InteractInfo.Kind.PRIMARY
 	var kind_was_set := false
 

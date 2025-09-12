@@ -357,5 +357,6 @@ func _on_resolution_dropdown_item_selected(index: int) -> void:
 		GameSettings.resolution = resolution
 		get_window().size = resolution
 		get_window().move_to_center()
+		$%MainViewport.size = resolution
 	else:
 		push_warning("Tried to set invalid resolution %s" % [resolution])
