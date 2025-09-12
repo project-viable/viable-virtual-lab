@@ -1,3 +1,4 @@
+class_name Main
 extends Node2D
 
 # TODO (update): This is essentially public, so we should consider using a convention to make that

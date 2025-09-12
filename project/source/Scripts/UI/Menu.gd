@@ -17,6 +17,8 @@ var unread_logs: Dictionary = {
 var popup_active: bool = false
 var logs: Array[LogMessage] = []
 
+@onready var main: Main = get_parent()
+
 
 var _resolution_options: Array[Vector2i] = [
 	Vector2i(1280, 720),
@@ -155,11 +157,11 @@ func _unhandled_key_input(e: InputEvent) -> void:
 		if $MenuScreens.visible and not $MenuScreens/PauseMenu.visible:
 			_switch_to_menu_screen($MenuScreens/PauseMenu)
 		# Toggle the pause menu only if we're in a module.
-		elif $"..".current_module_scene != null:
+		elif main.current_module_scene != null:
 			$MenuScreens.visible = not $MenuScreens.visible
 
 func _load_module(module: ModuleData) -> void:
-	get_parent().set_scene(module.scene)
+	main.set_scene(module.scene)
 
 	_switch_to_menu_screen($MenuScreens/PauseMenu)
 	$Background.hide()
@@ -321,7 +323,7 @@ func _on_exit_module_button_pressed() -> void:
 	_switch_to_main_menu()
 
 func _switch_to_main_menu() -> void:
-	$"..".unload_current_module()
+	main.unload_current_module()
 
 	_switch_to_menu_screen($MenuScreens/PauseMenu)
 	$MenuScreens/PauseMenu/Content/Logo.hide()
