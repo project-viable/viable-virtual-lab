@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://da2myq6tjf26d" path="res://Mixtures.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://Images/VIABLE_Logo_Transparent.png" id="11"]
 [ext_resource type="FontFile" path="res://UI/RobotoMedium28.tres" id="12"]
+[ext_resource type="Script" uid="uid://cndeve8mxxnjo" path="res://combined_scripts/content_scaled_subviewport_container.gd" id="17_kjvhd"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 content_margin_left = 10.0
@@ -70,9 +71,6 @@ content_margin_right = 10.0
 content_margin_bottom = 10.0
 bg_color = Color(0.254732, 0.0295399, 0.248016, 1)
 border_color = Color(0.959161, 0.945137, 0.997527, 1)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_sc1dx"]
-viewport_path = NodePath("MainCanvasLayer/TextureRect/MainViewport")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("2")
@@ -765,17 +763,16 @@ text = "left click"
 
 [node name="MainCanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="TextureRect" type="TextureRect" parent="MainCanvasLayer"]
+[node name="ContentScaledSubViewportContainer" type="TextureRect" parent="MainCanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("ViewportTexture_sc1dx")
-expand_mode = 1
-stretch_mode = 5
+script = ExtResource("17_kjvhd")
+metadata/_custom_type_script = "uid://cndeve8mxxnjo"
 
-[node name="MainViewport" type="SubViewport" parent="MainCanvasLayer/TextureRect"]
+[node name="MainViewport" type="SubViewport" parent="MainCanvasLayer/ContentScaledSubViewportContainer"]
 unique_name_in_owner = true
 handle_input_locally = false
 physics_object_picking = true
@@ -784,7 +781,7 @@ size_2d_override = Vector2i(1280, 720)
 size_2d_override_stretch = true
 render_target_update_mode = 4
 
-[node name="MainScene" type="Node2D" parent="MainCanvasLayer/TextureRect/MainViewport"]
+[node name="MainScene" type="Node2D" parent="MainCanvasLayer/ContentScaledSubViewportContainer/MainViewport"]
 unique_name_in_owner = true
 
 [node name="Mixtures" type="Node2D" parent="."]
