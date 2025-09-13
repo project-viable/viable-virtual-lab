@@ -14,6 +14,14 @@ extends TextureRect
 func _ready() -> void:
 	expand_mode = EXPAND_IGNORE_SIZE
 	texture = _viewport.get_texture()
+	_viewport.handle_input_locally = false
+
+func _notification(what: int) -> void:
+	# The viewport needs to know when the mouse enters and leaves, since it won't do physics object
+	# picking otherwise.
+	match what:
+		NOTIFICATION_MOUSE_ENTER: _viewport.notification(NOTIFICATION_VP_MOUSE_ENTER)
+		NOTIFICATION_MOUSE_EXIT: _viewport.notification(NOTIFICATION_VP_MOUSE_EXIT)
 
 func _input(e: InputEvent) -> void:
 	_propagate_nonpositional_event(e)
