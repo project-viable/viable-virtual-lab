@@ -6,7 +6,7 @@ extends ReferenceRect
 var default_location: Vector2 = global_position
 
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	top_level = true
 	Subscenes.allocate_subscene(self)
 
