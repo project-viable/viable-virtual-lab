@@ -61,6 +61,9 @@ func _ready() -> void:
 	$LogButton/LogMenu.set_tab_icon(2, load("res://Images/Dot-Yellow.png"))
 	$LogButton/LogMenu.set_tab_icon(3, load("res://Images/Dot-Red.png"))
 
+	Subscenes.subscene_activated.connect(_on_subscene_activated)
+	$%SubsceneViewport.world_2d = $%MainViewport.world_2d
+
 	var max_resolution := DisplayServer.screen_get_usable_rect().size
 
 	var idx := 0
@@ -367,3 +370,10 @@ func _on_resolution_dropdown_item_selected(index: int) -> void:
 		$%MainViewport.size = resolution
 	else:
 		push_warning("Tried to set invalid resolution %s" % [resolution])
+
+func _on_subscene_activated(subscene: Subscene) -> void:
+	$%SubsceneOverlay.visible = subscene != null
+	if not subscene: return
+
+	$%SubsceneContainer.size = subscene.size
+	$%SubsceneCamera.position = subscene.get_global_rect().get_center()

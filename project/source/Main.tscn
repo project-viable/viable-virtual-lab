@@ -93,6 +93,44 @@ offset_right = 640.0
 offset_bottom = 360.0
 texture = ExtResource("3")
 
+[node name="SubsceneOverlay" type="ColorRect" parent="Menu"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.380392, 0.380392, 0.380392, 0.490196)
+
+[node name="SubsceneContainer" type="SubViewportContainer" parent="Menu/SubsceneOverlay"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+mouse_target = true
+
+[node name="SubsceneViewport" type="SubViewport" parent="Menu/SubsceneOverlay/SubsceneContainer"]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(40, 40)
+render_target_update_mode = 0
+
+[node name="SubsceneCamera" type="Camera2D" parent="Menu/SubsceneOverlay/SubsceneContainer/SubsceneViewport"]
+unique_name_in_owner = true
+
 [node name="MenuScreens" type="Control" parent="Menu"]
 layout_mode = 3
 anchors_preset = 15
