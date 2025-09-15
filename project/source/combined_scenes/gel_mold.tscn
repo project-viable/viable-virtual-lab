@@ -56,4 +56,3 @@ shape = SubResource("RectangleShape2D_u177l")
 
 [connection signal="rotated_left" from="UseComponent" to="." method="_on_use_component_rotated_left"]
 [connection signal="rotated_right" from="UseComponent" to="." method="_on_use_component_rotated_right"]
-[connection signal="zoomed" from="ZoomInteractableArea" to="." method="_on_zoom_interactable_area_zoomed"]
