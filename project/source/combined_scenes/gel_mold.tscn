@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cys6ccja2bnxo"]
+[gd_scene load_steps=10 format=3 uid="uid://cys6ccja2bnxo"]
 
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_ar43o"]
 [ext_resource type="Script" uid="uid://x6gcss2jl4b6" path="res://combined_scripts/gel_mold.gd" id="1_of7eg"]
 [ext_resource type="Texture2D" uid="uid://c8m55kaxuy6oc" path="res://updated_assets/temp/gel_mold.png" id="3_of7eg"]
 [ext_resource type="Script" uid="uid://cqnnx8n2w14t1" path="res://combined_scripts/gel_mold_use_component.gd" id="4_0cqv1"]
 [ext_resource type="Script" uid="uid://bh5crdpl8833n" path="res://combined_scripts/gel_mold_interactable_area.gd" id="5_0cqv1"]
+[ext_resource type="Script" uid="uid://d2513rrgava7d" path="res://combined_scripts/subscene.gd" id="6_mu26n"]
+[ext_resource type="Texture2D" uid="uid://typec1hys1lw" path="res://updated_assets/temp/gel_closeup.png" id="7_ljbi8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_of7eg"]
 size = Vector2(95, 19)
@@ -53,6 +55,24 @@ metadata/_custom_type_script = "uid://8jbti40eodk6"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomInteractableArea"]
 position = Vector2(1.5, -11.5)
 shape = SubResource("RectangleShape2D_u177l")
+
+[node name="Subscene" type="ReferenceRect" parent="."]
+offset_left = 93.0
+offset_top = -86.0
+offset_right = 293.0
+offset_bottom = 33.0
+script = ExtResource("6_mu26n")
+metadata/_custom_type_script = "uid://d2513rrgava7d"
+
+[node name="GelCloseup" type="Sprite2D" parent="Subscene"]
+position = Vector2(100, 89)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_ljbi8")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Subscene"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Subscene/StaticBody2D"]
+polygon = PackedVector2Array(0, 105, 7, 106, 7, 113, 19, 113, 19, 105, 51, 106, 52, 112, 64, 114, 64, 105, 94, 106, 94, 115, 109, 113, 110, 106, 135, 106, 135, 114, 152, 115, 154, 107, 176, 108, 176, 116, 188, 117, 189, 107, 199, 108, 199, 108, 208, 121, 215, 142, -13, 139)
 
 [connection signal="rotated_left" from="UseComponent" to="." method="_on_use_component_rotated_left"]
 [connection signal="rotated_right" from="UseComponent" to="." method="_on_use_component_rotated_right"]
