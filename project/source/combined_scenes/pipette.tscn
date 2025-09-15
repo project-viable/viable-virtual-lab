@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://t5vephauatf2"]
+[gd_scene load_steps=12 format=3 uid="uid://t5vephauatf2"]
 
 [ext_resource type="Script" uid="uid://c42ut7hyyijbv" path="res://combined_scripts/pipette.gd" id="1_yutq4"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_drsrt"]
@@ -20,6 +20,9 @@ border_width_bottom = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ngtk"]
 size = Vector2(7, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f8tg8"]
+size = Vector2(9, 129)
 
 [node name="Pipette" type="RigidBody2D"]
 collision_layer = 0
@@ -126,6 +129,15 @@ region_rect = Rect2(503.87, 588.06, 48, 137)
 [node name="PipetteTip" type="Sprite2D" parent="Subscene"]
 position = Vector2(-3, -134)
 texture = ExtResource("5_5ngtk")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Subscene"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/CharacterBody2D"]
+position = Vector2(17.5, 64.5)
+shape = SubResource("RectangleShape2D_f8tg8")
+
+[node name="TipCollision" type="CollisionPolygon2D" parent="Subscene/CharacterBody2D"]
+polygon = PackedVector2Array(3, 5, 31, 5, 19, 218, 16, 218)
 
 [connection signal="volume_changed" from="UseComponent" to="." method="_on_use_component_volume_changed"]
 [connection signal="timeout" from="PopupTimer" to="." method="_on_popup_timer_timeout"]
