@@ -127,6 +127,7 @@ region_enabled = true
 region_rect = Rect2(503.87, 588.06, 48, 137)
 
 [node name="PipetteTip" type="Sprite2D" parent="Subscene"]
+visible = false
 position = Vector2(-3, -134)
 texture = ExtResource("5_5ngtk")
 
