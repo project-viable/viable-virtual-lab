@@ -20,6 +20,10 @@ static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, 
 ## [SelectableCanvasGroup] child of this [LabBody].
 @export var interact_canvas_group: SelectableCanvasGroup = null
 @export var enable_interaction: bool = true
+## When set to [code]true[/code], this object will follow the cursor when dragged. Set this to
+## [code]false[/code] if you want to animate this object yourself or, for example, have it stop
+## moving while in a subscene.
+@export var follow_cursor: bool = true
 
 
 # Keep track of collision layers of any child physics objects. For example, the scale has a child
@@ -52,7 +56,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint(): return
 
-	if is_active():
+	if is_active() and follow_cursor:
 		if abs(global_rotation) > 0.001:
 			var is_rotating_clockwise := global_rotation < 0
 			global_rotation -= global_rotation * delta * 50

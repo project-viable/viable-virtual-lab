@@ -18,7 +18,10 @@ func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 		ints.append(InteractInfo.new(InteractInfo.Kind.ADJUST_LEFT, "Decrease volume"))
 	if volume < 100:
 		ints.append(InteractInfo.new(InteractInfo.Kind.ADJUST_RIGHT, "Increase volume"))
-	if area is SubsceneInteractableArea and area.subscene:
+		
+	if containing_subscene:
+		ints.append(InteractInfo.new(InteractInfo.Kind.ZOOM, "Stop injecting"))
+	elif area is SubsceneInteractableArea and area.subscene:
 		ints.append(InteractInfo.new(InteractInfo.Kind.ZOOM, "Start injecting"))
 	
 	return ints
@@ -32,5 +35,11 @@ func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 			volume += 1
 			volume_changed.emit()
 		InteractInfo.Kind.ZOOM:
-			Subscenes.active_subscene = area.subscene
-			containing_subscene = area.subscene
+			if containing_subscene:
+				containing_subscene = null
+				Subscenes.active_subscene = null
+				$"../Subscene/CharacterBody2D".position = Vector2.ZERO 
+			else:
+				containing_subscene = area.subscene
+				Subscenes.active_subscene = area.subscene
+				$"../Subscene".position = area.subscene.get_rect().get_center() + Vector2(0, -100)

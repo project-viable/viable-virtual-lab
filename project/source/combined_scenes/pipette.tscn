@@ -120,17 +120,6 @@ offset_right = 151.0
 offset_bottom = 151.0
 script = ExtResource("8_f8tg8")
 
-[node name="Pipette" type="Sprite2D" parent="Subscene"]
-position = Vector2(16, 69)
-texture = ExtResource("4_y22yk")
-region_enabled = true
-region_rect = Rect2(503.87, 588.06, 48, 137)
-
-[node name="PipetteTip" type="Sprite2D" parent="Subscene"]
-visible = false
-position = Vector2(-3, -134)
-texture = ExtResource("5_5ngtk")
-
 [node name="CharacterBody2D" type="CharacterBody2D" parent="Subscene"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/CharacterBody2D"]
@@ -139,6 +128,17 @@ shape = SubResource("RectangleShape2D_f8tg8")
 
 [node name="TipCollision" type="CollisionPolygon2D" parent="Subscene/CharacterBody2D"]
 polygon = PackedVector2Array(3, 5, 31, 5, 19, 218, 16, 218)
+
+[node name="Pipette" type="Sprite2D" parent="Subscene/CharacterBody2D"]
+position = Vector2(16, 69)
+texture = ExtResource("4_y22yk")
+region_enabled = true
+region_rect = Rect2(503.87, 588.06, 48, 137)
+
+[node name="PipetteTip" type="Sprite2D" parent="Subscene/CharacterBody2D"]
+visible = false
+position = Vector2(-3, -134)
+texture = ExtResource("5_5ngtk")
 
 [connection signal="volume_changed" from="UseComponent" to="." method="_on_use_component_volume_changed"]
 [connection signal="timeout" from="PopupTimer" to="." method="_on_popup_timer_timeout"]
