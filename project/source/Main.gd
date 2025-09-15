@@ -13,6 +13,7 @@ func check_action(params: Dictionary) -> void:
 
 func unload_current_module() -> void:
 	LabLog.clear_logs()
+	Subscenes.active_subscene = null
 	for child in $%MainScene.get_children():
 		child.queue_free()
 
