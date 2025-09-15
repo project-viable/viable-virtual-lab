@@ -376,4 +376,5 @@ func _on_subscene_activated(subscene: Subscene) -> void:
 	if not subscene: return
 
 	$%SubsceneContainer.size = subscene.size
+	$%SubsceneContainer.set_anchors_and_offsets_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE)
 	$%SubsceneCamera.position = subscene.get_global_rect().get_center()
