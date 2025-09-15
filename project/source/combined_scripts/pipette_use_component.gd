@@ -7,20 +7,23 @@ signal volume_changed()
 @export var volume: int = 50
 
 
-func get_interactions(_area: InteractableArea) -> Array[InteractInfo]:
-	var ints: Array[InteractInfo] = [
-		InteractInfo.new(InteractInfo.Kind.ZOOM, "Toggle subscene")
-	]
+## Subscene that this pipette is currently inside.
+var containing_subscene: Subscene = null
+
+
+func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
+	var ints: Array[InteractInfo] = []
 
 	if volume > 1:
 		ints.append(InteractInfo.new(InteractInfo.Kind.ADJUST_LEFT, "Decrease volume"))
 	if volume < 100:
 		ints.append(InteractInfo.new(InteractInfo.Kind.ADJUST_RIGHT, "Increase volume"))
+	if area is SubsceneInteractableArea and area.subscene:
+		ints.append(InteractInfo.new(InteractInfo.Kind.ZOOM, "Start injecting"))
 	
 	return ints
 
-func start_use(_area: InteractableArea, kind: InteractInfo.Kind) -> void:
-	var s: Subscene = $"../Subscene"
+func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 	match kind:
 		InteractInfo.Kind.ADJUST_LEFT:
 			volume -= 1
@@ -29,7 +32,5 @@ func start_use(_area: InteractableArea, kind: InteractInfo.Kind) -> void:
 			volume += 1
 			volume_changed.emit()
 		InteractInfo.Kind.ZOOM:
-			if s != Subscenes.active_subscene:
-				Subscenes.active_subscene = s
-			else:
-				Subscenes.active_subscene = null
+			Subscenes.active_subscene = area.subscene
+			containing_subscene = area.subscene

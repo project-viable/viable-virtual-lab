@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://x6gcss2jl4b6" path="res://combined_scripts/gel_mold.gd" id="1_of7eg"]
 [ext_resource type="Texture2D" uid="uid://c8m55kaxuy6oc" path="res://updated_assets/temp/gel_mold.png" id="3_of7eg"]
 [ext_resource type="Script" uid="uid://cqnnx8n2w14t1" path="res://combined_scripts/gel_mold_use_component.gd" id="4_0cqv1"]
-[ext_resource type="Script" uid="uid://bh5crdpl8833n" path="res://combined_scripts/gel_mold_interactable_area.gd" id="5_0cqv1"]
+[ext_resource type="Script" uid="uid://rk5vq206ghcw" path="res://combined_scripts/subscene_interactable_area.gd" id="5_mu26n"]
 [ext_resource type="Script" uid="uid://d2513rrgava7d" path="res://combined_scripts/subscene.gd" id="6_mu26n"]
 [ext_resource type="Texture2D" uid="uid://typec1hys1lw" path="res://updated_assets/temp/gel_closeup.png" id="7_ljbi8"]
 
@@ -48,11 +48,12 @@ shape = SubResource("RectangleShape2D_of7eg")
 script = ExtResource("4_0cqv1")
 metadata/_custom_type_script = "uid://c5xu35ldxvqog"
 
-[node name="ZoomInteractableArea" type="Area2D" parent="."]
-script = ExtResource("5_0cqv1")
+[node name="SubsceneInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("subscene")]
+script = ExtResource("5_mu26n")
+subscene = NodePath("../Subscene")
 metadata/_custom_type_script = "uid://8jbti40eodk6"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomInteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubsceneInteractableArea"]
 position = Vector2(1.5, -11.5)
 shape = SubResource("RectangleShape2D_u177l")
 
