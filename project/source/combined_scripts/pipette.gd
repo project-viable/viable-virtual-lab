@@ -13,6 +13,8 @@ class_name Pipe #TODO: Placeholder name since Pipette is already used in the old
 
 
 var _subscene_velocity: Vector2 = Vector2.ZERO
+var _prev_stop: int = 0
+var _stop_volumes: Array[float] = [0.0, 0.005, 0.006]
 
 
 func _ready() -> void:
@@ -25,6 +27,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	follow_cursor = $UseComponent.containing_subscene == null
+	enable_interaction = follow_cursor
 	super(delta)
 
 	if $UseComponent.containing_subscene:
@@ -44,3 +47,21 @@ func _on_use_component_volume_changed() -> void:
 
 func _on_popup_timer_timeout() -> void:
 	$Panel.hide()
+
+func _get_target_container() -> ContainerComponent:
+	for a: Area2D in $%TipArea.get_overlapping_areas():
+		if a is SubsceneSubstanceArea and a.container:
+			return a.container
+	return null
+
+func _on_use_component_stop_changed(stop: int) -> void:
+	if stop == _prev_stop or not has_tip: return
+	var vol_diff := _stop_volumes[stop] - _stop_volumes[_prev_stop]
+	var container := _get_target_container()
+
+	if vol_diff > 0.0:
+		# Push out slightly less than you take in to require the purge.
+		var substance: SubstanceInstance = $ContainerComponent.take_volume(vol_diff * 0.95)
+		if container: container.add(substance)
+	elif container:
+		$ContainerComponent.add(container.take_volume(-vol_diff))
