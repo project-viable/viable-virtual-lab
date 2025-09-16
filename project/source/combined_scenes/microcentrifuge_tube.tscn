@@ -1,14 +1,46 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbb4h6gqfr7wb"]
+[gd_scene load_steps=17 format=3 uid="uid://dbb4h6gqfr7wb"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_v7kqd"]
+[ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="2_furxp"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_w81e0"]
+[ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://combined_scripts/substance_instance.gd" id="3_5m71u"]
+[ext_resource type="Script" uid="uid://dmam7f2mtik2" path="res://combined_scripts/basic_substance_data.gd" id="4_f6x18"]
 [ext_resource type="Texture2D" uid="uid://d1kyht6iivf6s" path="res://updated_assets/lab_objects/microcentrifuge_tube.svg" id="4_f37ir"]
-[ext_resource type="Script" path="res://combined_scripts/attachment_point.gd" id="5_ulp6r"]
+[ext_resource type="Script" uid="uid://cckgm2byotfq0" path="res://combined_scripts/solubility_data.gd" id="5_fakh2"]
+[ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://combined_scripts/attachment_point.gd" id="5_ulp6r"]
+[ext_resource type="Script" uid="uid://d2513rrgava7d" path="res://combined_scripts/subscene.gd" id="5_v7kqd"]
+[ext_resource type="Script" uid="uid://5sjgduop7hjw" path="res://combined_scripts/basic_substance.gd" id="6_shckk"]
+[ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://combined_scripts/substance_display_polygon.gd" id="7_rvoxf"]
+[ext_resource type="Script" uid="uid://xradg50rtywo" path="res://combined_scripts/subscene_substance_area.gd" id="8_rvoxf"]
+[ext_resource type="Script" uid="uid://rk5vq206ghcw" path="res://combined_scripts/subscene_interactable_area.gd" id="13_f6x18"]
+
+[sub_resource type="Resource" id="Resource_cry7v"]
+script = ExtResource("4_f6x18")
+name = "Blue"
+density = 1.0
+color = Color(0.239216, 0.313726, 1, 0.345098)
+solubilities = Dictionary[String, ExtResource("5_fakh2")]({})
+metadata/_custom_type_script = "uid://dmam7f2mtik2"
+
+[sub_resource type="Resource" id="Resource_2rlde"]
+script = ExtResource("6_shckk")
+data = SubResource("Resource_cry7v")
+volume = 0.008
+metadata/_custom_type_script = "uid://5sjgduop7hjw"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fakh2"]
+size = Vector2(25, 69)
 
 [node name="MicrocentrifugeTube" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource("1_v7kqd")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="ContainerComponent" type="Node2D" parent="."]
+script = ExtResource("2_furxp")
+max_volume = 1.0
+substances = Array[ExtResource("3_5m71u")]([SubResource("Resource_2rlde")])
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-7, 1, -3, 28, 5, 28, 9, 1, 9, -28, -7, -28)
@@ -25,3 +57,49 @@ texture = ExtResource("4_f37ir")
 [node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:microcentrifuge_tube"]]
 position = Vector2(1, -11)
 script = ExtResource("5_ulp6r")
+
+[node name="Subscene" type="ReferenceRect" parent="."]
+offset_left = 40.0
+offset_top = -79.0
+offset_right = 302.0
+offset_bottom = 244.0
+script = ExtResource("5_v7kqd")
+metadata/_custom_type_script = "uid://d2513rrgava7d"
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Subscene"]
+
+[node name="MicrocentrifugeTube" type="Sprite2D" parent="Subscene/CharacterBody2D"]
+position = Vector2(126, 198)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_f37ir")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Subscene/CharacterBody2D"]
+position = Vector2(-1.76961, 13.9876)
+scale = Vector2(0.480411, 0.479379)
+polygon = PackedVector2Array(224, 193, 224, 384, 251.388, 569.512, 286.775, 569.512, 311, 386, 312, 192, 334, 192, 340.895, 602.889, 195.186, 600.803, 200, 191)
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene/CharacterBody2D" node_paths=PackedStringArray("source")]
+position = Vector2(-1, 36)
+scale = Vector2(0.477273, 0.438438)
+polygon = PackedVector2Array(224, 214, 311, 214, 312, 387, 284.952, 572.486, 251.429, 572.486, 224, 385)
+script = ExtResource("7_rvoxf")
+source = NodePath("../../../ContainerComponent")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SubsceneSubstanceArea" type="Area2D" parent="Subscene/CharacterBody2D" node_paths=PackedStringArray("container")]
+script = ExtResource("8_rvoxf")
+container = NodePath("../../../ContainerComponent")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Subscene/CharacterBody2D/SubsceneSubstanceArea"]
+position = Vector2(-21, -32)
+scale = Vector2(0.552083, 0.5625)
+polygon = PackedVector2Array(253.585, 568.889, 284.377, 567.111, 292, 518, 244, 518)
+
+[node name="SubsceneInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("subscene")]
+script = ExtResource("13_f6x18")
+subscene = NodePath("../Subscene")
+metadata/_custom_type_script = "uid://rk5vq206ghcw"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubsceneInteractableArea"]
+position = Vector2(0.5, -3.5)
+shape = SubResource("RectangleShape2D_fakh2")
