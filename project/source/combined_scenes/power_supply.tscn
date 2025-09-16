@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b4q3npoc5c7fy"]
+[gd_scene load_steps=23 format=3 uid="uid://b4q3npoc5c7fy"]
 
 [ext_resource type="Script" uid="uid://bepsdcjab3t21" path="res://combined_scripts/power_supply.gd" id="1_7lagc"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_80iu8"]
