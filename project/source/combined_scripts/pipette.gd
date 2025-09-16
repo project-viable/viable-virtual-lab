@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	super(delta)
 
 	if $UseComponent.containing_subscene:
-		$Subscene/CharacterBody2D.velocity = _subscene_velocity / 3
+		$Subscene/CharacterBody2D.velocity = _subscene_velocity * 200.0 / $UseComponent.containing_subscene.get_rect().size.x
 		$Subscene/CharacterBody2D.move_and_slide()
 		_subscene_velocity = Vector2.ZERO
 
