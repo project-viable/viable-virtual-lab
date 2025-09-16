@@ -23,31 +23,35 @@ class InteractState:
 		source = p_source
 		target = p_target
 
-	func start_targeting() -> void:
-		if not info: return
+	func start_targeting() -> bool:
+		if not info: return false
 		if source: source.start_targeting(target as InteractableArea, info.kind)
 		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
 			target.start_targeting(info.kind)
+		return true
 
-	func stop_targeting() -> void:
-		if not info: return
+	func stop_targeting() -> bool:
+		if not info: return false
 		if source: source.stop_targeting(target as InteractableArea, info.kind)
 		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
 			target.stop_targeting(info.kind)
+		return true
 
-	func start_interact() -> void:
+	func start_interact() -> bool:
 		is_pressed = true
-		if not info or not info.allowed: return
+		if not info or not info.allowed: return false
 		if source: source.start_use(target as InteractableArea, info.kind)
 		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
 			target.start_interact(info.kind)
+		return true
 
-	func stop_interact() -> void:
+	func stop_interact() -> bool:
 		is_pressed = false
-		if not info or not info.allowed: return
+		if not info or not info.allowed: return false
 		if source: source.stop_use(target as InteractableArea, info.kind)
 		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
 			target.stop_interact(info.kind)
+		return true
 
 
 ## `LabBody` currently being held.
@@ -161,9 +165,8 @@ func _input(e: InputEvent) -> void:
 
 	var state: InteractState = interactions.get(kind)
 	if not state: return
-
-	if e.is_pressed(): state.start_interact()
-	elif e.is_released(): state.stop_interact()
+	if e.is_pressed() and state.start_interact() or e.is_released() and state.stop_interact():
+		get_viewport().set_input_as_handled()
 
 func get_next_draw_order() -> int:
 	_next_draw_order += 1
