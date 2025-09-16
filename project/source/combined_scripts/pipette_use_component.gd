@@ -35,11 +35,12 @@ func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 			volume += 1
 			volume_changed.emit()
 		InteractInfo.Kind.ZOOM:
+			var body: CharacterBody2D = $"../Subscene/CharacterBody2D"
 			if containing_subscene:
 				containing_subscene = null
 				Subscenes.active_subscene = null
-				$"../Subscene/CharacterBody2D".position = Vector2.ZERO 
+				body.position = Vector2.ZERO 
 			else:
 				containing_subscene = area.subscene
 				Subscenes.active_subscene = area.subscene
-				$"../Subscene".position = area.subscene.get_rect().get_center() + Vector2(0, -100)
+				body.global_position = area.subscene.get_rect().get_center() - Util.get_bounding_box(body).size * Vector2(0.5, 1)
