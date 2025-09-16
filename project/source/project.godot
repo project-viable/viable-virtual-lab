@@ -42,6 +42,8 @@ contact_wire=""
 emptyable=""
 attachment:contact_wire=""
 attachment:pipette=""
+ghost:always_include="Always include this node in a sprite ghost (made via `Util.make_sprite_ghost`), regardless of visibility"
+ghost:never_include="Never include this node in a sprite ghost (made via `Util.make_sprite_ghost`), regardless of visibility"
 
 [gui]
 

@@ -50,6 +50,12 @@ static func get_bounding_box(obj: CollisionObject2D) -> Rect2:
 	return rect
 
 static func _make_sprite_ghost_impl(node: Node2D) -> Node2D:
+	# Skip invisible nodes or ones in the "ghost:never_include" group. Never skip nodes in the
+	# "ghost:always_include" group.
+	if not node.is_in_group(&"ghost:always_include") \
+			and (not node.visible or node.is_in_group(&"ghost:never_include")):
+		return null
+
 	var new_node: Node2D = null
 	if node is Sprite2D:
 		new_node = Sprite2D.new()
