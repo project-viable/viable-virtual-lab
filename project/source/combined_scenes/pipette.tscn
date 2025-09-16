@@ -163,9 +163,10 @@ position = Vector2(18, 216)
 position = Vector2(-0.5, 0)
 shape = SubResource("CircleShape2D_5ngtk")
 
-[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene/CharacterBody2D"]
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene/CharacterBody2D" node_paths=PackedStringArray("source")]
 polygon = PackedVector2Array(13, 129, 21, 129, 18, 214, 17, 214)
 script = ExtResource("3_jnhs8")
+source = NodePath("../../../ContainerComponent")
 metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
 
 [connection signal="stop_changed" from="UseComponent" to="." method="_on_use_component_stop_changed"]

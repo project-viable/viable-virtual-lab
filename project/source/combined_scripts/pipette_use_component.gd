@@ -60,19 +60,19 @@ func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 		InteractInfo.Kind.SECONDARY:
 			_secondary_held = true
 			current_stop += 1
-			stop_changed.emit()
+			stop_changed.emit(current_stop)
 		InteractInfo.Kind.TERNARY:
 			_ternary_held = true
 			current_stop += 1
-			stop_changed.emit()
+			stop_changed.emit(current_stop)
 
 func stop_use(_area: InteractableArea, kind: InteractInfo.Kind) -> void:
 	match kind:
 		InteractInfo.Kind.SECONDARY:
 			_secondary_held = false
 			current_stop -= 1
-			stop_changed.emit()
+			stop_changed.emit(current_stop)
 		InteractInfo.Kind.TERNARY:
 			_ternary_held = false
 			current_stop -= 1
-			stop_changed.emit()
+			stop_changed.emit(current_stop)

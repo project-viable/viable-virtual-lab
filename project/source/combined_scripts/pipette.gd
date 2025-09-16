@@ -50,6 +50,8 @@ func _on_popup_timer_timeout() -> void:
 
 func _get_target_container() -> ContainerComponent:
 	for a: Area2D in $%TipArea.get_overlapping_areas():
+		if a is SubsceneSubstanceArea:
+			print("Found %s" % [a])
 		if a is SubsceneSubstanceArea and a.container:
 			return a.container
 	return null
@@ -57,11 +59,15 @@ func _get_target_container() -> ContainerComponent:
 func _on_use_component_stop_changed(stop: int) -> void:
 	if stop == _prev_stop or not has_tip: return
 	var vol_diff := _stop_volumes[stop] - _stop_volumes[_prev_stop]
+	_prev_stop = stop
 	var container := _get_target_container()
 
 	if vol_diff > 0.0:
 		# Push out slightly less than you take in to require the purge.
 		var substance: SubstanceInstance = $ContainerComponent.take_volume(vol_diff * 0.95)
-		if container: container.add(substance)
+		if container:
+			container.add(substance)
+			print("Putting %s into %s" % [vol_diff * 0.95, container])
 	elif container:
 		$ContainerComponent.add(container.take_volume(-vol_diff))
+		print("Taking %s from %s" % [vol_diff, container])
