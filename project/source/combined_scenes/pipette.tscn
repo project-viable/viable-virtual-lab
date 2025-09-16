@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://t5vephauatf2"]
+[gd_scene load_steps=13 format=3 uid="uid://t5vephauatf2"]
 
 [ext_resource type="Script" uid="uid://c42ut7hyyijbv" path="res://combined_scripts/pipette.gd" id="1_yutq4"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_drsrt"]
@@ -23,6 +23,9 @@ size = Vector2(7, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f8tg8"]
 size = Vector2(9, 129)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ngtk"]
+radius = 3.60555
 
 [node name="Pipette" type="RigidBody2D"]
 collision_layer = 0
@@ -139,6 +142,14 @@ region_rect = Rect2(503.87, 588.06, 48, 137)
 visible = false
 position = Vector2(-3, -134)
 texture = ExtResource("5_5ngtk")
+
+[node name="TipArea" type="Area2D" parent="Subscene/CharacterBody2D"]
+unique_name_in_owner = true
+position = Vector2(18, 216)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/CharacterBody2D/TipArea"]
+position = Vector2(-0.5, 0)
+shape = SubResource("CircleShape2D_5ngtk")
 
 [connection signal="volume_changed" from="UseComponent" to="." method="_on_use_component_volume_changed"]
 [connection signal="timeout" from="PopupTimer" to="." method="_on_popup_timer_timeout"]
