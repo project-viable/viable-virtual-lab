@@ -1,5 +1,10 @@
 extends CanvasLayer
 
+
+# Width of the view of the subscene.
+const SUBSCENE_WINDOW_WIDTH: float = 500
+
+
 @export var all_modules: Array[ModuleData]
 
 var module_directory: String = "res://Modules/"
@@ -375,6 +380,10 @@ func _on_subscene_activated(subscene: Subscene) -> void:
 	$%SubsceneOverlay.visible = subscene != null
 	if not subscene: return
 
-	$%SubsceneContainer.size = subscene.size
+	var window_scale: float = SUBSCENE_WINDOW_WIDTH / subscene.size.x
+
+	$%SubsceneContainer.size.x = SUBSCENE_WINDOW_WIDTH
+	$%SubsceneContainer.size.y = subscene.size.y * window_scale
 	$%SubsceneContainer.set_anchors_and_offsets_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE)
 	$%SubsceneCamera.position = subscene.get_global_rect().get_center()
+	$%SubsceneCamera.zoom = Vector2(window_scale, window_scale)
