@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://b7ygbkawlsvn8"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_5k7v7"]
-[ext_resource type="Script" path="res://combined_scripts/substance_display_polygon.gd" id="2_5k7v7"]
+[ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://combined_scripts/substance_display_polygon.gd" id="2_5k7v7"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_8riox"]
 [ext_resource type="Texture2D" uid="uid://dn3h2fdnrisw6" path="res://updated_assets/lab_objects/graduated_cylinder.svg" id="4_5k7v7"]
 [ext_resource type="Script" uid="uid://8jbti40eodk6" path="res://combined_scripts/interactable_area.gd" id="6_dw6my"]
@@ -35,6 +35,7 @@ texture = ExtResource("4_5k7v7")
 
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("6_g55fx")
+max_volume = 100.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="InteractableArea" type="Area2D" parent="."]
@@ -48,4 +49,5 @@ shape = SubResource("RectangleShape2D_ufkpi")
 [node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container_component")]
 script = ExtResource("7_xrcvl")
 container_component = NodePath("../ContainerComponent")
+amount_to_pour = 10.0
 metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
