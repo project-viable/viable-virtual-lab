@@ -9,15 +9,12 @@ var container_component_to_receive: ContainerComponent
 func get_interactions(_area: InteractableArea) -> Array[InteractInfo]: 
 	var info: InteractInfo
 	
-	if _area and _area.get_parent() is LabBody:
-		object_to_receive = _area.get_parent()
-		var container_components: Array[Node] = object_to_receive.find_children("", "ContainerComponent")
-		
-		if container_components and container_component.substances:
-			container_component_to_receive = container_components.front()
+	if _area and _area is PourInteractableArea:
+		container_component_to_receive = _area.container_component
+		if container_component_to_receive and container_component.substances:
 			info = InteractInfo.new(InteractInfo.Kind.SECONDARY, "Pour")
 			
-		elif container_components and not container_component.substances:
+		elif container_component_to_receive and not container_component.substances:
 			info = InteractInfo.new(InteractInfo.Kind.SECONDARY, "Pour (Container is Empty)", false)
 	 
 	if info:
@@ -37,3 +34,4 @@ func start_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 	print("Pouring %s ml" % [amount])
 	var substance: SubstanceInstance = container_component.take_volume(amount)
 	container_component_to_receive.add(substance)
+	container_component_to_receive.temperature = container_component.temperature # Keeping it simple for now
