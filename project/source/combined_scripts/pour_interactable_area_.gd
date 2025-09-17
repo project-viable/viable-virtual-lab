@@ -1,4 +1,0 @@
-extends InteractableArea
-class_name PourInteractableArea
-
-@export var container_component: ContainerComponent
