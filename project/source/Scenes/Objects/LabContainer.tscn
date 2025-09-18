@@ -14,12 +14,11 @@ collision_layer = 2
 input_pickable = true
 gravity_scale = 0.0
 can_sleep = false
-lock_rotation = true
 script = ExtResource("2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 1
 position = Vector2(2.38419e-07, -7.45058e-09)
+z_index = 1
 texture = ExtResource("1")
 
 [node name="FillSprite" type="Sprite2D" parent="."]
@@ -33,13 +32,10 @@ shape = SubResource("1")
 
 [node name="FollowMenu" type="Control" parent="."]
 visible = false
-layout_mode = 3
-anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Button" type="Button" parent="FollowMenu"]
-layout_mode = 0
 offset_left = -21.0
 offset_top = 35.0
 offset_right = 22.0

@@ -111,10 +111,12 @@ position = Vector2(134, 1040)
 
 [node name="Flask1" parent="." groups=["Conductive", "Heatable"] instance=ExtResource("3")]
 position = Vector2(431, 850)
+lock_rotation = true
 draggable = true
 
 [node name="Flask2" parent="." groups=["Conductive", "Heatable"] instance=ExtResource("3")]
 position = Vector2(495, 850)
+lock_rotation = true
 draggable = true
 
 [node name="AgaroseSourceContainer" parent="." instance=ExtResource("4")]
