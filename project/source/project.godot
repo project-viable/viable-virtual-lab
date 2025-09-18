@@ -21,7 +21,6 @@ config/icon="res://favicon.png"
 LabLog="*res://Scripts/LabLogSingleton.gd"
 GameSettings="*res://Scripts/GameSettingsSingleton.gd"
 Interaction="*res://combined_scripts/interaction_singleton.gd"
-LabTime="*res://combined_scripts/lab_time_singleton.gd"
 
 [debug]
 
@@ -31,18 +30,8 @@ gdscript/warnings/untyped_declaration=2
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="ignore"
-
-[global_group]
-
-attachment:microcentrifuge_tube=""
-attachment:scoopula=""
-contact_wire=""
-emptyable=""
-attachment:contact_wire=""
-attachment:pipette=""
 
 [gui]
 
