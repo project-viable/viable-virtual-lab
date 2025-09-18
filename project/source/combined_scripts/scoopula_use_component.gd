@@ -13,7 +13,7 @@ func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 		return [InteractInfo.new(InteractInfo.Kind.SECONDARY, "Dispense 0.1 mL")]
 	else: return []
 
-func start_use(_area: InteractableArea, _kind: InteractInfo.Kind, event: InputEvent = null) -> void:
+func start_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 	area = _area
 	if not (area is ScoopInteractableArea):
 		return
