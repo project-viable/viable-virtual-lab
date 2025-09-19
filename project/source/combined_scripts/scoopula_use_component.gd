@@ -16,7 +16,7 @@ func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 	if not (area is ScoopInteractableArea):
 		return
 	match kind:
-		0:
+		InteractInfo.Kind.PRIMARY:
 			## If the container being interacted with isn't empty but the amount the user wants to scoop is greater than the
 			## amount in said container or how much the scoopula can hold, the user will be notified that they can't do that.
 			## Otherwise, the user can scoop like normal
@@ -32,7 +32,7 @@ func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 			
 			else:
 				print("container is empty. There is nothing to scoop")	
-		1:
+		InteractInfo.Kind.SECONDARY:
 			if container.substances.is_empty():
 				print("scoopula is empty")
 			else:
