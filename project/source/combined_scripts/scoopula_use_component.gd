@@ -3,7 +3,6 @@ extends UseComponent
 @export var container: ContainerComponent
 var vol_to_take: float = 0.1
 var vol_to_dispense: float = 0.1
-var area: InteractableArea
 
 func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 	## If the scoopula is empty, return the interaction "scoop"
@@ -13,11 +12,10 @@ func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 		return [InteractInfo.new(InteractInfo.Kind.SECONDARY, "Dispense 0.1 mL")]
 	else: return []
 
-func start_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void:
-	area = _area
+func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 	if not (area is ScoopInteractableArea):
 		return
-	match _kind:
+	match kind:
 		0:
 			## If the container being interacted with isn't empty but the amount the user wants to scoop is greater than the
 			## amount in said container or how much the scoopula can hold, the user will be notified that they can't do that.
@@ -50,4 +48,3 @@ func start_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 				#print(area.container, " after being dumped into has volume of: ", area.container.get_total_volume())
 		
 			
-			print("scoopula empty?: ", container.substances.is_empty())
