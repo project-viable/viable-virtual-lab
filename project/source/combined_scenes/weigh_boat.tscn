@@ -38,6 +38,7 @@ texture = ExtResource("4_ngt2v")
 
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("5_axhbs")
+container_mass = 6.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="ScoopInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container")]

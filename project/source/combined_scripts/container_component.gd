@@ -15,7 +15,9 @@ extends Node2D
 ## homogeneous throughout the container.
 @export var mix_amount: float = _base_mix_amount
 
-@export var container_mass: float = 6.0
+## Mass of the container itself. This is not used when simulating, but it is used by the scale to
+## calculate the total mass.
+@export var container_mass: float = 0.0
 
 # Even when not actively being mixed, substances in a container will slowly diffuse.
 const _base_mix_amount: float = 0.1
@@ -39,7 +41,6 @@ func _physics_process(delta: float) -> void:
 		temperature = min(temperature + _temp_equalizing_rate * delta, _room_temperature)
 	else:
 		temperature = max(temperature - _temp_equalizing_rate * delta, _room_temperature)
-		pass
 
 # Increase the amount of turbulence in the container
 func mix(amount: float) -> void: mix_amount += amount
