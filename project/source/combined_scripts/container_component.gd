@@ -15,6 +15,12 @@ extends Node2D
 ## homogeneous throughout the container.
 @export var mix_amount: float = _base_mix_amount
 
+## Volume that this container can hold, in mL. The total volume of substances stored in this
+## container is not prevented from going above this value; [member container_volume] exists mainly
+## for things that want to display the contents of this container or implement custom overflow
+## behavior.
+@export var container_volume: float = 1.0
+
 ## Mass of the container itself. This is not used when simulating, but it is used by the scale to
 ## calculate the total mass.
 @export var container_mass: float = 0.0
@@ -71,9 +77,6 @@ func take_volume(v: float) -> SubstanceInstance:
 func _remove_empty_substances() -> void:
 	substances.assign(
 		substances.filter(func(s: SubstanceInstance) -> bool: return s.get_volume() >= 0.00001))
-
-func get_volume() -> float:
-	return 100.0
 
 func get_substances_mass() -> float:
 	var total_substance_mass: float = 0.0
