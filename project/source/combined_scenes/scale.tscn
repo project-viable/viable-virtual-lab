@@ -96,7 +96,5 @@ offset_bottom = 2.0
 theme_override_font_sizes/font_size = 9
 text = "0.0  g"
 
-[connection signal="body_entered" from="InteractableArea" to="InteractableArea" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="InteractableArea" to="InteractableArea" method="_on_area_2d_body_exited"]
 [connection signal="input_event" from="Area2D" to="InteractableArea" method="_on_scale_use_input_event"]
 [connection signal="pressed" from="TareButton" to="InteractableArea" method="_on_tare_button_pressed"]

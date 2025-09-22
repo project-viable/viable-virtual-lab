@@ -8,9 +8,10 @@ var current_weight: float = 0.0 #in terms of grams
 
 func _physics_process(_delta: float) -> void:
 	## The scale will constantly be waiting to update the display of grams 
+	current_weight = 0.0
 	for body:LabBody in get_parent().find_child("InteractableArea").get_overlapping_bodies():
 		if body is LabBody and not body.freeze:
-			current_weight = (body.find_child("ContainerComponent", false).container_mass + body.find_child("ContainerComponent", false).get_substances_mass())
+			current_weight += (body.find_child("ContainerComponent", false).container_mass + body.find_child("ContainerComponent", false).get_substances_mass())
 			#print ("get_substances_mass: ", body.find_child("ContainerComponent").get_substances_mass())
 			#print ("container_mass: ", body.find_child("ContainerComponent").container_mass)
 			
@@ -28,12 +29,6 @@ func _on_scale_use_input_event(_viewport: Node, event: InputEvent, _shape_idx: i
 func _input(event: InputEvent) -> void:
 	if is_zoomed_in and event.is_action_pressed("ExitCameraZoom"):
 		is_zoomed_in = false
-
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body is LabBody and body.freeze:
-		get_parent().find_child("WeightLabel").text = "0.0 g"
-		tare_weight = 0.0
-		current_weight = 0.0
 
 func _on_tare_button_pressed() -> void:
 	tare_weight = current_weight
