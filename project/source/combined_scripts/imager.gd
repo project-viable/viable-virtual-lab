@@ -36,6 +36,5 @@ func on_gel_inserted(UV_state: bool) -> void: pass
 
 ## Once a case has been matched within the display_gel_bands function, and the user removes the gel from
 ## the imageer, a sprite will replace the original gel sprite showing the appropriate bands within 
-## the.
-
+## the gel.
 func on_gel_removed() -> void: pass
