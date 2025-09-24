@@ -1,6 +1,5 @@
-[gd_scene load_steps=22 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=21 format=3 uid="uid://ch4jildorp0b3"]
 
-[ext_resource type="Script" uid="uid://crqlu3uq74012" path="res://Scripts/UI/Menu.gd" id="1"]
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
 [ext_resource type="Script" uid="uid://chwhrlyn51foq" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
 [ext_resource type="Texture2D" uid="uid://bdg0qubi6xt7d" path="res://Images/MainMenu-Background.png" id="3"]
@@ -74,11 +73,10 @@ border_color = Color(0.959161, 0.945137, 0.997527, 1)
 [node name="Main" type="Node2D"]
 script = ExtResource("2")
 check_strategies = Array[ExtResource("2_45sle")]([ExtResource("9")])
+all_modules = Array[ExtResource("5_1a5hp")]([ExtResource("6_wqw1h"), ExtResource("7_d1bo7"), ExtResource("8_sc1dx")])
 
 [node name="Menu" type="CanvasLayer" parent="."]
 layer = 128
-script = ExtResource("1")
-all_modules = Array[ExtResource("5_1a5hp")]([ExtResource("6_wqw1h"), ExtResource("7_d1bo7"), ExtResource("8_sc1dx")])
 
 [node name="Background" type="TextureRect" parent="Menu"]
 anchors_preset = 8
@@ -775,21 +773,21 @@ text = "right click"
 position = Vector2(-2, -2)
 script = ExtResource("10")
 
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/SelectModuleButton" to="Menu" method="_on_SelectModuleButton_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/RestartModuleButton" to="Menu" method="_on_restart_module_button_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/ExitModuleButton" to="Menu" method="_on_exit_module_button_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/OptionsButton" to="Menu" method="_on_OptionsButton_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/AboutButton" to="Menu" method="_on_AboutButton_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/QuitButton" to="Menu" method="_on_quit_button_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/AboutScreen/VBoxContainer/CloseButton" to="Menu" method="_on_About_CloseButton_pressed"]
-[connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
-[connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="Menu" method="_on_ObjectTooltipsToggle_toggled"]
-[connection signal="value_changed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="Menu" method="_on_PopupTimeout_value_changed"]
-[connection signal="item_selected" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/Resolution/ResolutionDropdown" to="Menu" method="_on_resolution_dropdown_item_selected"]
-[connection signal="pressed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/CloseButton" to="Menu" method="_on_CloseButton_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/ModuleSelect/VBoxContainer/CloseButton" to="Menu" method="_on_module_select_close_button_pressed"]
-[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/MainMenuButton" to="Menu" method="_on_FinalReport_MainMenuButton_pressed"]
-[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/RestartModuleButton" to="Menu" method="_on_FinalReport_RestartModuleButton_pressed"]
-[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/ContinueButton" to="Menu" method="_on_FinalReport_ContinueButton_pressed"]
-[connection signal="pressed" from="Menu/LogButton" to="Menu" method="_on_LogButton_pressed"]
-[connection signal="tab_changed" from="Menu/LogButton/LogMenu" to="Menu" method="SetLogNotificationCounts"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/SelectModuleButton" to="." method="_on_SelectModuleButton_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/ExitModuleButton" to="." method="_on_exit_module_button_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/OptionsButton" to="." method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/AboutButton" to="." method="_on_AboutButton_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/AboutScreen/VBoxContainer/CloseButton" to="." method="_on_About_CloseButton_pressed"]
+[connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/MouseDragToggle" to="." method="_on_MouseDragToggle_toggled"]
+[connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="." method="_on_ObjectTooltipsToggle_toggled"]
+[connection signal="value_changed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="." method="_on_PopupTimeout_value_changed"]
+[connection signal="item_selected" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/Resolution/ResolutionDropdown" to="." method="_on_resolution_dropdown_item_selected"]
+[connection signal="pressed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/ModuleSelect/VBoxContainer/CloseButton" to="." method="_on_module_select_close_button_pressed"]
+[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/MainMenuButton" to="." method="_on_FinalReport_MainMenuButton_pressed"]
+[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/RestartModuleButton" to="." method="_on_FinalReport_RestartModuleButton_pressed"]
+[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/ContinueButton" to="." method="_on_FinalReport_ContinueButton_pressed"]
+[connection signal="pressed" from="Menu/LogButton" to="." method="_on_LogButton_pressed"]
+[connection signal="tab_changed" from="Menu/LogButton/LogMenu" to="." method="SetLogNotificationCounts"]
