@@ -1,4 +1,6 @@
 ## Keeps track of interaction-related state, ensuring that only one interaction can happen at once.
+## The actual input handling (translating input events into interactions) is done in the
+## [code]$%Scene[/code] node in the main scene.
 extends Node2D
 
 
@@ -145,23 +147,6 @@ func _process(_delta: float) -> void:
 		else:
 			state.info = null
 			state.target = null
-
-func _input(e: InputEvent) -> void:
-	var kind := InteractInfo.Kind.PRIMARY
-	if e.is_action(&"interact_primary"):
-		kind = InteractInfo.Kind.PRIMARY
-	elif e.is_action(&"interact_secondary"):
-		kind = InteractInfo.Kind.SECONDARY
-	else:
-		return
-
-	var state: InteractState = interactions.get(kind)
-	if not state or not state.info: return
-
-	if e.is_pressed(): state.start_interact()
-	elif e.is_released(): state.stop_interact()
-
-	get_viewport().set_input_as_handled()
 
 func get_next_draw_order() -> int:
 	_next_draw_order += 1

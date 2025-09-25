@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=23 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
 [ext_resource type="Script" uid="uid://chwhrlyn51foq" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://Images/Dot-Red.png" id="8"]
 [ext_resource type="Resource" uid="uid://d3tt3s0try6s7" path="res://Modules/combined.tres" id="8_sc1dx"]
 [ext_resource type="Resource" uid="uid://ig5fr0g7xm80" path="res://MistakeCheckers/MixtureChecker.tres" id="9"]
+[ext_resource type="Script" uid="uid://bmcv1qehkhxri" path="res://combined_scripts/scene_input_handler.gd" id="9_kjvhd"]
 [ext_resource type="Script" uid="uid://da2myq6tjf26d" path="res://Mixtures.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://Images/VIABLE_Logo_Transparent.png" id="11"]
 [ext_resource type="FontFile" path="res://UI/RobotoMedium28.tres" id="12"]
@@ -95,6 +96,7 @@ size_2d_override_stretch = true
 
 [node name="Scene" type="Node2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
 unique_name_in_owner = true
+script = ExtResource("9_kjvhd")
 
 [node name="Menu" type="CanvasLayer" parent="."]
 layer = 128
