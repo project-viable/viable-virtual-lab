@@ -146,7 +146,7 @@ func _process(_delta: float) -> void:
 			state.info = null
 			state.target = null
 
-func _unhandled_input(e: InputEvent) -> void:
+func _input(e: InputEvent) -> void:
 	var kind := InteractInfo.Kind.PRIMARY
 	if e.is_action(&"interact_primary"):
 		kind = InteractInfo.Kind.PRIMARY
@@ -156,10 +156,12 @@ func _unhandled_input(e: InputEvent) -> void:
 		return
 
 	var state: InteractState = interactions.get(kind)
-	if not state: return
+	if not state or not state.info: return
 
 	if e.is_pressed(): state.start_interact()
 	elif e.is_released(): state.stop_interact()
+
+	get_viewport().set_input_as_handled()
 
 func get_next_draw_order() -> int:
 	_next_draw_order += 1

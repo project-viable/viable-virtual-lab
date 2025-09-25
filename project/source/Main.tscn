@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=22 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
 [ext_resource type="Script" uid="uid://chwhrlyn51foq" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://da2myq6tjf26d" path="res://Mixtures.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://Images/VIABLE_Logo_Transparent.png" id="11"]
 [ext_resource type="FontFile" path="res://UI/RobotoMedium28.tres" id="12"]
+[ext_resource type="Script" uid="uid://dmoeu8vq1th7i" path="res://combined_scripts/content_scaled_subviewport_container.gd" id="16_sc1dx"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 content_margin_left = 10.0
@@ -74,6 +75,26 @@ border_color = Color(0.959161, 0.945137, 0.997527, 1)
 script = ExtResource("2")
 check_strategies = Array[ExtResource("2_45sle")]([ExtResource("9")])
 all_modules = Array[ExtResource("5_1a5hp")]([ExtResource("6_wqw1h"), ExtResource("7_d1bo7"), ExtResource("8_sc1dx")])
+
+[node name="SceneLayer" type="CanvasLayer" parent="."]
+
+[node name="ContentScaledSubViewportContainer" type="TextureRect" parent="SceneLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_sc1dx")
+metadata/_custom_type_script = "uid://dmoeu8vq1th7i"
+
+[node name="MainViewport" type="SubViewport" parent="SceneLayer/ContentScaledSubViewportContainer"]
+unique_name_in_owner = true
+physics_object_picking = true
+size_2d_override = Vector2i(1280, 720)
+size_2d_override_stretch = true
+
+[node name="Scene" type="Node2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+unique_name_in_owner = true
 
 [node name="Menu" type="CanvasLayer" parent="."]
 layer = 128
@@ -766,8 +787,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_sc1dx")
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "right click"
-
-[node name="Scene" type="Node2D" parent="."]
 
 [node name="Mixtures" type="Node2D" parent="."]
 position = Vector2(-2, -2)
