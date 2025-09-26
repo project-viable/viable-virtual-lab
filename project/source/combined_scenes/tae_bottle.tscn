@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://du0xgct56vfqx"]
+[gd_scene load_steps=14 format=3 uid="uid://du0xgct56vfqx"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_vo5hq"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_rqhjd"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://combined_scripts/substance_instance.gd" id="5_6s205"]
 [ext_resource type="Script" uid="uid://5sjgduop7hjw" path="res://combined_scripts/basic_substance.gd" id="7_vo5hq"]
 [ext_resource type="Script" uid="uid://dmam7f2mtik2" path="res://combined_scripts/basic_substance_data.gd" id="8_bhtvw"]
+[ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://combined_scripts/pour_use_component.gd" id="9_7vpf6"]
+[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://combined_scripts/pour_interactable_area.gd" id="10_vo5hq"]
 [ext_resource type="Script" uid="uid://cckgm2byotfq0" path="res://combined_scripts/solubility_data.gd" id="11_vo5hq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rqhjd"]
@@ -44,6 +46,7 @@ texture = ExtResource("4_vo5hq")
 
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("4_jcpv6")
+max_volume = 100.0
 substances = Array[ExtResource("5_6s205")]([SubResource("Resource_vo5hq")])
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
@@ -56,3 +59,17 @@ scale = Vector2(0.551095, 0.551095)
 text = "TAE
 Buffer"
 horizontal_alignment = 1
+
+[node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container_component")]
+script = ExtResource("9_7vpf6")
+container_component = NodePath("../ContainerComponent")
+amount_to_pour = 10.0
+metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
+
+[node name="PourInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
+script = ExtResource("10_vo5hq")
+container_component = NodePath("../ContainerComponent")
+metadata/_custom_type_script = "uid://dr7r4spi6qe72"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PourInteractableArea"]
+shape = SubResource("RectangleShape2D_rqhjd")

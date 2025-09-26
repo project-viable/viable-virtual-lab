@@ -3,14 +3,13 @@ class_name PourUseComponent
 @export var container_component: ContainerComponent 
 @export var amount_to_pour: float # In ml
 
-var object_to_receive: LabBody
 var container_component_to_receive: ContainerComponent
 
-func get_interactions(_area: InteractableArea) -> Array[InteractInfo]: 
+func get_interactions(area: InteractableArea) -> Array[InteractInfo]: 
 	var info: InteractInfo
 	
-	if _area and _area is PourInteractableArea:
-		container_component_to_receive = _area.container_component
+	if area and area is PourInteractableArea:
+		container_component_to_receive = area.container_component
 		if container_component_to_receive and container_component.substances:
 			info = InteractInfo.new(InteractInfo.Kind.SECONDARY, "Pour")
 			
