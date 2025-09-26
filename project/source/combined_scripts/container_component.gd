@@ -67,7 +67,7 @@ func get_total_volume() -> float:
 # Take the given volume from the first substance.
 func take_volume(v: float) -> SubstanceInstance:
 	if not substances: return SubstanceInstance.new()
-	var result: SubstanceInstance = substances.front().take_volume(v)
+	var result: SubstanceInstance = substances.back().take_volume(v)
 	_remove_empty_substances()
 	return result
 
