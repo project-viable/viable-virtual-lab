@@ -6,7 +6,8 @@ extends ReferenceRect
 ## can be displayed using a [SubsceneCamera].
 
 
-# Free space dedicated to this object. This is set when allocating this subscene.
+## Free space dedicated to this object. This is set when allocating this subscene via
+## [method Subscenes.allocate]
 var default_position: Vector2 = Vector2.ZERO
 
 
@@ -16,5 +17,6 @@ func _enter_tree() -> void:
 		if get_tree().edited_scene_root != owner:
 			hide()
 	else:
-		#Subscenes.allocate(self)
-		pass
+		Subscenes.allocate(self)
+
+func reset_position() -> void: global_position = default_position
