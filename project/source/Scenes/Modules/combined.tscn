@@ -23,7 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://bt321lhs647bu" path="res://combined_scenes/microcentrifuge_holder.tscn" id="18_xe06v"]
 [ext_resource type="PackedScene" uid="uid://ch8ljtcuvjg48" path="res://combined_scenes/wall_clock.tscn" id="21_8cc2w"]
 [ext_resource type="PackedScene" uid="uid://cxmqgu76dc3v" path="res://combined_scenes/contact_wire.tscn" id="21_gvdu8"]
-[ext_resource type="Script" path="res://combined_scripts/contact_wires.gd" id="21_kobiv"]
+[ext_resource type="Script" uid="uid://qijnhs2e78qy" path="res://combined_scripts/contact_wires.gd" id="21_kobiv"]
 [ext_resource type="Texture2D" uid="uid://dwb7gsbcv24kv" path="res://updated_assets/icons_and_buttons/contact_negative.svg" id="22_kobiv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wocf"]

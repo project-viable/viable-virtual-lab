@@ -6,7 +6,20 @@ extends Resource
 ## correctly, if the gel wells were flooded (or rather, how full each well is), if the gel components' 
 ## concentrations are appropriate or if the gel cooled properly can all be stored in this dictionary.
 ## The gel state should be exported from the Gel class.
-@export var gel_state: Dictionary = {}
+@export var gel_state: Dictionary = {
+	"electrode_correct_placement": false, ## incorrect placement means bands will run backwards and badns will not be visible
+	"voltage": 0.00, ## voltage that is too high or low will result in no visible bands or diffused bands
+	"gel_concentration": 0.00, ## incorrect concentration will result in diffused bands
+	"well_capacity": 0.00, ## if well is flooded, this will results in diffused bands
+						   ## if well is not full enough, this will results in no visible bands
+	"gel_analysis_asap": false, ## gel not put in the imager right after electropohresis results in diffused bands
+	"correct_gel_temperature": false, ## incorrect gel temperature results in smeared bands
+	"correct_comb_placement": false, ## incorrect gel comb placement or damaged wells results in smiley/wavy bands or
+									## dna remainig in the wells
+	"correct_gel_mixing": false, ## inconsistent gel density (not mixed well) resuls in smiley/wavy bands
+	
+	
+}
 
 ## This is the state of the UV light for when gel is being imaged.
 var UV_state: bool = false
