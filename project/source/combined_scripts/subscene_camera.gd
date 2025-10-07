@@ -28,10 +28,13 @@ func _enter_tree() -> void:
 	# bounds shown will be incorrect. This means we have to disable the default bounds rectangle
 	# and draw our own.
 	editor_draw_screen = false
+	# The engine uses the wrong viewport's size, which causes the position to be incorrect when
+	# using the centered anchor position, so we have to use top left.
+	anchor_mode = Camera2D.ANCHOR_MODE_FIXED_TOP_LEFT
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		draw_rect(Rect2(-region_size / 2 + offset, region_size), Color.RED, false)
+		draw_rect(Rect2(Vector2.ZERO, region_size), Color.RED, false)
 
 		if _last_offset != offset:
 			queue_redraw()
