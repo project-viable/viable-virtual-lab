@@ -9,6 +9,11 @@ const SUBSCENE_Y_COORD: float = 10000.0
 const SUBSCENE_MARGIN: float = 1000.0
 
 
+# Set by the main scene. Used by [SubscenePopup]s to make their viewports look at the correct world.
+# The top-level viewport is needed by the [SubscenePopup] canvas layers, since they need to 
+var main_world_2d: World2D = null
+var top_level_viewport: Viewport = null
+
 var _next_x_coord: float = 0.0
 
 

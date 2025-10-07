@@ -46,6 +46,12 @@ var _resolution_options: Array[Vector2i] = [
 var _current_workspace: WorkspaceCamera = null
 
 
+func _enter_tree() -> void:
+	# These need to be set in `_enter_tree` instead of `_ready` so that we can be pretty sure they
+	# are set before any `SubscenePopup` is ready.
+	Subscenes.main_world_2d = $%MainViewport.get_world_2d()
+	Subscenes.top_level_viewport = get_viewport()
+
 func _ready() -> void:
 	Game.main = self
 	Game.camera = $%TransitionCamera
