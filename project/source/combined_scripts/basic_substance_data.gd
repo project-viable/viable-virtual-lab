@@ -1,4 +1,4 @@
-## Immutable data for a basic substance. Since all instances of the same substance are the same,
+## Immutable data for a basic substance. Since all instances of the same substance are the same, 
 ## they can all point to the same instance of `BasicSubstanceData`.
 class_name BasicSubstanceData
 extends Resource
@@ -9,6 +9,7 @@ extends Resource
 
 ## Density in g/mL.
 @export var density: float = 1.0
+## Color of the substance
 @export var color: Color = Color.WHITE
 
 ## Maps solvent names to their solubilities.

@@ -1,3 +1,5 @@
+## This is the class description for the Imager object.
+## The Imager will accept a electrophoresed gel sample and produce an image of the DNA sample bands.
 class_name Imager
 extends Resource
 
@@ -21,25 +23,26 @@ extends Resource
 	
 }
 
-## This is the state of the UV light for when gel is being imaged.
+## This is the state of the UV light for when gel is being imaged. [code]true[/code] = UV light was on during imaging. 
+## [code]false[/code] = UV light was off when imaging.
 var UV_state: bool = false
 
-## (virtual) returns the UV light state. True = UV light was on during imaging. False = UV light was
-## off when imaging.
+## (virtual) returns the UV light state. [code]true[/code] = UV light was on during imaging.
+## [code]false[/code] = UV light was off when imaging.
 func get_UV_state() -> bool: return UV_state
 
 ## (virtual) returns the gel's state.
 func get_gel_state() -> Dictionary: return gel_state
 
-## (virutal) called when the UV_state = false and sets the visibility of the blank gel sprite to true.
+## (virutal) called when the UV_state = [code]false[/code] and sets the visibility of the blank gel sprite to [code]true[/code].
 func display_blank_gel_bands() -> void: pass
 
 ## (virtual) should be called by the on_gel_inserted function to display, or rather, set the visibility
-## of a sprite to true showing the gel bands corresponding with the specific gel state presented. This 
+## of a sprite to [code]true[/code] showing the gel bands corresponding with the specific gel state presented. This 
 ## function accepts a dictionary of the gel's state and using these factors, a different sprite image
 ## will be shown. This can be determined via a switch case statment, matching appropriate sprite with 
 ## a specific set of gel states. For example, if the regardless of the gel's state, if the UV_state is 
-## false, then, the gel image sprite should show a blank image. The same result can occur if the 
+## [code]false[/code], then, the gel image sprite should show a blank image. The same result can occur if the 
 ## electrodes were placeed backwards before running electricity through the gel. 
 func display_gel_bands(gel_state: Dictionary) -> void: pass
 

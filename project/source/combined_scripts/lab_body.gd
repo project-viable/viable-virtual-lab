@@ -13,18 +13,20 @@ enum PhysicsMode
 static var _pick_up_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up")
 static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
 
-
+## Determines the physics of an object whether it free or kinematic
 @export var physics_mode: PhysicsMode = PhysicsMode.FREE
 ## [SelectableCanvasGroup] that will be outlined when hovered and can be clicked to pick this
 ## object up. If set to [code]null[/code], this will automatically be set to the first
 ## [SelectableCanvasGroup] child of this [LabBody].
 @export var interact_canvas_group: SelectableCanvasGroup = null
+
+## Boolean value that enables interactions when set to [code]true[/code]
 @export var enable_interaction: bool = true
 
 
-# Keep track of collision layers of any child physics objects. For example, the scale has a child
-# `StaticBody2D` with one-way collision that acts as the surface for objects to be set on, which
-# should be disabled while the object is being dragged.
+## Keeps track of collision layers of any child physics objects. For example, the scale has a child
+## [StaticBody2D] with one-way collision that acts as the surface for objects to be set on, which
+## should be disabled while the object is being dragged.
 var _child_physics_object_layers: Dictionary[PhysicsBody2D, int] = {}
 var _offset: Vector2 = Vector2.ZERO
 var _velocity: Vector2 = Vector2.ZERO
@@ -83,16 +85,18 @@ func start_interact(_kind: InteractInfo.Kind) -> void:
 func stop_interact(_kind: InteractInfo.Kind) -> void:
 	pass
 
-# These do the same thing as the corresponding [InteractableComponent] functions.
+## These do the same thing as the corresponding [InteractableComponent] functions.
 func is_hovered() -> bool:
 	if interact_canvas_group: 
 		return interact_canvas_group.is_mouse_hovering()
 	return false
 
+
 func get_draw_order() -> int:
 	if interact_canvas_group:
 		return interact_canvas_group.draw_order_this_frame
 	return 0
+
 
 func get_absolute_z_index() -> int:
 	if interact_canvas_group:

@@ -1,4 +1,4 @@
-## Contains a set of substances and can be used to 
+## Contains a set of substances and can be used to hold them
 class_name ContainerComponent
 extends Node2D
 
@@ -7,6 +7,7 @@ extends Node2D
 ## but can be used to help with visuals, for example.
 @export var max_volume: float = 10.0
 
+## The array of substances to be held within the container
 @export var substances: Array[SubstanceInstance] = []
 
 ## Temperature in °C. For simplicity, it is assumed that an entire container is always in thermal
@@ -45,10 +46,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		temperature = max(temperature - _temp_equalizing_rate * lab_delta, _room_temperature)
 
-# Increase the amount of turbulence in the container
+## Increase the amount of turbulence in the container
 func mix(amount: float) -> void: mix_amount += amount
 
 # `s` should be a copy.
+## Adds a substance to the array of substances by adding it to an existing instance of the same 
+## substance or creates a new instance within the array.
 func add(s: SubstanceInstance) -> void:
 	var did_incorporate := false
 	for substance in substances:
@@ -59,12 +62,12 @@ func add(s: SubstanceInstance) -> void:
 	if not did_incorporate:
 		substances.append(s)
 
-# Total volume in the container, in mL.
+## Returns total volume in the container, in mL.
 func get_total_volume() -> float:
 	return substances.map(func(s: SubstanceInstance) -> float: return s.get_volume()) \
 			.reduce(func(a: float, b: float) -> float: return a + b, 0.0)
 
-# Take the given volume from the first substance.
+## Takes the given volume from the first substance.
 func take_volume(v: float) -> SubstanceInstance:
 	if not substances: return SubstanceInstance.new()
 	var result: SubstanceInstance = substances.front().take_volume(v)
