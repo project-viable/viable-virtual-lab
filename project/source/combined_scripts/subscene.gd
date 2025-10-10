@@ -13,10 +13,9 @@ var default_position: Vector2 = Vector2.ZERO
 
 func _enter_tree() -> void:
 	top_level = true
-	if Engine.is_editor_hint():
-		if get_tree().edited_scene_root != owner:
-			hide()
-	else:
+	if not Engine.is_editor_hint():
 		Subscenes.allocate(self)
+	if Engine.is_editor_hint() and owner != null and get_tree().edited_scene_root != owner:
+		hide()
 
 func reset_position() -> void: global_position = default_position
