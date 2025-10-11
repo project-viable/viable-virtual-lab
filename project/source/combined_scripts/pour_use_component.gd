@@ -7,6 +7,10 @@ var container_component_to_receive: ContainerComponent
 
 func get_interactions(area: InteractableArea) -> Array[InteractInfo]: 
 	var info: InteractInfo
+
+	# Must have a container_component reference
+	if not container_component:
+		return []
 	
 	if area and area is PourInteractableArea:
 		container_component_to_receive = area.container_component
