@@ -23,9 +23,6 @@ func _notification(what: int) -> void:
 		NOTIFICATION_MOUSE_ENTER: _viewport.notification(NOTIFICATION_VP_MOUSE_ENTER)
 		NOTIFICATION_MOUSE_EXIT: _viewport.notification(NOTIFICATION_VP_MOUSE_EXIT)
 
-func _input(e: InputEvent) -> void:
-	_propagate_nonpositional_event(e)
-
 func _unhandled_input(e: InputEvent) -> void:
 	_propagate_nonpositional_event(e)
 
