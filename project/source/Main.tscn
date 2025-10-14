@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=27 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
 [ext_resource type="Script" uid="uid://chwhrlyn51foq" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
@@ -18,6 +18,10 @@
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://Images/VIABLE_Logo_Transparent.png" id="11"]
 [ext_resource type="FontFile" path="res://UI/RobotoMedium28.tres" id="12"]
 [ext_resource type="Script" uid="uid://dmoeu8vq1th7i" path="res://combined_scripts/content_scaled_subviewport_container.gd" id="16_sc1dx"]
+[ext_resource type="Texture2D" uid="uid://dpjbw81s4cllc" path="res://updated_assets/icons_and_buttons/cursors/hand_pointing.svg" id="18_5tuhn"]
+[ext_resource type="Texture2D" uid="uid://b0hfiq010v2bq" path="res://updated_assets/icons_and_buttons/cursors/hand_open.svg" id="19_devvj"]
+[ext_resource type="Texture2D" uid="uid://bhpxxflq68efs" path="res://updated_assets/icons_and_buttons/cursors/hand_closed.svg" id="20_3b0ty"]
+[ext_resource type="Texture2D" uid="uid://ks1q0lnixrmt" path="res://updated_assets/icons_and_buttons/cursors/temp/reticle.svg" id="21_3b0ty"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 content_margin_left = 10.0
@@ -99,7 +103,7 @@ unique_name_in_owner = true
 script = ExtResource("9_kjvhd")
 
 [node name="Menu" type="CanvasLayer" parent="."]
-layer = 128
+layer = 127
 
 [node name="Background" type="TextureRect" parent="Menu"]
 anchors_preset = 8
@@ -789,6 +793,39 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_sc1dx")
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "right click"
+
+[node name="CursorLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="Cursor" type="Node2D" parent="CursorLayer"]
+unique_name_in_owner = true
+position = Vector2(66, 52)
+
+[node name="HandPointing" type="Sprite2D" parent="CursorLayer/Cursor"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("18_5tuhn")
+centered = false
+offset = Vector2(-110, -60)
+
+[node name="HandOpen" type="Sprite2D" parent="CursorLayer/Cursor"]
+visible = false
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("19_devvj")
+centered = false
+offset = Vector2(-110, -60)
+
+[node name="HandClosed" type="Sprite2D" parent="CursorLayer/Cursor"]
+visible = false
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("20_3b0ty")
+centered = false
+offset = Vector2(-110, -60)
+
+[node name="Reticle" type="Sprite2D" parent="CursorLayer"]
+unique_name_in_owner = true
+position = Vector2(46, 44)
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("21_3b0ty")
 
 [node name="Mixtures" type="Node2D" parent="."]
 position = Vector2(-2, -2)

@@ -26,6 +26,10 @@ var logs: Array[LogMessage] = []
 @onready var _prompt_panel_stylebox_allowed: StyleBox = $%PrimaryPrompt.get_theme_stylebox("panel").duplicate()
 @onready var _prompt_panel_stylebox_disallowed: StyleBox = _prompt_panel_stylebox_allowed.duplicate()
 
+@onready var _hand_pointing_cursor: Sprite2D = $CursorLayer/Cursor/HandPointing
+@onready var _hand_open_cursor: Sprite2D = $CursorLayer/Cursor/HandOpen
+@onready var _hand_closed_cursor: Sprite2D = $CursorLayer/Cursor/HandClosed
+
 
 var _resolution_options: Array[Vector2i] = [
 	Vector2i(1280, 720),
@@ -84,6 +88,8 @@ func _ready() -> void:
 
 	_prompt_panel_stylebox_disallowed.bg_color.s *= 0.2
 	_prompt_panel_stylebox_disallowed.bg_color *= 0.5
+
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 
 func _process(delta: float) -> void:
 	if logs != []:
@@ -153,6 +159,23 @@ func _process(delta: float) -> void:
 		if Input.is_action_pressed(&"mix_container"):
 			for cc in containers:
 				cc.mix(delta)
+
+	# Handle cursor appearance.
+	$%Reticle.global_position = get_global_mouse_position()
+	$%Reticle.visible = Cursor.use_custom_hand_position
+
+	for c in $%Cursor.get_children():
+		c.hide()
+	var cursor_to_use: Sprite2D = _hand_pointing_cursor
+	match Cursor.mode:
+		Cursor.Mode.OPEN: cursor_to_use = _hand_open_cursor
+		Cursor.Mode.CLOSED: cursor_to_use = _hand_closed_cursor
+	cursor_to_use.show()
+
+	if Cursor.use_custom_hand_position:
+		$%Cursor.global_position = Cursor.custom_hand_position
+	else:
+		$%Cursor.global_position = get_global_mouse_position()
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"ToggleMenu") and not TransitionCamera.is_camera_zoomed:
