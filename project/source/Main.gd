@@ -177,6 +177,8 @@ func _process(delta: float) -> void:
 	else:
 		$%Cursor.global_position = get_global_mouse_position()
 
+	$%CursorArea.global_position = $%Cursor.global_position
+
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"ToggleMenu") and not TransitionCamera.is_camera_zoomed:
 		# A page other than the main pause menu is being shown; return to the pause menu.
@@ -462,3 +464,9 @@ func _on_resolution_dropdown_item_selected(index: int) -> void:
 		$%MainViewport.size = resolution
 	else:
 		push_warning("Tried to set invalid resolution %s" % [resolution])
+
+func _on_cursor_area_body_entered(body: Node2D) -> void:
+	if body is LabBody: body.is_moused_over = true
+
+func _on_cursor_area_body_exited(body: Node2D) -> void:
+	if body is LabBody: body.is_moused_over = false

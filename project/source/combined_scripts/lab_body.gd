@@ -29,6 +29,9 @@ var _child_physics_object_layers: Dictionary[PhysicsBody2D, int] = {}
 var _offset: Vector2 = Vector2.ZERO
 var _velocity: Vector2 = Vector2.ZERO
 
+## Set by [Main] to [code]true[/code] when the cursor starts overlapping this.
+var is_moused_over: bool = false
+
 
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
@@ -88,10 +91,7 @@ func stop_interact(_kind: InteractInfo.Kind) -> void:
 	pass
 
 # These do the same thing as the corresponding [InteractableComponent] functions.
-func is_hovered() -> bool:
-	if interact_canvas_group: 
-		return interact_canvas_group.is_mouse_hovering()
-	return false
+func is_hovered() -> bool: return is_moused_over
 
 func get_draw_order() -> int:
 	if interact_canvas_group:
