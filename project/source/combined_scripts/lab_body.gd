@@ -64,6 +64,8 @@ func _physics_process(delta: float) -> void:
 		_velocity = (dest_pos - global_position) / delta
 		global_position = dest_pos
 
+		Cursor.custom_hand_position = to_global(_offset)
+
 func get_interactions() -> Array[InteractInfo]:
 	if is_active(): return [_put_down_interaction]
 	else: return [_pick_up_interaction]
@@ -71,10 +73,12 @@ func get_interactions() -> Array[InteractInfo]:
 func start_targeting(_k: InteractInfo.Kind) -> void:
 	if not is_active() and interact_canvas_group:
 		interact_canvas_group.is_outlined = true
+		Cursor.mode = Cursor.Mode.OPEN
 
 func stop_targeting(_kind: InteractInfo.Kind) -> void:
 	if interact_canvas_group:
 		interact_canvas_group.is_outlined = false
+		Cursor.mode = Cursor.Mode.POINTER
 
 func start_interact(_kind: InteractInfo.Kind) -> void:
 	if is_active(): stop_dragging()
@@ -112,12 +116,18 @@ func start_dragging() -> void:
 
 	_offset = get_local_mouse_position()
 
+	Cursor.mode = Cursor.Mode.CLOSED
+	Cursor.use_custom_hand_position = true
+
 ## Can be safely called from elsewhere. Also cancels any interaction that was pressed down.
 func stop_dragging() -> void:
 	Interaction.held_body = null
 	set_physics_mode(PhysicsMode.FREE)
 	Interaction.clear_interaction_stack()
 	set_deferred(&"linear_velocity", _velocity / 5.0)
+
+	Cursor.mode = Cursor.Mode.POINTER
+	Cursor.use_custom_hand_position = false
 
 func set_physics_mode(mode: PhysicsMode) -> void:
 	var new_collision_mask := 0

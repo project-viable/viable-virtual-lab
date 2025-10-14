@@ -802,21 +802,19 @@ unique_name_in_owner = true
 position = Vector2(66, 52)
 
 [node name="HandPointing" type="Sprite2D" parent="CursorLayer/Cursor"]
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.07, 0.07)
 texture = ExtResource("18_5tuhn")
 centered = false
 offset = Vector2(-110, -60)
 
 [node name="HandOpen" type="Sprite2D" parent="CursorLayer/Cursor"]
-visible = false
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.07, 0.07)
 texture = ExtResource("19_devvj")
 centered = false
 offset = Vector2(-110, -60)
 
 [node name="HandClosed" type="Sprite2D" parent="CursorLayer/Cursor"]
-visible = false
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.07, 0.07)
 texture = ExtResource("20_3b0ty")
 centered = false
 offset = Vector2(-110, -60)
@@ -824,7 +822,7 @@ offset = Vector2(-110, -60)
 [node name="Reticle" type="Sprite2D" parent="CursorLayer"]
 unique_name_in_owner = true
 position = Vector2(46, 44)
-scale = Vector2(0.08, 0.08)
+scale = Vector2(0.02, 0.02)
 texture = ExtResource("21_3b0ty")
 
 [node name="Mixtures" type="Node2D" parent="."]
