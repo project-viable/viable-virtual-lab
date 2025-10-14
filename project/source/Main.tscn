@@ -821,6 +821,7 @@ offset = Vector2(-110, -60)
 
 [node name="Reticle" type="Sprite2D" parent="CursorLayer"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.47451)
 position = Vector2(46, 44)
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("21_3b0ty")
