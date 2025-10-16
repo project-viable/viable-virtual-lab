@@ -172,12 +172,19 @@ func _process(delta: float) -> void:
 		Cursor.Mode.CLOSED: cursor_to_use = _hand_closed_cursor
 	cursor_to_use.show()
 
+	# TODO: Scale $%CursorArea based on the scale of the main viewport.
 	if Cursor.use_custom_hand_position:
-		$%Cursor.global_position = Cursor.custom_hand_position
+		# The coordinate system for the main viewport and the cursor canvas layer are different, so
+		# we have to convert.
+		var main_to_cursor_canvas: Transform2D = $CursorLayer.get_final_transform().affine_inverse() * $%MainViewport.canvas_transform
+		$%Cursor.global_position = main_to_cursor_canvas * Cursor.custom_hand_position
+		$%CursorArea.global_position = Cursor.custom_hand_position
 	else:
 		$%Cursor.global_position = get_global_mouse_position()
-
-	$%CursorArea.global_position = $%Cursor.global_position
+		# We have to call `$%CursorArea.get_global_mouse_position` instead of just calling
+		# `get_global_mouse_position` directly because it needs to be in the same coordinate system
+		# as the area (i.e., the main world).
+		$%CursorArea.global_position = $%CursorArea.get_global_mouse_position()
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"ToggleMenu") and not TransitionCamera.is_camera_zoomed:
