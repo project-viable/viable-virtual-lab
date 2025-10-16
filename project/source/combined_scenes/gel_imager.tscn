@@ -1,16 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://cug6kav5s55iq"]
+[gd_scene load_steps=6 format=3 uid="uid://cug6kav5s55iq"]
 
-[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_p46ws"]
+[ext_resource type="Script" uid="uid://bptf21x2a24jj" path="res://combined_scripts/imager_gel_band_logic.gd" id="1_7wmgd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_w2ofj"]
 [ext_resource type="Texture2D" uid="uid://cslhw30pcab3a" path="res://updated_assets/lab_objects/imager.svg" id="3_p46ws"]
+[ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="4_7wmgd"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2ofj"]
-size = Vector2(170, 197)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_omd45"]
+size = Vector2(166, 191)
 
-[node name="GelImager" type="RigidBody2D"]
-collision_layer = 0
-script = ExtResource("1_p46ws")
-metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+[node name="GelImager" type="Node2D"]
+script = ExtResource("1_7wmgd")
+gel_state = {
+"correct_comb_placement": true,
+"correct_gel_mixing": true,
+"correct_gel_temperature": true,
+"dna_size": 25,
+"electrode_correct_placement": true,
+"gel_analysis_asap": true,
+"gel_concentration": 1.5,
+"voltage": 120,
+"voltage_run_time": 20.0,
+"well_capacity": 3.0
+}
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("1_w2ofj")
@@ -20,6 +31,37 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 scale = Vector2(0.327149, 0.327149)
 texture = ExtResource("3_p46ws")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_w2ofj")
+[node name="AttachmentInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
+script = ExtResource("4_7wmgd")
+show_ghost_sprite = false
+hide_object = true
+place_prompt = "Put in imager"
+selectable_canvas_group = NodePath("../SelectableCanvasGroup")
+body_group_filter_type = 1
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_omd45")
+
+[node name="UV Light" type="Button" parent="."]
+offset_left = -4.0
+offset_top = -30.0
+offset_right = 4.0
+offset_bottom = -22.0
+
+[node name="ClosedDoor" type="TextureButton" parent="."]
+offset_left = 68.0
+offset_top = -40.0
+offset_right = 82.0
+offset_bottom = 92.0
+
+[node name="Screeen" type="TextureButton" parent="."]
+offset_left = -64.0
+offset_top = -94.0
+offset_right = 63.0
+offset_bottom = -47.0
+
+[connection signal="pressed" from="UV Light" to="." method="_on_uv_light_pressed"]
+[connection signal="pressed" from="ClosedDoor" to="." method="on_gel_removed"]
+[connection signal="pressed" from="Screeen" to="." method="on_gel_inserted"]
