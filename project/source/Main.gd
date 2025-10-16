@@ -89,7 +89,7 @@ func _ready() -> void:
 	_prompt_panel_stylebox_disallowed.bg_color.s *= 0.2
 	_prompt_panel_stylebox_disallowed.bg_color *= 0.5
 
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 func _process(delta: float) -> void:
 	if logs != []:
