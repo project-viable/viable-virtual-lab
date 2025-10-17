@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=30 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://csifb4mbnybmu" path="res://updated_assets/background.png" id="1_1qt3r"]
 [ext_resource type="PackedScene" uid="uid://b5ff3gy87ykja" path="res://combined_scenes/flask.tscn" id="2_e4xug"]
@@ -26,8 +26,11 @@
 [ext_resource type="Script" uid="uid://qijnhs2e78qy" path="res://combined_scripts/contact_wires.gd" id="21_kobiv"]
 [ext_resource type="Texture2D" uid="uid://dwb7gsbcv24kv" path="res://updated_assets/icons_and_buttons/contact_negative.svg" id="22_kobiv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wocf"]
-size = Vector2(1430, 222)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5fdni"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_w0rbf"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7cn0u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4xug"]
 size = Vector2(1217, 17)
@@ -39,14 +42,25 @@ position = Vector2(640, 360)
 scale = Vector2(0.664301, 0.664301)
 texture = ExtResource("1_1qt3r")
 
-[node name="Counter" type="StaticBody2D" parent="."]
+[node name="Boundary" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Counter"]
-position = Vector2(654, 702)
-shape = SubResource("RectangleShape2D_5wocf")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary"]
+position = Vector2(648, 592)
+shape = SubResource("WorldBoundaryShape2D_5fdni")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Boundary"]
+position = Vector2(12, 356)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_w0rbf")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Boundary"]
+position = Vector2(1265, 384)
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_7cn0u")
 
 [node name="Shelf" type="StaticBody2D" parent="."]
 position = Vector2(2, 13)
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf"]
 position = Vector2(642.5, 356.5)
@@ -56,6 +70,7 @@ metadata/_edit_lock_ = true
 
 [node name="Shelf2" type="StaticBody2D" parent="."]
 position = Vector2(0, -256)
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf2"]
 position = Vector2(639, 356.5)
