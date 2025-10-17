@@ -108,7 +108,7 @@ script = ExtResource("9_kjvhd")
 unique_name_in_owner = true
 position = Vector2(66, 52)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea"]
 position = Vector2(8, 12)

@@ -8,7 +8,8 @@ extends Area2D
 
 
 func _ready() -> void:
-	collision_mask = 0b10
+	# Only detect collisions on the interaction layer.
+	collision_mask = 0b100
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 

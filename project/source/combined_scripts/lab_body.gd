@@ -42,9 +42,9 @@ func _ready() -> void:
 	if not interact_canvas_group:
 		interact_canvas_group = Util.find_child_of_type(self, SelectableCanvasGroup)
 
-	# We need collisions in layer 2 so that interaction areas detect this object.
 	freeze_mode = FREEZE_MODE_KINEMATIC
-	collision_layer = 0b10
+	# We need collisions in layer 3 so that interaction areas detect this object.
+	collision_layer = 0b100
 	continuous_cd = RigidBody2D.CCD_MODE_CAST_RAY
 
 	for p: PhysicsBody2D in find_children("", "PhysicsBody2D", false):
@@ -130,12 +130,12 @@ func stop_dragging() -> void:
 	Cursor.use_custom_hand_position = false
 
 func set_physics_mode(mode: PhysicsMode) -> void:
-	var new_collision_mask := 0
+	# We always have the boundary collision enabled by default.
+	var new_collision_mask := 0b001
 	var new_freeze := false
 
 	match mode:
 		PhysicsMode.KINEMATIC:
-			new_collision_mask = 0
 			new_freeze = true
 
 			# Save physics states of child physics bodies.
@@ -144,7 +144,8 @@ func set_physics_mode(mode: PhysicsMode) -> void:
 				p.set_deferred(&"collision_layer", 0)
 
 		PhysicsMode.FREE:
-			new_collision_mask = 1
+			# Collide with shelves.
+			new_collision_mask |= 0b010
 			new_freeze = false
 
 			for p: PhysicsBody2D in _child_physics_object_layers.keys():

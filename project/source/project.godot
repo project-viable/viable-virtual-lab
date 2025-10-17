@@ -133,9 +133,9 @@ interact_secondary={
 
 [layer_names]
 
-2d_physics/layer_1="Scene"
-2d_physics/layer_2="Objects"
-2d_physics/layer_3="Slides"
+2d_physics/layer_1="boundary"
+2d_physics/layer_2="shelf"
+2d_physics/layer_3="interaction"
 
 [physics]
 
