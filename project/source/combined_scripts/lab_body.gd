@@ -5,8 +5,8 @@ extends RigidBody2D
 
 enum PhysicsMode
 {
-	KINEMATIC, ## Not affected by gravity, but can interact with `InteractableArea`s when being dragged.
-	FREE, ## Affected by gravity and will collide with shelves.
+	KINEMATIC, ## Not affected by gravity, but can interact with `InteractableArea`s when being dragged, and will collide with boundaries.
+	FREE, ## Affected by gravity and will collide with shelves and the lab boundary.
 }
 
 
@@ -50,7 +50,7 @@ func _ready() -> void:
 	for p: PhysicsBody2D in find_children("", "PhysicsBody2D", false):
 		_child_physics_object_layers.set(p, p.collision_layer)
 
-	set_physics_mode(physics_mode)
+	_update_physics_to_mode(physics_mode)
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint(): return
@@ -65,7 +65,7 @@ func _physics_process(delta: float) -> void:
 
 		var dest_pos := to_global(get_local_mouse_position() - _offset)
 		_velocity = (dest_pos - global_position) / delta
-		global_position = dest_pos
+		move_and_collide((dest_pos - global_position) * 30 * delta)
 
 		Cursor.custom_hand_position = to_global(_offset)
 
@@ -130,29 +130,33 @@ func stop_dragging() -> void:
 	Cursor.use_custom_hand_position = false
 
 func set_physics_mode(mode: PhysicsMode) -> void:
+	if mode == physics_mode: return
+	_update_physics_to_mode(mode)
+	physics_mode = mode
+
+func _update_physics_to_mode(mode: PhysicsMode) -> void:
+	if mode == PhysicsMode.KINEMATIC:
+		# Save physics states of child physics bodies.
+		for p: PhysicsBody2D in _child_physics_object_layers.keys():
+			_child_physics_object_layers[p] = p.collision_layer
+			p.set_deferred(&"collision_layer", 0)
+	else:
+		for p: PhysicsBody2D in _child_physics_object_layers.keys():
+			p.set_deferred(&"collision_layer", _child_physics_object_layers[p])
+
 	# We always have the boundary collision enabled by default.
 	var new_collision_mask := 0b001
-	var new_freeze := false
+	var new_gravity_scale := 1.0
 
 	match mode:
 		PhysicsMode.KINEMATIC:
-			new_freeze = true
-
-			# Save physics states of child physics bodies.
-			for p: PhysicsBody2D in _child_physics_object_layers.keys():
-				_child_physics_object_layers[p] = p.collision_layer
-				p.set_deferred(&"collision_layer", 0)
-
+			new_gravity_scale = 0.0
 		PhysicsMode.FREE:
 			# Collide with shelves.
 			new_collision_mask |= 0b010
-			new_freeze = false
-
-			for p: PhysicsBody2D in _child_physics_object_layers.keys():
-				p.set_deferred(&"collision_layer", _child_physics_object_layers[p])
 
 	set_deferred(&"collision_mask", new_collision_mask)
-	set_deferred(&"freeze", new_freeze)
+	set_deferred(&"gravity_scale", new_gravity_scale)
 
 func is_active() -> bool:
 	return Interaction.held_body == self
