@@ -7,6 +7,7 @@ enum PhysicsMode
 {
 	KINEMATIC, ## Not affected by gravity, but can interact with `InteractableArea`s when being dragged, and will collide with boundaries.
 	FREE, ## Affected by gravity and will collide with shelves and the lab boundary.
+	FALLING_THROUGH_SHELVES, ## Affected by gravity, but does not interact with shelves. In this mode, `physics_mode` will automatically be set to `FREE` when the body is no longer overlapping with a shelf.
 }
 
 
@@ -49,6 +50,7 @@ func _ready() -> void:
 
 	for p: PhysicsBody2D in find_children("", "PhysicsBody2D", false):
 		_child_physics_object_layers.set(p, p.collision_layer)
+		p.add_collision_exception_with(self)
 
 	_update_physics_to_mode(physics_mode)
 
@@ -68,6 +70,16 @@ func _physics_process(delta: float) -> void:
 		move_and_collide((dest_pos - global_position) * 30 * delta)
 
 		Cursor.custom_hand_position = to_global(_offset)
+	
+	if physics_mode == PhysicsMode.FALLING_THROUGH_SHELVES:
+		var old_mask := collision_mask
+		# Only test collision with shelves.
+		collision_mask = 0b010
+		var is_over_shelf := test_move(transform, Vector2.ZERO)
+		collision_mask = old_mask
+
+		if not is_over_shelf:
+			set_physics_mode(PhysicsMode.FREE)
 
 func get_interactions() -> Array[InteractInfo]:
 	if is_active(): return [_put_down_interaction]
@@ -122,7 +134,7 @@ func start_dragging() -> void:
 ## Can be safely called from elsewhere. Also cancels any interaction that was pressed down.
 func stop_dragging() -> void:
 	Interaction.held_body = null
-	set_physics_mode(PhysicsMode.FREE)
+	set_physics_mode(PhysicsMode.FALLING_THROUGH_SHELVES)
 	Interaction.clear_interaction_stack()
 	set_deferred(&"linear_velocity", _velocity / 5.0)
 
