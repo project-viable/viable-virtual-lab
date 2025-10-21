@@ -210,6 +210,8 @@ func _load_module(module: ModuleData) -> void:
 	$Menu/LogButton/LogMenu/Instructions.text = module.instructions_bb_code
 	$Menu/LogButton/LogMenu/Instructions.show()
 
+	set_paused(false)
+
 func check_action(params: Dictionary) -> void:
 	for strategy in check_strategies:
 		strategy.check_action(params)
