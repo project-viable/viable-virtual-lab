@@ -159,19 +159,17 @@ func _update_physics_to_mode(mode: PhysicsMode) -> void:
 	# We always have the boundary collision enabled by default.
 	var new_collision_mask := 0b001
 	var new_gravity_scale := 1.0
-	var new_linear_velocity := linear_velocity
 
 	match mode:
 		PhysicsMode.KINEMATIC:
 			new_gravity_scale = 0.0
-			new_linear_velocity = Vector2.ZERO
+			set_deferred(&"linear_velocity", Vector2.ZERO)
 		PhysicsMode.FREE:
 			# Collide with shelves.
 			new_collision_mask |= 0b010
 
 	set_deferred(&"collision_mask", new_collision_mask)
 	set_deferred(&"gravity_scale", new_gravity_scale)
-	set_deferred(&"linear_velocity", new_linear_velocity)
 
 func is_active() -> bool:
 	return Interaction.held_body == self
