@@ -65,7 +65,7 @@ func _physics_process(delta: float) -> void:
 			if is_rotating_clockwise: global_rotation = min(0.0, global_rotation)
 			else: global_rotation = max(0.0, global_rotation)
 
-		var dest_pos := to_global(get_local_mouse_position() - _offset)
+		var dest_pos := to_global(_get_local_virtual_mouse_position() - _offset)
 		_velocity = (dest_pos - global_position) / delta
 		move_and_collide((dest_pos - global_position) * 30 * delta)
 
@@ -126,7 +126,7 @@ func start_dragging() -> void:
 		body_parent.call_deferred(&"remove_child", self)
 		body_parent.call_deferred(&"add_child", self)
 
-	_offset = get_local_mouse_position()
+	_offset = _get_local_virtual_mouse_position()
 
 	Cursor.mode = Cursor.Mode.CLOSED
 	Cursor.use_custom_hand_position = true
@@ -172,3 +172,6 @@ func _update_physics_to_mode(mode: PhysicsMode) -> void:
 
 func is_active() -> bool:
 	return Interaction.held_body == self
+
+func _get_local_virtual_mouse_position() -> Vector2:
+	return to_local(Cursor.virtual_mouse_position)

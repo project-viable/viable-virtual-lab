@@ -18,7 +18,18 @@ var mode: Mode :
 		mode = v
 		mode_changed.emit(v)
 
+## Position of the virtual cursor in global coordinates. When the game is unpaused, the actual
+## hardware cursor is locked in the middle of the screen and hidden, and this cursor is moved
+## instead based on the relative movement of the actual cursor.
+var virtual_mouse_position: Vector2 = Vector2.ZERO
+
 ## When set to true, the actual cursor will be represented with a small circle, and the hand will be
 ## drawn at [member custom_hand_position].
 var use_custom_hand_position: bool = false
 var custom_hand_position: Vector2
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		virtual_mouse_position += event.relative
+		get_viewport().set_input_as_handled()

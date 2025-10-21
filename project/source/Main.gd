@@ -162,7 +162,7 @@ func _process(delta: float) -> void:
 				cc.mix(delta)
 
 	# Handle cursor appearance.
-	$%Reticle.global_position = get_global_mouse_position()
+	$%Reticle.global_position = Cursor.virtual_mouse_position
 	$%Reticle.visible = Cursor.use_custom_hand_position
 
 	for c in $%Cursor.get_children():
@@ -181,11 +181,11 @@ func _process(delta: float) -> void:
 		$%Cursor.global_position = main_to_cursor_canvas * Cursor.custom_hand_position
 		$%CursorArea.global_position = Cursor.custom_hand_position
 	else:
-		$%Cursor.global_position = get_global_mouse_position()
+		$%Cursor.global_position = Cursor.virtual_mouse_position
 		# We have to call `$%CursorArea.get_global_mouse_position` instead of just calling
 		# `get_global_mouse_position` directly because it needs to be in the same coordinate system
 		# as the area (i.e., the main world).
-		$%CursorArea.global_position = $%CursorArea.get_global_mouse_position()
+		$%CursorArea.global_position = Cursor.virtual_mouse_position
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"ToggleMenu") and not TransitionCamera.is_camera_zoomed:
@@ -319,7 +319,7 @@ func set_paused(paused: bool) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:
 		$Menu/MenuScreens.hide()
-		Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func is_paused() -> bool:
 	return _is_paused
