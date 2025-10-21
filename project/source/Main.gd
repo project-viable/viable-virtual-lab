@@ -213,6 +213,8 @@ func _load_module(module: ModuleData) -> void:
 	$Menu/LogButton/LogMenu/Instructions.text = module.instructions_bb_code
 	$Menu/LogButton/LogMenu/Instructions.show()
 
+	# To make the initial virtual mouse position feel less weird.
+	Cursor.virtual_mouse_position = get_global_mouse_position()
 	set_paused(false)
 
 func check_action(params: Dictionary) -> void:
