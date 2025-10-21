@@ -161,8 +161,14 @@ func _process(delta: float) -> void:
 			for cc in containers:
 				cc.mix(delta)
 
+	# The coordinate system for the main viewport and the cursor canvas layer are different, so
+	# we have to convert.
+	var main_to_cursor_canvas: Transform2D = $VirtualCursorLayer.get_final_transform().affine_inverse() * $%MainViewport.canvas_transform
+	var cursor_canvas_mouse_pos := main_to_cursor_canvas * Cursor.virtual_mouse_position
+	var cursor_canvas_custom_hand_pos := main_to_cursor_canvas * Cursor.custom_hand_position
+
 	# Handle cursor appearance.
-	$%Reticle.global_position = Cursor.virtual_mouse_position
+	$%Reticle.global_position = cursor_canvas_mouse_pos
 	$%Reticle.visible = Cursor.use_custom_hand_position
 
 	for c in $%Cursor.get_children():
@@ -175,13 +181,10 @@ func _process(delta: float) -> void:
 
 	# TODO: Scale $%CursorArea based on the scale of the main viewport.
 	if Cursor.use_custom_hand_position:
-		# The coordinate system for the main viewport and the cursor canvas layer are different, so
-		# we have to convert.
-		var main_to_cursor_canvas: Transform2D = $VirtualCursorLayer.get_final_transform().affine_inverse() * $%MainViewport.canvas_transform
-		$%Cursor.global_position = main_to_cursor_canvas * Cursor.custom_hand_position
+		$%Cursor.global_position = cursor_canvas_custom_hand_pos
 		$%CursorArea.global_position = Cursor.custom_hand_position
 	else:
-		$%Cursor.global_position = Cursor.virtual_mouse_position
+		$%Cursor.global_position = cursor_canvas_mouse_pos
 		# We have to call `$%CursorArea.get_global_mouse_position` instead of just calling
 		# `get_global_mouse_position` directly because it needs to be in the same coordinate system
 		# as the area (i.e., the main world).
