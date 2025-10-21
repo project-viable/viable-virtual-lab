@@ -79,11 +79,13 @@ bg_color = Color(0.254732, 0.0295399, 0.248016, 1)
 border_color = Color(0.959161, 0.945137, 0.997527, 1)
 
 [node name="Main" type="Node2D"]
+process_mode = 3
 script = ExtResource("2")
 check_strategies = Array[ExtResource("2_45sle")]([ExtResource("9")])
 all_modules = Array[ExtResource("5_1a5hp")]([ExtResource("6_wqw1h"), ExtResource("7_d1bo7"), ExtResource("8_sc1dx")])
 
 [node name="SceneLayer" type="CanvasLayer" parent="."]
+process_mode = 1
 
 [node name="ContentScaledSubViewportContainer" type="TextureRect" parent="SceneLayer"]
 anchors_preset = 15
@@ -114,8 +116,40 @@ collision_mask = 4
 position = Vector2(8, 12)
 shape = SubResource("CapsuleShape2D_3b0ty")
 
-[node name="Menu" type="CanvasLayer" parent="."]
+[node name="VirtualCursorLayer" type="CanvasLayer" parent="."]
 layer = 127
+
+[node name="Cursor" type="Node2D" parent="VirtualCursorLayer"]
+unique_name_in_owner = true
+position = Vector2(66, 52)
+
+[node name="HandPointing" type="Sprite2D" parent="VirtualCursorLayer/Cursor"]
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("18_5tuhn")
+centered = false
+offset = Vector2(-110, -60)
+
+[node name="HandOpen" type="Sprite2D" parent="VirtualCursorLayer/Cursor"]
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("19_devvj")
+centered = false
+offset = Vector2(-110, -60)
+
+[node name="HandClosed" type="Sprite2D" parent="VirtualCursorLayer/Cursor"]
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("20_3b0ty")
+centered = false
+offset = Vector2(-110, -60)
+
+[node name="Reticle" type="Sprite2D" parent="VirtualCursorLayer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.47451)
+position = Vector2(46, 44)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("21_3b0ty")
+
+[node name="Menu" type="CanvasLayer" parent="."]
+layer = 128
 
 [node name="Background" type="TextureRect" parent="Menu"]
 anchors_preset = 8
@@ -805,38 +839,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_sc1dx")
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "right click"
-
-[node name="CursorLayer" type="CanvasLayer" parent="."]
-layer = 128
-
-[node name="Cursor" type="Node2D" parent="CursorLayer"]
-unique_name_in_owner = true
-position = Vector2(66, 52)
-
-[node name="HandPointing" type="Sprite2D" parent="CursorLayer/Cursor"]
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("18_5tuhn")
-centered = false
-offset = Vector2(-110, -60)
-
-[node name="HandOpen" type="Sprite2D" parent="CursorLayer/Cursor"]
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("19_devvj")
-centered = false
-offset = Vector2(-110, -60)
-
-[node name="HandClosed" type="Sprite2D" parent="CursorLayer/Cursor"]
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("20_3b0ty")
-centered = false
-offset = Vector2(-110, -60)
-
-[node name="Reticle" type="Sprite2D" parent="CursorLayer"]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.47451)
-position = Vector2(46, 44)
-scale = Vector2(0.02, 0.02)
-texture = ExtResource("21_3b0ty")
 
 [node name="Mixtures" type="Node2D" parent="."]
 position = Vector2(-2, -2)

@@ -26,9 +26,11 @@ var logs: Array[LogMessage] = []
 @onready var _prompt_panel_stylebox_allowed: StyleBox = $%PrimaryPrompt.get_theme_stylebox("panel").duplicate()
 @onready var _prompt_panel_stylebox_disallowed: StyleBox = _prompt_panel_stylebox_allowed.duplicate()
 
-@onready var _hand_pointing_cursor: Sprite2D = $CursorLayer/Cursor/HandPointing
-@onready var _hand_open_cursor: Sprite2D = $CursorLayer/Cursor/HandOpen
-@onready var _hand_closed_cursor: Sprite2D = $CursorLayer/Cursor/HandClosed
+@onready var _hand_pointing_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandPointing
+@onready var _hand_open_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandOpen
+@onready var _hand_closed_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandClosed
+
+var _is_paused: bool = true
 
 
 var _resolution_options: Array[Vector2i] = [
@@ -43,6 +45,7 @@ var _resolution_options: Array[Vector2i] = [
 
 func _ready() -> void:
 	_switch_to_main_menu()
+	set_paused(true)
 
 	#Set up the module select buttons
 	for module_data in all_modules:
@@ -88,8 +91,6 @@ func _ready() -> void:
 
 	_prompt_panel_stylebox_disallowed.bg_color.s *= 0.2
 	_prompt_panel_stylebox_disallowed.bg_color *= 0.5
-
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 func _process(delta: float) -> void:
 	if logs != []:
@@ -176,7 +177,7 @@ func _process(delta: float) -> void:
 	if Cursor.use_custom_hand_position:
 		# The coordinate system for the main viewport and the cursor canvas layer are different, so
 		# we have to convert.
-		var main_to_cursor_canvas: Transform2D = $CursorLayer.get_final_transform().affine_inverse() * $%MainViewport.canvas_transform
+		var main_to_cursor_canvas: Transform2D = $VirtualCursorLayer.get_final_transform().affine_inverse() * $%MainViewport.canvas_transform
 		$%Cursor.global_position = main_to_cursor_canvas * Cursor.custom_hand_position
 		$%CursorArea.global_position = Cursor.custom_hand_position
 	else:
@@ -189,11 +190,11 @@ func _process(delta: float) -> void:
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"ToggleMenu") and not TransitionCamera.is_camera_zoomed:
 		# A page other than the main pause menu is being shown; return to the pause menu.
-		if $Menu/MenuScreens.visible and not $Menu/MenuScreens/PauseMenu.visible:
+		if is_paused() and not $Menu/MenuScreens/PauseMenu.visible:
 			_switch_to_menu_screen($Menu/MenuScreens/PauseMenu)
 		# Toggle the pause menu only if we're in a module.
 		elif current_module_scene != null:
-			$Menu/MenuScreens.visible = not $Menu/MenuScreens.visible
+			set_paused(not is_paused())
 
 func _load_module(module: ModuleData) -> void:
 	set_scene(module.scene)
@@ -203,7 +204,6 @@ func _load_module(module: ModuleData) -> void:
 	$Menu/MenuScreens/PauseMenu/Content/Logo.hide()
 	$Menu/MenuScreens/PauseMenu/Content/ExitModuleButton.show()
 	$Menu/MenuScreens/PauseMenu/Content/RestartModuleButton.show()
-	$Menu/MenuScreens.hide()
 
 	current_module = module
 	$Menu/LogButton.show()
@@ -306,6 +306,21 @@ func show_popup(new_log: LogMessage) -> void:
 	await get_tree().create_timer(GameSettings.popup_timeout).timeout
 	popup_active = false
 	$Menu/LabLogPopup.visible = false if logs.size() == 0 else true
+
+# Sets whether the pause menu is shown and the game is paused.
+func set_paused(paused: bool) -> void:
+	_is_paused = paused
+	get_tree().paused = _is_paused
+
+	if _is_paused:
+		$Menu/MenuScreens.show()
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		$Menu/MenuScreens.hide()
+		Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+
+func is_paused() -> bool:
+	return _is_paused
 
 func _on_SelectModuleButton_pressed() -> void:
 	_switch_to_menu_screen($Menu/MenuScreens/ModuleSelect)
