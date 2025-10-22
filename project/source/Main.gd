@@ -33,7 +33,6 @@ var logs: Array[LogMessage] = []
 
 var _is_paused: bool = true
 
-
 var _resolution_options: Array[Vector2i] = [
 	Vector2i(1280, 720),
 	Vector2i(1366, 768),
@@ -43,6 +42,9 @@ var _resolution_options: Array[Vector2i] = [
 	Vector2i(3200, 1800),
 	Vector2i(3840, 2160),
 ]
+
+var _current_workspace: WorkspaceCamera = null
+
 
 func _ready() -> void:
 	Game.main = self
@@ -203,6 +205,12 @@ func _unhandled_key_input(e: InputEvent) -> void:
 		# Toggle the pause menu only if we're in a module.
 		elif current_module_scene != null:
 			set_paused(not is_paused())
+	elif e.is_action_pressed(&"CameraLeft"):
+		if _current_workspace and _current_workspace.left_workspace:
+			move_to_workspace(_current_workspace.left_workspace, 0.7)
+	elif e.is_action_pressed(&"CameraRight"):
+		if _current_workspace and _current_workspace.right_workspace:
+			move_to_workspace(_current_workspace.right_workspace, 0.7)
 
 func _load_module(module: ModuleData) -> void:
 	set_scene(module.scene)
@@ -230,6 +238,7 @@ func unload_current_module() -> void:
 	LabLog.clear_logs()
 	for child in $%Scene.get_children():
 		child.queue_free()
+	_current_workspace = null
 
 #instanciates scene and adds it as a child of %$Scene. Gets rid of any scene that's already been loaded, and hides the menu.
 func set_scene(scene: PackedScene) -> void:
@@ -333,6 +342,13 @@ func set_paused(paused: bool) -> void:
 
 func is_paused() -> bool:
 	return _is_paused
+
+## Move the camera to workspace [param workspace] in time [param time].
+func move_to_workspace(workspace: WorkspaceCamera, time: float = 0.0) -> void:
+	_current_workspace = workspace
+	if _current_workspace:
+		$%TransitionCamera.move_to_camera(workspace, time)
+		$%TransitionCamera.main_scene_camera = _current_workspace
 
 func _on_SelectModuleButton_pressed() -> void:
 	_switch_to_menu_screen($Menu/MenuScreens/ModuleSelect)
