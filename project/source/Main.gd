@@ -347,7 +347,7 @@ func is_paused() -> bool:
 func move_to_workspace(workspace: WorkspaceCamera, time: float = 0.0) -> void:
 	_current_workspace = workspace
 	if _current_workspace:
-		$%TransitionCamera.move_to_camera(workspace, time)
+		$%TransitionCamera.move_to_camera(workspace, true, time)
 		$%TransitionCamera.main_scene_camera = _current_workspace
 
 func _on_SelectModuleButton_pressed() -> void:
