@@ -1,3 +1,4 @@
+class_name Main
 extends Node2D
 
 @export var check_strategies: Array[MistakeChecker]
@@ -44,6 +45,8 @@ var _resolution_options: Array[Vector2i] = [
 ]
 
 func _ready() -> void:
+	Game.main = self
+
 	_switch_to_main_menu()
 	set_paused(true)
 
