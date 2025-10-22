@@ -22,6 +22,7 @@ func _process(delta: float) -> void:
 	if _is_transitioning:
 		_cur_transition_time += delta
 		var t: float = clamp(_cur_transition_time / _transition_time, 0.0, 1.0)
+		t = ease(t, 0.3)
 
 		var cur_rect := Util.lerp_rect2(_source_rect, _dest_rect, t)
 		Util.set_camera_world_rect(self, cur_rect)
@@ -35,7 +36,7 @@ func _input(event: InputEvent) -> void:
 		return_to_main_scene()
 
 ## Transition the camera to frame [param rect]
-func move_to_rect(rect: Rect2, time: float = 0.5) -> void:
+func move_to_rect(rect: Rect2, time: float = 0.7) -> void:
 	_dest_rect = rect
 	_source_rect = Util.get_camera_world_rect(self)
 	_transition_time = time
@@ -43,7 +44,7 @@ func move_to_rect(rect: Rect2, time: float = 0.5) -> void:
 	_is_transitioning = true
 	_is_showing_main_scene = false
 
-func move_to_camera(camera: Camera2D, time: float = 0.5) -> void:
+func move_to_camera(camera: Camera2D, time: float = 0.7) -> void:
 	move_to_rect(Util.get_camera_world_rect(camera), time)
 
 func return_to_main_scene() -> void:
