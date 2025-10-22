@@ -7,14 +7,14 @@ extends Camera2D
 @export var main_scene_camera: Camera2D
 
 
-static var target_camera: Camera2D = null
-static var is_camera_zoomed: bool = false
+var target_camera: Camera2D = null
+var is_camera_zoomed: bool = false
 
 var current_camera: Camera2D
 
 
 func _ready() -> void:
-	make_current() 
+	make_current()
 
 func _process(_delta: float) -> void:
 	if target_camera and current_camera != target_camera:

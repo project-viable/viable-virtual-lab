@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=29 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://csifb4mbnybmu" path="res://updated_assets/background.png" id="1_1qt3r"]
 [ext_resource type="PackedScene" uid="uid://b5ff3gy87ykja" path="res://combined_scenes/flask.tscn" id="2_e4xug"]
@@ -19,7 +19,6 @@
 [ext_resource type="PackedScene" uid="uid://c1af3h23bqbvv" path="res://combined_scenes/scoopula.tscn" id="15_aby4o"]
 [ext_resource type="PackedScene" uid="uid://gfmuo2b5e2b5" path="res://combined_scenes/scale.tscn" id="16_c15s6"]
 [ext_resource type="PackedScene" uid="uid://dqc2dtt648v3m" path="res://combined_scenes/biohazard_bin.tscn" id="17_6se67"]
-[ext_resource type="Script" uid="uid://b8kjtd0vdnq42" path="res://combined_scripts/transition_camera.gd" id="18_1qt3r"]
 [ext_resource type="PackedScene" uid="uid://bt321lhs647bu" path="res://combined_scenes/microcentrifuge_holder.tscn" id="18_xe06v"]
 [ext_resource type="PackedScene" uid="uid://ch8ljtcuvjg48" path="res://combined_scenes/wall_clock.tscn" id="21_8cc2w"]
 [ext_resource type="PackedScene" uid="uid://cxmqgu76dc3v" path="res://combined_scenes/contact_wire.tscn" id="21_gvdu8"]
@@ -166,15 +165,6 @@ contained_object = NodePath("../../MicrocentrifugeTube3")
 
 [node name="AttachmentInteractableArea4" parent="MicrocentrifugeHolder" index="3" node_paths=PackedStringArray("contained_object")]
 contained_object = NodePath("../../MicrocentrifugeTube4")
-
-[node name="MainSceneCamera" type="Camera2D" parent="."]
-position = Vector2(640, 360)
-
-[node name="TransitionCamera" type="Camera2D" parent="." node_paths=PackedStringArray("main_scene_camera")]
-position = Vector2(641, 360)
-offset = Vector2(0.78, 0)
-script = ExtResource("18_1qt3r")
-main_scene_camera = NodePath("../MainSceneCamera")
 
 [node name="ContactWires" type="Node2D" parent="."]
 script = ExtResource("21_kobiv")

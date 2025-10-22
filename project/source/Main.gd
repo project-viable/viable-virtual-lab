@@ -46,6 +46,8 @@ var _resolution_options: Array[Vector2i] = [
 
 func _ready() -> void:
 	Game.main = self
+	Game.camera = $%TransitionCamera
+	Game.cursor_area = $%CursorArea
 
 	_switch_to_main_menu()
 	set_paused(true)
@@ -194,7 +196,7 @@ func _process(delta: float) -> void:
 		$%CursorArea.global_position = Cursor.virtual_mouse_position
 
 func _unhandled_key_input(e: InputEvent) -> void:
-	if e.is_action_pressed(&"ToggleMenu") and not TransitionCamera.is_camera_zoomed:
+	if e.is_action_pressed(&"ToggleMenu") and not $%TransitionCamera.is_camera_zoomed:
 		# A page other than the main pause menu is being shown; return to the pause menu.
 		if is_paused() and not $Menu/MenuScreens/PauseMenu.visible:
 			_switch_to_menu_screen($Menu/MenuScreens/PauseMenu)

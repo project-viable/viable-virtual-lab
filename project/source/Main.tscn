@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=29 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
 [ext_resource type="Script" uid="uid://chwhrlyn51foq" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
@@ -15,6 +15,7 @@
 [ext_resource type="Resource" uid="uid://ig5fr0g7xm80" path="res://MistakeCheckers/MixtureChecker.tres" id="9"]
 [ext_resource type="Script" uid="uid://bmcv1qehkhxri" path="res://combined_scripts/scene_input_handler.gd" id="9_kjvhd"]
 [ext_resource type="Script" uid="uid://da2myq6tjf26d" path="res://Mixtures.gd" id="10"]
+[ext_resource type="Script" uid="uid://b8kjtd0vdnq42" path="res://combined_scripts/transition_camera.gd" id="10_bg4s2"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://Images/VIABLE_Logo_Transparent.png" id="11"]
 [ext_resource type="FontFile" path="res://UI/RobotoMedium28.tres" id="12"]
 [ext_resource type="Script" uid="uid://dmoeu8vq1th7i" path="res://combined_scripts/content_scaled_subviewport_container.gd" id="16_sc1dx"]
@@ -109,12 +110,22 @@ script = ExtResource("9_kjvhd")
 [node name="CursorArea" type="Area2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
 unique_name_in_owner = true
 position = Vector2(66, 52)
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea"]
 position = Vector2(8, 12)
 shape = SubResource("CapsuleShape2D_3b0ty")
+
+[node name="TransitionCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport" node_paths=PackedStringArray("main_scene_camera")]
+unique_name_in_owner = true
+position = Vector2(640, 360)
+script = ExtResource("10_bg4s2")
+main_scene_camera = NodePath("../MainSceneCamera")
+metadata/_custom_type_script = "uid://b8kjtd0vdnq42"
+
+[node name="MainSceneCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+position = Vector2(640, 360)
 
 [node name="VirtualCursorLayer" type="CanvasLayer" parent="."]
 layer = 127
