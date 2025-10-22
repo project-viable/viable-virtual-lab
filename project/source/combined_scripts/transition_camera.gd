@@ -7,36 +7,48 @@ extends Camera2D
 @export var main_scene_camera: Camera2D
 
 
-var target_camera: Camera2D = null
-var is_camera_zoomed: bool = false
-
-var current_camera: Camera2D
+@onready var _source_rect := Util.get_camera_viewport(self).get_visible_rect()
+@onready var _dest_rect := _source_rect
+var _transition_time: float = 1.0
+var _cur_transition_time: float = 1.0
+var _is_transitioning: bool = false
+var _is_showing_main_scene: bool = true
 
 
 func _ready() -> void:
 	make_current()
 
-func _process(_delta: float) -> void:
-	if target_camera and current_camera != target_camera:
-		change_camera(target_camera)
-		is_camera_zoomed = true
-	
+func _process(delta: float) -> void:
+	if _is_transitioning:
+		_cur_transition_time += delta
+		var t: float = clamp(_cur_transition_time / _transition_time, 0.0, 1.0)
+
+		var cur_rect := Util.lerp_rect2(_source_rect, _dest_rect, t)
+		Util.set_camera_world_rect(self, cur_rect)
+
+		if _cur_transition_time >= _transition_time:
+			_is_transitioning = false
+
 func _input(event: InputEvent) -> void:
 	# Unzoom camera
-	if event.is_action_pressed("ExitCameraZoom") and current_camera != main_scene_camera:
-		target_camera = main_scene_camera
-		change_camera(main_scene_camera)
-		
-## Transition the TransitionCamera and its properties to the target camera
-func change_camera(target_camera: Camera2D) -> void:
-	current_camera = target_camera
-	var position_tween: Tween = create_tween()
-	var zoom_tween: Tween = create_tween()
-	
-	position_tween.tween_property(self, "position", target_camera.global_position, 1)
-	zoom_tween.tween_property(self, "zoom", target_camera.zoom, 1).set_ease(Tween.EASE_IN_OUT)
-	await position_tween.finished
+	if event.is_action_pressed("ExitCameraZoom") and not is_showing_main_scene():
+		return_to_main_scene()
 
-	# Prevents opening of menu via escape until the tweens are finished
-	if target_camera == main_scene_camera:
-		is_camera_zoomed = false
+## Transition the camera to frame [param rect]
+func move_to_rect(rect: Rect2, time: float = 0.5) -> void:
+	_dest_rect = rect
+	_source_rect = Util.get_camera_world_rect(self)
+	_transition_time = time
+	_cur_transition_time = 0.0
+	_is_transitioning = true
+	_is_showing_main_scene = false
+
+func move_to_camera(camera: Camera2D, time: float = 0.5) -> void:
+	move_to_rect(Util.get_camera_world_rect(camera), time)
+
+func return_to_main_scene() -> void:
+	move_to_camera(main_scene_camera)
+	_is_showing_main_scene = true
+
+func is_showing_main_scene() -> bool:
+	return _is_showing_main_scene and not _is_transitioning

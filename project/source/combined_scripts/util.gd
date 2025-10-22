@@ -84,3 +84,34 @@ static func find_child_of_type(n: Node, type: Variant) -> Node:
 		if is_instance_of(c, type): return c
 
 	return null
+
+
+# Lerps a smooth transition from [param from] to [param to] by interpolating the top left and
+# bottom right corners. This is useful for easing a camera when the zoom changes.
+static func lerp_rect2(from: Rect2, to: Rect2, t: float) -> Rect2:
+	var result := Rect2()
+	result.position = lerp(from.position, to.position, t)
+	result.end = lerp(from.end, to.end, t)
+	return result
+
+# Get the viewport that [param camera] will render to (this is needed because the normal
+# [method Camera2D.get_viewport] doesn't account for [member Camera2D.custom_viewport].
+static func get_camera_viewport(camera: Camera2D) -> Viewport:
+	if camera.custom_viewport: return camera.custom_viewport
+	else: return camera.get_viewport()
+
+# Get the rectangle displayed by [param camera] in world space.
+static func get_camera_world_rect(camera: Camera2D) -> Rect2:
+	var rect := get_camera_viewport(camera).get_visible_rect()
+	rect.position = camera.global_position
+	rect.size /= camera.zoom
+	if camera.anchor_mode == Camera2D.ANCHOR_MODE_DRAG_CENTER:
+		rect.position -= rect.size / 2
+	return rect
+
+# Set the displayed world rect of [param camera] without changing the anchor mode.
+static func set_camera_world_rect(camera: Camera2D, rect: Rect2) -> void:
+	camera.global_position = rect.position
+	if camera.anchor_mode == Camera2D.ANCHOR_MODE_DRAG_CENTER:
+		camera.global_position += rect.size / 2
+	camera.zoom = get_camera_viewport(camera).get_visible_rect().size / rect.size
