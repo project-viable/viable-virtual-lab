@@ -50,7 +50,7 @@ func display_gel_bands() -> void: pass
 
 ## (virtual) called when gel is placed in the imager. If the UV light was not turned on before imaging,
 ## the display_blank_gel_bands function is called. Otherwise, the display_gel_bands is called.
-func on_gel_inserted(UV_state: bool) -> void: pass
+func on_gel_inserted() -> void: pass
 
 ## Once a case has been matched within the display_gel_bands function, and the user removes the gel from
 ## the imager, a sprite will replace the original gel sprite showing the appropriate bands within 
