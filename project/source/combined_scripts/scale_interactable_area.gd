@@ -22,7 +22,7 @@ func _physics_process(_delta: float) -> void:
 func _on_scale_use_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("click") and not is_zoomed_in:
 		is_zoomed_in = true
-		TransitionCamera.target_camera = camera
+		Game.camera.move_to_camera(camera)
 
 ## Handles when the user wants to zoom back out to the main scene
 func _input(event: InputEvent) -> void:

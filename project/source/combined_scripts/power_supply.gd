@@ -99,7 +99,7 @@ func _input(event: InputEvent) -> void:
 		
 func _on_screen_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_pressed():
-		TransitionCamera.target_camera = $ZoomCamera
+		Game.camera.move_to_camera($ZoomCamera)
 		_is_zoomed_in = true
 		for button in _buttons:
 			button.disabled = false

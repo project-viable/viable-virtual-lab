@@ -58,7 +58,7 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 func _on_keypad_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("click") and not _is_zoomed_in:
 		_is_zoomed_in = true
-		TransitionCamera.target_camera = $ZoomCamera
+		Game.camera.move_to_camera($ZoomCamera)
 
 		# Keypad buttons should be clickable if zoomed in on
 		for button: TextureButton in $Keypad.get_children():
