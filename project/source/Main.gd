@@ -207,10 +207,10 @@ func _unhandled_key_input(e: InputEvent) -> void:
 			set_paused(not is_paused())
 	elif e.is_action_pressed(&"CameraLeft"):
 		if _current_workspace and _current_workspace.left_workspace:
-			move_to_workspace(_current_workspace.left_workspace, 0.7)
+			move_to_workspace(_current_workspace.left_workspace, 2.0)
 	elif e.is_action_pressed(&"CameraRight"):
 		if _current_workspace and _current_workspace.right_workspace:
-			move_to_workspace(_current_workspace.right_workspace, 0.7)
+			move_to_workspace(_current_workspace.right_workspace, 2.0)
 
 func _load_module(module: ModuleData) -> void:
 	set_scene(module.scene)
@@ -347,8 +347,8 @@ func is_paused() -> bool:
 func move_to_workspace(workspace: WorkspaceCamera, time: float = 0.0) -> void:
 	_current_workspace = workspace
 	if _current_workspace:
-		$%TransitionCamera.move_to_camera(workspace, true, time)
 		$%TransitionCamera.main_scene_camera = _current_workspace
+		$%TransitionCamera.move_to_camera(workspace, true, time)
 
 func _on_SelectModuleButton_pressed() -> void:
 	_switch_to_menu_screen($Menu/MenuScreens/ModuleSelect)
