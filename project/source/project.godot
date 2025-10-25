@@ -47,6 +47,7 @@ attachment:contact_wire=""
 attachment:pipette=""
 ghost:always_include="Always include this node in a sprite ghost (made via `Util.make_sprite_ghost`), regardless of visibility"
 ghost:never_include="Never include this node in a sprite ghost (made via `Util.make_sprite_ghost`), regardless of visibility"
+entry_point="A collision shape owner that must be used to enter the purview of an `ExclusiveShape2D` if it has `require_entry_point_shapes` enabled"
 
 [gui]
 
