@@ -38,11 +38,6 @@ func _process(delta: float) -> void:
 		if _cur_transition_time >= _transition_time:
 			_is_transitioning = false
 
-func _input(event: InputEvent) -> void:
-	# Unzoom camera
-	if event.is_action_pressed("ExitCameraZoom") and not is_showing_main_scene():
-		return_to_main_scene()
-
 ## Transition the camera to frame [param rect]. If [param grab_mouse] is [code]true[/code], then
 ## the virtual cursor will be moved along with the camera.
 func move_to_rect(rect: Rect2, grab_mouse: bool = true, time: float = 0.7) -> void:
