@@ -57,8 +57,8 @@ func move_to_rect(rect: Rect2, grab_mouse: bool = true, time: float = 0.7) -> vo
 func move_to_camera(camera: Camera2D, grab_mouse: bool = true, time: float = 0.7) -> void:
 	move_to_rect(Util.get_camera_world_rect(camera), grab_mouse, time)
 
-func return_to_main_scene() -> void:
-	move_to_camera(main_scene_camera)
+func return_to_main_scene(time: float = 0.7) -> void:
+	move_to_camera(main_scene_camera, false, time)
 	_is_showing_main_scene = true
 
 func is_showing_main_scene() -> bool:
