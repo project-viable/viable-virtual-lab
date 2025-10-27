@@ -24,6 +24,9 @@ static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, 
 ## When set to [code]true[/code], the object will not follow the cursor reticle, though the hand
 ## cursor will stay in place.
 @export var disable_follow_cursor: bool = false
+## When set to [code]true[/code], the object can't be dropped. This might be used when zoomed in to
+## prevent weird behavior.
+@export var disable_drop: bool = false
 
 
 # Keep track of collision layers of any child physics objects. For example, the scale has a child
@@ -86,8 +89,11 @@ func _physics_process(delta: float) -> void:
 			set_physics_mode(PhysicsMode.FREE)
 
 func get_interactions() -> Array[InteractInfo]:
-	if is_active(): return [_put_down_interaction]
-	else: return [_pick_up_interaction]
+	if is_active():
+		if disable_drop: return []
+		else: return [_put_down_interaction]
+	else:
+		return [_pick_up_interaction]
 
 func start_targeting(_k: InteractInfo.Kind) -> void:
 	if not is_active() and interact_canvas_group:
