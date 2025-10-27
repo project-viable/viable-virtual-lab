@@ -33,7 +33,8 @@ static func make_sprite_ghost(node: Node2D) -> Node2D:
 	return root
 
 # Get a bounding box for the full collision of a `CollisionObject2D`. This can be used, for
-# example, to automatically find where the "bottom" of an object is.
+# example, to automatically find where the "bottom" of an object is. The resulting bounding box is
+# in `obj`'s local coordinates.
 static func get_bounding_box(obj: CollisionObject2D) -> Rect2:
 	var rect := Rect2()
 	var first := true
@@ -48,6 +49,10 @@ static func get_bounding_box(obj: CollisionObject2D) -> Rect2:
 				rect = rect.merge(transform * s.get_rect())
 
 	return rect
+
+# Get the bounding box for [param obj]'s collision in global coordinates, axis-aligned.
+static func get_global_bounding_box(obj: CollisionObject2D) -> Rect2:
+	return obj.get_global_transform() * get_bounding_box(obj)
 
 static func _make_sprite_ghost_impl(node: Node2D) -> Node2D:
 	# Skip invisible nodes or ones in the "ghost:never_include" group. Never skip nodes in the
@@ -115,3 +120,19 @@ static func set_camera_world_rect(camera: Camera2D, rect: Rect2) -> void:
 	if camera.anchor_mode == Camera2D.ANCHOR_MODE_DRAG_CENTER:
 		camera.global_position += rect.size / 2
 	camera.zoom = get_camera_viewport(camera).get_visible_rect().size / rect.size
+
+# Return the smallest possible rectangle of the aspect ratio [param aspect] that fully contains
+# [param rect]. If any space is added on the horizontal axis, then [param horizontal_weight]
+# determines the position of [param rect] in the resulting rectangle; if [param horizontal_weight]
+# is 0, then it will be all the way to the left, and if it is 1, then it will be all the way to the
+# right. [param vertical_weight] does the same thing, but for the space on the top and bottom,
+# respectively.
+static func expand_to_aspect(rect: Rect2, aspect: float, horizontal_weight: float = 0.5, vertical_weight: float = 0.5) -> Rect2:
+	var rect_aspect := rect.size.aspect()
+	if rect_aspect < aspect:
+		var extra_width := aspect * rect.size.y - rect.size.x
+		return rect.grow_individual(horizontal_weight * extra_width, 0, (1 - horizontal_weight) * extra_width, 0)
+	else:
+		var extra_height := rect.size.x / aspect - rect.size.y
+		return rect.grow_individual(0, vertical_weight * extra_height, 0, (1 - vertical_weight) *
+	extra_height)

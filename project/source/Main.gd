@@ -350,6 +350,11 @@ func move_to_workspace(workspace: WorkspaceCamera, time: float = 0.0) -> void:
 		$%TransitionCamera.main_scene_camera = _current_workspace
 		$%TransitionCamera.move_to_camera(workspace, true, time)
 
+## Move the camera to frame [param rect] in the center of the screen.
+func focus_camera_on_rect(rect: Rect2, time: float = 0.7) -> void:
+	var dest_rect := Util.expand_to_aspect(rect.grow(10), get_viewport_rect().size.aspect())
+	$%TransitionCamera.move_to_rect(dest_rect, false, time)
+
 func _on_SelectModuleButton_pressed() -> void:
 	_switch_to_menu_screen($Menu/MenuScreens/ModuleSelect)
 
