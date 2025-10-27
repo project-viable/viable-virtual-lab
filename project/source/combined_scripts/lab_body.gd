@@ -21,6 +21,9 @@ static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, 
 ## [SelectableCanvasGroup] child of this [LabBody].
 @export var interact_canvas_group: SelectableCanvasGroup = null
 @export var enable_interaction: bool = true
+## When set to [code]true[/code], the object will not follow the cursor reticle, though the hand
+## cursor will stay in place.
+@export var disable_follow_cursor: bool = false
 
 
 # Keep track of collision layers of any child physics objects. For example, the scale has a child
@@ -65,9 +68,10 @@ func _physics_process(delta: float) -> void:
 			if is_rotating_clockwise: global_rotation = min(0.0, global_rotation)
 			else: global_rotation = max(0.0, global_rotation)
 
-		var dest_pos := to_global(_get_local_virtual_mouse_position() - _offset)
-		_velocity = (dest_pos - global_position) / delta
-		move_and_collide((dest_pos - global_position) * 30 * delta)
+		if not disable_follow_cursor:
+			var dest_pos := to_global(_get_local_virtual_mouse_position() - _offset)
+			_velocity = (dest_pos - global_position) / delta
+			move_and_collide((dest_pos - global_position) * 30 * delta)
 
 		Cursor.custom_hand_position = to_global(_offset)
 	
