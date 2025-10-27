@@ -57,6 +57,8 @@ func _ready() -> void:
 	Game.camera = $%TransitionCamera
 	Game.cursor_area = $%CursorArea
 
+	$%SubsceneViewport.world_2d = Subscenes.main_world_2d
+
 	_switch_to_main_menu()
 	set_paused(true)
 
@@ -360,6 +362,30 @@ func move_to_workspace(workspace: WorkspaceCamera, time: float = 0.0) -> void:
 func focus_camera_on_rect(rect: Rect2, time: float = 0.7) -> void:
 	var dest_rect := Util.expand_to_aspect(rect.grow(10), get_viewport_rect().size.aspect())
 	$%TransitionCamera.move_to_rect(dest_rect, false, time)
+
+## Makes the view of the subscene camera [param camera] visible on the right side of the screen.
+## Returns the width, in pixels, of the open region on the left side of the screen (this can be
+## used, for example, to use the left side to zoom in on something). If [param use_overlay] is
+## [code]true[/code], then a dark overlay will be placed over the screen behind the subscene. This
+## should be used to indicate when control has moved to the subscene, like when the pipette subscene
+## becomes controllable.
+func show_subscene(camera: SubsceneCamera, use_overlay: bool = false) -> float:
+	var viewport_size := get_viewport().get_visible_rect().size
+	var right_width: float = max(viewport_size.x / 2, camera.region_size.x + 50)
+	var padding: float = (right_width - camera.region_size.x) / 2
+	camera.custom_viewport = $%SubsceneViewport
+	$%SubsceneContainer.size = camera.region_size
+	$%SubsceneContainer.position.x = viewport_size.x - right_width + padding
+	$%SubsceneContainer.position.y = (viewport_size.y - $%SubsceneContainer.size.y) / 2
+	$%SubsceneContainer.show()
+	camera.make_current()
+	if use_overlay:
+		$%SubsceneOverlay.show()
+	return viewport_size.x - right_width
+
+func hide_subscene() -> void:
+	$%SubsceneContainer.hide()
+	$%SubsceneOverlay.hide()
 
 func _on_SelectModuleButton_pressed() -> void:
 	_switch_to_menu_screen($Menu/MenuScreens/ModuleSelect)
