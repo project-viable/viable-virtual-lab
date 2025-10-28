@@ -14,7 +14,7 @@ func _on_exclusive_object_hitbox_entered_purview_of(area: ExclusiveArea2D) -> vo
 	collision_mask |= 0b1000
 	z_index = -1
 	var object_to_zoom := area.get_parent() as CollisionObject2D
-	if object_to_zoom:
+	if object_to_zoom and is_active():
 		# Zoom in on the object, with extra room above it for this pipette.
 		var rect := Util.get_global_bounding_box(object_to_zoom).grow_side(1, Util.get_global_bounding_box(self).size.y + 5)
 		Game.main.focus_camera_on_rect(rect, 1.5)
