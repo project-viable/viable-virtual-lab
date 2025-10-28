@@ -62,6 +62,7 @@ source = NodePath("../../ContainerComponent")
 metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
 
 [node name="PipetteWithTip" type="Sprite2D" parent="SelectableCanvasGroup"]
+visible = false
 position = Vector2(-0.5, 12)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_5ngtk")
@@ -89,6 +90,8 @@ max_volume = 0.2
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="TipOpeningArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TipOpeningArea"]
 position = Vector2(4, 83)
