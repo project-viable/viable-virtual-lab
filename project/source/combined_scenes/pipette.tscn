@@ -49,9 +49,14 @@ script = ExtResource("6_y22yk")
 script = ExtResource("6_5ngtk")
 metadata/_custom_type_script = "uid://cmig34nsw7h3"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExclusiveObjectHitbox"]
+[node name="NoTipEnd" type="CollisionShape2D" parent="ExclusiveObjectHitbox"]
 position = Vector2(4, 67)
 shape = SubResource("CircleShape2D_f8tg8")
+
+[node name="WithTipEnd" type="CollisionShape2D" parent="ExclusiveObjectHitbox"]
+position = Vector2(4, 82)
+shape = SubResource("CircleShape2D_f8tg8")
+disabled = true
 
 [connection signal="entered_purview_of" from="ExclusiveObjectHitbox" to="." method="_on_exclusive_object_hitbox_entered_purview_of"]
 [connection signal="left_purview_of" from="ExclusiveObjectHitbox" to="." method="_on_exclusive_object_hitbox_left_purview_of"]
