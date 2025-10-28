@@ -107,7 +107,9 @@ static func get_camera_viewport(camera: Camera2D) -> Viewport:
 
 # Get the rectangle displayed by [param camera] in world space.
 static func get_camera_world_rect(camera: Camera2D) -> Rect2:
-	var rect := get_camera_viewport(camera).get_visible_rect()
+	var vp := get_camera_viewport(camera)
+	if not vp: return Rect2()
+	var rect := vp.get_visible_rect()
 	rect.position = camera.global_position
 	rect.size /= camera.zoom
 	if camera.anchor_mode == Camera2D.ANCHOR_MODE_DRAG_CENTER:
@@ -116,10 +118,12 @@ static func get_camera_world_rect(camera: Camera2D) -> Rect2:
 
 # Set the displayed world rect of [param camera] without changing the anchor mode.
 static func set_camera_world_rect(camera: Camera2D, rect: Rect2) -> void:
+	var vp := get_camera_viewport(camera)
+	if not vp: return
 	camera.global_position = rect.position
 	if camera.anchor_mode == Camera2D.ANCHOR_MODE_DRAG_CENTER:
 		camera.global_position += rect.size / 2
-	camera.zoom = get_camera_viewport(camera).get_visible_rect().size / rect.size
+	camera.zoom = vp.get_visible_rect().size / rect.size
 
 # Return the smallest possible rectangle of the aspect ratio [param aspect] that fully contains
 # [param rect]. If any space is added on the horizontal axis, then [param horizontal_weight]
