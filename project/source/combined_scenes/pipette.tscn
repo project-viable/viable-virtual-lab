@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://t5vephauatf2"]
+[gd_scene load_steps=14 format=3 uid="uid://t5vephauatf2"]
 
 [ext_resource type="Script" uid="uid://c42ut7hyyijbv" path="res://combined_scripts/pipette.gd" id="1_yutq4"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_drsrt"]
@@ -15,6 +15,9 @@
 size = Vector2(3, 14.4)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f8tg8"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pthag"]
 radius = 2.0
 
 [node name="Pipette" type="RigidBody2D"]
@@ -35,7 +38,8 @@ disabled = true
 script = ExtResource("2_drsrt")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="PipettePlunger" type="Sprite2D" parent="SelectableCanvasGroup"]
+[node name="Plunger" type="Sprite2D" parent="SelectableCanvasGroup"]
+unique_name_in_owner = true
 position = Vector2(2.27374e-13, -9)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_f8tg8")
@@ -58,7 +62,6 @@ source = NodePath("../../ContainerComponent")
 metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
 
 [node name="PipetteWithTip" type="Sprite2D" parent="SelectableCanvasGroup"]
-visible = false
 position = Vector2(-0.5, 12)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_5ngtk")
@@ -84,6 +87,12 @@ disabled = true
 script = ExtResource("10_epgtn")
 max_volume = 0.2
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+
+[node name="TipOpeningArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TipOpeningArea"]
+position = Vector2(4, 83)
+shape = SubResource("CircleShape2D_pthag")
 
 [connection signal="entered_purview_of" from="ExclusiveObjectHitbox" to="." method="_on_exclusive_object_hitbox_entered_purview_of"]
 [connection signal="left_purview_of" from="ExclusiveObjectHitbox" to="." method="_on_exclusive_object_hitbox_left_purview_of"]
