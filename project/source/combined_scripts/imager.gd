@@ -12,14 +12,24 @@ extends Node2D
 	"electrode_correct_placement": true, # incorrect placement means bands will run backwards and bands will not be visible
 	"voltage": 120, # voltage that is too high or low will result in no visible bands or diffused bands
 	"gel_concentration": 1.50, # incorrect concentration (in percentage) will result in diffused bands
-	"well_capacity": 5.0, # in microliters, if well is flooded, this will results in diffused bands
+	"well1_capacity": 5.0, # in microliters, if well is flooded, this will results in diffused bands
 						   # if well is not full enough, this will results in no visible bands
+	"well2_capacity": 5.0,
+	"well3_capacity": 5.0,
+	"well4_capacity": 5.0,
+	"well5_capacity": 5.0,
+	"well6_capacity": 5.0,
 	"gel_analysis_asap": true, # gel not put in the imager right after electropohresis results in diffused bands
 	"correct_gel_temperature": true, # incorrect gel temperature (not between 50-70 deg C) results in smeared bands
 	"correct_comb_placement": true, # incorrect gel comb placement or damaged wells results in smiley/wavy bands or
 									# dna remainig in the wells
 	"correct_gel_mixing": true, # inconsistent gel density (not mixed well) resuls in smiley/wavy bands
-	"dna_size": 25, # dna size (in kb) will determine how far down the gel the bands will travel
+	"dna_size1": 25.0, # dna size (in kb) will determine how far down the gel the bands will travel
+	"dna_size2": 25.0, 
+	"dna_size3": 25.0, 
+	"dna_size4": 25.0, 
+	"dna_size5": 25.0, 
+	"dna_size6": 25.0, 
 	"voltage_run_time": 20.0, # in mintues, if the voltage is run for too long or not long enough, this will
 							# result in gel bands that are distorted or fuzzy, or not visible from running off
 							#the gel

@@ -19,18 +19,6 @@ size = Vector2(166, 191)
 
 [node name="GelImager" type="Node2D"]
 script = ExtResource("1_7wmgd")
-gel_state = {
-"correct_comb_placement": true,
-"correct_gel_mixing": true,
-"correct_gel_temperature": true,
-"dna_size": 25,
-"electrode_correct_placement": true,
-"gel_analysis_asap": true,
-"gel_concentration": 0.5,
-"voltage": 120,
-"voltage_run_time": 20.0,
-"well_capacity": 3.0
-}
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("1_w2ofj")
