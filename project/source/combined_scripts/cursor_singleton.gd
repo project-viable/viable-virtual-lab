@@ -34,4 +34,3 @@ func _input(event: InputEvent) -> void:
 		virtual_mouse_position += event.relative / Game.camera.zoom
 		var rect := Util.get_camera_world_rect(Game.camera)
 		virtual_mouse_position = virtual_mouse_position.clamp(rect.position, rect.end)
-		get_viewport().set_input_as_handled()
