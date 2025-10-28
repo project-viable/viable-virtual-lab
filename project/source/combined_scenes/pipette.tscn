@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://t5vephauatf2"]
+[gd_scene load_steps=11 format=3 uid="uid://t5vephauatf2"]
 
 [ext_resource type="Script" uid="uid://c42ut7hyyijbv" path="res://combined_scripts/pipette.gd" id="1_yutq4"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_drsrt"]
-[ext_resource type="Texture2D" uid="uid://bibba5hteipn1" path="res://updated_assets/lab_objects/pipette.svg" id="4_y22yk"]
+[ext_resource type="Texture2D" uid="uid://dy2rxljf87eme" path="res://updated_assets/lab_objects/pipette_plunger.svg" id="3_f8tg8"]
+[ext_resource type="Texture2D" uid="uid://bsexixwy1epg7" path="res://updated_assets/lab_objects/pipette_base.svg" id="4_jnhs8"]
 [ext_resource type="Texture2D" uid="uid://c3cm22o72hi0e" path="res://updated_assets/lab_objects/pipette_tip.svg" id="5_5ngtk"]
+[ext_resource type="Texture2D" uid="uid://b7xuw642wbnf6" path="res://updated_assets/lab_objects/pipette_eject.svg" id="5_pthag"]
 [ext_resource type="Script" uid="uid://duuywc15ufiby" path="res://combined_scripts/pipette_exclusive_object_hitbox.gd" id="6_5ngtk"]
 [ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://combined_scripts/attachment_point.gd" id="6_y22yk"]
 
@@ -31,9 +33,20 @@ disabled = true
 script = ExtResource("2_drsrt")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="PipetteWithNoTip" type="Sprite2D" parent="SelectableCanvasGroup"]
+[node name="PipettePlunger" type="Sprite2D" parent="SelectableCanvasGroup"]
+position = Vector2(2.27374e-13, -9)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("4_y22yk")
+texture = ExtResource("3_f8tg8")
+
+[node name="PipetteBase" type="Sprite2D" parent="SelectableCanvasGroup"]
+position = Vector2(1.90735e-06, -2.38419e-07)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_jnhs8")
+
+[node name="PipetteEject" type="Sprite2D" parent="SelectableCanvasGroup"]
+position = Vector2(3.8147e-06, -3.8147e-06)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_pthag")
 
 [node name="PipetteWithTip" type="Sprite2D" parent="SelectableCanvasGroup"]
 visible = false
