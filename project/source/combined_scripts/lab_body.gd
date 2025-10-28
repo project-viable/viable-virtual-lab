@@ -52,7 +52,7 @@ func _ready() -> void:
 	freeze_mode = FREEZE_MODE_KINEMATIC
 	# We need collisions in layer 3 so that interaction areas detect this object.
 	collision_layer = 0b100
-	continuous_cd = RigidBody2D.CCD_MODE_CAST_RAY
+	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
 
 	for p: PhysicsBody2D in find_children("", "PhysicsBody2D", false):
 		_child_physics_object_layers.set(p, p.collision_layer)
