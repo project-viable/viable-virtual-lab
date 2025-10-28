@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1af3h23bqbvv"]
+[gd_scene load_steps=7 format=3 uid="uid://c1af3h23bqbvv"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_sbaom"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_g0l2j"]
+[ext_resource type="Texture2D" uid="uid://yrxt2sxidd3c" path="res://Images/FillSprites/scoopula_fill.png" id="4_g0l2j"]
 [ext_resource type="Texture2D" uid="uid://cak418sbeesy5" path="res://updated_assets/lab_objects/scoopula.svg" id="4_sbaom"]
+[ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="8_h2xov"]
+[ext_resource type="Script" uid="uid://btbgnyoe2k5xc" path="res://combined_scripts/scoopula_use_component.gd" id="9_fpj3u"]
 
 [node name="Scoopula" type="RigidBody2D" groups=["attachment:scoopula"]]
 collision_layer = 0
@@ -21,3 +24,19 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 position = Vector2(-7, 0)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("4_sbaom")
+
+[node name="FillSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0.777375, -43.5091)
+rotation = 3.14159
+scale = Vector2(0.0325691, 0.027463)
+texture = ExtResource("4_g0l2j")
+
+[node name="ContainerComponent" type="Node2D" parent="."]
+script = ExtResource("8_h2xov")
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+
+[node name="UseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container")]
+script = ExtResource("9_fpj3u")
+container = NodePath("../ContainerComponent")
+metadata/_custom_type_script = "uid://c5xu35ldxvqog"

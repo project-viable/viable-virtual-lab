@@ -85,7 +85,7 @@ func _process(_delta: float) -> void:
 		_last_cached_rotation = global_rotation
 		_update_area_intervals()
 
-	var total_container_volume: float = source.max_volume
+	var total_container_volume: float = source.container_volume
 	var total_area: float = _area_intervals.back().high_area if _area_intervals else 0.0
 
 	var depths: Array[float] = []

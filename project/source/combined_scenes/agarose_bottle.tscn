@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://dl7pwqhm483yt"]
+[gd_scene load_steps=15 format=3 uid="uid://dl7pwqhm483yt"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_w1h17"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_lsgmi"]
+[ext_resource type="Script" uid="uid://dwugjsi3at7tt" path="res://combined_scripts/scoop_interactable_area.gd" id="3_irog7"]
 [ext_resource type="Texture2D" uid="uid://dxm0iobbxvvg7" path="res://updated_assets/lab_objects/bottle_agarose.svg" id="5_w1h17"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="6_irog7"]
 [ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://combined_scripts/substance_instance.gd" id="7_w1h17"]
@@ -10,7 +11,10 @@
 [ext_resource type="Script" uid="uid://5sjgduop7hjw" path="res://combined_scripts/basic_substance.gd" id="10_dksvt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eomqc"]
-size = Vector2(99.5557, 134.815)
+size = Vector2(103.704, 143.111)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_irog7"]
+size = Vector2(48, 67)
 
 [sub_resource type="Resource" id="Resource_irog7"]
 script = ExtResource("9_s0bp6")
@@ -40,9 +44,17 @@ script = ExtResource("1_w1h17")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 11.5)
+position = Vector2(-9.53674e-07, 11.5)
 scale = Vector2(0.482142, 0.482142)
 shape = SubResource("RectangleShape2D_eomqc")
+
+[node name="ScoopInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container")]
+script = ExtResource("3_irog7")
+container = NodePath("../ContainerComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoopInteractableArea"]
+position = Vector2(0, 11.5)
+shape = SubResource("RectangleShape2D_irog7")
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("2_lsgmi")

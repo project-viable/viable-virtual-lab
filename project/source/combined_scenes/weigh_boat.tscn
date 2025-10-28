@@ -1,14 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgju3rlfrqslw"]
+[gd_scene load_steps=8 format=3 uid="uid://cgju3rlfrqslw"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_ngt2v"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_4pv8k"]
 [ext_resource type="Texture2D" uid="uid://bp4k3b1irg7n2" path="res://updated_assets/lab_objects/weigh_boat.svg" id="4_ngt2v"]
+[ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="5_axhbs"]
+[ext_resource type="Script" uid="uid://dwugjsi3at7tt" path="res://combined_scripts/scoop_interactable_area.gd" id="6_ngt2v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4pv8k"]
 size = Vector2(108, 13)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8osh1"]
+size = Vector2(108, 15)
+
 [node name="WeighBoat" type="RigidBody2D"]
-collision_layer = 0
 script = ExtResource("1_ngt2v")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
@@ -24,3 +28,18 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 position = Vector2(0, -15)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_ngt2v")
+
+[node name="ContainerComponent" type="Node2D" parent="."]
+script = ExtResource("5_axhbs")
+container_volume = 25.0
+container_mass = 6.0
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+
+[node name="ScoopInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container")]
+script = ExtResource("6_ngt2v")
+container = NodePath("../ContainerComponent")
+metadata/_custom_type_script = "uid://dwugjsi3at7tt"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoopInteractableArea"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_8osh1")

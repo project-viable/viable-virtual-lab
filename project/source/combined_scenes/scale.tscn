@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://gfmuo2b5e2b5"]
+[gd_scene load_steps=10 format=3 uid="uid://gfmuo2b5e2b5"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_ssuie"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_ceiaq"]
 [ext_resource type="Texture2D" uid="uid://ceb3fqgxtqtqf" path="res://updated_assets/lab_objects/scale.svg" id="4_ssuie"]
+[ext_resource type="Script" uid="uid://ceswiywyrstxd" path="res://combined_scripts/scale_interactable_area.gd" id="5_7y61a"]
 [ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://updated_assets/icons_and_buttons/button_2.svg" id="7_vhatv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssuie"]
@@ -11,8 +12,14 @@ size = Vector2(125, 34)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vhatv"]
 size = Vector2(102, 5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkoys"]
+size = Vector2(102, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7y61a"]
+size = Vector2(95, 25)
+
 [node name="Scale" type="RigidBody2D"]
-collision_layer = 0
+position = Vector2(981, 281)
 script = ExtResource("1_ssuie")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
@@ -36,6 +43,25 @@ position = Vector2(1, -17.5)
 shape = SubResource("RectangleShape2D_vhatv")
 one_way_collision = true
 debug_color = Color(0.404972, 0.46678, 1, 0.42)
+
+[node name="ZoomCamera" type="Camera2D" parent="."]
+zoom = Vector2(7, 7)
+
+[node name="InteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("body", "camera")]
+script = ExtResource("5_7y61a")
+body = NodePath("..")
+camera = NodePath("../ZoomCamera")
+metadata/_custom_type_script = "uid://8jbti40eodk6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+position = Vector2(1, -22)
+shape = SubResource("RectangleShape2D_jkoys")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1.5, -1.5)
+shape = SubResource("RectangleShape2D_7y61a")
 
 [node name="TareButton" type="TextureButton" parent="."]
 offset_left = 19.0
@@ -61,3 +87,14 @@ grow_vertical = 2
 scale = Vector2(1, 1.00617)
 theme_override_font_sizes/font_size = 200
 text = "Tare"
+
+[node name="WeightLabel" type="Label" parent="."]
+offset_left = -27.0
+offset_top = -10.0
+offset_right = 13.0
+offset_bottom = 2.0
+theme_override_font_sizes/font_size = 9
+text = "0.0  g"
+
+[connection signal="input_event" from="Area2D" to="InteractableArea" method="_on_scale_use_input_event"]
+[connection signal="pressed" from="TareButton" to="InteractableArea" method="_on_tare_button_pressed"]
