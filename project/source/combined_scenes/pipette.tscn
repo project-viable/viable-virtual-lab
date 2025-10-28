@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://t5vephauatf2"]
+[gd_scene load_steps=13 format=3 uid="uid://t5vephauatf2"]
 
 [ext_resource type="Script" uid="uid://c42ut7hyyijbv" path="res://combined_scripts/pipette.gd" id="1_yutq4"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_drsrt"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://b7xuw642wbnf6" path="res://updated_assets/lab_objects/pipette_eject.svg" id="5_pthag"]
 [ext_resource type="Script" uid="uid://duuywc15ufiby" path="res://combined_scripts/pipette_exclusive_object_hitbox.gd" id="6_5ngtk"]
 [ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://combined_scripts/attachment_point.gd" id="6_y22yk"]
+[ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://combined_scripts/substance_display_polygon.gd" id="9_jnhs8"]
+[ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="10_epgtn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yutq4"]
 size = Vector2(3, 14.4)
@@ -48,6 +50,13 @@ position = Vector2(3.8147e-06, -3.8147e-06)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_pthag")
 
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="SelectableCanvasGroup" node_paths=PackedStringArray("source")]
+visible = false
+polygon = PackedVector2Array(2.7, 67, 4.3, 67, 3.5, 82)
+script = ExtResource("9_jnhs8")
+source = NodePath("../../ContainerComponent")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
 [node name="PipetteWithTip" type="Sprite2D" parent="SelectableCanvasGroup"]
 visible = false
 position = Vector2(-0.5, 12)
@@ -70,6 +79,11 @@ shape = SubResource("CircleShape2D_f8tg8")
 position = Vector2(4, 82)
 shape = SubResource("CircleShape2D_f8tg8")
 disabled = true
+
+[node name="ContainerComponent" type="Node2D" parent="."]
+script = ExtResource("10_epgtn")
+max_volume = 0.2
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [connection signal="entered_purview_of" from="ExclusiveObjectHitbox" to="." method="_on_exclusive_object_hitbox_entered_purview_of"]
 [connection signal="left_purview_of" from="ExclusiveObjectHitbox" to="." method="_on_exclusive_object_hitbox_left_purview_of"]
