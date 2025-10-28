@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://cug6kav5s55iq"]
+[gd_scene load_steps=17 format=3 uid="uid://cug6kav5s55iq"]
 
 [ext_resource type="Script" uid="uid://bptf21x2a24jj" path="res://combined_scripts/imager_gel_band_logic.gd" id="1_7wmgd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_w2ofj"]
+[ext_resource type="Script" uid="uid://06juxjpcn4yg" path="res://combined_scripts/gel_state.gd" id="2_us78d"]
 [ext_resource type="Texture2D" uid="uid://cslhw30pcab3a" path="res://updated_assets/lab_objects/imager.svg" id="3_p46ws"]
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="4_7wmgd"]
 [ext_resource type="Texture2D" uid="uid://b1syli7unwpoc" path="res://updated_assets/Temp Sprites/blank-gel-bands.png" id="5_omd45"]
@@ -14,11 +15,60 @@
 [ext_resource type="Texture2D" uid="uid://cfkclnd374ooi" path="res://updated_assets/Temp Sprites/smeared-long-ladders.png" id="12_4rua4"]
 [ext_resource type="Texture2D" uid="uid://ds54youqsllq3" path="res://updated_assets/Temp Sprites/smeared-short-ladders.png" id="13_us78d"]
 
+[sub_resource type="Resource" id="Resource_us78d"]
+script = ExtResource("2_us78d")
+electrode_correct_placement = true
+voltage = 120
+gel_concentration = 1.5
+gel_analysis_asap = true
+correct_gel_temperature = true
+correct_comb_placement = true
+correct_gel_mixing = true
+voltage_run_time = 20.0
+well1 = {
+"GelBandState": null,
+"dna_size": 25.0,
+"name": "well 1",
+"well_capacity": 5.0
+}
+well2 = {
+"GelBandState": null,
+"dna_size": 25.0,
+"name": "well 2",
+"well_capacity": 5.0
+}
+well3 = {
+"GelBandState": null,
+"dna_size": 25.0,
+"name": "well 3",
+"well_capacity": 5.0
+}
+well4 = {
+"GelBandState": null,
+"dna_size": 25.0,
+"name": "well 4",
+"well_capacity": 5.0
+}
+well5 = {
+"GelBandState": null,
+"dna_size": 25.0,
+"name": "well 5",
+"well_capacity": 5.0
+}
+well6 = {
+"GelBandState": null,
+"dna_size": 25.0,
+"name": "well 6",
+"well_capacity": 5.0
+}
+metadata/_custom_type_script = "uid://06juxjpcn4yg"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omd45"]
 size = Vector2(166, 191)
 
 [node name="GelImager" type="Node2D"]
 script = ExtResource("1_7wmgd")
+gel_state = SubResource("Resource_us78d")
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("1_w2ofj")
