@@ -48,6 +48,7 @@ attachment:pipette=""
 ghost:always_include="Always include this node in a sprite ghost (made via `Util.make_sprite_ghost`), regardless of visibility"
 ghost:never_include="Never include this node in a sprite ghost (made via `Util.make_sprite_ghost`), regardless of visibility"
 entry_point="A collision shape owner that must be used to enter the purview of an `ExclusiveShape2D` if it has `require_entry_point_shapes` enabled"
+exclusive_area:pipette="Allow the pipette to enter this area"
 
 [gui]
 
@@ -139,6 +140,7 @@ interact_secondary={
 2d_physics/layer_1="boundary"
 2d_physics/layer_2="shelf"
 2d_physics/layer_3="interaction"
+2d_physics/layer_4="exclusive_interaction"
 
 [physics]
 

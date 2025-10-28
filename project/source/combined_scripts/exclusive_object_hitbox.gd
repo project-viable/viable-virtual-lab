@@ -47,4 +47,3 @@ func _update_purview(prev_area: ExclusiveArea2D) -> void:
 			_enter_purview_of(cur_area)
 			cur_area.object_enter_purview(self)
 			entered_purview_of.emit(cur_area)
-

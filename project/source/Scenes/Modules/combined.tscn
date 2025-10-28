@@ -29,7 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://brx5qwivdoj2a" path="res://updated_assets/environment/black.svg" id="26_w0rbf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7cn0u"]
-size = Vector2(10035, 75)
+size = Vector2(10035, 590)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5fdni"]
 distance = 96.0
@@ -41,6 +41,7 @@ distance = 96.0
 [node name="Combined" type="Node2D"]
 
 [node name="BackgroundWall" type="Sprite2D" parent="."]
+z_index = -2
 scale = Vector2(1.94479, 0.668519)
 texture = ExtResource("1_5fdni")
 centered = false
@@ -101,7 +102,7 @@ scale = Vector2(0.2, 0.2)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(5017.5, 37.5)
+position = Vector2(5017.5, 295)
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_7cn0u")
 
