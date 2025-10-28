@@ -191,6 +191,8 @@ enable_interaction = true
 [node name="WallClock" parent="." instance=ExtResource("21_8cc2w")]
 position = Vector2(132, 176)
 
+[editable path="Flask"]
+[editable path="Flask2"]
 [editable path="PipetteStand"]
 [editable path="ScoopulaHolder"]
 [editable path="MicrocentrifugeHolder"]
