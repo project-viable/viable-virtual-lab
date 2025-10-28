@@ -90,11 +90,11 @@ max_volume = 0.2
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="TipOpeningArea" type="Area2D" parent="."]
+position = Vector2(4, 83)
 collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TipOpeningArea"]
-position = Vector2(4, 83)
 shape = SubResource("CircleShape2D_pthag")
 
 [connection signal="entered_purview_of" from="ExclusiveObjectHitbox" to="." method="_on_exclusive_object_hitbox_entered_purview_of"]

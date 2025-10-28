@@ -42,7 +42,7 @@ func _physics_process(delta: float) -> void:
 
 	if substance_display and has_tip:
 		# Only pull if we're below the fluid level.
-		if plunge_diff < -0.001 and substance_display.global_fluid_top_y_coord > $TipOpeningArea.global_position.y:
+		if plunge_diff < -0.001 and substance_display.global_fluid_top_y_coord <= $TipOpeningArea.global_position.y:
 			var volume: float = -plunge_diff * VOLUME_PER_DIST
 			$ContainerComponent.add(substance_display.source.take_volume(volume))
 		elif plunge_diff > 0.001:
