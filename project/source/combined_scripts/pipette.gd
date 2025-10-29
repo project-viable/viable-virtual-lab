@@ -34,7 +34,6 @@ var _mouse_pos_before_zoom := Vector2.ZERO
 func _input(e: InputEvent) -> void:
 	if e is InputEventMouseMotion:
 		_mouse_movement += e.relative
-		print(_mouse_movement)
 
 func _process(_delta: float) -> void:
 	# Stop looking at the subscene if the pipette has been removed.
