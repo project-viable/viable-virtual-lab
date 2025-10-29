@@ -11,6 +11,11 @@ enum PhysicsMode
 }
 
 
+# Mask for the collision layer bits actually managed by [LabBody]. Other bits can be freely changed
+# and won't be affected.
+const MANAGED_COLLISION_LAYERS_MASK: int = 0b111
+
+
 static var _pick_up_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up")
 static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
 
@@ -55,7 +60,7 @@ func _ready() -> void:
 	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
 
 	for p: PhysicsBody2D in find_children("", "PhysicsBody2D", false):
-		_child_physics_object_layers.set(p, p.collision_layer)
+		_child_physics_object_layers.set(p, p.collision_layer | MANAGED_COLLISION_LAYERS_MASK)
 		p.add_collision_exception_with(self)
 
 	_update_physics_to_mode(physics_mode)
@@ -160,11 +165,11 @@ func _update_physics_to_mode(mode: PhysicsMode) -> void:
 	if mode == PhysicsMode.KINEMATIC:
 		# Save physics states of child physics bodies.
 		for p: PhysicsBody2D in _child_physics_object_layers.keys():
-			_child_physics_object_layers[p] = p.collision_layer
-			p.set_deferred(&"collision_layer", 0)
+			_child_physics_object_layers[p] = p.collision_layer | MANAGED_COLLISION_LAYERS_MASK
+			p.collision_layer = Util.bitwise_set(p.collision_layer, MANAGED_COLLISION_LAYERS_MASK, 0)
 	else:
 		for p: PhysicsBody2D in _child_physics_object_layers.keys():
-			p.set_deferred(&"collision_layer", _child_physics_object_layers[p])
+			p.collision_layer = Util.bitwise_set(p.collision_layer, MANAGED_COLLISION_LAYERS_MASK,_child_physics_object_layers[p])
 
 	# We always have the boundary collision enabled by default.
 	var new_collision_mask := 0b001
@@ -178,8 +183,8 @@ func _update_physics_to_mode(mode: PhysicsMode) -> void:
 			# Collide with shelves.
 			new_collision_mask |= 0b010
 
-	set_deferred(&"collision_mask", new_collision_mask)
-	set_deferred(&"gravity_scale", new_gravity_scale)
+	collision_mask = Util.bitwise_set(collision_mask, MANAGED_COLLISION_LAYERS_MASK, new_collision_mask)
+	gravity_scale = new_gravity_scale
 
 func is_active() -> bool:
 	return Interaction.held_body == self

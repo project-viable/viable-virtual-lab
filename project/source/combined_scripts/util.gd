@@ -140,3 +140,11 @@ static func expand_to_aspect(rect: Rect2, aspect: float, horizontal_weight: floa
 		var extra_height := rect.size.x / aspect - rect.size.y
 		return rect.grow_individual(0, vertical_weight * extra_height, 0, (1 - vertical_weight) *
 	extra_height)
+
+
+## Set bits in [param value] to bits in [param new_value] based on which bits are set in
+## [param mask]. For example, if [param value] is [code]0000[/code], [param mask] is
+## [code]0110[/code], and [param new_value] is [code]1010[/code], then this will return
+## [code]0010[/code], since the mask indicates that only the middle two bits should be set.
+static func bitwise_set(value: int, mask: int, new_value: int) -> int:
+	return (mask & new_value) | (~mask & value)
