@@ -84,7 +84,9 @@ func _physics_process(delta: float) -> void:
 
 func _on_exclusive_object_hitbox_entered_purview_of(area: ExclusiveArea2D) -> void:
 	collision_mask |= 0b1000
-	z_index = -1
+	DepthManager.stop_managing(self)
+	z_index = DepthManager.get_base_z_index(Util.get_absolute_z_index(area))
+
 	var object_to_zoom := area.get_parent() as CollisionObject2D
 	if object_to_zoom and is_active():
 		# Zoom in on the object, with extra room above it for this pipette.
@@ -102,7 +104,11 @@ func _on_exclusive_object_hitbox_entered_purview_of(area: ExclusiveArea2D) -> vo
 
 func _on_exclusive_object_hitbox_left_purview_of(area: ExclusiveArea2D) -> void:
 	collision_mask &= ~0b1000
-	z_index = 0
+	if is_active():
+		DepthManager.move_to_front_of_layer(self, DepthManager.Layer.HELD)
+	else:
+		DepthManager.move_to_front_of_layer(self, depth_layer_to_drop_in)
+
 	_leave_subscene()
 	Game.camera.return_to_main_scene(1.5)
 

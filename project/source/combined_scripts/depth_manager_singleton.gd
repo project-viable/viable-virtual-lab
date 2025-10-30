@@ -60,6 +60,12 @@ func stop_managing(object: CanvasItem) -> void:
 		arranger.remove(object)
 		_object_arranger_map.erase(object)
 
+## Given the absolute z-index [param z_index] of an object, give the nearest "base" z-index (i.e.,
+## multiple of 10). If this is the child of a managed object and is within the correct relative
+## range of allowed z-indices, then this will be the z-index of that managed object.
+static func get_base_z_index(absolute_index: int) -> int:
+	return (absolute_index + 4) / 10 * 10
+
 
 class ZIndexArranger:
 	var min_index: int = 0

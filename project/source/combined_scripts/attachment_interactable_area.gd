@@ -22,6 +22,9 @@ signal object_removed(body: LabBody)
 @export var hide_object: bool = false
 ## Prompt shown when hovering with an object that can be placed.
 @export var place_prompt: String = "Place"
+## If set to [code]true[/code], an object will be moved to the absolute z-index of this node when
+## placed.
+@export var set_object_z_index_on_place: bool = true
 
 ## If not null, this will be outlined when the user is targeting this.
 @export var selectable_canvas_group: SelectableCanvasGroup = null
@@ -101,6 +104,11 @@ func can_place(body: LabBody) -> bool:
 
 func on_place_object() -> void:
 	contained_object.stop_dragging()
+
+	if set_object_z_index_on_place:
+		DepthManager.stop_managing(contained_object)
+		contained_object.z_as_relative = false
+		contained_object.z_index = DepthManager.get_base_z_index(Util.get_absolute_z_index(self))
 
 	if hide_object:
 		contained_object.hide()
