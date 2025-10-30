@@ -64,6 +64,7 @@ shape = SubResource("RectangleShape2D_0swob")
 debug_color = Color(0.954008, 0.0952036, 0.484962, 0.42)
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+z_index = 2
 script = ExtResource("2_lhjef")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 

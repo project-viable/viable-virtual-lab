@@ -27,6 +27,7 @@ metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 polygon = PackedVector2Array(-7, 1, -3, 28, 5, 28, 9, 1, 9, -28, -7, -28)
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+z_index = 1
 script = ExtResource("2_w81e0")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
