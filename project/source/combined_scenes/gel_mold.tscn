@@ -59,7 +59,7 @@ debug_color = Color(0.553104, 0.562669, 3.85046e-07, 0.42)
 
 [node name="WellContainerComponent" type="Node2D" parent="."]
 script = ExtResource("5_pmlyu")
-max_volume = 0.2
+container_volume = 0.2
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="Subscene" type="ReferenceRect" parent="."]
