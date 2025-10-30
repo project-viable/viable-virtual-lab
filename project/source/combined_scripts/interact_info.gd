@@ -1,5 +1,5 @@
 ## Represents an interaction that an object can perform. This is used for displaying button prompts
-## and 
+## and interaction directions.
 class_name InteractInfo
 
 
@@ -9,7 +9,7 @@ enum Kind
 	SECONDARY, ## Right click by default.
 }
 
-
+## variable holding the type of interaction. Primary by default.
 var kind: Kind = Kind.PRIMARY
 
 ## Displayed in the button prompt.

@@ -1,4 +1,4 @@
-## An area that can be interacted with by dragging an object on top of it.
+## An area that can be interacted with by dragging an object on top of it
 class_name InteractableArea
 extends Area2D
 

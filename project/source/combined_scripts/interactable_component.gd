@@ -1,5 +1,5 @@
-## A component that can be interacted with directly when the user isn't holding something. This is
-## typically a clickable sprite.
+## A component that can be interacted with directly when the user isn't holding something, 
+## typically represented as a clickable sprite
 class_name InteractableComponent
 extends Node2D
 

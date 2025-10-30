@@ -1,16 +1,80 @@
-[gd_scene load_steps=5 format=3 uid="uid://cug6kav5s55iq"]
+[gd_scene load_steps=17 format=3 uid="uid://cug6kav5s55iq"]
 
-[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_p46ws"]
+[ext_resource type="Script" uid="uid://bptf21x2a24jj" path="res://combined_scripts/imager_gel_band_logic.gd" id="1_7wmgd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_w2ofj"]
+[ext_resource type="Script" uid="uid://06juxjpcn4yg" path="res://combined_scripts/gel_state.gd" id="2_us78d"]
 [ext_resource type="Texture2D" uid="uid://cslhw30pcab3a" path="res://updated_assets/lab_objects/imager.svg" id="3_p46ws"]
+[ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="4_7wmgd"]
+[ext_resource type="Texture2D" uid="uid://b1syli7unwpoc" path="res://updated_assets/Temp Sprites/blank-gel-bands.png" id="5_omd45"]
+[ext_resource type="Texture2D" uid="uid://cl3yl1bpe8btn" path="res://updated_assets/Temp Sprites/diffused-long-ladders.png" id="6_p46ws"]
+[ext_resource type="Texture2D" uid="uid://c1s2t3skvd8lf" path="res://updated_assets/Temp Sprites/perfect-long-ladders.png" id="7_p0nad"]
+[ext_resource type="Texture2D" uid="uid://d06fx38hn4ra0" path="res://updated_assets/Temp Sprites/wavy-long-ladders.png" id="8_ij0yr"]
+[ext_resource type="Texture2D" uid="uid://cyk7fp41fn1x6" path="res://updated_assets/Temp Sprites/diffused-short-ladders.png" id="9_qyx1t"]
+[ext_resource type="Texture2D" uid="uid://mvehf7nq1p7h" path="res://updated_assets/Temp Sprites/perfect-short-ladders.png" id="10_b8f6j"]
+[ext_resource type="Texture2D" uid="uid://m7pp2axslh26" path="res://updated_assets/Temp Sprites/wavy-short-ladders.png" id="11_4rua4"]
+[ext_resource type="Texture2D" uid="uid://cfkclnd374ooi" path="res://updated_assets/Temp Sprites/smeared-long-ladders.png" id="12_4rua4"]
+[ext_resource type="Texture2D" uid="uid://ds54youqsllq3" path="res://updated_assets/Temp Sprites/smeared-short-ladders.png" id="13_us78d"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2ofj"]
-size = Vector2(170, 197)
+[sub_resource type="Resource" id="Resource_us78d"]
+script = ExtResource("2_us78d")
+electrode_correct_placement = true
+voltage = 120
+gel_concentration = 1.5
+gel_analysis_asap = true
+correct_gel_temperature = true
+correct_comb_placement = true
+correct_gel_mixing = true
+voltage_run_time = 20.0
+well1 = {
+"GelBandState": null,
+"dna_size": 25.0,
+"gel_band_sprite": null,
+"name": "well 1",
+"well_capacity": 5.0
+}
+well2 = {
+"GelBandState": null,
+"dna_size": 25.0,
+"gel_band_sprite": null,
+"name": "well 2",
+"well_capacity": 5.0
+}
+well3 = {
+"GelBandState": null,
+"dna_size": 25.0,
+"gel_band_sprite": null,
+"name": "well 3",
+"well_capacity": 5.0
+}
+well4 = {
+"GelBandState": null,
+"dna_size": 25.0,
+"gel_band_sprite": null,
+"name": "well 4",
+"well_capacity": 5.0
+}
+well5 = {
+"GelBandState": null,
+"dna_size": 25.0,
+"gel_band_sprite": null,
+"name": "well 5",
+"well_capacity": 5.0
+}
+well6 = {
+"GelBandState": null,
+"dna_size": 25.0,
+"gel_band_sprite": null,
+"name": "well 6",
+"well_capacity": 5.0
+}
+metadata/_custom_type_script = "uid://06juxjpcn4yg"
 
-[node name="GelImager" type="RigidBody2D"]
-collision_layer = 0
-script = ExtResource("1_p46ws")
-metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_omd45"]
+size = Vector2(166, 191)
+
+[node name="GelImager" type="Node2D"]
+script = ExtResource("1_7wmgd")
+gel_state = SubResource("Resource_us78d")
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("1_w2ofj")
@@ -20,6 +84,91 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 scale = Vector2(0.327149, 0.327149)
 texture = ExtResource("3_p46ws")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_w2ofj")
+[node name="AttachmentInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
+script = ExtResource("4_7wmgd")
+show_ghost_sprite = false
+hide_object = true
+place_prompt = "Put in imager"
+selectable_canvas_group = NodePath("../SelectableCanvasGroup")
+body_group_filter_type = 1
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_omd45")
+
+[node name="UV Light" type="Button" parent="."]
+offset_left = -4.0
+offset_top = -30.0
+offset_right = 4.0
+offset_bottom = -22.0
+
+[node name="ClosedDoor" type="TextureButton" parent="."]
+offset_left = 68.0
+offset_top = -40.0
+offset_right = 82.0
+offset_bottom = 92.0
+
+[node name="Screeen" type="TextureButton" parent="."]
+offset_left = -64.0
+offset_top = -94.0
+offset_right = 63.0
+offset_bottom = -47.0
+
+[node name="BlankGelBands" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-274.75, -257.938)
+scale = Vector2(0.306019, 0.306019)
+texture = ExtResource("5_omd45")
+
+[node name="DiffusedLongLadders" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-272, -257.5)
+scale = Vector2(0.305556, 0.305556)
+texture = ExtResource("6_p46ws")
+
+[node name="PerfectLongLadders" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-275, -263)
+scale = Vector2(0.314815, 0.314815)
+texture = ExtResource("7_p0nad")
+
+[node name="WavyLongLadders" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-272.5, -259.875)
+scale = Vector2(0.315741, 0.315741)
+texture = ExtResource("8_ij0yr")
+
+[node name="DiffusedShortLadders" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-276, -258.25)
+scale = Vector2(0.324074, 0.324074)
+texture = ExtResource("9_qyx1t")
+
+[node name="PerfectShortLadders" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-275, -256)
+scale = Vector2(0.325926, 0.325926)
+texture = ExtResource("10_b8f6j")
+
+[node name="WavyShortLadders" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-275.5, -257.125)
+scale = Vector2(0.328704, 0.328704)
+texture = ExtResource("11_4rua4")
+
+[node name="SmearedLongLadders" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-273, -255)
+scale = Vector2(0.311111, 0.311111)
+texture = ExtResource("12_4rua4")
+
+[node name="SmearedShortLadders" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-272, -255.75)
+scale = Vector2(0.312963, 0.312963)
+texture = ExtResource("13_us78d")
+
+[connection signal="pressed" from="UV Light" to="." method="_on_uv_light_pressed"]
+[connection signal="pressed" from="ClosedDoor" to="." method="on_gel_removed"]
+[connection signal="pressed" from="Screeen" to="." method="on_gel_inserted"]
