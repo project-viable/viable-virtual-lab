@@ -33,6 +33,9 @@ static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, 
 ## prevent weird behavior.
 @export var disable_drop: bool = false
 
+## When dropped, this is the depth layer this body will be in.
+@export var depth_layer_to_drop_in: DepthManager.Layer = DepthManager.Layer.BENCH
+
 
 # Keep track of collision layers of any child physics objects. For example, the scale has a child
 # `StaticBody2D` with one-way collision that acts as the surface for objects to be set on, which
@@ -53,6 +56,8 @@ func _ready() -> void:
 
 	if not interact_canvas_group:
 		interact_canvas_group = Util.find_child_of_type(self, SelectableCanvasGroup)
+
+	DepthManager.move_to_front_of_layer(self, depth_layer_to_drop_in)
 
 	freeze_mode = FREEZE_MODE_KINEMATIC
 	# We need collisions in layer 3 so that interaction areas detect this object.
@@ -134,12 +139,7 @@ func start_dragging() -> void:
 	Interaction.held_body = self
 	set_physics_mode(PhysicsMode.KINEMATIC)
 
-	# We can't just use `move_to_front` because it doesn't properly reorder the `_draw` calls,
-	# whose specific order is required to determine which one is in front.
-	var body_parent := get_parent()
-	if body_parent:
-		body_parent.call_deferred(&"remove_child", self)
-		body_parent.call_deferred(&"add_child", self)
+	DepthManager.move_to_front_of_layer(self, DepthManager.Layer.HELD)
 
 	_offset = _get_local_virtual_mouse_position()
 
@@ -152,6 +152,8 @@ func stop_dragging() -> void:
 	set_physics_mode(PhysicsMode.FALLING_THROUGH_SHELVES)
 	Interaction.clear_interaction_stack()
 	set_deferred(&"linear_velocity", _velocity / 5.0)
+
+	DepthManager.move_to_front_of_layer(self, depth_layer_to_drop_in)
 
 	Cursor.mode = Cursor.Mode.POINTER
 	Cursor.use_custom_hand_position = false

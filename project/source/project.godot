@@ -25,6 +25,7 @@ LabTime="*res://combined_scripts/lab_time_singleton.gd"
 Cursor="*res://combined_scripts/cursor_singleton.gd"
 Subscenes="*res://combined_scripts/subscenes_singleton.gd"
 Game="*res://combined_scripts/game_singleton.gd"
+DepthManager="*res://combined_scripts/depth_manager_singleton.gd"
 
 [debug]
 
