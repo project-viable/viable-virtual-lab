@@ -28,36 +28,42 @@ voltage_run_time = 20.0
 well1 = {
 "GelBandState": null,
 "dna_size": 25.0,
+"gel_band_sprite": null,
 "name": "well 1",
 "well_capacity": 5.0
 }
 well2 = {
 "GelBandState": null,
 "dna_size": 25.0,
+"gel_band_sprite": null,
 "name": "well 2",
 "well_capacity": 5.0
 }
 well3 = {
 "GelBandState": null,
 "dna_size": 25.0,
+"gel_band_sprite": null,
 "name": "well 3",
 "well_capacity": 5.0
 }
 well4 = {
 "GelBandState": null,
 "dna_size": 25.0,
+"gel_band_sprite": null,
 "name": "well 4",
 "well_capacity": 5.0
 }
 well5 = {
 "GelBandState": null,
 "dna_size": 25.0,
+"gel_band_sprite": null,
 "name": "well 5",
 "well_capacity": 5.0
 }
 well6 = {
 "GelBandState": null,
 "dna_size": 25.0,
+"gel_band_sprite": null,
 "name": "well 6",
 "well_capacity": 5.0
 }

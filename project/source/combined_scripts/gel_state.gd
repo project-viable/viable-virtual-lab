@@ -36,7 +36,8 @@ enum GelBandState {
 	"name": "well 1",
 	"well_capacity": 5.0, 
 	"dna_size": 25.0,
-	"GelBandState": null
+	"GelBandState": null,
+	"gel_band_sprite": null
 }
 
 ## Dictionary holding well-specific information for well 2
@@ -44,7 +45,8 @@ enum GelBandState {
 	"name": "well 2",
 	"well_capacity": 5.0, 
 	"dna_size": 25.0,
-	"GelBandState": null
+	"GelBandState": null,
+	"gel_band_sprite": null
 }
 
 ## Dictionary holding well-specific information for well 3
@@ -52,7 +54,8 @@ enum GelBandState {
 	"name": "well 3",
 	"well_capacity": 5.0, 
 	"dna_size": 25.0,
-	"GelBandState": null
+	"GelBandState": null,
+	"gel_band_sprite": null
 }
 
 ## Dictionary holding well-specific information for well 4
@@ -60,7 +63,8 @@ enum GelBandState {
 	"name": "well 4",
 	"well_capacity": 5.0, 
 	"dna_size": 25.0,
-	"GelBandState": null
+	"GelBandState": null,
+	"gel_band_sprite": null
 }
 
 ## Dictionary holding well-specific information for well 5
@@ -68,7 +72,8 @@ enum GelBandState {
 	"name": "well 5",
 	"well_capacity": 5.0, 
 	"dna_size": 25.0,
-	"GelBandState": null
+	"GelBandState": null,
+	"gel_band_sprite": null
 }
 
 ## Dictionary holding well-specific information for well 6
@@ -76,5 +81,6 @@ enum GelBandState {
 	"name": "well 6",
 	"well_capacity": 5.0, 
 	"dna_size": 25.0,
-	"GelBandState": null
+	"GelBandState": null,
+	"gel_band_sprite": null
 }
