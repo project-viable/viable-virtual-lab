@@ -90,7 +90,6 @@ disabled = true
 
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("10_epgtn")
-max_volume = 0.2
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="TipOpeningArea" type="Area2D" parent="."]

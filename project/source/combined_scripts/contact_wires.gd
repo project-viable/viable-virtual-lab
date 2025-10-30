@@ -2,13 +2,22 @@ extends Node2D
 @export var power_supply: PowerSupply
 
 func _process(_delta: float) -> void:
+	# Make sure to draw on top of the wire ends.
+	z_index = 0
+	for child in get_children():
+		for wire in child.get_children():
+			if wire is CanvasItem:
+				z_index = max(z_index, wire.z_index)
+
+	z_index += 1
+
 	if Interaction.held_body and Interaction.held_body.find_children("", "WireConnectableComponent"):
-		_on_moved()
+		queue_redraw()
 
 func _ready() -> void:
 	for contact_wire: Wire in get_tree().get_nodes_in_group("contact_wire"):
-		contact_wire.connect("moved", _on_moved)
-	
+		contact_wire.connect("moved", queue_redraw)
+
 	# Each contact wire should know about its other end
 	for child: Node2D in get_children():
 		var wires: Array[Node] = child.get_children()
@@ -19,14 +28,5 @@ func _draw() -> void:
 	# Draw a black line between each pair of wire contact
 	for child: Node2D in get_children():
 		var wires: Array[Node] = child.get_children()
-		draw_line(wires[0].position, wires[1].position, "black")
-
-## Keep the wires on the top-most level whenever it moves. This accounts for when its moving 
-## While connected to the Power Supply
-func _on_moved() -> void:
-	# Check if the wires are already on the top-most level, if not remove and then re-add
-	if not self.get_index() == get_parent().get_child_count() - 1:
-		get_parent().call_deferred(&"remove_child", self)
-		get_parent().call_deferred(&"add_child", self)
-		
+		draw_line(wires[0].position, wires[1].position, Color.BLACK)
 	queue_redraw()
