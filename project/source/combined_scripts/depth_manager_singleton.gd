@@ -63,7 +63,8 @@ func stop_managing(object: CanvasItem) -> void:
 ## Given the absolute z-index [param z_index] of an object, give the nearest "base" z-index (i.e.,
 ## multiple of 10). If this is the child of a managed object and is within the correct relative
 ## range of allowed z-indices, then this will be the z-index of that managed object.
-static func get_base_z_index(absolute_index: int) -> int:
+func get_base_z_index(absolute_index: int) -> int:
+	@warning_ignore("integer_division")
 	return (absolute_index + 4) / 10 * 10
 
 
@@ -83,6 +84,7 @@ class ZIndexArranger:
 		_objects.erase(object)
 		_objects.push_back(object)
 
+		@warning_ignore("integer_division")
 		var num_slots: int = (max_index - min_index) / 10 + 1
 		if len(_objects) > num_slots:
 			push_warning("While assigning layer to %s, number of z-index layers exceeded" % [object])
