@@ -73,6 +73,10 @@ func _physics_process(_delta: float) -> void:
 	if contained_object != null and Interaction.held_body == contained_object:
 		remove_object()
 
+func _process(_delta: float) -> void:
+	if contained_object and set_object_z_index_on_place:
+		contained_object.z_index = DepthManager.get_base_z_index(Util.get_absolute_z_index(self))
+
 func get_interactions() -> Array[InteractInfo]:
 	if not contained_object and can_place(Interaction.held_body):
 		return [InteractInfo.new(InteractInfo.Kind.PRIMARY, place_prompt)]
