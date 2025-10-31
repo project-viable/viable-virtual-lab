@@ -239,19 +239,23 @@ script = ExtResource("21_kobiv")
 
 [node name="RedContactWire" parent="Objects/ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(686, 455)
+depth_layer_to_drop_in = 3
 
 [node name="RedContactWire2" parent="Objects/ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(718, 455)
+depth_layer_to_drop_in = 3
 
 [node name="BlackContactWires" type="Node2D" parent="Objects/ContactWires"]
 
 [node name="BlackContactWire" parent="Objects/ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(686, 479)
 texture = ExtResource("22_kobiv")
+depth_layer_to_drop_in = 3
 
 [node name="BlackContactWire2" parent="Objects/ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(718, 479)
 texture = ExtResource("22_kobiv")
+depth_layer_to_drop_in = 3
 
 [editable path="Objects/Flask"]
 [editable path="Objects/Flask2"]

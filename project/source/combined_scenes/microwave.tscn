@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cs2tep7cd3vxf"]
+[gd_scene load_steps=10 format=3 uid="uid://cs2tep7cd3vxf"]
 
 [ext_resource type="Script" uid="uid://b10fibv688ggy" path="res://combined_scripts/microwave.gd" id="1_caubw"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_cwbd0"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bk0s8v1tcwcmr" path="res://combined_scripts/lab_timer.gd" id="5_8bw4g"]
 [ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://updated_assets/icons_and_buttons/button_2.svg" id="5_caubw"]
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="5_iwbat"]
+[ext_resource type="Script" uid="uid://cyy8f7st3wb0c" path="res://combined_scripts/selectable_area_component.gd" id="6_8bw4g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwbat"]
 size = Vector2(53, 59)
@@ -265,12 +266,17 @@ editor_description = "A template for the TransitionCamera in Main to transition 
 zoom = Vector2(4, 4)
 position_smoothing_speed = 1.0
 
-[node name="KeypadArea" type="Area2D" parent="."]
+[node name="ZoomArea" type="Node2D" parent="."]
+script = ExtResource("6_8bw4g")
+prompt = "Inspect keypad"
+metadata/_custom_type_script = "uid://cyy8f7st3wb0c"
+
+[node name="KeypadArea" type="Area2D" parent="ZoomArea"]
+z_index = 1
 position = Vector2(-4, 4)
-monitoring = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KeypadArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea/KeypadArea"]
 position = Vector2(104.5, -0.5)
 shape = SubResource("RectangleShape2D_iwbat")
 
@@ -289,4 +295,4 @@ shape = SubResource("RectangleShape2D_a0lrr")
 
 [connection signal="pressed" from="StopButton" to="." method="_on_microwave_stopped"]
 [connection signal="timeout" from="MicrowaveTimer" to="." method="_on_microwave_timer_timeout"]
-[connection signal="input_event" from="KeypadArea" to="." method="_on_keypad_area_input_event"]
+[connection signal="pressed" from="ZoomArea" to="." method="_on_zoom_area_pressed"]

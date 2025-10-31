@@ -89,6 +89,8 @@ func _on_start_button_pressed() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ExitCameraZoom"):
 		_on_screen_button_released(_current_pressed_button) # Special case where the user zooms out while still holding down left click
+		Game.camera.return_to_main_scene()
+		$ScreenZoom.enable_interaction = true
 		_is_zoomed_in = false
 		for button in _buttons:
 			button.disabled = true
@@ -97,9 +99,10 @@ func _input(event: InputEvent) -> void:
 		time_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		
-func _on_screen_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event.is_pressed():
+func _on_screen_zoom_pressed() -> void:
+	if not _is_zoomed_in:
 		Game.camera.move_to_camera($ZoomCamera)
+		$ScreenZoom.enable_interaction = false
 		_is_zoomed_in = true
 		for button in _buttons:
 			button.disabled = false
@@ -107,13 +110,6 @@ func _on_screen_input_event(_viewport: Node, event: InputEvent, _shape_idx: int)
 		
 		time_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
 		voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
-		
-func _on_screen_mouse_entered() -> void:
-	enable_interaction = false
-
-func _on_screen_mouse_exited() -> void:
-	if not _is_zoomed_in:
-		enable_interaction = true
  
 func _on_timer_timeout() -> void:
 	var is_pressed: bool = _current_pressed_button.button_pressed

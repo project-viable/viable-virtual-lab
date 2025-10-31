@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://b4q3npoc5c7fy"]
+[gd_scene load_steps=24 format=3 uid="uid://b4q3npoc5c7fy"]
 
 [ext_resource type="Script" uid="uid://bepsdcjab3t21" path="res://combined_scripts/power_supply.gd" id="1_7lagc"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_80iu8"]
 [ext_resource type="Texture2D" uid="uid://bi5tvuv5gh5u" path="res://updated_assets/lab_objects/powerbox.svg" id="3_7lagc"]
+[ext_resource type="Script" uid="uid://cyy8f7st3wb0c" path="res://combined_scripts/selectable_area_component.gd" id="7_4pbs0"]
 [ext_resource type="Texture2D" uid="uid://crtq0m4w5xpmy" path="res://updated_assets/icons_and_buttons/plus_symbol.svg" id="7_5dnns"]
 [ext_resource type="Script" uid="uid://brj1u83e5o6i6" path="res://combined_scripts/terminal_attachment.gd" id="7_07yqv"]
 [ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://updated_assets/icons_and_buttons/button_2.svg" id="8_5dnns"]
@@ -156,7 +157,14 @@ debug_color = Color(0.799247, 0.420694, 0.0500949, 0.42)
 zoom = Vector2(4.5, 4.5)
 position_smoothing_speed = 20.0
 
+[node name="ScreenZoom" type="Node2D" parent="." node_paths=PackedStringArray("click_area")]
+script = ExtResource("7_4pbs0")
+click_area = NodePath("../Screen")
+prompt = "Inspect screen"
+metadata/_custom_type_script = "uid://cyy8f7st3wb0c"
+
 [node name="Screen" type="Area2D" parent="."]
+z_index = 1
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Screen"]
@@ -398,9 +406,7 @@ metadata/_custom_type_script = "uid://chvv2ne60otwi"
 [connection signal="object_placed" from="AttachmentNegativeOutlet" to="AttachmentNegativeOutlet" method="_on_object_placed"]
 [connection signal="object_removed" from="AttachmentNegativeOutlet" to="WireConnectableComponent" method="unplug_handler"]
 [connection signal="wire_connected" from="AttachmentNegativeOutlet" to="WireConnectableComponent" method="on_wire_connected"]
-[connection signal="input_event" from="Screen" to="." method="_on_screen_input_event"]
-[connection signal="mouse_entered" from="Screen" to="." method="_on_screen_mouse_entered"]
-[connection signal="mouse_exited" from="Screen" to="." method="_on_screen_mouse_exited"]
+[connection signal="pressed" from="ScreenZoom" to="." method="_on_screen_zoom_pressed"]
 [connection signal="editing_toggled" from="Screen/TimeContainer/HBoxContainer/Time/TimeLineEdit" to="Screen/TimeContainer/HBoxContainer/Time/TimeLineEdit" method="_on_editing_toggled"]
 [connection signal="text_changed" from="Screen/TimeContainer/HBoxContainer/Time/TimeLineEdit" to="Screen/TimeContainer/HBoxContainer/Time/TimeLineEdit" method="_on_time_line_edit_text_changed"]
 [connection signal="text_changed" from="Screen/VoltageContainer/HBoxContainer/VoltageLineEdit" to="Screen/VoltageContainer/HBoxContainer/VoltageLineEdit" method="_on_voltage_line_edit_text_changed"]

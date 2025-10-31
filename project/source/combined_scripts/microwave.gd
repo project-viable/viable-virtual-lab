@@ -18,6 +18,8 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if _is_zoomed_in and event.is_action_pressed("ExitCameraZoom"):
 		_is_zoomed_in = false
+		$ZoomArea.enable_interaction = true
+		Game.camera.return_to_main_scene()
 
 		# Buttons can't be clicked on if zoomed out.
 		for button: TextureButton in $Keypad.get_children():
@@ -55,9 +57,10 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 			update_timer_display(minutes, seconds)
 
 ## Handles when the area is clicked on. If so zoom in on the microwave
-func _on_keypad_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event.is_action_pressed("click") and not _is_zoomed_in:
+func _on_zoom_area_pressed() -> void:
+	if not _is_zoomed_in:
 		_is_zoomed_in = true
+		$ZoomArea.enable_interaction = false
 		Game.camera.move_to_camera($ZoomCamera)
 
 		# Keypad buttons should be clickable if zoomed in on
