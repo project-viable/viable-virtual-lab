@@ -67,7 +67,7 @@ func _ready() -> void:
 	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
 
 	for p: PhysicsBody2D in find_children("", "PhysicsBody2D", false):
-		_child_physics_object_layers.set(p, p.collision_layer | MANAGED_COLLISION_LAYERS_MASK)
+		_child_physics_object_layers.set(p, p.collision_layer & MANAGED_COLLISION_LAYERS_MASK)
 		p.add_collision_exception_with(self)
 
 	_update_physics_to_mode(physics_mode)
@@ -170,11 +170,11 @@ func _update_physics_to_mode(mode: PhysicsMode) -> void:
 	if mode == PhysicsMode.KINEMATIC:
 		# Save physics states of child physics bodies.
 		for p: PhysicsBody2D in _child_physics_object_layers.keys():
-			_child_physics_object_layers[p] = p.collision_layer | MANAGED_COLLISION_LAYERS_MASK
+			_child_physics_object_layers[p] = p.collision_layer & MANAGED_COLLISION_LAYERS_MASK
 			p.collision_layer = Util.bitwise_set(p.collision_layer, MANAGED_COLLISION_LAYERS_MASK, 0)
 	else:
 		for p: PhysicsBody2D in _child_physics_object_layers.keys():
-			p.collision_layer = Util.bitwise_set(p.collision_layer, MANAGED_COLLISION_LAYERS_MASK,_child_physics_object_layers[p])
+			p.collision_layer = Util.bitwise_set(p.collision_layer, MANAGED_COLLISION_LAYERS_MASK, _child_physics_object_layers[p])
 
 	# We always have the boundary collision enabled by default.
 	var new_collision_mask := 0b001
