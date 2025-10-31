@@ -29,7 +29,7 @@ func _ready() -> void:
 		click_area.area_exited.connect(_on_click_area_area_exited)
 
 func is_hovered() -> bool: return _is_moused_over
-func get_absolute_z_index() -> int: return Util.get_absolute_z_index(self)
+func get_absolute_z_index() -> int: return Util.get_absolute_z_index(click_area)
 
 func get_interactions() -> Array[InteractInfo]:
 	return [InteractInfo.new(InteractInfo.Kind.PRIMARY, prompt)]
