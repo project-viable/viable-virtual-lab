@@ -3,6 +3,7 @@ extends Node
 
 
 signal mode_changed(mode: Mode)
+signal virtual_mouse_moved(old_pos: Vector2, new_pos: Vector2)
 
 
 enum Mode
@@ -21,7 +22,10 @@ var mode: Mode :
 ## Position of the virtual cursor in global coordinates. When the game is unpaused, the actual
 ## hardware cursor is locked in the middle of the screen and hidden, and this cursor is moved
 ## instead based on the relative movement of the actual cursor.
-var virtual_mouse_position: Vector2 = Vector2.ZERO
+var virtual_mouse_position: Vector2 = Vector2.ZERO :
+	set(v):
+		virtual_mouse_moved.emit(virtual_mouse_position, v)
+		virtual_mouse_position = v
 
 ## When set to true, the actual cursor will be represented with a small circle, and the hand will be
 ## drawn at [member custom_hand_position].
