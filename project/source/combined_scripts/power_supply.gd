@@ -87,7 +87,7 @@ func _on_start_button_pressed() -> void:
 		print("Something is wrong with the circuit! Check that the connections on the Power Supply and Gel Box are correct!")
 		
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ExitCameraZoom"):
+	if _is_zoomed_in and event.is_action_pressed("ExitCameraZoom"):
 		_on_screen_button_released(_current_pressed_button) # Special case where the user zooms out while still holding down left click
 		Game.camera.return_to_main_scene()
 		$ScreenZoom.enable_interaction = true
