@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cm63yepobpmlk" path="res://Images/Dot-Yellow.png" id="7"]
 [ext_resource type="Resource" uid="uid://qyvthme13vqx" path="res://Modules/GelElectrophoresis.tres" id="7_d1bo7"]
 [ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://Images/Dot-Red.png" id="8"]
+[ext_resource type="Script" uid="uid://cmnnbli12q46a" path="res://combined_scripts/virtual_mouse_content_scaled_sub_viewport_container.gd" id="8_bg4s2"]
 [ext_resource type="Resource" uid="uid://d3tt3s0try6s7" path="res://Modules/combined.tres" id="8_sc1dx"]
 [ext_resource type="Resource" uid="uid://ig5fr0g7xm80" path="res://MistakeCheckers/MixtureChecker.tres" id="9"]
 [ext_resource type="Script" uid="uid://bmcv1qehkhxri" path="res://combined_scripts/scene_input_handler.gd" id="9_kjvhd"]
@@ -18,7 +19,6 @@
 [ext_resource type="Script" uid="uid://b8kjtd0vdnq42" path="res://combined_scripts/transition_camera.gd" id="10_bg4s2"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://Images/VIABLE_Logo_Transparent.png" id="11"]
 [ext_resource type="FontFile" path="res://UI/RobotoMedium28.tres" id="12"]
-[ext_resource type="Script" uid="uid://dmoeu8vq1th7i" path="res://combined_scripts/content_scaled_subviewport_container.gd" id="16_sc1dx"]
 [ext_resource type="Texture2D" uid="uid://dpjbw81s4cllc" path="res://updated_assets/icons_and_buttons/cursors/hand_pointing.svg" id="18_5tuhn"]
 [ext_resource type="Texture2D" uid="uid://b0hfiq010v2bq" path="res://updated_assets/icons_and_buttons/cursors/hand_open.svg" id="19_devvj"]
 [ext_resource type="Texture2D" uid="uid://bhpxxflq68efs" path="res://updated_assets/icons_and_buttons/cursors/hand_closed.svg" id="20_3b0ty"]
@@ -94,7 +94,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("16_sc1dx")
+script = ExtResource("8_bg4s2")
 metadata/_custom_type_script = "uid://dmoeu8vq1th7i"
 
 [node name="MainViewport" type="SubViewport" parent="SceneLayer/ContentScaledSubViewportContainer"]
