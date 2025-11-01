@@ -6,12 +6,14 @@ extends Node2D
 # to be weird. So instead, we handle it here.
 func _unhandled_input(e: InputEvent) -> void:
 	var kind := InteractInfo.Kind.PRIMARY
-	if e.is_action(&"interact_primary"):
-		kind = InteractInfo.Kind.PRIMARY
-	elif e.is_action(&"interact_secondary"):
-		kind = InteractInfo.Kind.SECONDARY
-	else:
-		return
+	var found_kind := false
+	for k: InteractInfo.Kind in InteractInfo.Kind.values():
+		if e.is_action(InteractInfo.kind_to_action(k)):
+			kind = k
+			found_kind = true
+			break
+
+	if not found_kind: return
 
 	var state: Interaction.InteractState = Interaction.interactions.get(kind)
 	if not state or not state.info: return

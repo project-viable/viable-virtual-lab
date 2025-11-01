@@ -59,10 +59,7 @@ var held_body: LabBody = null
 var hovered_interactable: Node2D = null
 
 ## Current potential interactions by kind.
-var interactions: Dictionary[InteractInfo.Kind, InteractState] = {
-	InteractInfo.Kind.PRIMARY: InteractState.new(),
-	InteractInfo.Kind.SECONDARY: InteractState.new(),
-}
+var interactions: Dictionary[InteractInfo.Kind, InteractState] = {}
 
 
 # The "draw order" of the next `SelectableCanvasGroup` to call `_draw`. The
@@ -71,6 +68,10 @@ var interactions: Dictionary[InteractInfo.Kind, InteractState] = {
 var _next_draw_order: int = 0
 var _interact_area_stack: Array[InteractableArea] = []
 
+
+func _ready() -> void:
+	for kind: InteractInfo.Kind in InteractInfo.Kind.values():
+		interactions[kind] = InteractState.new()
 
 func _draw() -> void:
 	_next_draw_order = 0
