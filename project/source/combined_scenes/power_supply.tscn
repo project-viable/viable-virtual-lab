@@ -160,6 +160,7 @@ position_smoothing_speed = 20.0
 [node name="ScreenZoom" type="Node2D" parent="." node_paths=PackedStringArray("click_area")]
 script = ExtResource("7_4pbs0")
 click_area = NodePath("../Screen")
+interact_kind = 2
 prompt = "Inspect screen"
 metadata/_custom_type_script = "uid://cyy8f7st3wb0c"
 

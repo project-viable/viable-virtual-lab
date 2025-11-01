@@ -12,6 +12,7 @@ signal stopped_holding()
 ## Area that can be clicked. If not set, then this will automatically be set to the first [Area2D]
 ## child of this component.
 @export var click_area: Area2D
+@export var interact_kind: InteractInfo.Kind = InteractInfo.Kind.PRIMARY
 @export var prompt: String = "Activate"
 
 
@@ -32,7 +33,7 @@ func is_hovered() -> bool: return _is_moused_over
 func get_absolute_z_index() -> int: return Util.get_absolute_z_index(click_area)
 
 func get_interactions() -> Array[InteractInfo]:
-	return [InteractInfo.new(InteractInfo.Kind.PRIMARY, prompt)]
+	return [InteractInfo.new(interact_kind, prompt)]
 
 func start_interact(_k: InteractInfo.Kind) -> void:
 	pressed.emit()
