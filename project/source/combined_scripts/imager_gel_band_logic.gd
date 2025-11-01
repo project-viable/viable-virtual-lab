@@ -8,6 +8,7 @@ var well3_ladders: Sprite2D = null
 var well4_ladders: Sprite2D = null
 var well5_ladders: Sprite2D = null
 var well6_ladders: Sprite2D = null
+var well_counter: int = 0
 
 func on_gel_inserted() -> void:
 	base_gel_sprite = $GelRigTopView
@@ -39,6 +40,7 @@ func on_gel_removed() -> void:
 		well3_ladders = null
 		well4_ladders = null
 		well5_ladders = null
+		well_counter = 0
 		$AttachmentInteractableArea.remove_object()
 	else:
 		for body: LabBody in  $AttachmentInteractableArea.get_overlapping_bodies():
@@ -51,7 +53,18 @@ func display_blank_gel_bands() -> void:
 	base_wells_sprite.visible = true
 	
 func analyze_gel_state(well: Dictionary) -> void:
-	
+	well_counter+=1
+	match well_counter:
+		1:
+			well["well_sprite"] = $Well1
+		2:
+			well["well_sprite"] = $Well2
+		3:
+			well["well_sprite"] = $Well3
+		4:
+			well["well_sprite"] = $Well4
+		5:
+			well["well_sprite"] = $Well5
 	match well:
 			# Perfect results
 			{
