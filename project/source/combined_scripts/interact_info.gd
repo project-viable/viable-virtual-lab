@@ -27,3 +27,10 @@ func _init(p_kind: Kind, p_description: String, p_allowed: bool = true) -> void:
 	kind = p_kind
 	description = p_description
 	allowed = p_allowed
+
+## Get the [StringName] of the input action associated with an interaction kind.
+static func kind_to_action(k: Kind) -> StringName:
+	match k:
+		Kind.PRIMARY: return &"interact_primary"
+		Kind.SECONDARY: return &"interact_secondary"
+		_: return &""

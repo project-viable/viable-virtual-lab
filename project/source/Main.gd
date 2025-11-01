@@ -1,6 +1,10 @@
 class_name Main
 extends Node2D
 
+
+const INTERACTION_PROMPT_SCENE := preload("res://combined_scenes/interaction_prompt.tscn")
+
+
 @export var check_strategies: Array[MistakeChecker]
 @export var all_modules: Array[ModuleData]
 
@@ -23,10 +27,6 @@ var unread_logs: Dictionary = {
 var popup_active: bool = false
 var logs: Array[LogMessage] = []
 
-
-@onready var _prompt_panel_stylebox_allowed: StyleBox = $%PrimaryPrompt.get_theme_stylebox("panel").duplicate()
-@onready var _prompt_panel_stylebox_disallowed: StyleBox = _prompt_panel_stylebox_allowed.duplicate()
-
 @onready var _hand_pointing_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandPointing
 @onready var _hand_open_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandOpen
 @onready var _hand_closed_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandClosed
@@ -45,6 +45,7 @@ var _resolution_options: Array[Vector2i] = [
 
 var _current_workspace: WorkspaceCamera = null
 
+var _interact_kind_prompts: Dictionary[InteractInfo.Kind, InteractionPrompt] = {}
 
 func _enter_tree() -> void:
 	# These need to be set in `_enter_tree` instead of `_ready` so that we can be pretty sure they
@@ -104,8 +105,16 @@ func _ready() -> void:
 	$%ResolutionDropdown.select(saved_resolution_index)
 	_on_resolution_dropdown_item_selected(saved_resolution_index)
 
-	_prompt_panel_stylebox_disallowed.bg_color.s *= 0.2
-	_prompt_panel_stylebox_disallowed.bg_color *= 0.5
+	for kind: InteractInfo.Kind in InteractInfo.Kind.values():
+		var action := InteractInfo.kind_to_action(kind)
+		var events := InputMap.action_get_events(action)
+		if not events: continue
+
+		var prompt: InteractionPrompt = INTERACTION_PROMPT_SCENE.instantiate()
+		prompt.input_event = events.front()
+		%Prompts.add_child(prompt)
+
+		_interact_kind_prompts[kind] = prompt
 
 func _process(delta: float) -> void:
 	if logs != []:
@@ -115,33 +124,18 @@ func _process(delta: float) -> void:
 				show_popup(logs[0])
 			logs.remove_at(0)
 
-	# [kind, name, prompt panel]
-	var buttons: Array[Array] = [
-		[InteractInfo.Kind.PRIMARY, "Left click", $%PrimaryPrompt],
-		[InteractInfo.Kind.SECONDARY, "Right click", $%SecondaryPrompt],
-	]
+	for prompt in %Prompts.get_children():
+		prompt.hide()
 
-	for b in buttons:
-		var kind: InteractInfo.Kind = b[0]
-		var name: String = b[1]
-		var prompt_panel: PanelContainer = b[2]
+	for kind: InteractInfo.Kind in InteractInfo.Kind.values():
+		var prompt := _interact_kind_prompts[kind]
+		if not prompt: continue
 
 		var state: Interaction.InteractState = Interaction.interactions.get(kind)
 		if state.info:
-			prompt_panel.show()
-			if state.info.allowed:
-				prompt_panel.add_theme_stylebox_override("panel", _prompt_panel_stylebox_allowed)
-			else:
-				prompt_panel.add_theme_stylebox_override("panel", _prompt_panel_stylebox_disallowed)
-
-			var label: Label = prompt_panel.get_node("Label")
-			label.text = "%s: %s" % [name, state.info.description]
-			var color: Color = Color.WHITE
-			if state.is_pressed or not state.info.allowed: color = Color.GRAY
-
-			label.add_theme_color_override(&"font_color", color)
-		else:
-			prompt_panel.hide()
+			prompt.show()
+			prompt.disabled = not state.info.allowed
+			prompt.description = state.info.description
 
 	# THIS STUFF IS TEMPORARY. SUBSTANCES WILL EVENTUALLY BE DISPLAYED IN THE CONTAINERS THEMSELVES,
 	# AND MIXING WILL BE DONE WITH A STIR ROD OR BY SWIRLING.

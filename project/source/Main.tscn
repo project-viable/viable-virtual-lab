@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=28 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
 [ext_resource type="Script" uid="uid://chwhrlyn51foq" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
@@ -70,14 +70,6 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sc1dx"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.254732, 0.0295399, 0.248016, 1)
-border_color = Color(0.959161, 0.945137, 0.997527, 1)
 
 [node name="Main" type="Node2D"]
 process_mode = 3
@@ -848,7 +840,8 @@ text = "Debug"
 fit_content = true
 autowrap_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
+[node name="Prompts" type="VBoxContainer" parent="Menu"]
+unique_name_in_owner = true
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -858,26 +851,6 @@ offset_right = 91.0
 offset_bottom = -9.0
 grow_vertical = 0
 theme_override_constants/separation = 10
-
-[node name="PrimaryPrompt" type="PanelContainer" parent="Menu/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_sc1dx")
-
-[node name="Label" type="Label" parent="Menu/VBoxContainer/PrimaryPrompt"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "left click"
-
-[node name="SecondaryPrompt" type="PanelContainer" parent="Menu/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_sc1dx")
-
-[node name="Label" type="Label" parent="Menu/VBoxContainer/SecondaryPrompt"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "right click"
 
 [node name="Mixtures" type="Node2D" parent="."]
 position = Vector2(-2, -2)
