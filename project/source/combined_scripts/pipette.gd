@@ -2,11 +2,13 @@ extends LabBody
 class_name Pipe #TODO: Placeholder name since Pipette is already used in the old simulation
 
 
-const PLUNGER_OFFSET: float = 10
+const PLUNGER_OFFSETS: Array[float] = [0, 8, 10]
 const PLUNGE_VOLUME: float = 0.1
 const PLUNGE_DOWN_TIME: float = 0.3
 const PLUNGE_UP_TIME: float = 0.2
-const VOLUME_PER_DIST: float = PLUNGE_VOLUME / PLUNGER_OFFSET
+const VOLUME_PER_DIST: float = PLUNGE_VOLUME / PLUNGER_OFFSETS[2]
+# Slightly less is pushed out than pulled to require the second stop.
+const PLUNGE_DOWN_VOLUME_RATIO: float = 0.98
 
 
 @export var is_tip_contaminated: bool = false
@@ -49,14 +51,17 @@ func _physics_process(delta: float) -> void:
 
 	_mouse_movement = Vector2.ZERO
 
-	var plunge_diff: float = 0
-	# Very very lazy way to do this. This should use the interaction system.
-	if Input.is_action_pressed("interact_secondary"):
-		plunge_diff = PLUNGER_OFFSET / PLUNGE_DOWN_TIME * delta
-	else:
-		plunge_diff = -PLUNGER_OFFSET / PLUNGE_UP_TIME * delta
+	var cur_offset: float = $%Plunger.position.y - _orig_plunger_pos
+	var dest_offset := PLUNGER_OFFSETS[$UseComponent.stop]
 
-	plunge_diff = clamp($%Plunger.position.y + plunge_diff, _orig_plunger_pos, _orig_plunger_pos + PLUNGER_OFFSET) - $%Plunger.position.y
+	var plunge_diff: float = sign(dest_offset - cur_offset) * PLUNGER_OFFSETS[2] * delta
+
+	if plunge_diff < 0:
+		plunge_diff /= PLUNGE_UP_TIME
+		plunge_diff = max(cur_offset + plunge_diff, 0) - cur_offset
+	elif plunge_diff > 0:
+		plunge_diff /= PLUNGE_DOWN_TIME
+		plunge_diff = min(cur_offset + plunge_diff, dest_offset) - cur_offset
 	$%Plunger.position.y += plunge_diff
 
 	var substance_display: SubstanceDisplayPolygon = null
@@ -79,7 +84,7 @@ func _physics_process(delta: float) -> void:
 			var volume: float = -plunge_diff * VOLUME_PER_DIST
 			$ContainerComponent.add(substance_display.source.take_volume(volume))
 		elif plunge_diff > 0.001:
-			var volume: float = plunge_diff * VOLUME_PER_DIST
+			var volume: float = plunge_diff * VOLUME_PER_DIST * PLUNGE_DOWN_VOLUME_RATIO
 			substance_display.source.add($ContainerComponent.take_volume(volume))
 
 func _on_exclusive_object_hitbox_entered_purview_of(area: ExclusiveArea2D) -> void:
