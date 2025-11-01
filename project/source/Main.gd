@@ -128,7 +128,7 @@ func _process(delta: float) -> void:
 		prompt.hide()
 
 	for kind: InteractInfo.Kind in InteractInfo.Kind.values():
-		var prompt := _interact_kind_prompts[kind]
+		var prompt: InteractionPrompt = _interact_kind_prompts.get(kind)
 		if not prompt: continue
 
 		var state: Interaction.InteractState = Interaction.interactions.get(kind)
