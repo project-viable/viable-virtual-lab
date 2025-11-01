@@ -13,6 +13,7 @@ texture_margin_bottom = 14.5275
 region_rect = Rect2(150.201, 172.59, 129.139, 116.59)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rbyiy"]
+resource_local_to_scene = true
 atlas = ExtResource("3_rbyiy")
 region = Rect2(302.018, 25.9895, 417.843, 715.691)
 
