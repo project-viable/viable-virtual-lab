@@ -42,7 +42,7 @@ func _update_appearance() -> void:
 
 	var was_valid := false
 	if input_event is InputEventKey:
-		%KeyLabel.text = input_event.as_text_keycode()
+		%KeyLabel.text = _keyboard_key_name(input_event)
 		$KeyboardKey.show()
 		was_valid = true
 	elif input_event is InputEventMouseButton:
@@ -56,7 +56,7 @@ func _update_appearance() -> void:
 	
 	if not was_valid:
 		$KeyboardKey.show()
-		%KeyLabel.text = "UNKNOWN BUTTON"
+		%KeyLabel.text = "(unknown)"
 
 func _mouse_button_to_texture(button_index: int) -> Texture2D:
 	match button_index:
@@ -64,3 +64,9 @@ func _mouse_button_to_texture(button_index: int) -> Texture2D:
 		MOUSE_BUTTON_MIDDLE: return MOUSE_MIDDLE
 		MOUSE_BUTTON_RIGHT: return MOUSE_RIGHT
 		_: return null
+
+static func _keyboard_key_name(e: InputEventKey) -> String:
+	if e.keycode != KEY_NONE: return e.as_text_keycode()
+	elif e.physical_keycode != KEY_NONE: return e.as_text_physical_keycode()
+	elif e.key_label != KEY_NONE: return e.as_text_key_label()
+	else: return "(unknown)"
