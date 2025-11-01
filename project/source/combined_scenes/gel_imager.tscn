@@ -24,35 +24,40 @@ well1 = {
 "dna_size": 25.0,
 "gel_band_sprite": null,
 "name": "well 1",
-"well_capacity": 5.0
+"well_capacity": 5.0,
+"well_sprite": null
 }
 well2 = {
 "GelBandState": null,
 "dna_size": 25.0,
 "gel_band_sprite": null,
 "name": "well 2",
-"well_capacity": 5.0
+"well_capacity": 5.0,
+"well_sprite": null
 }
 well3 = {
 "GelBandState": null,
 "dna_size": 25.0,
 "gel_band_sprite": null,
 "name": "well 3",
-"well_capacity": 5.0
+"well_capacity": 5.0,
+"well_sprite": null
 }
 well4 = {
 "GelBandState": null,
 "dna_size": 25.0,
 "gel_band_sprite": null,
 "name": "well 4",
-"well_capacity": 5.0
+"well_capacity": 5.0,
+"well_sprite": null
 }
 well5 = {
 "GelBandState": null,
 "dna_size": 25.0,
 "gel_band_sprite": null,
 "name": "well 5",
-"well_capacity": 5.0
+"well_capacity": 5.0,
+"well_sprite": null
 }
 metadata/_custom_type_script = "uid://06juxjpcn4yg"
 
@@ -114,31 +119,26 @@ scale = Vector2(0.444733, 0.444733)
 texture = ExtResource("7_p0nad")
 
 [node name="Well1" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(-53, -289)
 scale = Vector2(0.438231, 0.438231)
 texture = ExtResource("8_ij0yr")
 
 [node name="Well2" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(-24, -289)
 scale = Vector2(0.438231, 0.438231)
 texture = ExtResource("8_ij0yr")
 
 [node name="Well3" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(5, -289)
 scale = Vector2(0.438231, 0.438231)
 texture = ExtResource("8_ij0yr")
 
 [node name="Well4" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(35, -289)
 scale = Vector2(0.438231, 0.438231)
 texture = ExtResource("8_ij0yr")
 
 [node name="Well5" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(63, -289)
 scale = Vector2(0.438231, 0.438231)
 texture = ExtResource("8_ij0yr")

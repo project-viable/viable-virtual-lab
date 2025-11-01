@@ -87,7 +87,7 @@ func analyze_gel_state(well: Dictionary) -> void:
 			} when gel_state.gel_concentration == 1.2 and (dna_size >= 0.3 and dna_size <=7.0) and (well_capacity >2.5 and well_capacity <=5.0) and gel_state.voltage_run_time == 20.0 and gel_state.correct_comb_placement == true and gel_state.correct_gel_mixing == true and gel_state.correct_gel_temperature == true and gel_state.gel_analysis_asap == true and gel_state.voltage == 120:
 				well["gel_state.GelBandState"] = gel_state.GelBandState.PERFECT_SHORT
 					#base_gel_sprite.visible = true
-				#well["gel_band_sprite"] = appropriate_sprite
+					#well["gel_band_sprite"] = appropriate_sprite
 					#well["gel_band_sprite"].visible = true
 				print("perfect! Here's a perfect gel band sprite with short ladders for", well["name"], "!")
 			{
