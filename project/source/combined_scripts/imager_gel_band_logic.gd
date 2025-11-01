@@ -23,6 +23,7 @@ func on_gel_inserted() -> void:
 func _on_uv_light_pressed() -> void:
 	if not UV_state:
 		UV_state = true
+		base_gel_sprite.visible = false
 		base_wells_sprite.visible = false
 		print("UV light is now on")
 	else:

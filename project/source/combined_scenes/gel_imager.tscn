@@ -114,26 +114,31 @@ scale = Vector2(0.444733, 0.444733)
 texture = ExtResource("7_p0nad")
 
 [node name="Well1" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-53, -289)
 scale = Vector2(0.438231, 0.438231)
 texture = ExtResource("8_ij0yr")
 
 [node name="Well2" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-24, -289)
 scale = Vector2(0.438231, 0.438231)
 texture = ExtResource("8_ij0yr")
 
 [node name="Well3" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(5, -289)
 scale = Vector2(0.438231, 0.438231)
 texture = ExtResource("8_ij0yr")
 
 [node name="Well4" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(35, -289)
 scale = Vector2(0.438231, 0.438231)
 texture = ExtResource("8_ij0yr")
 
 [node name="Well5" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(63, -289)
 scale = Vector2(0.438231, 0.438231)
 texture = ExtResource("8_ij0yr")
