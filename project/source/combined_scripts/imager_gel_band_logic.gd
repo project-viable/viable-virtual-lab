@@ -38,7 +38,6 @@ func on_gel_removed() -> void:
 		well3_ladders = null
 		well4_ladders = null
 		well5_ladders = null
-		well6_ladders = null
 		$AttachmentInteractableArea.remove_object()
 	else:
 		for body: LabBody in  $AttachmentInteractableArea.get_overlapping_bodies():
@@ -294,4 +293,3 @@ func display_gel_bands() -> void:
 	analyze_gel_state(gel_state.well3)
 	analyze_gel_state(gel_state.well4)
 	analyze_gel_state(gel_state.well5)
-	analyze_gel_state(gel_state.well6)

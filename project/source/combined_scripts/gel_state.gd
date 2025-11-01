@@ -75,12 +75,3 @@ enum GelBandState {
 	"GelBandState": null,
 	"gel_band_sprite": null
 }
-
-## Dictionary holding well-specific information for well 6
-@export var well6: Dictionary = {
-	"name": "well 6",
-	"well_capacity": 5.0, 
-	"dna_size": 25.0,
-	"GelBandState": null,
-	"gel_band_sprite": null
-}
