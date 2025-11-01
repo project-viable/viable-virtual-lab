@@ -137,39 +137,6 @@ func _process(delta: float) -> void:
 			prompt.disabled = not state.info.allowed
 			prompt.description = state.info.description
 
-	# THIS STUFF IS TEMPORARY. SUBSTANCES WILL EVENTUALLY BE DISPLAYED IN THE CONTAINERS THEMSELVES,
-	# AND MIXING WILL BE DONE WITH A STIR ROD OR BY SWIRLING.
-	if Interaction.hovered_interactable is LabBody:
-		var containers: Array[ContainerComponent] = []
-		containers.assign(Interaction.hovered_interactable.find_children("", "ContainerComponent", false))
-
-		# Show substances in the hovered object.
-		$Menu/SubstanceLabel.clear()
-		for cc in containers:
-			$Menu/SubstanceLabel.add_text("(%.02f°C, %.02f)" % [cc.temperature, cc.mix_amount])
-			$Menu/SubstanceLabel.newline()
-			for sc in cc.substances:
-				$Menu/SubstanceLabel.push_color(sc.get_color())
-				if sc is BasicSubstance:
-					$Menu/SubstanceLabel.add_text("%.02f mL %s" % [sc.get_volume(), sc.data.name])
-				elif sc is SolutionSubstance:
-					var solutes_name := ""
-					var first := true
-					for solute: BasicSubstance in sc.solutes:
-						if not first: solutes_name += ", "
-						solutes_name += "%.02f mL %s" % [solute.get_volume(), solute.data.name]
-						first = false
-					$Menu/SubstanceLabel.add_text("solution (%.02f mL %s) {%s}" % [sc.solvent.get_volume(), sc.solvent.data.name, solutes_name])
-				else:
-					$Menu/SubstanceLabel.add_text("?")
-				$Menu/SubstanceLabel.pop()
-				$Menu/SubstanceLabel.newline()
-
-		# Mix stuff under the cursor when holding the M key.
-		if Input.is_action_pressed(&"mix_container"):
-			for cc in containers:
-				cc.mix(delta)
-
 	# The coordinate system for the main viewport and the cursor canvas layer are different, so
 	# we have to convert.
 	var main_to_cursor_canvas: Transform2D = $VirtualCursorLayer.get_final_transform().affine_inverse() * $%MainViewport.canvas_transform
