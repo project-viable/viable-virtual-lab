@@ -42,7 +42,7 @@ func _update_appearance() -> void:
 
 	var was_valid := false
 	if input_event is InputEventKey:
-		%KeyLabel.text = OS.get_keycode_string(input_event.key_label)
+		%KeyLabel.text = input_event.as_text_keycode()
 		$KeyboardKey.show()
 		was_valid = true
 	elif input_event is InputEventMouseButton:
