@@ -1,6 +1,7 @@
 extends Imager
 
 var base_gel_sprite: Sprite2D = null #replace with actual base gel mold sprite from top down view
+var base_wells_sprite: Sprite2D = null
 var well1_ladders: Sprite2D = null
 var well2_ladders: Sprite2D = null
 var well3_ladders: Sprite2D = null
@@ -9,6 +10,9 @@ var well5_ladders: Sprite2D = null
 var well6_ladders: Sprite2D = null
 
 func on_gel_inserted() -> void:
+	base_gel_sprite = $GelRigTopView
+	base_wells_sprite = $GelWellTopViewLadderMultiple
+	
 	if get_UV_state() == true:
 		print("starting imaging")
 		display_gel_bands()
@@ -19,6 +23,7 @@ func on_gel_inserted() -> void:
 func _on_uv_light_pressed() -> void:
 	if not UV_state:
 		UV_state = true
+		base_wells_sprite.visible = false
 		print("UV light is now on")
 	else:
 		UV_state = false	
@@ -27,7 +32,7 @@ func _on_uv_light_pressed() -> void:
 func on_gel_removed() -> void:
 	if $AttachmentInteractableArea.contained_object != null:
 		base_gel_sprite.visible = false
-		base_gel_sprite = null
+		base_wells_sprite.visible = false
 		well1_ladders = null
 		well2_ladders = null
 		well3_ladders = null
@@ -42,9 +47,8 @@ func on_gel_removed() -> void:
 				print("there is something already in the imager")
 
 func display_blank_gel_bands() -> void:
-	#base_gel_sprite = appropriate_sprite
-	#base_gel_sprite.visible = true
-	pass
+	base_gel_sprite.visible = true
+	base_wells_sprite.visible = true
 	
 func analyze_gel_state(well: Dictionary) -> void:
 	
