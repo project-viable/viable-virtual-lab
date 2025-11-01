@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfkclnd374ooi"
-path="res://.godot/imported/smeared-long-ladders.png-cb5d8703cec492de1b5add8e3579560f.ctex"
+uid="uid://b3fhr0hky574r"
+path="res://.godot/imported/Gel_Well_Top_View_LADDER_SINGLE.svg-6ef29b2b1ddd54077f4615d96061e50d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://updated_assets/Temp Sprites/smeared-long-ladders.png"
-dest_files=["res://.godot/imported/smeared-long-ladders.png-cb5d8703cec492de1b5add8e3579560f.ctex"]
+source_file="res://updated_assets/gel_bands/Gel_Well_Top_View_LADDER_SINGLE.svg"
+dest_files=["res://.godot/imported/Gel_Well_Top_View_LADDER_SINGLE.svg-6ef29b2b1ddd54077f4615d96061e50d.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

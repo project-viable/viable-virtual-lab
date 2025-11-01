@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1syli7unwpoc"
-path="res://.godot/imported/blank-gel-bands.png-30feb642d3065bf8699e8501094ce0f7.ctex"
+uid="uid://c105io6i6gmyg"
+path="res://.godot/imported/Gel_Well_Top_View_PERFECT_9slice.svg-2a5127187101708be13a580ebb740da2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://updated_assets/Temp Sprites/blank-gel-bands.png"
-dest_files=["res://.godot/imported/blank-gel-bands.png-30feb642d3065bf8699e8501094ce0f7.ctex"]
+source_file="res://updated_assets/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg"
+dest_files=["res://.godot/imported/Gel_Well_Top_View_PERFECT_9slice.svg-2a5127187101708be13a580ebb740da2.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

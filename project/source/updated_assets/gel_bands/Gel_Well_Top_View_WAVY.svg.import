@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyk7fp41fn1x6"
-path="res://.godot/imported/diffused-short-ladders.png-9fb963dce60885799c9b1ab2db0da15d.ctex"
+uid="uid://coxjop7202awh"
+path="res://.godot/imported/Gel_Well_Top_View_WAVY.svg-e39b2de73494fe4c463bb95b40701092.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://updated_assets/Temp Sprites/diffused-short-ladders.png"
-dest_files=["res://.godot/imported/diffused-short-ladders.png-9fb963dce60885799c9b1ab2db0da15d.ctex"]
+source_file="res://updated_assets/gel_bands/Gel_Well_Top_View_WAVY.svg"
+dest_files=["res://.godot/imported/Gel_Well_Top_View_WAVY.svg-e39b2de73494fe4c463bb95b40701092.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

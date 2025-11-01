@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d06fx38hn4ra0"
-path="res://.godot/imported/wavy-long-ladders.png-84ebc5e2beee54076c158786d77bdda3.ctex"
+uid="uid://b5xwngj4j0aco"
+path="res://.godot/imported/Gel_Well_Top_View_SMUDGE_2.svg-56ad0adecae488680f1fbac620040830.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://updated_assets/Temp Sprites/wavy-long-ladders.png"
-dest_files=["res://.godot/imported/wavy-long-ladders.png-84ebc5e2beee54076c158786d77bdda3.ctex"]
+source_file="res://updated_assets/gel_bands/Gel_Well_Top_View_SMUDGE_2.svg"
+dest_files=["res://.godot/imported/Gel_Well_Top_View_SMUDGE_2.svg-56ad0adecae488680f1fbac620040830.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
