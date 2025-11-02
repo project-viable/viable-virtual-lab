@@ -35,6 +35,9 @@ var _mouse_pos_before_zoom := Vector2.ZERO
 
 func _ready() -> void:
 	super()
+
+	# Run setter.
+	has_tip = has_tip
 	Cursor.actual_mouse_moved_relative.connect(func (v: Vector2) -> void: _mouse_movement += v)
 
 func _input(e: InputEvent) -> void:
@@ -43,7 +46,9 @@ func _input(e: InputEvent) -> void:
 
 func _process(_delta: float) -> void:
 	# Stop looking at the subscene if the pipette has been removed.
-	if _cur_subscene_camera and not Util.get_camera_world_rect(_cur_subscene_camera).has_point($%SubsceneTipOpeningArea.global_position):
+	var subscene_bounds := Util.get_global_bounding_box($%SubscenePipette)
+	var subscene_bottom := subscene_bounds.position + subscene_bounds.size * Vector2(0.5, 1)
+	if _cur_subscene_camera and not Util.get_camera_world_rect(_cur_subscene_camera).has_point(subscene_bottom):
 		_leave_subscene()
 
 func _physics_process(delta: float) -> void:
@@ -107,6 +112,9 @@ func _on_exclusive_object_hitbox_entered_purview_of(area: ExclusiveArea2D) -> vo
 			disable_drop = true
 			Game.main.focus_camera_and_show_subscene(rect, _cur_subscene_camera, true, 1.5)
 			$%SubscenePipette.global_position = area.entry_node.global_position - $%SubsceneTipOpeningArea.position
+			# Slightly ugly way to position the pipette correctly in the subscene without its tip.
+			if not has_tip:
+				$%SubscenePipette.global_position.y += 150
 			_mouse_pos_before_zoom = Cursor.virtual_mouse_position
 		else:
 			Game.main.focus_camera_on_rect(rect, 1.5)
