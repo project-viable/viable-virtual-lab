@@ -6,6 +6,7 @@ var _is_microwaving: bool = false
 var _total_seconds_left: int = 0
 var _total_seconds: int = 0
 var _is_zoomed_in: bool = false
+var _is_door_open: bool = false
 
 
 func _ready() -> void:
@@ -14,6 +15,8 @@ func _ready() -> void:
 		var button_label: Label = button.get_node("Label")
 		button.pressed.connect(_on_keypad_button_pressed.bind(button_label.text))
 		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	_update_door()
 
 func _input(event: InputEvent) -> void:
 	if _is_zoomed_in and event.is_action_pressed("ExitCameraZoom"):
@@ -69,7 +72,7 @@ func _on_zoom_area_pressed() -> void:
 
 ## Start microwaving the object
 func _on_start_button_pressed() -> void:
-	var obj: LabBody = $ObjectContainmentInteractableArea.contained_object
+	var obj: LabBody = %ObjectContainmentInteractableArea.contained_object
 
 	if obj and not _is_microwaving:
 		_is_microwaving = true
@@ -87,7 +90,7 @@ func _on_microwave_stopped() -> void:
 		$MicrowaveTimer.stop()
 		_is_microwaving = false
 
-		var obj: LabBody = $ObjectContainmentInteractableArea.contained_object
+		var obj: LabBody = %ObjectContainmentInteractableArea.contained_object
 		if obj:
 			var container_to_heat := find_container(obj)
 			if container_to_heat:
@@ -103,8 +106,6 @@ func _on_microwave_stopped() -> void:
 
 		# Update _total_seconds for the next "start" press if the user doesn't clear
 		_total_seconds = _total_seconds_left
-
-	$ObjectContainmentInteractableArea.remove_object()
 
 func update_timer_display(minutes: int, seconds: int) -> void:
 	$TimerLabel.text = "%d:%02d" % [minutes, seconds]
@@ -123,3 +124,17 @@ func _on_microwave_timer_timeout() -> void:
 	else:
 		$MicrowaveTimer.stop()
 		_on_microwave_stopped()
+
+func _update_door() -> void:
+	if _is_door_open:
+		%ObjectContainmentInteractableArea.allow_new_objects = true
+		%DoorOpen.show()
+		%DoorClosed.hide()
+	else:
+		%ObjectContainmentInteractableArea.allow_new_objects = false
+		%DoorOpen.hide()
+		%DoorClosed.show()
+
+func _on_door_selectable_pressed() -> void:
+	_is_door_open = not _is_door_open
+	_update_door()

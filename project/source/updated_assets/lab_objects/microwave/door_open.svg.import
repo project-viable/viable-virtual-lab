@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bruixvdw7rapf"
-path="res://.godot/imported/microwave.svg-3f2309be1dc902463c236ef82a646876.ctex"
+uid="uid://qlu7b3wv1vpu"
+path="res://.godot/imported/door_open.svg-7536e309a83355d35e8b2e30e6f6dcc7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://updated_assets/lab_objects/microwave.svg"
-dest_files=["res://.godot/imported/microwave.svg-3f2309be1dc902463c236ef82a646876.ctex"]
+source_file="res://updated_assets/lab_objects/microwave/door_open.svg"
+dest_files=["res://.godot/imported/door_open.svg-7536e309a83355d35e8b2e30e6f6dcc7.ctex"]
 
 [params]
 
