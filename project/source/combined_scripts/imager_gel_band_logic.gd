@@ -8,6 +8,7 @@ var gel: LabBody = null
 var band_texture: Texture2D = preload("res://updated_assets/gel_bands/Gel_Well_Top_View_PERFECT.svg")
 
 func _draw() -> void:
+	if not gel: return
 	for i:int in gel.num_wells():
 		var well: ContainerComponent = gel.get_well(i)
 		for substance: SubstanceInstance in well.substances:
