@@ -44,6 +44,9 @@ static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, 
 ## should be disabled while the object is being dragged.
 var _child_physics_object_layers: Dictionary[PhysicsBody2D, int] = {}
 var _offset: Vector2 = Vector2.ZERO
+# In the coordinate system of [member interact_canvas_group] so it follows the object visually
+# (e.g., when a flask is swirled, the hand will follow it).
+var _hand_offset := Vector2.ZERO
 var _velocity: Vector2 = Vector2.ZERO
 
 ## Set by [Main] to [code]true[/code] when the cursor starts overlapping this.
@@ -88,7 +91,10 @@ func _physics_process(delta: float) -> void:
 			_velocity = (dest_pos - global_position) / delta
 			move_and_collide((dest_pos - global_position) * 30 * delta)
 
-		Cursor.custom_hand_position = to_global(_offset)
+		if interact_canvas_group:
+			Cursor.custom_hand_position = interact_canvas_group.to_global(_hand_offset)
+		else:
+			Cursor.custom_hand_position = to_global(_offset)
 	
 	if physics_mode == PhysicsMode.FALLING_THROUGH_SHELVES:
 		var old_mask := collision_mask
@@ -145,6 +151,8 @@ func start_dragging() -> void:
 	DepthManager.move_to_front_of_layer(self, DepthManager.Layer.HELD)
 
 	_offset = _get_local_virtual_mouse_position()
+	if interact_canvas_group:
+		_hand_offset = _get_local_virtual_mouse_position(interact_canvas_group)
 
 	Cursor.mode = Cursor.Mode.CLOSED
 	Cursor.use_custom_hand_position = true
@@ -194,5 +202,5 @@ func _update_physics_to_mode(mode: PhysicsMode) -> void:
 func is_active() -> bool:
 	return Interaction.held_body == self
 
-func _get_local_virtual_mouse_position() -> Vector2:
-	return to_local(Cursor.virtual_mouse_position)
+func _get_local_virtual_mouse_position(node: Node2D = self) -> Vector2:
+	return node.to_local(Cursor.virtual_mouse_position)
