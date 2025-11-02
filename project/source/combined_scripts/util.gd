@@ -39,6 +39,7 @@ static func get_bounding_box(obj: CollisionObject2D) -> Rect2:
 	var rect := Rect2()
 	var first := true
 	for o in obj.get_shape_owners():
+		if obj.is_shape_owner_disabled(o): continue
 		var transform: Transform2D = obj.shape_owner_get_transform(o)
 		for i in range(0, obj.shape_owner_get_shape_count(o)):
 			var s := obj.shape_owner_get_shape(o, i)
