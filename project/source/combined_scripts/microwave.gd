@@ -74,11 +74,14 @@ func _on_zoom_area_pressed() -> void:
 func _on_start_button_pressed() -> void:
 	var obj: LabBody = %ObjectContainmentInteractableArea.contained_object
 
-	if obj and not _is_microwaving:
+	if obj and not _is_microwaving and not _is_door_open:
 		_is_microwaving = true
+		_update_door()
 
 		$MicrowaveTimer.start()
 		print("Heating %s" % [obj.name])
+	elif _is_door_open:
+		print("The door is open!")
 	elif not obj:
 		print("Theres nothing in the Microwave!")
 	elif _is_microwaving:
@@ -89,6 +92,7 @@ func _on_microwave_stopped() -> void:
 	if _is_microwaving:
 		$MicrowaveTimer.stop()
 		_is_microwaving = false
+		_update_door()
 
 		var obj: LabBody = %ObjectContainmentInteractableArea.contained_object
 		if obj:
@@ -128,12 +132,18 @@ func _on_microwave_timer_timeout() -> void:
 func _update_door() -> void:
 	if _is_door_open:
 		%ObjectContainmentInteractableArea.allow_new_objects = true
+		$DoorSelectable.interact_info.description = "Close door"
 		%DoorOpen.show()
 		%DoorClosed.hide()
 	else:
 		%ObjectContainmentInteractableArea.allow_new_objects = false
+		$DoorSelectable.interact_info.description = "Open door"
 		%DoorOpen.hide()
 		%DoorClosed.show()
+
+	$DoorSelectable.interact_info.allowed = not _is_microwaving
+	if _is_microwaving:
+		$DoorSelectable.interact_info.description = "Cannot open door while microwave is running"
 
 func _on_door_selectable_pressed() -> void:
 	_is_door_open = not _is_door_open

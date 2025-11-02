@@ -38,7 +38,6 @@ texture = ExtResource("2_akh7v")
 [node name="DoorSelectable" type="Node2D" parent="." node_paths=PackedStringArray("interact_canvas_group")]
 script = ExtResource("3_arejl")
 interact_canvas_group = NodePath("../DoorGroup")
-press_mode = 1
 metadata/_custom_type_script = "uid://musakg3k6s1l"
 
 [node name="DoorGroup" type="CanvasGroup" parent="."]
