@@ -30,5 +30,7 @@ func _draw() -> void:
 
 ## True if the mouse is hovering any `Sprite2D`s that are children of this node.
 func is_mouse_hovering() -> bool:
-	return find_children("", "Sprite2D") \
-			.any(func(s: Sprite2D) -> bool: return s.is_pixel_opaque(s.to_local(Cursor.virtual_mouse_position)))
+	for s: Sprite2D in find_children("", "Sprite2D"):
+		if s.is_visible_in_tree() and s.is_pixel_opaque(s.to_local(Cursor.virtual_mouse_position)):
+			return true
+	return false
