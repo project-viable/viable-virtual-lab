@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cs2tep7cd3vxf"]
+[gd_scene load_steps=19 format=3 uid="uid://cs2tep7cd3vxf"]
 
 [ext_resource type="Script" uid="uid://b10fibv688ggy" path="res://combined_scripts/microwave.gd" id="1_caubw"]
 [ext_resource type="Texture2D" uid="uid://by1qv0us7rnwc" path="res://updated_assets/lab_objects/microwave/base.svg" id="2_akh7v"]
@@ -25,6 +25,42 @@ size = Vector2(53, 59)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0lrr"]
 size = Vector2(148, 115)
+
+[sub_resource type="Animation" id="Animation_su0ss"]
+resource_name = "error_flash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TimerLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1e+06, 1, 1),
+"update": 0,
+"values": [Color(0.66921, 0.148082, 0.160623, 1), Color(0, 0, 0, 1), Color(0.670588, 0.14902, 0.160784, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_phx7o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TimerLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_claib"]
+_data = {
+&"RESET": SubResource("Animation_phx7o"),
+&"error_flash": SubResource("Animation_su0ss")
+}
 
 [node name="Microwave" type="Node2D"]
 script = ExtResource("1_caubw")
@@ -79,11 +115,13 @@ text = "Stop"
 horizontal_alignment = 1
 
 [node name="TimerLabel" type="Label" parent="."]
+modulate = Color(0, 0, 0, 1)
 z_index = 10
 offset_left = 78.0
 offset_top = -53.0
 offset_right = 120.0
 offset_bottom = -34.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0:00"
 horizontal_alignment = 1
 
@@ -333,6 +371,11 @@ metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DepthManagedNode2D/ObjectContainmentInteractableArea"]
 position = Vector2(-1, -46.5)
 shape = SubResource("RectangleShape2D_a0lrr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_claib")
+}
 
 [connection signal="pressed" from="DoorSelectable" to="." method="_on_door_selectable_pressed"]
 [connection signal="pressed" from="StopButton" to="." method="_on_microwave_stopped"]

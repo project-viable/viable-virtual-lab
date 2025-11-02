@@ -72,20 +72,14 @@ func _on_zoom_area_pressed() -> void:
 
 ## Start microwaving the object
 func _on_start_button_pressed() -> void:
-	var obj: LabBody = %ObjectContainmentInteractableArea.contained_object
-
-	if obj and not _is_microwaving and not _is_door_open:
+	if not _is_door_open:
 		_is_microwaving = true
 		_update_door()
 
 		$MicrowaveTimer.start()
-		print("Heating %s" % [obj.name])
-	elif _is_door_open:
-		print("The door is open!")
-	elif not obj:
-		print("Theres nothing in the Microwave!")
-	elif _is_microwaving:
-		print("Something is currently being microwaved!")
+	else:
+		$AnimationPlayer.stop()
+		$AnimationPlayer.play("error_flash")
 
 ## Triggered either by the "stop" button or the timer ran out
 func _on_microwave_stopped() -> void:
