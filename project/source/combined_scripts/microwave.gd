@@ -92,15 +92,7 @@ func _on_microwave_stopped() -> void:
 		if obj:
 			var container_to_heat := find_container(obj)
 			if container_to_heat:
-				# TODO: This calculation should be handled by the `ContainerComponent` and
-				# substances themselves.
-				#
-				# This is very approximately equal to the amount of heating you would get if the
-				# container were full of only water.
-				var volume := container_to_heat.get_total_volume()
-				if volume > 0.0:
-					var temp_increase: float = 160.0 * (_total_seconds - _total_seconds_left) / volume
-					container_to_heat.temperature += temp_increase
+				pass
 
 		# Update _total_seconds for the next "start" press if the user doesn't clear
 		_total_seconds = _total_seconds_left

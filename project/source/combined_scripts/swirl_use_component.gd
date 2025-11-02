@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 		_swirl_time += delta
 		var angle: float = sin(swirl_speed * _swirl_time) * tan(hold_angle)
 		var trans := Vector2(-sin(swirl_speed * _swirl_time) * swirl_circle_radius, 0)
-		container.mix_amount = 10
+		# TODO: Actually mix it.
 		node_to_rotate.transform = _orig_transform.translated(-rotation_center_offset).rotated(angle).translated(rotation_center_offset + trans)
 
 func get_interactions(_area: InteractableArea) -> Array[InteractInfo]:

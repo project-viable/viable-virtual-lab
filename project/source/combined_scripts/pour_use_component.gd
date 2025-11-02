@@ -37,4 +37,3 @@ func start_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 	print("Pouring %s ml" % [amount])
 	var substances := container_component.take_volume(amount)
 	container_component_to_receive.add_array(substances)
-	container_component_to_receive.temperature = container_component.temperature # Keeping it simple for now
