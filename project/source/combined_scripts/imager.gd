@@ -8,7 +8,7 @@ extends Node2D
 # correctly, if the gel wells were flooded (or rather, how full each well is), if the gel components' 
 # concentrations are appropriate or if the gel cooled properly can all be stored in this dictionary.
 # The gel state should be exported from the Gel class.
-@export var gel_state: GelState
+#@export var gel_state: GelState
 
 ## This is the state of the UV light for when gel is being imaged. [code]true[/code] = UV light was on during imaging. 
 ## [code]false[/code] = UV light was off when imaging.
@@ -36,7 +36,7 @@ func display_gel_bands() -> void: pass
 ## (virtual) called by the display_gel_bands method to analyze the gel state data members before adding what the gell band state
 ## should be within the each well's dicitonary key GelBandState. This is  determined via a switch case statment, matching appropriate sprite with 
 ## a specific set of gel states.
-func analyze_gel_state(well: Dictionary) -> void: pass
+func analyze_gel_state(gel: LabBody) -> void: pass
 
 ## (virtual) called when gel is placed in the imager. If the UV light was not turned on before imaging,
 ## the display_blank_gel_bands function is called. Otherwise, the display_gel_bands is called.
