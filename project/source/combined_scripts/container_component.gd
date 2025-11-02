@@ -67,16 +67,29 @@ func add(s: SubstanceInstance) -> void:
 	if not did_incorporate:
 		substances.append(s)
 
+## Add all substances in [param s].
+func add_array(s: Array[SubstanceInstance]) -> void:
+	for substance in s: add(substance)
+
 ## Returns total volume in the container, in mL.
 func get_total_volume() -> float:
 	return substances.map(func(s: SubstanceInstance) -> float: return s.get_volume()) \
 			.reduce(func(a: float, b: float) -> float: return a + b, 0.0)
 
 ## Takes the given volume from the first substance.
-func take_volume(v: float) -> SubstanceInstance:
+func take_volume_from_back(v: float) -> SubstanceInstance:
 	if not substances: return SubstanceInstance.new()
 	var result: SubstanceInstance = substances.back().take_volume(v)
 	_remove_empty_substances()
+	return result
+
+## Take at most [param v] mL of substances from the back of [member substances]. Return an array of
+## the taken substances.
+func take_volume(v: float) -> Array[SubstanceInstance]:
+	var result: Array[SubstanceInstance] = []
+	while v > 0 and substances:
+		result.push_back(take_volume_from_back(v))
+		v -= result.back().get_volume()
 	return result
 
 func _remove_empty_substances() -> void:

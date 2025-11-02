@@ -4,6 +4,10 @@ extends Node
 
 signal mode_changed(mode: Mode)
 signal virtual_mouse_moved(old_pos: Vector2, new_pos: Vector2)
+## Objects in the scene receive [InputEventMouseMotion]s based on the movement of the virtual mouse
+## rather than movements of the actual mouse, so if they want to detect non-virtual relative mouse
+## motion, they have to do it through this signal rather than through [method Node._input].
+signal actual_mouse_moved_relative(actual_relative: Vector2)
 
 
 enum Mode
@@ -35,6 +39,7 @@ var custom_hand_position: Vector2
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
+		actual_mouse_moved_relative.emit(event.relative)
 		virtual_mouse_position += event.relative / Game.camera.zoom
 		var rect := Util.get_camera_world_rect(Game.camera)
 		virtual_mouse_position = virtual_mouse_position.clamp(rect.position, rect.end)
