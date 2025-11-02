@@ -33,6 +33,10 @@ var _mouse_movement := Vector2.ZERO
 var _mouse_pos_before_zoom := Vector2.ZERO
 
 
+func _ready() -> void:
+	super()
+	Cursor.actual_mouse_moved_relative.connect(func (v: Vector2) -> void: _mouse_movement += v)
+
 func _input(e: InputEvent) -> void:
 	if e is InputEventMouseMotion:
 		_mouse_movement += e.relative
