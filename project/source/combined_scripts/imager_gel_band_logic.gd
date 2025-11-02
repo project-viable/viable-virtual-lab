@@ -43,235 +43,217 @@ func display_blank_gel_bands() -> void:
 	base_gel_sprite.visible = true
 	base_wells_sprite.visible = true
 	
-func analyze_gel_state(gel: LabBody) -> void:
+func analyze_gel(gel: LabBody) -> void:
 	for i: int in gel.num_wells():
 		var well: ContainerComponent = gel.get_well(i)
 		for substance: SubstanceInstance in well.substances:
-			for fragment_size: float in substance.dna_sizes:
+			for fragment_size: float in substance.fragment_sizes:
+				#Perfect results
 				if gel.gel_concentration == 0.5 and (fragment_size >= 2.0 and fragment_size <=30.0) and (well.well_capacity >2.5 and well.well_capacity <=5.0) and gel.voltage_run_time == 20.0 and gel.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_analysis_asap == true and gel.voltage == 120:
-					print("perfect! Here's a perfect gel band sprite with long ladders for", well["name"], " !")
-					#gel_band = appropriate_sprite
-					#gel_band.position = substance.position
-					#base_gel_sprite.visible = true
-					
+					gel_band = $GelWellTopViewPerfect
+					gel_band.position = substance.position
+					base_gel_sprite.visible = true
+					base_wells_sprite.visible = true
+					print("perfect! Here's a perfect gel band sprite with long ladders for well ", i, ", fragment size, ",fragment_size, " !")
+					continue
+				if gel.gel_concentration == 0.7 and (fragment_size >= 0.8 and fragment_size <=12.0) and (well.well.well_capacity >2.5 and well.well_capacity <=5.0) and gel.voltage_run_time == 20.0 and gel.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_analysis_asap == true and gel.voltage == 120:
+					gel_band = $GelWellTopViewPerfect
+					gel_band.position = substance.position
+					base_gel_sprite.visible = true
+					base_wells_sprite.visible = true
+					print("perfect! Here's a perfect gel band sprite with long ladders for well ", i, ", fragment size, ",fragment_size, " !")
+					continue
+				if gel.gel_concentration == 1.0 and (fragment_size >= 0.4 and fragment_size <=8.0) and (well.well_capacity >2.5 and well.well_capacity <=5.0) and gel.voltage_run_time == 20.0 and gel.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_analysis_asap == true and gel.voltage == 120:
+					gel_band = $GelWellTopViewPerfect
+					gel_band.position = substance.position
+					base_gel_sprite.visible = true
+					base_wells_sprite.visible = true
+					print("perfect! Here's a perfect gel band sprite with long ladders for well ", i, ", fragment size, ",fragment_size, " !")
+					continue
+				if gel.gel_concentration == 1.2 and (fragment_size >= 0.3 and fragment_size <=7.0) and (well.well_capacity >2.5 and well.well_capacity <=5.0) and gel.voltage_run_time == 20.0 and gel.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_analysis_asap == true and gel.voltage == 120:
+					gel_band = $GelWellTopViewPerfect
+					gel_band.position = substance.position
+					base_gel_sprite.visible = true
+					base_wells_sprite.visible = true
+					print("perfect! Here's a perfect gel band sprite with short ladders for well ", i, ", fragment size, ",fragment_size, " !")
+					continue
+				if gel.gel_concentration == 1.5 and (fragment_size >= 0.2 and fragment_size <=3.0) and (well.well_capacity >2.5 and well.well_capacity <=5.0) and gel.voltage_run_time == 20.0 and gel.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_analysis_asap == true and gel.voltage == 120:
+					gel_band = $GelWellTopViewPerfect
+					gel_band.position = substance.position
+					base_gel_sprite.visible = true
+					base_wells_sprite.visible = true
+					print("perfect! Here's a perfect gel band sprite with short ladders for well ", i, ", fragment size, ",fragment_size, " !")
+					continue
+				if gel.gel_concentration == 2.0 and (fragment_size >= 0.1 and fragment_size <=2.0) and (well.well_capacity >2.5 and well.well_capacity <=5.0) and gel.voltage_run_time == 20.0 and gel.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_analysis_asap == true and gel.voltage == 120:
+					gel_band = $GelWellTopViewPerfect
+					gel_band.position = substance.position
+					base_gel_sprite.visible = true
+					base_wells_sprite.visible = true
+					print("perfect! Here's a perfect gel band sprite with short ladders for well ", i, ", fragment size, ",fragment_size, " !")
+					continue
 					
 	#match well:
-			## Perfect results
-			#{
-					#"well_capacity":  var well_capacity, 
-					#"dna_size": var dna_size, ..
-			#} when gel_state.gel_concentration == 0.5 and (dna_size >= 2.0 and dna_size <=30.0) and (well_capacity >2.5 and well_capacity <=5.0) and gel_state.voltage_run_time == 20.0 and gel_state.correct_comb_placement == true and gel_state.correct_gel_mixing == true and gel_state.correct_gel_temperature == true and gel_state.gel_analysis_asap == true and gel_state.voltage == 120:
-					#well["gel_state.GelBandState"] = gel_state.GelBandState.PERFECT_LONG
-					#base_gel_sprite.visible = true
-					#well["gel_band_sprite"] = appropriate_sprite
-					#well["gel_band_sprite"].visible = true
-					#print("perfect! Here's a perfect gel band sprite with long ladders for", well["name"], " !")
-			#{
-					#"well_capacity": var well_capacity, 
-					#"dna_size": var dna_size, ..
-			#} when gel_state.gel_concentration == 0.7 and (dna_size >= 0.8 and dna_size <=12.0) and (well_capacity >2.5 and well_capacity <=5.0) and gel_state.voltage_run_time == 20.0 and gel_state.correct_comb_placement == true and gel_state.correct_gel_mixing == true and gel_state.correct_gel_temperature == true and gel_state.gel_analysis_asap == true and gel_state.voltage == 120:
-					#well["gel_state.GelBandState"] = gel_state.GelBandState.PERFECT_LONG
-					##base_gel_sprite.visible = true
-					##well["gel_band_sprite"] = appropriate_sprite
-					##well["gel_band_sprite"].visible = true
-					#print("perfect! Here's a perfect gel band sprite with long ladders for", well["name"], "!")
-			#{
-					#"well_capacity": var well_capacity, 
-					#"dna_size": var dna_size, ..
-			#} when gel_state.gel_concentration == 1.0 and (dna_size >= 0.4 and dna_size <=8.0) and (well_capacity >2.5 and well_capacity <=5.0) and gel_state.voltage_run_time == 20.0 and gel_state.correct_comb_placement == true and gel_state.correct_gel_mixing == true and gel_state.correct_gel_temperature == true and gel_state.gel_analysis_asap == true and gel_state.voltage == 120:
-					#well["gel_state.GelBandState"] = gel_state.GelBandState.PERFECT_LONG
-					##base_gel_sprite.visible = true
-					##well["gel_band_sprite"] = appropriate_sprite
-					##well["gel_band_sprite"].visible = true
-					#print("perfect! Here's a perfect gel band sprite with long ladders for", well["name"], "!")
-			#{ 
-					#"well_capacity": var well_capacity, 
-					#"dna_size": var dna_size, ..
-			#} when gel_state.gel_concentration == 1.2 and (dna_size >= 0.3 and dna_size <=7.0) and (well_capacity >2.5 and well_capacity <=5.0) and gel_state.voltage_run_time == 20.0 and gel_state.correct_comb_placement == true and gel_state.correct_gel_mixing == true and gel_state.correct_gel_temperature == true and gel_state.gel_analysis_asap == true and gel_state.voltage == 120:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.PERFECT_SHORT
-					##base_gel_sprite.visible = true
-					##well["gel_band_sprite"] = appropriate_sprite
-					##well["gel_band_sprite"].visible = true
-				#print("perfect! Here's a perfect gel band sprite with short ladders for", well["name"], "!")
-			#{
-					#"well_capacity": var well_capacity, 
-					#"dna_size": var dna_size, ..
-			#} when gel_state.gel_concentration == 1.5 and (dna_size >= 0.2 and dna_size <=3.0) and (well_capacity >2.5 and well_capacity <=5.0) and gel_state.voltage_run_time == 20.0 and gel_state.correct_comb_placement == true and gel_state.correct_gel_mixing == true and gel_state.correct_gel_temperature == true and gel_state.gel_analysis_asap == true and gel_state.voltage == 120:
-					#well["gel_state.GelBandState"] = gel_state.GelBandState.PERFECT_SHORT
-					##base_gel_sprite.visible = true
-					##well["gel_band_sprite"] = appropriate_sprite
-					##well["gel_band_sprite"].visible = true
-					#print("perfect! Here's a perfect gel band sprite with short ladders for", well["name"], "!")
-			#{
-					#"well_capacity": var well_capacity, 
-					#"dna_size": var dna_size, ..
-			#} when gel_state.gel_concentration == 2.0 and (dna_size >= 0.1 and dna_size <=2.0) and (well_capacity >2.5 and well_capacity <=5.0) and gel_state.voltage_run_time == 20.0 and gel_state.correct_comb_placement == true and gel_state.correct_gel_mixing == true and gel_state.correct_gel_temperature == true and gel_state.gel_analysis_asap == true and gel_state.voltage == 120:
-					#well["gel_state.GelBandState"] = gel_state.GelBandState.PERFECT_SHORT
-					##base_gel_sprite.visible = true
-					##well["gel_band_sprite"] = appropriate_sprite
-					##well["gel_band_sprite"].visible = true
-					#print("perfect! Here's a perfect gel band sprite with short ladders for", well["name"], "!")
 			##Conditions for singular well invisible gel bands
-			#{"well_capacity": var well_capacity,..} when well_capacity <=2.5:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.BLANK
+			#{"well.well_capacity": var well.well_capacity,..} when well.well_capacity <=2.5:
+				#well["gel.GelBandState"] = gel.GelBandState.BLANK
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("well capacity not full enough!", well["name"], " gel sprite will be blank")
 			## Conditions for fuzzy or diffused gel bands
-			#{"dna_size": var dna_size, ..} when gel_state.voltage <120 and dna_size >= 0.1:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_LONG
+			#{"fragment_size": var fragment_size, ..} when gel.voltage <120 and fragment_size >= 0.1:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_LONG
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("voltage too low!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.gel_concentration <120 and dna_size < 0.1:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_SHORT
+			#{"fragment_size": var fragment_size, ..} when gel.gel_concentration <120 and fragment_size < 0.1:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_SHORT
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("voltage too low!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.voltage_run_time <20 and dna_size >= 0.1:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_LONG
+			#{"fragment_size": var fragment_size, ..} when gel.voltage_run_time <20 and fragment_size >= 0.1:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_LONG
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("voltage run too short!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.voltage_run_time <20 and dna_size < 0.1:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_LONG
+			#{"fragment_size": var fragment_size, ..} when gel.voltage_run_time <20 and fragment_size < 0.1:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_LONG
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("voltage run too short!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.gel_concentration < 2.0 and dna_size >= 0.1 and dna_size <=2.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_SHORT
+			#{"fragment_size": var fragment_size, ..} when gel.gel_concentration < 2.0 and fragment_size >= 0.1 and fragment_size <=2.0:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_SHORT
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel concentration too low for 0.1kb-2kb dna size!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.gel_concentration >2.0 and dna_size >= 0.1 and dna_size <=2.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_SHORT
+			#{"fragment_size": var fragment_size, ..} when gel.gel_concentration >2.0 and fragment_size >= 0.1 and fragment_size <=2.0:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_SHORT
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel concentration too high for 0.1kb-2kb dna size!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.gel_concentration < 1.5 and dna_size >= 0.2 and dna_size <=3.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_SHORT
+			#{"fragment_size": var fragment_size, ..} when gel.gel_concentration < 1.5 and fragment_size >= 0.2 and fragment_size <=3.0:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_SHORT
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel concentration too low for 0.2kb-3kb dna size!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.gel_concentration >1.5 and dna_size >= 0.2 and dna_size <=3.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_SHORT
+			#{"fragment_size": var fragment_size, ..} when gel.gel_concentration >1.5 and fragment_size >= 0.2 and fragment_size <=3.0:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_SHORT
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel concentration too high for 0.2kb-3kb dna size!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.gel_concentration < 1.2 and dna_size >= 0.3 and dna_size <=7.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_SHORT
+			#{"fragment_size": var fragment_size, ..} when gel.gel_concentration < 1.2 and fragment_size >= 0.3 and fragment_size <=7.0:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_SHORT
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel concentration too low for 0.3kb-7kb dna size!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.gel_concentration >1.2 and dna_size >= 0.3 and dna_size <=7.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_SHORT
+			#{"fragment_size": var fragment_size, ..} when gel.gel_concentration >1.2 and fragment_size >= 0.3 and fragment_size <=7.0:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_SHORT
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel concentration too high for 0.3kb-7kb dna size!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.gel_concentration < 1.0 and dna_size >= 0.4 and dna_size <=8.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_LONG
+			#{"fragment_size": var fragment_size, ..} when gel.gel_concentration < 1.0 and fragment_size >= 0.4 and fragment_size <=8.0:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_LONG
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel concentration too low for 0.4kb-8kb dna size!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.gel_concentration >1.0 and dna_size >= 0.4 and dna_size <=8.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_LONG
+			#{"fragment_size": var fragment_size, ..} when gel.gel_concentration >1.0 and fragment_size >= 0.4 and fragment_size <=8.0:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_LONG
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel concentration too high for 0.4b-8kb dna size!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.gel_concentration < 0.7 and dna_size >= 0.8 and dna_size <=12.0:
-				#gel_state.well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_LONG
+			#{"fragment_size": var fragment_size, ..} when gel.gel_concentration < 0.7 and fragment_size >= 0.8 and fragment_size <=12.0:
+				#gel.well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_LONG
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel concentration too low for 0.8kb-12kb dna size!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.gel_concentration >0.7 and dna_size >= 0.8 and dna_size <=12.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_LONG
+			#{"fragment_size": var fragment_size, ..} when gel.gel_concentration >0.7 and fragment_size >= 0.8 and fragment_size <=12.0:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_LONG
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel concentration too high for 0.8kb-12kb dna size!", well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.gel_concentration < 0.5 and dna_size >= 2.0 and dna_size <=30.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_LONG
+			#{"fragment_size": var fragment_size, ..} when gel.gel_concentration < 0.5 and fragment_size >= 2.0 and fragment_size <=30.0:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_LONG
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel concentration too low for 2kb-30kb dna size!",well["name"], " gel sprite will have fuzzy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.gel_concentration >0.5 and dna_size >= 2.0 and dna_size <=30.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_LONG
+			#{"fragment_size": var fragment_size, ..} when gel.gel_concentration >0.5 and fragment_size >= 2.0 and fragment_size <=30.0:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_LONG
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel concentration too high for 2kb-30kb dna size!", well["name"], " gel sprite will have fuzzy bands")
-			#{"gel_analysis_asap": false,"dna_size": var dna_size, ..} when dna_size >= 8.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_SHORT
+			#{"gel_analysis_asap": false,"fragment_size": var fragment_size, ..} when fragment_size >= 8.0:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_SHORT
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("Too much time passed between electorphoresis and gel analysis!", well["name"], " gel sprite will have fuzzy bands")
-			#{"gel_analysis_asap": false,"dna_size": var dna_size, ..} when dna_size < 8.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.DIFFUSED_SHORT
+			#{"gel_analysis_asap": false,"fragment_size": var fragment_size, ..} when fragment_size < 8.0:
+				#well["gel.GelBandState"] = gel.GelBandState.DIFFUSED_SHORT
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("Too much time passed between electorphoresis and gel analysis!", well["name"], " gel sprite will have fuzzy bands")
 			##Conditions for smiley/wavy/smeared bands
-			#{"dna_size": var dna_size, ..} when gel_state.correct_gel_temperature == false and dna_size >= 8.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.WAVY_LONG
+			#{"fragment_size": var fragment_size, ..} when gel.correct_gel_temperature == false and fragment_size >= 8.0:
+				#well["gel.GelBandState"] = gel.GelBandState.WAVY_LONG
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel heated to incorrect temperature!", well["name"], " gel sprite will have wavy or smeared bands")
-			#{"dna_size": var dna_size, ..} when gel_state.correct_gel_temperature == false and dna_size < 8.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.WAVY_SHORT
+			#{"fragment_size": var fragment_size, ..} when gel.correct_gel_temperature == false and fragment_size < 8.0:
+				#well["gel.GelBandState"] = gel.GelBandState.WAVY_SHORT
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel heated to incorrect temperature!", well["name"], " gel sprite will have wavy or smeared bands")
-			#{"dna_size": var dna_size, ..} when  gel_state.correct_gel_mixing == false and dna_size >= 8.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.WAVY_LONG
+			#{"fragment_size": var fragment_size, ..} when  gel.correct_gel_mixing == false and fragment_size >= 8.0:
+				#well["gel.GelBandState"] = gel.GelBandState.WAVY_LONG
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel not mixed well before electrophoresis!", well["name"], " gel sprite will have wavy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.correct_gel_mixing == false and  dna_size < 8.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.WAVY_SHORT
+			#{"fragment_size": var fragment_size, ..} when gel.correct_gel_mixing == false and  fragment_size < 8.0:
+				#well["gel.GelBandState"] = gel.GelBandState.WAVY_SHORT
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel not mixed well before electrophoresis!", well["name"], " gel sprite will have wavy bands")
-			#{"dna_size": var dna_size, ..} when gel_state.correct_comb_placement == false and dna_size >= 8.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.WAVY_LONG
+			#{"fragment_size": var fragment_size, ..} when gel.correct_comb_placement == false and fragment_size >= 8.0:
+				#well["gel.GelBandState"] = gel.GelBandState.WAVY_LONG
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel comb not placed well correctly!", well["name"], " gel sprite will have wavy bands or dna will remain in well")
-			#{"dna_size": var dna_size, ..} when  gel_state.correct_comb_placement == false and  dna_size < 8.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.WAVY_SHORT
+			#{"fragment_size": var fragment_size, ..} when  gel.correct_comb_placement == false and  fragment_size < 8.0:
+				#well["gel.GelBandState"] = gel.GelBandState.WAVY_SHORT
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("gel comb not placed well correctly!", well["name"], " gel sprite will have wavy bands or dna will remain in well")
-			#{"well_capacity": var well_capacity,"dna_size": var dna_size, ..} when well_capacity >5.0 and dna_size >= 8.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.SMEARED_LONG
+			#{"well.well_capacity": var well.well_capacity,"fragment_size": var fragment_size, ..} when well.well_capacity >5.0 and fragment_size >= 8.0:
+				#well["gel.GelBandState"] = gel.GelBandState.SMEARED_LONG
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
 				#print("well is flooded!", well["name"], " gel sprite will have smeared bands")
-			#{"well_capacity": var well_capacity,"dna_size": var dna_size, ..} when well_capacity >5.0 and dna_size < 8.0:
-				#well["gel_state.GelBandState"] = gel_state.GelBandState.SMEARED_SHORT
+			#{"well.well_capacity": var well.well_capacity,"fragment_size": var fragment_size, ..} when well.well_capacity >5.0 and fragment_size < 8.0:
+				#well["gel.GelBandState"] = gel.GelBandState.SMEARED_SHORT
 				##base_gel_sprite.visible = true
 				##well["gel_band_sprite"] = appropriate_sprite
 				##well["gel_band_sprite"].visible = true
@@ -292,4 +274,4 @@ func display_gel_bands() -> void:
 		print("voltage run too long! gel sprite will be blank")
 		display_blank_gel_bands()
 	#Well Capacity states
-	analyze_gel_state(gel)
+	analyze_gel(gel)
