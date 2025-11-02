@@ -16,6 +16,8 @@ signal object_placed(body: LabBody)
 signal object_removed(body: LabBody)
 
 
+## If [code]false[/code], new objects can't be attached to this.
+@export var allow_new_objects: bool = true
 ## If true, a ghost sprite of the object will appear where it would be attached.
 @export var show_ghost_sprite: bool = true
 ## If true, then the attached object will be made invisible an impossible to pick up.
@@ -109,7 +111,7 @@ func start_interact(_k: InteractInfo.Kind) -> void:
 
 ## This is called to check if an object can snap into place within at attachment area.
 func can_place(body: LabBody) -> bool:
-	return _find_attachment_offset(body) is Vector2
+	return allow_new_objects and _find_attachment_offset(body) is Vector2
 
 ## If the object should be hidden it will be made hidden and unable to be interacted with. 
 ## Then the offset of the object within the attachment area will be determined and the object's
