@@ -10,18 +10,18 @@ extends SubstanceInstance
 
 # Don't duplicate `data`.
 ## See [method SubstanceInstance.clone]
-func clone() -> BasicSubstance: return duplicate(false)
+func clone() -> GenericSubstance: return duplicate(false)
 ## See [method SubstanceInstance.get_density]
-func get_density() -> float: return data.density
+func get_density() -> float: return density
 ## See [method SubstanceInstance.get_volume]
 func get_volume() -> float: return volume
 ## See [method SubstanceInstance.get_color]
-func get_color() -> Color: return data.color
+func get_color() -> Color: return color
 
 # Only incorporate the same substance.
 ## See [method SubstanceInstance.try_incorporate]
 func try_incorporate(s: SubstanceInstance) -> bool:
-	if s is BasicSubstance and s.name == name:
+	if s is GenericSubstance and s.name == name:
 		volume += s.volume
 		return true
 	else:
