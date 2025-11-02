@@ -6,18 +6,6 @@
 class_name  GelState
 extends Resource
 
-## An enum that describes all the possible states the gel bands can appear as.
-enum GelBandState {
-	PERFECT_LONG,
-	PERFECT_SHORT,
-	DIFFUSED_LONG,
-	DIFFUSED_SHORT,
-	WAVY_LONG,
-	WAVY_SHORT,
-	SMEARED_LONG, 
-	SMEARED_SHORT,
-	BLANK
-}
 # Global gel data
 @export var electrode_correct_placement: bool = true ## incorrect placement means bands will run backwards and bands will not be visible
 @export var voltage: int = 120 ## voltage that is too high or low will result in no visible bands or diffused bands
@@ -30,53 +18,5 @@ enum GelBandState {
 @export var voltage_run_time: float = 20.0 ## in mintues if the voltage is run for too long or not long enough this will
 							## result in gel bands that are distorted or fuzzy or not visible from running off
 							##the gel
-							
-## Dictionary holding well-specific information for well 1
-@export var well1: Dictionary = {
-	"name": "well 1",
-	"well_capacity": 5.0, 
-	"dna_size": 25.0,
-	"GelBandState": null,
-	"well_sprite": null,
-	"gel_band_sprite": null,
-}
-
-## Dictionary holding well-specific information for well 2
-@export var well2: Dictionary = {
-	"name": "well 2",
-	"well_capacity": 5.0, 
-	"dna_size": 25.0,
-	"GelBandState": null,
-	"well_sprite": null,
-	"gel_band_sprite": null
-}
-
-## Dictionary holding well-specific information for well 3
-@export var well3: Dictionary = {
-	"name": "well 3",
-	"well_capacity": 5.0, 
-	"dna_size": 25.0,
-	"GelBandState": null,
-	"well_sprite": null,
-	"gel_band_sprite": null
-}
-
-## Dictionary holding well-specific information for well 4
-@export var well4: Dictionary = {
-	"name": "well 4",
-	"well_capacity": 5.0, 
-	"dna_size": 25.0,
-	"GelBandState": null,
-	"well_sprite": null,
-	"gel_band_sprite": null
-}
-
-## Dictionary holding well-specific information for well 5
-@export var well5: Dictionary = {
-	"name": "well 5",
-	"well_capacity": 5.0, 
-	"dna_size": 25.0,
-	"GelBandState": null,
-	"well_sprite": null,
-	"gel_band_sprite": null
-}
+@export var well_capacity: float = 5.0 ## how full a well is in microliters
+@export var well_max_capacity: float = 5.0 ## the maximum volume in microliters a well can hold
