@@ -100,6 +100,8 @@ func _ready() -> void:
 
 		idx += 1
 
+	%FPSLabel.visible = GameSettings.show_fps
+
 	# Set the resolution to the one matching the config. If the config resolution doesn't match
 	# any of the available ones, then it will automatically choose the first option.
 	$%ResolutionDropdown.select(saved_resolution_index)
@@ -165,6 +167,8 @@ func _process(delta: float) -> void:
 		# `get_global_mouse_position` directly because it needs to be in the same coordinate system
 		# as the area (i.e., the main world).
 		$%CursorArea.global_position = Cursor.virtual_mouse_position
+
+	%FPSLabel.text = str(Engine.get_frames_per_second())
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"ToggleMenu"):
@@ -528,3 +532,7 @@ func _on_cursor_area_body_entered(body: Node2D) -> void:
 
 func _on_cursor_area_body_exited(body: Node2D) -> void:
 	if body is LabBody: body.is_moused_over = false
+
+func _on_show_fps_toggled(toggled_on: bool) -> void:
+	GameSettings.show_fps = toggled_on
+	%FPSLabel.visible = toggled_on
