@@ -103,7 +103,9 @@ func start_targeting(_k: InteractInfo.Kind) -> void:
 ## See [method InteractableArea.stop_targeting]
 func stop_targeting(_k: InteractInfo.Kind) -> void:
 	if selectable_canvas_group: selectable_canvas_group.is_outlined = false
-	call_deferred(&"remove_child", _ghost_sprite)
+	if _ghost_sprite:
+		_ghost_sprite.queue_free()
+		_ghost_sprite = null
 
 ## See [method InteractableArea.start_interact]
 func start_interact(_k: InteractInfo.Kind) -> void:
