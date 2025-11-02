@@ -91,10 +91,10 @@ func _physics_process(delta: float) -> void:
 		# Only pull if we're below the fluid level.
 		if plunge_diff < -0.001 and substance_display.global_fluid_top_y_coord <= tip_node.global_position.y:
 			var volume: float = -plunge_diff * VOLUME_PER_DIST
-			$ContainerComponent.add(substance_display.source.take_volume(volume))
+			$ContainerComponent.add_array(substance_display.source.take_volume(volume))
 		elif plunge_diff > 0.001:
 			var volume: float = plunge_diff * VOLUME_PER_DIST * PLUNGE_DOWN_VOLUME_RATIO
-			substance_display.source.add($ContainerComponent.take_volume(volume))
+			substance_display.source.add_array($ContainerComponent.take_volume(volume))
 
 func _on_exclusive_object_hitbox_entered_purview_of(area: ExclusiveArea2D) -> void:
 	collision_mask |= 0b1000

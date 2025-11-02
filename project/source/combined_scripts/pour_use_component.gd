@@ -35,6 +35,6 @@ func start_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 		amount = clamp(amount, 0, container_component.container_volume)
 		
 	print("Pouring %s ml" % [amount])
-	var substance: SubstanceInstance = container_component.take_volume(amount)
-	container_component_to_receive.add(substance)
+	var substances := container_component.take_volume(amount)
+	container_component_to_receive.add_array(substances)
 	container_component_to_receive.temperature = container_component.temperature # Keeping it simple for now
