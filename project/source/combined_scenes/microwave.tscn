@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cs2tep7cd3vxf"]
+[gd_scene load_steps=16 format=3 uid="uid://cs2tep7cd3vxf"]
 
 [ext_resource type="Script" uid="uid://b10fibv688ggy" path="res://combined_scripts/microwave.gd" id="1_caubw"]
 [ext_resource type="Texture2D" uid="uid://by1qv0us7rnwc" path="res://updated_assets/lab_objects/microwave/base.svg" id="2_akh7v"]
@@ -11,6 +11,14 @@
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="5_iwbat"]
 [ext_resource type="Script" uid="uid://cyy8f7st3wb0c" path="res://combined_scripts/selectable_area_component.gd" id="6_8bw4g"]
 [ext_resource type="Script" uid="uid://nf1enjfal72f" path="res://combined_scripts/depth_managed_node_2d.gd" id="10_grr38"]
+[ext_resource type="Script" uid="uid://b810schxe1hne" path="res://combined_scripts/interact_info.gd" id="10_su0ss"]
+
+[sub_resource type="Resource" id="Resource_phx7o"]
+script = ExtResource("10_su0ss")
+kind = 3
+description = "Inspect keypad"
+allowed = true
+metadata/_custom_type_script = "uid://b810schxe1hne"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwbat"]
 size = Vector2(53, 59)
@@ -298,8 +306,7 @@ position_smoothing_speed = 1.0
 
 [node name="ZoomArea" type="Node2D" parent="."]
 script = ExtResource("6_8bw4g")
-interact_kind = 3
-prompt = "Inspect keypad"
+interact_info = SubResource("Resource_phx7o")
 metadata/_custom_type_script = "uid://cyy8f7st3wb0c"
 
 [node name="KeypadArea" type="Area2D" parent="ZoomArea"]

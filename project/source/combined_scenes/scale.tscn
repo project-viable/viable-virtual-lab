@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://gfmuo2b5e2b5"]
+[gd_scene load_steps=13 format=3 uid="uid://gfmuo2b5e2b5"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_ssuie"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_ceiaq"]
 [ext_resource type="Texture2D" uid="uid://ceb3fqgxtqtqf" path="res://updated_assets/lab_objects/scale.svg" id="4_ssuie"]
 [ext_resource type="Script" uid="uid://ceswiywyrstxd" path="res://combined_scripts/scale_interactable_area.gd" id="5_7y61a"]
 [ext_resource type="Script" uid="uid://cyy8f7st3wb0c" path="res://combined_scripts/selectable_area_component.gd" id="5_ssuie"]
+[ext_resource type="Script" uid="uid://b810schxe1hne" path="res://combined_scripts/interact_info.gd" id="6_vhatv"]
 [ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://updated_assets/icons_and_buttons/button_2.svg" id="7_vhatv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssuie"]
@@ -15,6 +16,13 @@ size = Vector2(102, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jkoys"]
 size = Vector2(102, 2)
+
+[sub_resource type="Resource" id="Resource_vhatv"]
+script = ExtResource("6_vhatv")
+kind = 3
+description = "Inspect scale"
+allowed = true
+metadata/_custom_type_script = "uid://b810schxe1hne"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7y61a"]
 size = Vector2(95, 25)
@@ -62,8 +70,7 @@ shape = SubResource("RectangleShape2D_jkoys")
 [node name="ZoomArea" type="Node2D" parent="."]
 z_index = 1
 script = ExtResource("5_ssuie")
-interact_kind = 3
-prompt = "Inspect scale"
+interact_info = SubResource("Resource_vhatv")
 
 [node name="Area2D" type="Area2D" parent="ZoomArea"]
 
