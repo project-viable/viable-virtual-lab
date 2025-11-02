@@ -52,6 +52,8 @@ func analyze_gel_state(gel: LabBody) -> void:
 					print("perfect! Here's a perfect gel band sprite with long ladders for", well["name"], " !")
 					#gel_band = appropriate_sprite
 					#gel_band.position = substance.position
+					#base_gel_sprite.visible = true
+					
 					
 	#match well:
 			## Perfect results
