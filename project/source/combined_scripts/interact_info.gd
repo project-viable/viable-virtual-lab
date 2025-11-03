@@ -28,11 +28,16 @@ enum Kind
 ## "Left click: Add tip (already has tip).
 @export var allowed: bool = true
 
+## If this is set to [code]false[/code], then the normal prompt won't be shown in the bottom-left
+## corner. This should be used when a custom prompt is being used.
+@export var show_prompt: bool = true
 
-func _init(p_kind: Kind = Kind.PRIMARY, p_description: String = "", p_allowed: bool = true) -> void:
+
+func _init(p_kind: Kind = Kind.PRIMARY, p_description: String = "", p_allowed: bool = true, p_show_prompt: bool = true) -> void:
 	kind = p_kind
 	description = p_description
 	allowed = p_allowed
+	show_prompt = p_show_prompt
 
 ## Get the [StringName] of the input action associated with an interaction kind.
 static func kind_to_action(k: Kind) -> StringName:

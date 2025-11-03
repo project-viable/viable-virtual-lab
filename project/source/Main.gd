@@ -108,12 +108,10 @@ func _ready() -> void:
 	_on_resolution_dropdown_item_selected(saved_resolution_index)
 
 	for kind: InteractInfo.Kind in InteractInfo.Kind.values():
-		var action := InteractInfo.kind_to_action(kind)
-		var events := InputMap.action_get_events(action)
-		if not events: continue
-
 		var prompt: InteractionPrompt = INTERACTION_PROMPT_SCENE.instantiate()
-		prompt.input_event = events.front()
+		var action_event := InputEventAction.new()
+		action_event.action = InteractInfo.kind_to_action(kind)
+		prompt.input_event = action_event
 		%Prompts.add_child(prompt)
 
 		_interact_kind_prompts[kind] = prompt
@@ -134,7 +132,7 @@ func _process(delta: float) -> void:
 		if not prompt: continue
 
 		var state: Interaction.InteractState = Interaction.interactions.get(kind)
-		if state.info:
+		if state.info and state.info.show_prompt:
 			prompt.show()
 			prompt.disabled = not state.info.allowed
 			prompt.description = state.info.description
