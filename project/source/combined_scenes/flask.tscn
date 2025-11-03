@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5ff3gy87ykja"]
+[gd_scene load_steps=10 format=3 uid="uid://b5ff3gy87ykja"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_6iauc"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="2_6iauc"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://combined_scripts/pour_use_component.gd" id="6_6iauc"]
 [ext_resource type="Script" uid="uid://dx8btkgbugnyv" path="res://combined_scripts/swirl_use_component.gd" id="8_dyohf"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://combined_scripts/pour_interactable_area.gd" id="8_e38bm"]
+[ext_resource type="Script" uid="uid://b6fn3sx53tn8l" path="res://combined_scripts/focus_use_component.gd" id="9_dyohf"]
 
 [node name="Flask" type="RigidBody2D" groups=["emptyable"]]
 collision_layer = 0
@@ -57,4 +58,10 @@ script = ExtResource("8_dyohf")
 container = NodePath("../ContainerComponent")
 node_to_rotate = NodePath("../SelectableCanvasGroup")
 rotation_center_offset = Vector2(0, -10)
+metadata/_custom_type_script = "uid://c5xu35ldxvqog"
+
+[node name="FocusUseComponent" type="Node2D" parent="."]
+script = ExtResource("9_dyohf")
+top_padding = 20.0
+bottom_padding = 20.0
 metadata/_custom_type_script = "uid://c5xu35ldxvqog"
