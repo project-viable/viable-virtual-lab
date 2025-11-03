@@ -874,6 +874,7 @@ scale = Vector2(0.7, 0.7)
 pivot_offset = Vector2(102.5, 0)
 input_event = SubResource("InputEventAction_xrxkg")
 description = "Zoom out"
+auto_update_pressed = true
 
 [node name="LeftWorkspacePrompt" parent="Menu" instance=ExtResource("24_mxvw5")]
 unique_name_in_owner = true
@@ -886,6 +887,7 @@ offset_bottom = 0.0
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 input_event = SubResource("InputEventAction_mxvw5")
+auto_update_pressed = true
 
 [node name="RightWorkspacePrompt" parent="Menu" instance=ExtResource("24_mxvw5")]
 unique_name_in_owner = true
@@ -900,6 +902,7 @@ grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 input_event = SubResource("InputEventAction_sqvbp")
+auto_update_pressed = true
 
 [node name="Mixtures" type="Node2D" parent="."]
 position = Vector2(-2, -2)

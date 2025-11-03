@@ -1,16 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqq24b1qxt4r7"]
+[gd_scene load_steps=8 format=3 uid="uid://bqq24b1qxt4r7"]
 
-[ext_resource type="Texture2D" uid="uid://bhexr0tytfxlb" path="res://updated_assets/icons_and_buttons/keyboard_top.svg" id="1_a2qy6"]
 [ext_resource type="Script" uid="uid://djoq1glbbojw1" path="res://combined_scripts/interaction_prompt.gd" id="1_hyumr"]
+[ext_resource type="Texture2D" uid="uid://d062ywg2c6bnj" path="res://updated_assets/icons_and_buttons/keyboard_key_unpressed.svg" id="2_a6f31"]
+[ext_resource type="Texture2D" uid="uid://cv05dk2ip135d" path="res://updated_assets/icons_and_buttons/keyboard_key_pressed.svg" id="3_g1gqo"]
 [ext_resource type="Texture2D" uid="uid://dmev1jp2fxu07" path="res://updated_assets/icons_and_buttons/mouse_left.svg" id="3_rbyiy"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hyumr"]
-texture = ExtResource("1_a2qy6")
-texture_margin_left = 17.1424
+texture = ExtResource("2_a6f31")
+texture_margin_left = 15.5596
 texture_margin_top = 14.2369
 texture_margin_right = 15.9802
-texture_margin_bottom = 14.5275
-region_rect = Rect2(150.201, 172.59, 129.139, 116.59)
+texture_margin_bottom = 27.5031
+region_rect = Rect2(74.499, 86.3222, 66.0819, 72.3381)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_55hpe"]
+texture = ExtResource("3_g1gqo")
+texture_margin_left = 15.5596
+texture_margin_top = 16.6639
+texture_margin_right = 15.9802
+texture_margin_bottom = 19.2725
+region_rect = Rect2(74.499, 86.3222, 66.0819, 72.3381)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rbyiy"]
 resource_local_to_scene = true
@@ -18,18 +27,33 @@ atlas = ExtResource("3_rbyiy")
 region = Rect2(283.5, 13.962, 456, 741.72)
 
 [node name="InteractionPrompt" type="HBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
 offset_right = 82.0
 offset_bottom = 40.0
 theme_override_constants/separation = 10
 script = ExtResource("1_hyumr")
 
-[node name="KeyboardKey" type="PanelContainer" parent="."]
+[node name="KeyUnpressed" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxTexture_hyumr")
 
-[node name="KeyLabel" type="Label" parent="KeyboardKey"]
-unique_name_in_owner = true
+[node name="Label" type="Label" parent="KeyUnpressed"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "(unknown)"
+horizontal_alignment = 1
+
+[node name="KeyPressed" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxTexture_55hpe")
+
+[node name="Label" type="Label" parent="KeyPressed"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16

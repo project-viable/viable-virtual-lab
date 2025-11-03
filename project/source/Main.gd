@@ -141,6 +141,7 @@ func _process(delta: float) -> void:
 			prompt.show()
 			prompt.disabled = not state.info.allowed
 			prompt.description = state.info.description
+			prompt.pressed = state.is_pressed
 
 	# The coordinate system for the main viewport and the cursor canvas layer are different, so
 	# we have to convert.
