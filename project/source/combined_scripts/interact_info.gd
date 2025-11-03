@@ -10,6 +10,8 @@ enum Kind
 	SECONDARY, ## Right click by default.
 	TERTIARY, ## Shift by default.
 	INSPECT, ## E by default. Used to zoom in on things.
+	LEFT, ## A by default.
+	RIGHT, ## D by default.
 }
 
 
@@ -39,4 +41,6 @@ static func kind_to_action(k: Kind) -> StringName:
 		Kind.SECONDARY: return &"interact_secondary"
 		Kind.TERTIARY: return &"interact_tertiary"
 		Kind.INSPECT: return &"interact_inspect"
+		Kind.LEFT: return &"interact_left"
+		Kind.RIGHT: return &"interact_right"
 		_: return &""
