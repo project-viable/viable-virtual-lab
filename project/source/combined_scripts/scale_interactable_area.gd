@@ -6,6 +6,10 @@ var is_zoomed_in: bool = false
 var tare_weight: float
 var current_weight: float = 0.0 #in terms of grams
 
+func _ready() -> void:
+	super()
+	Game.main.camera_focus_owner_changed.connect(_on_main_camera_focus_owner_changed)
+
 func _physics_process(_delta: float) -> void:
 	## The scale will constantly be waiting to update the display of grams 
 	current_weight = 0.0
@@ -15,8 +19,6 @@ func _physics_process(_delta: float) -> void:
 
 		for c: ContainerComponent in body.find_children("", "ContainerComponent", false):
 			current_weight += (c.container_mass + c.get_substances_mass())
-
-	Game.main.camera_focus_owner_changed.connect(_on_main_camera_focus_owner_changed)
 
 	get_parent().find_child("WeightLabel").text = "%.2f" % [current_weight-tare_weight]
 
