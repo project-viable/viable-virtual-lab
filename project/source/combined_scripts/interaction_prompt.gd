@@ -37,23 +37,30 @@ func _update_appearance() -> void:
 	if disabled: modulate = Color(1, 1, 1, 0.5)
 	else: modulate = Color.WHITE
 
+	# Show an [InputEventAction] as its first binding.
+	var input_event_to_show := input_event
+	if input_event is InputEventAction:
+		var events := InputMap.action_get_events(input_event.action)
+		if events:
+			input_event_to_show = events.front()
+
 	$KeyboardKey.hide()
 	$MouseButton.hide()
 
 	var was_valid := false
-	if input_event is InputEventKey:
-		%KeyLabel.text = _keyboard_key_name(input_event)
+	if input_event_to_show is InputEventKey:
+		%KeyLabel.text = _keyboard_key_name(input_event_to_show)
 		$KeyboardKey.show()
 		was_valid = true
-	elif input_event is InputEventMouseButton:
-		var texture := _mouse_button_to_texture(input_event.button_index)
+	elif input_event_to_show is InputEventMouseButton:
+		var texture := _mouse_button_to_texture(input_event_to_show.button_index)
 		if texture:
 			$MouseButton.texture.atlas = texture
 			$MouseButton.show()
 			was_valid = true
 		else:
 			was_valid = false
-	
+
 	if not was_valid:
 		$KeyboardKey.show()
 		%KeyLabel.text = "(unknown)"
