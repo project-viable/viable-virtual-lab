@@ -213,6 +213,7 @@ func check_action(params: Dictionary) -> void:
 
 func unload_current_module() -> void:
 	LabLog.clear_logs()
+	DepthManager.clear_layers()
 	for child in $%Scene.get_children():
 		child.queue_free()
 	_current_workspace = null

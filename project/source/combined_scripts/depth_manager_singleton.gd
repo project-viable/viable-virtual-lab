@@ -67,6 +67,11 @@ func get_base_z_index(absolute_index: int) -> int:
 	@warning_ignore("integer_division")
 	return (absolute_index + 4) / 10 * 10
 
+func clear_layers() -> void:
+	for arranger: ZIndexArranger in _object_arranger_map.values():
+		arranger.clear()
+	_object_arranger_map = {}
+
 
 class ZIndexArranger:
 	var min_index: int = 0
@@ -94,6 +99,10 @@ class ZIndexArranger:
 	func remove(object: CanvasItem) -> void:
 		_objects.erase(object)
 		_update_indices()
+
+	# Remove all managed items without updating indices.
+	func clear() -> void:
+		_objects = []
 
 	func _update_indices() -> void:
 		var cur_index := min_index
