@@ -5,6 +5,10 @@ extends Node2D
 const INTERACTION_PROMPT_SCENE := preload("res://combined_scenes/interaction_prompt.tscn")
 
 
+## This will be called with [code]null[/code] when returning to the workspace.
+signal camera_focus_owner_changed(focus_owner: Node)
+
+
 @export var check_strategies: Array[MistakeChecker]
 @export var all_modules: Array[ModuleData]
 
@@ -44,6 +48,7 @@ var _resolution_options: Array[Vector2i] = [
 ]
 
 var _current_workspace: WorkspaceCamera = null
+var _camera_focus_owner: Node = null
 
 var _interact_kind_prompts: Dictionary[InteractInfo.Kind, InteractionPrompt] = {}
 
@@ -176,12 +181,6 @@ func _unhandled_key_input(e: InputEvent) -> void:
 		# Toggle the pause menu only if we're in a module.
 		elif current_module_scene != null:
 			set_paused(not is_paused())
-	elif e.is_action_pressed(&"CameraLeft"):
-		if _current_workspace and _current_workspace.left_workspace:
-			move_to_workspace(_current_workspace.left_workspace, 1.0)
-	elif e.is_action_pressed(&"CameraRight"):
-		if _current_workspace and _current_workspace.right_workspace:
-			move_to_workspace(_current_workspace.right_workspace, 1.0)
 
 func _load_module(module: ModuleData) -> void:
 	set_scene(module.scene)
@@ -318,13 +317,28 @@ func is_paused() -> bool:
 func move_to_workspace(workspace: WorkspaceCamera, time: float = 0.0) -> void:
 	_current_workspace = workspace
 	if _current_workspace:
-		$%TransitionCamera.main_scene_camera = _current_workspace
 		$%TransitionCamera.move_to_camera(workspace, true, time)
+
+func return_to_current_workspace() -> void:
+	if _current_workspace:
+		$%TransitionCamera.move_to_camera(_current_workspace, false)
+		set_camera_focus_owner(null)
 
 ## Move the camera to frame [param rect] in the center of the screen.
 func focus_camera_on_rect(rect: Rect2, time: float = 0.7) -> void:
 	var dest_rect := Util.expand_to_aspect(rect.grow(10), get_viewport_rect().size.aspect())
 	$%TransitionCamera.move_to_rect(dest_rect, false, time)
+
+## Set the "camera focus owner". The [param focus_owner] node isn't actually used for anything, but
+## acts as a marker to allow a node know whether it is zoomed in and to tell main whether to show
+## the "zoom out" prompt. This should generally be called after zooming in the camera.
+##
+## If a node wants to do something special when the camera is zoomed out, it can connect to
+## [signal camera_focus_owner_changed] to detect that (since it's called with [code]null[/code]
+## whenever [method return_to_current_workspace] is called).
+func set_camera_focus_owner(focus_owner: Node) -> void:
+	_camera_focus_owner = focus_owner
+	camera_focus_owner_changed.emit(_camera_focus_owner)
 
 ## Makes the view of the subscene camera [param camera] visible on the right side of the screen.
 ## Returns the width, in pixels, of the open region on the left side of the screen (this can be
@@ -534,3 +548,14 @@ func _on_cursor_area_body_exited(body: Node2D) -> void:
 func _on_show_fps_toggled(toggled_on: bool) -> void:
 	GameSettings.show_fps = toggled_on
 	%FPSLabel.visible = toggled_on
+
+func _on_interactable_system_pressed_left() -> void:
+	if _current_workspace and _current_workspace.left_workspace and not _camera_focus_owner:
+		move_to_workspace(_current_workspace.left_workspace, 1.0)
+
+func _on_interactable_system_pressed_right() -> void:
+	if _current_workspace and _current_workspace.right_workspace and not _camera_focus_owner:
+		move_to_workspace(_current_workspace.right_workspace, 1.0)
+
+func _on_interactable_system_pressed_zoom_out() -> void:
+	if _camera_focus_owner: return_to_current_workspace()

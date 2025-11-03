@@ -15,14 +15,15 @@ func _ready() -> void:
 		var button_label: Label = button.get_node("Label")
 		button.pressed.connect(_on_keypad_button_pressed.bind(button_label.text))
 		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	Game.main.camera_focus_owner_changed.connect(_on_main_camera_focus_owner_changed)
 
 	_update_door()
 
-func _input(event: InputEvent) -> void:
-	if _is_zoomed_in and event.is_action_pressed("ExitCameraZoom"):
+func _on_main_camera_focus_owner_changed(focus_owner: Node) -> void:
+	if _is_zoomed_in and focus_owner != self:
 		_is_zoomed_in = false
 		$ZoomArea.enable_interaction = true
-		Game.camera.return_to_main_scene()
 
 		# Buttons can't be clicked on if zoomed out.
 		for button: TextureButton in $Keypad.get_children():
@@ -65,6 +66,7 @@ func _on_zoom_area_pressed() -> void:
 		_is_zoomed_in = true
 		$ZoomArea.enable_interaction = false
 		Game.camera.move_to_camera($ZoomCamera)
+		Game.main.set_camera_focus_owner(self)
 
 		# Keypad buttons should be clickable if zoomed in on
 		for button: TextureButton in $Keypad.get_children():

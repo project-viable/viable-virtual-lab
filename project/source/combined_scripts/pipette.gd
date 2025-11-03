@@ -127,7 +127,7 @@ func _on_exclusive_object_hitbox_left_purview_of(area: ExclusiveArea2D) -> void:
 		DepthManager.move_to_front_of_layer(self, depth_layer_to_drop_in)
 
 	_leave_subscene()
-	Game.camera.return_to_main_scene(1.5)
+	Game.main.return_to_current_workspace()
 
 func _leave_subscene() -> void:
 	if _cur_subscene_camera:

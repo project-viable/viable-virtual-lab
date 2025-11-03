@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=29 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
 [ext_resource type="Script" uid="uid://chwhrlyn51foq" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://qyvthme13vqx" path="res://Modules/GelElectrophoresis.tres" id="7_d1bo7"]
 [ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://Images/Dot-Red.png" id="8"]
 [ext_resource type="Script" uid="uid://cmnnbli12q46a" path="res://combined_scripts/virtual_mouse_content_scaled_sub_viewport_container.gd" id="8_bg4s2"]
+[ext_resource type="Script" uid="uid://c6mualde27mwh" path="res://combined_scripts/main_interactable_system.gd" id="8_hhcpw"]
 [ext_resource type="Resource" uid="uid://d3tt3s0try6s7" path="res://Modules/combined.tres" id="8_sc1dx"]
 [ext_resource type="Resource" uid="uid://ig5fr0g7xm80" path="res://MistakeCheckers/MixtureChecker.tres" id="9"]
 [ext_resource type="Script" uid="uid://bmcv1qehkhxri" path="res://combined_scripts/scene_input_handler.gd" id="9_kjvhd"]
@@ -77,6 +78,10 @@ script = ExtResource("2")
 check_strategies = Array[ExtResource("2_45sle")]([ExtResource("9")])
 all_modules = Array[ExtResource("5_1a5hp")]([ExtResource("6_wqw1h"), ExtResource("7_d1bo7"), ExtResource("8_sc1dx")])
 
+[node name="InteractableSystem" type="Node2D" parent="."]
+script = ExtResource("8_hhcpw")
+metadata/_custom_type_script = "uid://brv8o6bvj0yqp"
+
 [node name="SceneLayer" type="CanvasLayer" parent="."]
 process_mode = 1
 
@@ -109,11 +114,10 @@ collision_mask = 4
 position = Vector2(8, 12)
 shape = SubResource("CapsuleShape2D_3b0ty")
 
-[node name="TransitionCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport" node_paths=PackedStringArray("main_scene_camera")]
+[node name="TransitionCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
 unique_name_in_owner = true
 position = Vector2(640, 360)
 script = ExtResource("10_bg4s2")
-main_scene_camera = NodePath("../MainSceneCamera")
 metadata/_custom_type_script = "uid://b8kjtd0vdnq42"
 
 [node name="MainSceneCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
@@ -868,6 +872,9 @@ text = "60"
 position = Vector2(-2, -2)
 script = ExtResource("10")
 
+[connection signal="pressed_left" from="InteractableSystem" to="." method="_on_interactable_system_pressed_left"]
+[connection signal="pressed_right" from="InteractableSystem" to="." method="_on_interactable_system_pressed_right"]
+[connection signal="pressed_zoom_out" from="InteractableSystem" to="." method="_on_interactable_system_pressed_zoom_out"]
 [connection signal="body_entered" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_entered"]
 [connection signal="body_exited" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_exited"]
 [connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/SelectModuleButton" to="." method="_on_SelectModuleButton_pressed"]

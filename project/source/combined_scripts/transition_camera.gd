@@ -4,15 +4,11 @@ class_name TransitionCamera
 extends Camera2D
 
 
-@export var main_scene_camera: Camera2D
-
-
 @onready var _source_rect := Util.get_camera_viewport(self).get_visible_rect()
 @onready var _dest_rect := _source_rect
 var _transition_time: float = 1.0
 var _cur_transition_time: float = 1.0
 var _is_transitioning: bool = false
-var _is_showing_main_scene: bool = true
 var _is_grabbing_mouse: bool = false
 
 
@@ -46,15 +42,7 @@ func move_to_rect(rect: Rect2, grab_mouse: bool = true, time: float = 0.7) -> vo
 	_transition_time = time
 	_cur_transition_time = 0.0
 	_is_transitioning = true
-	_is_showing_main_scene = false
 	_is_grabbing_mouse = grab_mouse
 
 func move_to_camera(camera: Camera2D, grab_mouse: bool = true, time: float = 0.7) -> void:
 	move_to_rect(Util.get_camera_world_rect(camera), grab_mouse, time)
-
-func return_to_main_scene(time: float = 0.7) -> void:
-	move_to_camera(main_scene_camera, false, time)
-	_is_showing_main_scene = true
-
-func is_showing_main_scene() -> bool:
-	return _is_showing_main_scene and not _is_transitioning

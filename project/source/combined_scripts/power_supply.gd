@@ -76,7 +76,8 @@ func _ready() -> void:
 		_buttons.append(button)
 		button.button_down.connect(_on_screen_button_pressed.bind(button))
 		button.button_up.connect(_on_screen_button_released.bind(button))
-	
+
+	Game.main.camera_focus_owner_changed.connect(_on_main_camera_focus_owner_changed)
 
 func _on_start_button_pressed() -> void:
 	var circuit_ready: bool = _is_circuit_ready()
@@ -86,10 +87,9 @@ func _on_start_button_pressed() -> void:
 	else:
 		print("Something is wrong with the circuit! Check that the connections on the Power Supply and Gel Box are correct!")
 		
-func _input(event: InputEvent) -> void:
-	if _is_zoomed_in and event.is_action_pressed("ExitCameraZoom"):
+func _on_main_camera_focus_owner_changed(focus_owner: Node) -> void:
+	if _is_zoomed_in and focus_owner != self:
 		_on_screen_button_released(_current_pressed_button) # Special case where the user zooms out while still holding down left click
-		Game.camera.return_to_main_scene()
 		$ScreenZoom.enable_interaction = true
 		_is_zoomed_in = false
 		for button in _buttons:
@@ -102,6 +102,7 @@ func _input(event: InputEvent) -> void:
 func _on_screen_zoom_pressed() -> void:
 	if not _is_zoomed_in:
 		Game.camera.move_to_camera($ZoomCamera)
+		Game.main.set_camera_focus_owner(self)
 		$ScreenZoom.enable_interaction = false
 		_is_zoomed_in = true
 		for button in _buttons:
