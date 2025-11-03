@@ -173,6 +173,12 @@ func _process(delta: float) -> void:
 
 	%FPSLabel.text = str(Engine.get_frames_per_second())
 
+	%ZoomOutPrompt.visible = _camera_focus_owner != null
+	%LeftWorkspacePrompt.visible = _current_workspace and not _camera_focus_owner
+	%LeftWorkspacePrompt.disabled = _current_workspace and not _current_workspace.left_workspace
+	%RightWorkspacePrompt.visible = _current_workspace and not _camera_focus_owner
+	%RightWorkspacePrompt.disabled = _current_workspace and not _current_workspace.right_workspace
+
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"ToggleMenu"):
 		# A page other than the main pause menu is being shown; return to the pause menu.

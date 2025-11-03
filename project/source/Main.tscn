@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=33 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
 [ext_resource type="Script" uid="uid://chwhrlyn51foq" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://b0hfiq010v2bq" path="res://updated_assets/icons_and_buttons/cursors/hand_open.svg" id="19_devvj"]
 [ext_resource type="Texture2D" uid="uid://bhpxxflq68efs" path="res://updated_assets/icons_and_buttons/cursors/hand_closed.svg" id="20_3b0ty"]
 [ext_resource type="Texture2D" uid="uid://ks1q0lnixrmt" path="res://updated_assets/icons_and_buttons/cursors/temp/reticle.svg" id="21_3b0ty"]
+[ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://combined_scenes/interaction_prompt.tscn" id="24_mxvw5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3b0ty"]
 
@@ -71,6 +72,15 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
+
+[sub_resource type="InputEventAction" id="InputEventAction_xrxkg"]
+action = &"interact_inspect"
+
+[sub_resource type="InputEventAction" id="InputEventAction_mxvw5"]
+action = &"interact_left"
+
+[sub_resource type="InputEventAction" id="InputEventAction_sqvbp"]
+action = &"interact_right"
 
 [node name="Main" type="Node2D"]
 process_mode = 3
@@ -849,6 +859,47 @@ offset_bottom = 19.0
 theme_override_colors/font_color = Color(0.393086, 0.393086, 0.393085, 1)
 theme_override_constants/outline_size = 2
 text = "60"
+
+[node name="ZoomOutPrompt" parent="Menu" instance=ExtResource("24_mxvw5")]
+unique_name_in_owner = true
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -102.5
+offset_top = 10.0
+offset_right = 102.5
+offset_bottom = 50.0
+grow_horizontal = 2
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(102.5, 0)
+input_event = SubResource("InputEventAction_xrxkg")
+description = "Zoom out"
+
+[node name="LeftWorkspacePrompt" parent="Menu" instance=ExtResource("24_mxvw5")]
+unique_name_in_owner = true
+anchors_preset = -1
+anchor_top = 0.3
+anchor_bottom = 0.3
+offset_left = 10.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+input_event = SubResource("InputEventAction_mxvw5")
+
+[node name="RightWorkspacePrompt" parent="Menu" instance=ExtResource("24_mxvw5")]
+unique_name_in_owner = true
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 0.3
+offset_right = 10.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+input_event = SubResource("InputEventAction_sqvbp")
 
 [node name="Mixtures" type="Node2D" parent="."]
 position = Vector2(-2, -2)
