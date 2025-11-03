@@ -15,7 +15,7 @@ region_rect = Rect2(150.201, 172.59, 129.139, 116.59)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rbyiy"]
 resource_local_to_scene = true
 atlas = ExtResource("3_rbyiy")
-region = Rect2(302.018, 25.9895, 417.843, 715.691)
+region = Rect2(283.5, 13.962, 456, 741.72)
 
 [node name="InteractionPrompt" type="HBoxContainer"]
 offset_right = 82.0
@@ -33,7 +33,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
-text = "UNKNOWN BUTTON"
+text = "(unknown)"
 horizontal_alignment = 1
 
 [node name="MouseButton" type="TextureRect" parent="."]
