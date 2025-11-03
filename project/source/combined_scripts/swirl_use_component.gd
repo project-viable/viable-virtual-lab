@@ -24,7 +24,6 @@ func _process(delta: float) -> void:
 		_swirl_time += delta
 		var angle: float = sin(swirl_speed * _swirl_time) * tan(hold_angle)
 		var trans := Vector2(-sin(swirl_speed * _swirl_time) * swirl_circle_radius, 0)
-		# TODO: Actually mix it.
 		node_to_rotate.transform = _orig_transform.translated(-rotation_center_offset).rotated(angle).translated(rotation_center_offset + trans)
 
 func get_interactions(_area: InteractableArea) -> Array[InteractInfo]:
@@ -35,6 +34,16 @@ func start_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 	_swirl_time = 0
 	_orig_transform = node_to_rotate.transform
 
+	# TODO: Don't hard-code this for just TAE.
+	for s in container.substances:
+		if s is TAEBufferSubstance:
+			s.is_mixing = true
+
 func stop_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 	_is_swirling = false
 	node_to_rotate.transform = _orig_transform
+
+	# TODO: Don't hard-code this for just TAE.
+	for s in container.substances:
+		if s is TAEBufferSubstance:
+			s.is_mixing = false

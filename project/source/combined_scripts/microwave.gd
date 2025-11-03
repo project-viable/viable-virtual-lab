@@ -92,7 +92,10 @@ func _on_microwave_stopped() -> void:
 		if obj:
 			var container_to_heat := find_container(obj)
 			if container_to_heat:
-				pass
+				for s in container_to_heat.substances:
+					# TODO: Make this not hard-coded.
+					if s is TAEBufferSubstance:
+						s.microwave(_total_seconds - _total_seconds_left)
 
 		# Update _total_seconds for the next "start" press if the user doesn't clear
 		_total_seconds = _total_seconds_left

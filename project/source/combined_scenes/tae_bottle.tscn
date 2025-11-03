@@ -1,14 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://du0xgct56vfqx"]
+[gd_scene load_steps=11 format=3 uid="uid://du0xgct56vfqx"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_vo5hq"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_rqhjd"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="4_jcpv6"]
 [ext_resource type="Texture2D" uid="uid://b1o81j7y3wuwp" path="res://updated_assets/lab_objects/bottle_TAE.svg" id="4_vo5hq"]
+[ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://combined_scripts/substance_instance.gd" id="5_6s205"]
+[ext_resource type="Script" uid="uid://c3xp3pqfn8ici" path="res://combined_scripts/tae_buffer_substance.gd" id="6_jcpv6"]
 [ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://combined_scripts/pour_use_component.gd" id="9_7vpf6"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://combined_scripts/pour_interactable_area.gd" id="10_vo5hq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rqhjd"]
 size = Vector2(46, 86)
+
+[sub_resource type="Resource" id="Resource_6s205"]
+script = ExtResource("6_jcpv6")
+volume = 100.0
+agarose_concentration = 0.0
+temperature = 20.0
+metadata/_custom_type_script = "uid://c3xp3pqfn8ici"
 
 [node name="TAEBottle" type="RigidBody2D"]
 collision_layer = 0
@@ -28,6 +37,7 @@ texture = ExtResource("4_vo5hq")
 
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("4_jcpv6")
+substances = Array[ExtResource("5_6s205")]([SubResource("Resource_6s205")])
 container_volume = 100.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
