@@ -862,7 +862,7 @@ text = "60"
 
 [node name="ZoomOutPrompt" parent="Menu" instance=ExtResource("24_mxvw5")]
 unique_name_in_owner = true
-anchors_preset = -1
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -102.5
