@@ -180,10 +180,10 @@ func _unhandled_key_input(e: InputEvent) -> void:
 			set_paused(not is_paused())
 	elif e.is_action_pressed(&"CameraLeft"):
 		if _current_workspace and _current_workspace.left_workspace:
-			move_to_workspace(_current_workspace.left_workspace, 2.0)
+			move_to_workspace(_current_workspace.left_workspace, 1.0)
 	elif e.is_action_pressed(&"CameraRight"):
 		if _current_workspace and _current_workspace.right_workspace:
-			move_to_workspace(_current_workspace.right_workspace, 2.0)
+			move_to_workspace(_current_workspace.right_workspace, 1.0)
 
 func _load_module(module: ModuleData) -> void:
 	set_scene(module.scene)
