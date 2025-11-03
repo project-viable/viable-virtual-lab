@@ -15,7 +15,8 @@ func _physics_process(_delta: float) -> void:
 	current_weight = 0.0
 	for body:LabBody in get_parent().find_child("InteractableArea").get_overlapping_bodies():
 		# Don't weigh objects unless they are affected by gravity.
-		if not (body is LabBody) or body.freeze: continue
+		if not (body is LabBody) or body.physics_mode != LabBody.PhysicsMode.FREE:
+			continue
 
 		for c: ContainerComponent in body.find_children("", "ContainerComponent", false):
 			current_weight += (c.container_mass + c.get_substances_mass())
