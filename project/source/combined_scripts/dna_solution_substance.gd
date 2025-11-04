@@ -10,9 +10,7 @@ extends GenericSubstance
 var position: float = 0.0
 
 
-func _init() -> void:
-	name = "DNA"
-	color = Color(0.327, 0.481, 0.99, 0.737)
+func get_color() -> Color: return Color(0.327, 0.481, 0.99, 0.737)
 
 func try_incorporate(s: SubstanceInstance) -> bool:
 	if s is DNASolutionSubstance and s.fragment_size == fragment_size:
