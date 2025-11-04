@@ -92,6 +92,10 @@ func _physics_process(delta: float) -> void:
 		var dir := get_current_direction()
 		if dir == CurrentDirection.REVERSE: _object_to_recieve_current.voltage *= -1
 
+	if $LabTimer.time_left > 0:
+		time = round($LabTimer.time_left)
+		update_timer_display()
+
 func _on_start_button_pressed() -> void:
 	$LabTimer.start(time)
  
