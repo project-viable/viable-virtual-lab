@@ -34,8 +34,18 @@ func stop_targeting(_k: InteractInfo.Kind) -> void:
 	interact_canvas_group.is_outlined = false
 
 func start_interact(_k: InteractInfo.Kind) -> void:
-			pressed.emit()
-			started_holding.emit()
+	_press()
+	_start_holding()
+	pressed.emit()
+	started_holding.emit()
 
 func stop_interact(_k: InteractInfo.Kind) -> void:
+	_stop_holding()
 	stopped_holding.emit()
+
+## (virtual) Called on button down.
+func _press() -> void: pass
+## (virtual) Same as [method _press].
+func _start_holding() -> void: pass
+## (virtual) Called on button up.
+func _stop_holding() -> void: pass

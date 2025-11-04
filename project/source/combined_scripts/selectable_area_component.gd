@@ -35,11 +35,21 @@ func get_interactions() -> Array[InteractInfo]:
 	return [interact_info]
 
 func start_interact(_k: InteractInfo.Kind) -> void:
+	_press()
+	_start_holding()
 	pressed.emit()
 	started_holding.emit()
 
 func stop_interact(_k: InteractInfo.Kind) -> void:
+	_stop_holding()
 	stopped_holding.emit()
+
+## (virtual) Called on button down.
+func _press() -> void: pass
+## (virtual) Same as [method _press].
+func _start_holding() -> void: pass
+## (virtual) Called on button up.
+func _stop_holding() -> void: pass
 
 func _on_click_area_area_entered(area: Area2D) -> void:
 	if area == Game.cursor_area:
