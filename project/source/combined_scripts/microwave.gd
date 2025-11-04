@@ -5,7 +5,6 @@ var _input_time: int = 0
 var _is_microwaving: bool = false
 var _total_seconds_left: int = 0
 var _total_seconds: int = 0
-var _is_zoomed_in: bool = false
 var _is_door_open: bool = false
 
 
@@ -15,19 +14,8 @@ func _ready() -> void:
 		var button_label: Label = button.get_node("Label")
 		button.pressed.connect(_on_keypad_button_pressed.bind(button_label.text))
 		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	
-	Game.main.camera_focus_owner_changed.connect(_on_main_camera_focus_owner_changed)
 
 	_update_door()
-
-func _on_main_camera_focus_owner_changed(focus_owner: Node) -> void:
-	if _is_zoomed_in and focus_owner != self:
-		_is_zoomed_in = false
-		$ZoomArea.enable_interaction = true
-
-		# Buttons can't be clicked on if zoomed out.
-		for button: TextureButton in $Keypad.get_children():
-			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func find_container(interactor: PhysicsBody2D) -> ContainerComponent:
 	# Only objects that have a `ContainerComponent` as a direct child can be microwaved. `
@@ -59,18 +47,6 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 			_total_seconds_left = minutes * 60 + seconds
 			_total_seconds = _total_seconds_left
 			update_timer_display(minutes, seconds)
-
-## Handles when the area is clicked on. If so zoom in on the microwave
-func _on_zoom_area_pressed() -> void:
-	if not _is_zoomed_in:
-		_is_zoomed_in = true
-		$ZoomArea.enable_interaction = false
-		Game.camera.move_to_camera($ZoomCamera)
-		Game.main.set_camera_focus_owner(self)
-
-		# Keypad buttons should be clickable if zoomed in on
-		for button: TextureButton in $Keypad.get_children():
-			button.mouse_filter = Control.MOUSE_FILTER_STOP
 
 ## Start microwaving the object
 func _on_start_button_pressed() -> void:
@@ -139,3 +115,12 @@ func _update_door() -> void:
 func _on_door_selectable_pressed() -> void:
 	_is_door_open = not _is_door_open
 	_update_door()
+
+func _on_zoom_selectable_area_zoomed_in() -> void:
+	# Keypad buttons should be clickable if zoomed in on
+	for button: TextureButton in $Keypad.get_children():
+		button.mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _on_zoom_selectable_area_zoomed_out() -> void:
+	for button: TextureButton in $Keypad.get_children():
+		button.mouse_filter = Control.MOUSE_FILTER_IGNORE

@@ -9,13 +9,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_05efo"]
 size = Vector2(12, 14)
 
-[node name="ContactWire" type="RigidBody2D" node_paths=PackedStringArray("interact_canvas_group") groups=["contact_wire"]]
+[node name="ContactWire" type="RigidBody2D" node_paths=PackedStringArray("interact_canvas_group") groups=["contact_wire", "zoom:power_supply"]]
 collision_layer = 2
 freeze_mode = 1
 script = ExtResource("1_py2n2")
 texture = ExtResource("2_4eh70")
 interact_canvas_group = NodePath("SelectableCanvasGroup")
-depth_layer_to_drop_in = null
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]

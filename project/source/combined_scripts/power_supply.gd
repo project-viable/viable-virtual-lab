@@ -40,7 +40,6 @@ enum CurrentDirection{
 	REVERSE
 }
 
-var _is_zoomed_in: bool = false
 var _should_increment: bool = false
 var _is_power_supply_connected: bool = false
 var _object_to_recieve_current: WireConnectableComponent
@@ -77,8 +76,6 @@ func _ready() -> void:
 		button.button_down.connect(_on_screen_button_pressed.bind(button))
 		button.button_up.connect(_on_screen_button_released.bind(button))
 
-	Game.main.camera_focus_owner_changed.connect(_on_main_camera_focus_owner_changed)
-
 func _on_start_button_pressed() -> void:
 	var circuit_ready: bool = _is_circuit_ready()
 	if circuit_ready:
@@ -86,31 +83,6 @@ func _on_start_button_pressed() -> void:
 		activate_power_supply.emit(volts, time, current_direction) #TODO stuff should happen once wires are connected to the gel rig
 	else:
 		print("Something is wrong with the circuit! Check that the connections on the Power Supply and Gel Box are correct!")
-		
-func _on_main_camera_focus_owner_changed(focus_owner: Node) -> void:
-	if _is_zoomed_in and focus_owner != self:
-		_on_screen_button_released(_current_pressed_button) # Special case where the user zooms out while still holding down left click
-		$ScreenZoom.enable_interaction = true
-		_is_zoomed_in = false
-		for button in _buttons:
-			button.disabled = true
-			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		
-		time_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		
-func _on_screen_zoom_pressed() -> void:
-	if not _is_zoomed_in:
-		Game.camera.move_to_camera($ZoomCamera)
-		Game.main.set_camera_focus_owner(self)
-		$ScreenZoom.enable_interaction = false
-		_is_zoomed_in = true
-		for button in _buttons:
-			button.disabled = false
-			button.mouse_filter = Control.MOUSE_FILTER_STOP
-		
-		time_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
-		voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
  
 func _on_timer_timeout() -> void:
 	var is_pressed: bool = _current_pressed_button.button_pressed
@@ -238,3 +210,20 @@ func get_current_direction() -> CurrentDirection:
 	# Ends of a wire are connected to different terminal denotations, resulting in a reversed current direction
 	else:
 		return CurrentDirection.REVERSE
+
+func _on_zoom_selectable_area_zoomed_in() -> void:
+	for button in _buttons:
+		button.disabled = false
+		button.mouse_filter = Control.MOUSE_FILTER_STOP
+	
+	time_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
+	voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _on_zoom_selectable_area_zoomed_out() -> void:
+	_on_screen_button_released(_current_pressed_button) # Special case where the user zooms out while still holding down left click
+	for button in _buttons:
+		button.disabled = true
+		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	time_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE

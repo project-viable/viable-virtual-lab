@@ -52,6 +52,7 @@ entry_point="A collision shape owner that must be used to enter the purview of a
 exclusive_area:pipette="Allow the pipette to enter this area"
 attachment:gel_mold=""
 zoom:scale=""
+zoom:power_supply=""
 
 [gui]
 

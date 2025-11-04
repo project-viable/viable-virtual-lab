@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cs2tep7cd3vxf"]
+[gd_scene load_steps=17 format=3 uid="uid://cs2tep7cd3vxf"]
 
 [ext_resource type="Script" uid="uid://b10fibv688ggy" path="res://combined_scripts/microwave.gd" id="1_caubw"]
 [ext_resource type="Texture2D" uid="uid://by1qv0us7rnwc" path="res://updated_assets/lab_objects/microwave/base.svg" id="2_akh7v"]
@@ -9,37 +9,14 @@
 [ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://updated_assets/icons_and_buttons/button_2.svg" id="5_caubw"]
 [ext_resource type="Texture2D" uid="uid://qlu7b3wv1vpu" path="res://updated_assets/lab_objects/microwave/door_open.svg" id="5_grr38"]
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="5_iwbat"]
-[ext_resource type="Script" uid="uid://cyy8f7st3wb0c" path="res://combined_scripts/selectable_area_component.gd" id="6_8bw4g"]
+[ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://combined_scripts/zoom_selectable_area.gd" id="9_phx7o"]
 [ext_resource type="Script" uid="uid://nf1enjfal72f" path="res://combined_scripts/depth_managed_node_2d.gd" id="10_grr38"]
-[ext_resource type="Script" uid="uid://b810schxe1hne" path="res://combined_scripts/interact_info.gd" id="10_su0ss"]
-
-[sub_resource type="Resource" id="Resource_phx7o"]
-script = ExtResource("10_su0ss")
-kind = 3
-description = "Inspect keypad"
-allowed = true
-metadata/_custom_type_script = "uid://b810schxe1hne"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwbat"]
 size = Vector2(53, 59)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0lrr"]
 size = Vector2(148, 115)
-
-[sub_resource type="Animation" id="Animation_su0ss"]
-resource_name = "error_flash"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TimerLabel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.5),
-"transitions": PackedFloat32Array(1, 1e+06, 1, 1),
-"update": 0,
-"values": [Color(0.66921, 0.148082, 0.160623, 1), Color(0, 0, 0, 1), Color(0.670588, 0.14902, 0.160784, 1), Color(0, 0, 0, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_phx7o"]
 length = 0.001
@@ -54,6 +31,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_su0ss"]
+resource_name = "error_flash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TimerLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1e+06, 1, 1),
+"update": 0,
+"values": [Color(0.66921, 0.148082, 0.160623, 1), Color(0, 0, 0, 1), Color(0.670588, 0.14902, 0.160784, 1), Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_claib"]
@@ -341,17 +333,17 @@ editor_description = "A template for the TransitionCamera in Main to transition 
 zoom = Vector2(4, 4)
 position_smoothing_speed = 1.0
 
-[node name="ZoomArea" type="Node2D" parent="."]
-script = ExtResource("6_8bw4g")
-interact_info = SubResource("Resource_phx7o")
-metadata/_custom_type_script = "uid://cyy8f7st3wb0c"
+[node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("area_camera")]
+script = ExtResource("9_phx7o")
+area_camera = NodePath("../ZoomCamera")
+metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 
-[node name="KeypadArea" type="Area2D" parent="ZoomArea"]
+[node name="KeypadArea" type="Area2D" parent="ZoomSelectableArea"]
 z_index = 1
 position = Vector2(-4, 4)
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea/KeypadArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/KeypadArea"]
 position = Vector2(104.5, -0.5)
 shape = SubResource("RectangleShape2D_iwbat")
 
@@ -380,4 +372,5 @@ libraries = {
 [connection signal="pressed" from="DoorSelectable" to="." method="_on_door_selectable_pressed"]
 [connection signal="pressed" from="StopButton" to="." method="_on_microwave_stopped"]
 [connection signal="timeout" from="MicrowaveTimer" to="." method="_on_microwave_timer_timeout"]
-[connection signal="pressed" from="ZoomArea" to="." method="_on_zoom_area_pressed"]
+[connection signal="zoomed_in" from="ZoomSelectableArea" to="." method="_on_zoom_selectable_area_zoomed_in"]
+[connection signal="zoomed_out" from="ZoomSelectableArea" to="." method="_on_zoom_selectable_area_zoomed_out"]

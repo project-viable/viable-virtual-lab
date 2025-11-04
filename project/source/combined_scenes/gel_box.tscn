@@ -22,7 +22,7 @@ size = Vector2(94, 47)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xl5qd"]
 size = Vector2(12, 30)
 
-[node name="GelBox" type="RigidBody2D"]
+[node name="GelBox" type="RigidBody2D" groups=["zoom:power_supply"]]
 collision_layer = 0
 script = ExtResource("1_r7so7")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
