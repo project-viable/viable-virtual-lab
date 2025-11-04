@@ -41,6 +41,7 @@ position = Vector2(0, 15.5)
 shape = SubResource("RectangleShape2D_t800u")
 
 [node name="PositiveAttachmentInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
+z_index = 1
 position = Vector2(-38, 12)
 script = ExtResource("5_r7so7")
 selectable_canvas_group = NodePath("../SelectableCanvasGroup")
@@ -53,6 +54,7 @@ shape = SubResource("CircleShape2D_r7so7")
 debug_color = Color(0.927163, 0.143775, 0.567313, 0.42)
 
 [node name="NegativeAttachmentInteractableArea2" type="Area2D" parent="."]
+z_index = 1
 position = Vector2(38, 12)
 script = ExtResource("5_r7so7")
 terminal_charge = 1
