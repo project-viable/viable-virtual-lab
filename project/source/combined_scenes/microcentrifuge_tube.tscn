@@ -13,7 +13,7 @@
 size = Vector2(8, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rvoxf"]
-size = Vector2(4.5, 1)
+size = Vector2(4.5, 2.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwg5x"]
 size = Vector2(8, 22)
@@ -65,7 +65,7 @@ position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_furxp")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ExclusiveArea2D" groups=["entry_point"]]
-position = Vector2(0.75, -11)
+position = Vector2(0.75, -11.75)
 shape = SubResource("RectangleShape2D_rvoxf")
 
 [node name="SubstanceAccessArea" type="Area2D" parent="." node_paths=PackedStringArray("substance_display")]
