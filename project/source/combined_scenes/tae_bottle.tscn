@@ -14,7 +14,7 @@ size = Vector2(46, 86)
 
 [sub_resource type="Resource" id="Resource_6s205"]
 script = ExtResource("6_jcpv6")
-volume = 100.0
+volume = 1000.0
 agarose_concentration = 0.0
 temperature = 20.0
 metadata/_custom_type_script = "uid://c3xp3pqfn8ici"
@@ -38,7 +38,7 @@ texture = ExtResource("4_vo5hq")
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("4_jcpv6")
 substances = Array[ExtResource("5_6s205")]([SubResource("Resource_6s205")])
-container_volume = 100.0
+container_volume = 1000.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="Label" type="Label" parent="."]
