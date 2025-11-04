@@ -20,13 +20,9 @@ func _draw() -> void:
 
 
 func _process(_delta: float) -> void:
-	$GelRigTopView.visible = $AttachmentInteractableArea.contained_object is GelMold
-
 	for i in 5:
 		var well_sprite := _get_well_sprite(i + 1)
-		if well_sprite:
-			well_sprite.visible = $GelRigTopView.visible
-			well_sprite.queue_redraw()
+		if well_sprite: well_sprite.queue_redraw()
 
 	queue_redraw()
 
