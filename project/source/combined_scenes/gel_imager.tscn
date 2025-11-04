@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cug6kav5s55iq"]
+[gd_scene load_steps=20 format=3 uid="uid://cug6kav5s55iq"]
 
 [ext_resource type="Script" uid="uid://bptf21x2a24jj" path="res://combined_scripts/imager_gel_band_logic.gd" id="1_7wmgd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_w2ofj"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://combined_scripts/zoom_selectable_area.gd" id="4_ylekj"]
 [ext_resource type="Texture2D" uid="uid://d3dbby0blgo04" path="res://updated_assets/gel_bands/Gel_Rig_Top_View.svg" id="6_p46ws"]
 [ext_resource type="Texture2D" uid="uid://c3rfj3vqah8ph" path="res://updated_assets/gel_bands/Gel_Well_Top_View_LADDER_MULTIPLE.svg" id="7_p0nad"]
-[ext_resource type="Texture2D" uid="uid://b3fhr0hky574r" path="res://updated_assets/gel_bands/Gel_Well_Top_View_LADDER_SINGLE.svg" id="8_ij0yr"]
 [ext_resource type="Texture2D" uid="uid://7mpyt0hujebl" path="res://updated_assets/gel_bands/Gel_Well_Top_View_PERFECT.svg" id="8_us78d"]
 [ext_resource type="Texture2D" uid="uid://bvt8quy2u6lr" path="res://updated_assets/gel_bands/Gel_Well_Top_View_DIFFUSED.svg" id="9_ryau1"]
 [ext_resource type="Texture2D" uid="uid://c105io6i6gmyg" path="res://updated_assets/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg" id="10_v62sd"]
@@ -144,43 +143,34 @@ script = ExtResource("14_hcb6o")
 metadata/_custom_type_script = "uid://cs1o2bs2ponhi"
 
 [node name="GelRigTopView" type="Sprite2D" parent="Subscene"]
+modulate = Color(0.250213, 0.250213, 0.250213, 1)
 position = Vector2(301, 314)
 texture = ExtResource("6_p46ws")
 
-[node name="Well1" type="Sprite2D" parent="Subscene/GelRigTopView"]
+[node name="Well1" type="Node2D" parent="Subscene"]
 unique_name_in_owner = true
-position = Vector2(-202.415, -221.795)
+position = Vector2(98.5848, 92.2047)
 scale = Vector2(0.969638, 1.00427)
-texture = ExtResource("8_ij0yr")
-centered = false
 
-[node name="Well2" type="Sprite2D" parent="Subscene/GelRigTopView"]
+[node name="Well2" type="Node2D" parent="Subscene"]
 unique_name_in_owner = true
-position = Vector2(-137.815, -221.795)
+position = Vector2(163.185, 92.2047)
 scale = Vector2(0.969638, 1.00427)
-texture = ExtResource("8_ij0yr")
-centered = false
 
-[node name="Well3" type="Sprite2D" parent="Subscene/GelRigTopView"]
+[node name="Well3" type="Node2D" parent="Subscene"]
 unique_name_in_owner = true
-position = Vector2(-75.3674, -221.795)
+position = Vector2(225.633, 92.2047)
 scale = Vector2(0.969638, 1.00427)
-texture = ExtResource("8_ij0yr")
-centered = false
 
-[node name="Well4" type="Sprite2D" parent="Subscene/GelRigTopView"]
+[node name="Well4" type="Node2D" parent="Subscene"]
 unique_name_in_owner = true
-position = Vector2(-12.9201, -221.795)
+position = Vector2(288.08, 92.2047)
 scale = Vector2(0.969638, 1.00427)
-texture = ExtResource("8_ij0yr")
-centered = false
 
-[node name="Well5" type="Sprite2D" parent="Subscene/GelRigTopView"]
+[node name="Well5" type="Node2D" parent="Subscene"]
 unique_name_in_owner = true
-position = Vector2(49.5271, -221.795)
+position = Vector2(350.527, 92.2047)
 scale = Vector2(0.969638, 1.00427)
-texture = ExtResource("8_ij0yr")
-centered = false
 
 [node name="SubsceneCamera" type="Camera2D" parent="Subscene"]
 position = Vector2(143, 160)
