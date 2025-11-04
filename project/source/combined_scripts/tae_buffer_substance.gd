@@ -53,8 +53,8 @@ func try_incorporate(s: SubstanceInstance) -> bool:
 		volume += s.volume
 		return true
 	# Handle pipette too high above well. Just get rid of it.
-	#elif s is DNASubstance:
-	#	return true
+	elif s is DNASolutionSubstance:
+		return true
 	return false
 
 func process(container: ContainerComponent, delta: float) -> void:
@@ -65,8 +65,8 @@ func process(container: ContainerComponent, delta: float) -> void:
 			if temperature > 90 and is_mixing and s.name == "agarose":
 				var agarose := s.take_volume(delta / s.get_density() / SECONDS_PER_GRAM_MIXED)
 				agarose_concentration += agarose.get_volume() / agarose.get_density() / volume
-		#elif s is DNASubstance:
-		#	s.take_volume(INF)
+		elif s is DNASolutionSubstance:
+			s.take_volume(INF)
 
 # Microwave for [param time] seconds.
 func microwave(time: float) -> void:
