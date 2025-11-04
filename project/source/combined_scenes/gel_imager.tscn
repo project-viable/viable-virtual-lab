@@ -62,7 +62,6 @@ offset_right = 63.0
 offset_bottom = -47.0
 
 [node name="GelRigTopView" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(2, -226)
 scale = Vector2(0.464392, 0.464392)
 texture = ExtResource("6_p46ws")
@@ -122,34 +121,39 @@ scale = Vector2(0.331506, 0.331506)
 texture = ExtResource("15_ryau1")
 
 [node name="Well1" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-52.5, -289.125)
+unique_name_in_owner = true
+position = Vector2(-92, -329)
 scale = Vector2(0.450292, 0.466374)
 texture = ExtResource("8_ij0yr")
+centered = false
 
 [node name="Well2" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-23.5, -289.125)
+unique_name_in_owner = true
+position = Vector2(-62, -329)
 scale = Vector2(0.450292, 0.466374)
 texture = ExtResource("8_ij0yr")
+centered = false
 
 [node name="Well3" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(5.5, -289.125)
+unique_name_in_owner = true
+position = Vector2(-33, -329)
 scale = Vector2(0.450292, 0.466374)
 texture = ExtResource("8_ij0yr")
+centered = false
 
 [node name="Well4" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(34.5, -289.125)
+unique_name_in_owner = true
+position = Vector2(-4, -329)
 scale = Vector2(0.450292, 0.466374)
 texture = ExtResource("8_ij0yr")
+centered = false
 
 [node name="Well5" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(63.5, -289.125)
+unique_name_in_owner = true
+position = Vector2(25, -329)
 scale = Vector2(0.450292, 0.466374)
 texture = ExtResource("8_ij0yr")
+centered = false
 
 [connection signal="pressed" from="UV Light" to="." method="_on_uv_light_pressed"]
 [connection signal="pressed" from="ClosedDoor" to="." method="on_gel_removed"]

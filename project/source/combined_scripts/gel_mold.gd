@@ -7,10 +7,13 @@ extends LabBody
 
 
 func _physics_process(delta: float) -> void:
+	super(delta)
 	for i in 5:
 		for s in get_well(i + 1).substances:
 			if s is DNASolutionSubstance:
 				s.run_voltage(voltage, delta * LabTime.time_scale, 1.0)
+
+func num_wells() -> int: return 5
 
 ## Wells are numbered 1 to 5.
 func get_well(i: int) -> ContainerComponent:
