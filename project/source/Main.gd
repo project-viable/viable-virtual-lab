@@ -328,6 +328,7 @@ func move_to_workspace(workspace: WorkspaceCamera, time: float = 0.0) -> void:
 		$%TransitionCamera.move_to_camera(workspace, true, time)
 
 func return_to_current_workspace() -> void:
+	hide_subscene()
 	if _current_workspace:
 		$%TransitionCamera.move_to_camera(_current_workspace, false)
 		set_camera_focus_owner(null)
