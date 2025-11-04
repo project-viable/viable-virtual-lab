@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://cys6ccja2bnxo"]
+[gd_scene load_steps=18 format=3 uid="uid://cys6ccja2bnxo"]
 
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_ar43o"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_u177l"]
+[ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://combined_scripts/attachment_point.gd" id="2_5cofj"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://combined_scripts/pour_interactable_area.gd" id="2_5rd3r"]
 [ext_resource type="Texture2D" uid="uid://b3jxeuh2e6u2y" path="res://updated_assets/lab_objects/gel_tray_empty.svg" id="3_u177l"]
 [ext_resource type="Script" uid="uid://dewfln6yuchb6" path="res://combined_scripts/subscene_exclusive_area.gd" id="4_of7eg"]
@@ -31,6 +32,11 @@ size = Vector2(69, 28)
 collision_layer = 0
 script = ExtResource("1_u177l")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:gel_mold"]]
+position = Vector2(0, 4)
+script = ExtResource("2_5cofj")
+metadata/_custom_type_script = "uid://cvvkvehovfwuy"
 
 [node name="PourInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
 script = ExtResource("2_5rd3r")

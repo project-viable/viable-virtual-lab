@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://5orfeca6lgvk"]
+[gd_scene load_steps=12 format=3 uid="uid://5orfeca6lgvk"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_r7so7"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_t800u"]
 [ext_resource type="Texture2D" uid="uid://diqycgd18toud" path="res://updated_assets/lab_objects/gel_rig_empty.svg" id="3_r7so7"]
-[ext_resource type="Script" path="res://combined_scripts/terminal_attachment.gd" id="5_r7so7"]
+[ext_resource type="Script" uid="uid://brj1u83e5o6i6" path="res://combined_scripts/terminal_attachment.gd" id="5_r7so7"]
+[ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="6_r7so7"]
 [ext_resource type="Script" uid="uid://chvv2ne60otwi" path="res://combined_scripts/wire_connection.gd" id="6_xl5qd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t800u"]
-size = Vector2(94, 47)
+size = Vector2(94, 23)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r7so7"]
 radius = 8.0
@@ -15,12 +16,19 @@ radius = 8.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_xl5qd"]
 radius = 8.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r7so7"]
+size = Vector2(94, 47)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xl5qd"]
+size = Vector2(12, 30)
+
 [node name="GelBox" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource("1_r7so7")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+z_index = 1
 script = ExtResource("1_t800u")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
@@ -29,7 +37,7 @@ scale = Vector2(0.095, 0.095)
 texture = ExtResource("3_r7so7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3.5)
+position = Vector2(0, 15.5)
 shape = SubResource("RectangleShape2D_t800u")
 
 [node name="PositiveAttachmentInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
@@ -62,6 +70,25 @@ debug_color = Color(0.74071, 0.462915, 0.148127, 0.42)
 script = ExtResource("6_xl5qd")
 body = NodePath("..")
 metadata/_custom_type_script = "uid://chvv2ne60otwi"
+
+[node name="AttachmentInteractableArea" type="Area2D" parent="."]
+position = Vector2(0, 7)
+script = ExtResource("6_r7so7")
+point_groups = Array[StringName]([&"attachment:gel_mold"])
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
+position = Vector2(0, -3.5)
+shape = SubResource("RectangleShape2D_r7so7")
+debug_color = Color(3.46541e-06, 0.635788, 0.412943, 0.42)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-40, -5)
+shape = SubResource("RectangleShape2D_xl5qd")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(41, -5)
+shape = SubResource("RectangleShape2D_xl5qd")
 
 [connection signal="object_placed" from="PositiveAttachmentInteractableArea" to="PositiveAttachmentInteractableArea" method="_on_object_placed"]
 [connection signal="object_removed" from="PositiveAttachmentInteractableArea" to="WireConnectableComponent" method="unplug_handler"]
