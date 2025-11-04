@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://cys6ccja2bnxo"]
 
+[ext_resource type="Script" uid="uid://ca8jqw4t8cnoh" path="res://combined_scripts/gel_mold.gd" id="1_5cofj"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_ar43o"]
-[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_u177l"]
 [ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://combined_scripts/attachment_point.gd" id="2_5cofj"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://combined_scripts/pour_interactable_area.gd" id="2_5rd3r"]
 [ext_resource type="Texture2D" uid="uid://b3jxeuh2e6u2y" path="res://updated_assets/lab_objects/gel_tray_empty.svg" id="3_u177l"]
@@ -25,12 +25,12 @@ size = Vector2(74, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u177l"]
 size = Vector2(59, 2)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xo6pi"]
-size = Vector2(69, 28)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cofj"]
+size = Vector2(67, 27)
 
 [node name="GelMold" type="RigidBody2D"]
 collision_layer = 0
-script = ExtResource("1_u177l")
+script = ExtResource("1_5cofj")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:gel_mold"]]
@@ -88,11 +88,6 @@ script = ExtResource("5_pmlyu")
 container_volume = 100.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
-[node name="WellContainerComponent" type="Node2D" parent="."]
-script = ExtResource("5_pmlyu")
-container_volume = 0.2
-metadata/_custom_type_script = "uid://sscbm7kfq4jj"
-
 [node name="Subscene" type="ReferenceRect" parent="."]
 top_level = true
 offset_left = 299.0
@@ -102,11 +97,115 @@ offset_bottom = 534.0
 script = ExtResource("5_u177l")
 metadata/_custom_type_script = "uid://cs1o2bs2ponhi"
 
-[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene" node_paths=PackedStringArray("source")]
-polygon = PackedVector2Array(264, 379, 264, 404, 332, 404, 332, 378)
+[node name="Well1" type="Node2D" parent="Subscene"]
+position = Vector2(264, 378)
+script = ExtResource("5_pmlyu")
+container_volume = 0.01
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+metadata/_edit_group_ = true
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene/Well1" node_paths=PackedStringArray("source")]
+polygon = PackedVector2Array(1, 0, 67, 0, 67, 27, 1, 27)
 script = ExtResource("7_mu26n")
-source = NodePath("../../WellContainerComponent")
+source = NodePath("..")
 metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SubstanceAccessArea" type="Area2D" parent="Subscene/Well1" node_paths=PackedStringArray("substance_display")]
+script = ExtResource("8_ljbi8")
+substance_display = NodePath("../SubstanceDisplayPolygon")
+metadata/_custom_type_script = "uid://qeafyaxecqnu"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/Well1/SubstanceAccessArea"]
+position = Vector2(33.5, 13.5)
+shape = SubResource("RectangleShape2D_5cofj")
+
+[node name="Well2" type="Node2D" parent="Subscene"]
+position = Vector2(380, 378)
+script = ExtResource("5_pmlyu")
+container_volume = 0.01
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+metadata/_edit_group_ = true
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene/Well2" node_paths=PackedStringArray("source")]
+polygon = PackedVector2Array(1, 0, 67, 0, 67, 27, 1, 27)
+script = ExtResource("7_mu26n")
+source = NodePath("..")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SubstanceAccessArea" type="Area2D" parent="Subscene/Well2" node_paths=PackedStringArray("substance_display")]
+script = ExtResource("8_ljbi8")
+substance_display = NodePath("../SubstanceDisplayPolygon")
+metadata/_custom_type_script = "uid://qeafyaxecqnu"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/Well2/SubstanceAccessArea"]
+position = Vector2(33.5, 13.5)
+shape = SubResource("RectangleShape2D_5cofj")
+
+[node name="Well3" type="Node2D" parent="Subscene"]
+position = Vector2(493, 379)
+script = ExtResource("5_pmlyu")
+container_volume = 0.01
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+metadata/_edit_group_ = true
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene/Well3" node_paths=PackedStringArray("source")]
+polygon = PackedVector2Array(1, 0, 67, 0, 67, 27, 1, 27)
+script = ExtResource("7_mu26n")
+source = NodePath("..")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SubstanceAccessArea" type="Area2D" parent="Subscene/Well3" node_paths=PackedStringArray("substance_display")]
+script = ExtResource("8_ljbi8")
+substance_display = NodePath("../SubstanceDisplayPolygon")
+metadata/_custom_type_script = "uid://qeafyaxecqnu"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/Well3/SubstanceAccessArea"]
+position = Vector2(33.5, 13.5)
+shape = SubResource("RectangleShape2D_5cofj")
+
+[node name="Well4" type="Node2D" parent="Subscene"]
+position = Vector2(606, 378)
+script = ExtResource("5_pmlyu")
+container_volume = 0.01
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+metadata/_edit_group_ = true
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene/Well4" node_paths=PackedStringArray("source")]
+polygon = PackedVector2Array(1, 0, 67, 0, 67, 27, 1, 27)
+script = ExtResource("7_mu26n")
+source = NodePath("..")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SubstanceAccessArea" type="Area2D" parent="Subscene/Well4" node_paths=PackedStringArray("substance_display")]
+script = ExtResource("8_ljbi8")
+substance_display = NodePath("../SubstanceDisplayPolygon")
+metadata/_custom_type_script = "uid://qeafyaxecqnu"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/Well4/SubstanceAccessArea"]
+position = Vector2(33.5, 13.5)
+shape = SubResource("RectangleShape2D_5cofj")
+
+[node name="Well5" type="Node2D" parent="Subscene"]
+position = Vector2(719, 378)
+script = ExtResource("5_pmlyu")
+container_volume = 0.01
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+metadata/_edit_group_ = true
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene/Well5" node_paths=PackedStringArray("source")]
+polygon = PackedVector2Array(1, 0, 67, 0, 67, 27, 1, 27)
+script = ExtResource("7_mu26n")
+source = NodePath("..")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SubstanceAccessArea" type="Area2D" parent="Subscene/Well5" node_paths=PackedStringArray("substance_display")]
+script = ExtResource("8_ljbi8")
+substance_display = NodePath("../SubstanceDisplayPolygon")
+metadata/_custom_type_script = "uid://qeafyaxecqnu"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/Well5/SubstanceAccessArea"]
+position = Vector2(33.5, 13.5)
+shape = SubResource("RectangleShape2D_5cofj")
 
 [node name="GelTrayFilledWellsZoomed" type="Sprite2D" parent="Subscene"]
 modulate = Color(1, 1, 1, 0.631373)
@@ -120,14 +219,6 @@ collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Subscene/StaticBody2D"]
 polygon = PackedVector2Array(192, 373, 263, 378, 264, 405, 331, 405, 331, 378, 381, 378, 382, 405, 448, 405, 448, 381, 494, 378, 494, 406, 559, 406, 560, 378, 605, 377, 606, 403, 674, 404, 674, 378, 719, 379, 720, 407, 787, 406, 787, 377, 834, 378, 835, 406, 901, 406, 904, 376, 1000, 377, 1080, 481, 93, 486)
-
-[node name="SubstanceAccessArea" type="Area2D" parent="Subscene" node_paths=PackedStringArray("substance_display")]
-script = ExtResource("8_ljbi8")
-substance_display = NodePath("../SubstanceDisplayPolygon")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/SubstanceAccessArea"]
-position = Vector2(297.5, 392)
-shape = SubResource("RectangleShape2D_xo6pi")
 
 [node name="EntryPoint" type="Node2D" parent="Subscene"]
 position = Vector2(362, 60)
