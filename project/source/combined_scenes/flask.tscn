@@ -38,12 +38,6 @@ source = NodePath("../../ContainerComponent")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_6iauc")
 
-[node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container_component")]
-script = ExtResource("6_6iauc")
-container_component = NodePath("../ContainerComponent")
-amount_to_pour = 10.0
-metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
-
 [node name="PourInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
 script = ExtResource("8_e38bm")
 container_component = NodePath("../ContainerComponent")
@@ -65,3 +59,9 @@ script = ExtResource("9_dyohf")
 top_padding = 20.0
 bottom_padding = 20.0
 metadata/_custom_type_script = "uid://c5xu35ldxvqog"
+
+[node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container_component")]
+script = ExtResource("6_6iauc")
+container_component = NodePath("../ContainerComponent")
+amount_to_pour = 10.0
+metadata/_custom_type_script = "uid://bnw0l25uwaqo6"

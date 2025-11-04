@@ -349,6 +349,10 @@ func set_camera_focus_owner(focus_owner: Node) -> void:
 	_camera_focus_owner = focus_owner
 	camera_focus_owner_changed.emit(_camera_focus_owner)
 
+## Use this to determine whether the screen in "zoomed out".
+func get_camera_focus_owner() -> Node:
+	return _camera_focus_owner
+
 ## Makes the view of the subscene camera [param camera] visible on the right side of the screen.
 ## Returns the width, in pixels, of the open region on the left side of the screen (this can be
 ## used, for example, to use the left side to zoom in on something). If [param use_overlay] is
