@@ -31,7 +31,6 @@ size = Vector2(67, 27)
 [node name="GelMold" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource("1_5cofj")
-voltage = 120.0
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:gel_mold"]]
