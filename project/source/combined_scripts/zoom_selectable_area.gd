@@ -18,6 +18,9 @@ signal zoomed_out()
 @export var search_groups: Array[StringName] = []
 @export var search_radius: float = 200
 
+## If set, zooming in will also display the contents of this subscene camera.
+@export var subscene_camera: SubsceneCamera
+
 
 var _is_zoomed_in := false
 
@@ -60,7 +63,10 @@ func _press() -> void:
 	# Simply don't do anything if nothing was found.
 	if not has_rect: return
 
-	Game.main.focus_camera_on_rect(zoom_rect)
+	if subscene_camera:
+		Game.main.focus_camera_and_show_subscene(zoom_rect, subscene_camera, true)
+	else:
+		Game.main.focus_camera_on_rect(zoom_rect)
 	Game.main.set_camera_focus_owner(self)
 	_is_zoomed_in = true
 	enable_interaction = false
