@@ -18,7 +18,7 @@ interact_canvas_group = NodePath("SelectableCanvasGroup")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
-z_index = 1
+z_index = 3
 script = ExtResource("3_6tvr8")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
