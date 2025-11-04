@@ -206,23 +206,23 @@ position = Vector2(2065, 480)
 position = Vector2(306, 453)
 
 [node name="MicrocentrifugeTube" parent="Objects" instance=ExtResource("10_bi7f4")]
-position = Vector2(904, 442)
+position = Vector2(915, 475)
 freeze = true
 
 [node name="MicrocentrifugeTube2" parent="Objects" instance=ExtResource("10_bi7f4")]
-position = Vector2(936, 442)
+position = Vector2(924, 475)
 freeze = true
 
 [node name="MicrocentrifugeTube3" parent="Objects" instance=ExtResource("10_bi7f4")]
-position = Vector2(969, 442)
+position = Vector2(933, 475)
 freeze = true
 
 [node name="MicrocentrifugeTube4" parent="Objects" instance=ExtResource("10_bi7f4")]
-position = Vector2(1002, 442)
+position = Vector2(942, 475)
 freeze = true
 
 [node name="MicrocentrifugeHolder" parent="Objects" instance=ExtResource("18_xe06v")]
-position = Vector2(953, 460)
+position = Vector2(952, 484)
 metadata/_edit_group_ = true
 
 [node name="AttachmentInteractableArea" parent="Objects/MicrocentrifugeHolder" index="0" node_paths=PackedStringArray("contained_object")]

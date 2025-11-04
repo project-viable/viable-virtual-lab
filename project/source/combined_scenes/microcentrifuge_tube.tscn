@@ -45,7 +45,7 @@ region_enabled = true
 region_rect = Rect2(436.905, 194.177, 158.322, 372.7)
 
 [node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:microcentrifuge_tube"]]
-position = Vector2(1, -11)
+position = Vector2(1, -2)
 script = ExtResource("5_ulp6r")
 
 [node name="Walls" type="StaticBody2D" parent="."]

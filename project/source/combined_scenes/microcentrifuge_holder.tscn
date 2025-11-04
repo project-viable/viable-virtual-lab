@@ -6,63 +6,59 @@
 [ext_resource type="Texture2D" uid="uid://4gatp66jseq6" path="res://updated_assets/lab_objects/microcentrifuge_holder.svg" id="3_ufhtq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0swob"]
-size = Vector2(20, 54)
+size = Vector2(8, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h3rdw"]
-size = Vector2(140, 12)
+size = Vector2(95, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lhjef"]
-size = Vector2(9, 44)
+size = Vector2(4.625, 21)
 
 [node name="MicrocentrifugeHolder" type="RigidBody2D"]
 script = ExtResource("1_y0nf6")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="AttachmentInteractableArea" type="Area2D" parent="."]
-position = Vector2(-49, -18)
+position = Vector2(-37, -9)
 script = ExtResource("2_ufhtq")
 point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
-position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_0swob")
 debug_color = Color(0.954008, 0.0952036, 0.484962, 0.42)
 
 [node name="AttachmentInteractableArea2" type="Area2D" parent="."]
-position = Vector2(-17, -18)
+position = Vector2(-28, -9)
 script = ExtResource("2_ufhtq")
 point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea2"]
-position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_0swob")
 debug_color = Color(0.954008, 0.0952036, 0.484962, 0.42)
 
 [node name="AttachmentInteractableArea3" type="Area2D" parent="."]
-position = Vector2(16, -18)
+position = Vector2(-19, -9)
 script = ExtResource("2_ufhtq")
 point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea3"]
-position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_0swob")
 debug_color = Color(0.954008, 0.0952036, 0.484962, 0.42)
 
 [node name="AttachmentInteractableArea4" type="Area2D" parent="."]
-position = Vector2(49, -18)
+position = Vector2(-10, -9)
 script = ExtResource("2_ufhtq")
 point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea4"]
-position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_0swob")
 debug_color = Color(0.954008, 0.0952036, 0.484962, 0.42)
 
@@ -71,18 +67,27 @@ z_index = 2
 script = ExtResource("2_lhjef")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="Sprite2D" type="Sprite2D" parent="SelectableCanvasGroup"]
-scale = Vector2(0.15, 0.15)
+[node name="NinePatchRect" type="NinePatchRect" parent="SelectableCanvasGroup"]
+offset_left = -50.0
+offset_top = -14.0
+offset_right = 940.0
+offset_bottom = 247.0
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_ufhtq")
+region_rect = Rect2(36.0274, 219.375, 951.445, 392.665)
+patch_margin_left = 123
+patch_margin_top = 140
+patch_margin_right = 154
+patch_margin_bottom = 121
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -18)
+position = Vector2(-0.5, -9.5)
 shape = SubResource("RectangleShape2D_h3rdw")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(-65.5, 11)
+position = Vector2(-45.125, 0.5)
 shape = SubResource("RectangleShape2D_lhjef")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
-position = Vector2(65, 10)
+position = Vector2(44.6875, 0)
 shape = SubResource("RectangleShape2D_lhjef")
