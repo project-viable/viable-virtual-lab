@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=41 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://byucr1dj248ga" path="res://updated_assets/environment/wall.svg" id="1_5fdni"]
 [ext_resource type="Texture2D" uid="uid://b0t52m7oh3lrt" path="res://updated_assets/environment/white.svg" id="2_7cn0u"]
@@ -25,6 +25,8 @@
 [ext_resource type="PackedScene" uid="uid://cxmqgu76dc3v" path="res://combined_scenes/contact_wire.tscn" id="21_gvdu8"]
 [ext_resource type="Script" uid="uid://qijnhs2e78qy" path="res://combined_scripts/contact_wires.gd" id="21_kobiv"]
 [ext_resource type="Texture2D" uid="uid://dwb7gsbcv24kv" path="res://updated_assets/icons_and_buttons/contact_negative.svg" id="22_kobiv"]
+[ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://combined_scripts/substance_instance.gd" id="24_c13rf"]
+[ext_resource type="Script" uid="uid://6lhyc3i5obbu" path="res://combined_scripts/dna_solution_substance.gd" id="25_2kbga"]
 [ext_resource type="Script" uid="uid://f3pegl6tyuqt" path="res://combined_scripts/workspace_camera.gd" id="25_5fdni"]
 [ext_resource type="Texture2D" uid="uid://brx5qwivdoj2a" path="res://updated_assets/environment/black.svg" id="26_w0rbf"]
 
@@ -37,6 +39,69 @@ distance = 96.0
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_w0rbf"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7cn0u"]
+
+[sub_resource type="Resource" id="Resource_120qc"]
+script = ExtResource("25_2kbga")
+fragment_size = 10
+name = ""
+color = Color(1, 1, 1, 1)
+density = 1.0
+volume = 0.002
+metadata/_custom_type_script = "uid://6lhyc3i5obbu"
+
+[sub_resource type="Resource" id="Resource_81rno"]
+script = ExtResource("25_2kbga")
+fragment_size = 300
+name = ""
+color = Color(1, 1, 1, 1)
+density = 1.0
+volume = 0.002
+metadata/_custom_type_script = "uid://6lhyc3i5obbu"
+
+[sub_resource type="Resource" id="Resource_8pvcc"]
+script = ExtResource("25_2kbga")
+fragment_size = 4000
+name = ""
+color = Color(1, 1, 1, 1)
+density = 1.0
+volume = 0.002
+metadata/_custom_type_script = "uid://6lhyc3i5obbu"
+
+[sub_resource type="Resource" id="Resource_ah5la"]
+script = ExtResource("25_2kbga")
+fragment_size = 100
+name = ""
+color = Color(1, 1, 1, 1)
+density = 1.0
+volume = 0.003
+metadata/_custom_type_script = "uid://6lhyc3i5obbu"
+
+[sub_resource type="Resource" id="Resource_0y0x5"]
+script = ExtResource("25_2kbga")
+fragment_size = 700
+name = ""
+color = Color(1, 1, 1, 1)
+density = 1.0
+volume = 0.003
+metadata/_custom_type_script = "uid://6lhyc3i5obbu"
+
+[sub_resource type="Resource" id="Resource_c13rf"]
+script = ExtResource("25_2kbga")
+fragment_size = 8000
+name = ""
+color = Color(1, 1, 1, 1)
+density = 1.0
+volume = 0.003
+metadata/_custom_type_script = "uid://6lhyc3i5obbu"
+
+[sub_resource type="Resource" id="Resource_2kbga"]
+script = ExtResource("25_2kbga")
+fragment_size = 10000
+name = ""
+color = Color(1, 1, 1, 1)
+density = 1.0
+volume = 0.003
+metadata/_custom_type_script = "uid://6lhyc3i5obbu"
 
 [node name="Combined" type="Node2D"]
 
@@ -208,18 +273,31 @@ position = Vector2(306, 453)
 [node name="MicrocentrifugeTube" parent="Objects" instance=ExtResource("10_bi7f4")]
 position = Vector2(915, 475)
 freeze = true
+metadata/_edit_group_ = true
+
+[node name="ContainerComponent" parent="Objects/MicrocentrifugeTube" index="6"]
+substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_120qc"), SubResource("Resource_81rno"), SubResource("Resource_8pvcc")])
 
 [node name="MicrocentrifugeTube2" parent="Objects" instance=ExtResource("10_bi7f4")]
 position = Vector2(924, 475)
 freeze = true
+metadata/_edit_group_ = true
+
+[node name="ContainerComponent" parent="Objects/MicrocentrifugeTube2" index="6"]
+substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_ah5la"), SubResource("Resource_0y0x5")])
 
 [node name="MicrocentrifugeTube3" parent="Objects" instance=ExtResource("10_bi7f4")]
 position = Vector2(933, 475)
 freeze = true
+metadata/_edit_group_ = true
+
+[node name="ContainerComponent" parent="Objects/MicrocentrifugeTube3" index="6"]
+substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_c13rf"), SubResource("Resource_2kbga")])
 
 [node name="MicrocentrifugeTube4" parent="Objects" instance=ExtResource("10_bi7f4")]
 position = Vector2(942, 475)
 freeze = true
+metadata/_edit_group_ = true
 
 [node name="MicrocentrifugeHolder" parent="Objects" instance=ExtResource("18_xe06v")]
 position = Vector2(952, 484)
@@ -245,26 +323,26 @@ script = ExtResource("21_kobiv")
 
 [node name="RedContactWire" parent="Objects/ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(686, 455)
-depth_layer_to_drop_in = 3
 
 [node name="RedContactWire2" parent="Objects/ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(718, 455)
-depth_layer_to_drop_in = 3
 
 [node name="BlackContactWires" type="Node2D" parent="Objects/ContactWires"]
 
 [node name="BlackContactWire" parent="Objects/ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(686, 479)
 texture = ExtResource("22_kobiv")
-depth_layer_to_drop_in = 3
 
 [node name="BlackContactWire2" parent="Objects/ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(718, 479)
 texture = ExtResource("22_kobiv")
-depth_layer_to_drop_in = 3
 
 [editable path="Objects/Flask"]
 [editable path="Objects/Flask2"]
 [editable path="Objects/PipetteStand"]
 [editable path="Objects/ScoopulaHolder"]
+[editable path="Objects/MicrocentrifugeTube"]
+[editable path="Objects/MicrocentrifugeTube2"]
+[editable path="Objects/MicrocentrifugeTube3"]
+[editable path="Objects/MicrocentrifugeTube4"]
 [editable path="Objects/MicrocentrifugeHolder"]
