@@ -23,7 +23,7 @@ func _ready() -> void:
 	Game.main.camera_focus_owner_changed.connect(_on_main_camera_focus_owner_changed)
 
 func get_interactions(_a: InteractableArea) -> Array[InteractInfo]:
-	if not _is_zoomed and focus_object:
+	if not _is_zoomed and focus_object and not Game.main.get_camera_focus_owner():
 		return [InteractInfo.new(InteractInfo.Kind.INSPECT, "Focus")]
 	else:
 		return []
