@@ -12,7 +12,7 @@ size = Vector2(108, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8osh1"]
 size = Vector2(108, 15)
 
-[node name="WeighBoat" type="RigidBody2D"]
+[node name="WeighBoat" type="RigidBody2D" groups=["zoom:scale"]]
 script = ExtResource("1_ngt2v")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 

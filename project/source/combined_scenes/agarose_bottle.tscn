@@ -23,7 +23,7 @@ density = 1.0
 volume = 100.0
 metadata/_custom_type_script = "uid://bgfh6xeb1mu4a"
 
-[node name="AgaroseBottle" type="RigidBody2D"]
+[node name="AgaroseBottle" type="RigidBody2D" groups=["zoom:scale"]]
 collision_layer = 0
 script = ExtResource("1_w1h17")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"

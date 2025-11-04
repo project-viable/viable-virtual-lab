@@ -118,6 +118,7 @@ func _on_exclusive_object_hitbox_entered_purview_of(area: ExclusiveArea2D) -> vo
 			_mouse_pos_before_zoom = Cursor.virtual_mouse_position
 		else:
 			Game.main.focus_camera_on_rect(rect, 1.5)
+		Game.main.set_camera_focus_owner(self)
 
 func _on_exclusive_object_hitbox_left_purview_of(area: ExclusiveArea2D) -> void:
 	collision_mask &= ~0b1000
