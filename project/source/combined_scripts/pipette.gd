@@ -3,7 +3,7 @@ class_name Pipe #TODO: Placeholder name since Pipette is already used in the old
 
 
 const PLUNGER_OFFSETS: Array[float] = [0, 8, 10]
-const PLUNGE_VOLUME: float = 0.1
+const PLUNGE_VOLUME: float = 0.008
 const PLUNGE_DOWN_TIME: float = 0.3
 const PLUNGE_UP_TIME: float = 0.2
 const VOLUME_PER_DIST: float = PLUNGE_VOLUME / PLUNGER_OFFSETS[2]
