@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://5orfeca6lgvk"]
 
-[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_r7so7"]
+[ext_resource type="Script" uid="uid://b4opfmf7566v4" path="res://combined_scripts/gel_box.gd" id="1_gl61q"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_t800u"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://combined_scripts/pour_interactable_area.gd" id="2_gl61q"]
 [ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://combined_scripts/substance_display_polygon.gd" id="2_xl5qd"]
@@ -30,8 +30,11 @@ size = Vector2(12, 30)
 
 [node name="GelBox" type="RigidBody2D" groups=["zoom:power_supply"]]
 collision_layer = 0
-script = ExtResource("1_r7so7")
+script = ExtResource("1_gl61q")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="FillRef" type="Node2D" parent="."]
+position = Vector2(0, -5)
 
 [node name="PourInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
 script = ExtResource("2_gl61q")
@@ -127,3 +130,4 @@ shape = SubResource("RectangleShape2D_xl5qd")
 [connection signal="object_placed" from="NegativeAttachmentInteractableArea2" to="NegativeAttachmentInteractableArea2" method="_on_object_placed"]
 [connection signal="object_removed" from="NegativeAttachmentInteractableArea2" to="WireConnectableComponent" method="unplug_handler"]
 [connection signal="wire_connected" from="NegativeAttachmentInteractableArea2" to="WireConnectableComponent" method="on_wire_connected"]
+[connection signal="object_placed" from="MoldAttachment" to="." method="_on_mold_attachment_object_placed"]
