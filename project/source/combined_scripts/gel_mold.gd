@@ -13,6 +13,9 @@ func _physics_process(delta: float) -> void:
 			if s is DNASolutionSubstance:
 				s.run_voltage(voltage, delta * LabTime.time_scale, 1.0)
 
+	if Engine.get_physics_frames() % 60 == 0:
+		print("Gel voltage: %s" % [voltage])
+
 func num_wells() -> int: return 5
 
 ## Wells are numbered 1 to 5.

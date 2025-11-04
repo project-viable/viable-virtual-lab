@@ -131,3 +131,4 @@ shape = SubResource("RectangleShape2D_xl5qd")
 [connection signal="object_removed" from="NegativeAttachmentInteractableArea2" to="WireConnectableComponent" method="unplug_handler"]
 [connection signal="wire_connected" from="NegativeAttachmentInteractableArea2" to="WireConnectableComponent" method="on_wire_connected"]
 [connection signal="object_placed" from="MoldAttachment" to="." method="_on_mold_attachment_object_placed"]
+[connection signal="object_removed" from="MoldAttachment" to="." method="_on_mold_attachment_object_removed"]
