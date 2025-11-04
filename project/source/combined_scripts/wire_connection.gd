@@ -7,6 +7,9 @@ class_name WireConnectableComponent
 ## an object that can be dragged around and interacted with
 @export var body: LabBody
 
+## Voltage currently running through this. It will be negative if the direction is reversed.
+@export var voltage: float = 0
+
 ## A signal that emits when a wire is connected to both terminals
 signal terminals_connected(is_every_terminal_connected: bool)
 

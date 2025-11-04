@@ -28,8 +28,6 @@ class_name PowerSupply
 	},
 }
 
-signal activate_power_supply(voltage: float, time: int, is_circuit_ready: bool)
-
 enum ConfigType{
 	TIME,
 	VOLT
@@ -76,13 +74,26 @@ func _ready() -> void:
 		button.button_down.connect(_on_screen_button_pressed.bind(button))
 		button.button_up.connect(_on_screen_button_released.bind(button))
 
+func _physics_process(delta: float) -> void:
+	super(delta)
+	# If the timer is still running, we are running current.
+	var prev_current_recipient := _object_to_recieve_current
+	# This changes state for some reason.
+	# TODO: Fix this hacky way of doing this.
+	if not _is_circuit_ready(): _object_to_recieve_current = null
+
+	if prev_current_recipient and prev_current_recipient != _object_to_recieve_current:
+		prev_current_recipient.voltage = 0
+
+	# If there is time left, we are still running.
+	var cur_voltage: float = float(volts) if $LabTimer.time_left > 0 else 0.0
+	if _object_to_recieve_current:
+		_object_to_recieve_current.voltage = cur_voltage
+		var dir := get_current_direction()
+		if dir == CurrentDirection.REVERSE: _object_to_recieve_current.voltage *= -1
+
 func _on_start_button_pressed() -> void:
-	var circuit_ready: bool = _is_circuit_ready()
-	if circuit_ready:
-		var current_direction: CurrentDirection = get_current_direction()
-		activate_power_supply.emit(volts, time, current_direction) #TODO stuff should happen once wires are connected to the gel rig
-	else:
-		print("Something is wrong with the circuit! Check that the connections on the Power Supply and Gel Box are correct!")
+	$LabTimer.start(time)
  
 func _on_timer_timeout() -> void:
 	var is_pressed: bool = _current_pressed_button.button_pressed
