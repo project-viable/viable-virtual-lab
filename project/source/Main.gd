@@ -225,6 +225,7 @@ func unload_current_module() -> void:
 	for child in $%Scene.get_children():
 		child.queue_free()
 	move_to_workspace(null)
+	current_module_scene = null
 
 #instanciates scene and adds it as a child of %$Scene. Gets rid of any scene that's already been loaded, and hides the menu.
 func set_scene(scene: PackedScene) -> void:
