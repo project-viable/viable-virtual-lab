@@ -107,12 +107,19 @@ func _ready() -> void:
 
 	%FPSLabel.visible = GameSettings.show_fps
 
+	# The zoom prompt is at the top always.
+	_interact_kind_prompts[InteractInfo.Kind.INSPECT] = %ZoomOutPrompt
+
 	# Set the resolution to the one matching the config. If the config resolution doesn't match
 	# any of the available ones, then it will automatically choose the first option.
 	$%ResolutionDropdown.select(saved_resolution_index)
 	_on_resolution_dropdown_item_selected(saved_resolution_index)
 
 	for kind: InteractInfo.Kind in InteractInfo.Kind.values():
+		# Don't make a new prompt for one already set previously (like the inspect prompt at the top
+		# of the screen.
+		if _interact_kind_prompts.has(kind): continue
+
 		var prompt: InteractionPrompt = INTERACTION_PROMPT_SCENE.instantiate()
 		var action_event := InputEventAction.new()
 		action_event.action = InteractInfo.kind_to_action(kind)
@@ -129,19 +136,21 @@ func _process(delta: float) -> void:
 				show_popup(logs[0])
 			logs.remove_at(0)
 
-	for prompt in %Prompts.get_children():
+	for prompt: InteractionPrompt in _interact_kind_prompts.values():
 		prompt.hide()
 
-	for kind: InteractInfo.Kind in InteractInfo.Kind.values():
-		var prompt: InteractionPrompt = _interact_kind_prompts.get(kind)
-		if not prompt: continue
+	# Don't show prompts in the main menu.
+	if current_module_scene:
+		for kind: InteractInfo.Kind in InteractInfo.Kind.values():
+			var prompt: InteractionPrompt = _interact_kind_prompts.get(kind)
+			if not prompt: continue
 
-		var state: Interaction.InteractState = Interaction.interactions.get(kind)
-		if state.info and state.info.show_prompt:
-			prompt.show()
-			prompt.disabled = not state.info.allowed
-			prompt.description = state.info.description
-			prompt.pressed = state.is_pressed
+			var state: Interaction.InteractState = Interaction.interactions.get(kind)
+			if state.info and state.info.show_prompt:
+				prompt.show()
+				prompt.disabled = not state.info.allowed
+				prompt.description = state.info.description
+				prompt.pressed = state.is_pressed
 
 	# The coordinate system for the main viewport and the cursor canvas layer are different, so
 	# we have to convert.
@@ -174,7 +183,6 @@ func _process(delta: float) -> void:
 
 	%FPSLabel.text = str(Engine.get_frames_per_second())
 
-	%ZoomOutPrompt.visible = _camera_focus_owner != null
 	%LeftWorkspacePrompt.visible = _current_workspace and not _camera_focus_owner
 	%LeftWorkspacePrompt.disabled = _current_workspace and not _current_workspace.left_workspace
 	%RightWorkspacePrompt.visible = _current_workspace and not _camera_focus_owner
@@ -216,7 +224,7 @@ func unload_current_module() -> void:
 	DepthManager.clear_layers()
 	for child in $%Scene.get_children():
 		child.queue_free()
-	_current_workspace = null
+	move_to_workspace(null)
 
 #instanciates scene and adds it as a child of %$Scene. Gets rid of any scene that's already been loaded, and hides the menu.
 func set_scene(scene: PackedScene) -> void:
@@ -326,6 +334,7 @@ func move_to_workspace(workspace: WorkspaceCamera, time: float = 0.0) -> void:
 	_current_workspace = workspace
 	if _current_workspace:
 		$%TransitionCamera.move_to_camera(workspace, true, time)
+	set_camera_focus_owner(null)
 
 func return_to_current_workspace() -> void:
 	hide_subscene()
@@ -346,6 +355,7 @@ func focus_camera_on_rect(rect: Rect2, time: float = 0.7) -> void:
 ## [signal camera_focus_owner_changed] to detect that (since it's called with [code]null[/code]
 ## whenever [method return_to_current_workspace] is called).
 func set_camera_focus_owner(focus_owner: Node) -> void:
+	$InteractableSystem.can_zoom_out = (focus_owner != null)
 	_camera_focus_owner = focus_owner
 	camera_focus_owner_changed.emit(_camera_focus_owner)
 
