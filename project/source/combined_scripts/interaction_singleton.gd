@@ -67,6 +67,9 @@ var _interact_area_stack: Array[InteractableArea] = []
 
 
 func _ready() -> void:
+	# Interaction only works when in the simulation.
+	process_mode = Node.PROCESS_MODE_PAUSABLE
+
 	for kind: InteractInfo.Kind in InteractInfo.Kind.values():
 		interactions[kind] = InteractState.new()
 
