@@ -2,7 +2,7 @@ class_name Main
 extends Node2D
 
 
-const INTERACTION_PROMPT_SCENE := preload("res://combined_scenes/interaction_prompt.tscn")
+const INTERACTION_PROMPT_SCENE := preload("res://scenes/interaction_prompt.tscn")
 
 
 ## This will be called with [code]null[/code] when returning to the workspace.
@@ -17,7 +17,8 @@ signal camera_focus_owner_changed(focus_owner: Node)
 var current_module_scene: Node = null
 
 var module_directory: String = "res://Modules/"
-var module_button: PackedScene = load("res://Scenes/UI/ModuleSelectButton.tscn")
+var module_button: PackedScene = load("res://scenes/module_select_button.tscn")
+
 
 var current_module: ModuleData = null
 
