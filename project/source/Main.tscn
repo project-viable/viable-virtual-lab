@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=31 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
 [ext_resource type="Script" uid="uid://chwhrlyn51foq" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
@@ -7,9 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b3mapaem4gat2" path="res://Images/Gel Electrophoresis Icon.png" id="5"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://Scripts/Resources/ModuleData.gd" id="5_1a5hp"]
 [ext_resource type="Texture2D" uid="uid://bxwnksqona14c" path="res://Images/Dot-Blue.png" id="6"]
-[ext_resource type="Resource" uid="uid://ct2buu7x0tve8" path="res://Modules/FluorescenceMicroscopy.tres" id="6_wqw1h"]
 [ext_resource type="Texture2D" uid="uid://cm63yepobpmlk" path="res://Images/Dot-Yellow.png" id="7"]
-[ext_resource type="Resource" uid="uid://qyvthme13vqx" path="res://Modules/GelElectrophoresis.tres" id="7_d1bo7"]
 [ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://Images/Dot-Red.png" id="8"]
 [ext_resource type="Script" uid="uid://cmnnbli12q46a" path="res://combined_scripts/virtual_mouse_content_scaled_sub_viewport_container.gd" id="8_bg4s2"]
 [ext_resource type="Script" uid="uid://c6mualde27mwh" path="res://combined_scripts/main_interactable_system.gd" id="8_hhcpw"]
@@ -86,7 +84,7 @@ action = &"interact_right"
 process_mode = 3
 script = ExtResource("2")
 check_strategies = Array[ExtResource("2_45sle")]([ExtResource("9")])
-all_modules = Array[ExtResource("5_1a5hp")]([ExtResource("6_wqw1h"), ExtResource("7_d1bo7"), ExtResource("8_sc1dx")])
+all_modules = Array[ExtResource("5_1a5hp")]([ExtResource("8_sc1dx")])
 
 [node name="InteractableSystem" type="Node2D" parent="."]
 script = ExtResource("8_hhcpw")
