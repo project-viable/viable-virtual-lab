@@ -198,7 +198,7 @@ func _unhandled_key_input(e: InputEvent) -> void:
 			set_paused(not is_paused())
 
 func _load_module(module: ModuleData) -> void:
-	set_scene(module.scene)
+	set_scene(load(module.scene_path))
 
 	_switch_to_menu_screen($Menu/MenuScreens/PauseMenu)
 	$Menu/Background.hide()
@@ -231,7 +231,7 @@ func unload_current_module() -> void:
 func set_scene(scene: PackedScene) -> void:
 	unload_current_module()
 	var new_scene := scene.instantiate()
-	$%Scene.add_child(new_scene)
+	$%Scene.call_deferred("add_child", new_scene)
 	current_module_scene = new_scene
 	#$Camera.reset()
 
@@ -488,7 +488,7 @@ func _on_FinalReport_MainMenuButton_pressed() -> void:
 	get_tree().reload_current_scene()
 
 func _on_FinalReport_RestartModuleButton_pressed() -> void:
-	set_scene(current_module.scene)
+	set_scene(load(current_module.scene_path))
 	set_log_notification_counts()
 	$Menu/FinalReport.hide()
 
