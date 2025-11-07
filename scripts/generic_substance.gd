@@ -1,5 +1,5 @@
 class_name GenericSubstance
-extends SubstanceInstance
+extends Substance
 ## Can be used for any generic substance that doesn't need any special behavior.
 
 @export var name: String
@@ -9,26 +9,26 @@ extends SubstanceInstance
 @export var volume: float
 
 # Don't duplicate `data`.
-## See [method SubstanceInstance.clone]
+## See [method Substance.clone]
 func clone() -> GenericSubstance: return duplicate(false)
-## See [method SubstanceInstance.get_density]
+## See [method Substance.get_density]
 func get_density() -> float: return density
-## See [method SubstanceInstance.get_volume]
+## See [method Substance.get_volume]
 func get_volume() -> float: return volume
-## See [method SubstanceInstance.get_color]
+## See [method Substance.get_color]
 func get_color() -> Color: return color
 
 # Only incorporate the same substance.
-## See [method SubstanceInstance.try_incorporate]
-func try_incorporate(s: SubstanceInstance) -> bool:
+## See [method Substance.try_incorporate]
+func try_incorporate(s: Substance) -> bool:
 	if s is GenericSubstance and s.name == name:
 		volume += s.volume
 		return true
 	else:
 		return false
 
-## See [method SubstanceInstance.take_volume]
-func take_volume(v: float) -> SubstanceInstance:
+## See [method Substance.take_volume]
+func take_volume(v: float) -> Substance:
 	var amount_to_take: float = clamp(v, 0.0, volume)
 	var result := clone()
 	result.volume = amount_to_take

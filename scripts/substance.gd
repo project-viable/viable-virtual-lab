@@ -1,12 +1,10 @@
-# TODO: rename this to just `Substance` when the other `Substance` class is removed.
-## This is the class description for SubstanceInstance
-class_name SubstanceInstance
+class_name Substance
 extends Resource
 
 
 ## (virtual) Make a deep copy of this substance. This needs to be here because `Resource::duplicate`
 ## doesn't behave super nicely with arrays and stuff.
-func clone() -> SubstanceInstance: return duplicate(true)
+func clone() -> Substance: return duplicate(true)
 
 ## (virtual) Get the density, in grams per milliliter.
 func get_density() -> float: return 1.0
@@ -29,7 +27,7 @@ func get_color() -> Color: return Color.WHITE
 ##
 ## `s` will always be a copy, and will be discarded if this function returns true, so it's okay to
 ## store the reference `s`.
-func try_incorporate(_s: SubstanceInstance) -> bool: return false
+func try_incorporate(_s: Substance) -> bool: return false
 
 ## Do a single tick worth of processing. `container` is the container node that this substance is
 ## in. `delta` is the length of the tick in seconds, measured in lab time.
@@ -41,7 +39,7 @@ func try_incorporate(_s: SubstanceInstance) -> bool: return false
 ## This function should be used for any mixing or reactions.
 func process(_container: ContainerComponent, _delta: float) -> void: pass
 
-## (virtual) Take *up to* `v` milliliters of this substance and return a new `SubstanceInstance`
+## (virtual) Take *up to* `v` milliliters of this substance and return a new `Substance`
 ## from what was taken. If `v` is greater than the current volume, then the full volume will be
 ## taken.
-func take_volume(_v: float) -> SubstanceInstance: return SubstanceInstance.new()
+func take_volume(_v: float) -> Substance: return Substance.new()

@@ -25,7 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://cxmqgu76dc3v" path="res://scenes/contact_wire.tscn" id="21_gvdu8"]
 [ext_resource type="Script" uid="uid://qijnhs2e78qy" path="res://scripts/contact_wires.gd" id="21_kobiv"]
 [ext_resource type="Texture2D" uid="uid://dwb7gsbcv24kv" path="res://textures/icons_and_buttons/contact_negative.svg" id="22_kobiv"]
-[ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://scripts/substance_instance.gd" id="24_c13rf"]
+[ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://scripts/substance.gd" id="24_c13rf"]
 [ext_resource type="Script" uid="uid://6lhyc3i5obbu" path="res://scripts/dna_solution_substance.gd" id="25_2kbga"]
 [ext_resource type="Script" uid="uid://f3pegl6tyuqt" path="res://scripts/workspace_camera.gd" id="25_5fdni"]
 [ext_resource type="Texture2D" uid="uid://brx5qwivdoj2a" path="res://textures/environment/black.svg" id="26_w0rbf"]

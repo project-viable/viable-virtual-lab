@@ -20,7 +20,7 @@ var position: float = 0.0
 
 func get_color() -> Color: return Color(0.327, 0.481, 0.99, 0.737)
 
-func try_incorporate(s: SubstanceInstance) -> bool:
+func try_incorporate(s: Substance) -> bool:
 	if s is DNASolutionSubstance and s.fragment_size == fragment_size:
 		volume += s.volume
 		return true

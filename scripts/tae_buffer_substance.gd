@@ -1,5 +1,5 @@
 class_name TAEBufferSubstance
-extends SubstanceInstance
+extends Substance
 ## This is the same as agarose.
 
 
@@ -44,7 +44,7 @@ func take_volume(v: float) -> TAEBufferSubstance:
 	result.volume = volume_to_take
 	return result
 
-func try_incorporate(s: SubstanceInstance) -> bool:
+func try_incorporate(s: Substance) -> bool:
 	if s is TAEBufferSubstance:
 		# TODO: Handle temperature and avoid divide by zero.
 		agarose_concentration = \

@@ -4,7 +4,7 @@ extends Node2D
 
 
 ## The array of substances to be held within the container
-@export var substances: Array[SubstanceInstance] = []
+@export var substances: Array[Substance] = []
 
 ## Volume that this container can hold, in mL. The total volume of substances stored in this
 ## container is not prevented from going above this value; [member container_volume] exists mainly
@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 
 	# We need to duplicate the substance array because substances may modify the original one in
 	# their `process` function.
-	for s: SubstanceInstance in substances.duplicate():
+	for s: Substance in substances.duplicate():
 		s.process(self, lab_delta)
 	
 	_remove_empty_substances()
@@ -29,7 +29,7 @@ func _physics_process(delta: float) -> void:
 # `s` should be a copy.
 ## Adds a substance to the array of substances by adding it to an existing instance of the same 
 ## substance or creates a new instance within the array.
-func add(s: SubstanceInstance) -> void:
+func add(s: Substance) -> void:
 	var did_incorporate := false
 	for substance in substances:
 		if substance.try_incorporate(s):
@@ -40,25 +40,25 @@ func add(s: SubstanceInstance) -> void:
 		substances.append(s)
 
 ## Add all substances in [param s].
-func add_array(s: Array[SubstanceInstance]) -> void:
+func add_array(s: Array[Substance]) -> void:
 	for substance in s: add(substance)
 
 ## Returns total volume in the container, in mL.
 func get_total_volume() -> float:
-	return substances.map(func(s: SubstanceInstance) -> float: return s.get_volume()) \
+	return substances.map(func(s: Substance) -> float: return s.get_volume()) \
 			.reduce(func(a: float, b: float) -> float: return a + b, 0.0)
 
 ## Takes the given volume from the first substance.
-func take_volume_from_back(v: float) -> SubstanceInstance:
-	if not substances: return SubstanceInstance.new()
-	var result: SubstanceInstance = substances.back().take_volume(v)
+func take_volume_from_back(v: float) -> Substance:
+	if not substances: return Substance.new()
+	var result: Substance = substances.back().take_volume(v)
 	_remove_empty_substances()
 	return result
 
 ## Take at most [param v] mL of substances from the back of [member substances]. Return an array of
 ## the taken substances.
-func take_volume(v: float) -> Array[SubstanceInstance]:
-	var result: Array[SubstanceInstance] = []
+func take_volume(v: float) -> Array[Substance]:
+	var result: Array[Substance] = []
 	while v > 0 and substances:
 		result.push_back(take_volume_from_back(v))
 		v -= result.back().get_volume()
@@ -66,7 +66,7 @@ func take_volume(v: float) -> Array[SubstanceInstance]:
 
 func _remove_empty_substances() -> void:
 	substances.assign(
-		substances.filter(func(s: SubstanceInstance) -> bool: return s.get_volume() >= 0.00001))
+		substances.filter(func(s: Substance) -> bool: return s.get_volume() >= 0.00001))
 
 func get_substances_mass() -> float:
 	var total_substance_mass: float = 0.0

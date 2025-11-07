@@ -96,7 +96,7 @@ func _on_uv_light_pressed() -> void:
 #func analyze_gel(gel: LabBody) -> void:
 #	for i: int in gel.num_wells():
 #		var well: ContainerComponent = gel.get_well(i)
-#		for substance: SubstanceInstance in well.substances:
+#		for substance: Substance in well.substances:
 #			if substance.get_class() == "DNASubstance":
 #				for fragment_size: float in substance.fragment_sizes:
 #					#Perfect results

@@ -89,10 +89,10 @@ func _process(_delta: float) -> void:
 	var total_area: float = _area_intervals.back().high_area if _area_intervals else 0.0
 
 	var depths: Array[float] = []
-	depths.assign(source.substances.map(func(s: SubstanceInstance) -> float: return s.get_volume()))
+	depths.assign(source.substances.map(func(s: Substance) -> float: return s.get_volume()))
 
 	var colors: Array[Color] = []
-	colors.assign(source.substances.map(func(s: SubstanceInstance) -> Color: return s.get_color()))
+	colors.assign(source.substances.map(func(s: Substance) -> Color: return s.get_color()))
 
 	var cur_volume := 0.0
 	for i in range(0, len(depths)):
