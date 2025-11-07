@@ -1,4 +1,4 @@
-class_name Substance
+@abstract class_name Substance
 extends Resource
 
 
@@ -42,4 +42,4 @@ func process(_container: ContainerComponent, _delta: float) -> void: pass
 ## (virtual) Take *up to* `v` milliliters of this substance and return a new `Substance`
 ## from what was taken. If `v` is greater than the current volume, then the full volume will be
 ## taken.
-func take_volume(_v: float) -> Substance: return Substance.new()
+@abstract func take_volume(_v: float) -> Substance
