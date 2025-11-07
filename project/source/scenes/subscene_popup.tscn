@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ghabj1opdhxl"]
 
-[ext_resource type="Script" uid="uid://2u6dicxchesm" path="res://combined_scripts/subscene_popup.gd" id="1_veijv"]
+[ext_resource type="Script" uid="uid://2u6dicxchesm" path="res://scripts/subscene_popup.gd" id="1_veijv"]
 
 [node name="SubscenePopup" type="Node2D"]
 script = ExtResource("1_veijv")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b16eqawpatmtb"]
 
 [ext_resource type="Texture2D" uid="uid://b2u2vyu06gaor" path="res://favicon.png" id="1"]
-[ext_resource type="Script" uid="uid://ckgaojs0epmjs" path="res://Scripts/UI/ModuleSelectButton.gd" id="2"]
+[ext_resource type="Script" uid="uid://ckgaojs0epmjs" path="res://scripts/module_select_button.gd" id="2"]
 
 [sub_resource type="Theme" id="1"]
 

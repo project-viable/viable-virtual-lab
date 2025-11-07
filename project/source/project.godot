@@ -18,14 +18,14 @@ config/icon="res://favicon.png"
 
 [autoload]
 
-LabLog="*res://Scripts/LabLogSingleton.gd"
-GameSettings="*res://Scripts/GameSettingsSingleton.gd"
-Interaction="*res://combined_scripts/interaction_singleton.gd"
-LabTime="*res://combined_scripts/lab_time_singleton.gd"
-Cursor="*res://combined_scripts/cursor_singleton.gd"
-Subscenes="*res://combined_scripts/subscenes_singleton.gd"
-Game="*res://combined_scripts/game_singleton.gd"
-DepthManager="*res://combined_scripts/depth_manager_singleton.gd"
+LabLog="*res://scripts/lab_log_singleton.gd"
+GameSettings="*res://scripts/game_settings_singleton.gd"
+Interaction="*res://scripts/interaction_singleton.gd"
+LabTime="*res://scripts/lab_time_singleton.gd"
+Cursor="*res://scripts/cursor_singleton.gd"
+Subscenes="*res://scripts/subscenes_singleton.gd"
+Game="*res://scripts/game_singleton.gd"
+DepthManager="*res://scripts/depth_manager_singleton.gd"
 
 [debug]
 

@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://cqwtudfa80qn"]
 
-[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_4aecl"]
-[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_epgyh"]
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_4aecl"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_epgyh"]
 [ext_resource type="Texture2D" uid="uid://b533er73htfu6" path="res://textures/lab_objects/scoopula_holder.svg" id="3_jp3dn"]
-[ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="4_epgyh"]
+[ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="4_epgyh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epgyh"]
 size = Vector2(27, 100)
