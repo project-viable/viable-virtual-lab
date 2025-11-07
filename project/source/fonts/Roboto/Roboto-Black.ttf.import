@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bkru5qd1wwhxn"
-path="res://.godot/imported/Roboto-Italic.ttf-f499db9d2305d9f7423a083a17c23350.fontdata"
+uid="uid://c5jqyemsa330f"
+path="res://.godot/imported/Roboto-Black.ttf-9c7bdba3968174031cb451a4405c2abb.fontdata"
 
 [deps]
 
-source_file="res://UI/Roboto/Roboto-Italic.ttf"
-dest_files=["res://.godot/imported/Roboto-Italic.ttf-f499db9d2305d9f7423a083a17c23350.fontdata"]
+source_file="res://fonts/Roboto/Roboto-Black.ttf"
+dest_files=["res://.godot/imported/Roboto-Black.ttf-9c7bdba3968174031cb451a4405c2abb.fontdata"]
 
 [params]
 
@@ -21,6 +21,7 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
+modulate_color_glyphs=false
 hinting=1
 subpixel_positioning=1
 keep_rounding_remainders=true

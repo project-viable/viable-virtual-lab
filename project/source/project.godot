@@ -56,8 +56,8 @@ zoom:power_supply=""
 
 [gui]
 
-theme/custom="res://UI/MainUITheme.tres"
-theme/custom_font="res://UI/RobotoMedium16.tres"
+theme/custom="res://themes/main_ui_theme.tres"
+theme/custom_font="res://fonts/roboto_medium_16.tres"
 common/drop_mouse_on_gui_input_disabled=true
 
 [input]

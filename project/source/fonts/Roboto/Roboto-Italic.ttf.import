@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://clso3ugjx7wrm"
-path="res://.godot/imported/Roboto-Light.ttf-f57887c77457664dd136a6fa143973a0.fontdata"
+uid="uid://bkru5qd1wwhxn"
+path="res://.godot/imported/Roboto-Italic.ttf-71fd12324569282006bcf4d1cd551e61.fontdata"
 
 [deps]
 
-source_file="res://UI/Roboto/Roboto-Light.ttf"
-dest_files=["res://.godot/imported/Roboto-Light.ttf-f57887c77457664dd136a6fa143973a0.fontdata"]
+source_file="res://fonts/Roboto/Roboto-Italic.ttf"
+dest_files=["res://.godot/imported/Roboto-Italic.ttf-71fd12324569282006bcf4d1cd551e61.fontdata"]
 
 [params]
 
@@ -21,6 +21,7 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
+modulate_color_glyphs=false
 hinting=1
 subpixel_positioning=1
 keep_rounding_remainders=true

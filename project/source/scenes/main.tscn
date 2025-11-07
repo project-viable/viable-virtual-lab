@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://ks1q0lnixrmt" path="res://textures/icons_and_buttons/cursors/temp/reticle.svg" id="13_tuaro"]
 [ext_resource type="Texture2D" uid="uid://bdg0qubi6xt7d" path="res://textures/old/MainMenu-Background.png" id="14_b4l0s"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://textures/old/VIABLE_Logo_Transparent.png" id="15_ki7y1"]
-[ext_resource type="FontFile" path="res://UI/RobotoMedium28.tres" id="16_gpyrr"]
+[ext_resource type="FontFile" path="res://fonts/roboto_medium_28.tres" id="16_gpyrr"]
 [ext_resource type="Texture2D" uid="uid://b3mapaem4gat2" path="res://textures/old/Gel Electrophoresis Icon.png" id="17_3wfyc"]
 [ext_resource type="Texture2D" uid="uid://dgmytdnqonu6s" path="res://textures/old/HamburgerMenu.png" id="18_uoft2"]
 [ext_resource type="Texture2D" uid="uid://bxwnksqona14c" path="res://textures/old/Dot-Blue.png" id="19_a8iky"]

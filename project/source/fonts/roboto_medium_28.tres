@@ -1,6 +1,6 @@
 [gd_resource type="FontFile" load_steps=2 format=2]
 
-[ext_resource path="res://UI/DynamicFontDataRobotoMedium16.tres" type="FontFile" id=1]
+[ext_resource type="FontFile" path="res://fonts/dynamic_font_data_roboto_medium_16.tres" id="1"]
 
 [resource]
 size = 28

@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://blx2t4x33kcif"
-path="res://.godot/imported/Roboto-Medium.ttf-41a4a3a952108498df5fcda892ffd6dc.fontdata"
+uid="uid://bqcdxqc1mgh6s"
+path="res://.godot/imported/Roboto-ThinItalic.ttf-1a72d09eeab5d8b0d4c5ac340b5448eb.fontdata"
 
 [deps]
 
-source_file="res://UI/Roboto/Roboto-Medium.ttf"
-dest_files=["res://.godot/imported/Roboto-Medium.ttf-41a4a3a952108498df5fcda892ffd6dc.fontdata"]
+source_file="res://fonts/Roboto/Roboto-ThinItalic.ttf"
+dest_files=["res://.godot/imported/Roboto-ThinItalic.ttf-1a72d09eeab5d8b0d4c5ac340b5448eb.fontdata"]
 
 [params]
 
@@ -21,6 +21,7 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
+modulate_color_glyphs=false
 hinting=1
 subpixel_positioning=1
 keep_rounding_remainders=true
