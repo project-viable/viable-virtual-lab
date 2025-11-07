@@ -6,7 +6,7 @@ func get_interactions() -> Array[InteractInfo]:
 	var info: InteractInfo
 	interactor = Interaction.held_body
 
-	if interactor is Pipe and interactor.has_tip:
+	if interactor is Pipette and interactor.has_tip:
 		info = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Dispose tip")
 
 	elif interactor.is_in_group("Emptyable"): 
@@ -21,7 +21,7 @@ func get_interactions() -> Array[InteractInfo]:
 	return []
 	
 func start_interact(_kind: InteractInfo.Kind) -> void:
-	if interactor is Pipe:
+	if interactor is Pipette:
 		interactor.has_tip = false
 		
 	elif container_component:

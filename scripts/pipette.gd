@@ -1,5 +1,5 @@
 extends LabBody
-class_name Pipe #TODO: Placeholder name since Pipette is already used in the old simulation
+class_name Pipette
 
 
 const PLUNGER_OFFSETS: Array[float] = [0, 8, 10]
