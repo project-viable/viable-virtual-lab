@@ -4,9 +4,6 @@
 
 [resource]
 script = ExtResource("1_c6v6y")
-show = true
-name = "Temp"
-tooltip = ""
+name = "Gel Electrophoresis"
 scene_path = "uid://bnn7yyuvh6jsj"
-instructions_bb_code = ""
 metadata/_custom_type_script = "uid://dr8kufon8ubeo"
