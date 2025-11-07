@@ -96,6 +96,10 @@ func _physics_process(delta: float) -> void:
 		time = round($LabTimer.time_left)
 		update_timer_display()
 
+func is_hovered() -> bool:
+	# Don't allow the power supply to be picked up while zoomed in, so the buttons can be pressed.
+	return super() and not Game.main.get_camera_focus_owner()
+
 func _on_start_button_pressed() -> void:
 	$LabTimer.start(time)
  
