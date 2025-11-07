@@ -5,6 +5,11 @@ extends Node2D
 # but the [SubViewport] surrounding the main scene absorbs input and causes the input handling order
 # to be weird. So instead, we handle it here.
 func _unhandled_input(e: InputEvent) -> void:
+	# We only start interacting when the button is first pressed down, so we don't want echoes.
+	if e.is_echo():
+		get_viewport().set_input_as_handled()
+		return
+
 	var kind := InteractInfo.Kind.PRIMARY
 	var found_kind := false
 	for k: InteractInfo.Kind in InteractInfo.Kind.values():
