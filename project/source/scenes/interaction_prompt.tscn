@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://bqq24b1qxt4r7"]
 
 [ext_resource type="Script" uid="uid://djoq1glbbojw1" path="res://combined_scripts/interaction_prompt.gd" id="1_hyumr"]
-[ext_resource type="Texture2D" uid="uid://d062ywg2c6bnj" path="res://updated_assets/icons_and_buttons/keyboard_key_unpressed.svg" id="2_a6f31"]
-[ext_resource type="Texture2D" uid="uid://cv05dk2ip135d" path="res://updated_assets/icons_and_buttons/keyboard_key_pressed.svg" id="3_g1gqo"]
-[ext_resource type="Texture2D" uid="uid://dmev1jp2fxu07" path="res://updated_assets/icons_and_buttons/mouse_left.svg" id="3_rbyiy"]
+[ext_resource type="Texture2D" uid="uid://d062ywg2c6bnj" path="res://textures/icons_and_buttons/keyboard_key_unpressed.svg" id="2_a6f31"]
+[ext_resource type="Texture2D" uid="uid://cv05dk2ip135d" path="res://textures/icons_and_buttons/keyboard_key_pressed.svg" id="3_g1gqo"]
+[ext_resource type="Texture2D" uid="uid://dmev1jp2fxu07" path="res://textures/icons_and_buttons/mouse_left.svg" id="3_rbyiy"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hyumr"]
 texture = ExtResource("2_a6f31")

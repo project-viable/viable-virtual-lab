@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_5u6i1"]
 [ext_resource type="Script" uid="uid://dbt7erpalpnhb" path="res://combined_scripts/wall_clock.gd" id="1_rsrms"]
 [ext_resource type="Script" uid="uid://musakg3k6s1l" path="res://combined_scripts/selectable_component.gd" id="2_x0q8p"]
-[ext_resource type="Texture2D" uid="uid://cra23xb8qrwv4" path="res://updated_assets/lab_objects/clock.svg" id="3_6mva3"]
+[ext_resource type="Texture2D" uid="uid://cra23xb8qrwv4" path="res://textures/lab_objects/clock.svg" id="3_6mva3"]
 [ext_resource type="Script" uid="uid://b810schxe1hne" path="res://combined_scripts/interact_info.gd" id="3_rj6r8"]
-[ext_resource type="Texture2D" uid="uid://cu5wbod0a00uj" path="res://updated_assets/lab_objects/clock_small_hand.svg" id="6_p2loy"]
-[ext_resource type="Texture2D" uid="uid://7mr6rsontnyb" path="res://updated_assets/lab_objects/clock_second_hand.svg" id="7_rj6r8"]
-[ext_resource type="Texture2D" uid="uid://dxce217ej6x8g" path="res://updated_assets/lab_objects/clock_big_hand.svg" id="7_x0q8p"]
+[ext_resource type="Texture2D" uid="uid://cu5wbod0a00uj" path="res://textures/lab_objects/clock_small_hand.svg" id="6_p2loy"]
+[ext_resource type="Texture2D" uid="uid://7mr6rsontnyb" path="res://textures/lab_objects/clock_second_hand.svg" id="7_rj6r8"]
+[ext_resource type="Texture2D" uid="uid://dxce217ej6x8g" path="res://textures/lab_objects/clock_big_hand.svg" id="7_x0q8p"]
 
 [sub_resource type="Resource" id="Resource_isgb8"]
 script = ExtResource("3_rj6r8")

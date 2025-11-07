@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_ssuie"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_ceiaq"]
-[ext_resource type="Texture2D" uid="uid://ceb3fqgxtqtqf" path="res://updated_assets/lab_objects/scale.svg" id="4_ssuie"]
+[ext_resource type="Texture2D" uid="uid://ceb3fqgxtqtqf" path="res://textures/lab_objects/scale.svg" id="4_ssuie"]
 [ext_resource type="Script" uid="uid://ceswiywyrstxd" path="res://combined_scripts/scale_interactable_area.gd" id="5_7y61a"]
 [ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://combined_scripts/zoom_selectable_area.gd" id="5_ssuie"]
-[ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://updated_assets/icons_and_buttons/button_2.svg" id="7_vhatv"]
+[ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://textures/icons_and_buttons/button_2.svg" id="7_vhatv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssuie"]
 size = Vector2(125, 34)

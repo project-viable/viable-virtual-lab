@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_sbaom"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_g0l2j"]
-[ext_resource type="Texture2D" uid="uid://yrxt2sxidd3c" path="res://Images/FillSprites/scoopula_fill.png" id="4_g0l2j"]
-[ext_resource type="Texture2D" uid="uid://cak418sbeesy5" path="res://updated_assets/lab_objects/scoopula.svg" id="4_sbaom"]
+[ext_resource type="Texture2D" uid="uid://yrxt2sxidd3c" path="res://textures/old/FillSprites/scoopula_fill.png" id="4_g0l2j"]
+[ext_resource type="Texture2D" uid="uid://cak418sbeesy5" path="res://textures/lab_objects/scoopula.svg" id="4_sbaom"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="8_h2xov"]
 [ext_resource type="Script" uid="uid://btbgnyoe2k5xc" path="res://combined_scripts/scoopula_use_component.gd" id="9_fpj3u"]
 

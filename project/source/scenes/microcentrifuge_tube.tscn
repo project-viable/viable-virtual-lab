@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_v7kqd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_w81e0"]
 [ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://combined_scripts/substance_display_polygon.gd" id="3_rvoxf"]
-[ext_resource type="Texture2D" uid="uid://d1kyht6iivf6s" path="res://updated_assets/lab_objects/microcentrifuge_tube.svg" id="4_f37ir"]
+[ext_resource type="Texture2D" uid="uid://d1kyht6iivf6s" path="res://textures/lab_objects/microcentrifuge_tube.svg" id="4_f37ir"]
 [ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://combined_scripts/attachment_point.gd" id="5_ulp6r"]
 [ext_resource type="Script" uid="uid://qeafyaxecqnu" path="res://combined_scripts/substance_access_area.gd" id="7_0ksr7"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="8_oemyf"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_85rdh"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_jx3lu"]
-[ext_resource type="Texture2D" uid="uid://b0qriex5es36u" path="res://updated_assets/lab_objects/biohazard_bin.svg" id="3_jx3lu"]
+[ext_resource type="Texture2D" uid="uid://b0qriex5es36u" path="res://textures/lab_objects/biohazard_bin.svg" id="3_jx3lu"]
 [ext_resource type="Script" uid="uid://boree4ige5a05" path="res://combined_scripts/biohazard_bin_interactable_area.gd" id="5_fus4i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nf2rl"]

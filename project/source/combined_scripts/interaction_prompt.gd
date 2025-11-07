@@ -3,11 +3,11 @@ class_name InteractionPrompt
 extends HBoxContainer
 
 
-const MOUSE_LEFT: Texture2D = preload("res://updated_assets/icons_and_buttons/mouse_left.svg")
-const MOUSE_MIDDLE: Texture2D = preload("res://updated_assets/icons_and_buttons/mouse_middle.svg")
-const MOUSE_RIGHT: Texture2D = preload("res://updated_assets/icons_and_buttons/mouse_right.svg")
-const MOUSE_LEFT_PRESSED: Texture2D = preload("res://updated_assets/icons_and_buttons/mouse_left_pressed.svg")
-const MOUSE_RIGHT_PRESSED: Texture2D = preload("res://updated_assets/icons_and_buttons/mouse_right_pressed.svg")
+const MOUSE_LEFT: Texture2D = preload("res://textures/icons_and_buttons/mouse_left.svg")
+const MOUSE_MIDDLE: Texture2D = preload("res://textures/icons_and_buttons/mouse_middle.svg")
+const MOUSE_RIGHT: Texture2D = preload("res://textures/icons_and_buttons/mouse_right.svg")
+const MOUSE_LEFT_PRESSED: Texture2D = preload("res://textures/icons_and_buttons/mouse_left_pressed.svg")
+const MOUSE_RIGHT_PRESSED: Texture2D = preload("res://textures/icons_and_buttons/mouse_right_pressed.svg")
 
 
 ## The key or mouse button to display.
