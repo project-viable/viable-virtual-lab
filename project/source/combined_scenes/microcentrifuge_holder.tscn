@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bt321lhs647bu"]
+[gd_scene load_steps=11 format=3 uid="uid://bt321lhs647bu"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_y0nf6"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_lhjef"]
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="2_ufhtq"]
 [ext_resource type="Texture2D" uid="uid://4gatp66jseq6" path="res://updated_assets/lab_objects/microcentrifuge_holder.svg" id="3_ufhtq"]
+[ext_resource type="Script" uid="uid://tqglxdgoq1xk" path="res://combined_scripts/exclusive_area_2d.gd" id="5_ufhtq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0swob"]
 size = Vector2(8, 24)
@@ -13,6 +14,12 @@ size = Vector2(95, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lhjef"]
 size = Vector2(4.625, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_710li"]
+size = Vector2(35, 4.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c24ns"]
+size = Vector2(58, 43)
 
 [node name="MicrocentrifugeHolder" type="RigidBody2D"]
 script = ExtResource("1_y0nf6")
@@ -91,3 +98,16 @@ shape = SubResource("RectangleShape2D_lhjef")
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
 position = Vector2(44.6875, 0)
 shape = SubResource("RectangleShape2D_lhjef")
+
+[node name="ExclusiveArea2D" type="Area2D" parent="." groups=["exclusive_area:pipette"]]
+script = ExtResource("5_ufhtq")
+require_entry_point_shapes = true
+metadata/_custom_type_script = "uid://tqglxdgoq1xk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExclusiveArea2D" groups=["entry_point"]]
+position = Vector2(-24, -25.75)
+shape = SubResource("RectangleShape2D_710li")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ExclusiveArea2D"]
+position = Vector2(-20, -10.5)
+shape = SubResource("RectangleShape2D_c24ns")
