@@ -25,6 +25,8 @@ Cursor="*res://scripts/singletons/cursor.gd"
 Subscenes="*res://scripts/singletons/subscenes.gd"
 Game="*res://scripts/singletons/game.gd"
 DepthManager="*res://scripts/singletons/depth_manager.gd"
+RuntimeResourcePathManager="*res://scripts/runtime_resource_path_manager_singleton.gd"
+RichTextPreprocess="*res://scripts/singletons/rich_text_preprocess.gd"
 
 [debug]
 
