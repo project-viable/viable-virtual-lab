@@ -246,7 +246,6 @@ metadata/_custom_type_script = "uid://smreqra2kcc2"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
 input_event = SubResource("InputEventAction_xrxkg")
 description = "Zoom out"
 

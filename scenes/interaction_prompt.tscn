@@ -30,6 +30,8 @@ region = Rect2(283.5, 13.962, 456, 741.72)
 custom_minimum_size = Vector2(0, 60)
 offset_right = 82.0
 offset_bottom = 40.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_constants/separation = 10
 script = ExtResource("1_hyumr")
 
@@ -70,6 +72,7 @@ stretch_mode = 5
 
 [node name="DescriptionLabel" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.0778605, 0.191658, 0.245945, 1)
