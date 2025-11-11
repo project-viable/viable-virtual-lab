@@ -3,8 +3,6 @@ extends Node
 
 func process_custom_tag(command: String, arg: String) -> String:
 	match command:
-		"favicon":
-			return "[img %s]favicon.png[/img]" % [arg]
 		"prompt":
 			var args := arg.split(",", true, 1)
 
