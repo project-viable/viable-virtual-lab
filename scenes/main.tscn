@@ -163,18 +163,21 @@ unique_name_in_owner = true
 position = Vector2(66, 52)
 
 [node name="HandPointing" type="Sprite2D" parent="VirtualCursorLayer/Cursor"]
+position = Vector2(-6.299999, -7.799999)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("10_tmkqk")
 centered = false
 offset = Vector2(-110, -60)
 
 [node name="HandOpen" type="Sprite2D" parent="VirtualCursorLayer/Cursor"]
+position = Vector2(-6.299999, -7.799999)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("11_jc788")
 centered = false
 offset = Vector2(-110, -60)
 
 [node name="HandClosed" type="Sprite2D" parent="VirtualCursorLayer/Cursor"]
+position = Vector2(-6.299999, -7.799999)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("12_4mycw")
 centered = false
