@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="8_h2xov"]
 [ext_resource type="Script" uid="uid://btbgnyoe2k5xc" path="res://combined_scripts/scoopula_use_component.gd" id="9_fpj3u"]
 
-[node name="Scoopula" type="RigidBody2D" groups=["attachment:scoopula"]]
+[node name="Scoopula" type="RigidBody2D" groups=["attachment:scoopula", "zoom:scale"]]
 collision_layer = 0
 script = ExtResource("1_sbaom")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"

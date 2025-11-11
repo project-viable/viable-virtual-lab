@@ -1,6 +1,5 @@
-[gd_scene load_steps=22 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=33 format=3 uid="uid://ch4jildorp0b3"]
 
-[ext_resource type="Script" uid="uid://crqlu3uq74012" path="res://Scripts/UI/Menu.gd" id="1"]
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://Main.gd" id="2"]
 [ext_resource type="Script" uid="uid://chwhrlyn51foq" path="res://Scripts/Resources/MistakeChecker.gd" id="2_45sle"]
 [ext_resource type="Texture2D" uid="uid://bdg0qubi6xt7d" path="res://Images/MainMenu-Background.png" id="3"]
@@ -12,11 +11,22 @@
 [ext_resource type="Texture2D" uid="uid://cm63yepobpmlk" path="res://Images/Dot-Yellow.png" id="7"]
 [ext_resource type="Resource" uid="uid://qyvthme13vqx" path="res://Modules/GelElectrophoresis.tres" id="7_d1bo7"]
 [ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://Images/Dot-Red.png" id="8"]
+[ext_resource type="Script" uid="uid://cmnnbli12q46a" path="res://combined_scripts/virtual_mouse_content_scaled_sub_viewport_container.gd" id="8_bg4s2"]
+[ext_resource type="Script" uid="uid://c6mualde27mwh" path="res://combined_scripts/main_interactable_system.gd" id="8_hhcpw"]
 [ext_resource type="Resource" uid="uid://d3tt3s0try6s7" path="res://Modules/combined.tres" id="8_sc1dx"]
 [ext_resource type="Resource" uid="uid://ig5fr0g7xm80" path="res://MistakeCheckers/MixtureChecker.tres" id="9"]
+[ext_resource type="Script" uid="uid://bmcv1qehkhxri" path="res://combined_scripts/scene_input_handler.gd" id="9_kjvhd"]
 [ext_resource type="Script" uid="uid://da2myq6tjf26d" path="res://Mixtures.gd" id="10"]
+[ext_resource type="Script" uid="uid://b8kjtd0vdnq42" path="res://combined_scripts/transition_camera.gd" id="10_bg4s2"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://Images/VIABLE_Logo_Transparent.png" id="11"]
 [ext_resource type="FontFile" path="res://UI/RobotoMedium28.tres" id="12"]
+[ext_resource type="Texture2D" uid="uid://dpjbw81s4cllc" path="res://updated_assets/icons_and_buttons/cursors/hand_pointing.svg" id="18_5tuhn"]
+[ext_resource type="Texture2D" uid="uid://b0hfiq010v2bq" path="res://updated_assets/icons_and_buttons/cursors/hand_open.svg" id="19_devvj"]
+[ext_resource type="Texture2D" uid="uid://bhpxxflq68efs" path="res://updated_assets/icons_and_buttons/cursors/hand_closed.svg" id="20_3b0ty"]
+[ext_resource type="Texture2D" uid="uid://ks1q0lnixrmt" path="res://updated_assets/icons_and_buttons/cursors/temp/reticle.svg" id="21_3b0ty"]
+[ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://combined_scenes/interaction_prompt.tscn" id="24_mxvw5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3b0ty"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 content_margin_left = 10.0
@@ -63,22 +73,128 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sc1dx"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.254732, 0.0295399, 0.248016, 1)
-border_color = Color(0.959161, 0.945137, 0.997527, 1)
+[sub_resource type="InputEventAction" id="InputEventAction_xrxkg"]
+action = &"interact_inspect"
+
+[sub_resource type="InputEventAction" id="InputEventAction_mxvw5"]
+action = &"interact_left"
+
+[sub_resource type="InputEventAction" id="InputEventAction_sqvbp"]
+action = &"interact_right"
 
 [node name="Main" type="Node2D"]
+process_mode = 3
 script = ExtResource("2")
 check_strategies = Array[ExtResource("2_45sle")]([ExtResource("9")])
+all_modules = Array[ExtResource("5_1a5hp")]([ExtResource("6_wqw1h"), ExtResource("7_d1bo7"), ExtResource("8_sc1dx")])
+
+[node name="InteractableSystem" type="Node2D" parent="."]
+script = ExtResource("8_hhcpw")
+metadata/_custom_type_script = "uid://brv8o6bvj0yqp"
+
+[node name="SceneLayer" type="CanvasLayer" parent="."]
+process_mode = 1
+
+[node name="ContentScaledSubViewportContainer" type="TextureRect" parent="SceneLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_bg4s2")
+metadata/_custom_type_script = "uid://dmoeu8vq1th7i"
+
+[node name="MainViewport" type="SubViewport" parent="SceneLayer/ContentScaledSubViewportContainer"]
+unique_name_in_owner = true
+physics_object_picking = true
+size_2d_override = Vector2i(1280, 720)
+size_2d_override_stretch = true
+
+[node name="Scene" type="Node2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+unique_name_in_owner = true
+script = ExtResource("9_kjvhd")
+
+[node name="CursorArea" type="Area2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+unique_name_in_owner = true
+position = Vector2(66, 52)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea"]
+position = Vector2(8, 12)
+shape = SubResource("CapsuleShape2D_3b0ty")
+
+[node name="TransitionCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+unique_name_in_owner = true
+position = Vector2(640, 360)
+script = ExtResource("10_bg4s2")
+metadata/_custom_type_script = "uid://b8kjtd0vdnq42"
+
+[node name="MainSceneCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+position = Vector2(640, 360)
+
+[node name="SubsceneLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="SubsceneOverlay" type="ColorRect" parent="SubsceneLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="SubsceneContainer" type="SubViewportContainer" parent="SubsceneLayer"]
+unique_name_in_owner = true
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+stretch = true
+
+[node name="SubsceneViewport" type="SubViewport" parent="SubsceneLayer/SubsceneContainer"]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(40, 40)
+render_target_update_mode = 0
+
+[node name="VirtualCursorLayer" type="CanvasLayer" parent="."]
+layer = 127
+
+[node name="Cursor" type="Node2D" parent="VirtualCursorLayer"]
+unique_name_in_owner = true
+position = Vector2(66, 52)
+
+[node name="HandPointing" type="Sprite2D" parent="VirtualCursorLayer/Cursor"]
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("18_5tuhn")
+centered = false
+offset = Vector2(-110, -60)
+
+[node name="HandOpen" type="Sprite2D" parent="VirtualCursorLayer/Cursor"]
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("19_devvj")
+centered = false
+offset = Vector2(-110, -60)
+
+[node name="HandClosed" type="Sprite2D" parent="VirtualCursorLayer/Cursor"]
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("20_3b0ty")
+centered = false
+offset = Vector2(-110, -60)
+
+[node name="Reticle" type="Sprite2D" parent="VirtualCursorLayer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.47451)
+position = Vector2(46, 44)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("21_3b0ty")
 
 [node name="Menu" type="CanvasLayer" parent="."]
 layer = 128
-script = ExtResource("1")
-all_modules = Array[ExtResource("5_1a5hp")]([ExtResource("6_wqw1h"), ExtResource("7_d1bo7"), ExtResource("8_sc1dx")])
 
 [node name="Background" type="TextureRect" parent="Menu"]
 anchors_preset = 8
@@ -464,6 +580,10 @@ text = "Enable Dragging Camera3D with Mouse"
 layout_mode = 2
 text = "Object Tooltips"
 
+[node name="ShowFPS" type="CheckButton" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
+layout_mode = 2
+text = "Show Framerate"
+
 [node name="PopupDuration" type="HSplitContainer" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
 layout_mode = 2
 
@@ -720,25 +840,8 @@ border_color = Color(1, 1, 1, 1)
 border_width = 5.0
 editor_only = false
 
-[node name="SubstanceLabel" type="RichTextLabel" parent="Menu"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -23.0
-offset_top = -19.0
-offset_right = 23.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 3
-bbcode_enabled = true
-text = "Debug"
-fit_content = true
-autowrap_mode = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
+[node name="Prompts" type="VBoxContainer" parent="Menu"]
+unique_name_in_owner = true
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -749,47 +852,82 @@ offset_bottom = -9.0
 grow_vertical = 0
 theme_override_constants/separation = 10
 
-[node name="PrimaryPrompt" type="PanelContainer" parent="Menu/VBoxContainer"]
+[node name="FPSLabel" type="Label" parent="Menu"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_sc1dx")
+offset_right = 40.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.393086, 0.393086, 0.393085, 1)
+theme_override_constants/outline_size = 2
+text = "60"
 
-[node name="Label" type="Label" parent="Menu/VBoxContainer/PrimaryPrompt"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "left click"
-
-[node name="SecondaryPrompt" type="PanelContainer" parent="Menu/VBoxContainer"]
+[node name="ZoomOutPrompt" parent="Menu" instance=ExtResource("24_mxvw5")]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_sc1dx")
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -102.5
+offset_top = 10.0
+offset_right = 102.5
+offset_bottom = 50.0
+grow_horizontal = 2
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(102.5, 0)
+input_event = SubResource("InputEventAction_xrxkg")
+description = "Zoom out"
 
-[node name="Label" type="Label" parent="Menu/VBoxContainer/SecondaryPrompt"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "right click"
+[node name="LeftWorkspacePrompt" parent="Menu" instance=ExtResource("24_mxvw5")]
+unique_name_in_owner = true
+anchors_preset = -1
+anchor_top = 0.3
+anchor_bottom = 0.3
+offset_left = 10.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+input_event = SubResource("InputEventAction_mxvw5")
+auto_update_pressed = true
 
-[node name="Scene" type="Node2D" parent="."]
+[node name="RightWorkspacePrompt" parent="Menu" instance=ExtResource("24_mxvw5")]
+unique_name_in_owner = true
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 0.3
+offset_right = 10.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+input_event = SubResource("InputEventAction_sqvbp")
+auto_update_pressed = true
 
 [node name="Mixtures" type="Node2D" parent="."]
 position = Vector2(-2, -2)
 script = ExtResource("10")
 
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/SelectModuleButton" to="Menu" method="_on_SelectModuleButton_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/RestartModuleButton" to="Menu" method="_on_restart_module_button_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/ExitModuleButton" to="Menu" method="_on_exit_module_button_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/OptionsButton" to="Menu" method="_on_OptionsButton_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/AboutButton" to="Menu" method="_on_AboutButton_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/QuitButton" to="Menu" method="_on_quit_button_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/AboutScreen/VBoxContainer/CloseButton" to="Menu" method="_on_About_CloseButton_pressed"]
-[connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/MouseDragToggle" to="Menu" method="_on_MouseDragToggle_toggled"]
-[connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="Menu" method="_on_ObjectTooltipsToggle_toggled"]
-[connection signal="value_changed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="Menu" method="_on_PopupTimeout_value_changed"]
-[connection signal="item_selected" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/Resolution/ResolutionDropdown" to="Menu" method="_on_resolution_dropdown_item_selected"]
-[connection signal="pressed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/CloseButton" to="Menu" method="_on_CloseButton_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/ModuleSelect/VBoxContainer/CloseButton" to="Menu" method="_on_module_select_close_button_pressed"]
-[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/MainMenuButton" to="Menu" method="_on_FinalReport_MainMenuButton_pressed"]
-[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/RestartModuleButton" to="Menu" method="_on_FinalReport_RestartModuleButton_pressed"]
-[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/ContinueButton" to="Menu" method="_on_FinalReport_ContinueButton_pressed"]
-[connection signal="pressed" from="Menu/LogButton" to="Menu" method="_on_LogButton_pressed"]
-[connection signal="tab_changed" from="Menu/LogButton/LogMenu" to="Menu" method="SetLogNotificationCounts"]
+[connection signal="pressed_left" from="InteractableSystem" to="." method="_on_interactable_system_pressed_left"]
+[connection signal="pressed_right" from="InteractableSystem" to="." method="_on_interactable_system_pressed_right"]
+[connection signal="pressed_zoom_out" from="InteractableSystem" to="." method="_on_interactable_system_pressed_zoom_out"]
+[connection signal="body_entered" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_entered"]
+[connection signal="body_exited" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_exited"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/SelectModuleButton" to="." method="_on_SelectModuleButton_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/ExitModuleButton" to="." method="_on_exit_module_button_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/OptionsButton" to="." method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/AboutButton" to="." method="_on_AboutButton_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/AboutScreen/VBoxContainer/CloseButton" to="." method="_on_About_CloseButton_pressed"]
+[connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/MouseDragToggle" to="." method="_on_MouseDragToggle_toggled"]
+[connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="." method="_on_ObjectTooltipsToggle_toggled"]
+[connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/ShowFPS" to="." method="_on_show_fps_toggled"]
+[connection signal="value_changed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="." method="_on_PopupTimeout_value_changed"]
+[connection signal="item_selected" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/Resolution/ResolutionDropdown" to="." method="_on_resolution_dropdown_item_selected"]
+[connection signal="pressed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Menu/MenuScreens/ModuleSelect/VBoxContainer/CloseButton" to="." method="_on_module_select_close_button_pressed"]
+[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/MainMenuButton" to="." method="_on_FinalReport_MainMenuButton_pressed"]
+[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/RestartModuleButton" to="." method="_on_FinalReport_RestartModuleButton_pressed"]
+[connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/ContinueButton" to="." method="_on_FinalReport_ContinueButton_pressed"]
+[connection signal="pressed" from="Menu/LogButton" to="." method="_on_LogButton_pressed"]
+[connection signal="tab_changed" from="Menu/LogButton/LogMenu" to="." method="SetLogNotificationCounts"]

@@ -5,7 +5,7 @@ var _input_time: int = 0
 var _is_microwaving: bool = false
 var _total_seconds_left: int = 0
 var _total_seconds: int = 0
-var _is_zoomed_in: bool = false
+var _is_door_open: bool = false
 
 
 func _ready() -> void:
@@ -15,13 +15,7 @@ func _ready() -> void:
 		button.pressed.connect(_on_keypad_button_pressed.bind(button_label.text))
 		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-func _input(event: InputEvent) -> void:
-	if _is_zoomed_in and event.is_action_pressed("ExitCameraZoom"):
-		_is_zoomed_in = false
-
-		# Buttons can't be clicked on if zoomed out.
-		for button: TextureButton in $Keypad.get_children():
-			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_update_door()
 
 func find_container(interactor: PhysicsBody2D) -> ContainerComponent:
 	# Only objects that have a `ContainerComponent` as a direct child can be microwaved. `
@@ -54,54 +48,35 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 			_total_seconds = _total_seconds_left
 			update_timer_display(minutes, seconds)
 
-## Handles when the area is clicked on. If so zoom in on the microwave
-func _on_keypad_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event.is_action_pressed("click") and not _is_zoomed_in:
-		_is_zoomed_in = true
-		TransitionCamera.target_camera = $ZoomCamera
-
-		# Keypad buttons should be clickable if zoomed in on
-		for button: TextureButton in $Keypad.get_children():
-			button.mouse_filter = Control.MOUSE_FILTER_STOP
-
 ## Start microwaving the object
 func _on_start_button_pressed() -> void:
-	var obj: LabBody = $ObjectContainmentInteractableArea.contained_object
-
-	if obj and not _is_microwaving:
+	if not _is_door_open:
 		_is_microwaving = true
+		_update_door()
 
 		$MicrowaveTimer.start()
-		print("Heating %s" % [obj.name])
-	elif not obj:
-		print("Theres nothing in the Microwave!")
-	elif _is_microwaving:
-		print("Something is currently being microwaved!")
+	else:
+		$AnimationPlayer.stop()
+		$AnimationPlayer.play("error_flash")
 
 ## Triggered either by the "stop" button or the timer ran out
 func _on_microwave_stopped() -> void:
 	if _is_microwaving:
 		$MicrowaveTimer.stop()
 		_is_microwaving = false
+		_update_door()
 
-		var obj: LabBody = $ObjectContainmentInteractableArea.contained_object
+		var obj: LabBody = %ObjectContainmentInteractableArea.contained_object
 		if obj:
 			var container_to_heat := find_container(obj)
 			if container_to_heat:
-				# TODO: This calculation should be handled by the `ContainerComponent` and
-				# substances themselves.
-				#
-				# This is very approximately equal to the amount of heating you would get if the
-				# container were full of only water.
-				var volume := container_to_heat.get_total_volume()
-				if volume > 0.0:
-					var temp_increase: float = 160.0 * (_total_seconds - _total_seconds_left) / volume
-					container_to_heat.temperature += temp_increase
+				for s in container_to_heat.substances:
+					# TODO: Make this not hard-coded.
+					if s is TAEBufferSubstance:
+						s.microwave(_total_seconds - _total_seconds_left)
 
 		# Update _total_seconds for the next "start" press if the user doesn't clear
 		_total_seconds = _total_seconds_left
-
-	$ObjectContainmentInteractableArea.remove_object()
 
 func update_timer_display(minutes: int, seconds: int) -> void:
 	$TimerLabel.text = "%d:%02d" % [minutes, seconds]
@@ -120,3 +95,32 @@ func _on_microwave_timer_timeout() -> void:
 	else:
 		$MicrowaveTimer.stop()
 		_on_microwave_stopped()
+
+func _update_door() -> void:
+	if _is_door_open:
+		%ObjectContainmentInteractableArea.allow_new_objects = true
+		$DoorSelectable.interact_info.description = "Close door"
+		%DoorOpen.show()
+		%DoorClosed.hide()
+	else:
+		%ObjectContainmentInteractableArea.allow_new_objects = false
+		$DoorSelectable.interact_info.description = "Open door"
+		%DoorOpen.hide()
+		%DoorClosed.show()
+
+	$DoorSelectable.interact_info.allowed = not _is_microwaving
+	if _is_microwaving:
+		$DoorSelectable.interact_info.description = "Cannot open door while microwave is running"
+
+func _on_door_selectable_pressed() -> void:
+	_is_door_open = not _is_door_open
+	_update_door()
+
+func _on_zoom_selectable_area_zoomed_in() -> void:
+	# Keypad buttons should be clickable if zoomed in on
+	for button: TextureButton in $Keypad.get_children():
+		button.mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _on_zoom_selectable_area_zoomed_out() -> void:
+	for button: TextureButton in $Keypad.get_children():
+		button.mouse_filter = Control.MOUSE_FILTER_IGNORE

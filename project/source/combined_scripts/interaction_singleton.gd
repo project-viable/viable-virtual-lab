@@ -1,4 +1,6 @@
 ## Keeps track of interaction-related state, ensuring that only one interaction can happen at once.
+## The actual input handling (translating input events into interactions) is done in the
+## [code]$%Scene[/code] node in the main scene.
 extends Node2D
 
 
@@ -26,41 +28,35 @@ class InteractState:
 	func start_targeting() -> void:
 		if not info: return
 		if source: source.start_targeting(target as InteractableArea, info.kind)
-		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
+		elif target is InteractableArea or target is InteractableComponent or target is LabBody or target is InteractableSystem:
 			target.start_targeting(info.kind)
 
 	func stop_targeting() -> void:
 		if not info: return
 		if source: source.stop_targeting(target as InteractableArea, info.kind)
-		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
+		elif target is InteractableArea or target is InteractableComponent or target is LabBody or target is InteractableSystem:
 			target.stop_targeting(info.kind)
 
 	func start_interact() -> void:
 		is_pressed = true
 		if not info or not info.allowed: return
 		if source: source.start_use(target as InteractableArea, info.kind)
-		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
+		elif target is InteractableArea or target is InteractableComponent or target is LabBody or target is InteractableSystem:
 			target.start_interact(info.kind)
 
 	func stop_interact() -> void:
 		is_pressed = false
 		if not info or not info.allowed: return
 		if source: source.stop_use(target as InteractableArea, info.kind)
-		elif target is InteractableArea or target is InteractableComponent or target is LabBody:
+		elif target is InteractableArea or target is InteractableComponent or target is LabBody or target is InteractableSystem:
 			target.stop_interact(info.kind)
 
 
 ## `LabBody` currently being held.
 var held_body: LabBody = null
 
-## Current `InteractableComponent` or `LabBody`, if any, being hovered.
-var hovered_interactable: Node2D = null
-
 ## Current potential interactions by kind.
-var interactions: Dictionary[InteractInfo.Kind, InteractState] = {
-	InteractInfo.Kind.PRIMARY: InteractState.new(),
-	InteractInfo.Kind.SECONDARY: InteractState.new(),
-}
+var interactions: Dictionary[InteractInfo.Kind, InteractState] = {}
 
 
 # The "draw order" of the next `SelectableCanvasGroup` to call `_draw`. The
@@ -70,11 +66,23 @@ var _next_draw_order: int = 0
 var _interact_area_stack: Array[InteractableArea] = []
 
 
+func _ready() -> void:
+	# Interaction only works when in the simulation.
+	process_mode = Node.PROCESS_MODE_PAUSABLE
+
+	for kind: InteractInfo.Kind in InteractInfo.Kind.values():
+		interactions[kind] = InteractState.new()
+
 func _draw() -> void:
 	_next_draw_order = 0
 
 func _process(_delta: float) -> void:
 	var new_interactions: Dictionary[InteractInfo.Kind, InteractState] = {}
+
+	for c in get_tree().get_nodes_in_group(&"interactable_system"):
+		if c is InteractableSystem and c.enable_interaction:
+			for info: InteractInfo in c.get_interactions():
+				new_interactions.set(info.kind, InteractState.new(info, null, c))
 
 	if held_body:
 		# The currently held `LabBody` can also be interacted with (mostly to put it down),
@@ -99,29 +107,18 @@ func _process(_delta: float) -> void:
 				for info in c.get_interactions(a):
 					new_interactions.set(info.kind, InteractState.new(info, c, a))
 	else:
-		hovered_interactable = null
-		var hovered_z_index := RenderingServer.CANVAS_ITEM_Z_MIN
-		var hovered_draw_order := 0
-
 		# Find the topmost thing that can be clicked on.
 		for c in get_tree().get_nodes_in_group(&"interactable_component"):
-			if (c is InteractableComponent or c is LabBody) and c.enable_interaction:
-				var z: int = c.get_absolute_z_index()
-				var draw_order: int = c.get_draw_order()
+			if not (c is InteractableComponent or c is LabBody) or not c.enable_interaction:
+				continue
 
-				if c.is_hovered() \
-						and (not hovered_interactable
-							or z > hovered_z_index
-							or draw_order > hovered_draw_order and not z < hovered_z_index):
-					hovered_interactable = c
-					hovered_z_index = z
-					hovered_draw_order = draw_order
+			for info: InteractInfo in c.get_interactions():
+				var prev_state: InteractState = new_interactions.get(info.kind)
+				var prev_component: Node2D = prev_state.target if prev_state else null
 
-		if hovered_interactable:
-			assert(hovered_interactable is InteractableComponent or hovered_interactable is LabBody)
-			for info: InteractInfo in hovered_interactable.get_interactions():
-				var s := InteractState.new(info, null, hovered_interactable)
-				new_interactions.set(info.kind, s)
+				if _interactable_component_is_preferred(prev_component, c):
+					var s := InteractState.new(info, null, c)
+					new_interactions.set(info.kind, s)
 
 	for kind: InteractInfo.Kind in interactions.keys():
 		var state: InteractState = interactions[kind]
@@ -146,21 +143,6 @@ func _process(_delta: float) -> void:
 			state.info = null
 			state.target = null
 
-func _unhandled_input(e: InputEvent) -> void:
-	var kind := InteractInfo.Kind.PRIMARY
-	if e.is_action(&"interact_primary"):
-		kind = InteractInfo.Kind.PRIMARY
-	elif e.is_action(&"interact_secondary"):
-		kind = InteractInfo.Kind.SECONDARY
-	else:
-		return
-
-	var state: InteractState = interactions.get(kind)
-	if not state: return
-
-	if e.is_pressed(): state.start_interact()
-	elif e.is_released(): state.stop_interact()
-
 func get_next_draw_order() -> int:
 	_next_draw_order += 1
 	return _next_draw_order - 1
@@ -178,3 +160,20 @@ func clear_interaction_stack() -> void:
 	_interact_area_stack.clear()
 	for state: InteractState in interactions.values():
 		if state.target: state.stop_targeting()
+
+# Return true if [param b] should be chosen as an interactable component to use, given that
+# [param a] was the previous best choice. This will [i]only[/i] return [code]true[/code] if
+# [param b] is a valid choice (i.e., it's of the correct type and is hovered).
+static func _interactable_component_is_preferred(a: Node2D, b: Node2D) -> bool:
+	var a_is_valid: bool = (a is InteractableComponent or a is LabBody)
+	var b_is_valid: bool = (b is InteractableComponent or b is LabBody) and b.enable_interaction and b.is_hovered()
+
+	if not b_is_valid: return false
+	if not a_is_valid: return true
+
+	var a_z: int = a.get_absolute_z_index()
+	var a_draw_order: int = a.get_draw_order()
+	var b_z: int = b.get_absolute_z_index()
+	var b_draw_order: int = b.get_draw_order()
+
+	return b_z > a_z or (b_z == a_z and b_draw_order > a_draw_order)

@@ -1,16 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://cug6kav5s55iq"]
+[gd_scene load_steps=20 format=3 uid="uid://cug6kav5s55iq"]
 
-[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_p46ws"]
+[ext_resource type="Script" uid="uid://bptf21x2a24jj" path="res://combined_scripts/imager_gel_band_logic.gd" id="1_7wmgd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="1_w2ofj"]
 [ext_resource type="Texture2D" uid="uid://cslhw30pcab3a" path="res://updated_assets/lab_objects/imager.svg" id="3_p46ws"]
+[ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://combined_scripts/attachment_interactable_area.gd" id="4_7wmgd"]
+[ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://combined_scripts/zoom_selectable_area.gd" id="4_ylekj"]
+[ext_resource type="Texture2D" uid="uid://d3dbby0blgo04" path="res://updated_assets/gel_bands/Gel_Rig_Top_View.svg" id="6_p46ws"]
+[ext_resource type="Texture2D" uid="uid://c3rfj3vqah8ph" path="res://updated_assets/gel_bands/Gel_Well_Top_View_LADDER_MULTIPLE.svg" id="7_p0nad"]
+[ext_resource type="Texture2D" uid="uid://7mpyt0hujebl" path="res://updated_assets/gel_bands/Gel_Well_Top_View_PERFECT.svg" id="8_us78d"]
+[ext_resource type="Texture2D" uid="uid://bvt8quy2u6lr" path="res://updated_assets/gel_bands/Gel_Well_Top_View_DIFFUSED.svg" id="9_ryau1"]
+[ext_resource type="Texture2D" uid="uid://c105io6i6gmyg" path="res://updated_assets/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg" id="10_v62sd"]
+[ext_resource type="Texture2D" uid="uid://71b12miprvm5" path="res://updated_assets/gel_bands/Gel_Well_Top_View_SMUDGE.svg" id="11_hcb6o"]
+[ext_resource type="Texture2D" uid="uid://b5xwngj4j0aco" path="res://updated_assets/gel_bands/Gel_Well_Top_View_SMUDGE_2.svg" id="12_ylekj"]
+[ext_resource type="Texture2D" uid="uid://coxjop7202awh" path="res://updated_assets/gel_bands/Gel_Well_Top_View_WAVY.svg" id="13_deexq"]
+[ext_resource type="Script" uid="uid://cs1o2bs2ponhi" path="res://combined_scripts/subscene.gd" id="14_hcb6o"]
+[ext_resource type="Texture2D" uid="uid://dqy8bu4f6vpyv" path="res://updated_assets/gel_bands/Gel_Well_Top_View_WAVY_2.svg" id="14_r6ay8"]
+[ext_resource type="Texture2D" uid="uid://i6l6i3doaich" path="res://updated_assets/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg" id="15_ryau1"]
+[ext_resource type="Script" uid="uid://b5a5765epdkf" path="res://combined_scripts/subscene_camera.gd" id="17_ylekj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2ofj"]
-size = Vector2(170, 197)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_deexq"]
+size = Vector2(133, 54)
 
-[node name="GelImager" type="RigidBody2D"]
-collision_layer = 0
-script = ExtResource("1_p46ws")
-metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_omd45"]
+size = Vector2(166, 191)
+
+[node name="GelImager" type="Node2D"]
+script = ExtResource("1_7wmgd")
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("1_w2ofj")
@@ -20,6 +35,151 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 scale = Vector2(0.327149, 0.327149)
 texture = ExtResource("3_p46ws")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_w2ofj")
+[node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("objects", "subscene_camera")]
+script = ExtResource("4_ylekj")
+objects = [NodePath("../AttachmentInteractableArea")]
+subscene_camera = NodePath("../Subscene/SubsceneCamera")
+metadata/_custom_type_script = "uid://ciw88e6ajyksw"
+
+[node name="Area2D" type="Area2D" parent="ZoomSelectableArea"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/Area2D"]
+position = Vector2(-0.5, -71)
+shape = SubResource("RectangleShape2D_deexq")
+debug_color = Color(0.961975, 0.191001, 0.110021, 0.42)
+
+[node name="AttachmentInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
+script = ExtResource("4_7wmgd")
+show_ghost_sprite = false
+hide_object = true
+place_prompt = "Put in imager"
+selectable_canvas_group = NodePath("../SelectableCanvasGroup")
+body_group_filter_type = 1
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_omd45")
+
+[node name="UV Light" type="Button" parent="."]
+offset_left = -4.0
+offset_top = -30.0
+offset_right = 4.0
+offset_bottom = -22.0
+
+[node name="ClosedDoor" type="TextureButton" parent="."]
+offset_left = 68.0
+offset_top = -40.0
+offset_right = 82.0
+offset_bottom = 92.0
+
+[node name="Screen" type="TextureButton" parent="."]
+offset_left = -64.0
+offset_top = -94.0
+offset_right = 63.0
+offset_bottom = -47.0
+
+[node name="GelWellTopViewLadderMultiple" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(3, -223)
+scale = Vector2(0.444733, 0.444733)
+texture = ExtResource("7_p0nad")
+
+[node name="GelWellTopViewPerfect" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-52.5156, -278.516)
+scale = Vector2(0.438414, 0.438414)
+texture = ExtResource("8_us78d")
+
+[node name="GelWellTopViewDiffused" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-53.3359, -278.336)
+scale = Vector2(0.40159, 0.40159)
+texture = ExtResource("9_ryau1")
+
+[node name="GelWellTopViewPerfect9Slice" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-52.1953, -269.195)
+scale = Vector2(0.376553, 0.376553)
+texture = ExtResource("10_v62sd")
+
+[node name="GelWellTopViewSmudge" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-52.1641, -279.164)
+scale = Vector2(0.177357, 0.177357)
+texture = ExtResource("11_hcb6o")
+
+[node name="GelWellTopViewSmudge2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-51.8672, -277.867)
+scale = Vector2(0.173885, 0.173885)
+texture = ExtResource("12_ylekj")
+
+[node name="GelWellTopViewWavy" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-52.5, -278.516)
+scale = Vector2(0.157895, 0.122442)
+texture = ExtResource("13_deexq")
+
+[node name="GelWellTopViewWavy2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-52.5, -277.516)
+scale = Vector2(0.169591, 0.135234)
+texture = ExtResource("14_r6ay8")
+
+[node name="GelWellTopViewDiffused9Slice" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-53, -268)
+scale = Vector2(0.331506, 0.331506)
+texture = ExtResource("15_ryau1")
+
+[node name="Subscene" type="ReferenceRect" parent="."]
+top_level = true
+offset_left = 381.0
+offset_top = -275.0
+offset_right = 986.0
+offset_bottom = 368.0
+script = ExtResource("14_hcb6o")
+metadata/_custom_type_script = "uid://cs1o2bs2ponhi"
+
+[node name="GelRigTopView" type="Sprite2D" parent="Subscene"]
+modulate = Color(0.250213, 0.250213, 0.250213, 1)
+position = Vector2(301, 314)
+texture = ExtResource("6_p46ws")
+
+[node name="Well1" type="Node2D" parent="Subscene"]
+unique_name_in_owner = true
+position = Vector2(98.5848, 92.2047)
+scale = Vector2(0.969638, 1.00427)
+
+[node name="Well2" type="Node2D" parent="Subscene"]
+unique_name_in_owner = true
+position = Vector2(163.185, 92.2047)
+scale = Vector2(0.969638, 1.00427)
+
+[node name="Well3" type="Node2D" parent="Subscene"]
+unique_name_in_owner = true
+position = Vector2(225.633, 92.2047)
+scale = Vector2(0.969638, 1.00427)
+
+[node name="Well4" type="Node2D" parent="Subscene"]
+unique_name_in_owner = true
+position = Vector2(288.08, 92.2047)
+scale = Vector2(0.969638, 1.00427)
+
+[node name="Well5" type="Node2D" parent="Subscene"]
+unique_name_in_owner = true
+position = Vector2(350.527, 92.2047)
+scale = Vector2(0.969638, 1.00427)
+
+[node name="SubsceneCamera" type="Camera2D" parent="Subscene"]
+position = Vector2(143, 160)
+anchor_mode = 0
+editor_draw_screen = false
+script = ExtResource("17_ylekj")
+region_size = Vector2(330, 300)
+metadata/_custom_type_script = "uid://b5a5765epdkf"
+
+[connection signal="pressed" from="UV Light" to="." method="_on_uv_light_pressed"]
+[connection signal="pressed" from="ClosedDoor" to="." method="on_gel_removed"]
+[connection signal="pressed" from="Screen" to="." method="on_gel_inserted"]

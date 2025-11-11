@@ -1,4 +1,5 @@
 # TODO: rename this to just `Substance` when the other `Substance` class is removed.
+## This is the class description for SubstanceInstance
 class_name SubstanceInstance
 extends Resource
 

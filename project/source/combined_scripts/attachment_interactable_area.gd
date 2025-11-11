@@ -1,9 +1,8 @@
-class_name AttachmentInteractableArea
-extends InteractableArea
 ## If an object has a child of type `AttachmentPoint`, then it can be attached to this node such
 ## that its attachment point is locked to the position of this node, held in place using a
 ## `RemoteTransform2D`. This node should never be rotated nor scaled.
-
+class_name AttachmentInteractableArea
+extends InteractableArea
 
 enum GroupFilterType
 {
@@ -11,17 +10,23 @@ enum GroupFilterType
 	BLACKLIST, ## Only allow attachment points/bodies that are not in any of the listed groups.
 }
 
-
+## Signal for what body has been placed when it has been placed somewhere.
 signal object_placed(body: LabBody)
+## Signal for what body has been removed from where it was previously placed.
 signal object_removed(body: LabBody)
 
 
+## If [code]false[/code], new objects can't be attached to this.
+@export var allow_new_objects: bool = true
 ## If true, a ghost sprite of the object will appear where it would be attached.
 @export var show_ghost_sprite: bool = true
 ## If true, then the attached object will be made invisible an impossible to pick up.
 @export var hide_object: bool = false
 ## Prompt shown when hovering with an object that can be placed.
 @export var place_prompt: String = "Place"
+## If set to [code]true[/code], an object will be moved to the absolute z-index of this node when
+## placed.
+@export var set_object_z_index_on_place: bool = true
 
 ## If not null, this will be outlined when the user is targeting this.
 @export var selectable_canvas_group: SelectableCanvasGroup = null
@@ -70,12 +75,18 @@ func _physics_process(_delta: float) -> void:
 	if contained_object != null and Interaction.held_body == contained_object:
 		remove_object()
 
+func _process(_delta: float) -> void:
+	if contained_object and set_object_z_index_on_place:
+		contained_object.z_index = DepthManager.get_base_z_index(Util.get_absolute_z_index(self))
+
+## See [method InteractableArea.get_interactions]
 func get_interactions() -> Array[InteractInfo]:
 	if not contained_object and can_place(Interaction.held_body):
 		return [InteractInfo.new(InteractInfo.Kind.PRIMARY, place_prompt)]
 	else:
 		return []
 
+## See [method InteractableArea.start_targeting]
 func start_targeting(_k: InteractInfo.Kind) -> void:
 	if selectable_canvas_group: selectable_canvas_group.is_outlined = true
 
@@ -89,18 +100,31 @@ func start_targeting(_k: InteractInfo.Kind) -> void:
 		_ghost_sprite.position = offset
 		call_deferred(&"add_child", _ghost_sprite)
 
+## See [method InteractableArea.stop_targeting]
 func stop_targeting(_k: InteractInfo.Kind) -> void:
 	if selectable_canvas_group: selectable_canvas_group.is_outlined = false
-	call_deferred(&"remove_child", _ghost_sprite)
+	if _ghost_sprite:
+		_ghost_sprite.queue_free()
+		_ghost_sprite = null
 
+## See [method InteractableArea.start_interact]
 func start_interact(_k: InteractInfo.Kind) -> void:
 	_place_object_unchecked(Interaction.held_body)
 
+## This is called to check if an object can snap into place within at attachment area.
 func can_place(body: LabBody) -> bool:
-	return _find_attachment_offset(body) is Vector2
+	return allow_new_objects and _find_attachment_offset(body) is Vector2
 
+## If the object should be hidden it will be made hidden and unable to be interacted with. 
+## Then the offset of the object within the attachment area will be determined and the object's
+## new position on the screen will be set along with it's remote path.
 func on_place_object() -> void:
 	contained_object.stop_dragging()
+
+	if set_object_z_index_on_place:
+		DepthManager.stop_managing(contained_object)
+		contained_object.z_as_relative = false
+		contained_object.z_index = DepthManager.get_base_z_index(Util.get_absolute_z_index(self))
 
 	if hide_object:
 		contained_object.hide()
@@ -112,6 +136,8 @@ func on_place_object() -> void:
 		_remote_transform.position = offset
 		_remote_transform.remote_path = contained_object.get_path()
 
+## Once an object is picked up again, if hidden, it will be made visible and interactable. The object's
+## remote path will return to the default value.
 func on_remove_object() -> void:
 	_remote_transform.remote_path = NodePath()
 

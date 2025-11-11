@@ -25,7 +25,7 @@ func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 					print("too many ml added to scoopula")
 				else:
 					### Add contents to scoopula and update containers's substance volume
-					container.add(area.container.take_volume(vol_to_take))
+					container.add_array(area.container.take_volume(vol_to_take))
 					print("My scoopula after scooping has volume of: ", container.get_total_volume())
 					
 					get_parent().find_child("FillSprite").visible = true
@@ -40,9 +40,9 @@ func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 				## Add contents to receiving container if it isn't full
 				## Reset scoopula
 				if not area.container.substances.is_empty():
-					area.container.add(container.take_volume(container.container_volume-area.container.get_total_volume()))
+					area.container.add_array(container.take_volume(container.container_volume-area.container.get_total_volume()))
 				else:
-					area.container.add(container.take_volume(container.container_volume))
+					area.container.add_array(container.take_volume(container.container_volume))
 				container.substances.clear()
 				get_parent().find_child("FillSprite").visible = false
 				#print(area.container, " after being dumped into has volume of: ", area.container.get_total_volume())

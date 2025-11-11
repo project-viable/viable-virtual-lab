@@ -1,14 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://dl7pwqhm483yt"]
+[gd_scene load_steps=12 format=3 uid="uid://dl7pwqhm483yt"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://combined_scripts/lab_body.gd" id="1_w1h17"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://combined_scripts/selectable_canvas_group.gd" id="2_lsgmi"]
 [ext_resource type="Script" uid="uid://dwugjsi3at7tt" path="res://combined_scripts/scoop_interactable_area.gd" id="3_irog7"]
 [ext_resource type="Texture2D" uid="uid://dxm0iobbxvvg7" path="res://updated_assets/lab_objects/bottle_agarose.svg" id="5_w1h17"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://combined_scripts/container_component.gd" id="6_irog7"]
+[ext_resource type="Script" uid="uid://bgfh6xeb1mu4a" path="res://combined_scripts/generic_substance.gd" id="7_f5f3v"]
 [ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://combined_scripts/substance_instance.gd" id="7_w1h17"]
-[ext_resource type="Script" uid="uid://dmam7f2mtik2" path="res://combined_scripts/basic_substance_data.gd" id="8_upaf2"]
-[ext_resource type="Script" uid="uid://cckgm2byotfq0" path="res://combined_scripts/solubility_data.gd" id="9_s0bp6"]
-[ext_resource type="Script" uid="uid://5sjgduop7hjw" path="res://combined_scripts/basic_substance.gd" id="10_dksvt"]
+[ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://combined_scripts/pour_use_component.gd" id="8_03c6b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eomqc"]
 size = Vector2(103.704, 143.111)
@@ -16,29 +15,15 @@ size = Vector2(103.704, 143.111)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_irog7"]
 size = Vector2(48, 67)
 
-[sub_resource type="Resource" id="Resource_irog7"]
-script = ExtResource("9_s0bp6")
-base_solubility = 1.0
-min_temp = 80.0
-metadata/_custom_type_script = "uid://cckgm2byotfq0"
-
-[sub_resource type="Resource" id="Resource_i3knq"]
-script = ExtResource("8_upaf2")
-name = "Agarose"
-density = 2.3
+[sub_resource type="Resource" id="Resource_03c6b"]
+script = ExtResource("7_f5f3v")
+name = "agarose"
 color = Color(1, 1, 1, 1)
-solubilities = Dictionary[String, ExtResource("9_s0bp6")]({
-"TAE Buffer": SubResource("Resource_irog7")
-})
-metadata/_custom_type_script = "uid://dmam7f2mtik2"
-
-[sub_resource type="Resource" id="Resource_7fbys"]
-script = ExtResource("10_dksvt")
-data = SubResource("Resource_i3knq")
+density = 1.0
 volume = 100.0
-metadata/_custom_type_script = "uid://5sjgduop7hjw"
+metadata/_custom_type_script = "uid://bgfh6xeb1mu4a"
 
-[node name="AgaroseBottle" type="RigidBody2D"]
+[node name="AgaroseBottle" type="RigidBody2D" groups=["zoom:scale"]]
 collision_layer = 0
 script = ExtResource("1_w1h17")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
@@ -66,7 +51,7 @@ texture = ExtResource("5_w1h17")
 
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("6_irog7")
-substances = Array[ExtResource("7_w1h17")]([SubResource("Resource_7fbys")])
+substances = Array[ExtResource("7_w1h17")]([SubResource("Resource_03c6b")])
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="Label" type="Label" parent="."]
@@ -78,3 +63,9 @@ scale = Vector2(0.446575, 0.446575)
 text = "Agarose
 Powder"
 horizontal_alignment = 1
+
+[node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container_component")]
+script = ExtResource("8_03c6b")
+container_component = NodePath("../ContainerComponent")
+amount_to_pour = 0.1
+metadata/_custom_type_script = "uid://bnw0l25uwaqo6"

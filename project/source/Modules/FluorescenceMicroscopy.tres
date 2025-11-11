@@ -1,14 +1,13 @@
-[gd_resource type="Resource" script_class="ModuleData" load_steps=3 format=3 uid="uid://ct2buu7x0tve8"]
+[gd_resource type="Resource" script_class="ModuleData" load_steps=2 format=3 uid="uid://ct2buu7x0tve8"]
 
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://Scripts/Resources/ModuleData.gd" id="1_bou2b"]
-[ext_resource type="PackedScene" uid="uid://dpm1gs1fyv4gg" path="res://Scenes/Modules/FluorescenceMicroscopy.tscn" id="1_hl2bj"]
 
 [resource]
 script = ExtResource("1_bou2b")
 show = true
 name = "FluorescenceMicroscopy"
 tooltip = "FluorescenceMicroscopy"
-scene = ExtResource("1_hl2bj")
+scene_path = "uid://dpm1gs1fyv4gg"
 instructions_bb_code = "[b]Fluorescence Microscopy[/b]
 
 1) Click on each of the sliding doors of the microscope to open them. They can be found at the top of the microscope.

@@ -28,8 +28,6 @@ class_name PowerSupply
 	},
 }
 
-signal activate_power_supply(voltage: float, time: int, is_circuit_ready: bool)
-
 enum ConfigType{
 	TIME,
 	VOLT
@@ -40,7 +38,6 @@ enum CurrentDirection{
 	REVERSE
 }
 
-var _is_zoomed_in: bool = false
 var _should_increment: bool = false
 var _is_power_supply_connected: bool = false
 var _object_to_recieve_current: WireConnectableComponent
@@ -76,44 +73,35 @@ func _ready() -> void:
 		_buttons.append(button)
 		button.button_down.connect(_on_screen_button_pressed.bind(button))
 		button.button_up.connect(_on_screen_button_released.bind(button))
-	
+
+func _physics_process(delta: float) -> void:
+	super(delta)
+	# If the timer is still running, we are running current.
+	var prev_current_recipient := _object_to_recieve_current
+	# This changes state for some reason.
+	# TODO: Fix this hacky way of doing this.
+	if not _is_circuit_ready(): _object_to_recieve_current = null
+
+	if prev_current_recipient and prev_current_recipient != _object_to_recieve_current:
+		prev_current_recipient.voltage = 0
+
+	# If there is time left, we are still running.
+	var cur_voltage: float = float(volts) if $LabTimer.time_left > 0 else 0.0
+	if _object_to_recieve_current:
+		_object_to_recieve_current.voltage = cur_voltage
+		var dir := get_current_direction()
+		if dir == CurrentDirection.REVERSE: _object_to_recieve_current.voltage *= -1
+
+	if $LabTimer.time_left > 0:
+		time = round($LabTimer.time_left)
+		update_timer_display()
+
+func is_hovered() -> bool:
+	# Don't allow the power supply to be picked up while zoomed in, so the buttons can be pressed.
+	return super() and not Game.main.get_camera_focus_owner()
 
 func _on_start_button_pressed() -> void:
-	var circuit_ready: bool = _is_circuit_ready()
-	if circuit_ready:
-		var current_direction: CurrentDirection = get_current_direction()
-		activate_power_supply.emit(volts, time, current_direction) #TODO stuff should happen once wires are connected to the gel rig
-	else:
-		print("Something is wrong with the circuit! Check that the connections on the Power Supply and Gel Box are correct!")
-		
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ExitCameraZoom"):
-		_on_screen_button_released(_current_pressed_button) # Special case where the user zooms out while still holding down left click
-		_is_zoomed_in = false
-		for button in _buttons:
-			button.disabled = true
-			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		
-		time_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		
-func _on_screen_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event.is_pressed():
-		TransitionCamera.target_camera = $ZoomCamera
-		_is_zoomed_in = true
-		for button in _buttons:
-			button.disabled = false
-			button.mouse_filter = Control.MOUSE_FILTER_STOP
-		
-		time_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
-		voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
-		
-func _on_screen_mouse_entered() -> void:
-	enable_interaction = false
-
-func _on_screen_mouse_exited() -> void:
-	if not _is_zoomed_in:
-		enable_interaction = true
+	$LabTimer.start(time)
  
 func _on_timer_timeout() -> void:
 	var is_pressed: bool = _current_pressed_button.button_pressed
@@ -241,3 +229,20 @@ func get_current_direction() -> CurrentDirection:
 	# Ends of a wire are connected to different terminal denotations, resulting in a reversed current direction
 	else:
 		return CurrentDirection.REVERSE
+
+func _on_zoom_selectable_area_zoomed_in() -> void:
+	for button in _buttons:
+		button.disabled = false
+		button.mouse_filter = Control.MOUSE_FILTER_STOP
+	
+	time_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
+	voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _on_zoom_selectable_area_zoomed_out() -> void:
+	_on_screen_button_released(_current_pressed_button) # Special case where the user zooms out while still holding down left click
+	for button in _buttons:
+		button.disabled = true
+		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	time_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	voltage_line_edit.mouse_filter = Control.MOUSE_FILTER_IGNORE

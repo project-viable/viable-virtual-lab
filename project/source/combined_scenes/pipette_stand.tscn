@@ -9,6 +9,7 @@ size = Vector2(46, 138)
 [node name="PipetteStand" type="Node2D"]
 
 [node name="PipetteStand" type="Sprite2D" parent="."]
+z_index = -1
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_f6gcr")
 

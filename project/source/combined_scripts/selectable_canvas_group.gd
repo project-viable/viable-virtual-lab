@@ -24,11 +24,13 @@ func _process(_delta: float) -> void:
 	_shader_mat.set(&"shader_parameter/radius", outline_thickness)
 	_shader_mat.set(&"shader_parameter/outline_color", outline_color)
 
-# Hacky way to determine which one is drawn on top.
+## Hacky way to determine which one is drawn on top.
 func _draw() -> void:
 	draw_order_this_frame = Interaction.get_next_draw_order()
 
-# True if the mouse is hovering any `Sprite2D`s that are children of this node.
+## True if the mouse is hovering any `Sprite2D`s that are children of this node.
 func is_mouse_hovering() -> bool:
-	return find_children("", "Sprite2D") \
-			.any(func(s: Sprite2D) -> bool: return s.is_pixel_opaque(s.get_local_mouse_position()))
+	for s: Sprite2D in find_children("", "Sprite2D"):
+		if s.is_visible_in_tree() and s.is_pixel_opaque(s.to_local(Cursor.virtual_mouse_position)):
+			return true
+	return false

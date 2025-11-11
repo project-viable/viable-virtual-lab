@@ -1,5 +1,3 @@
-class_name LabTimer
-extends Node
 ## Almost exactly the same as a [Timer], but counts lab time instead of normal engine time (see
 ## [code]lab_time_singleton.gd[/code] for details).
 ##
@@ -7,6 +5,8 @@ extends Node
 ## running time of a microwave could use [LabTimer], but a UI popup that stays open for a certain
 ## amount of real-world time should use a normal [Timer] instead, since UI shouldn't be affected by
 ## the world being sped up.
+class_name LabTimer
+extends Node
 
 ## See [signal Timer.timeout]
 signal timeout()

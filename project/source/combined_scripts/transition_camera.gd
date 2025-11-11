@@ -4,39 +4,45 @@ class_name TransitionCamera
 extends Camera2D
 
 
-@export var main_scene_camera: Camera2D
-
-
-static var target_camera: Camera2D = null
-static var is_camera_zoomed: bool = false
-
-var current_camera: Camera2D
+@onready var _source_rect := Util.get_camera_viewport(self).get_visible_rect()
+@onready var _dest_rect := _source_rect
+var _transition_time: float = 1.0
+var _cur_transition_time: float = 1.0
+var _is_transitioning: bool = false
+var _is_grabbing_mouse: bool = false
 
 
 func _ready() -> void:
-	make_current() 
+	make_current()
 
-func _process(_delta: float) -> void:
-	if target_camera and current_camera != target_camera:
-		change_camera(target_camera)
-		is_camera_zoomed = true
-	
-func _input(event: InputEvent) -> void:
-	# Unzoom camera
-	if event.is_action_pressed("ExitCameraZoom") and current_camera != main_scene_camera:
-		target_camera = main_scene_camera
-		change_camera(main_scene_camera)
-		
-## Transition the TransitionCamera and its properties to the target camera
-func change_camera(target_camera: Camera2D) -> void:
-	current_camera = target_camera
-	var position_tween: Tween = create_tween()
-	var zoom_tween: Tween = create_tween()
-	
-	position_tween.tween_property(self, "position", target_camera.global_position, 1)
-	zoom_tween.tween_property(self, "zoom", target_camera.zoom, 1).set_ease(Tween.EASE_IN_OUT)
-	await position_tween.finished
+func _process(delta: float) -> void:
+	if _is_transitioning:
+		_cur_transition_time += delta
+		var t: float = clamp(_cur_transition_time / _transition_time, 0.0, 1.0)
+		t = ease(t, 0.3)
 
-	# Prevents opening of menu via escape until the tweens are finished
-	if target_camera == main_scene_camera:
-		is_camera_zoomed = false
+		var cur_rect := Util.get_camera_world_rect(self)
+		var next_rect := Util.lerp_rect2(_source_rect, _dest_rect, t)
+
+		# Keep the mouse in the same spot relative to the screen.
+		if _is_grabbing_mouse:
+			var mouse_frac: Vector2 = (Cursor.virtual_mouse_position - cur_rect.position) / cur_rect.size
+			Cursor.virtual_mouse_position = next_rect.position + mouse_frac * next_rect.size
+
+		Util.set_camera_world_rect(self, next_rect)
+
+		if _cur_transition_time >= _transition_time:
+			_is_transitioning = false
+
+## Transition the camera to frame [param rect]. If [param grab_mouse] is [code]true[/code], then
+## the virtual cursor will be moved along with the camera.
+func move_to_rect(rect: Rect2, grab_mouse: bool = true, time: float = 0.7) -> void:
+	_dest_rect = rect
+	_source_rect = Util.get_camera_world_rect(self)
+	_transition_time = time
+	_cur_transition_time = 0.0
+	_is_transitioning = true
+	_is_grabbing_mouse = grab_mouse
+
+func move_to_camera(camera: Camera2D, grab_mouse: bool = true, time: float = 0.7) -> void:
+	move_to_rect(Util.get_camera_world_rect(camera), grab_mouse, time)
