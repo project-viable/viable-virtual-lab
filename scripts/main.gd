@@ -85,6 +85,7 @@ func _ready() -> void:
 	Cursor.mode_changed.connect(_on_virtual_mouse_mode_changed)
 	Cursor.virtual_mouse_moved.connect(_on_virtual_mouse_moved)
 	Cursor.custom_hand_moved.connect(_on_virtual_mouse_moved)
+	%TransitionCamera.moved.connect(_update_virtual_mouse)
 
 	set_log_notification_counts()
 	$Menu/LogButton/LogMenu.set_tab_icon(1, load("res://textures/old/Dot-Blue.png"))

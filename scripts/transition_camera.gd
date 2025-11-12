@@ -4,6 +4,11 @@ class_name TransitionCamera
 extends Camera2D
 
 
+## Emitted when the transform of this camera changes at all. Used mainly by [Main] to know that the
+## hand cursor needs to be redrawn.
+signal moved()
+
+
 @onready var _source_rect := Util.get_camera_viewport(self).get_visible_rect()
 @onready var _dest_rect := _source_rect
 var _transition_time: float = 1.0
@@ -11,6 +16,9 @@ var _cur_transition_time: float = 1.0
 var _is_transitioning: bool = false
 var _is_grabbing_mouse: bool = false
 
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSFORM_CHANGED: moved.emit()
 
 func _ready() -> void:
 	make_current()
