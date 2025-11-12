@@ -21,7 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://textures/old/Dot-Red.png" id="21_grp7q"]
 [ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://scenes/interaction_prompt.tscn" id="22_g2on7"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3b0ty"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqmmt"]
+size = Vector2(20, 30)
 
 [sub_resource type="StyleBoxFlat" id="1"]
 content_margin_left = 10.0
@@ -116,7 +117,7 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea"]
 position = Vector2(8, 12)
-shape = SubResource("CapsuleShape2D_3b0ty")
+shape = SubResource("RectangleShape2D_gqmmt")
 
 [node name="TransitionCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
 unique_name_in_owner = true

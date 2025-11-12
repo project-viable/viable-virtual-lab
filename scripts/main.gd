@@ -32,6 +32,9 @@ var logs: Array[LogMessage] = []
 @onready var _hand_pointing_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandPointing
 @onready var _hand_open_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandOpen
 @onready var _hand_closed_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandClosed
+@onready var _cursor_collision: CollisionShape2D = $SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea/CollisionShape2D
+@onready var _cursor_collision_original_size: Vector2 = _cursor_collision.shape.size
+@onready var _cursor_collision_original_pos: Vector2 = _cursor_collision.position
 
 var _is_paused: bool = true
 
@@ -168,7 +171,6 @@ func _process(delta: float) -> void:
 		Cursor.Mode.CLOSED: cursor_to_use = _hand_closed_cursor
 	cursor_to_use.show()
 
-	# TODO: Scale $%CursorArea based on the scale of the main viewport.
 	if Cursor.use_custom_hand_position:
 		$%Cursor.global_position = cursor_canvas_custom_hand_pos
 		$%CursorArea.global_position = Cursor.custom_hand_position
@@ -178,6 +180,10 @@ func _process(delta: float) -> void:
 		# `get_global_mouse_position` directly because it needs to be in the same coordinate system
 		# as the area (i.e., the main world).
 		$%CursorArea.global_position = Cursor.virtual_mouse_position
+
+	# Match the cursor's collision and position to the relative size of the hand.
+	_cursor_collision.shape.size = _cursor_collision_original_size / %TransitionCamera.zoom
+	_cursor_collision.position = _cursor_collision_original_pos / %TransitionCamera.zoom
 
 	%FPSLabel.text = str(Engine.get_frames_per_second())
 
