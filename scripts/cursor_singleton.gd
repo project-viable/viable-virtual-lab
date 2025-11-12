@@ -4,6 +4,7 @@ extends Node
 
 signal mode_changed(mode: Mode)
 signal virtual_mouse_moved(old_pos: Vector2, new_pos: Vector2)
+signal custom_hand_moved(old_pos: Vector2, new_pos: Vector2)
 ## Objects in the scene receive [InputEventMouseMotion]s based on the movement of the virtual mouse
 ## rather than movements of the actual mouse, so if they want to detect non-virtual relative mouse
 ## motion, they have to do it through this signal rather than through [method Node._input].
@@ -28,13 +29,18 @@ var mode: Mode :
 ## instead based on the relative movement of the actual cursor.
 var virtual_mouse_position: Vector2 = Vector2.ZERO :
 	set(v):
-		virtual_mouse_moved.emit(virtual_mouse_position, v)
+		var prev_pos := virtual_mouse_position
 		virtual_mouse_position = v
+		virtual_mouse_moved.emit(prev_pos, virtual_mouse_position)
 
 ## When set to true, the actual cursor will be represented with a small circle, and the hand will be
 ## drawn at [member custom_hand_position].
 var use_custom_hand_position: bool = false
-var custom_hand_position: Vector2
+var custom_hand_position: Vector2 :
+	set(v):
+		var prev_pos := custom_hand_position
+		custom_hand_position = v
+		custom_hand_moved.emit(prev_pos, custom_hand_position)
 
 
 func _input(event: InputEvent) -> void:

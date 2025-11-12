@@ -24,12 +24,16 @@ func _process(delta: float) -> void:
 		var cur_rect := Util.get_camera_world_rect(self)
 		var next_rect := Util.lerp_rect2(_source_rect, _dest_rect, t)
 
-		# Keep the mouse in the same spot relative to the screen.
+		Util.set_camera_world_rect(self, next_rect)
+
+		# Keep the mouse in the same spot relative to the screen. This must be done *after* the
+		# camera's position is set, since setting `Cursor.virtual_mouse_position` causes the cursor
+		# sprite to be updated based on the camera's actual position, which will not have been set
+		# yet if the camera position is set after moving the mouse.
 		if _is_grabbing_mouse:
 			var mouse_frac: Vector2 = (Cursor.virtual_mouse_position - cur_rect.position) / cur_rect.size
 			Cursor.virtual_mouse_position = next_rect.position + mouse_frac * next_rect.size
 
-		Util.set_camera_world_rect(self, next_rect)
 
 		if _cur_transition_time >= _transition_time:
 			_is_transitioning = false
