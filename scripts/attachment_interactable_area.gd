@@ -96,7 +96,7 @@ func start_targeting(_k: InteractInfo.Kind) -> void:
 	if offset is not Vector2: return
 
 	if show_ghost_sprite:
-		_ghost_sprite = Util.make_sprite_ghost(Interaction.held_body)
+		_ghost_sprite = GhostCanvasGroup.create_from_sprites(Interaction.held_body)
 		_ghost_sprite.position = offset
 		call_deferred(&"add_child", _ghost_sprite)
 
