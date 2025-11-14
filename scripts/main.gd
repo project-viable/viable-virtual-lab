@@ -166,7 +166,7 @@ func _process(delta: float) -> void:
 	%RightWorkspacePrompt.disabled = _current_workspace and not _current_workspace.right_workspace
 
 func _unhandled_key_input(e: InputEvent) -> void:
-	if e.is_action_pressed(&"ToggleMenu"):
+	if e.is_action_pressed(&"toggle_menu"):
 		# A page other than the main pause menu is being shown; return to the pause menu.
 		if is_paused() and not $Menu/MenuScreens/PauseMenu.visible:
 			_switch_to_menu_screen($Menu/MenuScreens/PauseMenu)
