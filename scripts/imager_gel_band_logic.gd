@@ -38,11 +38,12 @@ func on_gel_removed() -> void:
 		$AttachmentInteractableArea.contained_object.global_position = Vector2(1650, 350)
 		$AttachmentInteractableArea.remove_object()
 		$AttachmentInteractableArea.contained_object = null
+	
 		
 
 func _on_uv_light_pressed() -> void:
 	_is_light_on = not _is_light_on
-
+	
 #func analyze_gel(gel: LabBody) -> void:
 #	for i: int in gel.num_wells():
 #		var well: ContainerComponent = gel.get_well(i)

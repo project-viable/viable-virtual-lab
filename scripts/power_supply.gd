@@ -47,6 +47,7 @@ var negative_terminal_wire: Wire
 var _buttons: Array[TextureButton]
 var _current_pressed_button: TextureButton
 var time: int = 0 # Time in seconds
+var initial_time: int = 0
 var volts: int = 50 
 var _delta_time: int = 1
 var _delta_volts: int = 1
@@ -101,6 +102,7 @@ func is_hovered() -> bool:
 	return super() and not Game.main.get_camera_focus_owner()
 
 func _on_start_button_pressed() -> void:
+	initial_time = time
 	$LabTimer.start(time)
  
 func _on_timer_timeout() -> void:

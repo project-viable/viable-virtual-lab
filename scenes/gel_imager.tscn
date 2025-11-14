@@ -182,4 +182,3 @@ metadata/_custom_type_script = "uid://b5a5765epdkf"
 
 [connection signal="pressed" from="UV Light" to="." method="_on_uv_light_pressed"]
 [connection signal="pressed" from="ClosedDoor" to="." method="on_gel_removed"]
-[connection signal="pressed" from="Screen" to="." method="on_gel_inserted"]

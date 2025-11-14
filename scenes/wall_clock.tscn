@@ -11,9 +11,7 @@
 
 [sub_resource type="Resource" id="Resource_isgb8"]
 script = ExtResource("3_rj6r8")
-kind = 0
 description = "(hold) Speed up time"
-allowed = true
 metadata/_custom_type_script = "uid://b810schxe1hne"
 
 [node name="WallClock" type="Node2D"]

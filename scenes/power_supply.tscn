@@ -41,13 +41,13 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_07yqv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pbs0"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_agml6"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pbs0"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_07yqv"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5dnns"]
@@ -66,14 +66,14 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xsxk"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ij5hy"]
 draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5man"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 draw_center = false
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ij5hy"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xsxk"]
 draw_center = false
 
 [node name="PowerSupply" type="RigidBody2D" node_paths=PackedStringArray("increment_time_button", "decrement_time_button", "increment_volts_button", "decrement_volts_button", "time_line_edit", "voltage_line_edit")]
@@ -215,9 +215,9 @@ grow_vertical = 2
 size_flags_horizontal = 10
 focus_mode = 1
 mouse_filter = 2
-theme_override_styles/focus = SubResource("StyleBoxFlat_07yqv")
-theme_override_styles/read_only = SubResource("StyleBoxFlat_agml6")
 theme_override_styles/normal = SubResource("StyleBoxFlat_4pbs0")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_agml6")
+theme_override_styles/focus = SubResource("StyleBoxFlat_07yqv")
 alignment = 2
 max_length = 4
 caret_blink = true
@@ -248,13 +248,13 @@ text = "Voltage:"
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
-theme_override_colors/selection_color = Color(0.223529, 0.627451, 0.776471, 0.552941)
-theme_override_colors/caret_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0.223529, 0.627451, 0.776471, 0.552941)
 theme_override_constants/minimum_character_width = 0
-theme_override_styles/focus = SubResource("StyleBoxFlat_7xsxk")
-theme_override_styles/read_only = SubResource("StyleBoxFlat_r5man")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ij5hy")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_r5man")
+theme_override_styles/focus = SubResource("StyleBoxFlat_7xsxk")
 text = "50"
 alignment = 2
 max_length = 3

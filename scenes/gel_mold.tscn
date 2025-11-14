@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://cys6ccja2bnxo"]
+[gd_scene load_steps=20 format=3 uid="uid://cys6ccja2bnxo"]
 
 [ext_resource type="Script" uid="uid://ca8jqw4t8cnoh" path="res://scripts/gel_mold.gd" id="1_5cofj"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_ar43o"]
 [ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://scripts/attachment_point.gd" id="2_5cofj"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/pour_interactable_area.gd" id="2_5rd3r"]
+[ext_resource type="Script" uid="uid://06juxjpcn4yg" path="res://scripts/gel_state.gd" id="2_yypu3"]
 [ext_resource type="Texture2D" uid="uid://b3jxeuh2e6u2y" path="res://textures/lab_objects/gel_tray_empty.svg" id="3_u177l"]
 [ext_resource type="Script" uid="uid://dewfln6yuchb6" path="res://scripts/subscene_exclusive_area.gd" id="4_of7eg"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="5_pmlyu"]
@@ -12,6 +13,10 @@
 [ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="7_mu26n"]
 [ext_resource type="Script" uid="uid://qeafyaxecqnu" path="res://scripts/substance_access_area.gd" id="8_ljbi8"]
 [ext_resource type="Script" uid="uid://b5a5765epdkf" path="res://scripts/subscene_camera.gd" id="9_xo6pi"]
+
+[sub_resource type="Resource" id="Resource_yypu3"]
+script = ExtResource("2_yypu3")
+metadata/_custom_type_script = "uid://06juxjpcn4yg"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5rd3r"]
 size = Vector2(74, 26)
@@ -31,6 +36,7 @@ size = Vector2(67, 27)
 [node name="GelMold" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource("1_5cofj")
+gel_state = SubResource("Resource_yypu3")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:gel_mold"]]
