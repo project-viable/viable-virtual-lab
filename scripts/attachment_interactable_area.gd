@@ -158,8 +158,14 @@ func _place_object_unchecked(body: LabBody) -> void:
 
 	var offset: Variant = _find_attachment_offset(contained_object)
 	if offset is Vector2:
-		_remote_transform.position = offset
-		_remote_transform.remote_path = contained_object.get_path()
+		# Since `LabObject`s do `set_deferred("linear_velocity")` in `stop_dragging`, it seems like
+		# this can occasionally cause the position to be reset even after it has been initially set
+		# by `_remote_transform` (I'm not 100% sure of this, but it seems to be the cause of the
+		# incorrect position problem). Deferring this call will ensure that the position of the
+		# object will be set after that and not broken.
+		(func() -> void:
+			_remote_transform.position = offset
+			_remote_transform.remote_path = contained_object.get_path()).call_deferred()
 
 	object_placed.emit(body)
 
