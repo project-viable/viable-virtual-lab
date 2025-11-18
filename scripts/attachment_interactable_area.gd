@@ -116,10 +116,34 @@ func start_interact(_k: InteractInfo.Kind) -> void:
 func can_place(body: LabBody) -> bool:
 	return allow_new_objects and _find_attachment_offset(body) is Vector2
 
-## If the object should be hidden it will be made hidden and unable to be interacted with. 
-## Then the offset of the object within the attachment area will be determined and the object's
-## new position on the screen will be set along with it's remote path.
-func on_place_object() -> void:
+## Call this to attempt to place an object. Returns true if the object was placed.
+func place_object(body: LabBody) -> bool:
+	if not contained_object and can_place(body):
+		_place_object_unchecked(body)
+		return true
+
+	return false
+
+## Call this to remove the current object, if it is there. Returns true if an object was removed.
+func remove_object() -> bool:
+	if contained_object:
+		_remote_transform.remote_path = NodePath()
+
+		if hide_object:
+			contained_object.show()
+			contained_object.set_physics_mode(LabBody.PhysicsMode.FREE)
+			contained_object.enable_interaction = true
+
+		object_removed.emit(contained_object)
+		contained_object = null
+
+		return true
+
+	return false
+
+func _place_object_unchecked(body: LabBody) -> void:
+	contained_object = body
+
 	contained_object.stop_dragging()
 
 	if set_object_z_index_on_place:
@@ -137,37 +161,6 @@ func on_place_object() -> void:
 		_remote_transform.position = offset
 		_remote_transform.remote_path = contained_object.get_path()
 
-## Once an object is picked up again, if hidden, it will be made visible and interactable. The object's
-## remote path will return to the default value.
-func on_remove_object() -> void:
-	_remote_transform.remote_path = NodePath()
-
-	if hide_object:
-		contained_object.show()
-		contained_object.set_physics_mode(LabBody.PhysicsMode.FREE)
-		contained_object.enable_interaction = true
-
-## Call this to attempt to place an object. Returns true if the object was placed.
-func place_object(body: LabBody) -> bool:
-	if not contained_object and can_place(body):
-		_place_object_unchecked(body)
-		return true
-
-	return false
-
-## Call this to remove the current object, if it is there. Returns true if an object was removed.
-func remove_object() -> bool:
-	if contained_object:
-		on_remove_object()
-		object_removed.emit(contained_object)
-		contained_object = null
-		return true
-
-	return false
-
-func _place_object_unchecked(body: LabBody) -> void:
-	contained_object = body
-	on_place_object()
 	object_placed.emit(body)
 
 # Gives the offset that the object should be placed at from this as a `Vector2`, or null if the
