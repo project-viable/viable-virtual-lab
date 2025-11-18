@@ -272,7 +272,6 @@ position = Vector2(306, 453)
 
 [node name="MicrocentrifugeTube" parent="Objects" instance=ExtResource("10_bi7f4")]
 position = Vector2(915, 475)
-freeze = true
 metadata/_edit_group_ = true
 
 [node name="ContainerComponent" parent="Objects/MicrocentrifugeTube" index="6"]
@@ -280,7 +279,6 @@ substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_120qc"), SubR
 
 [node name="MicrocentrifugeTube2" parent="Objects" instance=ExtResource("10_bi7f4")]
 position = Vector2(924, 475)
-freeze = true
 metadata/_edit_group_ = true
 
 [node name="ContainerComponent" parent="Objects/MicrocentrifugeTube2" index="6"]
@@ -288,7 +286,6 @@ substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_ah5la"), SubR
 
 [node name="MicrocentrifugeTube3" parent="Objects" instance=ExtResource("10_bi7f4")]
 position = Vector2(933, 475)
-freeze = true
 metadata/_edit_group_ = true
 
 [node name="ContainerComponent" parent="Objects/MicrocentrifugeTube3" index="6"]
@@ -296,7 +293,6 @@ substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_c13rf"), SubR
 
 [node name="MicrocentrifugeTube4" parent="Objects" instance=ExtResource("10_bi7f4")]
 position = Vector2(942, 475)
-freeze = true
 metadata/_edit_group_ = true
 
 [node name="MicrocentrifugeHolder" parent="Objects" instance=ExtResource("18_xe06v")]
