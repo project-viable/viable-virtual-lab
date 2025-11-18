@@ -20,4 +20,4 @@ extends Resource
 							##the gel
 @export var well_capacities: Array[float] = [0.0,0.0,0.0,0.0,0.0] ## how full a well is in microliters
 
-@export var well_max_capacity: float = 5.0 ## the maximum volume in microliters a well can hold
+@export var well_max_capacity: float = 0.005 ## the maximum volume in microliters a well can hold

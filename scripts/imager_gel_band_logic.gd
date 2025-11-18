@@ -7,6 +7,7 @@ func _draw() -> void:
 	if $AttachmentInteractableArea.contained_object is GelMold:
 		var gel := $AttachmentInteractableArea.contained_object as GelMold
 		if not gel or not _is_light_on: return
+		gel.set_gel_state()
 		for i:int in gel.num_wells():
 			var well_sprite := _get_well_sprite(i + 1)
 			var well: ContainerComponent = gel.get_well(i + 1)
@@ -15,7 +16,7 @@ func _draw() -> void:
 			for s in well.substances:
 				if s is DNASolutionSubstance:
 					# 130 / 0.45 is about the distance in local sprite coordinates to the end of the
-					# gel.
+					analyze_gel_state(gel, well, i)
 					var pos: Vector2 = Vector2.DOWN * s.position * 130.0 / 0.45
 					band_texture.draw(well_sprite.get_canvas_item(), pos)
 	else:
@@ -44,214 +45,141 @@ func on_gel_removed() -> void:
 func _on_uv_light_pressed() -> void:
 	_is_light_on = not _is_light_on
 	
-#func analyze_gel(gel: LabBody) -> void:
-#	for i: int in gel.num_wells():
-#		var well: ContainerComponent = gel.get_well(i)
-#		for substance: Substance in well.substances:
-#			if substance.get_class() == "DNASubstance":
-#				for fragment_size: float in substance.fragment_sizes:
-#					#Perfect results
-#					if gel.gel_concentration == 0.5 and (fragment_size >= 2.0 and fragment_size <=30.0) and (gel.well_capacity >gel.well_max_capacity/2.0 and gel.well_capacity <=gel.well_max_capacity) and gel.voltage_run_time == 20.0 and gel.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_analysis_asap == true and gel.voltage == 120:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("perfect! Here's a perfect gel band sprite with long ladders for well ", i, ", fragment size, ",fragment_size, " !")
-#						continue
-#					if gel.gel_concentration == 0.7 and (fragment_size >= 0.8 and fragment_size <=12.0) and (gel.well_capacity >gel.well_max_capacity/2.0 and gel.well_capacity <=gel.well_max_capacity) and gel.voltage_run_time == 20.0 and gel.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_analysis_asap == true and gel.voltage == 120:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("perfect! Here's a perfect gel band sprite with long ladders for well ", i, ", fragment size, ",fragment_size, " !")
-#						continue
-#					if gel.gel_concentration == 1.0 and (fragment_size >= 0.4 and fragment_size <=8.0) and (gel.well_capacity >gel.well_max_capacity/2.0 and gel.well_capacity <=gel.well_max_capacity) and gel.voltage_run_time == 20.0 and gel.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_analysis_asap == true and gel.voltage == 120:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("perfect! Here's a perfect gel band sprite with long ladders for well ", i, ", fragment size, ",fragment_size, " !")
-#						continue
-#					if gel.gel_concentration == 1.2 and (fragment_size >= 0.3 and fragment_size <=7.0) and (gel.well_capacity >gel.well_max_capacity/2.0 and gel.well_capacity <=gel.well_max_capacity) and gel.voltage_run_time == 20.0 and gel.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_analysis_asap == true and gel.voltage == 120:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("perfect! Here's a perfect gel band sprite with short ladders for well ", i, ", fragment size, ",fragment_size, " !")
-#						continue
-#					if gel.gel_concentration == 1.5 and (fragment_size >= 0.2 and fragment_size <=3.0) and (gel.well_capacity >gel.well_max_capacity/2.0 and gel.well_capacity <=gel.well_max_capacity) and gel.voltage_run_time == 20.0 and gel.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_analysis_asap == true and gel.voltage == 120:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("perfect! Here's a perfect gel band sprite with short ladders for well ", i, ", fragment size, ",fragment_size, " !")
-#						continue
-#					if gel.gel_concentration == 2.0 and (fragment_size >= 0.1 and fragment_size <=2.0) and (gel.well_capacity >gel.well_max_capacity/2.0 and gel.well_capacity <=gel.well_max_capacity) and gel.voltage_run_time == 20.0 and gel.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_analysis_asap == true and gel.voltage == 120:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("perfect! Here's a perfect gel band sprite with short ladders for well ", i, ", fragment size, ",fragment_size, " !")
-#						continue
-#					#Conditions for singular well invisible gel bands
-#					if gel.well_capacity <=gel.well_max_capacity/2.0:
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("well capacity not full enough gel sprite will be blank")
-#						continue
-#					# Conditions for fuzzy or diffused gel bands
-#					if gel.voltage <120 and fragment_size >= 0.1:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("voltage too low! fragment of size", fragment_size, " will have a long fuzzy band")
-#						continue
-#					if gel.gel_concentration <120 and fragment_size < 0.1:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("voltage too low! fragment of size", fragment_size, " will have a short fuzzy band")
-#						continue
-#					if gel.voltage_run_time <20 and fragment_size >= 0.1:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("voltage too low! fragment of size", fragment_size, " will have a long fuzzy band")
-#						continue
-#					if gel.voltage_run_time <20 and fragment_size < 0.1:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("voltage too low! fragment of size", fragment_size, " will have a long fuzzy band")
-#						continue
-#					if gel.gel_concentration < 2.0 and fragment_size >= 0.1 and fragment_size <=2.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel concentration too low for 0.1kb-2kb dna size! fragment of size", fragment_size, " will have a short fuzzy band")
-#						continue
-#					if gel.gel_concentration >2.0 and fragment_size >= 0.1 and fragment_size <=2.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel concentration too high for 0.1kb-2kb dna size! fragment of size", fragment_size, " will have a short fuzzy band")
-#						continue
-#					if gel.gel_concentration < 1.5 and fragment_size >= 0.2 and fragment_size <=3.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel concentration too low for 0.2kb-3kb dna size! fragment of size", fragment_size, " will have a short fuzzy band")
-#						continue
-#					if gel.gel_concentration >1.5 and fragment_size >= 0.2 and fragment_size <=3.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel concentration too high for 0.2kb-3kb dna size! fragment of size", fragment_size, " will have a short fuzzy band")
-#						continue
-#					if gel.gel_concentration < 1.2 and fragment_size >= 0.3 and fragment_size <=7.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel concentration too low for 0.3kb-7kb dna size! fragment of size", fragment_size, " will have a short fuzzy band")
-#						continue
-#					if gel.gel_concentration >1.2 and fragment_size >= 0.3 and fragment_size <=7.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel concentration too high for 0.3kb-7kb dna size! fragment of size", fragment_size, " will have a short fuzzy band")
-#						continue
-#					if gel.gel_concentration < 1.0 and fragment_size >= 0.4 and fragment_size <=8.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel concentration too low for 0.4kb-8kb dna size! fragment of size", fragment_size, " will have a long fuzzy band")
-#						continue
-#					if gel.gel_concentration >1.0 and fragment_size >= 0.4 and fragment_size <=8.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel concentration too high for 0.4kb-8kb dna size! fragment of size", fragment_size, " will have a long fuzzy band")
-#						continue
-#					if gel.gel_concentration < 0.7 and fragment_size >= 0.8 and fragment_size <=12.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel concentration too low for 0.8kb-12kb dna size! fragment of size", fragment_size, " will have a long fuzzy band")
-#						continue
-#					if gel.gel_concentration >0.7 and fragment_size >= 0.8 and fragment_size <=12.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel concentration too high for 0.8kb-12kb dna size! fragment of size", fragment_size, " will have a long fuzzy band")
-#						continue
-#					if gel.gel_concentration < 0.5 and fragment_size >= 2.0 and fragment_size <=30.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel concentration too low for 2kb-30kb dna size! fragment of size", fragment_size, " will have a long fuzzy band")
-#						continue
-#					if gel.gel_concentration >0.5 and fragment_size >= 2.0 and fragment_size <=30.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel concentration too high for 2kb-30kb dna size! fragment of size", fragment_size, " will have a long fuzzy band")
-#						continue
-#					if gel.gel_analysis_asap == false and fragment_size >= 8.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("Too much time passed between electorphoresis and gel analysis! fragment of size", fragment_size, " will have a short fuzzy band")
-#						continue
-#					if gel.gel_analysis_asap == false and fragment_size < 8.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("Too much time passed between electorphoresis and gel analysis! fragment of size", fragment_size, " will have a short fuzzy band")
-#						continue
-#					#Conditions for smiley/wavy/smeared bands
-#					if gel.correct_gel_temperature == false and fragment_size >= 8.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_WAVY.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel heated to incorrect temperature! fragment of size", fragment_size, " will have a long wavy band")
-#						continue
-#					if gel.correct_gel_temperature == false and fragment_size < 8.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_WAVY_2.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel heated to incorrect temperature! fragment of size", fragment_size, " will have a short wavy band")
-#						continue
-#					if gel.correct_comb_placement == false and fragment_size >= 8.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_WAVY.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel comb not placed well correctly! fragment of size", fragment_size, " will have a long wavy band")
-#						continue
-#					if gel.correct_comb_placement == false and fragment_size < 8.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_WAVY_2.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("gel comb not placed well correctly! fragment of size", fragment_size, " will have a short wavy band")
-#						continue
-#					if gel.well_capacity >gel.well_max_capacity and fragment_size >= 8.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_SMUDGE.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("well is flooded! fragment of size", fragment_size, " will have a long smeared band")
-#						continue
-#					if gel.well_capacity >gel.well_max_capacity and fragment_size < 8.0:
-#						band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_SMUDGE_2.svg")
-#						base_gel_sprite.visible = true
-#						base_wells_sprite.visible = true
-#						print("well is flooded! fragment of size", fragment_size, " will have a long smeared band")
-#						continue
-#				print("Inconclusive results.")
-#			display_blank_gel_bands()
-#
-#func display_gel_bands() -> void:
-#	#Conditions for entirely invisible gel bands
-#	if gel.electrode_correct_placement == false:
-#		print("electrodes plugged in backwards! gel sprite will be blank")
-#		display_blank_gel_bands()
-#	if gel.voltage > 120:
-#		print("electrodes plugged in backwards! gel sprite will be blank")
-#		display_blank_gel_bands()
-#	if gel.voltage_run_time >20:
-#		print("voltage run too long! gel sprite will be blank")
-#		display_blank_gel_bands()
-#	#Well Capacity states
-#	analyze_gel(gel)
+func analyze_gel_state(gel: GelMold, well: ContainerComponent, i: int) -> void:
+	for substance: Substance in well.substances:
+		if substance is DNASolutionSubstance:
+			var fragment: float = substance.fragment_size
+			#Conditions for singular well invisible gel bands
+			if gel.gel_state.well_capacities[i] <= (gel.gel_state.well_max_capacity/2.0):
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_LADDER_MULTIPLE.svg")
+				if Engine.get_physics_frames() % 60 == 0:
+					print("well %s capacity not full enough gel sprite will be blank" % [i+1])
+					print(gel.gel_state.well_max_capacity/2.0)
+				continue
+			#Perfect results
+			elif (gel.gel_state.gel_concentration >= 0.5 and  gel.gel_state.gel_concentration < 0.6)  and (fragment >= 2.0 and fragment <=30.0) and (gel.gel_state.well_capacities[i] >=gel.gel_state.well_max_capacity/2.0 and gel.gel_state.well_capacities[i] <= gel.gel_state.well_max_capacity) and (((gel.gel_state.voltage_run_time/60.0) >= 20.0) and ((gel.gel_state.voltage_run_time/60.0) <21.0)) and gel.gel_state.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_state.gel_analysis_asap == true and gel.gel_state.voltage == 120:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg")
+				print("perfect! Here's a perfect gel band sprite with long ladders for well ", i, ", fragment size, ",fragment, " !")
+				continue
+			elif (gel.gel_state.gel_concentration >= 0.7 and  gel.gel_state.gel_concentration < 0.8) and (fragment >= 0.8 and fragment <=12.0) and (gel.gel_state.well_capacities[i] >=gel.gel_state.well_max_capacity/2.0 and gel.gel_state.well_capacities[i] <=gel.gel_state.well_max_capacity) and (((gel.gel_state.voltage_run_time/60.0) >= 20.0) and ((gel.gel_state.voltage_run_time/60.0) <21.0)) and gel.gel_state.correct_comb_placement == true and gel.gel_state.correct_gel_mixing == true and gel.gel_state.correct_gel_temperature == true and gel.gel_state.gel_analysis_asap == true and gel.gel_state.voltage == 120:
+					band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg")
+					print("perfect! Here's a perfect gel band sprite with long ladders for well ", i, ", fragment size, ",fragment, " !")
+					continue
+			elif (gel.gel_state.gel_concentration >= 0.1 and  gel.gel_state.gel_concentration < 0.2) and (fragment >= 0.4 and fragment <=8.0) and (gel.gel_state.well_capacities[i] >=gel.gel_state.well_max_capacity/2.0 and gel.gel_state.well_capacities[i] <=gel.gel_state.well_max_capacity) and (((gel.gel_state.voltage_run_time/60.0) >= 20.0) and ((gel.gel_state.voltage_run_time/60.0) <21.0)) and gel.gel_state.correct_comb_placement == true and gel.gel_state.correct_gel_mixing == true and gel.gel_state.correct_gel_temperature == true and gel.gel_state.gel_analysis_asap == true and gel.gel_state.voltage == 120:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg")
+				print("perfect! Here's a perfect gel band sprite with long ladders for well ", i, ", fragment size, ",fragment, " !")
+				continue
+			elif (gel.gel_state.gel_concentration >= 1.2 and  gel.gel_state.gel_concentration < 1.3) and (fragment >= 0.3 and fragment <=7.0) and (gel.gel_state.well_capacities[i] >=gel.gel_state.well_max_capacity/2.0 and gel.gel_state.well_capacities[i] <=gel.gel_state.well_max_capacity) and (((gel.gel_state.voltage_run_time/60.0) >= 20.0) and ((gel.gel_state.voltage_run_time/60.0) <21.0)) and gel.gel_state.correct_comb_placement == true and gel.gel_state.correct_gel_mixing == true and gel.gel_state.correct_gel_temperature == true and gel.gel_state.gel_analysis_asap == true and gel.gel_state.voltage == 120:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg")
+				print("perfect! Here's a perfect gel band sprite with short ladders for well ", i, ", fragment size, ",fragment, " !")
+				continue
+			elif (gel.gel_state.gel_concentration >= 1.5 and  gel.gel_state.gel_concentration < 1.6) and (fragment >= 0.2 and fragment <=3.0) and (gel.gel_state.well_capacities[i] >=gel.gel_state.well_max_capacity/2.0 and gel.gel_state.well_capacities[i] <=gel.gel_state.well_max_capacity) and (((gel.gel_state.voltage_run_time/60.0) >= 20.0) and ((gel.gel_state.voltage_run_time/60.0) <21.0)) and gel.gel_state.correct_comb_placement == true and gel.gel_state.correct_gel_mixing == true and gel.gel_state.correct_gel_temperature == true and gel.gel_state.gel_analysis_asap == true and gel.gel_state.voltage == 120:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg")
+				print("perfect! Here's a perfect gel band sprite with short ladders for well ", i, ", fragment size, ",fragment, " !")
+				continue
+			elif (gel.gel_state.gel_concentration >= 2.0 and  gel.gel_state.gel_concentration < 2.1) and (fragment >= 0.1 and fragment <=2.0) and (gel.gel_state.well_capacities[i] >=gel.gel_state.well_max_capacity/2.0 and gel.gel_state.well_capacities[i] <=gel.gel_state.well_max_capacity) and (((gel.gel_state.voltage_run_time/60.0) >= 20.0) and ((gel.gel_state.voltage_run_time/60.0) <21.0)) and gel.gel_state.correct_comb_placement == true and gel.gel_state.correct_gel_mixing == true and gel.gel_state.correct_gel_temperature == true and gel.gel_state.gel_analysis_asap == true and gel.gel_state.voltage == 120:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg")
+				print("perfect! Here's a perfect gel band sprite with short ladders for well ", i, ", fragment size, ",fragment, " !")
+				continue
+			# Conditions for fuzzy or diffused gel bands
+			elif gel.gel_state.voltage <120 and fragment >= 0.1:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
+				print("voltage too low! fragment of size", fragment, " will have a long fuzzy band")
+				continue
+			elif gel.gel_state.voltage <120 and fragment < 0.1:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
+				print("voltage too low! fragment of size", fragment, " will have a short fuzzy band")
+				continue
+			elif ((gel.gel_state.voltage_run_time/60.0) >= 20.0) and ((gel.gel_state.voltage_run_time/60.0) <21.0) and fragment >= 0.1:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
+				print("voltage too low! fragment of size", fragment, " will have a long fuzzy band")
+				continue
+			elif ((gel.gel_state.voltage_run_time/60.0) >= 20.0) and ((gel.gel_state.voltage_run_time/60.0) <21.0) and fragment < 0.1:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
+				print("voltage too low! fragment of size", fragment, " will have a long fuzzy band")
+				continue
+			elif gel.gel_state.gel_concentration <= 2.0 and fragment >= 0.1 and fragment <=2.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
+				print("gel concentration too low for 0.1kb-2kb dna size! fragment of size", fragment, " will have a short fuzzy band")
+				continue
+			elif gel.gel_state.gel_concentration >2.0 and fragment >= 0.1 and fragment <=2.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
+				print("gel concentration too high for 0.1kb-2kb dna size! fragment of size", fragment, " will have a short fuzzy band")
+				continue
+			elif gel.gel_state.gel_concentration <= 1.5 and fragment >= 0.2 and fragment <=3.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
+				print("gel concentration too low for 0.2kb-3kb dna size! fragment of size", fragment, " will have a short fuzzy band")
+				continue
+			elif gel.gel_state.gel_concentration >1.5 and fragment >= 0.2 and fragment <=3.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
+				print("gel concentration too high for 0.2kb-3kb dna size! fragment of size", fragment, " will have a short fuzzy band")
+				continue
+			elif gel.gel_state.gel_concentration <= 1.2 and fragment >= 0.3 and fragment <=7.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
+				print("gel concentration too low for 0.3kb-7kb dna size! fragment of size", fragment, " will have a short fuzzy band")
+				continue
+			elif gel.gel_state.gel_concentration >1.2 and fragment >= 0.3 and fragment <=7.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
+				print("gel concentration too high for 0.3kb-7kb dna size! fragment of size", fragment, " will have a short fuzzy band")
+				continue
+			elif gel.gel_state.gel_concentration <= 1.0 and fragment >= 0.4 and fragment <=8.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
+				print("gel concentration too low for 0.4kb-8kb dna size! fragment of size", fragment, " will have a long fuzzy band")
+				continue
+			elif gel.gel_state.gel_concentration >1.0 and fragment >= 0.4 and fragment <=8.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
+				print("gel concentration too high for 0.4kb-8kb dna size! fragment of size", fragment, " will have a long fuzzy band")
+				continue
+			elif gel.gel_state.gel_concentration <= 0.7 and fragment >= 0.8 and fragment <=12.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
+				print("gel concentration too low for 0.8kb-12kb dna size! fragment of size", fragment, " will have a long fuzzy band")
+				continue
+			elif gel.gel_state.gel_concentration >0.7 and fragment >= 0.8 and fragment <=12.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
+				print("gel concentration too high for 0.8kb-12kb dna size! fragment of size", fragment, " will have a long fuzzy band")
+				continue
+			elif gel.gel_state.gel_concentration <= 0.5 and fragment >= 2.0 and fragment <=30.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
+				print("gel concentration too low for 2kb-30kb dna size! fragment of size", fragment, " will have a long fuzzy band")
+				continue
+			elif gel.gel_state.gel_concentration >0.5 and fragment >= 2.0 and fragment <=30.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg")
+				print("gel concentration too high for 2kb-30kb dna size! fragment of size", fragment, " will have a long fuzzy band")
+				continue
+			elif gel.gel_state.gel_analysis_asap == false and fragment >= 8.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
+				print("Too much time passed between electorphoresis and gel analysis! fragment of size", fragment, " will have a short fuzzy band")
+				continue
+			elif gel.gel_state.gel_analysis_asap == false and fragment < 8.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg")
+				print("Too much time passed between electorphoresis and gel analysis! fragment of size", fragment, " will have a short fuzzy band")
+				continue
+			#Conditions for smiley/wavy/smeared bands
+			elif gel.gel_state.correct_gel_temperature == false and fragment >= 8.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_WAVY.svg")
+				print("gel heated to incorrect temperature! fragment of size", fragment, " will have a long wavy band")
+				continue
+			elif gel.gel_state.correct_gel_temperature == false and fragment < 8.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_WAVY_2.svg")
+				print("gel heated to incorrect temperature! fragment of size", fragment, " will have a short wavy band")
+				continue
+			elif gel.gel_state.correct_comb_placement == false and fragment >= 8.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_WAVY.svg")
+				print("gel comb not placed well correctly! fragment of size", fragment, " will have a long wavy band")
+				continue
+			elif gel.gel_state.correct_comb_placement == false and fragment < 8.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_WAVY_2.svg")
+				print("gel comb not placed well correctly! fragment of size", fragment, " will have a short wavy band")
+				continue
+			elif gel.gel_state.well_capacities[i] >gel.gel_state.well_max_capacity and fragment >= 8.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_SMUDGE.svg")
+				print("well is flooded! fragment of size", fragment, " will have a long smeared band")
+				continue
+			elif gel.gel_state.well_capacities[i] >gel.gel_state.well_max_capacity and fragment < 8.0:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_SMUDGE_2.svg")
+				print("well is flooded! fragment of size", fragment, " will have a long smeared band")
+				continue
+			else:
+				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg")
+				print("Inconclusive results.")
+				

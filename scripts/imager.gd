@@ -36,7 +36,7 @@ func display_gel_bands() -> void: pass
 ## (virtual) called by the display_gel_bands method to analyze the gel state data members before adding what the gell band state
 ## should be within the each well's dicitonary key GelBandState. This is  determined via a switch case statment, matching appropriate sprite with 
 ## a specific set of gel states.
-func analyze_gel_state(gel: LabBody) -> void: pass
+func analyze_gel_state(gel: GelMold, well: ContainerComponent, i: int) -> void: pass
 
 ## (virtual) called when gel is placed in the imager. If the UV light was not turned on before imaging,
 ## the display_blank_gel_bands function is called. Otherwise, the display_gel_bands is called.
