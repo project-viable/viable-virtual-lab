@@ -55,10 +55,11 @@ var _remote_transform := RemoteTransform2D.new()
 var _ghost_sprite: Node2D = null
 
 
+func _enter_tree() -> void:
+	call_deferred(&"add_child", _remote_transform)
+
 func _ready() -> void:
 	super()
-
-	call_deferred(&"add_child", _remote_transform)
 
 	# The contained object may be set such that the simulation starts with the object locked in. In
 	# that case, we have to manually place it. We have to set `contained_object` to null first,
