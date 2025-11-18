@@ -99,3 +99,9 @@ static func expand_to_aspect(rect: Rect2, aspect: float, horizontal_weight: floa
 ## [code]0010[/code], since the mask indicates that only the middle two bits should be set.
 static func bitwise_set(value: int, mask: int, new_value: int) -> int:
 	return (mask & new_value) | (~mask & value)
+
+## Convert the direction [param direction] in global coordinates to [param node]'s local
+## coordinates. For example, [code]direction_to_local(n, Vector2.DOWN)[/code] will get the global
+## down direction in [code]n[/code]'s local coordinates.
+static func direction_to_local(node: Node2D, direction: Vector2) -> Vector2:
+	return node.to_local(node.global_position + direction)

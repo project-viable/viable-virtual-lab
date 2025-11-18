@@ -65,25 +65,30 @@ var global_fluid_top_y_coord: float = 0
 
 @onready var _container_vertices: PackedVector2Array = polygon
 @onready var _container_tris: PackedInt32Array = Geometry2D.triangulate_polygon(_container_vertices)
-@onready var _last_cached_rotation: float = global_rotation
+@onready var _last_cached_down_dir: Vector2 = Util.direction_to_local(self, Vector2.DOWN)
 var _area_intervals: Array[AreaInterval] = []
 
 
 static var _shader: Shader = preload("res://shaders/substance_polygon.gdshader")
 
 
-func _ready() -> void:
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSFORM_CHANGED:
+		var down_dir := Util.direction_to_local(self, Vector2.DOWN)
+		if not down_dir.is_equal_approx(_last_cached_down_dir):
+			_last_cached_down_dir = down_dir
+			_update_area_intervals()
+
+func _enter_tree() -> void:
 	material = ShaderMaterial.new()
 	material.shader = _shader
+	set_notify_transform(true)
+
+func _ready() -> void:
 	_update_area_intervals()
-	pass
 
 func _process(_delta: float) -> void:
 	if not source: return
-
-	if abs(global_rotation - _last_cached_rotation) > 0.001:
-		_last_cached_rotation = global_rotation
-		_update_area_intervals()
 
 	var total_container_volume: float = source.container_volume
 	var total_area: float = _area_intervals.back().high_area if _area_intervals else 0.0
@@ -97,8 +102,8 @@ func _process(_delta: float) -> void:
 	var cur_volume := 0.0
 	for i in range(0, len(depths)):
 		cur_volume += depths[i]
-		depths[i] = cur_volume
-		depths[i] = global_position.y - _get_depth_for_area(cur_volume * total_area / total_container_volume)
+		# The depths have their y coordinates inverted, so uninvert them.
+		depths[i] = -_get_depth_for_area(cur_volume * total_area / total_container_volume)
 
 	var zero_depth: float = global_position.y - _get_depth_for_area(0.0)
 	global_fluid_top_y_coord = depths.back() if depths else zero_depth
@@ -106,6 +111,7 @@ func _process(_delta: float) -> void:
 	material.set("shader_parameter/depth_offsets", depths)
 	material.set("shader_parameter/substance_colors", colors)
 	material.set("shader_parameter/substance_count", len(depths))
+	material.set("shader_parameter/down_direction", _last_cached_down_dir)
 
 
 func _update_area_intervals() -> void:
@@ -142,10 +148,12 @@ func _update_area_intervals() -> void:
 			_container_vertices[_container_tris[i * 3 + 2]],
 		]
 
-		# The vertices should be in space local to this sprite, and with y
-		# coordinates inverted (so +y is up).
+		# The original coordinates are local to this sprite, but we want them rotated into the
+		# coordinate system where `_last_cached_down_dir` is pointed down. Then we invert the y
+		# coordinates so higher y coordinates go up (this is for "convenience", but might make
+		# things worse, but whatever).
 		for j in range(len(vertices)):
-			vertices[j] = to_global(vertices[j]) - global_position
+			vertices[j] = vertices[j].rotated(_last_cached_down_dir.angle_to(Vector2.DOWN))
 			vertices[j].y = -vertices[j].y
 
 		vertices.sort_custom(func(a: Vector2, b: Vector2) -> bool: return a.y < b.y)
