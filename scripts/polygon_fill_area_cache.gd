@@ -28,7 +28,10 @@ func get_area_at_y_value(y: float) -> float:
 
 	if i >= len(_area_intervals): return _area_intervals.back().high_area
 	var ai := _area_intervals[i]
-	return ai.area_equation.apply(y)
+
+	# This will happen if the y value is smaller than the smallest y value in the polygon.
+	if y < ai.low_depth: return ai.low_area
+	else: return ai.area_equation.apply(y)
 
 ## If [param area] is between 0 and [code]get_total_area()[/code] (inclusive), this acts as a right
 ## inverse to [method get_area_at_y_value]. If [param area] is less than zero, then this function
