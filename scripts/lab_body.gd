@@ -14,6 +14,8 @@ enum PhysicsMode
 # Mask for the collision layer bits actually managed by [LabBody]. Other bits can be freely changed
 # and won't be affected.
 const MANAGED_COLLISION_LAYERS_MASK: int = 0b111
+# Same as [member CharacterBody2D.max_slides].
+const MAX_SLIDES: int = 5
 
 
 static var _pick_up_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up")
@@ -89,7 +91,7 @@ func _physics_process(delta: float) -> void:
 		if not disable_follow_cursor:
 			var dest_pos := to_global(_get_local_virtual_mouse_position() - _offset)
 			_velocity = (dest_pos - global_position) / delta
-			move_and_collide((dest_pos - global_position) * 30 * delta)
+			move_and_slide((dest_pos - global_position) * 30 * delta)
 
 		if interact_canvas_group:
 			Cursor.custom_hand_position = interact_canvas_group.to_global(_hand_offset)
@@ -173,6 +175,15 @@ func set_physics_mode(mode: PhysicsMode) -> void:
 	if mode == physics_mode: return
 	_update_physics_to_mode(mode)
 	physics_mode = mode
+
+## Behaves similarly to [method CharacterBody2D.move_and_slide].
+func move_and_slide(motion: Vector2) -> void:
+	for _i in MAX_SLIDES:
+		var result := move_and_collide(motion)
+		if not result or result.get_remainder().is_zero_approx():
+			break
+
+		motion = result.get_remainder().slide(result.get_normal())
 
 func _update_physics_to_mode(mode: PhysicsMode) -> void:
 	if mode == PhysicsMode.KINEMATIC:
