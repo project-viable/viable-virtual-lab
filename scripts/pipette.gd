@@ -89,9 +89,11 @@ func _physics_process(delta: float) -> void:
 	if substance_display and has_tip:
 		var tip_node: Node2D = $%SubsceneTipOpeningArea if _cur_subscene_camera else $TipOpeningArea
 		# Only pull if we're below the fluid level.
-		if plunge_diff < -0.001 and substance_display.global_fluid_top_y_coord <= tip_node.global_position.y:
-			var volume: float = -plunge_diff * VOLUME_PER_DIST
-			$ContainerComponent.add_array(substance_display.source.take_volume(volume))
+		if plunge_diff < -0.001:
+			var substance_to_take := substance_display.get_substance_at_global(tip_node.global_position)
+			if substance_to_take:
+				var volume: float = -plunge_diff * VOLUME_PER_DIST
+				$ContainerComponent.add(substance_to_take.take_volume(volume))
 		elif plunge_diff > 0.001:
 			var volume: float = plunge_diff * VOLUME_PER_DIST * PLUNGE_DOWN_VOLUME_RATIO
 			substance_display.source.add_array($ContainerComponent.take_volume(volume))

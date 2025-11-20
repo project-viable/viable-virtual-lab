@@ -6,9 +6,6 @@ extends Polygon2D
 @export var source: ContainerComponent
 
 
-## Global y coordinate of the top of the fluid.
-var global_fluid_top_y_coord: float = 0
-
 var _fill_area_cache := PolygonFillAreaCache.new()
 # Transforms a local point into a space where [member _last_cached_down_dir] points in the negative
 # y direction.
@@ -53,13 +50,33 @@ func _process(_delta: float) -> void:
 		# The depths have their y coordinates inverted, so uninvert them.
 		depths[i] = -_fill_area_cache.get_y_value_from_area(cur_volume * total_area / total_container_volume)
 
-	var zero_depth: float = global_position.y - _fill_area_cache.get_y_value_from_area(0)
-	global_fluid_top_y_coord = depths.back() if depths else zero_depth
-
 	material.set("shader_parameter/depth_offsets", depths)
 	material.set("shader_parameter/substance_colors", colors)
 	material.set("shader_parameter/substance_count", len(depths))
 	material.set("shader_parameter/down_direction", _last_cached_down_dir)
+
+## Get the substance displayed at the point [param pos], given in local coordinates. If no
+## substance is shown, return [code]null[/code]. This returns a reference rather than a copy, so
+## modifying the substance will directly modify the container. This function does [i]not[/i] check
+## whether [param pos] is actually inside the polygon, since that can make it a bit finicky to try
+## to get substances near the edge of the polygon, like when the tip of the pipette is near the
+## bottom of the container. That kind of thing should be handled using collisions, instead.
+func get_substance_at(pos: Vector2) -> Substance:
+	var cur_volume: float = 0
+	var volume := _fill_area_cache.get_area_at_y_value((_local_to_fill * pos).y) \
+			* source.container_volume \
+			/ _fill_area_cache.get_total_area()
+
+	for s in source.substances:
+		cur_volume += s.get_volume()
+		if cur_volume >= volume: return s
+	
+	return null
+
+## Convenience function. Same as [method get_substance_at], but takes a position in global
+## coordinates.
+func get_substance_at_global(pos: Vector2) -> Substance:
+	return get_substance_at(to_local(pos))
 
 func _set_down_dir(down: Vector2) -> void:
 	_last_cached_down_dir = down

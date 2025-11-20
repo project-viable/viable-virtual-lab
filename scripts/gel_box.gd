@@ -9,7 +9,7 @@ func _physics_process(delta: float) -> void:
 
 # True if the box is filled enough with buffer to conduct and stuff.
 func _is_filled() -> bool:
-	return $SubstanceDisplayPolygon.global_fluid_top_y_coord < $FillRef.global_position.y
+	return $SubstanceDisplayPolygon.get_substance_at_global($FillRef.global_position) != null
 
 func _on_mold_attachment_object_placed(body: LabBody) -> void:
 	# Flood and clear the wells if already full.
