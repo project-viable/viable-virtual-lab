@@ -84,7 +84,6 @@ func _ready() -> void:
 
 	Cursor.mode_changed.connect(_on_virtual_mouse_mode_changed)
 	Cursor.virtual_mouse_moved.connect(_on_virtual_mouse_moved)
-	Cursor.custom_hand_moved.connect(_on_virtual_mouse_moved)
 	%TransitionCamera.moved.connect(_update_virtual_mouse)
 
 	set_log_notification_counts()
@@ -503,7 +502,7 @@ func _on_interactable_system_pressed_zoom_out() -> void:
 func _on_virtual_mouse_moved(_old: Vector2, _new: Vector2) -> void:
 	_update_virtual_mouse();
 
-func _on_virtual_mouse_mode_changed(mode: Cursor.Mode) -> void:
+func _on_virtual_mouse_mode_changed(_mode: Cursor.Mode) -> void:
 	_update_virtual_mouse();
 
 func _update_virtual_mouse() -> void:
@@ -511,11 +510,6 @@ func _update_virtual_mouse() -> void:
 	# we have to convert.
 	var main_to_cursor_canvas: Transform2D = $VirtualCursorLayer.get_final_transform().affine_inverse() * $%MainViewport.canvas_transform
 	var cursor_canvas_mouse_pos := main_to_cursor_canvas * Cursor.virtual_mouse_position
-	var cursor_canvas_custom_hand_pos := main_to_cursor_canvas * Cursor.custom_hand_position
-
-	# Handle cursor appearance.
-	$%Reticle.global_position = cursor_canvas_mouse_pos
-	$%Reticle.visible = Cursor.use_custom_hand_position
 
 	for c in $%Cursor.get_children():
 		c.hide()
@@ -525,15 +519,11 @@ func _update_virtual_mouse() -> void:
 		Cursor.Mode.CLOSED: cursor_to_use = _hand_closed_cursor
 	cursor_to_use.show()
 
-	if Cursor.use_custom_hand_position:
-		$%Cursor.global_position = cursor_canvas_custom_hand_pos
-		$%CursorArea.global_position = Cursor.custom_hand_position
-	else:
-		$%Cursor.global_position = cursor_canvas_mouse_pos
-		# We have to call `$%CursorArea.get_global_mouse_position` instead of just calling
-		# `get_global_mouse_position` directly because it needs to be in the same coordinate system
-		# as the area (i.e., the main world).
-		$%CursorArea.global_position = Cursor.virtual_mouse_position
+	$%Cursor.global_position = cursor_canvas_mouse_pos
+	# We have to call `$%CursorArea.get_global_mouse_position` instead of just calling
+	# `get_global_mouse_position` directly because it needs to be in the same coordinate system
+	# as the area (i.e., the main world).
+	$%CursorArea.global_position = Cursor.virtual_mouse_position
 
 	# Match the cursor's collision and position to the relative size of the hand.
 	_cursor_collision.shape.size = _cursor_collision_original_size / %TransitionCamera.zoom

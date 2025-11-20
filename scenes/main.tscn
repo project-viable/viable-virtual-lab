@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=27 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://dpjbw81s4cllc" path="res://textures/icons_and_buttons/cursors/hand_pointing.svg" id="10_tmkqk"]
 [ext_resource type="Texture2D" uid="uid://b0hfiq010v2bq" path="res://textures/icons_and_buttons/cursors/hand_open.svg" id="11_jc788"]
 [ext_resource type="Texture2D" uid="uid://bhpxxflq68efs" path="res://textures/icons_and_buttons/cursors/hand_closed.svg" id="12_4mycw"]
-[ext_resource type="Texture2D" uid="uid://ks1q0lnixrmt" path="res://textures/icons_and_buttons/cursors/temp/reticle.svg" id="13_tuaro"]
 [ext_resource type="Texture2D" uid="uid://bdg0qubi6xt7d" path="res://textures/old/MainMenu-Background.png" id="14_b4l0s"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://textures/old/VIABLE_Logo_Transparent.png" id="15_ki7y1"]
 [ext_resource type="FontFile" path="res://fonts/roboto_medium_28.tres" id="16_gpyrr"]
@@ -183,13 +182,6 @@ scale = Vector2(0.07, 0.07)
 texture = ExtResource("12_4mycw")
 centered = false
 offset = Vector2(-110, -60)
-
-[node name="Reticle" type="Sprite2D" parent="VirtualCursorLayer"]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.47451)
-position = Vector2(46, 44)
-scale = Vector2(0.02, 0.02)
-texture = ExtResource("13_tuaro")
 
 [node name="Menu" type="CanvasLayer" parent="."]
 layer = 128

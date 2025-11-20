@@ -50,6 +50,7 @@ var _offset: Vector2 = Vector2.ZERO
 # (e.g., when a flask is swirled, the hand will follow it).
 var _hand_offset := Vector2.ZERO
 var _velocity: Vector2 = Vector2.ZERO
+var _mouse_motion_since_last_tick := Vector2.ZERO
 
 ## Set by [Main] to [code]true[/code] when the cursor starts overlapping this.
 var is_moused_over: bool = false
@@ -77,8 +78,15 @@ func _ready() -> void:
 
 	_update_physics_to_mode(physics_mode)
 
+	# Accumulate mouse motion to move the object.
+	Cursor.virtual_mouse_moved_relative.connect(
+		func(v: Vector2) -> void: _mouse_motion_since_last_tick += v)
+
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint(): return
+
+	var mouse_motion_this_tick := _mouse_motion_since_last_tick
+	_mouse_motion_since_last_tick = Vector2.ZERO
 
 	if is_active():
 		if abs(global_rotation) > 0.001:
@@ -89,14 +97,13 @@ func _physics_process(delta: float) -> void:
 			else: global_rotation = max(0.0, global_rotation)
 
 		if not disable_follow_cursor:
-			var dest_pos := to_global(_get_local_virtual_mouse_position() - _offset)
-			_velocity = (dest_pos - global_position) / delta
-			move_and_slide((dest_pos - global_position) * 30 * delta)
+			_velocity = mouse_motion_this_tick / delta
+			move_and_slide(mouse_motion_this_tick)
 
 		if interact_canvas_group:
-			Cursor.custom_hand_position = interact_canvas_group.to_global(_hand_offset)
+			Cursor.virtual_mouse_position = interact_canvas_group.to_global(_hand_offset)
 		else:
-			Cursor.custom_hand_position = to_global(_offset)
+			Cursor.virtual_mouse_position = to_global(_offset)
 	
 	if physics_mode == PhysicsMode.FALLING_THROUGH_SHELVES:
 		var old_mask := collision_mask
@@ -157,7 +164,7 @@ func start_dragging() -> void:
 		_hand_offset = _get_local_virtual_mouse_position(interact_canvas_group)
 
 	Cursor.mode = Cursor.Mode.CLOSED
-	Cursor.use_custom_hand_position = true
+	Cursor.automatically_move_with_mouse = false
 
 ## Can be safely called from elsewhere. Also cancels any interaction that was pressed down.
 func stop_dragging() -> void:
@@ -169,7 +176,7 @@ func stop_dragging() -> void:
 	DepthManager.move_to_front_of_layer(self, depth_layer_to_drop_in)
 
 	Cursor.mode = Cursor.Mode.POINTER
-	Cursor.use_custom_hand_position = false
+	Cursor.automatically_move_with_mouse = true
 
 func set_physics_mode(mode: PhysicsMode) -> void:
 	if mode == physics_mode: return
