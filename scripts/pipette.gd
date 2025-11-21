@@ -26,6 +26,9 @@ const PLUNGE_DOWN_VOLUME_RATIO: float = 0.98
 		$ExclusiveObjectHitbox/NoTipEnd.disabled = has_tip
 		$ExclusiveObjectHitbox/WithTipEnd.disabled = not has_tip
 
+		if not has_tip:
+			$ContainerComponent.substances.clear()
+
 @onready var _orig_plunger_pos: float = $%Plunger.position.y
 @onready var _orig_sub_pipette_pos: Vector2 = $%SubscenePipette.position
 var _cur_subscene_camera: SubsceneCamera = null
