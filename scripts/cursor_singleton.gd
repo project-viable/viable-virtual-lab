@@ -56,3 +56,19 @@ func _input(event: InputEvent) -> void:
 			virtual_mouse_position += virtual_relative
 			var rect := Util.get_camera_world_rect(Game.camera)
 			virtual_mouse_position = virtual_mouse_position.clamp(rect.position, rect.end)
+
+## Clamp a virtual mouse position to the visible part of the world.
+func clamp_to_screen(pos: Vector2) -> Vector2:
+	var rect := Util.get_camera_world_rect(Game.camera)
+	return pos.clamp(rect.position, rect.end)
+
+## If moving [member virtual_mouse_position] would still be on-screen, return [param motion]
+## unchanged. Otherwise, return
+## [codeblock lang=gdscript]
+## clamp_to_screen(virtual_mouse_position + motion) - virtual_mouse_position
+## [/codeblock]
+##
+## In other words, this function will convert a mouse motion into one that can be safely added to
+## [member virtual_mouse_position] without it leaving the screen.
+func clamp_relative_to_screen(motion: Vector2) -> Vector2:
+	return clamp_to_screen(virtual_mouse_position + motion) - virtual_mouse_position

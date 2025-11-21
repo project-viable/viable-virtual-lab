@@ -89,6 +89,11 @@ func _physics_process(delta: float) -> void:
 	_mouse_motion_since_last_tick = Vector2.ZERO
 
 	if is_active():
+		# Handle external motion through pure brute force. This should only really happen when the
+		# camera moves between workspaces.
+		if not Cursor.virtual_mouse_position.is_equal_approx(to_global(_offset)):
+			global_position += Cursor.virtual_mouse_position - to_global(_offset)
+
 		if abs(global_rotation) > 0.001:
 			var is_rotating_clockwise := global_rotation < 0
 			global_rotation -= global_rotation * delta * 50
@@ -98,7 +103,7 @@ func _physics_process(delta: float) -> void:
 
 		if not disable_follow_cursor:
 			_velocity = mouse_motion_this_tick / delta
-			move_and_slide(mouse_motion_this_tick)
+			move_and_slide(Cursor.clamp_relative_to_screen(mouse_motion_this_tick))
 
 		if interact_canvas_group:
 			Cursor.virtual_mouse_position = interact_canvas_group.to_global(_hand_offset)
