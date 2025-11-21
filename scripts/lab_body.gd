@@ -81,6 +81,7 @@ func _ready() -> void:
 	# Accumulate mouse motion to move the object.
 	Cursor.virtual_mouse_moved_relative.connect(
 		func(v: Vector2) -> void: _mouse_motion_since_last_tick += v)
+	Cursor.virtual_mouse_moved.connect(_on_virtual_mouse_moved)
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint(): return
@@ -89,11 +90,6 @@ func _physics_process(delta: float) -> void:
 	_mouse_motion_since_last_tick = Vector2.ZERO
 
 	if is_active():
-		# Handle external motion through pure brute force. This should only really happen when the
-		# camera moves between workspaces.
-		if not Cursor.virtual_mouse_position.is_equal_approx(to_global(_offset)):
-			global_position += Cursor.virtual_mouse_position - to_global(_offset)
-
 		if abs(global_rotation) > 0.001:
 			var is_rotating_clockwise := global_rotation < 0
 			global_rotation -= global_rotation * delta * 50
@@ -227,3 +223,11 @@ func is_active() -> bool:
 
 func _get_local_virtual_mouse_position(node: Node2D = self) -> Vector2:
 	return node.to_local(Cursor.virtual_mouse_position)
+
+func _on_virtual_mouse_moved(_old: Vector2, _new: Vector2) -> void:
+	# Handle external motion through pure brute force. This is *also* called when we set
+	# `virtual_mouse_position` in `_physics_process`, but we use `Engine.is_in_physics_frame` as a
+	# bit of a hack to make sure we don't do this unnecessarily.
+	if is_active() and not Engine.is_in_physics_frame() \
+			and not Cursor.virtual_mouse_position.is_equal_approx(to_global(_offset)):
+		global_position += Cursor.virtual_mouse_position - to_global(_offset)
