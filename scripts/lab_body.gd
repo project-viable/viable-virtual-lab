@@ -186,12 +186,16 @@ func set_physics_mode(mode: PhysicsMode) -> void:
 
 ## Behaves similarly to [method CharacterBody2D.move_and_slide].
 func move_and_slide(motion: Vector2) -> void:
+	var cur_motion := motion
 	for _i in MAX_SLIDES:
-		var result := move_and_collide(motion)
+		var result := move_and_collide(cur_motion)
 		if not result or result.get_remainder().is_zero_approx():
 			break
 
-		motion = result.get_remainder().slide(result.get_normal())
+		cur_motion = result.get_remainder().slide(result.get_normal())
+		# Don't keep moving if we're not moving in the same direction as the original motion vector.
+		if cur_motion.dot(motion) <= 0:
+			break
 
 func _update_physics_to_mode(mode: PhysicsMode) -> void:
 	if mode == PhysicsMode.KINEMATIC:
