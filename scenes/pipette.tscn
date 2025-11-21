@@ -32,7 +32,7 @@ is_tip_contaminated = true
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-7, -76, -7, -68, -12, -67, -14, -64, -14, -61, -11, -60, -6, -59, -6, -2, -4, 10, 1, 19, 2, 68, 6, 68, 6, 19, 11, 10, 14, -2, 14, -76)
+polygon = PackedVector2Array(-7, -76, -7, -68, -12, -67, -14, -64, -14, -61, -11, -60, -6, -59, -6, -2, -4, 10, 1, 19, 2, 68, 5, 68, 6, 19, 11, 10, 14, -2, 14, -76)
 
 [node name="TipCollision" type="CollisionShape2D" parent="."]
 position = Vector2(3.5, 75.2)
