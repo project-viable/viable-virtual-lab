@@ -5,9 +5,9 @@ extends UseComponent
 ## The node that will be rotated while swirling.
 @export var node_to_rotate: Node2D
 ## Angle the container is held at relative to straight down, in radians.
-@export var hold_angle: float = PI / 16
+@export_custom(PROPERTY_HINT_NONE, "suffix:rad") var hold_angle: float = PI / 16
 ## Speed of swirling, in radians per second.
-@export var swirl_speed: float = 7 * PI
+@export_custom(PROPERTY_HINT_NONE, "suffix:rad/s") var swirl_speed: float = 7 * PI
 ## Radius of the hand's movement circle when rotating.
 @export var swirl_circle_radius: float = 10
 ## Offset of the point where the container is held while swirled (center of rotation).

@@ -10,11 +10,11 @@ extends Node2D
 ## container is not prevented from going above this value; [member container_volume] exists mainly
 ## for things that want to display the contents of this container or implement custom overflow
 ## behavior.
-@export var container_volume: float = 1.0
+@export_custom(PROPERTY_HINT_NONE, "suffix:mL") var container_volume: float = 1.0
 
 ## Mass of the container itself. This is not used when simulating, but it is used by the scale to
 ## calculate the total mass.
-@export var container_mass: float = 0.0
+@export_custom(PROPERTY_HINT_NONE, "suffix:g") var container_mass: float = 0.0
 
 func _physics_process(delta: float) -> void:
 	var lab_delta := delta * LabTime.time_scale

@@ -4,9 +4,9 @@ extends Substance
 
 @export var name: String
 @export var color: Color = Color.WHITE
-@export var density: float = 1.0
+@export_custom(PROPERTY_HINT_NONE, "suffix:g/mL") var density: float = 1.0
 ## Volume of a substance
-@export var volume: float
+@export_custom(PROPERTY_HINT_NONE, "suffix:mL") var volume: float
 
 # Don't duplicate `data`.
 ## See [method Substance.clone]

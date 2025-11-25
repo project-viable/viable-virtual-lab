@@ -3,7 +3,7 @@ extends LabBody
 
 
 ## Voltage, where positive is down the gel.
-@export var voltage: float = 0.0
+@export_custom(PROPERTY_HINT_NONE, "suffix:V") var voltage: float = 0.0
 @export var gel_state: GelState
 
 class GelConcentrationData:

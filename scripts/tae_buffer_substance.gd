@@ -18,11 +18,11 @@ const MICROWAVE_TIME: float = 60.0 * 5.0
 const MICROWAVE_RATE: float = (100.0 - 20.0) / MICROWAVE_TIME
 
 
-@export var volume: float = 0.0
+@export_custom(PROPERTY_HINT_NONE, "suffix:mL") var volume: float = 0.0
 ## Concentration in g/mL.
-@export var agarose_concentration: float = 0.0
+@export_custom(PROPERTY_HINT_NONE, "suffix:g/mL") var agarose_concentration: float = 0.0
 ## Temperature in °C.
-@export var temperature: float = ROOM_TEMP
+@export_custom(PROPERTY_HINT_NONE, "suffix:°C") var temperature: float = ROOM_TEMP
 
 
 var is_mixing: bool = false

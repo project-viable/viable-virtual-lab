@@ -8,16 +8,16 @@ extends Resource
 
 # Global gel data
 @export var electrode_correct_placement: bool = false ## incorrect placement means bands will run backwards and bands will not be visible
-@export var voltage: int = 0 ## voltage that is too high or low will result in no visible bands or diffused bands
-@export var gel_concentration: float = 0.0 ## incorrect concentration (in percentage) will result in diffused bands
+@export_custom(PROPERTY_HINT_NONE, "suffix:V") var voltage: int = 0 ## voltage that is too high or low will result in no visible bands or diffused bands
+@export_custom(PROPERTY_HINT_NONE, "suffix:%") var gel_concentration: float = 0.0 ## incorrect concentration (in percentage) will result in diffused bands
 @export var gel_analysis_asap: bool = false ## gel not put in the imager right after electropohresis results in diffused bands
 @export var correct_gel_temperature: bool = false ## incorrect gel temperature (not between 50-70 deg C) results in smeared bands
 @export var correct_comb_placement: bool = true ## incorrect gel comb placement or damaged wells results in smiley/wavy bands or
 									## dna remainig in the wells
 @export var correct_gel_mixing: bool = false ## inconsistent gel density (not mixed well) resuls in smiley/wavy bands
-@export var voltage_run_time: float = 0.0 ## in mintues if the voltage is run for too long or not long enough this will
+@export_custom(PROPERTY_HINT_NONE, "suffix:min") var voltage_run_time: float = 0.0 ## in mintues if the voltage is run for too long or not long enough this will
 							## result in gel bands that are distorted or fuzzy or not visible from running off
 							##the gel
-@export var well_capacities: Array[float] = [0.0,0.0,0.0,0.0,0.0] ## how full a well is in microliters
+@export var well_capacities: Array[float] = [0.0,0.0,0.0,0.0,0.0] ## how full a well is in milliliters.
 
-@export var well_max_capacity: float = 0.005 ## the maximum volume in microliters a well can hold
+@export_custom(PROPERTY_HINT_NONE, "suffix:mL") var well_max_capacity: float = 0.005 ## the maximum volume in milliliters a well can hold

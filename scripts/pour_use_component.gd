@@ -1,7 +1,7 @@
 extends UseComponent
 class_name PourUseComponent
 @export var container_component: ContainerComponent
-@export var amount_to_pour: float # In ml
+@export_custom(PROPERTY_HINT_NONE, "suffix:mL") var amount_to_pour: float # In ml
 
 var container_component_to_receive: ContainerComponent
 
