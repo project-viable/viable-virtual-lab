@@ -36,6 +36,8 @@ static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, 
 ## When set to [code]true[/code], the object can't be dropped. This might be used when zoomed in to
 ## prevent weird behavior.
 @export var disable_drop: bool = false
+## When set to [code]true[/code], the object won't automatically rotate to right itself.
+@export var disable_rotate_upright: bool = false
 
 ## When dropped, this is the depth layer this body will be in.
 @export var depth_layer_to_drop_in: DepthManager.Layer = DepthManager.Layer.BENCH
@@ -90,7 +92,7 @@ func _physics_process(delta: float) -> void:
 	_mouse_motion_since_last_tick = Vector2.ZERO
 
 	if is_active():
-		if abs(global_rotation) > 0.001:
+		if not disable_rotate_upright and abs(global_rotation) > 0.001:
 			var is_rotating_clockwise := global_rotation < 0
 			global_rotation -= global_rotation * delta * 50
 

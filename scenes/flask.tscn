@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5ff3gy87ykja"]
+[gd_scene load_steps=11 format=3 uid="uid://b5ff3gy87ykja"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_6iauc"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="2_6iauc"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dx8btkgbugnyv" path="res://scripts/swirl_use_component.gd" id="8_dyohf"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/pour_interactable_area.gd" id="8_e38bm"]
 [ext_resource type="Script" uid="uid://b6fn3sx53tn8l" path="res://scripts/focus_use_component.gd" id="9_dyohf"]
+[ext_resource type="Script" uid="uid://cvhaiwlpqy14p" path="res://scripts/spill_component.gd" id="10_rqua0"]
 
 [node name="Flask" type="RigidBody2D" groups=["emptyable"]]
 collision_layer = 0
@@ -60,8 +61,12 @@ top_padding = 20.0
 bottom_padding = 20.0
 metadata/_custom_type_script = "uid://c5xu35ldxvqog"
 
-[node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container_component")]
+[node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("spill_component")]
 script = ExtResource("6_6iauc")
-container_component = NodePath("../ContainerComponent")
-amount_to_pour = 10.0
+spill_component = NodePath("../SpillComponent")
 metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
+
+[node name="SpillComponent" type="Node2D" parent="." node_paths=PackedStringArray("substance_display_polygon")]
+position = Vector2(-8, -47)
+script = ExtResource("10_rqua0")
+substance_display_polygon = NodePath("../SelectableCanvasGroup/SubstanceDisplayPolygon")

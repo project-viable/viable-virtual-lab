@@ -1,24 +1,25 @@
 extends UseComponent
 class_name PourUseComponent
-@export var container_component: ContainerComponent
-@export_custom(PROPERTY_HINT_NONE, "suffix:mL") var amount_to_pour: float # In ml
 
-var container_component_to_receive: ContainerComponent
 
+## While pouring, this will be set to spill into the target container.
+@export var spill_component: SpillComponent
+## Body to tilt while pouring. If this is not set in the editor, then it will automatically be set
+## to this component's parent node.
+@export var body: LabBody
+## Angle, in radians, that [member body] will be tilted to while pouring. By default, tilt to the
+## left.
+@export var tilt_angle: float = -3 * PI / 4
+
+
+func _enter_tree() -> void:
+	if not body: body = get_parent() as LabBody
 
 func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 	var results: Array[InteractInfo] = []
 
-	# Must have a container_component reference
-	if not container_component:
-		return []
-
-	if area and area is PourInteractableArea:
-		container_component_to_receive = area.container_component
-		if container_component_to_receive and container_component.substances:
-			results.push_back(InteractInfo.new(InteractInfo.Kind.SECONDARY, "Pour"))
-		elif container_component_to_receive and not container_component.substances:
-			results.push_back(InteractInfo.new(InteractInfo.Kind.SECONDARY, "Pour (Container is Empty)", false))
+	if area is PourInteractableArea and area.container_component and spill_component:
+		results.push_back(InteractInfo.new(InteractInfo.Kind.SECONDARY, "(hold) Pour"))
 
 	if results and not Game.main.get_camera_focus_owner():
 		results.push_back(InteractInfo.new(InteractInfo.Kind.INSPECT, "Zoom in to pour"))
@@ -28,20 +29,24 @@ func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 	match kind:
 		InteractInfo.Kind.SECONDARY:
-			var amount: float = amount_to_pour
-			# Pours a calculated amount to the max if the amount to pour exceeds the max volume of the container
-			if container_component_to_receive.get_total_volume() + amount > container_component_to_receive.container_volume:
-				amount = container_component_to_receive.container_volume - container_component_to_receive.get_total_volume()
+			spill_component.target_container = area.container_component
+			if body:
+				body.disable_drop = true
+				body.disable_rotate_upright = true
+				body.global_rotation += tilt_angle
 
-				# Ensure the amount to pour can't be negative nor exceed the max volume of a container
-				amount = clamp(amount, 0, container_component.container_volume)
-
-			print("Pouring %s ml" % [amount])
-			var substances := container_component.take_volume(amount)
-			container_component_to_receive.add_array(substances)
 		InteractInfo.Kind.INSPECT:
 			var parent_body := get_parent() as CollisionObject2D
 			var area_parent_body := area.get_parent() as CollisionObject2D
 			if not parent_body or not area_parent_body: return
 			Game.main.focus_camera_on_rect(Util.get_global_bounding_box(parent_body).merge(Util.get_global_bounding_box(area_parent_body)))
 			Game.main.set_camera_focus_owner(self)
+
+func stop_use(_area: InteractableArea, kind: InteractInfo.Kind) -> void:
+	match kind:
+		InteractInfo.Kind.SECONDARY:
+			spill_component.target_container = null
+			if body:
+				body.disable_drop = false
+				body.disable_rotate_upright = false
+				body.global_rotation -= tilt_angle
