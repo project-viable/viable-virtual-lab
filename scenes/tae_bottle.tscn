@@ -88,25 +88,24 @@ metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_rqhjd")
 
-[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
-script = ExtResource("2_rqhjd")
-metadata/_custom_type_script = "uid://p0x2f70nn1sy"
-
-[node name="BottleTaeBack" type="Sprite2D" parent="SelectableCanvasGroup"]
+[node name="BottleTaeBack" type="Sprite2D" parent="."]
 modulate = Color(0.60324824, 0.6032482, 0.6032482, 1)
 z_index = -1
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_3h5nj")
 
-[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="SelectableCanvasGroup" node_paths=PackedStringArray("source")]
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 z_index = 1
+script = ExtResource("2_rqhjd")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="SelectableCanvasGroup" node_paths=PackedStringArray("source")]
 polygon = PackedVector2Array(-11, -30, 11, -30, 11, -22, 19, -12, 22, -5, 22, 39, 19, 42, -19, 42, -22, 39, -22, -4, -20, -10, -11, -22)
 script = ExtResource("5_36v4v")
 source = NodePath("../../ContainerComponent")
 metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
 
 [node name="TeaBuffer" type="Sprite2D" parent="SelectableCanvasGroup"]
-z_index = 1
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_vo5hq")
 
@@ -127,8 +126,9 @@ text = "TAE
 Buffer"
 horizontal_alignment = 1
 
-[node name="PourUseComponent" type="Node2D" parent="."]
+[node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("spill_component")]
 script = ExtResource("9_7vpf6")
+spill_component = NodePath("../SpillComponent")
 metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
 
 [node name="PourInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
@@ -144,11 +144,6 @@ position = Vector2(-10, -29)
 script = ExtResource("11_36v4v")
 substance_display_polygon = NodePath("../SelectableCanvasGroup/SubstanceDisplayPolygon")
 spill_rate = 10.0
-
-[node name="PourUseComponent2" type="Node2D" parent="." node_paths=PackedStringArray("spill_component")]
-script = ExtResource("9_7vpf6")
-spill_component = NodePath("../SpillComponent")
-metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
 
 [node name="ExclusiveArea2D" type="Area2D" parent="." groups=["exclusive_area:pipette"]]
 script = ExtResource("12_asuie")
@@ -187,5 +182,7 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_xdbha")
 debug_color = Color(0.63946867, 0.5255488, 0, 0.41960785)
 
+[connection signal="started_pouring" from="PourUseComponent" to="." method="_on_pour_use_component_started_pouring"]
+[connection signal="stopped_pouring" from="PourUseComponent" to="." method="_on_pour_use_component_stopped_pouring"]
 [connection signal="object_entered_purview" from="ExclusiveArea2D" to="." method="_on_exclusive_area_2d_object_entered_purview"]
 [connection signal="object_left_purview" from="ExclusiveArea2D" to="." method="_on_exclusive_area_2d_object_left_purview"]

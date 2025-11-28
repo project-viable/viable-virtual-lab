@@ -2,6 +2,10 @@ extends UseComponent
 class_name PourUseComponent
 
 
+signal started_pouring()
+signal stopped_pouring()
+
+
 ## While pouring, this will be set to spill into the target container.
 @export var spill_component: SpillComponent
 ## Body to tilt while pouring. If this is not set in the editor, then it will automatically be set
@@ -34,6 +38,7 @@ func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 				body.disable_drop = true
 				body.disable_rotate_upright = true
 				body.global_rotation += tilt_angle
+			started_pouring.emit()
 
 		InteractInfo.Kind.INSPECT:
 			var parent_body := get_parent() as CollisionObject2D
@@ -50,3 +55,4 @@ func stop_use(_area: InteractableArea, kind: InteractInfo.Kind) -> void:
 				body.disable_drop = false
 				body.disable_rotate_upright = false
 				body.global_rotation -= tilt_angle
+			stopped_pouring.emit()
