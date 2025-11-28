@@ -1,13 +1,18 @@
-[gd_scene load_steps=11 format=3 uid="uid://du0xgct56vfqx"]
+[gd_scene load_steps=22 format=3 uid="uid://du0xgct56vfqx"]
 
-[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_vo5hq"]
+[ext_resource type="Script" uid="uid://uqwl8yn4726k" path="res://scripts/tae_bottle.gd" id="1_asuie"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_rqhjd"]
+[ext_resource type="Texture2D" uid="uid://dk7ebgdccfetq" path="res://textures/lab_objects/bottle_TAE_back.svg" id="3_3h5nj"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="4_jcpv6"]
 [ext_resource type="Texture2D" uid="uid://b1o81j7y3wuwp" path="res://textures/lab_objects/bottle_TAE.svg" id="4_vo5hq"]
 [ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://scripts/substance.gd" id="5_6s205"]
+[ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="5_36v4v"]
 [ext_resource type="Script" uid="uid://c3xp3pqfn8ici" path="res://scripts/tae_buffer_substance.gd" id="6_jcpv6"]
 [ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://scripts/pour_use_component.gd" id="9_7vpf6"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/pour_interactable_area.gd" id="10_vo5hq"]
+[ext_resource type="Script" path="res://scripts/spill_component.gd" id="11_36v4v"]
+[ext_resource type="Script" uid="uid://tqglxdgoq1xk" path="res://scripts/exclusive_area_2d.gd" id="12_asuie"]
+[ext_resource type="Script" uid="uid://qeafyaxecqnu" path="res://scripts/substance_access_area.gd" id="13_rv0w3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rqhjd"]
 size = Vector2(46, 86)
@@ -15,13 +20,69 @@ size = Vector2(46, 86)
 [sub_resource type="Resource" id="Resource_6s205"]
 script = ExtResource("6_jcpv6")
 volume = 1000.0
-agarose_concentration = 0.0
-temperature = 20.0
 metadata/_custom_type_script = "uid://c3xp3pqfn8ici"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rv0w3"]
+size = Vector2(16.5, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_751b4"]
+size = Vector2(50, 94)
+
+[sub_resource type="Animation" id="Animation_asuie"]
+resource_name = "fade_front"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SelectableCanvasGroup/TeaBuffer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rv0w3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SelectableCanvasGroup/TeaBuffer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_751b4"]
+_data = {
+&"RESET": SubResource("Animation_rv0w3"),
+&"fade_front": SubResource("Animation_asuie")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdbha"]
+size = Vector2(50, 88)
 
 [node name="TAEBottle" type="RigidBody2D"]
 collision_layer = 0
-script = ExtResource("1_vo5hq")
+script = ExtResource("1_asuie")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -31,7 +92,21 @@ shape = SubResource("RectangleShape2D_rqhjd")
 script = ExtResource("2_rqhjd")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
+[node name="BottleTaeBack" type="Sprite2D" parent="SelectableCanvasGroup"]
+modulate = Color(0.60324824, 0.6032482, 0.6032482, 1)
+z_index = -1
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_3h5nj")
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="SelectableCanvasGroup" node_paths=PackedStringArray("source")]
+z_index = 1
+polygon = PackedVector2Array(-11, -30, 11, -30, 11, -22, 19, -12, 22, -5, 22, 39, 19, 42, -19, 42, -22, 39, -22, -4, -20, -10, -11, -22)
+script = ExtResource("5_36v4v")
+source = NodePath("../../ContainerComponent")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
 [node name="TeaBuffer" type="Sprite2D" parent="SelectableCanvasGroup"]
+z_index = 1
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_vo5hq")
 
@@ -42,6 +117,7 @@ container_volume = 1000.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="Label" type="Label" parent="."]
+z_index = 1
 offset_left = -12.0
 offset_top = 1.0
 offset_right = 32.0
@@ -51,10 +127,8 @@ text = "TAE
 Buffer"
 horizontal_alignment = 1
 
-[node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container_component")]
+[node name="PourUseComponent" type="Node2D" parent="."]
 script = ExtResource("9_7vpf6")
-container_component = NodePath("../ContainerComponent")
-amount_to_pour = 10.0
 metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
 
 [node name="PourInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
@@ -64,3 +138,54 @@ metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PourInteractableArea"]
 shape = SubResource("RectangleShape2D_rqhjd")
+
+[node name="SpillComponent" type="Node2D" parent="." node_paths=PackedStringArray("substance_display_polygon")]
+position = Vector2(-10, -29)
+script = ExtResource("11_36v4v")
+substance_display_polygon = NodePath("../SelectableCanvasGroup/SubstanceDisplayPolygon")
+spill_rate = 10.0
+
+[node name="PourUseComponent2" type="Node2D" parent="." node_paths=PackedStringArray("spill_component")]
+script = ExtResource("9_7vpf6")
+spill_component = NodePath("../SpillComponent")
+metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
+
+[node name="ExclusiveArea2D" type="Area2D" parent="." groups=["exclusive_area:pipette"]]
+script = ExtResource("12_asuie")
+require_entry_point_shapes = true
+metadata/_custom_type_script = "uid://tqglxdgoq1xk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExclusiveArea2D" groups=["entry_point"]]
+position = Vector2(-0.25, -45)
+shape = SubResource("RectangleShape2D_rv0w3")
+debug_color = Color(0.9399809, 1.35728715e-05, 0.6191772, 0.41960785)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ExclusiveArea2D"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_751b4")
+debug_color = Color(0.9399809, 1.35728715e-05, 0.6191772, 0.41960785)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-11, -22, -11, -43, -25, -43, -25, 45, 25, 45, 25, -43, 11, -43, 11, -22, 19, -12, 22, -5, 22, 39, 19, 42, -19, 42, -22, 39, -22, -4, -20, -10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_751b4")
+}
+
+[node name="SubstanceAccessArea" type="Area2D" parent="." node_paths=PackedStringArray("substance_display")]
+script = ExtResource("13_rv0w3")
+substance_display = NodePath("../SelectableCanvasGroup/SubstanceDisplayPolygon")
+metadata/_custom_type_script = "uid://qeafyaxecqnu"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubstanceAccessArea"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_xdbha")
+debug_color = Color(0.63946867, 0.5255488, 0, 0.41960785)
+
+[connection signal="object_entered_purview" from="ExclusiveArea2D" to="." method="_on_exclusive_area_2d_object_entered_purview"]
+[connection signal="object_left_purview" from="ExclusiveArea2D" to="." method="_on_exclusive_area_2d_object_left_purview"]
