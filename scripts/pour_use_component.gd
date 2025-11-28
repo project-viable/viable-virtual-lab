@@ -9,7 +9,7 @@ class_name PourUseComponent
 @export var body: LabBody
 ## Angle, in radians, that [member body] will be tilted to while pouring. By default, tilt to the
 ## left.
-@export var tilt_angle: float = -3 * PI / 4
+@export_custom(PROPERTY_HINT_NONE, "suffix:rad") var tilt_angle: float = -3 * PI / 4
 
 
 func _enter_tree() -> void:
