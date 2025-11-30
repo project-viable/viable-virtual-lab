@@ -112,7 +112,7 @@ texture = ExtResource("4_vo5hq")
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("4_jcpv6")
 substances = Array[ExtResource("5_6s205")]([SubResource("Resource_6s205")])
-container_volume = 1000.0
+container_volume = 1100.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="Label" type="Label" parent="."]
