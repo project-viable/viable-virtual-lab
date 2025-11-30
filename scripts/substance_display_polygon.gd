@@ -6,10 +6,9 @@ extends Polygon2D
 
 # Percentage of angular velocity removed per second.
 const SLOSH_ANGULAR_DAMP: float = 10
-const SLOSH_PENDULUM_LENGTH: float = 100
+const SLOSH_PENDULUM_LENGTH: float = 0.02
 const SLOSH_PENDULUM_MASS: float = 1
-const SLOSH_PENDULUM_MOMENT_OF_INERTIA = SLOSH_PENDULUM_MASS * pow(SLOSH_PENDULUM_MASS, 2)
-const SLOSH_GRAVITY: float = 1500
+const SLOSH_PENDULUM_MOMENT_OF_INERTIA = SLOSH_PENDULUM_MASS * pow(SLOSH_PENDULUM_LENGTH, 2)
 
 
 @export var source: ContainerComponent
@@ -39,7 +38,7 @@ static var _shader: Shader = preload("res://shaders/substance_polygon.gdshader")
 
 func _enter_tree() -> void:
 	_global_gravity = ProjectSettings.get_setting("physics/2d/default_gravity_vector")
-	_global_gravity *= SLOSH_GRAVITY
+	_global_gravity *= ProjectSettings.get_setting("physics/2d/default_gravity")
 	_slosh_target_θ = Util.direction_to_local(self, _global_gravity).angle()
 	_slosh_θ = _slosh_target_θ
 	_last_cached_down_dir = Vector2.from_angle(_slosh_θ)
