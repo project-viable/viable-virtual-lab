@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://dx8btkgbugnyv" path="res://scripts/swirl_use_component.gd" id="8_dyohf"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/pour_interactable_area.gd" id="8_e38bm"]
 [ext_resource type="Script" uid="uid://b6fn3sx53tn8l" path="res://scripts/focus_use_component.gd" id="9_dyohf"]
-[ext_resource type="Script" uid="uid://cvhaiwlpqy14p" path="res://scripts/spill_component.gd" id="10_rqua0"]
+[ext_resource type="Script" path="res://scripts/spill_component.gd" id="10_rqua0"]
 
 [node name="Flask" type="RigidBody2D" groups=["emptyable"]]
 collision_layer = 0
@@ -70,3 +70,4 @@ metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
 position = Vector2(-8, -47)
 script = ExtResource("10_rqua0")
 substance_display_polygon = NodePath("../SelectableCanvasGroup/SubstanceDisplayPolygon")
+spill_rate = 10.0
