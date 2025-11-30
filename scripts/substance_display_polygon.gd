@@ -17,9 +17,12 @@ const SLOSH_GRAVITY: float = 1500
 
 # We model the sloshing of the fluid as a pendulum deciding the fluid's down direction.
 var _global_gravity: Vector2
+@warning_ignore("confusable_identifier")
 var _slosh_target_θ: float
+@warning_ignore("confusable_identifier")
 var _slosh_θ: float
 # Angular velocity.
+@warning_ignore("confusable_identifier")
 var _slosh_ω: float = 0
 
 var _fill_area_cache := PolygonFillAreaCache.new()
@@ -54,6 +57,7 @@ func _physics_process(delta: float) -> void:
 	var θ := angle_difference(_slosh_target_θ, _slosh_θ)
 	var τ := -g * SLOSH_PENDULUM_MASS * SLOSH_PENDULUM_LENGTH * sin(θ)
 	_slosh_ω += τ / SLOSH_PENDULUM_MOMENT_OF_INERTIA * delta
+	@warning_ignore("confusable_identifier")
 	var prev_slosh_ω := _slosh_ω
 	_slosh_ω -= _slosh_ω * SLOSH_ANGULAR_DAMP * delta
 	# Damping should not be able to cause the sloshing to move in the other direction.
