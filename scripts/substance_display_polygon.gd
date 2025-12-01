@@ -56,7 +56,11 @@ func _physics_process(delta: float) -> void:
 	var viscosity := 0.0
 	for s in source.substances:
 		viscosity += s.get_viscosity() * s.get_volume()
-	viscosity /= source.get_total_volume()
+	var total_volume := source.get_total_volume()
+
+	if is_zero_approx(total_volume): viscosity = 0
+	else: viscosity /= source.get_total_volume()
+
 	# If we just use viscosity linearly, then mid-level viscosities are barely different from low
 	# ones.
 	var angular_damp_t: float = ease(viscosity, 0.4)
