@@ -36,6 +36,9 @@ func get_color() -> Color:
 	var agar_t: float = clamp(agarose_concentration * 0.05, 0.0, 0.75)
 	return lerp(base_color, SATURATED_COLOR, agar_t)
 
+func get_viscosity() -> float:
+	return clamp(agarose_concentration / 0.015, 0.0, 1.0) \
+		* (1 - clamp((temperature - ROOM_TEMP) / (100.0 - ROOM_TEMP), 0.0, 1.0))
 
 func take_volume(v: float) -> TAEBufferSubstance:
 	var result: TAEBufferSubstance = clone()

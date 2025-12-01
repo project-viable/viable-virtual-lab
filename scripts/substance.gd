@@ -15,6 +15,12 @@ func get_volume() -> float: return 0.0
 ## (virtual) Get the color to be displayed.
 func get_color() -> Color: return Color.WHITE
 
+## (virtual) Get the "viscosity" of this substance. This should be a value between 0 and 1,
+## inclusive. If the viscosity is 0, the substance will very quickly flow with gravity when
+## displayed by a [SubstanceDisplayPolygon] and it will be poured very quickly. If the viscosity is
+## 1, the substance cannot be poured and will not move when a container is rotated.
+func get_viscosity() -> float: return 0.0
+
 ## (virtual) Attempt to incorporate the substance `s`; return true if it was incorporated. If a
 ## substance `s` is added to a container, the container will first try to incorporate it into all
 ## existing substances in the container with `e.try_incorporate(s)`, where `e` is the existing

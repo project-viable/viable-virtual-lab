@@ -5,7 +5,9 @@ extends Polygon2D
 
 
 # Percentage of angular velocity removed per second.
-const SLOSH_ANGULAR_DAMP: float = 10
+const SLOSH_MIN_ANGULAR_DAMP: float = 10
+const SLOSH_MAX_ANGULAR_DAMP: float = 60
+
 const SLOSH_PENDULUM_LENGTH: float = 0.02
 const SLOSH_PENDULUM_MASS: float = 1
 const SLOSH_PENDULUM_MOMENT_OF_INERTIA = SLOSH_PENDULUM_MASS * pow(SLOSH_PENDULUM_LENGTH, 2)
@@ -51,6 +53,15 @@ func _ready() -> void:
 	_set_down_dir(_last_cached_down_dir)
 
 func _physics_process(delta: float) -> void:
+	var viscosity := 0.0
+	for s in source.substances:
+		viscosity += s.get_viscosity() * s.get_volume()
+	viscosity /= source.get_total_volume()
+	# If we just use viscosity linearly, then mid-level viscosities are barely different from low
+	# ones.
+	var angular_damp_t: float = ease(viscosity, 0.4)
+	var angular_damp: float = lerp(SLOSH_MIN_ANGULAR_DAMP, SLOSH_MAX_ANGULAR_DAMP, angular_damp_t)
+
 	_slosh_target_θ = Util.direction_to_local(self, _global_gravity).angle()
 	var g := Util.direction_to_local(self, _global_gravity).length() / 1000
 	var θ := angle_difference(_slosh_target_θ, _slosh_θ)
@@ -58,7 +69,7 @@ func _physics_process(delta: float) -> void:
 	_slosh_ω += τ / SLOSH_PENDULUM_MOMENT_OF_INERTIA * delta
 	@warning_ignore("confusable_identifier")
 	var prev_slosh_ω := _slosh_ω
-	_slosh_ω -= _slosh_ω * SLOSH_ANGULAR_DAMP * delta
+	_slosh_ω -= _slosh_ω * angular_damp * delta
 	# Damping should not be able to cause the sloshing to move in the other direction.
 	if sign(_slosh_ω) != sign(prev_slosh_ω): _slosh_ω = 0
 	_slosh_θ += _slosh_ω * delta

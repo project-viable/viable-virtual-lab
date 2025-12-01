@@ -7,6 +7,7 @@ extends Substance
 @export_custom(PROPERTY_HINT_NONE, "suffix:g/mL") var density: float = 1.0
 ## Volume of a substance
 @export_custom(PROPERTY_HINT_NONE, "suffix:mL") var volume: float
+@export var viscosity: float = 0.0
 
 # Don't duplicate `data`.
 ## See [method Substance.clone]
@@ -17,6 +18,8 @@ func get_density() -> float: return density
 func get_volume() -> float: return volume
 ## See [method Substance.get_color]
 func get_color() -> Color: return color
+
+func get_viscosity() -> float: return viscosity
 
 # Only incorporate the same substance.
 ## See [method Substance.try_incorporate]
