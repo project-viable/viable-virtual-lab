@@ -17,7 +17,6 @@ func _ready() -> void:
 	if not interact_canvas_group:
 		interact_canvas_group = Util.try_get_best_selectable_canvas_group(self)
 
-
 func start_targeting(_k: InteractInfo.Kind) -> void:
 	if interact_canvas_group:
 		interact_canvas_group.is_outlined = true

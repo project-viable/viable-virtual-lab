@@ -85,8 +85,6 @@ func _process(_delta: float) -> void:
 				new_interactions.set(info.kind, InteractState.new(info, null, c))
 
 	if held_body:
-		# The currently held `LabBody` can also be interacted with (mostly to put it down),
-		var drop_info := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
 		for info in held_body.get_interactions():
 			new_interactions.set(info.kind, InteractState.new(info, null, held_body))
 
