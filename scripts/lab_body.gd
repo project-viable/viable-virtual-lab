@@ -94,14 +94,17 @@ func _physics_process(delta: float) -> void:
 	if is_active():
 		if not disable_rotate_upright and abs(global_rotation) > 0.001:
 			var is_rotating_clockwise := global_rotation < 0
-			global_rotation -= global_rotation * delta * 50
+			var new_global_rotation := global_rotation
+			new_global_rotation -= global_rotation * delta * 50
 
-			if is_rotating_clockwise: global_rotation = min(0.0, global_rotation)
-			else: global_rotation = max(0.0, global_rotation)
+			if is_rotating_clockwise: set_global_rotation_about_cursor(min(0.0, new_global_rotation))
+			else: set_global_rotation_about_cursor(max(0.0, new_global_rotation))
 
 		if not disable_follow_cursor:
 			_velocity = mouse_motion_this_tick / delta
 			move_and_slide(Cursor.clamp_relative_to_screen(mouse_motion_this_tick))
+
+		Cursor.virtual_mouse_position = get_global_hand_pos()
 
 		if interact_canvas_group:
 			Cursor.virtual_mouse_position = interact_canvas_group.to_global(_hand_offset)
@@ -198,6 +201,21 @@ func move_and_slide(motion: Vector2) -> void:
 		# Don't keep moving if we're not moving in the same direction as the original motion vector.
 		if cur_motion.dot(motion) <= 0:
 			break
+
+## If this body is currently being held, rotate it to the global angle [param angle] about the
+## point where it was grabbed.
+func set_global_rotation_about_cursor(angle: float) -> void:
+	var old_hand_pos := get_global_hand_pos()
+	global_rotation = angle
+	global_position += old_hand_pos - get_global_hand_pos()
+
+## Get the position that the hand cursor should be while holding this body, in global coordinates.
+## If this body is held, then this will be the position where it was grabbed. Otherwise, it will
+## just be its [member Node2D.global_position].
+func get_global_hand_pos() -> Vector2:
+	if not is_active(): return global_position
+	elif interact_canvas_group: return interact_canvas_group.to_global(_hand_offset)
+	else: return to_global(_offset)
 
 func _update_physics_to_mode(mode: PhysicsMode) -> void:
 	if mode == PhysicsMode.KINEMATIC:

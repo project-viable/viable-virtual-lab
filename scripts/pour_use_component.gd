@@ -37,7 +37,7 @@ func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 			if body:
 				body.disable_drop = true
 				body.disable_rotate_upright = true
-				body.global_rotation += tilt_angle
+				body.set_global_rotation_about_cursor(tilt_angle)
 			started_pouring.emit()
 
 		InteractInfo.Kind.INSPECT:
@@ -54,5 +54,5 @@ func stop_use(_area: InteractableArea, kind: InteractInfo.Kind) -> void:
 			if body:
 				body.disable_drop = false
 				body.disable_rotate_upright = false
-				body.global_rotation -= tilt_angle
+				body.set_global_rotation_about_cursor(0)
 			stopped_pouring.emit()
