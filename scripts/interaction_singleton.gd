@@ -28,27 +28,27 @@ class InteractState:
 	func start_targeting() -> void:
 		if not info: return
 		if source: source.start_targeting(target as InteractableArea, info.kind)
-		elif target is InteractableArea or target is InteractableComponent or target is LabBody or target is InteractableSystem:
+		if target is InteractableArea or target is InteractableComponent or target is LabBody or target is InteractableSystem:
 			target.start_targeting(info.kind)
 
 	func stop_targeting() -> void:
 		if not info: return
 		if source: source.stop_targeting(target as InteractableArea, info.kind)
-		elif target is InteractableArea or target is InteractableComponent or target is LabBody or target is InteractableSystem:
+		if target is InteractableArea or target is InteractableComponent or target is LabBody or target is InteractableSystem:
 			target.stop_targeting(info.kind)
 
 	func start_interact() -> void:
 		is_pressed = true
 		if not info or not info.allowed: return
 		if source: source.start_use(target as InteractableArea, info.kind)
-		elif target is InteractableArea or target is InteractableComponent or target is LabBody or target is InteractableSystem:
+		if target is InteractableArea or target is InteractableComponent or target is LabBody or target is InteractableSystem:
 			target.start_interact(info.kind)
 
 	func stop_interact() -> void:
 		is_pressed = false
 		if not info or not info.allowed: return
 		if source: source.stop_use(target as InteractableArea, info.kind)
-		elif target is InteractableArea or target is InteractableComponent or target is LabBody or target is InteractableSystem:
+		if target is InteractableArea or target is InteractableComponent or target is LabBody or target is InteractableSystem:
 			target.stop_interact(info.kind)
 
 
