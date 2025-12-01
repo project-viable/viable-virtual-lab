@@ -30,8 +30,7 @@ script = ExtResource("2_rr7fa")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="SubstanceDisplayPolygon" type="Polygon2D" parent="SelectableCanvasGroup" node_paths=PackedStringArray("source")]
-scale = Vector2(0.19, 0.19)
-polygon = PackedVector2Array(-136.842, 215.789, -115.789, 242.105, 115.789, 242.105, 136.842, 215.789, 47.3684, -78.9474, 47.3684, -252.632, -47.3684, -252.632, -47.3684, -84.2105)
+polygon = PackedVector2Array(-25.767942, 41.232254, -21.803572, 46.187668, 21.803572, 46.187668, 25.767942, 41.232254, 8.919676, -14.267899, 8.919676, -46.973465, -8.919676, -46.973465, -8.919676, -15.258963)
 script = ExtResource("3_lx5v4")
 source = NodePath("../../ContainerComponent")
 
