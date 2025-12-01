@@ -19,12 +19,12 @@ const SLOSH_PENDULUM_MOMENT_OF_INERTIA = SLOSH_PENDULUM_MASS * pow(SLOSH_PENDULU
 # We model the sloshing of the fluid as a pendulum deciding the fluid's down direction.
 var _global_gravity: Vector2
 @warning_ignore("confusable_identifier")
-var _slosh_target_θ: float
-@warning_ignore("confusable_identifier")
 var _slosh_θ: float
 # Angular velocity.
 @warning_ignore("confusable_identifier")
 var _slosh_ω: float = 0
+# To keep track of acceleration to slosh when moving.
+var _last_global_velocity: Vector2 = Vector2.ZERO
 
 var _fill_area_cache := PolygonFillAreaCache.new()
 # Transforms a local point into a space where [member _last_cached_down_dir] points in the negative
@@ -33,6 +33,7 @@ var _local_to_fill := Transform2D()
 var _last_cached_down_dir: Vector2
 @onready var _container_vertices: PackedVector2Array = polygon
 @onready var _container_tris: PackedInt32Array = Geometry2D.triangulate_polygon(_container_vertices)
+@onready var _last_global_pos := global_position
 
 
 static var _shader: Shader = preload("res://shaders/substance_polygon.gdshader")
@@ -41,8 +42,7 @@ static var _shader: Shader = preload("res://shaders/substance_polygon.gdshader")
 func _enter_tree() -> void:
 	_global_gravity = ProjectSettings.get_setting("physics/2d/default_gravity_vector")
 	_global_gravity *= ProjectSettings.get_setting("physics/2d/default_gravity")
-	_slosh_target_θ = Util.direction_to_local(self, _global_gravity).angle()
-	_slosh_θ = _slosh_target_θ
+	_slosh_θ = Util.direction_to_local(self, _global_gravity).angle()
 	_last_cached_down_dir = Vector2.from_angle(_slosh_θ)
 
 	material = ShaderMaterial.new()
@@ -61,14 +61,26 @@ func _physics_process(delta: float) -> void:
 	if is_zero_approx(total_volume): viscosity = 0
 	else: viscosity /= source.get_total_volume()
 
+	var cur_velocity := (global_position - _last_global_pos) / delta
+	# We divide the acceleration by 10 to make it a bit less reactive.
+	var acceleration := (cur_velocity - _last_global_velocity) / delta / 10
+	_last_global_velocity = cur_velocity
+	_last_global_pos = global_position
+
 	# If we just use viscosity linearly, then mid-level viscosities are barely different from low
 	# ones.
 	var angular_damp_t: float = ease(viscosity, 0.4)
 	var angular_damp: float = lerp(SLOSH_MIN_ANGULAR_DAMP, SLOSH_MAX_ANGULAR_DAMP, angular_damp_t)
 
-	_slosh_target_θ = Util.direction_to_local(self, _global_gravity).angle()
+	# The "apparent down direction" including acceleration from moving. We ignore upwards and
+	# downwards acceleration to avoid dealing with zero-acceleration situations (so we also don't
+	# properly handle freefall).
+	var apparent_gravity := _global_gravity - acceleration + acceleration.project(_global_gravity)
+
+	@warning_ignore("confusable_identifier")
+	var target_θ := Util.direction_to_local(self, apparent_gravity).angle()
 	var g := Util.direction_to_local(self, _global_gravity).length() / 1000
-	var θ := angle_difference(_slosh_target_θ, _slosh_θ)
+	var θ := angle_difference(target_θ, _slosh_θ)
 	var τ := -g * SLOSH_PENDULUM_MASS * SLOSH_PENDULUM_LENGTH * sin(θ)
 	_slosh_ω += τ / SLOSH_PENDULUM_MOMENT_OF_INERTIA * delta
 	@warning_ignore("confusable_identifier")
