@@ -105,3 +105,13 @@ static func bitwise_set(value: int, mask: int, new_value: int) -> int:
 ## down direction in [code]n[/code]'s local coordinates.
 static func direction_to_local(node: Node2D, direction: Vector2) -> Vector2:
 	return node.to_local(node.global_position + direction)
+
+## Attempt to get the best possible [SelectableCanvasGroup] to be highlighted by a component that
+## does interaction. If [param component]'s parent is a [LabBody] and its
+## [member LabBody.interact_canvas_group] is not [code]null[/code], then it will use that.
+## Otherwise, if [param component] has any siblings of type [SelectableCanvasGroup], then that will
+## be used. Otherwise, return [code]null[/code].
+static func try_get_best_selectable_canvas_group(component: Node) -> SelectableCanvasGroup:
+	var p := component.get_parent()
+	if p is LabBody and p.interact_canvas_group: return p.interact_canvas_group
+	else: return find_child_of_type(p, SelectableCanvasGroup)
