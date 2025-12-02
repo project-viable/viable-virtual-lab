@@ -51,6 +51,9 @@ func _physics_process(delta: float) -> void:
 				if s is DNASolutionSubstance:
 					s.run_voltage(voltage, delta * LabTime.time_scale, 1.0)
 
+func _process(_delta: float) -> void:
+	Game.debug_overlay.update("gel voltage", str(voltage))
+
 func num_wells() -> int: return 5
 
 ## Wells are numbered 1 to 5.
