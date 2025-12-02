@@ -6,6 +6,9 @@ extends LabBody
 @export_custom(PROPERTY_HINT_NONE, "suffix:V") var voltage: float = 0.0
 @export var gel_state: GelState
 
+var _has_wells: bool = false
+
+
 class GelConcentrationData:
 	var total_volume: float
 	var mean: float
@@ -18,7 +21,7 @@ func calculate_std(mean: float) -> float:
 				sum_of_squares += pow((s.agarose_concentration * 100) - mean, 2)
 	var variance: float = sum_of_squares / 5.0
 	return  sqrt(variance)
-	
+
 
 func get_gel_concentration() -> float:
 	var gel_data: GelConcentrationData = GelConcentrationData.new()
@@ -29,7 +32,10 @@ func get_gel_concentration() -> float:
 		gel_data.mean = gel_data.total_volume/5.0
 		gel_data.standard_deviation = calculate_std(gel_data.mean)
 	return gel_data.standard_deviation
-		
+
+func _ready() -> void:
+	super()
+	_set_subscene_has_wells(_has_wells)
 
 func _physics_process(delta: float) -> void:
 	super(delta)
@@ -65,7 +71,26 @@ func set_gel_state() -> void:
 				gel_state.well_capacities[i] = s.get_volume()
 		else:
 			continue
-		
+
 func get_gel_state() -> GelState:
 	return gel_state
-	
+
+# Comb inserted.
+func _on_attachment_interactable_area_object_placed(_b: LabBody) -> void:
+	pass # Replace with function body.
+
+# Comb removed.
+func _on_attachment_interactable_area_object_removed(_b: LabBody) -> void:
+	var s: Substance = $SubstanceDisplayPolygon.get_substance_at_global($GelTopRef.global_position)
+	_set_subscene_has_wells(s is TAEBufferSubstance and s.is_solidis_gel)
+
+func _set_subscene_has_wells(has_wells: bool) -> void:
+	_has_wells = has_wells
+
+	%SubsceneWellSprites.visible = has_wells
+	%WellBlockCollision.set_deferred("disabled", has_wells)
+
+	# Simply clear all of the wells if they're re-disabled.
+	if not has_wells:
+		for i in num_wells():
+			get_well(i + 1).substances.clear()

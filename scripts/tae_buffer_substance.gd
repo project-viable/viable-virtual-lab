@@ -16,6 +16,10 @@ const COOL_RATE: float = (100.0 - ROOM_TEMP) / COOL_TIME
 # 5 minutes to get from 20°C to 100°C.
 const MICROWAVE_TIME: float = 60.0 * 5.0
 const MICROWAVE_RATE: float = (100.0 - 20.0) / MICROWAVE_TIME
+# Maximum temperature to form a gel.
+const GEL_TEMP: float = 40.0
+# Minimum amount of agarose to form a solid gel.
+const GEL_MIN_CONCENTRATION: float = 0.005
 
 
 @export_custom(PROPERTY_HINT_NONE, "suffix:mL") var volume: float = 0.0
@@ -74,3 +78,7 @@ func process(container: ContainerComponent, delta: float) -> void:
 # Microwave for [param time] seconds.
 func microwave(time: float) -> void:
 	temperature = min(100.0, temperature + MICROWAVE_RATE * time)
+
+## True if this has enough agarose and is cool enough to be a gel that can maintain wells.
+func is_solid_gel() -> bool:
+	return temperature <= GEL_TEMP and agarose_concentration >= GEL_MIN_CONCENTRATION
