@@ -10,9 +10,15 @@ func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 		return []
 
 	if container.substances.is_empty(): 
-		return [InteractInfo.new(InteractInfo.Kind.PRIMARY, "Scoop 0.1 mL")]
+		return [
+			InteractInfo.new(InteractInfo.Kind.PRIMARY, "Scoop 0.1 mL"),
+			InteractInfo.new(InteractInfo.Kind.SECONDARY, "Scoopula is already full", false),
+		]
 	else:
-		return [InteractInfo.new(InteractInfo.Kind.SECONDARY, "Dispense 0.1 mL")]
+		return [
+			InteractInfo.new(InteractInfo.Kind.PRIMARY, "Scoopula is empty", false),
+			InteractInfo.new(InteractInfo.Kind.SECONDARY, "Dispense 0.1 mL"),
+		]
 
 func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 	if not (area is ContainerInteractableArea): return
