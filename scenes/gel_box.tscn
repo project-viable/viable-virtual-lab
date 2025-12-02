@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b4opfmf7566v4" path="res://scripts/gel_box.gd" id="1_gl61q"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_t800u"]
-[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/pour_interactable_area.gd" id="2_gl61q"]
+[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="2_gl61q"]
 [ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="2_xl5qd"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="3_8th0w"]
 [ext_resource type="Texture2D" uid="uid://diqycgd18toud" path="res://textures/lab_objects/gel_rig_empty.svg" id="3_r7so7"]
@@ -36,12 +36,12 @@ metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 [node name="FillRef" type="Node2D" parent="."]
 position = Vector2(0, -5)
 
-[node name="PourInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
+[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
 script = ExtResource("2_gl61q")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PourInteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea"]
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_qsq1u")
 

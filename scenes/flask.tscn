@@ -7,9 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://c5pkfaov7ufug" path="res://textures/lab_objects/erlenmeyer_flask.svg" id="5_6iauc"]
 [ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://scripts/pour_use_component.gd" id="6_6iauc"]
 [ext_resource type="Script" uid="uid://dx8btkgbugnyv" path="res://scripts/swirl_use_component.gd" id="8_dyohf"]
-[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/pour_interactable_area.gd" id="8_e38bm"]
+[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="8_e38bm"]
 [ext_resource type="Script" uid="uid://b6fn3sx53tn8l" path="res://scripts/focus_use_component.gd" id="9_dyohf"]
-[ext_resource type="Script" path="res://scripts/spill_component.gd" id="10_rqua0"]
+[ext_resource type="Script" uid="uid://cvhaiwlpqy14p" path="res://scripts/spill_component.gd" id="10_rqua0"]
 
 [node name="Flask" type="RigidBody2D" groups=["emptyable"]]
 collision_layer = 0
@@ -38,12 +38,12 @@ source = NodePath("../../ContainerComponent")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_6iauc")
 
-[node name="PourInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
+[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
 script = ExtResource("8_e38bm")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PourInteractableArea"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ContainerInteractableArea"]
 scale = Vector2(0.2, 0.2)
 polygon = PackedVector2Array(-53, -80, -139, 195, -139, 216, -115, 240, 115, 240, 135, 221, 142, 205, 54, -77, 52, -224, 66, -226, 62, -239, -64, -240, -65, -228, -53, -224)
 

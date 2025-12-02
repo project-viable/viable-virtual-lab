@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ca8jqw4t8cnoh" path="res://scripts/gel_mold.gd" id="1_5cofj"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_ar43o"]
 [ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://scripts/attachment_point.gd" id="2_5cofj"]
-[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/pour_interactable_area.gd" id="2_5rd3r"]
+[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="2_5rd3r"]
 [ext_resource type="Script" uid="uid://06juxjpcn4yg" path="res://scripts/gel_state.gd" id="2_yypu3"]
 [ext_resource type="Texture2D" uid="uid://b3jxeuh2e6u2y" path="res://textures/lab_objects/gel_tray_empty.svg" id="3_u177l"]
 [ext_resource type="Script" uid="uid://dewfln6yuchb6" path="res://scripts/subscene_exclusive_area.gd" id="4_of7eg"]
@@ -44,12 +44,12 @@ position = Vector2(0, 4)
 script = ExtResource("2_5cofj")
 metadata/_custom_type_script = "uid://cvvkvehovfwuy"
 
-[node name="PourInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
+[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
 script = ExtResource("2_5rd3r")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PourInteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea"]
 position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_5rd3r")
 debug_color = Color(0.970892, 0, 0.451665, 0.42)

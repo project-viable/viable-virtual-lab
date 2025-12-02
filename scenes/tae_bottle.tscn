@@ -9,8 +9,8 @@
 [ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="5_36v4v"]
 [ext_resource type="Script" uid="uid://c3xp3pqfn8ici" path="res://scripts/tae_buffer_substance.gd" id="6_jcpv6"]
 [ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://scripts/pour_use_component.gd" id="9_7vpf6"]
-[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/pour_interactable_area.gd" id="10_vo5hq"]
-[ext_resource type="Script" path="res://scripts/spill_component.gd" id="11_36v4v"]
+[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="10_vo5hq"]
+[ext_resource type="Script" uid="uid://cvhaiwlpqy14p" path="res://scripts/spill_component.gd" id="11_36v4v"]
 [ext_resource type="Script" uid="uid://tqglxdgoq1xk" path="res://scripts/exclusive_area_2d.gd" id="12_asuie"]
 [ext_resource type="Script" uid="uid://qeafyaxecqnu" path="res://scripts/substance_access_area.gd" id="13_rv0w3"]
 
@@ -131,12 +131,12 @@ script = ExtResource("9_7vpf6")
 spill_component = NodePath("../SpillComponent")
 metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
 
-[node name="PourInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
+[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
 script = ExtResource("10_vo5hq")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PourInteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea"]
 shape = SubResource("RectangleShape2D_rqhjd")
 
 [node name="SpillComponent" type="Node2D" parent="." node_paths=PackedStringArray("substance_display_polygon")]

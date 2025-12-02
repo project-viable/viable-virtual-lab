@@ -5,9 +5,9 @@
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_8riox"]
 [ext_resource type="Texture2D" uid="uid://dn3h2fdnrisw6" path="res://textures/lab_objects/graduated_cylinder.svg" id="4_5k7v7"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="6_g55fx"]
-[ext_resource type="Script" path="res://scripts/spill_component.gd" id="7_c1gkm"]
+[ext_resource type="Script" uid="uid://cvhaiwlpqy14p" path="res://scripts/spill_component.gd" id="7_c1gkm"]
 [ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://scripts/pour_use_component.gd" id="7_xrcvl"]
-[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/pour_interactable_area.gd" id="8_dw6my"]
+[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="8_dw6my"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ufkpi"]
 size = Vector2(26, 171)
@@ -39,12 +39,12 @@ script = ExtResource("6_g55fx")
 container_volume = 100.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
-[node name="PourInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
+[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
 script = ExtResource("8_dw6my")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PourInteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea"]
 position = Vector2(0, 14.5)
 shape = SubResource("RectangleShape2D_ufkpi")
 

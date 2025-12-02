@@ -1,6 +1,12 @@
 extends InteractableArea
-class_name PourInteractableArea
-## Should be attached to objects that can have something be poured into it.
+class_name ContainerInteractableArea
+## Provides access to a [ContainerComponent], allowing [UseComponent]s to add or take substances.
+##
+## Generally speaking, a [ContainerInteractableArea] should be put into groups to specify what
+## operations can be performed on it. For example, it should be put into the
+## [code]container:pour[/code] group if it can be poured into, and it should be put into the
+## [code]container:scoop[/code] group if it can be poured into and scooped from using the scoopula.
+
 
 ## An object may have multiple ContainerComponents that should not be poured into.
 ## For example, a gel well. This allows you to specifically choose which [ContainerComponent]
