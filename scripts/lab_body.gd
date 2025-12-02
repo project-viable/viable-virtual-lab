@@ -129,13 +129,16 @@ func get_interactions() -> Array[InteractInfo]:
 		return [_pick_up_interaction]
 
 func start_targeting(_k: InteractInfo.Kind) -> void:
-	if not is_active() and interact_canvas_group:
-		interact_canvas_group.is_outlined = true
+	if not is_active():
+		if interact_canvas_group: interact_canvas_group.is_outlined = true
 		Cursor.mode = Cursor.Mode.OPEN
 
 func stop_targeting(_kind: InteractInfo.Kind) -> void:
-	if interact_canvas_group:
-		interact_canvas_group.is_outlined = false
+	# We want to stop highlighting if we moved the mouse off of the object *or* if we picked it up
+	# (and therefore stopped targeting the "pick up" interaction in favor of the "put down"
+	# interaction).
+	if interact_canvas_group: interact_canvas_group.is_outlined = false
+	if not is_active():
 		Cursor.mode = Cursor.Mode.POINTER
 
 func start_interact(_kind: InteractInfo.Kind) -> void:
