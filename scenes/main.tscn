@@ -200,6 +200,7 @@ offset_right = -100.0
 offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("11_gqmmt")
 columns = 4
 script = ExtResource("12_yc10j")
