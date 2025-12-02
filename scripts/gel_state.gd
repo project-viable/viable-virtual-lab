@@ -12,7 +12,7 @@ extends Resource
 @export_custom(PROPERTY_HINT_NONE, "suffix:%") var gel_concentration: float = 0.0 ## incorrect concentration (in percentage) will result in diffused bands
 @export var gel_analysis_asap: bool = false ## gel not put in the imager right after electropohresis results in diffused bands
 @export var correct_gel_temperature: bool = false ## incorrect gel temperature (not between 50-70 deg C) results in smeared bands
-@export var correct_comb_placement: bool = true ## incorrect gel comb placement or damaged wells results in smiley/wavy bands or
+@export var correct_comb_placement: bool = false ## incorrect gel comb placement or damaged wells results in smiley/wavy bands or
 									## dna remainig in the wells
 @export var correct_gel_mixing: bool = false ## inconsistent gel density (not mixed well) resuls in smiley/wavy bands
 @export_custom(PROPERTY_HINT_NONE, "suffix:min") var voltage_run_time: float = 0.0 ## in mintues if the voltage is run for too long or not long enough this will

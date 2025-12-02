@@ -8,17 +8,21 @@ func _draw() -> void:
 		var gel := $AttachmentInteractableArea.contained_object as GelMold
 		if not gel or not _is_light_on: return
 		gel.set_gel_state()
-		for i:int in gel.num_wells():
-			var well_sprite := _get_well_sprite(i + 1)
-			var well: ContainerComponent = gel.get_well(i + 1)
-			if not well or not well_sprite: continue
-			well_sprite.show()
-			for s in well.substances:
-				if s is DNASolutionSubstance:
-					# 130 / 0.45 is about the distance in local sprite coordinates to the end of the
-					analyze_gel_state(gel, well, i)
-					var pos: Vector2 = Vector2.DOWN * s.position * 130.0 / 0.45
-					band_texture.draw(well_sprite.get_canvas_item(), pos)
+		if gel.gel_state.correct_comb_placement == false:
+			if Engine.get_physics_frames() % 60 == 0:
+					print("Comb placement was incorrect. Gel sprite will be blank")
+		else:
+			for i:int in gel.num_wells():
+				var well_sprite := _get_well_sprite(i + 1)
+				var well: ContainerComponent = gel.get_well(i + 1)
+				if not well or not well_sprite: continue
+				well_sprite.show()
+				for s in well.substances:
+					if s is DNASolutionSubstance:
+						# 130 / 0.45 is about the distance in local sprite coordinates to the end of the
+						analyze_gel_state(gel, well, i)
+						var pos: Vector2 = Vector2.DOWN * s.position * 130.0 / 0.45
+						band_texture.draw(well_sprite.get_canvas_item(), pos)
 	else:
 		$AttachmentInteractableArea.remove_object()
 		$AttachmentInteractableArea.contained_object = null
@@ -54,6 +58,7 @@ func analyze_gel_state(gel: GelMold, well: ContainerComponent, i: int) -> void:
 				if Engine.get_physics_frames() % 60 == 0:
 					print("well %s capacity not full enough gel sprite will be blank" % [i+1])
 				continue
+			
 			#Perfect results
 			elif (gel.gel_state.gel_concentration >= 0.5 and  gel.gel_state.gel_concentration < 0.6)  and (fragment >= 2.0 and fragment <=30.0) and (gel.gel_state.well_capacities[i] >=gel.gel_state.well_max_capacity/2.0 and gel.gel_state.well_capacities[i] <= gel.gel_state.well_max_capacity) and (((gel.gel_state.voltage_run_time/60.0) >= 20.0) and ((gel.gel_state.voltage_run_time/60.0) <21.0)) and gel.gel_state.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_state.gel_analysis_asap == true and gel.gel_state.voltage == 120:
 				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg")
