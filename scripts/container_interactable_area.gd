@@ -18,15 +18,22 @@ class_name ContainerInteractableArea
 @export var interact_canvas_group: SelectableCanvasGroup
 
 
+# We might get targeted both by a primary and secondary (for scooping and pouring), so we only
+# stop highlighting once we're not targeted at all.
+var _num_targets: int = 0
+
+
 func _ready() -> void:
 	super()
 	if not interact_canvas_group:
 		interact_canvas_group = Util.try_get_best_selectable_canvas_group(self)
 
-func start_targeting(k: InteractInfo.Kind) -> void:
-	if k == InteractInfo.Kind.SECONDARY and interact_canvas_group:
+func start_targeting(_k: InteractInfo.Kind) -> void:
+	_num_targets += 1
+	if interact_canvas_group and _num_targets == 1:
 		interact_canvas_group.is_outlined = true
 
-func stop_targeting(k: InteractInfo.Kind) -> void:
-	if k == InteractInfo.Kind.SECONDARY and interact_canvas_group:
+func stop_targeting(_k: InteractInfo.Kind) -> void:
+	_num_targets -= 1
+	if interact_canvas_group and _num_targets == 0:
 		interact_canvas_group.is_outlined = false

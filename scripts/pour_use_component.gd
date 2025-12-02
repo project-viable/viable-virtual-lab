@@ -22,7 +22,9 @@ func _enter_tree() -> void:
 func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 	var results: Array[InteractInfo] = []
 
-	if area is ContainerInteractableArea and area.container_component and spill_component:
+	if area is ContainerInteractableArea \
+			and area.is_in_group(&"container:pour") \
+			and area.container_component and spill_component:
 		results.push_back(InteractInfo.new(InteractInfo.Kind.SECONDARY, "(hold) Pour"))
 
 	if results and not Game.main.get_camera_focus_owner():

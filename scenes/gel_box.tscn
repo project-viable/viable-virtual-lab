@@ -36,7 +36,7 @@ metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 [node name="FillRef" type="Node2D" parent="."]
 position = Vector2(0, -5)
 
-[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
+[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour"]]
 script = ExtResource("2_gl61q")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"

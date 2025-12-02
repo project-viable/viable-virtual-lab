@@ -38,7 +38,7 @@ source = NodePath("../../ContainerComponent")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_6iauc")
 
-[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
+[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour"]]
 script = ExtResource("8_e38bm")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
@@ -69,4 +69,3 @@ metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
 position = Vector2(-8, -47)
 script = ExtResource("10_rqua0")
 substance_display_polygon = NodePath("../SelectableCanvasGroup/SubstanceDisplayPolygon")
-spill_rate = 10.0

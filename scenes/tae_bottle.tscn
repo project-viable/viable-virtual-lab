@@ -28,6 +28,21 @@ size = Vector2(16.5, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_751b4"]
 size = Vector2(50, 94)
 
+[sub_resource type="Animation" id="Animation_rv0w3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SelectableCanvasGroup/TeaBuffer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_asuie"]
 resource_name = "fade_front"
 length = 0.5
@@ -54,21 +69,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_rv0w3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SelectableCanvasGroup/TeaBuffer:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_751b4"]
@@ -131,7 +131,7 @@ script = ExtResource("9_7vpf6")
 spill_component = NodePath("../SpillComponent")
 metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
 
-[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
+[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour"]]
 script = ExtResource("10_vo5hq")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
@@ -143,7 +143,6 @@ shape = SubResource("RectangleShape2D_rqhjd")
 position = Vector2(-10, -29)
 script = ExtResource("11_36v4v")
 substance_display_polygon = NodePath("../SelectableCanvasGroup/SubstanceDisplayPolygon")
-spill_rate = 10.0
 
 [node name="ExclusiveArea2D" type="Area2D" parent="." groups=["exclusive_area:pipette"]]
 script = ExtResource("12_asuie")

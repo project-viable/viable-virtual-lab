@@ -39,7 +39,7 @@ script = ExtResource("6_g55fx")
 container_volume = 100.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
-[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component")]
+[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour"]]
 script = ExtResource("8_dw6my")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
@@ -52,7 +52,6 @@ shape = SubResource("RectangleShape2D_ufkpi")
 position = Vector2(-11, -71)
 script = ExtResource("7_c1gkm")
 substance_display_polygon = NodePath("../SubstanceDisplayPolygon")
-spill_rate = 10.0
 
 [node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("spill_component")]
 script = ExtResource("7_xrcvl")
