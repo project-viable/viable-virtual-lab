@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="4_epgyh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epgyh"]
-size = Vector2(27, 100)
+size = Vector2(80, 26.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4aecl"]
 size = Vector2(27, 80)
@@ -16,13 +16,14 @@ script = ExtResource("1_4aecl")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="AttachmentInteractableArea" type="Area2D" parent="."]
-position = Vector2(7.5, 50)
+position = Vector2(7, 53)
+rotation = -1.5707964
 script = ExtResource("4_epgyh")
-body_groups = Array[StringName]([&"attachment:scoopula"])
+point_groups = Array[StringName]([&"attachment:scoopula"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
-position = Vector2(0, -44)
+position = Vector2(37, 1.0000018)
 shape = SubResource("RectangleShape2D_epgyh")
 debug_color = Color(0.921745, 5.49653e-05, 0.690079, 0.42)
 
