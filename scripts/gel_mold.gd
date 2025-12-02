@@ -82,7 +82,7 @@ func _on_attachment_interactable_area_object_placed(_b: LabBody) -> void:
 # Comb removed.
 func _on_attachment_interactable_area_object_removed(_b: LabBody) -> void:
 	var s: Substance = $SubstanceDisplayPolygon.get_substance_at_global($GelTopRef.global_position)
-	_set_subscene_has_wells(s is TAEBufferSubstance and s.is_solidis_gel)
+	_set_subscene_has_wells(s is TAEBufferSubstance and s.is_solid_gel())
 
 func _set_subscene_has_wells(has_wells: bool) -> void:
 	_has_wells = has_wells
