@@ -7,7 +7,6 @@ const MAIN_SECTION_NAME: String = "config"
 
 var mouse_camera_drag: bool = true
 var object_tooltips: bool = true
-var show_fps: bool = false
 var popup_timeout: float = 2.0
 var resolution: Vector2i = Vector2i(1280, 720)
 
@@ -17,7 +16,6 @@ var resolution: Vector2i = Vector2i(1280, 720)
 var _saved_properties: Array[StringName] = [
 	&"mouse_camera_drag",
 	&"object_tooltips",
-	&"show_fps",
 	&"popup_timeout",
 	&"resolution",
 ]

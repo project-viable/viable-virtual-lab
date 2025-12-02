@@ -111,8 +111,6 @@ func _ready() -> void:
 
 		idx += 1
 
-	%FPSLabel.visible = GameSettings.show_fps
-
 	# The zoom prompt is at the top always.
 	_interact_kind_prompts[InteractInfo.Kind.INSPECT] = %ZoomOutPrompt
 
@@ -158,7 +156,6 @@ func _process(delta: float) -> void:
 				prompt.description = state.info.description
 				prompt.pressed = state.is_pressed
 
-	%FPSLabel.text = str(Engine.get_frames_per_second())
 	Game.debug_overlay.update("FPS", str(Engine.get_frames_per_second()))
 
 	%LeftWorkspacePrompt.visible = _current_workspace and not _camera_focus_owner
@@ -485,10 +482,6 @@ func _on_cursor_area_body_entered(body: Node2D) -> void:
 
 func _on_cursor_area_body_exited(body: Node2D) -> void:
 	if body is LabBody: body.is_moused_over = false
-
-func _on_show_fps_toggled(toggled_on: bool) -> void:
-	GameSettings.show_fps = toggled_on
-	%FPSLabel.visible = toggled_on
 
 func _on_interactable_system_pressed_left() -> void:
 	if _current_workspace and _current_workspace.left_workspace and not _camera_focus_owner:
