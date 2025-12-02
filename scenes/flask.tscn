@@ -18,7 +18,7 @@ metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("2_6iauc")
-container_volume = 50.0
+container_volume = 350.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
