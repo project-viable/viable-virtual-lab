@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cys6ccja2bnxo"]
+[gd_scene load_steps=22 format=3 uid="uid://cys6ccja2bnxo"]
 
 [ext_resource type="Script" uid="uid://ca8jqw4t8cnoh" path="res://scripts/gel_mold.gd" id="1_5cofj"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_ar43o"]
@@ -13,22 +13,26 @@
 [ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="7_mu26n"]
 [ext_resource type="Script" uid="uid://qeafyaxecqnu" path="res://scripts/substance_access_area.gd" id="8_ljbi8"]
 [ext_resource type="Script" uid="uid://b5a5765epdkf" path="res://scripts/subscene_camera.gd" id="9_xo6pi"]
+[ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="10_xir2l"]
 
 [sub_resource type="Resource" id="Resource_yypu3"]
 script = ExtResource("2_yypu3")
 metadata/_custom_type_script = "uid://06juxjpcn4yg"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5rd3r"]
-size = Vector2(74, 26)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_of7eg"]
 size = Vector2(74, 25.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5rd3r"]
+size = Vector2(74, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0cqv1"]
 size = Vector2(74, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u177l"]
 size = Vector2(59, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mobf"]
+size = Vector2(74, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5cofj"]
 size = Vector2(67, 27)
@@ -38,6 +42,10 @@ collision_layer = 0
 script = ExtResource("1_5cofj")
 gel_state = SubResource("Resource_yypu3")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8.875)
+shape = SubResource("RectangleShape2D_of7eg")
 
 [node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:gel_mold"]]
 position = Vector2(0, 4)
@@ -68,10 +76,6 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_u177l")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8.875)
-shape = SubResource("RectangleShape2D_of7eg")
-
 [node name="SubsceneExclusiveArea" type="Area2D" parent="." node_paths=PackedStringArray("camera", "entry_node") groups=["exclusive_area:pipette"]]
 script = ExtResource("4_of7eg")
 camera = NodePath("../Subscene/SubsceneCamera")
@@ -93,6 +97,17 @@ debug_color = Color(0.553104, 0.562669, 3.85046e-07, 0.42)
 script = ExtResource("5_pmlyu")
 container_volume = 100.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+
+[node name="AttachmentInteractableArea" type="Area2D" parent="."]
+position = Vector2(0, -9)
+script = ExtResource("10_xir2l")
+place_prompt = "Insert comb"
+point_groups = Array[StringName]([&"attachment:gel_comb"])
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
+shape = SubResource("RectangleShape2D_2mobf")
+debug_color = Color(0.5893958, 0.54847246, 0, 0.41960785)
 
 [node name="Subscene" type="ReferenceRect" parent="."]
 top_level = true

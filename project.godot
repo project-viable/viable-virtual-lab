@@ -55,6 +55,7 @@ zoom:scale=""
 zoom:power_supply=""
 container:pour="This container can be poured into"
 container:scoop="This container can be scooped from and to using the scoopula"
+attachment:gel_comb=""
 
 [gui]
 

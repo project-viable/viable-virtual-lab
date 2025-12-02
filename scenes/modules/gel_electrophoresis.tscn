@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=42 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://byucr1dj248ga" path="res://textures/environment/wall.svg" id="1_5fdni"]
 [ext_resource type="Texture2D" uid="uid://b0t52m7oh3lrt" path="res://textures/environment/white.svg" id="2_7cn0u"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" uid="uid://6lhyc3i5obbu" path="res://scripts/dna_solution_substance.gd" id="25_2kbga"]
 [ext_resource type="Script" uid="uid://f3pegl6tyuqt" path="res://scripts/workspace_camera.gd" id="25_5fdni"]
 [ext_resource type="Texture2D" uid="uid://brx5qwivdoj2a" path="res://textures/environment/black.svg" id="26_w0rbf"]
+[ext_resource type="PackedScene" uid="uid://cj0ivwgwls2pt" path="res://scenes/gel_comb.tscn" id="30_bi4rt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7cn0u"]
 size = Vector2(12495, 590)
@@ -311,6 +312,9 @@ texture = ExtResource("22_kobiv")
 [node name="BlackContactWire2" parent="Objects/ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
 position = Vector2(718, 479)
 texture = ExtResource("22_kobiv")
+
+[node name="GelComb" parent="Objects" instance=ExtResource("30_bi4rt")]
+position = Vector2(1723, 487)
 
 [editable path="Objects/Flask"]
 [editable path="Objects/Flask2"]
