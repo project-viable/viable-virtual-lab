@@ -124,13 +124,6 @@ shape = SubResource("RectangleShape2D_xl5qd")
 position = Vector2(41, -5)
 shape = SubResource("RectangleShape2D_xl5qd")
 
-[node name="Seal Button" type="Button" parent="."]
-z_index = 2
-offset_left = -44.0
-offset_top = -14.0
-offset_right = -36.0
-offset_bottom = -6.0
-
 [connection signal="object_placed" from="PositiveAttachmentInteractableArea" to="PositiveAttachmentInteractableArea" method="_on_object_placed"]
 [connection signal="object_removed" from="PositiveAttachmentInteractableArea" to="WireConnectableComponent" method="unplug_handler"]
 [connection signal="wire_connected" from="PositiveAttachmentInteractableArea" to="WireConnectableComponent" method="on_wire_connected"]
@@ -139,4 +132,3 @@ offset_bottom = -6.0
 [connection signal="wire_connected" from="NegativeAttachmentInteractableArea2" to="WireConnectableComponent" method="on_wire_connected"]
 [connection signal="object_placed" from="MoldAttachment" to="." method="_on_mold_attachment_object_placed"]
 [connection signal="object_removed" from="MoldAttachment" to="." method="_on_mold_attachment_object_removed"]
-[connection signal="pressed" from="Seal Button" to="." method="_on_seal_button_pressed"]

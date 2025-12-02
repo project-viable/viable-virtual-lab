@@ -5,10 +5,9 @@ extends LabBody
 ## Voltage, where positive is down the gel.
 @export_custom(PROPERTY_HINT_NONE, "suffix:V") var voltage: float = 0.0
 @export var gel_state: GelState
-@export var _is_gel_mold_sealed:= false
 
 var _has_wells: bool = false
-var _is_comb_placed: bool = false
+var comb_placed: bool = false
 
 
 class GelConcentrationData:
@@ -44,11 +43,16 @@ func _physics_process(delta: float) -> void:
 	if voltage > 0:
 		gel_state.voltage = voltage
 		gel_state.voltage_run_time += delta * LabTime.time_scale
-		
-	for i in 5:
-		for s in get_well(i + 1).substances:
-			if s is DNASolutionSubstance:
-				s.run_voltage(voltage, delta * LabTime.time_scale, 1.0)
+	
+	if $AttachmentInteractableArea.contained_object != null:
+		gel_state.correct_comb_placement = true
+		comb_placed = true
+		if Engine.get_physics_frames() % 60 == 0:
+					print("gel comb attatched")
+		for i in 5:
+			for s in get_well(i + 1).substances:
+				if s is DNASolutionSubstance:
+					s.run_voltage(voltage, delta * LabTime.time_scale, 1.0)
 
 func num_wells() -> int: return 5
 
@@ -62,6 +66,7 @@ func set_gel_state() -> void:
 		gel_state.correct_gel_mixing = true
 	else:
 		gel_state.correct_gel_mixing = false
+	gel_state.correct_comb_placement = comb_placed
 	for i in 5:
 		if get_well(i + 1).substances != null:
 			for s in get_well(i + 1).substances:
@@ -80,8 +85,7 @@ func get_gel_state() -> GelState:
 
 # Comb inserted.
 func _on_attachment_interactable_area_object_placed(_b: LabBody) -> void:
-	_is_comb_placed = true
-	gel_state.correct_comb_placement = _is_comb_placed
+	pass # Replace with function body.
 
 # Comb removed.
 func _on_attachment_interactable_area_object_removed(_b: LabBody) -> void:
