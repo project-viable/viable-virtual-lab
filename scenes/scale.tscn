@@ -1,14 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://gfmuo2b5e2b5"]
+[gd_scene load_steps=9 format=3 uid="uid://gfmuo2b5e2b5"]
 
-[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_ssuie"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_ceiaq"]
 [ext_resource type="Texture2D" uid="uid://ceb3fqgxtqtqf" path="res://textures/lab_objects/scale.svg" id="4_ssuie"]
 [ext_resource type="Script" uid="uid://ceswiywyrstxd" path="res://scripts/scale_interactable_area.gd" id="5_7y61a"]
 [ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="5_ssuie"]
 [ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://textures/icons_and_buttons/button_2.svg" id="7_vhatv"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssuie"]
-size = Vector2(125, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vhatv"]
 size = Vector2(102, 5)
@@ -19,14 +15,7 @@ size = Vector2(102, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7y61a"]
 size = Vector2(95, 25)
 
-[node name="Scale" type="RigidBody2D"]
-position = Vector2(981, 281)
-script = ExtResource("1_ssuie")
-metadata/_custom_type_script = "uid://b4dann3kdfg3k"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -2)
-shape = SubResource("RectangleShape2D_ssuie")
+[node name="Scale" type="Node2D"]
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("2_ceiaq")
@@ -48,7 +37,7 @@ debug_color = Color(0.404972, 0.46678, 1, 0.42)
 
 [node name="InteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("body", "camera")]
 script = ExtResource("5_7y61a")
-body = NodePath("..")
+body = NodePath("")
 camera = NodePath("../ZoomCamera")
 metadata/_custom_type_script = "uid://8jbti40eodk6"
 
