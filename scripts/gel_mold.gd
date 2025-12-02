@@ -43,10 +43,7 @@ func _physics_process(delta: float) -> void:
 	if voltage > 0:
 		gel_state.voltage = voltage
 		gel_state.voltage_run_time += delta * LabTime.time_scale
-	
-	if $AttachmentInteractableArea.contained_object != null:
-		gel_state.correct_comb_placement = true
-		comb_placed = true
+		
 		if Engine.get_physics_frames() % 60 == 0:
 					print("gel comb attatched")
 		for i in 5:
@@ -85,7 +82,7 @@ func get_gel_state() -> GelState:
 
 # Comb inserted.
 func _on_attachment_interactable_area_object_placed(_b: LabBody) -> void:
-	pass # Replace with function body.
+	comb_placed = true
 
 # Comb removed.
 func _on_attachment_interactable_area_object_removed(_b: LabBody) -> void:
