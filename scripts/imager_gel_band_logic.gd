@@ -11,6 +11,9 @@ func _draw() -> void:
 		if gel.gel_state.correct_comb_placement == false:
 			if Engine.get_physics_frames() % 60 == 0:
 					print("Comb placement was incorrect. Gel sprite will be blank")
+		elif gel._is_gel_mold_sealed == false:
+			if Engine.get_physics_frames() % 120 == 0:
+						print("gel was not sealed and leaked everywhere. gel sprite will be blank")
 		else:
 			for i:int in gel.num_wells():
 				var well_sprite := _get_well_sprite(i + 1)
@@ -56,9 +59,8 @@ func analyze_gel_state(gel: GelMold, well: ContainerComponent, i: int) -> void:
 			#Conditions for singular well invisible gel bands
 			if gel.gel_state.well_capacities[i] <= (gel.gel_state.well_max_capacity/2.0):
 				if Engine.get_physics_frames() % 60 == 0:
-					print("well %s capacity not full enough gel sprite will be blank" % [i+1])
+					print("well %s capacity not full enough. gel sprite will be blank" % [i+1])
 				continue
-			
 			#Perfect results
 			elif (gel.gel_state.gel_concentration >= 0.5 and  gel.gel_state.gel_concentration < 0.6)  and (fragment >= 2.0 and fragment <=30.0) and (gel.gel_state.well_capacities[i] >=gel.gel_state.well_max_capacity/2.0 and gel.gel_state.well_capacities[i] <= gel.gel_state.well_max_capacity) and (((gel.gel_state.voltage_run_time/60.0) >= 20.0) and ((gel.gel_state.voltage_run_time/60.0) <21.0)) and gel.gel_state.correct_comb_placement == true and gel.correct_gel_mixing == true and gel.correct_gel_temperature == true and gel.gel_state.gel_analysis_asap == true and gel.gel_state.voltage == 120:
 				band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg")

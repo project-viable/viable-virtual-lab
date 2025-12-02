@@ -19,3 +19,7 @@ func _on_mold_attachment_object_placed(body: LabBody) -> void:
 
 func _on_mold_attachment_object_removed(body: LabBody) -> void:
 	if body is GelMold: body.voltage = 0
+
+func _on_seal_button_pressed() -> void:
+	var gel := $MoldAttachment.contained_object as GelMold
+	gel._is_gel_mold_sealed = not gel._is_gel_mold_sealed
