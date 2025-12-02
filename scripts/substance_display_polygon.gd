@@ -130,7 +130,7 @@ func get_substance_at(pos: Vector2) -> Substance:
 	for s in source.substances:
 		cur_volume += s.get_volume()
 		if cur_volume >= volume: return s
-	
+
 	return null
 
 ## Convenience function. Same as [method get_substance_at], but takes a position in global

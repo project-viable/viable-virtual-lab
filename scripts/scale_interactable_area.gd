@@ -8,7 +8,7 @@ var current_weight: float = 0.0 #in terms of grams
 
 
 func _physics_process(_delta: float) -> void:
-	## The scale will constantly be waiting to update the display of grams 
+	## The scale will constantly be waiting to update the display of grams
 	current_weight = 0.0
 	for body:LabBody in get_parent().find_child("InteractableArea").get_overlapping_bodies():
 		# Don't weigh objects unless they are affected by gravity.

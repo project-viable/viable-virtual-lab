@@ -110,7 +110,7 @@ func _physics_process(delta: float) -> void:
 			Cursor.virtual_mouse_position = interact_canvas_group.to_global(_hand_offset)
 		else:
 			Cursor.virtual_mouse_position = to_global(_offset)
-	
+
 	if physics_mode == PhysicsMode.FALLING_THROUGH_SHELVES:
 		var old_mask := collision_mask
 		# Only test collision with shelves.
