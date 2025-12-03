@@ -43,9 +43,7 @@ func _physics_process(delta: float) -> void:
 	if voltage > 0:
 		gel_state.voltage = voltage
 		gel_state.voltage_run_time += delta * LabTime.time_scale
-		
-		if Engine.get_physics_frames() % 60 == 0:
-					print("gel comb attatched")
+
 		for i in 5:
 			for s in get_well(i + 1).substances:
 				if s is DNASolutionSubstance:
@@ -53,6 +51,7 @@ func _physics_process(delta: float) -> void:
 
 func _process(_delta: float) -> void:
 	Game.debug_overlay.update("gel voltage", str(voltage))
+	Game.debug_overlay.update("gel comb attached", str($AttachmentInteractableArea.contained_object != null))
 
 func num_wells() -> int: return 5
 
