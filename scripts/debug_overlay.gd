@@ -21,3 +21,4 @@ func update(key: String, value: String) -> void:
 		add_child(label)
 
 	label.text = "%s: %s" % [key, value]
+	label.set_autowrap_mode(TextServer.AUTOWRAP_WORD_SMART)
