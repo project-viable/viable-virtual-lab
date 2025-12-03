@@ -592,10 +592,6 @@ text = "Enable Dragging Camera3D with Mouse"
 layout_mode = 2
 text = "Object Tooltips"
 
-[node name="ShowFPS" type="CheckButton" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
-layout_mode = 2
-text = "Show Framerate"
-
 [node name="PopupDuration" type="HSplitContainer" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
 layout_mode = 2
 
@@ -921,7 +917,6 @@ auto_update_pressed = true
 [connection signal="pressed" from="Menu/MenuScreens/AboutScreen/VBoxContainer/CloseButton" to="." method="_on_About_CloseButton_pressed"]
 [connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/MouseDragToggle" to="." method="_on_MouseDragToggle_toggled"]
 [connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/ObjectTooltipsToggle" to="." method="_on_ObjectTooltipsToggle_toggled"]
-[connection signal="toggled" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/ShowFPS" to="." method="_on_show_fps_toggled"]
 [connection signal="value_changed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="." method="_on_PopupTimeout_value_changed"]
 [connection signal="item_selected" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/Resolution/ResolutionDropdown" to="." method="_on_resolution_dropdown_item_selected"]
 [connection signal="pressed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]
