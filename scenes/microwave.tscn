@@ -43,7 +43,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.5),
-"transitions": PackedFloat32Array(1, 1e+06, 1, 1),
+"transitions": PackedFloat32Array(1, 1000000, 1, 1),
 "update": 0,
 "values": [Color(0.66921, 0.148082, 0.160623, 1), Color(0, 0, 0, 1), Color(0.670588, 0.14902, 0.160784, 1), Color(0, 0, 0, 1)]
 }
@@ -84,27 +84,6 @@ unique_name_in_owner = true
 visible = false
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("5_grr38")
-
-[node name="StopButton" type="TextureButton" parent="."]
-self_modulate = Color(1, 0.203922, 0.203922, 1)
-z_index = 10
-z_as_relative = false
-offset_left = 83.0
-offset_top = 34.0
-offset_right = 1107.0
-offset_bottom = 802.0
-scale = Vector2(0.0332971, 0.0332971)
-texture_normal = ExtResource("5_caubw")
-
-[node name="Label" type="Label" parent="StopButton"]
-layout_mode = 0
-offset_left = 192.0
-offset_top = 256.0
-offset_right = 236.0
-offset_bottom = 275.0
-scale = Vector2(14.4149, 14.4149)
-text = "Stop"
-horizontal_alignment = 1
 
 [node name="TimerLabel" type="Label" parent="."]
 modulate = Color(0, 0, 0, 1)
@@ -273,20 +252,22 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "9"
 horizontal_alignment = 1
 
-[node name="Clear" type="TextureButton" parent="Keypad"]
-self_modulate = Color(0.686275, 0.686275, 0.686275, 1)
-custom_minimum_size = Vector2(43, 0)
+[node name="CancelButton" type="TextureButton" parent="Keypad"]
+self_modulate = Color(1, 0.203922, 0.203922, 1)
+z_index = 10
+z_as_relative = false
 layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
-[node name="Label" type="Label" parent="Keypad/Clear"]
+[node name="Label" type="Label" parent="Keypad/CancelButton"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 256.0
 offset_right = 236.0
 offset_bottom = 275.0
 scale = Vector2(14.4149, 14.4149)
-text = "Clear"
+theme_override_font_sizes/font_size = 14
+text = "Cancel"
 horizontal_alignment = 1
 
 [node name="Button0" type="TextureButton" parent="Keypad"]
@@ -321,11 +302,13 @@ offset_top = 256.0
 offset_right = 236.0
 offset_bottom = 275.0
 scale = Vector2(14.4149, 14.4149)
+theme_override_font_sizes/font_size = 12
 text = "Start"
 horizontal_alignment = 1
 
 [node name="MicrowaveTimer" type="Node" parent="."]
 script = ExtResource("5_8bw4g")
+one_shot = true
 metadata/_custom_type_script = "uid://bk0s8v1tcwcmr"
 
 [node name="ZoomCamera" type="Camera2D" parent="."]
@@ -370,7 +353,6 @@ libraries = {
 }
 
 [connection signal="pressed" from="DoorSelectable" to="." method="_on_door_selectable_pressed"]
-[connection signal="pressed" from="StopButton" to="." method="_on_microwave_stopped"]
 [connection signal="timeout" from="MicrowaveTimer" to="." method="_on_microwave_timer_timeout"]
 [connection signal="zoomed_in" from="ZoomSelectableArea" to="." method="_on_zoom_selectable_area_zoomed_in"]
 [connection signal="zoomed_out" from="ZoomSelectableArea" to="." method="_on_zoom_selectable_area_zoomed_out"]

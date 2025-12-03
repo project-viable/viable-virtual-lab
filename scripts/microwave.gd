@@ -1,10 +1,8 @@
 extends Node2D
 
 
+var _is_typing_input: bool = false
 var _input_time: int = 0
-var _is_microwaving: bool = false
-var _total_seconds_left: int = 0
-var _total_seconds: int = 0
 var _is_door_open: bool = false
 
 
@@ -17,6 +15,25 @@ func _ready() -> void:
 
 	_update_door()
 
+func _process(_delta: float) -> void:
+	if not _is_typing_input:
+		var seconds_left := int(max($MicrowaveTimer.time_left, 0))
+		# Convert seconds to minutes and seconds
+		var minutes: int = seconds_left / 60
+		var seconds: int = seconds_left % 60
+
+		update_timer_display(minutes, seconds)
+
+func _physics_process(delta: float) -> void:
+	var obj: LabBody = %ObjectContainmentInteractableArea.contained_object
+	if obj and _is_microwaving():
+		var container_to_heat := find_container(obj)
+		if container_to_heat:
+			for s in container_to_heat.substances:
+				# TODO: Make this not hard-coded.
+				if s is TAEBufferSubstance:
+					s.microwave(delta * LabTime.time_scale)
+
 func find_container(interactor: PhysicsBody2D) -> ContainerComponent:
 	# Only objects that have a `ContainerComponent` as a direct child can be microwaved. `
 	var container: ContainerComponent
@@ -28,13 +45,29 @@ func find_container(interactor: PhysicsBody2D) -> ContainerComponent:
 
 func _on_keypad_button_pressed(button_value: String) -> void:
 	match button_value:
-		"Clear":
+		"Cancel":
+			$MicrowaveTimer.stop()
+			_is_typing_input = false
 			_input_time = 0
-			$TimerLabel.text = "0:00"
+			_update_door()
 		"Start":
-			_on_start_button_pressed()
+			if not _is_door_open:
+				# If the user input is 300, it should be in the form 3:00
+				var minutes: int = _input_time / 100
+				var seconds: int = _input_time % 100
 
+				$MicrowaveTimer.start(minutes * 60 + seconds)
+
+				_is_typing_input = false
+				_input_time = 0
+			else:
+				$AnimationPlayer.stop()
+				$AnimationPlayer.play("error_flash")
+
+			_update_door()
 		_:
+			_is_typing_input = true
+
 			if str(_input_time).length() >= 4: # Keep it 4 digits max
 				return
 
@@ -44,57 +77,14 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 			var minutes: int = _input_time / 100
 			var seconds: int = _input_time % 100
 
-			_total_seconds_left = minutes * 60 + seconds
-			_total_seconds = _total_seconds_left
 			update_timer_display(minutes, seconds)
-
-## Start microwaving the object
-func _on_start_button_pressed() -> void:
-	if not _is_door_open:
-		_is_microwaving = true
-		_update_door()
-
-		$MicrowaveTimer.start()
-	else:
-		$AnimationPlayer.stop()
-		$AnimationPlayer.play("error_flash")
-
-## Triggered either by the "stop" button or the timer ran out
-func _on_microwave_stopped() -> void:
-	if _is_microwaving:
-		$MicrowaveTimer.stop()
-		_is_microwaving = false
-		_update_door()
-
-		var obj: LabBody = %ObjectContainmentInteractableArea.contained_object
-		if obj:
-			var container_to_heat := find_container(obj)
-			if container_to_heat:
-				for s in container_to_heat.substances:
-					# TODO: Make this not hard-coded.
-					if s is TAEBufferSubstance:
-						s.microwave(_total_seconds - _total_seconds_left)
-
-		# Update _total_seconds for the next "start" press if the user doesn't clear
-		_total_seconds = _total_seconds_left
 
 func update_timer_display(minutes: int, seconds: int) -> void:
 	$TimerLabel.text = "%d:%02d" % [minutes, seconds]
 
 ## Updates the TimerLabel to countdown the timer
 func _on_microwave_timer_timeout() -> void:
-	if _total_seconds_left > 0:
-		_total_seconds_left -= 1
-		_input_time -= 1
-		# Convert seconds to minutes and seconds
-		var minutes: int = _total_seconds_left / 60
-		var seconds: int = _total_seconds_left % 60
-
-		update_timer_display(minutes, seconds)
-
-	else:
-		$MicrowaveTimer.stop()
-		_on_microwave_stopped()
+	_update_door()
 
 func _update_door() -> void:
 	if _is_door_open:
@@ -108,8 +98,8 @@ func _update_door() -> void:
 		%DoorOpen.hide()
 		%DoorClosed.show()
 
-	$DoorSelectable.interact_info.allowed = not _is_microwaving
-	if _is_microwaving:
+	$DoorSelectable.interact_info.allowed = not _is_microwaving()
+	if _is_microwaving():
 		$DoorSelectable.interact_info.description = "Cannot open door while microwave is running"
 
 func _on_door_selectable_pressed() -> void:
@@ -124,3 +114,6 @@ func _on_zoom_selectable_area_zoomed_in() -> void:
 func _on_zoom_selectable_area_zoomed_out() -> void:
 	for button: TextureButton in $Keypad.get_children():
 		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+func _is_microwaving() -> bool:
+	return not $MicrowaveTimer.is_stopped()
