@@ -92,32 +92,44 @@ func _ready() -> void:
 	$Menu/LogButton/LogMenu.set_tab_icon(2, load("res://textures/old/Dot-Yellow.png"))
 	$Menu/LogButton/LogMenu.set_tab_icon(3, load("res://textures/old/Dot-Red.png"))
 
-	var max_resolution := DisplayServer.screen_get_usable_rect().size
+	# The subviewport needs to match the window size.
+	get_window().size_changed.connect(_update_viewport_to_window_size)
 
-	var idx := 0
-	var saved_resolution_index := 0
-	var first := true
+	# Only give resolution options if we can actually set the size. Otherwise, don't touch the
+	# resolution options.
+	if _can_resize_os_window():
+		get_window().unresizable = true
 
-	# Show relevant resolution options.
-	for r in _resolution_options:
-		# We always include the first resolution in the list even if it's too big to make sure we
-		# have one.
-		if first or r.x <= max_resolution.x and r.y <= max_resolution.y:
-			$%ResolutionDropdown.add_item("%s × %s" % [r.x, r.y])
-			$%ResolutionDropdown.set_item_metadata(idx, r)
-			if GameSettings.resolution == r:
-				saved_resolution_index = idx
-			first = false
+		var max_resolution := DisplayServer.screen_get_usable_rect().size
 
-		idx += 1
+		var idx := 0
+		var saved_resolution_index := 0
+		var first := true
+
+		# Show relevant resolution options.
+		for r in _resolution_options:
+			# We always include the first resolution in the list even if it's too big to make sure we
+			# have one.
+			if first or r.x <= max_resolution.x and r.y <= max_resolution.y:
+				$%ResolutionDropdown.add_item("%s × %s" % [r.x, r.y])
+				$%ResolutionDropdown.set_item_metadata(idx, r)
+				if GameSettings.resolution == r:
+					saved_resolution_index = idx
+				first = false
+
+			idx += 1
+
+		# Set the resolution to the one matching the config. If the config resolution doesn't match
+		# any of the available ones, then it will automatically choose the first option.
+		$%ResolutionDropdown.select(saved_resolution_index)
+		_on_resolution_dropdown_item_selected(saved_resolution_index)
+	else:
+		print("Not running in standalone window; disabling resizing.")
+		$%ResolutionDropdown.add_item("cannot resize")
+		_update_viewport_to_window_size()
 
 	# The zoom prompt is at the top always.
 	_interact_kind_prompts[InteractInfo.Kind.INSPECT] = %ZoomOutPrompt
-
-	# Set the resolution to the one matching the config. If the config resolution doesn't match
-	# any of the available ones, then it will automatically choose the first option.
-	$%ResolutionDropdown.select(saved_resolution_index)
-	_on_resolution_dropdown_item_selected(saved_resolution_index)
 
 	for kind: InteractInfo.Kind in InteractInfo.Kind.values():
 		# Don't make a new prompt for one already set previously (like the inspect prompt at the top
@@ -471,11 +483,22 @@ func _on_resolution_dropdown_item_selected(index: int) -> void:
 	var resolution: Variant = $%ResolutionDropdown.get_item_metadata(index)
 	if resolution is Vector2i:
 		GameSettings.resolution = resolution
-		get_window().size = resolution
-		get_window().move_to_center()
-		$%MainViewport.size = resolution
+		_try_resize_os_window(resolution)
 	else:
 		push_warning("Tried to set invalid resolution %s" % [resolution])
+
+func _can_resize_os_window() -> bool:
+	return not get_window().is_embedded() and not Engine.is_embedded_in_editor()
+
+# Attempt to resize the OS window. If we can't directly set the OS window (for example, because
+# it's embedded), then do nothing.
+func _try_resize_os_window(size: Vector2i) -> void:
+	if _can_resize_os_window():
+		get_window().size = size
+		get_window().move_to_center()
+
+func _update_viewport_to_window_size() -> void:
+	$%MainViewport.size = get_window().size
 
 func _on_cursor_area_body_entered(body: Node2D) -> void:
 	if body is LabBody: body.is_moused_over = true
