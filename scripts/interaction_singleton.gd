@@ -159,9 +159,11 @@ class SystemInteractState extends InteractState:
 	func _start_targeting() -> void: system.start_targeting(info.kind)
 	func _stop_targeting() -> void: system.stop_targeting(info.kind)
 	func _start_interact() -> void:
+		if not info.allowed: return
 		is_pressed = true
 		system.start_interact(info.kind)
 	func _stop_interact() -> void:
+		if not is_pressed: return
 		is_pressed = false
 		system.stop_interact(info.kind)
 
@@ -181,9 +183,11 @@ class ComponentInteractState extends InteractState:
 	func _start_targeting() -> void: target.start_targeting(info.kind)
 	func _stop_targeting() -> void: target.stop_targeting(info.kind)
 	func _start_interact() -> void:
+		if not info.allowed: return
 		is_pressed = true
 		target.start_interact(info.kind)
 	func _stop_interact() -> void:
+		if not is_pressed: return
 		is_pressed = false
 		target.stop_interact(info.kind)
 
@@ -213,12 +217,14 @@ class UseInteractState extends InteractState:
 		if target: target.stop_targeting(info.kind)
 
 	func _start_interact() -> void:
+		if not info.allowed: return
 		is_pressed = true
 		if source is UseComponent: source.start_use(target, info.kind)
 		elif source is LabBody: source.start_interact(info.kind)
 		if target: target.start_interact(info.kind)
 
 	func _stop_interact() -> void:
+		if not is_pressed: return
 		is_pressed = false
 		if source is UseComponent: source.stop_use(target, info.kind)
 		elif source is LabBody: source.stop_interact(info.kind)
