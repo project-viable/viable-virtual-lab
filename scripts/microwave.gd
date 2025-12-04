@@ -111,6 +111,10 @@ func _on_door_selectable_pressed() -> void:
 	_is_door_open = not _is_door_open
 	_update_door()
 
+	# Remove the "End" when opening the door.
+	if _is_door_open and _input_time == 0:
+		_no_update_display = false
+
 func _on_zoom_selectable_area_zoomed_in() -> void:
 	# Keypad buttons should be clickable if zoomed in on
 	for button: TextureButton in $Keypad.get_children():
