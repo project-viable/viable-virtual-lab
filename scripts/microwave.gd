@@ -17,12 +17,15 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if not _no_update_display:
-		var seconds_left := int(max($MicrowaveTimer.time_left, 0))
-		# Convert seconds to minutes and seconds
-		var minutes: int = seconds_left / 60
-		var seconds: int = seconds_left % 60
+		if _is_microwaving():
+			var seconds_left := int(max($MicrowaveTimer.time_left, 0))
+			# Convert seconds to minutes and seconds
+			var minutes: int = seconds_left / 60
+			var seconds: int = seconds_left % 60
 
-		update_timer_display(minutes, seconds)
+			update_timer_display(minutes, seconds)
+		else:
+			update_timer_display(LabTime.get_clock_hour(), LabTime.get_clock_minute())
 
 func _physics_process(delta: float) -> void:
 	var obj: LabBody = %ObjectContainmentInteractableArea.contained_object
