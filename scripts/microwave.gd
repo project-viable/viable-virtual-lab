@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var _is_typing_input: bool = false
+var _no_update_display: bool = false
 var _input_time: int = 0
 var _is_door_open: bool = false
 
@@ -16,7 +16,7 @@ func _ready() -> void:
 	_update_door()
 
 func _process(_delta: float) -> void:
-	if not _is_typing_input:
+	if not _no_update_display:
 		var seconds_left := int(max($MicrowaveTimer.time_left, 0))
 		# Convert seconds to minutes and seconds
 		var minutes: int = seconds_left / 60
@@ -47,7 +47,7 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 	match button_value:
 		"Cancel":
 			$MicrowaveTimer.stop()
-			_is_typing_input = false
+			_no_update_display = false
 			_input_time = 0
 			_update_door()
 		"Start":
@@ -58,7 +58,7 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 
 				$MicrowaveTimer.start(minutes * 60 + seconds)
 
-				_is_typing_input = false
+				_no_update_display = false
 				_input_time = 0
 			else:
 				$AnimationPlayer.stop()
@@ -66,7 +66,7 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 
 			_update_door()
 		_:
-			_is_typing_input = true
+			_no_update_display = true
 
 			if str(_input_time).length() >= 4: # Keep it 4 digits max
 				return
@@ -84,6 +84,8 @@ func update_timer_display(minutes: int, seconds: int) -> void:
 
 ## Updates the TimerLabel to countdown the timer
 func _on_microwave_timer_timeout() -> void:
+	$TimerLabel.text = "End"
+	_no_update_display = true
 	_update_door()
 
 func _update_door() -> void:
