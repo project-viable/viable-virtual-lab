@@ -25,7 +25,7 @@ func _process(_delta: float) -> void:
 
 			update_timer_display(minutes, seconds)
 		else:
-			update_timer_display(LabTime.get_clock_hour(), LabTime.get_clock_minute())
+			update_timer_display(floor(LabTime.get_hour_of_day()), floor(LabTime.get_minute_of_hour()))
 
 func _physics_process(delta: float) -> void:
 	var obj: LabBody = %ObjectContainmentInteractableArea.contained_object

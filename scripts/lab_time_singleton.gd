@@ -19,14 +19,11 @@ var time_after_midnight: float = INITIAL_TIME_AFTER_MIDNIGHT
 func _process(delta: float) -> void:
 	time_after_midnight += delta * time_scale
 
-## Hour that would be displayed on a 24-hour digital clock.
-func get_clock_hour() -> int:
-	return floor(fmod(time_after_midnight / (60.0 * 60.0), 24.0))
+func get_hour_of_day() -> float:
+	return fmod(time_after_midnight / (60.0 * 60.0), 24.0)
 
-## Minute that would be displayed on a digital clock.
-func get_clock_minute() -> int:
-	return floor(fmod(time_after_midnight / 60.0, 60.0))
+func get_minute_of_hour() -> float:
+	return fmod(time_after_midnight / 60.0, 60.0)
 
-## Seconds that would be displayed on a digital clock.
-func get_clock_second() -> int:
-	return floor(fmod(time_after_midnight, 60.0))
+func get_second_of_minute() -> float:
+	return fmod(time_after_midnight, 60.0)

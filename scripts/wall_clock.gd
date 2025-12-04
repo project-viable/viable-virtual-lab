@@ -6,9 +6,9 @@ var _is_held: bool = false
 
 
 func _process(delta: float) -> void:
-	$HourHand.rotation = 2.0 * PI * LabTime.get_clock_hour() / 12.0
-	$MinuteHand.rotation = 2.0 * PI * LabTime.get_clock_minute() / 60.0
-	$SecondHand.rotation = 2.0 * PI * LabTime.get_clock_second() / 60.0
+	$HourHand.rotation = 2.0 * PI * LabTime.get_hour_of_day() / 12.0
+	$MinuteHand.rotation = 2.0 * PI * LabTime.get_minute_of_hour() / 60.0
+	$SecondHand.rotation = 2.0 * PI * floor(LabTime.get_second_of_minute()) / 60.0
 
 	_time_held += delta
 	if _is_held:
