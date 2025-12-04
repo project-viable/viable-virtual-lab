@@ -51,18 +51,18 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 			_input_time = 0
 			_update_door()
 		"Start":
-			if not _is_door_open:
+			if not _is_door_open and _input_time > 0:
 				# If the user input is 300, it should be in the form 3:00
 				var minutes: int = _input_time / 100
 				var seconds: int = _input_time % 100
-
 				$MicrowaveTimer.start(minutes * 60 + seconds)
 
-				_no_update_display = false
-				_input_time = 0
 			else:
 				$AnimationPlayer.stop()
 				$AnimationPlayer.play("error_flash")
+
+			_no_update_display = false
+			_input_time = 0
 
 			_update_door()
 		_:
