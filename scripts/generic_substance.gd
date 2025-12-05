@@ -9,7 +9,6 @@ extends Substance
 @export_custom(PROPERTY_HINT_NONE, "suffix:mL") var volume: float
 @export var viscosity: float = 0.0
 
-# Don't duplicate `data`.
 ## See [method Substance.clone]
 func clone() -> GenericSubstance: return duplicate(true)
 ## See [method Substance.get_density]
