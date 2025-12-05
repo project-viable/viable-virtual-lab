@@ -11,7 +11,7 @@ extends Substance
 
 # Don't duplicate `data`.
 ## See [method Substance.clone]
-func clone() -> GenericSubstance: return duplicate(false)
+func clone() -> GenericSubstance: return duplicate(true)
 ## See [method Substance.get_density]
 func get_density() -> float: return density
 ## See [method Substance.get_volume]
