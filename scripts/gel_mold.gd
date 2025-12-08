@@ -5,8 +5,8 @@ extends LabBody
 ## Voltage, where positive is down the gel.
 @export_custom(PROPERTY_HINT_NONE, "suffix:V") var voltage: float = 0.0
 @export var gel_state: GelState
+@export var has_wells: bool = false
 
-var _has_wells: bool = false
 var comb_placed: bool = false
 
 
@@ -36,7 +36,7 @@ func get_gel_concentration() -> float:
 
 func _ready() -> void:
 	super()
-	_set_subscene_has_wells(_has_wells)
+	_set_subscene_has_wells(has_wells)
 
 func _physics_process(delta: float) -> void:
 	super(delta)
@@ -65,7 +65,7 @@ func set_gel_state() -> void:
 		gel_state.correct_gel_mixing = true
 	else:
 		gel_state.correct_gel_mixing = false
-	gel_state.correct_comb_placement = comb_placed
+	#gel_state.correct_comb_placement = comb_placed
 	for i in 5:
 		if get_well(i + 1).substances != null:
 			for s in get_well(i + 1).substances:
@@ -91,8 +91,8 @@ func _on_attachment_interactable_area_object_removed(_b: LabBody) -> void:
 	var s: Substance = $SubstanceDisplayPolygon.get_substance_at_global($GelTopRef.global_position)
 	_set_subscene_has_wells(s is TAEBufferSubstance and s.is_solid_gel())
 
-func _set_subscene_has_wells(has_wells: bool) -> void:
-	_has_wells = has_wells
+func _set_subscene_has_wells(new_has_wells: bool) -> void:
+	has_wells = new_has_wells
 
 	%SubsceneWellSprites.visible = has_wells
 	%WellBlockCollision.set_deferred("disabled", has_wells)
