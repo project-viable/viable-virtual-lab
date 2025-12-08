@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b4q3npoc5c7fy"]
+[gd_scene load_steps=26 format=3 uid="uid://b4q3npoc5c7fy"]
 
 [ext_resource type="Script" uid="uid://bepsdcjab3t21" path="res://scripts/power_supply.gd" id="1_7lagc"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_80iu8"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://textures/icons_and_buttons/button_2.svg" id="8_5dnns"]
 [ext_resource type="Texture2D" uid="uid://spcel0l2t7ec" path="res://textures/icons_and_buttons/minus_symbol.svg" id="8_07yqv"]
 [ext_resource type="Script" uid="uid://dqaivlcqhms8h" path="res://scripts/time_line_edit.gd" id="8_agml6"]
+[ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="8_jimdi"]
 [ext_resource type="Script" uid="uid://chvv2ne60otwi" path="res://scripts/wire_connection.gd" id="9_07yqv"]
 [ext_resource type="Script" uid="uid://0k2e5xj6bo7p" path="res://scripts/voltage_line_edit.gd" id="9_agml6"]
 [ext_resource type="Script" uid="uid://bk0s8v1tcwcmr" path="res://scripts/lab_timer.gd" id="12_7xsxk"]
@@ -79,12 +80,12 @@ draw_center = false
 [node name="PowerSupply" type="RigidBody2D" node_paths=PackedStringArray("increment_time_button", "decrement_time_button", "increment_volts_button", "decrement_volts_button", "time_line_edit", "voltage_line_edit")]
 collision_layer = 0
 script = ExtResource("1_7lagc")
-increment_time_button = NodePath("Screen/IncrementTime")
-decrement_time_button = NodePath("Screen/DecrementTime")
-increment_volts_button = NodePath("Screen/IncrementVolts")
-decrement_volts_button = NodePath("Screen/DecrementVolts")
-time_line_edit = NodePath("Screen/TimeContainer/HBoxContainer/Time/TimeLineEdit")
-voltage_line_edit = NodePath("Screen/VoltageContainer/HBoxContainer/VoltageLineEdit")
+increment_time_button = NodePath("Screen/ZoomAwareControl/IncrementTime")
+decrement_time_button = NodePath("Screen/ZoomAwareControl/DecrementTime")
+increment_volts_button = NodePath("Screen/ZoomAwareControl/IncrementVolts")
+decrement_volts_button = NodePath("Screen/ZoomAwareControl/DecrementVolts")
+time_line_edit = NodePath("Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit")
+voltage_line_edit = NodePath("Screen/ZoomAwareControl/VoltageContainer/HBoxContainer/VoltageLineEdit")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
@@ -100,24 +101,6 @@ texture = ExtResource("3_7lagc")
 visible = false
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_80iu8")
-
-[node name="StartButton" type="Button" parent="."]
-self_modulate = Color(1, 1, 1, 0)
-offset_left = 25.0
-offset_top = -8.0
-offset_right = 43.0
-offset_bottom = 3.0
-mouse_default_cursor_shape = 2
-
-[node name="StartLabel" type="Label" parent="StartButton"]
-layout_mode = 0
-offset_left = 1.0
-offset_right = 42.0
-offset_bottom = 28.0
-scale = Vector2(0.388818, 0.388818)
-text = "Start"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="PlusSymbol" type="Sprite2D" parent="."]
 position = Vector2(-36, -12)
@@ -174,7 +157,35 @@ metadata/_edit_group_ = true
 position = Vector2(-2, -3)
 shape = SubResource("RectangleShape2D_46x6c")
 
-[node name="TimeContainer" type="PanelContainer" parent="Screen"]
+[node name="ZoomAwareControl" type="Control" parent="Screen"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_jimdi")
+metadata/_custom_type_script = "uid://kqpdop5g7bqv"
+
+[node name="StartButton" type="Button" parent="Screen/ZoomAwareControl"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 25.0
+offset_top = -8.0
+offset_right = 43.0
+offset_bottom = 3.0
+mouse_default_cursor_shape = 2
+
+[node name="StartLabel" type="Label" parent="Screen/ZoomAwareControl/StartButton"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 42.0
+offset_bottom = 28.0
+scale = Vector2(0.388818, 0.388818)
+text = "Start"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeContainer" type="PanelContainer" parent="Screen/ZoomAwareControl"]
+layout_mode = 0
 offset_left = -24.0
 offset_top = -11.0
 offset_right = 83.0
@@ -184,22 +195,23 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_46x6c")
 metadata/_edit_group_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Screen/TimeContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Screen/ZoomAwareControl/TimeContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="TimeString" type="Label" parent="Screen/TimeContainer/HBoxContainer"]
+[node name="TimeString" type="Label" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/outline_size = 0
 text = "Time:"
 
-[node name="Time" type="Label" parent="Screen/TimeContainer/HBoxContainer"]
+[node name="TimeLabel" type="Label" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 text = "00:00"
 
-[node name="TimeLineEdit" type="LineEdit" parent="Screen/TimeContainer/HBoxContainer/Time" node_paths=PackedStringArray("power_supply")]
+[node name="TimeLineEdit" type="LineEdit" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel" node_paths=PackedStringArray("power_supply")]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 6
@@ -214,7 +226,6 @@ grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 10
 focus_mode = 1
-mouse_filter = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_4pbs0")
 theme_override_styles/read_only = SubResource("StyleBoxFlat_agml6")
 theme_override_styles/focus = SubResource("StyleBoxFlat_07yqv")
@@ -223,9 +234,10 @@ max_length = 4
 caret_blink = true
 caret_mid_grapheme = true
 script = ExtResource("8_agml6")
-power_supply = NodePath("../../../../..")
+power_supply = NodePath("../../../../../..")
 
-[node name="VoltageContainer" type="PanelContainer" parent="Screen"]
+[node name="VoltageContainer" type="PanelContainer" parent="Screen/ZoomAwareControl"]
+layout_mode = 0
 offset_left = -24.0
 offset_top = -2.0
 offset_right = 83.0
@@ -235,19 +247,18 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5dnns")
 metadata/_edit_group_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Screen/VoltageContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Screen/ZoomAwareControl/VoltageContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="VoltageString" type="Label" parent="Screen/VoltageContainer/HBoxContainer"]
+[node name="VoltageString" type="Label" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Voltage:"
 
-[node name="VoltageLineEdit" type="LineEdit" parent="Screen/VoltageContainer/HBoxContainer" node_paths=PackedStringArray("power_supply")]
+[node name="VoltageLineEdit" type="LineEdit" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer" node_paths=PackedStringArray("power_supply")]
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_filter = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
 theme_override_colors/selection_color = Color(0.223529, 0.627451, 0.776471, 0.552941)
@@ -261,27 +272,27 @@ max_length = 3
 expand_to_text_length = true
 caret_blink = true
 script = ExtResource("9_agml6")
-power_supply = NodePath("../../../..")
+power_supply = NodePath("../../../../..")
 
-[node name="VLabel" type="Label" parent="Screen/VoltageContainer/HBoxContainer"]
+[node name="VLabel" type="Label" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "V"
 
-[node name="IncrementTime" type="TextureButton" parent="Screen"]
+[node name="IncrementTime" type="TextureButton" parent="Screen/ZoomAwareControl"]
 self_modulate = Color(0.982343, 0.982342, 0.982342, 1)
+layout_mode = 0
 offset_left = 11.0
 offset_top = -13.0
 offset_right = 1035.0
 offset_bottom = 755.0
 scale = Vector2(0.00813575, 0.00813575)
 size_flags_horizontal = 4
-mouse_filter = 2
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("8_5dnns")
 metadata/_edit_group_ = true
 
-[node name="Label" type="Label" parent="Screen/IncrementTime"]
+[node name="Label" type="Label" parent="Screen/ZoomAwareControl/IncrementTime"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -299,20 +310,20 @@ text = "^"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DecrementTime" type="TextureButton" parent="Screen"]
+[node name="DecrementTime" type="TextureButton" parent="Screen/ZoomAwareControl"]
 self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
+layout_mode = 0
 offset_left = 11.0
 offset_top = -9.0
 offset_right = 1035.0
 offset_bottom = 759.0
 scale = Vector2(0.00813575, 0.00813575)
 size_flags_horizontal = 4
-mouse_filter = 2
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("8_5dnns")
 metadata/_edit_group_ = true
 
-[node name="Label" type="Label" parent="Screen/DecrementTime"]
+[node name="Label" type="Label" parent="Screen/ZoomAwareControl/DecrementTime"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -331,20 +342,20 @@ text = "^"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="IncrementVolts" type="TextureButton" parent="Screen"]
+[node name="IncrementVolts" type="TextureButton" parent="Screen/ZoomAwareControl"]
 self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
+layout_mode = 0
 offset_left = 11.0
 offset_top = -4.0
 offset_right = 1035.0
 offset_bottom = 764.0
 scale = Vector2(0.00813575, 0.00813575)
 size_flags_horizontal = 4
-mouse_filter = 2
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("8_5dnns")
 metadata/_edit_group_ = true
 
-[node name="Label" type="Label" parent="Screen/IncrementVolts"]
+[node name="Label" type="Label" parent="Screen/ZoomAwareControl/IncrementVolts"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -362,19 +373,19 @@ text = "^"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DecrementVolts" type="TextureButton" parent="Screen"]
+[node name="DecrementVolts" type="TextureButton" parent="Screen/ZoomAwareControl"]
 self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
+layout_mode = 0
 offset_left = 11.0
 offset_right = 1035.0
 offset_bottom = 768.0
 scale = Vector2(0.00813575, 0.00813575)
 size_flags_horizontal = 4
-mouse_filter = 2
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("8_5dnns")
 metadata/_edit_group_ = true
 
-[node name="Label" type="Label" parent="Screen/DecrementVolts"]
+[node name="Label" type="Label" parent="Screen/ZoomAwareControl/DecrementVolts"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -407,17 +418,15 @@ script = ExtResource("12_7xsxk")
 one_shot = true
 metadata/_custom_type_script = "uid://bk0s8v1tcwcmr"
 
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="object_placed" from="AttachmentPostiveOutlet" to="AttachmentPostiveOutlet" method="_on_object_placed"]
 [connection signal="object_removed" from="AttachmentPostiveOutlet" to="WireConnectableComponent" method="unplug_handler"]
 [connection signal="wire_connected" from="AttachmentPostiveOutlet" to="WireConnectableComponent" method="on_wire_connected"]
 [connection signal="object_placed" from="AttachmentNegativeOutlet" to="AttachmentNegativeOutlet" method="_on_object_placed"]
 [connection signal="object_removed" from="AttachmentNegativeOutlet" to="WireConnectableComponent" method="unplug_handler"]
 [connection signal="wire_connected" from="AttachmentNegativeOutlet" to="WireConnectableComponent" method="on_wire_connected"]
-[connection signal="zoomed_in" from="ZoomSelectableArea" to="." method="_on_zoom_selectable_area_zoomed_in"]
-[connection signal="zoomed_out" from="ZoomSelectableArea" to="." method="_on_zoom_selectable_area_zoomed_out"]
-[connection signal="editing_toggled" from="Screen/TimeContainer/HBoxContainer/Time/TimeLineEdit" to="Screen/TimeContainer/HBoxContainer/Time/TimeLineEdit" method="_on_editing_toggled"]
-[connection signal="text_changed" from="Screen/TimeContainer/HBoxContainer/Time/TimeLineEdit" to="Screen/TimeContainer/HBoxContainer/Time/TimeLineEdit" method="_on_time_line_edit_text_changed"]
-[connection signal="text_changed" from="Screen/VoltageContainer/HBoxContainer/VoltageLineEdit" to="Screen/VoltageContainer/HBoxContainer/VoltageLineEdit" method="_on_voltage_line_edit_text_changed"]
+[connection signal="pressed" from="Screen/ZoomAwareControl/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="editing_toggled" from="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" to="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" method="_on_editing_toggled"]
+[connection signal="text_changed" from="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" to="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" method="_on_time_line_edit_text_changed"]
+[connection signal="text_changed" from="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer/VoltageLineEdit" to="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer/VoltageLineEdit" method="_on_voltage_line_edit_text_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="terminals_connected" from="WireConnectableComponent" to="." method="_on_wire_connection"]

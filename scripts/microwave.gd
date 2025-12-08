@@ -152,14 +152,5 @@ func _on_door_selectable_pressed() -> void:
 	if _input_time == 0:
 		_cancel()
 
-func _on_zoom_selectable_area_zoomed_in() -> void:
-	# Keypad buttons should be clickable if zoomed in on
-	for button: TextureButton in $Keypad.get_children():
-		button.mouse_filter = Control.MOUSE_FILTER_STOP
-
-func _on_zoom_selectable_area_zoomed_out() -> void:
-	for button: TextureButton in $Keypad.get_children():
-		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
 func _is_microwaving() -> bool:
 	return not $MicrowaveTimer.is_stopped()
