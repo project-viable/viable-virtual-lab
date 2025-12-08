@@ -1,5 +1,5 @@
 extends Node2D
-## Handles connection logic for objects that can have contact wires be 
+## Handles connection logic for objects that can have contact wires be
 ## connected to their terminals.
 ## A signal is emitted that checks whether or not the object has valid wire connections
 class_name WireConnectableComponent
@@ -19,7 +19,7 @@ var wire_connected_to_positive_terminal: Wire:
 		wire_connected_to_positive_terminal = value
 		_check_connection_state()
 
-## Sets the state of connection when the wire is connected to the negative terminal		
+## Sets the state of connection when the wire is connected to the negative terminal
 var wire_connected_to_negative_terminal: Wire:
 	set(value):
 		wire_connected_to_negative_terminal = value
@@ -30,22 +30,22 @@ var wire_connected_to_negative_terminal: Wire:
 func on_wire_connected(wire: Wire, target_terminal_charge: Terminal.Charge) -> void:
 	var is_terminal_positive: bool = target_terminal_charge == Terminal.Charge.POSITIVE
 	wire.connected_component = self
-	
+
 	if is_terminal_positive:
 		wire_connected_to_positive_terminal = wire
-		
+
 	else:
 		wire_connected_to_negative_terminal = wire
-	
+
 # Handle unplugging wires
 ## Handles the state of wire connections when the wires are unplugged
 func unplug_handler(body: Node2D) -> void:
 	var clicked_on_wire: Wire = body
 	clicked_on_wire.connected_component = null
-	
+
 	if wire_connected_to_positive_terminal and clicked_on_wire == wire_connected_to_positive_terminal: # Pulling out the wire from positive outlet
 		wire_connected_to_positive_terminal = null
-		
+
 	elif wire_connected_to_negative_terminal and clicked_on_wire == wire_connected_to_negative_terminal: # Pulling out the wire from negative outlet
 		wire_connected_to_negative_terminal = null
 
@@ -53,7 +53,7 @@ func unplug_handler(body: Node2D) -> void:
 func _check_connection_state() -> void:
 	if wire_connected_to_positive_terminal and wire_connected_to_negative_terminal:
 		terminals_connected.emit(true)
-		
+
 	else:
 		terminals_connected.emit(false)
 

@@ -23,11 +23,11 @@ func _physics_process(delta: float) -> void:
 	# their `process` function.
 	for s: Substance in substances.duplicate():
 		s.process(self, lab_delta)
-	
+
 	_remove_empty_substances()
 
 # `s` should be a copy.
-## Adds a substance to the array of substances by adding it to an existing instance of the same 
+## Adds a substance to the array of substances by adding it to an existing instance of the same
 ## substance or creates a new instance within the array.
 func add(s: Substance) -> void:
 	var did_incorporate := false
@@ -79,8 +79,7 @@ func find_substance_of_type(type: Variant) -> Substance:
 	var i := substances.find_custom(func(s: Substance) -> bool: return is_instance_of(s, type))
 	if i == -1: return null
 	else: return substances[i]
-		
+
 func _remove_empty_substances() -> void:
 	substances.assign(
 		substances.filter(func(s: Substance) -> bool: return s.get_volume() >= 0.00001))
-

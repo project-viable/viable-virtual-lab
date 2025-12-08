@@ -110,7 +110,7 @@ func _on_exclusive_object_hitbox_entered_purview_of(area: ExclusiveArea2D) -> vo
 	if object_to_zoom and is_active():
 		# Zoom in on the object, with extra room above it for this pipette.
 		var rect := Util.get_global_bounding_box(object_to_zoom).grow_side(1, Util.get_global_bounding_box(self).size.y + 5)
-		
+
 		if area is SubsceneExclusiveArea:
 			_cur_subscene_camera = area.camera
 			disable_follow_cursor = true
