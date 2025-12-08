@@ -16,7 +16,7 @@ static func _static_init() -> void:
 func _enter_tree() -> void:
 	material = _ghost_shader_material.duplicate()
 
-## Create a copy of all of the [Sprite2D] nodes among [param node] and all of its descendents, and
+## Create a copy of all of the [Sprite2D] nodes among [param node] and all of its descendants, and
 ## create a new [GhostCanvasGroup] with them as children. Nodes with [member CanvasItem.visible]
 ## set to [code]false[/code] and their descendants will not be included. If a node is in the
 ## [code]ghost:always_include[/code] group, then its visibility will be ignored. If a node is in
