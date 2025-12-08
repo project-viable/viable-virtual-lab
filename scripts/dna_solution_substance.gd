@@ -1,5 +1,5 @@
 class_name DNASolutionSubstance
-extends GenericSubstance
+extends Substance
 
 
 const MAX_FRAGMENT_SIZE := 15000.0
@@ -9,25 +9,48 @@ const VOLTAGE := 120.0
 const RATE := 1.0 / log(MAX_FRAGMENT_SIZE) / VOLTAGE / RUN_TIME
 
 
-## Fragment size in base pairs.
-@export var fragment_size: int = 1
+## Maps fragment sizes to their data.
+@export var fragments: Dictionary[int, DNAFragment] = {}
 
 
-# Used by the gel to keep track of the associated band in the gel. This is a value from 0 to 1,
-# with 0 being the start of the gel and 1 being the end.
-var position: float = 0.0
+func get_volume() -> float:
+	var v := 0.0
+	for f: DNAFragment in fragments.values():
+		v += f.volume
+	return v
 
-
-func get_color() -> Color: return Color(0.327, 0.481, 0.99, 0.737)
+func get_color() -> Color:
+	return Color(0.327, 0.481, 0.99, 0.737)
 
 func try_incorporate(s: Substance) -> bool:
-	if s is DNASolutionSubstance and s.fragment_size == fragment_size:
-		volume += s.volume
-		return true
-	else:
-		return false
+	if not (s is DNASolutionSubstance): return false
+
+	for fs: int in s.fragments.keys():
+		var s_fragment: DNAFragment = s.fragments[fs]
+		var fragment: DNAFragment = fragments.get(fs)
+		if fragment:
+			fragment.volume += s_fragment.volume
+		else:
+			fragments.set(fs, s_fragment)
+
+	return true
 
 # [param gel_factor] linearly scales the movement based on how liquidy the gel is.
 func run_voltage(voltage: float, time: float, gel_factor: float) -> void:
-	position += voltage * time * gel_factor * log(float(fragment_size)) * RATE
-	position = clamp(position, 0.0, 1.0)
+	for fs: int in fragments.keys():
+		var fragment: DNAFragment = fragments[fs]
+		fragment.position += voltage * time * gel_factor * log(float(fs)) * RATE
+		fragment.position = clamp(fragment.position, 0.0, 1.0)
+
+func take_volume(v: float) -> DNASolutionSubstance:
+	var tot_volume := get_volume()
+	if is_zero_approx(tot_volume): return DNASolutionSubstance.new()
+
+	var proportion: float = clamp(v / tot_volume, 0.0, 1.0)
+
+	var result: DNASolutionSubstance = clone()
+	for fs: int in fragments.keys():
+		fragments[fs].volume *= (1 - proportion)
+		result.fragments[fs].volume *= proportion
+
+	return result

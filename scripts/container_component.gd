@@ -64,10 +64,6 @@ func take_volume(v: float) -> Array[Substance]:
 		v -= result.back().get_volume()
 	return result
 
-func _remove_empty_substances() -> void:
-	substances.assign(
-		substances.filter(func(s: Substance) -> bool: return s.get_volume() >= 0.00001))
-
 func get_substances_mass() -> float:
 	var total_substance_mass: float = 0.0
 	if !substances.is_empty():
@@ -76,4 +72,15 @@ func get_substances_mass() -> float:
 		return total_substance_mass
 	else:
 		return 0.0
+
+## Get the first substance in this container of type [param type]. If no such substance exists,
+## return [code]null[/code].
+func find_substance_of_type(type: Variant) -> Substance:
+	var i := substances.find_custom(func(s: Substance) -> bool: return is_instance_of(s, type))
+	if i == -1: return null
+	else: return substances[i]
 		
+func _remove_empty_substances() -> void:
+	substances.assign(
+		substances.filter(func(s: Substance) -> bool: return s.get_volume() >= 0.00001))
+
