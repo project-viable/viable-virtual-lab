@@ -75,9 +75,11 @@ func process(container: ContainerComponent, delta: float) -> void:
 		elif s is DNASolutionSubstance:
 			s.take_volume(INF)
 
-# Microwave for [param time] seconds.
-func microwave(time: float) -> void:
-	temperature = min(100.0, temperature + MICROWAVE_RATE * time)
+func handle_event(e: Event) -> void:
+	if e is MixSubstanceEvent:
+		is_mixing = e.is_mixing
+	elif e is MicrowaveSubstanceEvent:
+		temperature = min(100.0, temperature + MICROWAVE_RATE * e.duration)
 
 ## True if this has enough agarose and is cool enough to be a gel that can maintain wells.
 func is_solid_gel() -> bool:

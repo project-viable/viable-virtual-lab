@@ -80,6 +80,10 @@ func find_substance_of_type(type: Variant) -> Substance:
 	if i == -1: return null
 	else: return substances[i]
 
+## Send an event to every substance in this container.
+func send_event(event: Substance.Event) -> void:
+	for s in substances: s.handle_event(event)
+
 func _remove_empty_substances() -> void:
 	substances.assign(
 		substances.filter(func(s: Substance) -> bool: return s.get_volume() >= 0.00001))

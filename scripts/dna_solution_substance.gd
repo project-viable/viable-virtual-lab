@@ -35,13 +35,6 @@ func try_incorporate(s: Substance) -> bool:
 
 	return true
 
-# [param gel_factor] linearly scales the movement based on how liquidy the gel is.
-func run_voltage(voltage: float, time: float, gel_factor: float) -> void:
-	for fs: int in fragments.keys():
-		var fragment: DNAFragment = fragments[fs]
-		fragment.position += voltage * time * gel_factor * log(float(fs)) * RATE
-		fragment.position = clamp(fragment.position, 0.0, 1.0)
-
 func take_volume(v: float) -> DNASolutionSubstance:
 	var tot_volume := get_volume()
 	if is_zero_approx(tot_volume): return DNASolutionSubstance.new()
@@ -54,3 +47,13 @@ func take_volume(v: float) -> DNASolutionSubstance:
 		result.fragments[fs].volume *= proportion
 
 	return result
+
+func handle_event(e: Event) -> void:
+	if e is GelMold.RunGelSubstanceEvent:
+		# TODO: This should change based on the gel concentration.
+		var gel_factor := 1.0
+		for fs: int in fragments.keys():
+			var fragment: DNAFragment = fragments[fs]
+			fragment.position += e.gel.voltage * e.duration * gel_factor * log(float(fs)) * RATE
+			fragment.position = clamp(fragment.position, 0.0, 1.0)
+

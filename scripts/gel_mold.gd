@@ -45,9 +45,7 @@ func _physics_process(delta: float) -> void:
 		gel_state.voltage_run_time += delta * LabTime.time_scale
 
 		for i in 5:
-			for s in get_well(i + 1).substances:
-				if s is DNASolutionSubstance:
-					s.run_voltage(voltage, delta * LabTime.time_scale, 1.0)
+			get_well(i + 1).send_event(RunGelSubstanceEvent.new(self, delta * LabTime.time_scale))
 
 func _process(_delta: float) -> void:
 	Game.debug_overlay.update("gel voltage", str(voltage))
@@ -101,3 +99,16 @@ func _set_subscene_has_wells(new_has_wells: bool) -> void:
 	if not has_wells:
 		for i in num_wells():
 			get_well(i + 1).substances.clear()
+
+
+## Event sent by this gel repeatedly while it's running.
+class RunGelSubstanceEvent extends Substance.Event:
+	## The gel that's doing the running.
+	var gel: GelMold
+	## Amount of time run, in seconds of lab time.
+	var duration: float
+
+
+	func _init(p_gel: GelMold, p_duration: float) -> void:
+		gel = p_gel
+		duration = p_duration

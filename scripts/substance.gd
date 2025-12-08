@@ -35,8 +35,8 @@ func get_viscosity() -> float: return 0.0
 ## store the reference `s`.
 func try_incorporate(_s: Substance) -> bool: return false
 
-## Do a single tick worth of processing. `container` is the container node that this substance is
-## in. `delta` is the length of the tick in seconds, measured in lab time.
+## (virtual) Do a single tick worth of processing. `container` is the container node that this
+## substance is in. `delta` is the length of the tick in seconds, measured in lab time.
 ##
 ## It is okay to modify `container.substances` in this function. Note that `container.substances`
 ## will contain this substance, so it's a good idea when doing any reactions to ensure that the
@@ -45,7 +45,16 @@ func try_incorporate(_s: Substance) -> bool: return false
 ## This function should be used for any mixing or reactions.
 func process(_container: ContainerComponent, _delta: float) -> void: pass
 
+## (virtual) Send an event that this substance can react to. This is used for things like mixing,
+## microwaving, and applying voltage.
+func handle_event(_event: Event) -> void: pass
+
 ## (virtual) Take *up to* `v` milliliters of this substance and return a new `Substance`
 ## from what was taken. If `v` is greater than the current volume, then the full volume will be
 ## taken.
 @abstract func take_volume(_v: float) -> Substance
+
+
+## Generic event that a [Substance] can handle by overriding [method Substance.handle_event].
+@abstract
+class Event: pass

@@ -33,17 +33,9 @@ func start_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 	_is_swirling = true
 	_swirl_time = 0
 	_orig_transform = node_to_rotate.transform
-
-	# TODO: Don't hard-code this for just TAE.
-	for s in container.substances:
-		if s is TAEBufferSubstance:
-			s.is_mixing = true
+	container.send_event(MixSubstanceEvent.new(true))
 
 func stop_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 	_is_swirling = false
 	node_to_rotate.transform = _orig_transform
-
-	# TODO: Don't hard-code this for just TAE.
-	for s in container.substances:
-		if s is TAEBufferSubstance:
-			s.is_mixing = false
+	container.send_event(MixSubstanceEvent.new(false))

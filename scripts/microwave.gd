@@ -32,10 +32,7 @@ func _physics_process(delta: float) -> void:
 	if obj and _is_microwaving():
 		var container_to_heat := find_container(obj)
 		if container_to_heat:
-			for s in container_to_heat.substances:
-				# TODO: Make this not hard-coded.
-				if s is TAEBufferSubstance:
-					s.microwave(delta * LabTime.time_scale)
+			container_to_heat.send_event(MicrowaveSubstanceEvent.new(delta * LabTime.time_scale))
 
 func find_container(interactor: PhysicsBody2D) -> ContainerComponent:
 	# Only objects that have a `ContainerComponent` as a direct child can be microwaved. `
