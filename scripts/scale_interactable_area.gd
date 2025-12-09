@@ -18,7 +18,7 @@ func _physics_process(_delta: float) -> void:
 		for c: ContainerComponent in body.find_children("", "ContainerComponent", false):
 			current_weight += (c.container_mass + c.get_substances_mass())
 
-	get_parent().find_child("WeightLabel").text = "%.2f g" % [current_weight-tare_weight]
+	get_node("%WeightLabel").text = "%.2f g" % [current_weight-tare_weight]
 
 func _on_tare_button_pressed() -> void:
 	tare_weight = current_weight
