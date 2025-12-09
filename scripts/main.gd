@@ -179,7 +179,7 @@ func _process(delta: float) -> void:
 	%RightWorkspacePrompt.visible = _current_workspace and not _camera_focus_owner
 	%RightWorkspacePrompt.disabled = _current_workspace and not _current_workspace.right_workspace
 
-	var target_time_warp_strength := LabTime.time_scale / 20
+	var target_time_warp_strength := (LabTime.time_scale - 1) / 20
 	if target_time_warp_strength > _time_warp_strength:
 		_time_warp_strength = min(target_time_warp_strength, _time_warp_strength + TIME_WARP_ADJUST_SPEED * delta)
 	else:
