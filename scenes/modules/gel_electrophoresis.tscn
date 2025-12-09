@@ -195,16 +195,16 @@ contained_object = NodePath("../../Pipette")
 position = Vector2(1817, 419)
 
 [node name="PipetteTipBox" parent="Objects" instance=ExtResource("5_vwsp8")]
-position = Vector2(2031, 455)
+position = Vector2(2040, 457)
 
 [node name="WeighBoat" parent="Objects" instance=ExtResource("6_vj1mp")]
 position = Vector2(802, 443)
 
 [node name="AgaroseBottle" parent="Objects" instance=ExtResource("7_yik3d")]
-position = Vector2(964, 447)
+position = Vector2(927, 446)
 
 [node name="TAEBottle" parent="Objects" instance=ExtResource("8_yik3d")]
-position = Vector2(1021, 449)
+position = Vector2(1173, 446)
 
 [node name="Microwave" parent="Objects" instance=ExtResource("9_y4qw0")]
 position = Vector2(236, 412)
@@ -222,10 +222,10 @@ position = Vector2(1366, 477)
 position = Vector2(2343, 396)
 
 [node name="Scoopula" parent="Objects" instance=ExtResource("15_aby4o")]
-position = Vector2(1165, 432)
+position = Vector2(1027, 430)
 
 [node name="ScoopulaHolder" parent="Objects" instance=ExtResource("14_82fmo")]
-position = Vector2(1158, 437)
+position = Vector2(1020, 435)
 metadata/_edit_group_ = true
 
 [node name="AttachmentInteractableArea" parent="Objects/ScoopulaHolder" index="0" node_paths=PackedStringArray("contained_object")]
@@ -235,7 +235,7 @@ contained_object = NodePath("../../Scoopula")
 position = Vector2(801, 477)
 
 [node name="BiohazardBin" parent="Objects" instance=ExtResource("17_6se67")]
-position = Vector2(2144, 450)
+position = Vector2(2153, 452)
 
 [node name="MicrocentrifugeTube" parent="Objects" instance=ExtResource("10_bi7f4")]
 position = Vector2(1877, 472)
