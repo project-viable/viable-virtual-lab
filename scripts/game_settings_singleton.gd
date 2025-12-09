@@ -5,8 +5,6 @@ const CONFIG_FILE_PATH: String = "user://config"
 const MAIN_SECTION_NAME: String = "config"
 
 
-var mouse_camera_drag: bool = true
-var object_tooltips: bool = true
 var popup_timeout: float = 2.0
 var resolution: Vector2i = Vector2i(1280, 720)
 
@@ -14,8 +12,6 @@ var resolution: Vector2i = Vector2i(1280, 720)
 # None of these properties can be null; they must have a fixed type so [method load] can handle them
 # properly.
 var _saved_properties: Array[StringName] = [
-	&"mouse_camera_drag",
-	&"object_tooltips",
 	&"popup_timeout",
 	&"resolution",
 ]

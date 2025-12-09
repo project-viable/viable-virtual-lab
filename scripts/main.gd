@@ -439,18 +439,10 @@ func _on_About_CloseButton_pressed() -> void:
 
 func _on_OptionsButton_pressed() -> void:
 	_switch_to_menu_screen($Menu/MenuScreens/OptionsScreen)
-	$Menu/MenuScreens/OptionsScreen/VBoxContainer/MouseDragToggle.button_pressed = GameSettings.mouse_camera_drag
-	$Menu/MenuScreens/OptionsScreen/VBoxContainer/ObjectTooltipsToggle.button_pressed = GameSettings.object_tooltips
 	$Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout.value = GameSettings.popup_timeout
 
 func _on_CloseButton_pressed() -> void:
 	_switch_to_menu_screen($Menu/MenuScreens/PauseMenu)
-
-func _on_MouseDragToggle_toggled(button_pressed: bool) -> void:
-	GameSettings.mouse_camera_drag = button_pressed
-
-func _on_ObjectTooltipsToggle_toggled(button_pressed: bool) -> void:
-	GameSettings.object_tooltips = button_pressed
 
 func _on_PopupTimeout_value_changed(value: float) -> void:
 	GameSettings.popup_timeout = value
