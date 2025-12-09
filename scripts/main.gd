@@ -3,6 +3,7 @@ extends Node2D
 
 
 const INTERACTION_PROMPT_SCENE := preload("res://scenes/interaction_prompt.tscn")
+const TIME_WARP_ADJUST_SPEED := 10.0
 
 
 ## This will be called with [code]null[/code] when returning to the workspace.
@@ -52,6 +53,9 @@ var _current_workspace: WorkspaceCamera = null
 var _camera_focus_owner: Node = null
 
 var _interact_kind_prompts: Dictionary[InteractInfo.Kind, InteractionPrompt] = {}
+
+var _time_warp_strength: float = 0
+
 
 func _enter_tree() -> void:
 	# These need to be set in `_enter_tree` instead of `_ready` so that we can be pretty sure they
@@ -174,6 +178,15 @@ func _process(delta: float) -> void:
 	%LeftWorkspacePrompt.disabled = _current_workspace and not _current_workspace.left_workspace
 	%RightWorkspacePrompt.visible = _current_workspace and not _camera_focus_owner
 	%RightWorkspacePrompt.disabled = _current_workspace and not _current_workspace.right_workspace
+
+	var target_time_warp_strength := LabTime.time_scale / 20
+	if target_time_warp_strength > _time_warp_strength:
+		_time_warp_strength = min(target_time_warp_strength, _time_warp_strength + TIME_WARP_ADJUST_SPEED * delta)
+	else:
+		_time_warp_strength = max(target_time_warp_strength, _time_warp_strength - TIME_WARP_ADJUST_SPEED * delta)
+
+	# Time warp shader.
+	%ContentScaledSubViewportContainer.material.set(&"shader_parameter/strength", _time_warp_strength)
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"toggle_menu"):
