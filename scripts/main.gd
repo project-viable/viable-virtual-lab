@@ -191,8 +191,8 @@ func _process(delta: float) -> void:
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"toggle_menu"):
 		# A page other than the main pause menu is being shown; return to the pause menu.
-		if is_paused() and not $Menu/MenuScreens/PauseMenu.visible:
-			_switch_to_menu_screen($Menu/MenuScreens/PauseMenu)
+		if is_paused() and not %MenuScreenManager.is_on_primary_screen():
+			%MenuScreenManager.pop_screen()
 		# Toggle the pause menu only if we're in a module.
 		elif current_module_scene != null:
 			set_paused(not is_paused())
@@ -200,11 +200,11 @@ func _unhandled_key_input(e: InputEvent) -> void:
 func _load_module(module: ModuleData) -> void:
 	set_scene(load(module.scene_path))
 
-	_switch_to_menu_screen($Menu/MenuScreens/PauseMenu)
+	%MenuScreenManager.pop_all_screens()
 	$Menu/Background.hide()
-	$Menu/MenuScreens/PauseMenu/Content/Logo.hide()
-	$Menu/MenuScreens/PauseMenu/Content/ExitModuleButton.show()
-	$Menu/MenuScreens/PauseMenu/Content/RestartModuleButton.show()
+	%MenuScreenManager/PauseMenu/Content/Logo.hide()
+	%MenuScreenManager/PauseMenu/Content/ExitModuleButton.show()
+	%MenuScreenManager/PauseMenu/Content/RestartModuleButton.show()
 
 	current_module = module
 	$Menu/LogButton.show()
@@ -260,10 +260,10 @@ func set_paused(paused: bool) -> void:
 	get_tree().paused = _is_paused
 
 	if _is_paused:
-		$Menu/MenuScreens.show()
+		%MenuScreenManager.show()
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:
-		$Menu/MenuScreens.hide()
+		%MenuScreenManager.hide()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func is_paused() -> bool:
@@ -336,12 +336,6 @@ func focus_camera_and_show_subscene(rect: Rect2, camera: SubsceneCamera, use_ove
 	var left_rect := Util.expand_to_aspect(rect.grow(10), left_aspect)
 	var full_rect := Util.expand_to_aspect(left_rect, viewport_size.aspect(), 0)
 	$%TransitionCamera.move_to_rect(full_rect, false, time)
-
-func _on_SelectModuleButton_pressed() -> void:
-	_switch_to_menu_screen($Menu/MenuScreens/ModuleSelect)
-
-func _on_AboutButton_pressed() -> void:
-	_switch_to_menu_screen($Menu/MenuScreens/AboutScreen)
 
 func _on_LogButton_pressed() -> void:
 	$Menu/LogButton/LogMenu.visible = ! $Menu/LogButton/LogMenu.visible
@@ -432,17 +426,7 @@ func _on_FinalReport_RestartModuleButton_pressed() -> void:
 	$Menu/FinalReport.hide()
 
 func _on_FinalReport_ContinueButton_pressed() -> void:
-	_switch_to_menu_screen($Menu/MenuScreens/PauseMenu)
-
-func _on_About_CloseButton_pressed() -> void:
-	_switch_to_menu_screen($Menu/MenuScreens/PauseMenu)
-
-func _on_OptionsButton_pressed() -> void:
-	_switch_to_menu_screen($Menu/MenuScreens/OptionsScreen)
-	$Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout.value = GameSettings.popup_timeout
-
-func _on_CloseButton_pressed() -> void:
-	_switch_to_menu_screen($Menu/MenuScreens/PauseMenu)
+	pass
 
 func _on_PopupTimeout_value_changed(value: float) -> void:
 	GameSettings.popup_timeout = value
@@ -456,10 +440,10 @@ func _on_exit_module_button_pressed() -> void:
 func _switch_to_main_menu() -> void:
 	unload_current_module()
 
-	_switch_to_menu_screen($Menu/MenuScreens/PauseMenu)
-	$Menu/MenuScreens/PauseMenu/Content/Logo.hide()
-	$Menu/MenuScreens/PauseMenu/Content/ExitModuleButton.hide()
-	$Menu/MenuScreens/PauseMenu/Content/RestartModuleButton.hide()
+	%MenuScreenManager.pop_all_screens()
+	%MenuScreenManager/PauseMenu/Content/Logo.hide()
+	%MenuScreenManager/PauseMenu/Content/ExitModuleButton.hide()
+	%MenuScreenManager/PauseMenu/Content/RestartModuleButton.hide()
 	$Menu/Background.show()
 
 	$Menu/LogButton.hide() #until we load a module
@@ -467,22 +451,11 @@ func _switch_to_main_menu() -> void:
 	$Menu/FinalReport.hide()
 	$Menu/LabLogPopup.hide()
 
-# Only one of the UI elements in `$MenuScreens` can be shown at once. These are
-# the UI elements that show up in the middle of the screen, and them overlapping is problematic.
-func _switch_to_menu_screen(menu: Control) -> void:
-	if not $Menu/MenuScreens.get_children().has(menu): return
-	for m in $Menu/MenuScreens.get_children():
-		m.hide()
-	menu.show()
-
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
 func _on_restart_module_button_pressed() -> void:
 	_load_module(current_module)
-
-func _on_module_select_close_button_pressed() -> void:
-	_switch_to_menu_screen($Menu/MenuScreens/PauseMenu)
 
 func _on_resolution_dropdown_item_selected(index: int) -> void:
 	var resolution: Variant = $%ResolutionDropdown.get_item_metadata(index)

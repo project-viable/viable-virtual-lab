@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=34 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -15,10 +15,13 @@
 [ext_resource type="Script" uid="uid://dftxhrc76wr2j" path="res://scripts/debug_overlay.gd" id="12_yc10j"]
 [ext_resource type="Texture2D" uid="uid://bdg0qubi6xt7d" path="res://textures/old/MainMenu-Background.png" id="14_b4l0s"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://textures/old/VIABLE_Logo_Transparent.png" id="15_ki7y1"]
+[ext_resource type="Script" uid="uid://bmdn4p40xeusb" path="res://scripts/menu_screen_manager.gd" id="15_og1vs"]
+[ext_resource type="Script" uid="uid://d87mq61qhuq8" path="res://scripts/menu_screen.gd" id="16_2wyq8"]
 [ext_resource type="FontFile" path="res://fonts/roboto_medium_28.tres" id="16_gpyrr"]
 [ext_resource type="Texture2D" uid="uid://b3mapaem4gat2" path="res://textures/old/Gel Electrophoresis Icon.png" id="17_3wfyc"]
 [ext_resource type="Texture2D" uid="uid://dgmytdnqonu6s" path="res://textures/old/HamburgerMenu.png" id="18_uoft2"]
 [ext_resource type="Texture2D" uid="uid://bxwnksqona14c" path="res://textures/old/Dot-Blue.png" id="19_a8iky"]
+[ext_resource type="Script" uid="uid://kxslh01sq2ny" path="res://scripts/menu_screen_button.gd" id="19_vxglm"]
 [ext_resource type="Texture2D" uid="uid://cm63yepobpmlk" path="res://textures/old/Dot-Yellow.png" id="20_7tk8h"]
 [ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://textures/old/Dot-Red.png" id="21_grp7q"]
 [ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://scenes/interaction_prompt.tscn" id="22_g2on7"]
@@ -227,15 +230,18 @@ offset_right = 640.0
 offset_bottom = 360.0
 texture = ExtResource("14_b4l0s")
 
-[node name="MenuScreens" type="Control" parent="Menu"]
+[node name="MenuScreenManager" type="Control" parent="Menu"]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("15_og1vs")
+metadata/_custom_type_script = "uid://bmdn4p40xeusb"
 
-[node name="PauseMenu" type="Control" parent="Menu/MenuScreens"]
+[node name="PauseMenu" type="Control" parent="Menu/MenuScreenManager"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -244,8 +250,9 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("16_2wyq8")
 
-[node name="Content" type="VBoxContainer" parent="Menu/MenuScreens/PauseMenu"]
+[node name="Content" type="VBoxContainer" parent="Menu/MenuScreenManager/PauseMenu"]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -256,7 +263,7 @@ offset_top = -96.5
 offset_right = 200.0
 offset_bottom = 96.5
 
-[node name="Logo" type="TextureRect" parent="Menu/MenuScreens/PauseMenu/Content"]
+[node name="Logo" type="TextureRect" parent="Menu/MenuScreenManager/PauseMenu/Content"]
 visible = false
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
@@ -264,36 +271,42 @@ texture = ExtResource("15_ki7y1")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="SelectModuleButton" type="Button" parent="Menu/MenuScreens/PauseMenu/Content"]
+[node name="SelectModuleButton" type="Button" parent="Menu/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("16_gpyrr")
 text = "Select Module"
+script = ExtResource("19_vxglm")
+menu_screen = NodePath("../../../ModuleSelect")
 
-[node name="RestartModuleButton" type="Button" parent="Menu/MenuScreens/PauseMenu/Content"]
+[node name="RestartModuleButton" type="Button" parent="Menu/MenuScreenManager/PauseMenu/Content"]
 visible = false
 layout_mode = 2
 text = "Restart Module"
 
-[node name="ExitModuleButton" type="Button" parent="Menu/MenuScreens/PauseMenu/Content"]
+[node name="ExitModuleButton" type="Button" parent="Menu/MenuScreenManager/PauseMenu/Content"]
 visible = false
 layout_mode = 2
 text = "Return to Main Menu"
 
-[node name="OptionsButton" type="Button" parent="Menu/MenuScreens/PauseMenu/Content"]
+[node name="OptionsButton" type="Button" parent="Menu/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("16_gpyrr")
 text = "Options"
+script = ExtResource("19_vxglm")
+menu_screen = NodePath("../../../OptionsScreen")
 
-[node name="AboutButton" type="Button" parent="Menu/MenuScreens/PauseMenu/Content"]
+[node name="AboutButton" type="Button" parent="Menu/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("16_gpyrr")
 text = "About"
+script = ExtResource("19_vxglm")
+menu_screen = NodePath("../../../AboutScreen")
 
-[node name="QuitButton" type="Button" parent="Menu/MenuScreens/PauseMenu/Content"]
+[node name="QuitButton" type="Button" parent="Menu/MenuScreenManager/PauseMenu/Content"]
 layout_mode = 2
 text = "Quit"
 
-[node name="AboutScreen" type="PanelContainer" parent="Menu/MenuScreens"]
+[node name="AboutScreen" type="PanelContainer" parent="Menu/MenuScreenManager"]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -307,17 +320,18 @@ offset_right = 400.0
 offset_bottom = 240.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("16_2wyq8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuScreens/AboutScreen"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuScreenManager/AboutScreen"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Menu/MenuScreens/AboutScreen/VBoxContainer"]
+[node name="Label" type="Label" parent="Menu/MenuScreenManager/AboutScreen/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 text = "About"
 horizontal_alignment = 1
 
-[node name="Text" type="RichTextLabel" parent="Menu/MenuScreens/AboutScreen/VBoxContainer"]
+[node name="Text" type="RichTextLabel" parent="Menu/MenuScreenManager/AboutScreen/VBoxContainer"]
 custom_minimum_size = Vector2(600, 400)
 layout_mode = 2
 bbcode_enabled = true
@@ -563,11 +577,12 @@ The following tools, projects, and assets are used under their respective licens
 									   See the License for the specific language governing permissions and
 									   limitations under the License."
 
-[node name="CloseButton" type="Button" parent="Menu/MenuScreens/AboutScreen/VBoxContainer"]
+[node name="CloseButton" type="Button" parent="Menu/MenuScreenManager/AboutScreen/VBoxContainer"]
 layout_mode = 2
 text = "Close"
+script = ExtResource("19_vxglm")
 
-[node name="OptionsScreen" type="PanelContainer" parent="Menu/MenuScreens"]
+[node name="OptionsScreen" type="PanelContainer" parent="Menu/MenuScreenManager"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -580,45 +595,47 @@ offset_right = 150.0
 offset_bottom = 84.5
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("16_2wyq8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuScreens/OptionsScreen"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuScreenManager/OptionsScreen"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
+[node name="Label" type="Label" parent="Menu/MenuScreenManager/OptionsScreen/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 text = "Options"
 horizontal_alignment = 1
 
-[node name="PopupDuration" type="HSplitContainer" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
+[node name="PopupDuration" type="HSplitContainer" parent="Menu/MenuScreenManager/OptionsScreen/VBoxContainer"]
 layout_mode = 2
 
-[node name="PopupDurationTitle" type="Label" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration"]
+[node name="PopupDurationTitle" type="Label" parent="Menu/MenuScreenManager/OptionsScreen/VBoxContainer/PopupDuration"]
 layout_mode = 2
 text = "Popup Duration"
 
-[node name="PopupTimeout" type="SpinBox" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration"]
+[node name="PopupTimeout" type="SpinBox" parent="Menu/MenuScreenManager/OptionsScreen/VBoxContainer/PopupDuration"]
 layout_mode = 2
 max_value = 5.0
 step = 0.5
 
-[node name="Resolution" type="HBoxContainer" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
+[node name="Resolution" type="HBoxContainer" parent="Menu/MenuScreenManager/OptionsScreen/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer/Resolution"]
+[node name="Label" type="Label" parent="Menu/MenuScreenManager/OptionsScreen/VBoxContainer/Resolution"]
 layout_mode = 2
 text = "Resolution"
 
-[node name="ResolutionDropdown" type="OptionButton" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer/Resolution"]
+[node name="ResolutionDropdown" type="OptionButton" parent="Menu/MenuScreenManager/OptionsScreen/VBoxContainer/Resolution"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CloseButton" type="Button" parent="Menu/MenuScreens/OptionsScreen/VBoxContainer"]
+[node name="CloseButton" type="Button" parent="Menu/MenuScreenManager/OptionsScreen/VBoxContainer"]
 layout_mode = 2
 text = "Close"
+script = ExtResource("19_vxglm")
 
-[node name="ModuleSelect" type="PanelContainer" parent="Menu/MenuScreens"]
+[node name="ModuleSelect" type="PanelContainer" parent="Menu/MenuScreenManager"]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -632,32 +649,34 @@ offset_right = 10.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("16_2wyq8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuScreens/ModuleSelect"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuScreenManager/ModuleSelect"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Menu/MenuScreens/ModuleSelect/VBoxContainer"]
+[node name="Label" type="Label" parent="Menu/MenuScreenManager/ModuleSelect/VBoxContainer"]
 layout_mode = 2
 text = "Modules"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Menu/MenuScreens/ModuleSelect/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Menu/MenuScreenManager/ModuleSelect/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="Modules" type="GridContainer" parent="Menu/MenuScreens/ModuleSelect/VBoxContainer/ScrollContainer"]
+[node name="Modules" type="GridContainer" parent="Menu/MenuScreenManager/ModuleSelect/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 columns = 3
 
-[node name="Blank" type="Control" parent="Menu/MenuScreens/ModuleSelect/VBoxContainer"]
+[node name="Blank" type="Control" parent="Menu/MenuScreenManager/ModuleSelect/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="CloseButton" type="Button" parent="Menu/MenuScreens/ModuleSelect/VBoxContainer"]
+[node name="CloseButton" type="Button" parent="Menu/MenuScreenManager/ModuleSelect/VBoxContainer"]
 layout_mode = 2
 text = "Close"
+script = ExtResource("19_vxglm")
 
 [node name="FinalReport" type="PanelContainer" parent="Menu"]
 visible = false
@@ -906,17 +925,11 @@ auto_update_pressed = true
 [connection signal="pressed_zoom_out" from="InteractableSystem" to="." method="_on_interactable_system_pressed_zoom_out"]
 [connection signal="body_entered" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_entered"]
 [connection signal="body_exited" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_exited"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/SelectModuleButton" to="." method="_on_SelectModuleButton_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/ExitModuleButton" to="." method="_on_exit_module_button_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/OptionsButton" to="." method="_on_OptionsButton_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/AboutButton" to="." method="_on_AboutButton_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/PauseMenu/Content/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/AboutScreen/VBoxContainer/CloseButton" to="." method="_on_About_CloseButton_pressed"]
-[connection signal="value_changed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="." method="_on_PopupTimeout_value_changed"]
-[connection signal="item_selected" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/Resolution/ResolutionDropdown" to="." method="_on_resolution_dropdown_item_selected"]
-[connection signal="pressed" from="Menu/MenuScreens/OptionsScreen/VBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]
-[connection signal="pressed" from="Menu/MenuScreens/ModuleSelect/VBoxContainer/CloseButton" to="." method="_on_module_select_close_button_pressed"]
+[connection signal="pressed" from="Menu/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]
+[connection signal="pressed" from="Menu/MenuScreenManager/PauseMenu/Content/ExitModuleButton" to="." method="_on_exit_module_button_pressed"]
+[connection signal="pressed" from="Menu/MenuScreenManager/PauseMenu/Content/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="value_changed" from="Menu/MenuScreenManager/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="." method="_on_PopupTimeout_value_changed"]
+[connection signal="item_selected" from="Menu/MenuScreenManager/OptionsScreen/VBoxContainer/Resolution/ResolutionDropdown" to="." method="_on_resolution_dropdown_item_selected"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/MainMenuButton" to="." method="_on_FinalReport_MainMenuButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/RestartModuleButton" to="." method="_on_FinalReport_RestartModuleButton_pressed"]
 [connection signal="pressed" from="Menu/FinalReport/VBoxContainer/HBoxContainer/ContinueButton" to="." method="_on_FinalReport_ContinueButton_pressed"]

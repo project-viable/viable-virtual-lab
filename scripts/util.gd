@@ -42,6 +42,14 @@ static func find_child_of_type(n: Node, type: Variant) -> Node:
 
 	return null
 
+## Find the first ancestor of [param n] of type [param type].
+static func find_ancestor_of_type(n: Node, type: Variant) -> Node:
+	while n.get_parent():
+		n = n.get_parent()
+		if is_instance_of(n, type): return n
+
+	return null
+
 # Lerps a smooth transition from [param from] to [param to] by interpolating the top left and
 # bottom right corners. This is useful for easing a camera when the zoom changes.
 static func lerp_rect2(from: Rect2, to: Rect2, t: float) -> Rect2:
