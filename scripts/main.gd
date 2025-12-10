@@ -9,35 +9,9 @@ const TIME_WARP_ADJUST_SPEED := 10.0
 ## This will be called with [code]null[/code] when returning to the workspace.
 signal camera_focus_owner_changed(focus_owner: Node)
 
+
 @export var all_modules: Array[ModuleData]
 
-# TODO (update): This is essentially public, so we should consider using a convention to make that
-# clear, like naming it in PascalCase.
-var current_module_scene: Node = null
-
-var module_button: PackedScene = load("res://scenes/module_select_button.tscn")
-
-
-var current_module: ModuleData = null
-
-# `Dictionary[LogMessage.Category, int]`.
-var unread_logs: Dictionary = {
-	LogMessage.Category.LOG: 0,
-	LogMessage.Category.WARNING: 0,
-	LogMessage.Category.ERROR: 0
-}
-
-var popup_active: bool = false
-var logs: Array[LogMessage] = []
-
-@onready var _hand_pointing_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandPointing
-@onready var _hand_open_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandOpen
-@onready var _hand_closed_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandClosed
-@onready var _cursor_collision: CollisionShape2D = $SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea/CollisionShape2D
-@onready var _cursor_collision_original_size: Vector2 = _cursor_collision.shape.size
-@onready var _cursor_collision_original_pos: Vector2 = _cursor_collision.position
-
-var _is_paused: bool = true
 
 var _resolution_options: Array[Vector2i] = [
 	Vector2i(1280, 720),
@@ -49,12 +23,29 @@ var _resolution_options: Array[Vector2i] = [
 	Vector2i(3840, 2160),
 ]
 
+var _unread_logs: Dictionary[LogMessage.Category, int] = {
+	LogMessage.Category.LOG: 0,
+	LogMessage.Category.WARNING: 0,
+	LogMessage.Category.ERROR: 0
+}
+
+var _is_paused: bool = true
+var _current_module_scene: Node = null
+var _module_button: PackedScene = load("res://scenes/module_select_button.tscn")
+var _current_module: ModuleData = null
 var _current_workspace: WorkspaceCamera = null
 var _camera_focus_owner: Node = null
-
 var _interact_kind_prompts: Dictionary[InteractInfo.Kind, InteractionPrompt] = {}
-
 var _time_warp_strength: float = 0
+var _popup_active: bool = false
+var _logs: Array[LogMessage] = []
+
+@onready var _hand_pointing_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandPointing
+@onready var _hand_open_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandOpen
+@onready var _hand_closed_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandClosed
+@onready var _cursor_collision: CollisionShape2D = $SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea/CollisionShape2D
+@onready var _cursor_collision_original_size: Vector2 = _cursor_collision.shape.size
+@onready var _cursor_collision_original_pos: Vector2 = _cursor_collision.position
 
 
 func _enter_tree() -> void:
@@ -77,7 +68,7 @@ func _ready() -> void:
 	#Set up the module select buttons
 	for module_data in all_modules:
 		if module_data.show:
-			var new_button := module_button.instantiate()
+			var new_button := _module_button.instantiate()
 			new_button.set_data(module_data)
 			new_button.connect("pressed", Callable(self, &"_load_module").bind(module_data))
 			$%Modules.add_child(new_button)
@@ -148,18 +139,18 @@ func _ready() -> void:
 		_interact_kind_prompts[kind] = prompt
 
 func _process(delta: float) -> void:
-	if logs != []:
+	if _logs != []:
 		# Need to display log message(s)
-		if !popup_active:
-			if logs[0].popup:
-				show_popup(logs[0])
-			logs.remove_at(0)
+		if !_popup_active:
+			if _logs[0].popup:
+				show_popup(_logs[0])
+			_logs.remove_at(0)
 
 	for prompt: InteractionPrompt in _interact_kind_prompts.values():
 		prompt.hide()
 
 	# Don't show prompts in the main menu.
-	if current_module_scene:
+	if _current_module_scene:
 		for kind: InteractInfo.Kind in InteractInfo.Kind.values():
 			var prompt: InteractionPrompt = _interact_kind_prompts.get(kind)
 			if not prompt: continue
@@ -193,7 +184,7 @@ func _unhandled_key_input(e: InputEvent) -> void:
 		if is_paused() and not %MenuScreenManager.is_on_primary_screen():
 			%MenuScreenManager.pop_screen()
 		# Toggle the pause menu only if we're in a module.
-		elif current_module_scene != null:
+		elif _current_module_scene != null:
 			set_paused(not is_paused())
 
 func _load_module(module: ModuleData) -> void:
@@ -205,7 +196,7 @@ func _load_module(module: ModuleData) -> void:
 	%MenuScreenManager/PauseMenu/Content/ExitModuleButton.show()
 	%MenuScreenManager/PauseMenu/Content/RestartModuleButton.show()
 
-	current_module = module
+	_current_module = module
 	$Menu/LogButton.show()
 	$Menu/LogButton/LogMenu/Instructions.text = module.instructions_bb_code
 	$Menu/LogButton/LogMenu/Instructions.show()
@@ -220,14 +211,14 @@ func unload_current_module() -> void:
 	for child in $%Scene.get_children():
 		child.queue_free()
 	move_to_workspace(null)
-	current_module_scene = null
+	_current_module_scene = null
 
 #instanciates scene and adds it as a child of %$Scene. Gets rid of any scene that's already been loaded, and hides the menu.
 func set_scene(scene: PackedScene) -> void:
 	unload_current_module()
 	var new_scene := scene.instantiate()
 	$%Scene.call_deferred("add_child", new_scene)
-	current_module_scene = new_scene
+	_current_module_scene = new_scene
 	#$Camera.reset()
 
 func set_popup_border_color(color: Color) -> void:
@@ -247,11 +238,11 @@ func show_popup(new_log: LogMessage) -> void:
 		_:
 			color = Color(0.0, 0.0, 0.0, 0.0)
 	set_popup_border_color(color)
-	popup_active = true
+	_popup_active = true
 	$Menu/LabLogPopup.visible = true
 	await get_tree().create_timer(GameSettings.popup_timeout).timeout
-	popup_active = false
-	$Menu/LabLogPopup.visible = false if logs.size() == 0 else true
+	_popup_active = false
+	$Menu/LabLogPopup.visible = false if _logs.size() == 0 else true
 
 # Sets whether the pause menu is shown and the game is paused.
 func set_paused(paused: bool) -> void:
@@ -351,13 +342,13 @@ func _on_New_Log_Message(new_log: LogMessage) -> void:
 			LogMessage.Category.ERROR:
 				$Menu/LogButton/LogMenu/Errors.text += bbcode
 
-	logs.append(new_log)
-	unread_logs[new_log.category] += 1
+	_logs.append(new_log)
+	_unread_logs[new_log.category] += 1
 	set_log_notification_counts()
 
 func _on_Logs_Cleared() -> void:
-	for key: LogMessage.Category in unread_logs.keys():
-		unread_logs[key] = 0
+	for key: LogMessage.Category in _unread_logs.keys():
+		_unread_logs[key] = 0
 
 	$Menu/LogButton/LogMenu/Log.text = ""
 	$Menu/LogButton/LogMenu/Warnings.text = ""
@@ -367,32 +358,32 @@ func _on_Logs_Cleared() -> void:
 func set_log_notification_counts(tab: int = -1) -> void:
 	if $Menu/LogButton/LogMenu.visible:
 		if $Menu/LogButton/LogMenu.current_tab == 1:
-			unread_logs[LogMessage.Category.LOG] = 0
+			_unread_logs[LogMessage.Category.LOG] = 0
 		elif $Menu/LogButton/LogMenu.current_tab == 2:
-			unread_logs[LogMessage.Category.WARNING] = 0
+			_unread_logs[LogMessage.Category.WARNING] = 0
 		#Do not ever clear error notifications
 		#elif $LogButton/LogMenu.current_tab == 3:
-		#	unread_logs[LogMessage.Category.ERROR] = 0
+		#	_unread_logs[LogMessage.Category.ERROR] = 0
 
-	if unread_logs[LogMessage.Category.LOG] == 0:
+	if _unread_logs[LogMessage.Category.LOG] == 0:
 		$Menu/LogButton/LogMenu.set_tab_title(1, "Log")
 		$Menu/LogButton/Notifications/Log.hide()
 	else:
-		$Menu/LogButton/LogMenu.set_tab_title(1, "Log (" + str(unread_logs[LogMessage.Category.LOG]) + "!)")
+		$Menu/LogButton/LogMenu.set_tab_title(1, "Log (" + str(_unread_logs[LogMessage.Category.LOG]) + "!)")
 		$Menu/LogButton/Notifications/Log.show()
 
-	if unread_logs[LogMessage.Category.WARNING] == 0:
+	if _unread_logs[LogMessage.Category.WARNING] == 0:
 		$Menu/LogButton/LogMenu.set_tab_title(2, "Warnings")
 		$Menu/LogButton/Notifications/Warning.hide()
 	else:
-		$Menu/LogButton/LogMenu.set_tab_title(2, "Warnings (" + str(unread_logs[LogMessage.Category.WARNING]) + "!)")
+		$Menu/LogButton/LogMenu.set_tab_title(2, "Warnings (" + str(_unread_logs[LogMessage.Category.WARNING]) + "!)")
 		$Menu/LogButton/Notifications/Warning.show()
 
-	if unread_logs[LogMessage.Category.ERROR] == 0:
+	if _unread_logs[LogMessage.Category.ERROR] == 0:
 		$Menu/LogButton/LogMenu.set_tab_title(3, "Errors")
 		$Menu/LogButton/Notifications/Error.hide()
 	else:
-		$Menu/LogButton/LogMenu.set_tab_title(3, "Errors (" + str(unread_logs[LogMessage.Category.ERROR]) + "!)")
+		$Menu/LogButton/LogMenu.set_tab_title(3, "Errors (" + str(_unread_logs[LogMessage.Category.ERROR]) + "!)")
 		$Menu/LogButton/Notifications/Error.show()
 
 func _on_PopupTimeout_value_changed(value: float) -> void:
@@ -421,7 +412,7 @@ func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
 func _on_restart_module_button_pressed() -> void:
-	_load_module(current_module)
+	_load_module(_current_module)
 
 func _on_resolution_dropdown_item_selected(index: int) -> void:
 	var resolution: Variant = $%ResolutionDropdown.get_item_metadata(index)
