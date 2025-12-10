@@ -6,7 +6,6 @@ var logs: Array[LogMessage] = []
 
 signal new_message(new_log: LogMessage)
 signal logs_cleared()
-signal ReportShown()
 
 func add_log_message(category: LogMessage.Category, message: String, hidden: bool = false, popup: bool = false) -> void:
 	var new_log := LogMessage.new(category, message, hidden, popup)
@@ -21,10 +20,6 @@ func get_logs(category: LogMessage.Category) -> Array[LogMessage]:
 func clear_logs() -> void:
 	logs.clear()
 	emit_signal("logs_cleared")
-
-#This is just for convenience - instead of having to find the final report UI node, just call LabLog.show_report() and it'll make sure that everyone who needs to know about it does.
-func show_report() -> void:
-	emit_signal("ReportShown")
 
 #========Convenience Functions========
 #all of these are just prettier ways of calling AddLogMessage

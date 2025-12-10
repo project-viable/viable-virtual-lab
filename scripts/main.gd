@@ -84,7 +84,6 @@ func _ready() -> void:
 
 	#connect the log signals
 	LabLog.connect("new_message", Callable(self, "_on_New_Log_Message"))
-	LabLog.connect("ReportShown", Callable(self, "_on_LabLog_Report_Shown"))
 	LabLog.connect("logs_cleared", Callable(self, "_on_Logs_Cleared"))
 
 	Cursor.mode_changed.connect(_on_virtual_mouse_mode_changed)
@@ -396,38 +395,6 @@ func set_log_notification_counts(tab: int = -1) -> void:
 		$Menu/LogButton/LogMenu.set_tab_title(3, "Errors (" + str(unread_logs[LogMessage.Category.ERROR]) + "!)")
 		$Menu/LogButton/Notifications/Error.show()
 
-func _on_LabLog_Report_Shown() -> void:
-	#Show all the warnings and errors
-	var logs_text := ""
-	for warning in LabLog.get_logs(LogMessage.Category.WARNING):
-		logs_text += "[color=yellow]-" + warning.message + "[/color]\n"
-	for error in LabLog.get_logs(LogMessage.Category.ERROR):
-		logs_text += "[color=red]-" + error.message + "[/color]\n"
-
-	if logs_text != "":
-		logs_text = "You weren't perfect though - here's some notes:\n" + logs_text
-		$Menu/FinalReport/VBoxContainer/Logs.text = logs_text
-		$Menu/FinalReport/VBoxContainer/Logs.show()
-	else:
-		$Menu/FinalReport/VBoxContainer/Logs.hide()
-
-	#Setup the rest of the popup
-	$Menu/FinalReport/VBoxContainer/ModuleName.text = "You completed the \"" + current_module.name + "\" module!"
-	$Menu/FinalReport/VBoxContainer/ModuleIcon.texture = current_module.thumbnail
-	$Menu/FinalReport.set_anchors_preset(Control.PRESET_CENTER)
-	$Menu/FinalReport.show()
-
-func _on_FinalReport_MainMenuButton_pressed() -> void:
-	get_tree().reload_current_scene()
-
-func _on_FinalReport_RestartModuleButton_pressed() -> void:
-	set_scene(load(current_module.scene_path))
-	set_log_notification_counts()
-	$Menu/FinalReport.hide()
-
-func _on_FinalReport_ContinueButton_pressed() -> void:
-	pass
-
 func _on_PopupTimeout_value_changed(value: float) -> void:
 	GameSettings.popup_timeout = value
 
@@ -448,7 +415,6 @@ func _switch_to_main_menu() -> void:
 
 	$Menu/LogButton.hide() #until we load a module
 	$Menu/LogButton/LogMenu.hide()
-	$Menu/FinalReport.hide()
 	$Menu/LabLogPopup.hide()
 
 func _on_quit_button_pressed() -> void:
