@@ -29,7 +29,6 @@ var _unread_logs: Dictionary[LogMessage.Category, int] = {
 	LogMessage.Category.ERROR: 0
 }
 
-var _is_paused: bool = true
 var _current_module_scene: Node = null
 var _module_button: PackedScene = load("res://scenes/module_select_button.tscn")
 var _current_module: ModuleData = null
@@ -63,7 +62,7 @@ func _ready() -> void:
 	$%SubsceneViewport.world_2d = Subscenes.main_world_2d
 
 	_switch_to_main_menu()
-	set_paused(true)
+	set_pause_menu_open(true)
 
 	#Set up the module select buttons
 	for module_data in all_modules:
@@ -181,11 +180,11 @@ func _process(delta: float) -> void:
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"toggle_menu"):
 		# A page other than the main pause menu is being shown; return to the pause menu.
-		if is_paused() and not %MenuScreenManager.is_on_primary_screen():
+		if is_pause_menu_open() and not %MenuScreenManager.is_on_primary_screen():
 			%MenuScreenManager.pop_screen()
 		# Toggle the pause menu only if we're in a module.
 		elif _current_module_scene != null:
-			set_paused(not is_paused())
+			set_pause_menu_open(not is_pause_menu_open())
 
 func _load_module(module: ModuleData) -> void:
 	set_scene(load(module.scene_path))
@@ -203,7 +202,7 @@ func _load_module(module: ModuleData) -> void:
 
 	# To make the initial virtual mouse position feel less weird.
 	Cursor.virtual_mouse_position = get_global_mouse_position()
-	set_paused(false)
+	set_pause_menu_open(false)
 
 func unload_current_module() -> void:
 	LabLog.clear_logs()
@@ -245,19 +244,12 @@ func show_popup(new_log: LogMessage) -> void:
 	$Menu/LabLogPopup.visible = false if _logs.size() == 0 else true
 
 # Sets whether the pause menu is shown and the game is paused.
-func set_paused(paused: bool) -> void:
-	_is_paused = paused
-	get_tree().paused = _is_paused
+func set_pause_menu_open(paused: bool) -> void:
+	%MenuScreenManager.visible = paused
+	_update_simulation_pause()
 
-	if _is_paused:
-		%MenuScreenManager.show()
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	else:
-		%MenuScreenManager.hide()
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
-func is_paused() -> bool:
-	return _is_paused
+func is_pause_menu_open() -> bool:
+	return %MenuScreenManager.visible
 
 ## Move the camera to workspace [param workspace] in time [param time].
 func move_to_workspace(workspace: WorkspaceCamera, time: float = 0.0) -> void:
@@ -481,3 +473,12 @@ func _update_virtual_mouse() -> void:
 	# Match the cursor's collision and position to the relative size of the hand.
 	_cursor_collision.shape.size = _cursor_collision_original_size / %TransitionCamera.zoom
 	_cursor_collision.position = _cursor_collision_original_pos / %TransitionCamera.zoom
+
+# Update whether the simulation is paused based on whether the pause menu is open and stuff. Also
+# updates whether we're showing the hardware cursor or the virtual cursor only.
+func _update_simulation_pause() -> void:
+	var should_pause := is_pause_menu_open()
+	get_tree().paused = should_pause
+
+	if should_pause: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
