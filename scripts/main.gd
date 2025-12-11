@@ -133,7 +133,7 @@ func _ready() -> void:
 		var action_event := InputEventAction.new()
 		action_event.action = InteractInfo.kind_to_action(kind)
 		prompt.input_event = action_event
-		%Prompts.add_child(prompt)
+		%Prompts/InteractPrompts.add_child(prompt)
 
 		_interact_kind_prompts[kind] = prompt
 
@@ -199,6 +199,8 @@ func _load_module(module: ModuleData) -> void:
 	$UILayer/LogButton.show()
 	$UILayer/LogButton/LogMenu/Instructions.text = module.instructions_bb_code
 	$UILayer/LogButton/LogMenu/Instructions.show()
+
+	%Prompts.show()
 
 	# To make the initial virtual mouse position feel less weird.
 	Cursor.virtual_mouse_position = get_global_mouse_position()
@@ -399,6 +401,8 @@ func _switch_to_main_menu() -> void:
 	$UILayer/LogButton.hide() #until we load a module
 	$UILayer/LogButton/LogMenu.hide()
 	$UILayer/LabLogPopup.hide()
+
+	%Prompts.hide()
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()

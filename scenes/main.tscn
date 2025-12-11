@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=34 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -85,6 +85,9 @@ action = &"interact_left"
 
 [sub_resource type="InputEventAction" id="InputEventAction_sqvbp"]
 action = &"interact_right"
+
+[sub_resource type="InputEventAction" id="InputEventAction_y6deb"]
+action = &"toggle_journal"
 
 [node name="Main" type="Node2D"]
 process_mode = 3
@@ -219,6 +222,19 @@ mouse_filter = 2
 theme = ExtResource("11_gqmmt")
 columns = 4
 script = ExtResource("12_yc10j")
+
+[node name="Journal" type="Panel" parent="UILayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MenuScreenManager" type="Control" parent="UILayer"]
 unique_name_in_owner = true
@@ -793,59 +809,88 @@ border_color = Color(1, 1, 1, 1)
 border_width = 5.0
 editor_only = false
 
-[node name="Prompts" type="VBoxContainer" parent="UILayer"]
+[node name="Prompts" type="Control" parent="UILayer"]
 unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="InteractPrompts" type="VBoxContainer" parent="UILayer/Prompts"]
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
-offset_top = -97.0
+offset_top = 583.0
 offset_right = 91.0
-offset_bottom = -9.0
+offset_bottom = 671.0
 grow_vertical = 0
 theme_override_constants/separation = 10
 
-[node name="ZoomOutPrompt" parent="UILayer" instance=ExtResource("22_g2on7")]
+[node name="ZoomOutPrompt" parent="UILayer/Prompts" instance=ExtResource("22_g2on7")]
 unique_name_in_owner = true
-anchors_preset = 5
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -102.5
+offset_left = -101.5
 offset_top = 10.0
-offset_right = 102.5
-offset_bottom = 50.0
+offset_right = 101.5
+offset_bottom = 60.0
 grow_horizontal = 2
 scale = Vector2(0.7, 0.7)
 pivot_offset = Vector2(102.5, 0)
 input_event = SubResource("InputEventAction_xrxkg")
 description = "Zoom out"
 
-[node name="LeftWorkspacePrompt" parent="UILayer" instance=ExtResource("22_g2on7")]
+[node name="LeftWorkspacePrompt" parent="UILayer/Prompts" instance=ExtResource("22_g2on7")]
 unique_name_in_owner = true
-anchors_preset = -1
-anchor_top = 0.3
-anchor_bottom = 0.3
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
 offset_left = 10.0
-offset_right = 0.0
-offset_bottom = 0.0
+offset_top = -30.0
+offset_right = 107.0
+offset_bottom = 30.0
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 input_event = SubResource("InputEventAction_mxvw5")
 auto_update_pressed = true
 
-[node name="RightWorkspacePrompt" parent="UILayer" instance=ExtResource("22_g2on7")]
+[node name="RightWorkspacePrompt" parent="UILayer/Prompts" instance=ExtResource("22_g2on7")]
 unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
-anchor_top = 0.3
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.3
-offset_right = 10.0
-offset_bottom = 0.0
+anchor_bottom = 0.5
+offset_left = -107.0
+offset_top = -30.0
+offset_right = 0.0
+offset_bottom = 30.0
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 input_event = SubResource("InputEventAction_sqvbp")
+auto_update_pressed = true
+
+[node name="JournalPrompt" parent="UILayer/Prompts" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 254.0
+offset_bottom = 70.0
+scale = Vector2(0.7, 0.7)
+input_event = SubResource("InputEventAction_y6deb")
+description = "Toggle journal"
 auto_update_pressed = true
 
 [connection signal="pressed_left" from="InteractableSystem" to="." method="_on_interactable_system_pressed_left"]
