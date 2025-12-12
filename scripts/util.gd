@@ -123,3 +123,10 @@ static func try_get_best_selectable_canvas_group(component: Node) -> SelectableC
 	var p := component.get_parent()
 	if p is LabBody and p.interact_canvas_group: return p.interact_canvas_group
 	else: return find_child_of_type(p, SelectableCanvasGroup)
+
+## The same as [code]Container::as_sortable_control[/code] in the engine, which isn't exposed to
+## GDSCript.
+static func as_sortable_control(node: Node) -> Control:
+	var c := node as Control
+	if not c or c.top_level or not c.visible: return null
+	else: return c

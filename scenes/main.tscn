@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=35 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://cm63yepobpmlk" path="res://textures/old/Dot-Yellow.png" id="20_7tk8h"]
 [ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://textures/old/Dot-Red.png" id="21_grp7q"]
 [ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://scenes/interaction_prompt.tscn" id="22_g2on7"]
+[ext_resource type="Script" uid="uid://smreqra2kcc2" path="res://scripts/scale_container.gd" id="25_og1vs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pm3ni"]
 shader = ExtResource("5_jscy8")
@@ -83,7 +84,7 @@ action = &"interact_inspect"
 [sub_resource type="InputEventAction" id="InputEventAction_mxvw5"]
 action = &"interact_left"
 
-[sub_resource type="InputEventAction" id="InputEventAction_sqvbp"]
+[sub_resource type="InputEventAction" id="InputEventAction_og1vs"]
 action = &"interact_right"
 
 [sub_resource type="InputEventAction" id="InputEventAction_y6deb"]
@@ -809,86 +810,80 @@ border_color = Color(1, 1, 1, 1)
 border_width = 5.0
 editor_only = false
 
-[node name="Prompts" type="Control" parent="UILayer"]
+[node name="Prompts" type="MarginContainer" parent="UILayer"]
 unique_name_in_owner = true
-layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="InteractPrompts" type="VBoxContainer" parent="UILayer/Prompts"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 583.0
-offset_right = 91.0
-offset_bottom = 671.0
-grow_vertical = 0
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
 theme_override_constants/separation = 10
 
-[node name="ZoomOutPrompt" parent="UILayer/Prompts" instance=ExtResource("22_g2on7")]
+[node name="ScaleContainer2" type="Container" parent="UILayer/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="ZoomOutPrompt" parent="UILayer/Prompts/ScaleContainer2" instance=ExtResource("22_g2on7")]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -101.5
-offset_top = 10.0
-offset_right = 101.5
-offset_bottom = 60.0
-grow_horizontal = 2
-scale = Vector2(0.7, 0.7)
-pivot_offset = Vector2(102.5, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 input_event = SubResource("InputEventAction_xrxkg")
 description = "Zoom out"
 
-[node name="LeftWorkspacePrompt" parent="UILayer/Prompts" instance=ExtResource("22_g2on7")]
+[node name="ScaleContainer3" type="Container" parent="UILayer/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="LeftWorkspacePrompt" parent="UILayer/Prompts/ScaleContainer3" instance=ExtResource("22_g2on7")]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 10.0
-offset_top = -30.0
-offset_right = 107.0
-offset_bottom = 30.0
-grow_vertical = 2
-scale = Vector2(0.7, 0.7)
+layout_mode = 2
 input_event = SubResource("InputEventAction_mxvw5")
 auto_update_pressed = true
 
-[node name="RightWorkspacePrompt" parent="UILayer/Prompts" instance=ExtResource("22_g2on7")]
+[node name="ScaleContainer" type="Container" parent="UILayer/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="RightWorkspacePrompt" parent="UILayer/Prompts/ScaleContainer" instance=ExtResource("22_g2on7")]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -90.0
-offset_top = -30.0
-offset_right = 17.0
-offset_bottom = 30.0
-grow_horizontal = 0
-grow_vertical = 2
-scale = Vector2(0.7, 0.7)
-input_event = SubResource("InputEventAction_sqvbp")
+layout_mode = 2
+input_event = SubResource("InputEventAction_og1vs")
 auto_update_pressed = true
 
-[node name="JournalPrompt" parent="UILayer/Prompts" instance=ExtResource("22_g2on7")]
+[node name="ScaleContainer4" type="Container" parent="UILayer/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="JournalPrompt" parent="UILayer/Prompts/ScaleContainer4" instance=ExtResource("22_g2on7")]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 254.0
-offset_bottom = 70.0
-scale = Vector2(0.7, 0.7)
+layout_mode = 2
 input_event = SubResource("InputEventAction_y6deb")
 description = "Toggle journal"
 auto_update_pressed = true
