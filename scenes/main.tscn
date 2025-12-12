@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=34 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://cm63yepobpmlk" path="res://textures/old/Dot-Yellow.png" id="20_7tk8h"]
 [ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://textures/old/Dot-Red.png" id="21_grp7q"]
 [ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://scenes/interaction_prompt.tscn" id="22_g2on7"]
+[ext_resource type="Script" uid="uid://bu1da87rm0cub" path="res://scripts/log_report.gd" id="25_og1vs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pm3ni"]
 shader = ExtResource("5_jscy8")
@@ -856,6 +857,10 @@ grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 input_event = SubResource("InputEventAction_sqvbp")
 auto_update_pressed = true
+
+[node name="GelLogReport" type="Node" parent="."]
+script = ExtResource("25_og1vs")
+metadata/_custom_type_script = "uid://bu1da87rm0cub"
 
 [connection signal="pressed_left" from="InteractableSystem" to="." method="_on_interactable_system_pressed_left"]
 [connection signal="pressed_right" from="InteractableSystem" to="." method="_on_interactable_system_pressed_right"]

@@ -56,4 +56,3 @@ func handle_event(e: Event) -> void:
 			var fragment: DNAFragment = fragments[fs]
 			fragment.position += e.gel.voltage * e.duration * gel_factor * log(float(fs)) * RATE
 			fragment.position = clamp(fragment.position, 0.0, 1.0)
-
