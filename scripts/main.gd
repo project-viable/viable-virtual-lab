@@ -185,6 +185,10 @@ func _unhandled_key_input(e: InputEvent) -> void:
 		# Toggle the pause menu only if we're in a module.
 		elif _current_module_scene != null:
 			set_pause_menu_open(not is_pause_menu_open())
+	elif e.is_action_pressed(&"toggle_journal"):
+		# Toggling it while in the pause menu would be weird.
+		if not is_pause_menu_open():
+			set_journal_open(not is_journal_open())
 
 func _load_module(module: ModuleData) -> void:
 	set_scene(load(module.scene_path))
@@ -252,6 +256,13 @@ func set_pause_menu_open(paused: bool) -> void:
 
 func is_pause_menu_open() -> bool:
 	return %MenuScreenManager.visible
+
+func set_journal_open(open: bool) -> void:
+	%Journal.visible = open
+	_update_simulation_pause()
+
+func is_journal_open() -> bool:
+	return %Journal.visible
 
 ## Move the camera to workspace [param workspace] in time [param time].
 func move_to_workspace(workspace: WorkspaceCamera, time: float = 0.0) -> void:
@@ -392,6 +403,9 @@ func _on_exit_module_button_pressed() -> void:
 func _switch_to_main_menu() -> void:
 	unload_current_module()
 
+	set_journal_open(false)
+	set_pause_menu_open(true)
+
 	%MenuScreenManager.pop_all_screens()
 	%MenuScreenManager/PauseMenu/Content/Logo.hide()
 	%MenuScreenManager/PauseMenu/Content/ExitModuleButton.hide()
@@ -481,7 +495,7 @@ func _update_virtual_mouse() -> void:
 # Update whether the simulation is paused based on whether the pause menu is open and stuff. Also
 # updates whether we're showing the hardware cursor or the virtual cursor only.
 func _update_simulation_pause() -> void:
-	var should_pause := is_pause_menu_open()
+	var should_pause := is_pause_menu_open() or is_journal_open()
 	get_tree().paused = should_pause
 
 	if should_pause: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
