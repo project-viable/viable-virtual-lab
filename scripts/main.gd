@@ -9,35 +9,9 @@ const TIME_WARP_ADJUST_SPEED := 10.0
 ## This will be called with [code]null[/code] when returning to the workspace.
 signal camera_focus_owner_changed(focus_owner: Node)
 
+
 @export var all_modules: Array[ModuleData]
 
-# TODO (update): This is essentially public, so we should consider using a convention to make that
-# clear, like naming it in PascalCase.
-var current_module_scene: Node = null
-
-var module_button: PackedScene = load("res://scenes/module_select_button.tscn")
-
-
-var current_module: ModuleData = null
-
-# `Dictionary[LogMessage.Category, int]`.
-var unread_logs: Dictionary = {
-	LogMessage.Category.LOG: 0,
-	LogMessage.Category.WARNING: 0,
-	LogMessage.Category.ERROR: 0
-}
-
-var popup_active: bool = false
-var logs: Array[LogMessage] = []
-
-@onready var _hand_pointing_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandPointing
-@onready var _hand_open_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandOpen
-@onready var _hand_closed_cursor: Sprite2D = $VirtualCursorLayer/Cursor/HandClosed
-@onready var _cursor_collision: CollisionShape2D = $SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea/CollisionShape2D
-@onready var _cursor_collision_original_size: Vector2 = _cursor_collision.shape.size
-@onready var _cursor_collision_original_pos: Vector2 = _cursor_collision.position
-
-var _is_paused: bool = true
 
 var _resolution_options: Array[Vector2i] = [
 	Vector2i(1280, 720),
@@ -49,12 +23,28 @@ var _resolution_options: Array[Vector2i] = [
 	Vector2i(3840, 2160),
 ]
 
+var _unread_logs: Dictionary[LogMessage.Category, int] = {
+	LogMessage.Category.LOG: 0,
+	LogMessage.Category.WARNING: 0,
+	LogMessage.Category.ERROR: 0
+}
+
+var _current_module_scene: Node = null
+var _module_button: PackedScene = load("res://scenes/module_select_button.tscn")
+var _current_module: ModuleData = null
 var _current_workspace: WorkspaceCamera = null
 var _camera_focus_owner: Node = null
-
 var _interact_kind_prompts: Dictionary[InteractInfo.Kind, InteractionPrompt] = {}
-
 var _time_warp_strength: float = 0
+var _popup_active: bool = false
+var _logs: Array[LogMessage] = []
+
+@onready var _hand_pointing_cursor: Sprite2D = $%VirtualCursor/HandPointing
+@onready var _hand_open_cursor: Sprite2D = $%VirtualCursor/HandOpen
+@onready var _hand_closed_cursor: Sprite2D = $%VirtualCursor/HandClosed
+@onready var _cursor_collision: CollisionShape2D = $SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea/CollisionShape2D
+@onready var _cursor_collision_original_size: Vector2 = _cursor_collision.shape.size
+@onready var _cursor_collision_original_pos: Vector2 = _cursor_collision.position
 
 
 func _enter_tree() -> void:
@@ -72,12 +62,12 @@ func _ready() -> void:
 	$%SubsceneViewport.world_2d = Subscenes.main_world_2d
 
 	_switch_to_main_menu()
-	set_paused(true)
+	set_pause_menu_open(true)
 
 	#Set up the module select buttons
 	for module_data in all_modules:
 		if module_data.show:
-			var new_button := module_button.instantiate()
+			var new_button := _module_button.instantiate()
 			new_button.set_data(module_data)
 			new_button.connect("pressed", Callable(self, &"_load_module").bind(module_data))
 			$%Modules.add_child(new_button)
@@ -91,9 +81,9 @@ func _ready() -> void:
 	%TransitionCamera.moved.connect(_update_virtual_mouse)
 
 	set_log_notification_counts()
-	$Menu/LogButton/LogMenu.set_tab_icon(1, load("res://textures/old/Dot-Blue.png"))
-	$Menu/LogButton/LogMenu.set_tab_icon(2, load("res://textures/old/Dot-Yellow.png"))
-	$Menu/LogButton/LogMenu.set_tab_icon(3, load("res://textures/old/Dot-Red.png"))
+	$UILayer/LogButton/LogMenu.set_tab_icon(1, load("res://textures/old/Dot-Blue.png"))
+	$UILayer/LogButton/LogMenu.set_tab_icon(2, load("res://textures/old/Dot-Yellow.png"))
+	$UILayer/LogButton/LogMenu.set_tab_icon(3, load("res://textures/old/Dot-Red.png"))
 
 	# The subviewport needs to match the window size.
 	get_window().size_changed.connect(_update_viewport_to_window_size)
@@ -143,23 +133,23 @@ func _ready() -> void:
 		var action_event := InputEventAction.new()
 		action_event.action = InteractInfo.kind_to_action(kind)
 		prompt.input_event = action_event
-		%Prompts.add_child(prompt)
+		%Prompts/InteractPrompts.add_child(prompt)
 
 		_interact_kind_prompts[kind] = prompt
 
 func _process(delta: float) -> void:
-	if logs != []:
+	if _logs != []:
 		# Need to display log message(s)
-		if !popup_active:
-			if logs[0].popup:
-				show_popup(logs[0])
-			logs.remove_at(0)
+		if !_popup_active:
+			if _logs[0].popup:
+				show_popup(_logs[0])
+			_logs.remove_at(0)
 
 	for prompt: InteractionPrompt in _interact_kind_prompts.values():
 		prompt.hide()
 
 	# Don't show prompts in the main menu.
-	if current_module_scene:
+	if _current_module_scene:
 		for kind: InteractInfo.Kind in InteractInfo.Kind.values():
 			var prompt: InteractionPrompt = _interact_kind_prompts.get(kind)
 			if not prompt: continue
@@ -190,29 +180,35 @@ func _process(delta: float) -> void:
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"toggle_menu"):
 		# A page other than the main pause menu is being shown; return to the pause menu.
-		if is_paused() and not %MenuScreenManager.is_on_primary_screen():
+		if is_pause_menu_open() and not %MenuScreenManager.is_on_primary_screen():
 			%MenuScreenManager.pop_screen()
 		# Toggle the pause menu only if we're in a module.
-		elif current_module_scene != null:
-			set_paused(not is_paused())
+		elif _current_module_scene != null:
+			set_pause_menu_open(not is_pause_menu_open())
+	elif e.is_action_pressed(&"toggle_journal"):
+		# Toggling it while in the pause menu would be weird.
+		if not is_pause_menu_open():
+			set_journal_open(not is_journal_open())
 
 func _load_module(module: ModuleData) -> void:
 	set_scene(load(module.scene_path))
 
 	%MenuScreenManager.pop_all_screens()
-	$Menu/Background.hide()
+	$UILayer/Background.hide()
 	%MenuScreenManager/PauseMenu/Content/Logo.hide()
 	%MenuScreenManager/PauseMenu/Content/ExitModuleButton.show()
 	%MenuScreenManager/PauseMenu/Content/RestartModuleButton.show()
 
-	current_module = module
-	$Menu/LogButton.show()
-	$Menu/LogButton/LogMenu/Instructions.text = module.instructions_bb_code
-	$Menu/LogButton/LogMenu/Instructions.show()
+	_current_module = module
+	$UILayer/LogButton.show()
+	$UILayer/LogButton/LogMenu/Instructions.text = module.instructions_bb_code
+	$UILayer/LogButton/LogMenu/Instructions.show()
+
+	%Prompts.show()
 
 	# To make the initial virtual mouse position feel less weird.
 	Cursor.virtual_mouse_position = get_global_mouse_position()
-	set_paused(false)
+	set_pause_menu_open(false)
 
 func unload_current_module() -> void:
 	LabLog.clear_logs()
@@ -220,22 +216,22 @@ func unload_current_module() -> void:
 	for child in $%Scene.get_children():
 		child.queue_free()
 	move_to_workspace(null)
-	current_module_scene = null
+	_current_module_scene = null
 
 #instanciates scene and adds it as a child of %$Scene. Gets rid of any scene that's already been loaded, and hides the menu.
 func set_scene(scene: PackedScene) -> void:
 	unload_current_module()
 	var new_scene := scene.instantiate()
 	$%Scene.call_deferred("add_child", new_scene)
-	current_module_scene = new_scene
+	_current_module_scene = new_scene
 	#$Camera.reset()
 
 func set_popup_border_color(color: Color) -> void:
-	$Menu/LabLogPopup/Border.border_color = color
+	$UILayer/LabLogPopup/Border.border_color = color
 
 func show_popup(new_log: LogMessage) -> void:
-	$Menu/LabLogPopup/Panel/VBoxContainer/Type.text = log_category_to_string(new_log.category)
-	$Menu/LabLogPopup/Panel/VBoxContainer/Description.text = new_log.message[0].to_upper() + new_log.message.substr(1, -1)
+	$UILayer/LabLogPopup/Panel/VBoxContainer/Type.text = log_category_to_string(new_log.category)
+	$UILayer/LabLogPopup/Panel/VBoxContainer/Description.text = new_log.message[0].to_upper() + new_log.message.substr(1, -1)
 	var color: Color
 	match new_log.category:
 		LogMessage.Category.LOG:
@@ -247,26 +243,26 @@ func show_popup(new_log: LogMessage) -> void:
 		_:
 			color = Color(0.0, 0.0, 0.0, 0.0)
 	set_popup_border_color(color)
-	popup_active = true
-	$Menu/LabLogPopup.visible = true
+	_popup_active = true
+	$UILayer/LabLogPopup.visible = true
 	await get_tree().create_timer(GameSettings.popup_timeout).timeout
-	popup_active = false
-	$Menu/LabLogPopup.visible = false if logs.size() == 0 else true
+	_popup_active = false
+	$UILayer/LabLogPopup.visible = false if _logs.size() == 0 else true
 
 # Sets whether the pause menu is shown and the game is paused.
-func set_paused(paused: bool) -> void:
-	_is_paused = paused
-	get_tree().paused = _is_paused
+func set_pause_menu_open(paused: bool) -> void:
+	%MenuScreenManager.visible = paused
+	_update_simulation_pause()
 
-	if _is_paused:
-		%MenuScreenManager.show()
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	else:
-		%MenuScreenManager.hide()
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+func is_pause_menu_open() -> bool:
+	return %MenuScreenManager.visible
 
-func is_paused() -> bool:
-	return _is_paused
+func set_journal_open(open: bool) -> void:
+	%Journal.visible = open
+	_update_simulation_pause()
+
+func is_journal_open() -> bool:
+	return %Journal.visible
 
 ## Move the camera to workspace [param workspace] in time [param time].
 func move_to_workspace(workspace: WorkspaceCamera, time: float = 0.0) -> void:
@@ -337,7 +333,7 @@ func focus_camera_and_show_subscene(rect: Rect2, camera: SubsceneCamera, use_ove
 	$%TransitionCamera.move_to_rect(full_rect, false, time)
 
 func _on_LogButton_pressed() -> void:
-	$Menu/LogButton/LogMenu.visible = ! $Menu/LogButton/LogMenu.visible
+	$UILayer/LogButton/LogMenu.visible = ! $UILayer/LogButton/LogMenu.visible
 	set_log_notification_counts()
 
 func _on_New_Log_Message(new_log: LogMessage) -> void:
@@ -345,55 +341,55 @@ func _on_New_Log_Message(new_log: LogMessage) -> void:
 		var bbcode: String = ("-" + new_log.message + "\n")
 		match new_log.category:
 			LogMessage.Category.LOG:
-				$Menu/LogButton/LogMenu/Log.text += bbcode
+				$UILayer/LogButton/LogMenu/Log.text += bbcode
 			LogMessage.Category.WARNING:
-				$Menu/LogButton/LogMenu/Warnings.text += bbcode
+				$UILayer/LogButton/LogMenu/Warnings.text += bbcode
 			LogMessage.Category.ERROR:
-				$Menu/LogButton/LogMenu/Errors.text += bbcode
+				$UILayer/LogButton/LogMenu/Errors.text += bbcode
 
-	logs.append(new_log)
-	unread_logs[new_log.category] += 1
+	_logs.append(new_log)
+	_unread_logs[new_log.category] += 1
 	set_log_notification_counts()
 
 func _on_Logs_Cleared() -> void:
-	for key: LogMessage.Category in unread_logs.keys():
-		unread_logs[key] = 0
+	for key: LogMessage.Category in _unread_logs.keys():
+		_unread_logs[key] = 0
 
-	$Menu/LogButton/LogMenu/Log.text = ""
-	$Menu/LogButton/LogMenu/Warnings.text = ""
-	$Menu/LogButton/LogMenu/Errors.text = ""
+	$UILayer/LogButton/LogMenu/Log.text = ""
+	$UILayer/LogButton/LogMenu/Warnings.text = ""
+	$UILayer/LogButton/LogMenu/Errors.text = ""
 
 # TODO (update): `tab` is unused. We should figure out why this was included.
 func set_log_notification_counts(tab: int = -1) -> void:
-	if $Menu/LogButton/LogMenu.visible:
-		if $Menu/LogButton/LogMenu.current_tab == 1:
-			unread_logs[LogMessage.Category.LOG] = 0
-		elif $Menu/LogButton/LogMenu.current_tab == 2:
-			unread_logs[LogMessage.Category.WARNING] = 0
+	if $UILayer/LogButton/LogMenu.visible:
+		if $UILayer/LogButton/LogMenu.current_tab == 1:
+			_unread_logs[LogMessage.Category.LOG] = 0
+		elif $UILayer/LogButton/LogMenu.current_tab == 2:
+			_unread_logs[LogMessage.Category.WARNING] = 0
 		#Do not ever clear error notifications
 		#elif $LogButton/LogMenu.current_tab == 3:
-		#	unread_logs[LogMessage.Category.ERROR] = 0
+		#	_unread_logs[LogMessage.Category.ERROR] = 0
 
-	if unread_logs[LogMessage.Category.LOG] == 0:
-		$Menu/LogButton/LogMenu.set_tab_title(1, "Log")
-		$Menu/LogButton/Notifications/Log.hide()
+	if _unread_logs[LogMessage.Category.LOG] == 0:
+		$UILayer/LogButton/LogMenu.set_tab_title(1, "Log")
+		$UILayer/LogButton/Notifications/Log.hide()
 	else:
-		$Menu/LogButton/LogMenu.set_tab_title(1, "Log (" + str(unread_logs[LogMessage.Category.LOG]) + "!)")
-		$Menu/LogButton/Notifications/Log.show()
+		$UILayer/LogButton/LogMenu.set_tab_title(1, "Log (" + str(_unread_logs[LogMessage.Category.LOG]) + "!)")
+		$UILayer/LogButton/Notifications/Log.show()
 
-	if unread_logs[LogMessage.Category.WARNING] == 0:
-		$Menu/LogButton/LogMenu.set_tab_title(2, "Warnings")
-		$Menu/LogButton/Notifications/Warning.hide()
+	if _unread_logs[LogMessage.Category.WARNING] == 0:
+		$UILayer/LogButton/LogMenu.set_tab_title(2, "Warnings")
+		$UILayer/LogButton/Notifications/Warning.hide()
 	else:
-		$Menu/LogButton/LogMenu.set_tab_title(2, "Warnings (" + str(unread_logs[LogMessage.Category.WARNING]) + "!)")
-		$Menu/LogButton/Notifications/Warning.show()
+		$UILayer/LogButton/LogMenu.set_tab_title(2, "Warnings (" + str(_unread_logs[LogMessage.Category.WARNING]) + "!)")
+		$UILayer/LogButton/Notifications/Warning.show()
 
-	if unread_logs[LogMessage.Category.ERROR] == 0:
-		$Menu/LogButton/LogMenu.set_tab_title(3, "Errors")
-		$Menu/LogButton/Notifications/Error.hide()
+	if _unread_logs[LogMessage.Category.ERROR] == 0:
+		$UILayer/LogButton/LogMenu.set_tab_title(3, "Errors")
+		$UILayer/LogButton/Notifications/Error.hide()
 	else:
-		$Menu/LogButton/LogMenu.set_tab_title(3, "Errors (" + str(unread_logs[LogMessage.Category.ERROR]) + "!)")
-		$Menu/LogButton/Notifications/Error.show()
+		$UILayer/LogButton/LogMenu.set_tab_title(3, "Errors (" + str(_unread_logs[LogMessage.Category.ERROR]) + "!)")
+		$UILayer/LogButton/Notifications/Error.show()
 
 func _on_PopupTimeout_value_changed(value: float) -> void:
 	GameSettings.popup_timeout = value
@@ -407,21 +403,26 @@ func _on_exit_module_button_pressed() -> void:
 func _switch_to_main_menu() -> void:
 	unload_current_module()
 
+	set_journal_open(false)
+	set_pause_menu_open(true)
+
 	%MenuScreenManager.pop_all_screens()
 	%MenuScreenManager/PauseMenu/Content/Logo.hide()
 	%MenuScreenManager/PauseMenu/Content/ExitModuleButton.hide()
 	%MenuScreenManager/PauseMenu/Content/RestartModuleButton.hide()
-	$Menu/Background.show()
+	$UILayer/Background.show()
 
-	$Menu/LogButton.hide() #until we load a module
-	$Menu/LogButton/LogMenu.hide()
-	$Menu/LabLogPopup.hide()
+	$UILayer/LogButton.hide() #until we load a module
+	$UILayer/LogButton/LogMenu.hide()
+	$UILayer/LabLogPopup.hide()
+
+	%Prompts.hide()
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
 func _on_restart_module_button_pressed() -> void:
-	_load_module(current_module)
+	_load_module(_current_module)
 
 func _on_resolution_dropdown_item_selected(index: int) -> void:
 	var resolution: Variant = $%ResolutionDropdown.get_item_metadata(index)
@@ -470,10 +471,10 @@ func _on_virtual_mouse_mode_changed(_mode: Cursor.Mode) -> void:
 func _update_virtual_mouse() -> void:
 	# The coordinate system for the main viewport and the cursor canvas layer are different, so
 	# we have to convert.
-	var main_to_cursor_canvas: Transform2D = $VirtualCursorLayer.get_final_transform().affine_inverse() * $%MainViewport.canvas_transform
+	var main_to_cursor_canvas: Transform2D = $UILayer.get_final_transform().affine_inverse() * $%MainViewport.canvas_transform
 	var cursor_canvas_mouse_pos := main_to_cursor_canvas * Cursor.virtual_mouse_position
 
-	for c in $%Cursor.get_children():
+	for c in $%VirtualCursor.get_children():
 		c.hide()
 	var cursor_to_use: Sprite2D = _hand_pointing_cursor
 	match Cursor.mode:
@@ -481,7 +482,7 @@ func _update_virtual_mouse() -> void:
 		Cursor.Mode.CLOSED: cursor_to_use = _hand_closed_cursor
 	cursor_to_use.show()
 
-	$%Cursor.global_position = cursor_canvas_mouse_pos
+	$%VirtualCursor.global_position = cursor_canvas_mouse_pos
 	# We have to call `$%CursorArea.get_global_mouse_position` instead of just calling
 	# `get_global_mouse_position` directly because it needs to be in the same coordinate system
 	# as the area (i.e., the main world).
@@ -490,3 +491,14 @@ func _update_virtual_mouse() -> void:
 	# Match the cursor's collision and position to the relative size of the hand.
 	_cursor_collision.shape.size = _cursor_collision_original_size / %TransitionCamera.zoom
 	_cursor_collision.position = _cursor_collision_original_pos / %TransitionCamera.zoom
+
+# Update whether the simulation is paused based on whether the pause menu is open and stuff. Also
+# updates whether we're showing the hardware cursor or the virtual cursor only.
+func _update_simulation_pause() -> void:
+	var should_pause := is_pause_menu_open() or is_journal_open()
+	get_tree().paused = should_pause
+
+	if should_pause: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+	%VirtualCursor.visible = not should_pause
