@@ -26,14 +26,20 @@ var report_data := {
 	"total_voltage_run_time": 0.0#
 }
 
+func _ready() -> void:
+	var console:JavaScriptObject = JavaScriptBridge.get_interface("console")
+	# Check if the code is running in a web environment, if so, let's use JavaScriptBridge to log report data
+	if OS.has_feature("web"):
+		if console != null:
+			console.log("JavaScriptBridge is available!")
+	else:
+		console.log("Not running in a web environment. JavaScriptBridge is unavailable.")
+
 ## Function to update event values in the report log dictionary
 func update_event(data: String, event_name: String) -> void:
-	print(event_name)
 	report_data[event_name] = data
-	print(report_data[event_name])
 	
 func append_amount(data: String, event_name: String) -> void:
-	print(event_name)
 	report_data[event_name].append(data)
 
 ## Function to update total values for things like time, weights, or volumes
@@ -41,8 +47,13 @@ func update_total(data:float, total_name: String) -> void:
 	report_data[total_name] += data
 
 ## Function to save recorded user events to a log file in the form of a JSON Object
-func save_game_data(report_data: Dictionary, filename: String = "save_report.json") -> void:
-		pass
+func save_game_data() -> void:
+		var filename: String = "save_report.json"
+		if Engine.has_singleton("JavaScriptBridge"):
+			var json_string: String = JSON.stringify(report_data)
+			JavaScriptBridge.eval("localStorage.setItem('report', '" + json_string + "');")
+		else:
+			Game.debug_overlay.update("result", "JavaScriptBridge not available")
 
 ## Function to read the final report data from the JSON file to be formatted in a readable document
 # file path will be "res://save_report.json"

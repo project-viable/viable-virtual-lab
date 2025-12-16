@@ -18,7 +18,6 @@ var time_after_midnight: float = INITIAL_TIME_AFTER_MIDNIGHT
 
 func _process(delta: float) -> void:
 	time_after_midnight += delta * time_scale
-	print(time_after_midnight)
 
 func get_hour_of_day() -> float:
 	return fmod(time_after_midnight / (60.0 * 60.0), 24.0)

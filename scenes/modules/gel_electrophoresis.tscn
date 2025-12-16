@@ -174,28 +174,28 @@ metadata/_custom_type_script = "uid://f3pegl6tyuqt"
 [node name="Objects" type="Node2D" parent="."]
 
 [node name="Flask" parent="Objects" instance=ExtResource("2_e4xug")]
-position = Vector2(509, 445)
+position = Vector2(431, 444)
 metadata/_edit_group_ = true
 
 [node name="Flask2" parent="Objects" instance=ExtResource("2_e4xug")]
-position = Vector2(576, 447)
+position = Vector2(536, 444)
 metadata/_edit_group_ = true
 
 [node name="GraduatedCylinder" parent="Objects" instance=ExtResource("3_iy3xr")]
 position = Vector2(662, 395)
 
 [node name="PipetteStand" parent="Objects" instance=ExtResource("4_5fdni")]
-position = Vector2(1818, 420)
+position = Vector2(2066, 419)
 metadata/_edit_group_ = true
 
 [node name="AttachmentInteractableArea" parent="Objects/PipetteStand" index="1" node_paths=PackedStringArray("contained_object")]
 contained_object = NodePath("../../Pipette")
 
 [node name="Pipette" parent="Objects" instance=ExtResource("4_t02aw")]
-position = Vector2(1817, 419)
+position = Vector2(2065, 418)
 
 [node name="PipetteTipBox" parent="Objects" instance=ExtResource("5_vwsp8")]
-position = Vector2(2040, 457)
+position = Vector2(2155, 457)
 
 [node name="WeighBoat" parent="Objects" instance=ExtResource("6_vj1mp")]
 position = Vector2(802, 443)
@@ -219,7 +219,7 @@ position = Vector2(1553, 468)
 position = Vector2(1366, 477)
 
 [node name="GelImager" parent="Objects" instance=ExtResource("14_eg6i0")]
-position = Vector2(2343, 396)
+position = Vector2(2422, 396)
 
 [node name="Scoopula" parent="Objects" instance=ExtResource("15_aby4o")]
 position = Vector2(1027, 430)
@@ -235,35 +235,35 @@ contained_object = NodePath("../../Scoopula")
 position = Vector2(801, 477)
 
 [node name="BiohazardBin" parent="Objects" instance=ExtResource("17_6se67")]
-position = Vector2(2153, 452)
+position = Vector2(2273, 448)
 
 [node name="MicrocentrifugeTube" parent="Objects" instance=ExtResource("10_bi7f4")]
-position = Vector2(1877, 472)
+position = Vector2(1945, 472)
 metadata/_edit_group_ = true
 
 [node name="ContainerComponent" parent="Objects/MicrocentrifugeTube" index="5"]
 substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_120qc"), SubResource("Resource_81rno"), SubResource("Resource_8pvcc")])
 
 [node name="MicrocentrifugeTube2" parent="Objects" instance=ExtResource("10_bi7f4")]
-position = Vector2(1886, 472)
+position = Vector2(1954, 472)
 metadata/_edit_group_ = true
 
 [node name="ContainerComponent" parent="Objects/MicrocentrifugeTube2" index="5"]
 substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_ah5la"), SubResource("Resource_0y0x5")])
 
 [node name="MicrocentrifugeTube3" parent="Objects" instance=ExtResource("10_bi7f4")]
-position = Vector2(1895, 472)
+position = Vector2(1963, 472)
 metadata/_edit_group_ = true
 
 [node name="ContainerComponent" parent="Objects/MicrocentrifugeTube3" index="5"]
 substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_c13rf"), SubResource("Resource_2kbga")])
 
 [node name="MicrocentrifugeTube4" parent="Objects" instance=ExtResource("10_bi7f4")]
-position = Vector2(1904, 472)
+position = Vector2(1972, 472)
 metadata/_edit_group_ = true
 
 [node name="MicrocentrifugeHolder" parent="Objects" instance=ExtResource("18_xe06v")]
-position = Vector2(1914, 481)
+position = Vector2(1982, 481)
 metadata/_edit_group_ = true
 
 [node name="AttachmentInteractableArea" parent="Objects/MicrocentrifugeHolder" index="0" node_paths=PackedStringArray("contained_object")]
