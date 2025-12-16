@@ -18,6 +18,9 @@ extends Control
 		_update_display()
 
 
+func _enter_tree() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+
 func _ready() -> void:
 	string = string
 	right_aligned = right_aligned

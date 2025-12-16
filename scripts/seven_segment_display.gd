@@ -58,6 +58,9 @@ const ERR_SEGMENT_BITS: int = 0b1000000
 		if character:
 			segment_bits = CHAR_TO_SEGMENT_BITS.get(character, ERR_SEGMENT_BITS)
 
+func _enter_tree() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+
 func _ready() -> void:
 	character = character
 	segment_bits = segment_bits
