@@ -288,18 +288,22 @@ script = ExtResource("21_kobiv")
 [node name="RedContactWires" type="Node2D" parent="Objects/ContactWires"]
 
 [node name="RedContactWire" parent="Objects/ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
+unique_name_in_owner = true
 position = Vector2(686, 455)
 
 [node name="RedContactWire2" parent="Objects/ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
+unique_name_in_owner = true
 position = Vector2(718, 455)
 
 [node name="BlackContactWires" type="Node2D" parent="Objects/ContactWires"]
 
 [node name="BlackContactWire" parent="Objects/ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
+unique_name_in_owner = true
 position = Vector2(686, 479)
 texture = ExtResource("22_kobiv")
 
 [node name="BlackContactWire2" parent="Objects/ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
+unique_name_in_owner = true
 position = Vector2(718, 479)
 texture = ExtResource("22_kobiv")
 

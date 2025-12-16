@@ -12,6 +12,9 @@ func _draw() -> void:
 		if gel.gel_state.correct_comb_placement == false:
 			if Engine.get_physics_frames() % 60 == 0:
 					results_message = str("Comb placement was incorrect. Gel sprite will be blank")
+		elif gel.gel_state.electrode_correct_placement == false:
+			if Engine.get_physics_frames() % 60 == 0:
+					results_message = str("Electrode placement was incorrect. Gel sprite will be blank")
 		else:
 			for i:int in gel.num_wells():
 				var well_sprite := _get_well_sprite(i + 1)
@@ -62,7 +65,7 @@ func analyze_gel_state(gel: GelMold, well: ContainerComponent, i: int) -> void:
 
 	for fs: int in dna.fragments.keys():
 		var fragment: float = fs / 1000.0
-
+		Game.report_log.append_amount(str(fragment), "dna_fragment_sizes")
 		#Conditions for singular well invisible gel bands
 		if gel.gel_state.well_capacities[i] <= (gel.gel_state.well_max_capacity/2.0):
 			results_message = str("well %s capacity not full enough gel sprite will be blank" % [i+1])

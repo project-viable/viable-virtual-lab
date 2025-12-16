@@ -30,4 +30,7 @@ func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 
 		InteractInfo.Kind.SECONDARY:
 			area.container_component.add_array(container.take_volume(vol_to_dispense))
+			Game.report_log.update_total(vol_to_dispense,"total_agarose_powder")
+			var scoop_data: String = str(Game.report_log.report_data["total_agarose_powder"], " mL of agarose powder add to ", area.container_component.get_parent().name)
+			Game.report_log.update_event(scoop_data, "scooped_agarose_powder")
 			get_parent().find_child("FillSprite").visible = false

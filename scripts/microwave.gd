@@ -33,6 +33,9 @@ func _physics_process(delta: float) -> void:
 		var container_to_heat := find_container(obj)
 		if container_to_heat:
 			container_to_heat.send_event(MicrowaveSubstanceEvent.new(delta * LabTime.time_scale))
+		Game.report_log.update_total((delta * LabTime.time_scale),"total_microwave_time")
+		var microwave_data: String = str(container_to_heat.get_parent().name, " heated for ", Game.report_log.report_data["total_microwave_time"], " seconds")
+		Game.report_log.update_event(microwave_data, "microwave_time")
 
 func find_container(interactor: PhysicsBody2D) -> ContainerComponent:
 	# Only objects that have a `ContainerComponent` as a direct child can be microwaved. `

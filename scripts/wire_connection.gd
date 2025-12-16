@@ -7,6 +7,8 @@ class_name WireConnectableComponent
 ## an object that can be dragged around and interacted with
 @export var body: LabBody
 
+@export var correct_wire_placement: bool = false
+
 ## Voltage currently running through this. It will be negative if the direction is reversed.
 @export_custom(PROPERTY_HINT_NONE, "suffix:V") var voltage: float = 0
 
@@ -33,9 +35,16 @@ func on_wire_connected(wire: Wire, target_terminal_charge: Terminal.Charge) -> v
 
 	if is_terminal_positive:
 		wire_connected_to_positive_terminal = wire
-
+		if (wire_connected_to_positive_terminal != get_node("%RedContactWire")):
+			if (wire_connected_to_positive_terminal != get_node("%RedContactWire2")):
+				correct_wire_placement = true
+				Game.report_log.update_event("true", "electrode_correct_placement")
 	else:
 		wire_connected_to_negative_terminal = wire
+		if (wire_connected_to_positive_terminal != get_node("%BlackContactWire")):
+			if (wire_connected_to_positive_terminal != get_node("%BlackContactWire2")):
+				correct_wire_placement = true
+				Game.report_log.update_event("true", "electrode_correct_placement")
 
 # Handle unplugging wires
 ## Handles the state of wire connections when the wires are unplugged

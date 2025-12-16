@@ -6,6 +6,8 @@ extends LabBody
 @export_custom(PROPERTY_HINT_NONE, "suffix:V") var voltage: float = 0.0
 @export var gel_state: GelState
 @export var has_wells: bool = false
+@export var correct_wire_placement: bool
+@export var gel_analysis_time: float
 
 var comb_placed: bool = false
 
@@ -29,6 +31,9 @@ func get_gel_concentration() -> float:
 	if $ContainerComponent.substances != null:
 		for s:Substance in $ContainerComponent.substances:
 			if s is TAEBufferSubstance:
+				Game.report_log.update_total(s.get_volume(), "total_tae_in_gel")
+				var tae_poured_data: String = str(Game.report_log.report_data["total_tae_in_gel"], " mL of TAE Buffer is in the gel")
+				Game.report_log.update_event(tae_poured_data, "poured_tae_in_gel")
 				gel_data.total_volume+= (s.agarose_concentration * 100)
 		gel_data.mean = gel_data.total_volume/5.0
 		gel_data.standard_deviation = calculate_std(gel_data.mean)
@@ -43,6 +48,11 @@ func _physics_process(delta: float) -> void:
 	if voltage > 0:
 		gel_state.voltage = voltage
 		gel_state.voltage_run_time += delta * LabTime.time_scale
+		var voltage_data: String = str(gel_state.voltage, "volts ran through the gel")
+		Game.report_log.update_event(voltage_data, "gel_voltage")
+		Game.report_log.update_total(gel_state.voltage_run_time, "total_voltage_run_time")
+		var voltage_time_data: String = str("Voltage run for ", gel_state.voltage_run_time," seconds")
+		Game.report_log.update_event(voltage_time_data, "voltage_run_time")
 
 		for i in 5:
 			get_well(i + 1).send_event(RunGelSubstanceEvent.new(self, delta * LabTime.time_scale))
@@ -58,12 +68,21 @@ func get_well(i: int) -> ContainerComponent:
 	return get_node_or_null("Subscene/Well%s" % [i])
 
 func set_gel_state() -> void:
+	if (LabTime.time_after_midnight - gel_analysis_time)/60.0 <= 5.0:
+		gel_state.gel_analysis_asap = true
+	var gel_analysis_time_data: String = str("It took ", gel_analysis_time, " minutes for gel to analyzed in imager", " minutes for gel to be analyzed in the imager")
+	Game.report_log.update_event(gel_analysis_time_data, "time_until_gel_analysis")
+	gel_state.correct_comb_placement = comb_placed
 	gel_state.gel_concentration = get_gel_concentration()
+	var concentration_data: String = str("The gel's concentration is ", gel_state.gel_concentration, "%")
+	Game.report_log.update_event(concentration_data, "gel_concentration")
 	if gel_state.gel_concentration < 0.1:
 		gel_state.correct_gel_mixing = true
+		Game.report_log.update_event("Gel is mixed thoroughly", "gel_mixed")
 	else:
 		gel_state.correct_gel_mixing = false
-	#gel_state.correct_comb_placement = comb_placed
+		Game.report_log.update_event("Gel is not thoroughly mixed ", "gel_mixed")
+	gel_state.electrode_correct_placement = correct_wire_placement
 	for i in 5:
 		if get_well(i + 1).substances != null:
 			for s in get_well(i + 1).substances:
@@ -74,8 +93,11 @@ func set_gel_state() -> void:
 					else:
 						gel_state.correct_gel_temperature = false
 				gel_state.well_capacities[i] = s.get_volume()
+				Game.report_log.append_amount(str(gel_state.well_capacities[i]), "gel_well_capacities")
 		else:
 			continue
+	var well_max_data: String = str("The maximum each well can hold is ", gel_state.well_max_capacity, " mL")
+	Game.report_log.update_event(well_max_data,"well_max_capacity")
 
 func get_gel_state() -> GelState:
 	return gel_state
@@ -83,6 +105,7 @@ func get_gel_state() -> GelState:
 # Comb inserted.
 func _on_attachment_interactable_area_object_placed(_b: LabBody) -> void:
 	comb_placed = true
+	Game.report_log.update_event("true", "correct_comb_placement")
 
 # Comb removed.
 func _on_attachment_interactable_area_object_removed(_b: LabBody) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=36 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://textures/old/Dot-Red.png" id="21_grp7q"]
 [ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://scenes/interaction_prompt.tscn" id="22_g2on7"]
 [ext_resource type="Script" uid="uid://smreqra2kcc2" path="res://scripts/scale_container.gd" id="25_og1vs"]
+[ext_resource type="Script" uid="uid://bu1da87rm0cub" path="res://scripts/log_report.gd" id="26_2wyq8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pm3ni"]
 shader = ExtResource("5_jscy8")
@@ -887,6 +888,11 @@ layout_mode = 2
 input_event = SubResource("InputEventAction_y6deb")
 description = "Toggle journal"
 auto_update_pressed = true
+
+[node name="GelLogReport" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("26_2wyq8")
+metadata/_custom_type_script = "uid://bu1da87rm0cub"
 
 [connection signal="pressed_left" from="InteractableSystem" to="." method="_on_interactable_system_pressed_left"]
 [connection signal="pressed_right" from="InteractableSystem" to="." method="_on_interactable_system_pressed_right"]
