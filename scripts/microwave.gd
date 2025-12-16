@@ -23,9 +23,9 @@ func _process(_delta: float) -> void:
 			var minutes: int = seconds_left / 60
 			var seconds: int = seconds_left % 60
 
-			update_timer_display(minutes, seconds)
+			_display_time(minutes, seconds)
 		else:
-			update_timer_display(floor(LabTime.get_hour_of_day()), floor(LabTime.get_minute_of_hour()))
+			_display_time(floor(LabTime.get_hour_of_day()), floor(LabTime.get_minute_of_hour()))
 
 func _physics_process(delta: float) -> void:
 	var obj: LabBody = %ObjectContainmentInteractableArea.contained_object
@@ -58,16 +58,15 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 			var has_error := false
 			if _is_door_open:
 				# "door" error.
-				_set_display_bits(0b0111101, 0b0011101, 0b0011101, 0b0000101)
+				_display_text("door")
 				has_error = true
 			# Zero time doesn't work and we can't properly display 99:xx if xx is greater than 60.
 			elif _input_time <= 0 or minutes >= 99 and seconds >= 60:
 				# "Err" generic error.
-				_set_display_bits(0, 0b1001111, 0b0000101, 0b0000101)
+				_display_text("Err")
 				has_error = true
 
 			if has_error:
-				$Display/Colon.hide()
 				$AnimationPlayer.stop()
 				$AnimationPlayer.play("error_flash")
 			else:
@@ -88,26 +87,19 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 			var minutes: int = _input_time / 100
 			var seconds: int = _input_time % 100
 
-			update_timer_display(minutes, seconds)
+			_display_time(minutes, seconds)
 
-func update_timer_display(minutes: int, seconds: int) -> void:
-	var digits: Array[int] = [
-		minutes / 10 % 10,
-		minutes % 10,
-		seconds / 10 % 10,
-		seconds % 10,
-	]
-
+# Displays a time with a colon.
+func _display_time(minutes: int, seconds: int) -> void:
 	$Display/Colon.show()
-	for disp in $Display.get_children():
-		if disp is SevenSegmentDisplay: disp.segment_bits = 0
+	$Display.string = str(minutes * 100 + seconds)
+	$Display.right_aligned = true
 
-	var has_seen_nonzero := false
-	for i in len(digits):
-		var disp: SevenSegmentDisplay = $Display.get_node("D%s" % [i])
-		if has_seen_nonzero or i == 3 or digits[i] != 0:
-			disp.digit = digits[i]
-			has_seen_nonzero = true
+# For displaying error strings and stuff.
+func _display_text(text: String) -> void:
+	$Display/Colon.hide()
+	$Display.string = text
+	$Display.right_aligned = false
 
 # Reset everything in the microwave.
 func _cancel() -> void:
@@ -116,17 +108,9 @@ func _cancel() -> void:
 	_input_time = 0
 	_update_door()
 
-func _set_display_bits(d0: int, d1: int, d2: int, d3: int) -> void:
-	$Display/D0.segment_bits = d0
-	$Display/D1.segment_bits = d1
-	$Display/D2.segment_bits = d2
-	$Display/D3.segment_bits = d3
-
 ## Updates the Display to countdown the timer
 func _on_microwave_timer_timeout() -> void:
-	# "End"
-	_set_display_bits(0, 0b1001111, 0b0010101, 0b0111101)
-	$Display/Colon.hide()
+	_display_text("End")
 	_no_update_display = true
 	_update_door()
 

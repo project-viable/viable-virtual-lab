@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cs2tep7cd3vxf"]
+[gd_scene load_steps=20 format=3 uid="uid://cs2tep7cd3vxf"]
 
 [ext_resource type="Script" uid="uid://b10fibv688ggy" path="res://scripts/microwave.gd" id="1_caubw"]
 [ext_resource type="Texture2D" uid="uid://by1qv0us7rnwc" path="res://textures/lab_objects/microwave/base.svg" id="2_akh7v"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://qlu7b3wv1vpu" path="res://textures/lab_objects/microwave/door_open.svg" id="5_grr38"]
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="5_iwbat"]
 [ext_resource type="PackedScene" uid="uid://cpguc3tomsylp" path="res://scenes/seven_segment_display.tscn" id="7_iwsb8"]
+[ext_resource type="Script" uid="uid://c2pro11bcd0sw" path="res://scripts/seven_segment_display_array.gd" id="7_svbq6"]
 [ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="8_upun8"]
 [ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="9_phx7o"]
 [ext_resource type="Script" uid="uid://nf1enjfal72f" path="res://scripts/depth_managed_node_2d.gd" id="10_grr38"]
@@ -87,47 +88,54 @@ visible = false
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("5_grr38")
 
-[node name="Display" type="Node2D" parent="."]
+[node name="Display" type="Control" parent="."]
 modulate = Color(0, 0, 0, 1)
 self_modulate = Color(1, 1, 1, 0)
 z_index = 10
-position = Vector2(78, -53)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 78.0
+offset_top = -53.0
+offset_right = 78.0
+offset_bottom = -53.0
+script = ExtResource("7_svbq6")
+metadata/_custom_type_script = "uid://c2pro11bcd0sw"
 
 [node name="D0" parent="Display" instance=ExtResource("7_iwsb8")]
+layout_mode = 0
 offset_left = 4.0
 offset_top = 3.9999998
 offset_right = 14.0
 offset_bottom = 22.0
 scale = Vector2(0.7, 0.7)
 segment_bits = 126
-digit = 0
 
 [node name="D1" parent="Display" instance=ExtResource("7_iwsb8")]
+layout_mode = 0
 offset_left = 11.999999
 offset_top = 3.9999998
 offset_right = 22.0
 offset_bottom = 22.0
 scale = Vector2(0.7, 0.7)
 segment_bits = 126
-digit = 0
 
 [node name="D2" parent="Display" instance=ExtResource("7_iwsb8")]
+layout_mode = 0
 offset_left = 22.999998
 offset_top = 3.9999998
 offset_right = 33.0
 offset_bottom = 22.0
 scale = Vector2(0.7, 0.7)
 segment_bits = 126
-digit = 0
 
 [node name="D3" parent="Display" instance=ExtResource("7_iwsb8")]
+layout_mode = 0
 offset_left = 30.999996
 offset_top = 3.9999998
 offset_right = 41.0
 offset_bottom = 22.0
 scale = Vector2(0.7, 0.7)
 segment_bits = 126
-digit = 0
 
 [node name="Colon" type="Node2D" parent="Display"]
 
