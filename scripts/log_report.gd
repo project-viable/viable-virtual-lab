@@ -26,19 +26,11 @@ var report_data := {
 	"total_voltage_run_time": 0.0#
 }
 
-func _ready() -> void:
-	var console:JavaScriptObject = JavaScriptBridge.get_interface("console")
-	# Check if the code is running in a web environment, if so, let's use JavaScriptBridge to log report data
-	if OS.has_feature("web"):
-		if console != null:
-			console.log("JavaScriptBridge is available!")
-	else:
-		console.log("Not running in a web environment. JavaScriptBridge is unavailable.")
 
 ## Function to update event values in the report log dictionary
 func update_event(data: String, event_name: String) -> void:
 	report_data[event_name] = data
-	
+
 func append_amount(data: String, event_name: String) -> void:
 	report_data[event_name].append(data)
 
