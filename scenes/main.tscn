@@ -1,12 +1,13 @@
-[gd_scene load_steps=36 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=38 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
-[ext_resource type="Shader" uid="uid://dp36jhy06j2x4" path="res://shaders/time_warp.gdshader" id="5_jscy8"]
+[ext_resource type="Shader" uid="uid://dp36jhy06j2x4" path="res://shaders/screen_time_warp.gdshader" id="5_jscy8"]
 [ext_resource type="Resource" uid="uid://d3tt3s0try6s7" path="res://modules/gel_electrophoresis.tres" id="5_pj8lk"]
 [ext_resource type="Script" uid="uid://c6mualde27mwh" path="res://scripts/main_interactable_system.gd" id="6_5ktsy"]
 [ext_resource type="Script" uid="uid://cmnnbli12q46a" path="res://scripts/virtual_mouse_content_scaled_sub_viewport_container.gd" id="7_uhp2u"]
 [ext_resource type="Script" uid="uid://bmcv1qehkhxri" path="res://scripts/scene_input_handler.gd" id="8_kpxdo"]
+[ext_resource type="Shader" uid="uid://ev3d6lurthgo" path="res://shaders/screen_gauss_blur.gdshader" id="9_2wyq8"]
 [ext_resource type="Script" uid="uid://b8kjtd0vdnq42" path="res://scripts/transition_camera.gd" id="9_agdoh"]
 [ext_resource type="Texture2D" uid="uid://dpjbw81s4cllc" path="res://textures/icons_and_buttons/cursors/hand_pointing.svg" id="10_tmkqk"]
 [ext_resource type="Theme" uid="uid://2lamnb3h2xxg" path="res://themes/debug_overlay.tres" id="11_gqmmt"]
@@ -27,12 +28,22 @@
 [ext_resource type="Script" uid="uid://smreqra2kcc2" path="res://scripts/scale_container.gd" id="25_og1vs"]
 [ext_resource type="Script" uid="uid://bu1da87rm0cub" path="res://scripts/log_report.gd" id="26_2wyq8"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pm3ni"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqmmt"]
+size = Vector2(20, 30)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2f3dj"]
 shader = ExtResource("5_jscy8")
 shader_parameter/strength = 0.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqmmt"]
-size = Vector2(20, 30)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxglm"]
+shader = ExtResource("9_2wyq8")
+shader_parameter/axes = Vector2i(10, 0)
+shader_parameter/stds = Vector2(10, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2wyq8"]
+shader = ExtResource("9_2wyq8")
+shader_parameter/axes = Vector2i(0, 10)
+shader_parameter/stds = Vector2(1, 10)
 
 [sub_resource type="StyleBoxFlat" id="1"]
 content_margin_left = 10.0
@@ -105,7 +116,6 @@ process_mode = 1
 
 [node name="ContentScaledSubViewportContainer" type="TextureRect" parent="SceneLayer"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_pm3ni")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -142,6 +152,44 @@ metadata/_custom_type_script = "uid://b8kjtd0vdnq42"
 
 [node name="MainSceneCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
 position = Vector2(640, 360)
+
+[node name="Postprocess" type="Node2D" parent="SceneLayer"]
+unique_name_in_owner = true
+
+[node name="TimeWarp" type="BackBufferCopy" parent="SceneLayer/Postprocess"]
+copy_mode = 2
+
+[node name="Rect" type="ColorRect" parent="SceneLayer/Postprocess/TimeWarp"]
+material = SubResource("ShaderMaterial_2f3dj")
+offset_left = -10.0
+offset_top = -9.0
+offset_right = 1293.0
+offset_bottom = 737.0
+mouse_filter = 2
+
+[node name="HBlur" type="BackBufferCopy" parent="SceneLayer/Postprocess"]
+visible = false
+copy_mode = 2
+
+[node name="Rect" type="ColorRect" parent="SceneLayer/Postprocess/HBlur"]
+material = SubResource("ShaderMaterial_vxglm")
+offset_left = -10.0
+offset_top = -9.0
+offset_right = 1293.0
+offset_bottom = 737.0
+mouse_filter = 2
+
+[node name="VBlur" type="BackBufferCopy" parent="SceneLayer/Postprocess"]
+visible = false
+copy_mode = 2
+
+[node name="Rect" type="ColorRect" parent="SceneLayer/Postprocess/VBlur"]
+material = SubResource("ShaderMaterial_2wyq8")
+offset_left = -10.0
+offset_top = -9.0
+offset_right = 1293.0
+offset_bottom = 737.0
+mouse_filter = 2
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 layer = 128
@@ -227,7 +275,6 @@ script = ExtResource("12_yc10j")
 
 [node name="Journal" type="Panel" parent="UILayer"]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -251,6 +298,7 @@ script = ExtResource("15_og1vs")
 metadata/_custom_type_script = "uid://bmdn4p40xeusb"
 
 [node name="PauseMenu" type="Control" parent="UILayer/MenuScreenManager"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -592,6 +640,7 @@ text = "Close"
 script = ExtResource("19_vxglm")
 
 [node name="OptionsScreen" type="PanelContainer" parent="UILayer/MenuScreenManager"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -688,6 +737,7 @@ text = "Close"
 script = ExtResource("19_vxglm")
 
 [node name="LogButton" type="TextureButton" parent="UILayer"]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0

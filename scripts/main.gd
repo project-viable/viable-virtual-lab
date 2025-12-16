@@ -176,7 +176,7 @@ func _process(delta: float) -> void:
 		_time_warp_strength = max(target_time_warp_strength, _time_warp_strength - TIME_WARP_ADJUST_SPEED * delta)
 
 	# Time warp shader.
-	%ContentScaledSubViewportContainer.material.set(&"shader_parameter/strength", _time_warp_strength)
+	%Postprocess/TimeWarp/Rect.material.set(&"shader_parameter/strength", _time_warp_strength)
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"toggle_menu"):
