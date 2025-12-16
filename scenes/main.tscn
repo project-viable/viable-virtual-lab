@@ -246,6 +246,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_behavior_recursive = 1
 script = ExtResource("15_og1vs")
 metadata/_custom_type_script = "uid://bmdn4p40xeusb"
 

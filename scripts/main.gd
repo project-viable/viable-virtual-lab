@@ -434,7 +434,7 @@ func _on_resolution_dropdown_item_selected(index: int) -> void:
 		push_warning("Tried to set invalid resolution %s" % [resolution])
 
 func _can_resize_os_window() -> bool:
-	return not get_window().is_embedded() and not Engine.is_embedded_in_editor()
+	return not get_window().is_embedded() and not Engine.is_embedded_in_editor() and not _is_in_web_browser()
 
 # Attempt to resize the OS window. If we can't directly set the OS window (for example, because
 # it's embedded), then do nothing.
@@ -442,6 +442,9 @@ func _try_resize_os_window(size: Vector2i) -> void:
 	if _can_resize_os_window():
 		get_window().size = size
 		get_window().move_to_center()
+
+func _is_in_web_browser() -> bool:
+	return OS.has_feature("web")
 
 func _update_viewport_to_window_size() -> void:
 	$%MainViewport.size = get_window().size
