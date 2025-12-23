@@ -8,6 +8,10 @@ const HOT_BASE_COLOR: Color = Color(0.989, 0.289, 0.506, 0.471)
 const SATURATED_COLOR: Color = Color(0.94, 0.928, 0.921, 0.871)
 
 const ROOM_TEMP: float = 20.0
+# Time it takes to get a gram of agarose to suspended (but not mixed) into the buffer. This must be
+# shorter than the mix time to make sure some time is actually spent with the agarose visibly
+# suspended (so it's clear that something is happening).
+const SECONDS_PER_GRAM_SUSPENDED: float = 5.0
 # We want it to take about 20 seconds to mix in 1 gram of agarose powder.
 const SECONDS_PER_GRAM_MIXED: float = 20.0
 # 20 minutes to cool from 100°C to 20°C.
@@ -20,9 +24,14 @@ const MICROWAVE_RATE: float = (100.0 - 20.0) / MICROWAVE_TIME
 const GEL_TEMP: float = 40.0
 # Minimum amount of agarose to form a solid gel.
 const GEL_MIN_CONCENTRATION: float = 0.005
+# Concentration of suspended agarose for full cloudiness.
+const CLOUDY_SUSPENSION_CONCENTRATION: float = 0.005
+const MIN_MIX_TEMP: float = 90
 
 
 @export_custom(PROPERTY_HINT_NONE, "suffix:mL") var volume: float = 0.0
+## Concentration of agarose suspended but not mixed.
+@export_custom(PROPERTY_HINT_NONE, "suffix:g/mL") var suspended_agarose_concentration: float = 0.0
 ## Concentration in g/mL.
 @export_custom(PROPERTY_HINT_NONE, "suffix:g/mL") var agarose_concentration: float = 0.0
 ## Temperature in °C.
@@ -37,7 +46,7 @@ func get_volume() -> float: return volume
 func get_color() -> Color:
 	var temp_t: float = clamp((temperature - ROOM_TEMP) / (100.0 - ROOM_TEMP), 0.0, 1.0)
 	var base_color: Color = lerp(COOL_BASE_COLOR, HOT_BASE_COLOR, temp_t)
-	var agar_t: float = clamp(agarose_concentration * 0.05, 0.0, 0.75)
+	var agar_t: float = clamp(suspended_agarose_concentration / CLOUDY_SUSPENSION_CONCENTRATION , 0.0, 0.85)
 	return lerp(base_color, SATURATED_COLOR, agar_t)
 
 func get_viscosity() -> float:
@@ -69,11 +78,23 @@ func process(container: ContainerComponent, delta: float) -> void:
 	if volume <= 0: return
 	for s in container.substances:
 		if s is GenericSubstance:
-			if temperature > 90 and is_mixing and s.name == "agarose":
-				var agarose := s.take_volume(delta / s.get_density() / SECONDS_PER_GRAM_MIXED)
-				agarose_concentration += agarose.get_volume() / agarose.get_density() / volume
+			# TODO: The agarose should technically be suspended at any temperature (but not mixed),
+			# but that would require a better way to visually show that the agarose is settling out
+			# of the suspension instead of being mixed in when the temperature is too low. So we
+			# just don't even let it get suspended when the temperature is too low.
+			if temperature > MIN_MIX_TEMP and is_mixing and s.name == "agarose":
+				var agarose := s.take_volume(delta / s.get_density() / SECONDS_PER_GRAM_SUSPENDED)
+				suspended_agarose_concentration += agarose.get_volume() / agarose.get_density() / volume
 		elif s is DNASolutionSubstance:
 			s.take_volume(INF)
+
+	# Mix in suspended agarose.
+	if temperature > MIN_MIX_TEMP and is_mixing:
+		var agarose_conc_to_mix: float = min(delta / SECONDS_PER_GRAM_MIXED / volume, suspended_agarose_concentration)
+		suspended_agarose_concentration -= agarose_conc_to_mix
+		agarose_concentration += agarose_conc_to_mix
+
+
 
 func handle_event(e: Event) -> void:
 	if e is MixSubstanceEvent:
