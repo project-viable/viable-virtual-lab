@@ -33,9 +33,17 @@ func _physics_process(delta: float) -> void:
 		var container_to_heat := find_container(obj)
 		if container_to_heat:
 			container_to_heat.send_event(MicrowaveSubstanceEvent.new(delta * LabTime.time_scale))
-		Game.report_log.update_total((delta * LabTime.time_scale),"total_microwave_time")
-		var microwave_data: String = str(container_to_heat.get_parent().name, " heated for ", Game.report_log.report_data["total_microwave_time"], " seconds")
+		Game.report_log.update_total(snapped(((delta * LabTime.time_scale)/60), 0.01),"total_microwave_time")
+		var microwave_data: String = str(container_to_heat.get_parent().name, " heated for ", Game.report_log.report_data["total_microwave_time"], " minutes")
 		Game.report_log.update_event(microwave_data, "microwave_time")
+		if container_to_heat.substances != null:
+			for substance in container_to_heat.substances:
+				if substance is TAEBufferSubstance:
+					var temperature_data: String = str(container_to_heat.get_parent().name, " heated to ", int(substance.temperature) , " degrees Celsius")
+					Game.report_log.update_event(temperature_data, "gel_heated_temperature")
+					Game.report_log.update_total(snapped(substance.get_volume(), 0.01), "total_tae_in_gel")
+					var tae_poured_data: String = str(Game.report_log.report_data["total_tae_in_gel"], " mL of TAE Buffer is in the gel")
+					Game.report_log.update_event(tae_poured_data, "poured_tae_in_gel")
 
 func find_container(interactor: PhysicsBody2D) -> ContainerComponent:
 	# Only objects that have a `ContainerComponent` as a direct child can be microwaved. `

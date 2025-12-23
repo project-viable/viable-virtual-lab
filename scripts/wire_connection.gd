@@ -38,13 +38,13 @@ func on_wire_connected(wire: Wire, target_terminal_charge: Terminal.Charge) -> v
 		if (wire_connected_to_positive_terminal != get_node("%RedContactWire")):
 			if (wire_connected_to_positive_terminal != get_node("%RedContactWire2")):
 				correct_wire_placement = true
-				Game.report_log.update_event("true", "electrode_correct_placement")
+				Game.report_log.update_event("Electrodes have been correctly plugged into the power supply and gel rig", "electrode_correct_placement")
 	else:
 		wire_connected_to_negative_terminal = wire
 		if (wire_connected_to_positive_terminal != get_node("%BlackContactWire")):
 			if (wire_connected_to_positive_terminal != get_node("%BlackContactWire2")):
 				correct_wire_placement = true
-				Game.report_log.update_event("true", "electrode_correct_placement")
+				Game.report_log.update_event("Electrodes have been correctly plugged into the power supply and gel rig", "electrode_correct_placement")
 
 # Handle unplugging wires
 ## Handles the state of wire connections when the wires are unplugged

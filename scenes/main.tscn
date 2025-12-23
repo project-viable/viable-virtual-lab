@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=39 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -284,6 +284,22 @@ offset_right = -100.0
 offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Button" type="Button" parent="UILayer/Journal"]
+layout_mode = 0
+offset_left = 467.0
+offset_top = 460.0
+offset_right = 597.0
+offset_bottom = 500.0
+text = "Download Report"
+
+[node name="ReportText" type="RichTextLabel" parent="UILayer/Journal"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 17.0
+offset_top = 21.0
+offset_right = 1066.0
+offset_bottom = 451.0
 
 [node name="MenuScreenManager" type="Control" parent="UILayer"]
 unique_name_in_owner = true
@@ -950,6 +966,7 @@ metadata/_custom_type_script = "uid://bu1da87rm0cub"
 [connection signal="pressed_zoom_out" from="InteractableSystem" to="." method="_on_interactable_system_pressed_zoom_out"]
 [connection signal="body_entered" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_entered"]
 [connection signal="body_exited" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_exited"]
+[connection signal="pressed" from="UILayer/Journal/Button" to="GelLogReport" method="_on_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/ExitModuleButton" to="." method="_on_exit_module_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/QuitButton" to="." method="_on_quit_button_pressed"]

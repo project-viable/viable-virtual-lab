@@ -260,8 +260,11 @@ func is_pause_menu_open() -> bool:
 
 func set_journal_open(open: bool) -> void:
 	%Journal.visible = open
+	if %Journal.visible:
+		Game.report_log.load_report_data()
+	else:
+		Game.report_log.rich_text_label.clear()
 	_update_simulation_pause()
-	Game.report_log.save_game_data()
 
 func is_journal_open() -> bool:
 	return %Journal.visible
