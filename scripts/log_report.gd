@@ -44,17 +44,16 @@ func update_total(data:float, total_name: String) -> void:
 
 ## Function to save recorded user events to a log file in the form of a JSON Object
 func save_game_data() -> void:
-		var filename: String = "save_report.json"
+		var filename: String = "save_report.txt"
 		if Engine.has_singleton("JavaScriptBridge"):
-			var data_string: String = str(rich_text_label)
-			JavaScriptBridge.download_buffer(data_string.to_utf8_buffer(), filename)
+			JavaScriptBridge.download_buffer(rich_text_label.get_parsed_text().to_utf8_buffer(), filename,"text/plain")
 		else:
 			Game.debug_overlay.update("result", "JavaScriptBridge not available")
 
 ## Function to read the final report data from the JSON file to be formatted in a readable document
 # report will be formatted here with rich text labels to put in report"
 func load_report_data() -> void:
-	rich_text_label.append_text("[center][b][font_size=36]Final Report[/font_size][/b][/center]")
+	rich_text_label.append_text("[center][b][font_size=36]Final Report[/font_size][/b][/center]\n")
 	
 	rich_text_label.append_text("\n [center][b][font_size=24]Preparing The Gel[/font_size][/b][/center]\n")
 	rich_text_label.append_text("\n" + report_data["scooped_agarose_powder"])
@@ -63,7 +62,7 @@ func load_report_data() -> void:
 	rich_text_label.append_text("\n" + report_data["gel_heated_temperature"])
 	rich_text_label.append_text("\n" + report_data["gel_mixed"])
 	
-	rich_text_label.append_text("\n [center][b][font_size=24]Gel Electrophoresis Process[/font_size][/b][/center]\n")
+	rich_text_label.append_text("\n \n[center][b][font_size=24]Gel Electrophoresis Process[/font_size][/b][/center]\n")
 	rich_text_label.append_text("\n" + report_data["poured_tae_in_rig"])
 	rich_text_label.append_text("\n" + report_data["correct_comb_placement"])
 	rich_text_label.append_text("\n" + report_data["electrode_correct_placement"])
@@ -71,15 +70,14 @@ func load_report_data() -> void:
 	rich_text_label.append_text("\n" + report_data["voltage_run_time"])
 	rich_text_label.append_text("\n" + report_data["time_until_gel_analysis"])
 	
-	rich_text_label.append_text("\n [center][b][font_size=24]Gel Analysis[/font_size][/b][/center]\n")
+	rich_text_label.append_text("\n \n[center][b][font_size=24]Gel Analysis[/font_size][/b][/center]\n")
 	rich_text_label.append_text("\n" + report_data["gel_concentration"])
 	rich_text_label.append_text("\n" + report_data["well_max_capacity"])
 	rich_text_label.append_text("\n The used wells were hold " + report_data["gel_well_capacities"] + " mLs of dna samples, respectively")
 	rich_text_label.append_text("\n The dna samples had fragment sizes of " + report_data["dna_fragment_sizes"])
 	
-	rich_text_label.append_text("\n [center][b][font_size=24]Final results[/font_size][/b][/center]\n")
-	rich_text_label.append_text("\n" + report_data["gel_concentration"])
+	rich_text_label.append_text("\n \n [center][b][font_size=24]Final results[/font_size][/b][/center]\n")
+	rich_text_label.append_text("\n" + report_data["final_results"])
 	
-
 func _on_button_pressed() -> void:
 	save_game_data()

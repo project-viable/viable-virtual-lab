@@ -11,6 +11,7 @@ extends LabBody
 
 var comb_placed: bool = false
 var check_gel_concentration:bool = false
+var suspended_agarose_concentration: float
 
 class GelConcentrationData:
 	var total_volume: float
@@ -32,6 +33,7 @@ func get_gel_concentration() -> float:
 		for s:Substance in $ContainerComponent.substances:
 			if s is TAEBufferSubstance:
 				gel_data.total_volume+= (s.agarose_concentration * 100)
+				suspended_agarose_concentration = s.suspended_agarose_concentration
 		gel_data.mean = gel_data.total_volume/5.0
 		gel_data.standard_deviation = calculate_std(gel_data.mean)
 	return gel_data.standard_deviation
@@ -42,14 +44,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super(delta)
-	if check_gel_concentration == false:
-		if gel_state.gel_concentration < 0.1:
-			gel_state.correct_gel_mixing = true
-			Game.report_log.update_event("Gel is mixed thoroughly", "gel_mixed")
-		else:
-			gel_state.correct_gel_mixing = false
-			Game.report_log.update_event("Gel is not thoroughly mixed ", "gel_mixed")
-		check_gel_concentration = true
+	
 	if voltage > 0:
 		gel_state.voltage = voltage
 		gel_state.voltage_run_time += (delta * LabTime.time_scale)/60
@@ -82,6 +77,14 @@ func set_gel_state() -> void:
 	gel_state.gel_concentration = get_gel_concentration()
 	var concentration_data: String = str("The gel's concentration is ", gel_state.gel_concentration, "%")
 	Game.report_log.update_event(concentration_data, "gel_concentration")
+	if check_gel_concentration == false:
+		if gel_state.gel_concentration < 0.1 and suspended_agarose_concentration <=0.0:
+			gel_state.correct_gel_mixing = true
+			Game.report_log.update_event("Gel is mixed thoroughly", "gel_mixed")
+		else:
+			gel_state.correct_gel_mixing = false
+			Game.report_log.update_event("Gel is not thoroughly mixed ", "gel_mixed")
+		check_gel_concentration = true
 	
 	gel_state.electrode_correct_placement = correct_wire_placement
 	for i in 5:
