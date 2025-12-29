@@ -1,7 +1,7 @@
-## Displays the contents of a `ContainerComponent` inside of this polygon such that its apparent
-## depth matches the expected depth based on the volume of substances and the polygon.
 class_name SubstanceDisplayPolygon
 extends Polygon2D
+## Displays the contents of a [ContainerComponent] inside of this polygon such that its apparent
+## depth matches the expected depth based on the volume of substances and the polygon.
 
 
 # Percentage of angular velocity removed per second.
@@ -13,6 +13,7 @@ const SLOSH_PENDULUM_MASS: float = 1
 const SLOSH_PENDULUM_MOMENT_OF_INERTIA = SLOSH_PENDULUM_MASS * pow(SLOSH_PENDULUM_LENGTH, 2)
 
 
+## The container whose contents will be displayed.
 @export var source: ContainerComponent
 
 
