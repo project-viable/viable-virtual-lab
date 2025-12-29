@@ -1,3 +1,4 @@
+@tool
 class_name SubstanceDisplayPolygon
 extends Polygon2D
 ## Displays the contents of a [ContainerComponent] inside of this polygon such that its apparent
@@ -40,6 +41,11 @@ var _last_cached_down_dir: Vector2
 static var _shader: Shader = preload("res://shaders/substance_polygon.gdshader")
 
 
+func _validate_property(property: Dictionary) -> void:
+	# Since we're controlling the material ourselves, don't show it in the editor and don't save it
+	# in the scene file.
+	if property.name == "material": property.usage = PROPERTY_USAGE_NONE
+
 func _enter_tree() -> void:
 	_global_gravity = ProjectSettings.get_setting("physics/2d/default_gravity_vector")
 	_global_gravity *= ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -54,6 +60,9 @@ func _ready() -> void:
 	_set_down_dir(_last_cached_down_dir)
 
 func _physics_process(delta: float) -> void:
+	# Don't update sloshing in the editor.
+	if Engine.is_editor_hint(): return
+
 	var viscosity := 0.0
 	for s in source.substances:
 		viscosity += s.get_viscosity() * s.get_volume()

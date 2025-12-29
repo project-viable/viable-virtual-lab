@@ -1,6 +1,7 @@
-## Contains a set of substances and can be used to hold them
+@tool
 class_name ContainerComponent
 extends Node2D
+## Contains a set of substances and can be used to hold them
 
 
 ## The array of substances to be held within the container
@@ -17,6 +18,8 @@ extends Node2D
 @export_custom(PROPERTY_HINT_NONE, "suffix:g") var container_mass: float = 0.0
 
 func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint(): return
+
 	var lab_delta := delta * LabTime.time_scale
 
 	# We need to duplicate the substance array because substances may modify the original one in

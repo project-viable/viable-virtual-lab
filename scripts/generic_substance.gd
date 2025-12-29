@@ -1,3 +1,4 @@
+@tool
 class_name GenericSubstance
 extends Substance
 ## Can be used for any generic substance that doesn't need any special behavior.

@@ -1,3 +1,4 @@
+@tool
 class_name PolygonFillAreaCache
 ## Caches the cumulative area of a polygon, starting at the lowest y value, up to the highest y
 ## value, and allows obtaining the depth of a given area.

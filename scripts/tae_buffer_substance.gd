@@ -1,3 +1,4 @@
+@tool
 class_name TAEBufferSubstance
 extends Substance
 ## This is the same as agarose.
