@@ -2,11 +2,12 @@ extends Imager
 
 var band_texture: Texture2D = preload("res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg")
 var _is_light_on := false
+var _is_door_open: bool = false
 var results_message: String = ""
 
 func _draw() -> void:
-	if $AttachmentInteractableArea.contained_object is GelMold:
-		var gel := $AttachmentInteractableArea.contained_object as GelMold
+	if $DepthManagedNode2D/AttachmentInteractableArea.contained_object is GelMold:
+		var gel := $DepthManagedNode2D/AttachmentInteractableArea.contained_object as GelMold
 		if not gel or not _is_light_on: return
 		gel.set_gel_state()
 		if gel.gel_state.correct_comb_placement == false:
@@ -35,8 +36,8 @@ func _draw() -> void:
 					var pos: Vector2 = Vector2.DOWN * fragment.position * 130.0 / 0.45
 					band_texture.draw(well_sprite.get_canvas_item(), pos)
 	else:
-		$AttachmentInteractableArea.remove_object()
-		$AttachmentInteractableArea.contained_object = null
+		$DepthManagedNode2D/AttachmentInteractableArea.remove_object()
+		$DepthManagedNode2D/AttachmentInteractableArea.contained_object = null
 
 
 func _process(_delta: float) -> void:
@@ -51,13 +52,35 @@ func _get_well_sprite(i: int) -> Node2D:
 	return get_node_or_null("%%Well%s" % [i])
 
 func on_gel_removed() -> void:
-	if $AttachmentInteractableArea.contained_object != null:
-		$AttachmentInteractableArea.contained_object.global_position = Vector2(1650, 350)
-		$AttachmentInteractableArea.remove_object()
-		$AttachmentInteractableArea.contained_object = null
+	if $DepthManagedNode2D/AttachmentInteractableArea.contained_object != null:
+		$DepthManagedNode2D/AttachmentInteractableArea.contained_object.global_position = Vector2(1650, 350)
+		$DepthManagedNode2D/AttachmentInteractableArea.remove_object()
+		$DepthManagedNode2D/AttachmentInteractableArea.contained_object = null
 
+func _update_door() -> void:
+	if _is_door_open:
+		$DepthManagedNode2D/AttachmentInteractableArea.allow_new_objects = true
+		$SelectableComponent.interact_info.description = "Close door"
+		%ImagerOpenInsideAndDoor.show()
+		%"UV Light".hide()
+		if $DepthManagedNode2D/AttachmentInteractableArea.contained_object != null:
+			$DepthManagedNode2D/AttachmentInteractableArea.contained_object.visible = true
+			$DepthManagedNode2D/AttachmentInteractableArea.contained_object.enable_interaction = true
+		
+	else:
+		$DepthManagedNode2D/AttachmentInteractableArea.allow_new_objects = false
+		$SelectableComponent.interact_info.description = "Open door"
+		%ImagerOpenInsideAndDoor.hide()
+		%"UV Light".show()
+		if $DepthManagedNode2D/AttachmentInteractableArea.contained_object != null:
+			$DepthManagedNode2D/AttachmentInteractableArea.contained_object.visible = false
+			$DepthManagedNode2D/AttachmentInteractableArea.contained_object.enable_interaction = false
+		
 
-
+func _on_door_selectable_pressed() -> void:
+	_is_door_open = not _is_door_open
+	_update_door()
+	
 func _on_uv_light_pressed() -> void:
 	_is_light_on = not _is_light_on
 

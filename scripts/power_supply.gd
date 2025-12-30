@@ -7,6 +7,7 @@ class_name PowerSupply
 @export var decrement_volts_button: TextureButton
 @export var time_line_edit: LineEdit
 @export var voltage_line_edit: LineEdit
+var closed_circut: bool = false
 
 
 @onready var button_function_dict: Dictionary = {
@@ -100,8 +101,13 @@ func is_hovered() -> bool:
 	return super() and not Game.main.get_camera_focus_owner()
 
 func _on_start_button_pressed() -> void:
-	initial_time = time
-	$LabTimer.start(time)
+	if _object_to_recieve_current.body.name == "GelBox":
+		if closed_circut and _object_to_recieve_current.target_container.get_total_volume() >0:
+			initial_time = time
+			$LabTimer.start(time)
+		else:
+			%TimeLabel.text = "Err"
+			voltage_line_edit.text = "Err"
 
 func _on_timer_timeout() -> void:
 	var is_pressed: bool = _current_pressed_button.button_pressed
@@ -211,7 +217,9 @@ func _is_circuit_ready() -> bool:
 
 	else:
 		_object_to_recieve_current = positive_wire_other_end_component
+		closed_circut = true
 		return true
+		
 
 ## Determines the direction of current based on wire connections.
 ## Returns FORWARD if each wire connects matching terminals (positive to positive, negative to negative),

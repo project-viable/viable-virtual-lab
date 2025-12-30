@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://cug6kav5s55iq"]
+[gd_scene load_steps=24 format=3 uid="uid://cug6kav5s55iq"]
 
 [ext_resource type="Script" uid="uid://bptf21x2a24jj" path="res://scripts/imager_gel_band_logic.gd" id="1_7wmgd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_w2ofj"]
 [ext_resource type="Texture2D" uid="uid://cslhw30pcab3a" path="res://textures/lab_objects/imager.svg" id="3_p46ws"]
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="4_7wmgd"]
+[ext_resource type="Texture2D" uid="uid://bxlubb0tdgn5x" path="res://textures/lab_objects/Imager_open_inside_and_door.svg" id="4_oxmjg"]
 [ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="4_ylekj"]
 [ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="6_18obo"]
 [ext_resource type="Texture2D" uid="uid://d3dbby0blgo04" path="res://textures/gel_bands/Gel_Rig_Top_View.svg" id="6_p46ws"]
@@ -18,27 +19,37 @@
 [ext_resource type="Texture2D" uid="uid://dqy8bu4f6vpyv" path="res://textures/gel_bands/Gel_Well_Top_View_WAVY_2.svg" id="14_r6ay8"]
 [ext_resource type="Texture2D" uid="uid://i6l6i3doaich" path="res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED_9slice.svg" id="15_ryau1"]
 [ext_resource type="Script" uid="uid://b5a5765epdkf" path="res://scripts/subscene_camera.gd" id="17_ylekj"]
+[ext_resource type="Script" uid="uid://musakg3k6s1l" path="res://scripts/selectable_component.gd" id="20_oxmjg"]
+[ext_resource type="Script" uid="uid://nf1enjfal72f" path="res://scripts/depth_managed_node_2d.gd" id="21_u3h3s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_deexq"]
 size = Vector2(133, 54)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omd45"]
-size = Vector2(166, 191)
+size = Vector2(167, 109.5)
 
 [node name="GelImager" type="Node2D"]
 script = ExtResource("1_7wmgd")
 
-[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+[node name="ImagerDoorGroup" type="CanvasGroup" parent="."]
 script = ExtResource("1_w2ofj")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="Imager" type="Sprite2D" parent="SelectableCanvasGroup"]
+[node name="Imager" type="Sprite2D" parent="ImagerDoorGroup"]
+unique_name_in_owner = true
 scale = Vector2(0.327149, 0.327149)
 texture = ExtResource("3_p46ws")
 
+[node name="ImagerOpenInsideAndDoor" type="Sprite2D" parent="ImagerDoorGroup"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-3, -0.9999995)
+scale = Vector2(0.26431274, 0.26431274)
+texture = ExtResource("4_oxmjg")
+
 [node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("objects", "subscene_camera")]
 script = ExtResource("4_ylekj")
-objects = [NodePath("../AttachmentInteractableArea")]
+objects = [NodePath("../DepthManagedNode2D/AttachmentInteractableArea")]
 subscene_camera = NodePath("../Subscene/SubsceneCamera")
 metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 
@@ -49,19 +60,6 @@ position = Vector2(-0.5, -71)
 shape = SubResource("RectangleShape2D_deexq")
 debug_color = Color(0.961975, 0.191001, 0.110021, 0.42)
 
-[node name="AttachmentInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
-script = ExtResource("4_7wmgd")
-show_ghost_sprite = false
-hide_object = true
-place_prompt = "Put in imager"
-selectable_canvas_group = NodePath("../SelectableCanvasGroup")
-body_group_filter_type = 1
-metadata/_custom_type_script = "uid://ul3h2acp7c3y"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
-position = Vector2(0, -2.5)
-shape = SubResource("RectangleShape2D_omd45")
-
 [node name="ZoomAwareControl" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -71,11 +69,16 @@ script = ExtResource("6_18obo")
 metadata/_custom_type_script = "uid://kqpdop5g7bqv"
 
 [node name="UV Light" type="Button" parent="ZoomAwareControl"]
-layout_mode = 0
+unique_name_in_owner = true
+z_index = 2000
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.65000004
+anchor_bottom = -0.65000004
 offset_left = -4.0
-offset_top = -30.0
+offset_top = -3.999998
 offset_right = 4.0
-offset_bottom = -22.0
+offset_bottom = 4.000002
 
 [node name="ClosedDoor" type="TextureButton" parent="ZoomAwareControl"]
 layout_mode = 0
@@ -187,5 +190,29 @@ script = ExtResource("17_ylekj")
 region_size = Vector2(330, 300)
 metadata/_custom_type_script = "uid://b5a5765epdkf"
 
+[node name="SelectableComponent" type="Node2D" parent="." node_paths=PackedStringArray("interact_canvas_group")]
+script = ExtResource("20_oxmjg")
+interact_canvas_group = NodePath("../ImagerDoorGroup")
+metadata/_custom_type_script = "uid://musakg3k6s1l"
+
+[node name="DepthManagedNode2D" type="Node2D" parent="."]
+script = ExtResource("21_u3h3s")
+depth_layer = 1
+metadata/_custom_type_script = "uid://nf1enjfal72f"
+
+[node name="AttachmentInteractableArea" type="Area2D" parent="DepthManagedNode2D" node_paths=PackedStringArray("selectable_canvas_group")]
+unique_name_in_owner = true
+position = Vector2(0, 70)
+script = ExtResource("4_7wmgd")
+place_prompt = "Put in imager"
+selectable_canvas_group = NodePath("../../ImagerDoorGroup")
+body_group_filter_type = 1
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DepthManagedNode2D/AttachmentInteractableArea"]
+position = Vector2(0, -33.25)
+shape = SubResource("RectangleShape2D_omd45")
+
 [connection signal="pressed" from="ZoomAwareControl/UV Light" to="." method="_on_uv_light_pressed"]
 [connection signal="pressed" from="ZoomAwareControl/ClosedDoor" to="." method="on_gel_removed"]
+[connection signal="pressed" from="SelectableComponent" to="." method="_on_door_selectable_pressed"]

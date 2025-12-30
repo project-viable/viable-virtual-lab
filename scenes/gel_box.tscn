@@ -45,6 +45,12 @@ metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_qsq1u")
 
+[node name="GelRig" type="Sprite2D" parent="ContainerInteractableArea/CollisionShape2D"]
+modulate = Color(1, 1, 1, 0.776471)
+position = Vector2(0, -3.5)
+scale = Vector2(0.095, 0.095)
+texture = ExtResource("3_r7so7")
+
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("3_8th0w")
 container_volume = 100.0
@@ -62,11 +68,6 @@ metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
 z_index = 2
 script = ExtResource("1_t800u")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
-
-[node name="GelRig" type="Sprite2D" parent="SelectableCanvasGroup"]
-modulate = Color(1, 1, 1, 0.776471)
-scale = Vector2(0.095, 0.095)
-texture = ExtResource("3_r7so7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 15.5)
@@ -100,9 +101,10 @@ position = Vector2(-1, 0)
 shape = SubResource("CircleShape2D_xl5qd")
 debug_color = Color(0.74071, 0.462915, 0.148127, 0.42)
 
-[node name="WireConnectableComponent" type="Node2D" parent="." node_paths=PackedStringArray("body")]
+[node name="WireConnectableComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "target_container")]
 script = ExtResource("6_xl5qd")
 body = NodePath("..")
+target_container = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://chvv2ne60otwi"
 
 [node name="MoldAttachment" type="Area2D" parent="."]

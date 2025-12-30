@@ -98,6 +98,7 @@ offset_left = 78.0
 offset_top = -53.0
 offset_right = 78.0
 offset_bottom = -53.0
+mouse_filter = 2
 script = ExtResource("7_svbq6")
 metadata/_custom_type_script = "uid://c2pro11bcd0sw"
 
@@ -108,7 +109,9 @@ offset_top = 3.9999998
 offset_right = 14.0
 offset_bottom = 22.0
 scale = Vector2(0.7, 0.7)
-segment_bits = 126
+mouse_filter = 2
+segment_bits = 0
+character = " "
 
 [node name="D1" parent="Display" instance=ExtResource("7_iwsb8")]
 layout_mode = 0
@@ -117,7 +120,9 @@ offset_top = 3.9999998
 offset_right = 22.0
 offset_bottom = 22.0
 scale = Vector2(0.7, 0.7)
-segment_bits = 126
+mouse_filter = 2
+segment_bits = 0
+character = " "
 
 [node name="D2" parent="Display" instance=ExtResource("7_iwsb8")]
 layout_mode = 0
@@ -126,7 +131,9 @@ offset_top = 3.9999998
 offset_right = 33.0
 offset_bottom = 22.0
 scale = Vector2(0.7, 0.7)
-segment_bits = 126
+mouse_filter = 2
+segment_bits = 0
+character = " "
 
 [node name="D3" parent="Display" instance=ExtResource("7_iwsb8")]
 layout_mode = 0
@@ -135,7 +142,9 @@ offset_top = 3.9999998
 offset_right = 41.0
 offset_bottom = 22.0
 scale = Vector2(0.7, 0.7)
-segment_bits = 126
+mouse_filter = 2
+segment_bits = 0
+character = " "
 
 [node name="Colon" type="Node2D" parent="Display"]
 

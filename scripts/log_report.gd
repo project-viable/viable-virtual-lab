@@ -25,7 +25,7 @@ var report_data := {
 	"total_poured_tae_in_rig": 0.0, 
 	"total_microwave_time": 0.0, 
 	"total_voltage_run_time": 0.0,
-	"final_results": "Inconclusive results"
+	"final_results": ""
 }
 
 func _ready() -> void:
@@ -36,7 +36,7 @@ func update_event(data: String, event_name: String) -> void:
 	report_data[event_name] = data
 
 func append_amount(data: String, event_name: String) -> void:
-	report_data[event_name].append(data)
+	report_data[event_name] += data
 
 ## Function to update total values for things like time, weights, or volumes
 func update_total(data:float, total_name: String) -> void:

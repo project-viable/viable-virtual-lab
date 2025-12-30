@@ -12,6 +12,8 @@ class_name WireConnectableComponent
 ## Voltage currently running through this. It will be negative if the direction is reversed.
 @export_custom(PROPERTY_HINT_NONE, "suffix:V") var voltage: float = 0
 
+@export var target_container: ContainerComponent
+
 ## A signal that emits when a wire is connected to both terminals
 signal terminals_connected(is_every_terminal_connected: bool)
 
