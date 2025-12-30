@@ -95,7 +95,10 @@ func process(container: ContainerComponent, delta: float) -> void:
 		suspended_agarose_concentration -= agarose_conc_to_mix
 		agarose_concentration += agarose_conc_to_mix
 
-
+func report_tae_volume() -> void:
+	Game.report_log.new_total(snapped(get_volume(), 0.01), "total_tae_in_gel")
+	var tae_poured_data: String = str(Game.report_log.report_data["total_tae_in_gel"], " mL of TAE Buffer is in the gel")
+	Game.report_log.update_event(tae_poured_data, "poured_tae_in_gel")
 
 func handle_event(e: Event) -> void:
 	if e is MixSubstanceEvent:
