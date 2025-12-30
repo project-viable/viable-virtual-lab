@@ -38,9 +38,13 @@ func update_event(data: String, event_name: String) -> void:
 func append_amount(data: String, event_name: String) -> void:
 	report_data[event_name] += data
 
-## Function to update total values for things like time, weights, or volumes
+## Function to update total values for things like time, weights, or volumes incrementally
 func update_total(data:float, total_name: String) -> void:
 	report_data[total_name] += data
+	
+## Function to overwrite total values for things like time, weights, or volumes 
+func new_total(data:float, total_name: String) -> void:
+	report_data[total_name] = data
 
 ## Function to save recorded user events to a log file in the form of a JSON Object
 func save_game_data() -> void:

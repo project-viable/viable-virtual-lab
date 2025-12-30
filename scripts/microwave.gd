@@ -42,9 +42,10 @@ func _physics_process(delta: float) -> void:
 				if substance is TAEBufferSubstance:
 					var temperature_data: String = str(container_to_heat.get_parent().name, " heated to ", int(substance.temperature) , " degrees Celsius")
 					Game.report_log.update_event(temperature_data, "gel_heated_temperature")
-					Game.report_log.update_total(snapped(substance.get_volume(), 0.01), "total_tae_in_gel")
+					Game.report_log.new_total(snapped(substance.get_volume(), 0.01), "total_tae_in_gel")
 					var tae_poured_data: String = str(Game.report_log.report_data["total_tae_in_gel"], " mL of TAE Buffer is in the gel")
 					Game.report_log.update_event(tae_poured_data, "poured_tae_in_gel")
+					break
 
 func find_container(interactor: PhysicsBody2D) -> ContainerComponent:
 	# Only objects that have a `ContainerComponent` as a direct child can be microwaved. `
