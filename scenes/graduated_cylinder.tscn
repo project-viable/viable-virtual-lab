@@ -23,6 +23,7 @@ script = ExtResource("2_5k7v7")
 source = NodePath("../ContainerComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 14.5)
 shape = SubResource("RectangleShape2D_ufkpi")
 
@@ -34,9 +35,719 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_5k7v7")
 
+[node name="Line2D" type="Line2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, 3.2126923)
+points = PackedVector2Array(-13, 72, 13, 72)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D" type="Line2D" parent="SelectableCanvasGroup/Line2D"]
+position = Vector2(9, -0.557045)
+points = PackedVector2Array(-13, 79, -5, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D2" type="Line2D" parent="SelectableCanvasGroup/Line2D"]
+position = Vector2(9, 4.597664)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D3" type="Line2D" parent="SelectableCanvasGroup/Line2D"]
+position = Vector2(9, 3.2695389)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D4" type="Line2D" parent="SelectableCanvasGroup/Line2D"]
+position = Vector2(9, 2.0004532)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D5" type="Line2D" parent="SelectableCanvasGroup/Line2D"]
+position = Vector2(9, 0.71139073)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D6" type="Line2D" parent="SelectableCanvasGroup/Line2D"]
+position = Vector2(9, -1.8433731)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D7" type="Line2D" parent="SelectableCanvasGroup/Line2D"]
+position = Vector2(9, -3.1552093)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D8" type="Line2D" parent="SelectableCanvasGroup/Line2D"]
+position = Vector2(9, -4.401334)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D9" type="Line2D" parent="SelectableCanvasGroup/Line2D"]
+position = Vector2(9, -5.692075)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Label" type="Label" parent="SelectableCanvasGroup/Line2D"]
+offset_left = 3.7976608
+offset_top = 64.792885
+offset_right = 43.79766
+offset_bottom = 100.792885
+scale = Vector2(0.22065055, 0.22065055)
+theme_override_colors/font_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+theme_override_font_sizes/font_size = 30
+text = "10"
+horizontal_alignment = 2
+
+[node name="Line2D2" type="Line2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, -9.599705)
+points = PackedVector2Array(-13, 72, 13, 72)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D" type="Line2D" parent="SelectableCanvasGroup/Line2D2"]
+position = Vector2(9, -0.557045)
+points = PackedVector2Array(-13, 79, -5, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D2" type="Line2D" parent="SelectableCanvasGroup/Line2D2"]
+position = Vector2(9, 4.597664)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D3" type="Line2D" parent="SelectableCanvasGroup/Line2D2"]
+position = Vector2(9, 3.2695389)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D4" type="Line2D" parent="SelectableCanvasGroup/Line2D2"]
+position = Vector2(9, 2.0004532)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D5" type="Line2D" parent="SelectableCanvasGroup/Line2D2"]
+position = Vector2(9, 0.71139073)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D6" type="Line2D" parent="SelectableCanvasGroup/Line2D2"]
+position = Vector2(9, -1.8433731)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D7" type="Line2D" parent="SelectableCanvasGroup/Line2D2"]
+position = Vector2(9, -3.1552093)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D8" type="Line2D" parent="SelectableCanvasGroup/Line2D2"]
+position = Vector2(9, -4.401334)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D9" type="Line2D" parent="SelectableCanvasGroup/Line2D2"]
+position = Vector2(9, -5.692075)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Label" type="Label" parent="SelectableCanvasGroup/Line2D2"]
+offset_left = 3.7976608
+offset_top = 64.792885
+offset_right = 43.79766
+offset_bottom = 100.792885
+scale = Vector2(0.22065055, 0.22065055)
+theme_override_colors/font_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+theme_override_font_sizes/font_size = 30
+text = "20"
+horizontal_alignment = 2
+
+[node name="Line2D3" type="Line2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, -22.424046)
+points = PackedVector2Array(-13, 72, 13, 72)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D" type="Line2D" parent="SelectableCanvasGroup/Line2D3"]
+position = Vector2(9, -0.557045)
+points = PackedVector2Array(-13, 79, -5, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D2" type="Line2D" parent="SelectableCanvasGroup/Line2D3"]
+position = Vector2(9, 4.597664)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D3" type="Line2D" parent="SelectableCanvasGroup/Line2D3"]
+position = Vector2(9, 3.2695389)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D4" type="Line2D" parent="SelectableCanvasGroup/Line2D3"]
+position = Vector2(9, 2.0004532)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D5" type="Line2D" parent="SelectableCanvasGroup/Line2D3"]
+position = Vector2(9, 0.71139073)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D6" type="Line2D" parent="SelectableCanvasGroup/Line2D3"]
+position = Vector2(9, -1.8433731)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D7" type="Line2D" parent="SelectableCanvasGroup/Line2D3"]
+position = Vector2(9, -3.1552093)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D8" type="Line2D" parent="SelectableCanvasGroup/Line2D3"]
+position = Vector2(9, -4.401334)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D9" type="Line2D" parent="SelectableCanvasGroup/Line2D3"]
+position = Vector2(9, -5.692075)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Label" type="Label" parent="SelectableCanvasGroup/Line2D3"]
+offset_left = 3.7976608
+offset_top = 64.792885
+offset_right = 43.79766
+offset_bottom = 100.792885
+scale = Vector2(0.22065055, 0.22065055)
+theme_override_colors/font_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+theme_override_font_sizes/font_size = 30
+text = "30"
+horizontal_alignment = 2
+
+[node name="Line2D4" type="Line2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, -35.18835)
+points = PackedVector2Array(-13, 72, 13, 72)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D" type="Line2D" parent="SelectableCanvasGroup/Line2D4"]
+position = Vector2(9, -0.557045)
+points = PackedVector2Array(-13, 79, -5, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D2" type="Line2D" parent="SelectableCanvasGroup/Line2D4"]
+position = Vector2(9, 4.597664)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D3" type="Line2D" parent="SelectableCanvasGroup/Line2D4"]
+position = Vector2(9, 3.2695389)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D4" type="Line2D" parent="SelectableCanvasGroup/Line2D4"]
+position = Vector2(9, 2.0004532)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D5" type="Line2D" parent="SelectableCanvasGroup/Line2D4"]
+position = Vector2(9, 0.71139073)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D6" type="Line2D" parent="SelectableCanvasGroup/Line2D4"]
+position = Vector2(9, -1.8433731)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D7" type="Line2D" parent="SelectableCanvasGroup/Line2D4"]
+position = Vector2(9, -3.1552093)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D8" type="Line2D" parent="SelectableCanvasGroup/Line2D4"]
+position = Vector2(9, -4.401334)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D9" type="Line2D" parent="SelectableCanvasGroup/Line2D4"]
+position = Vector2(9, -5.692075)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Label" type="Label" parent="SelectableCanvasGroup/Line2D4"]
+offset_left = 3.7976608
+offset_top = 64.792885
+offset_right = 43.79766
+offset_bottom = 100.792885
+scale = Vector2(0.22065055, 0.22065055)
+theme_override_colors/font_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+theme_override_font_sizes/font_size = 30
+text = "40"
+horizontal_alignment = 2
+
+[node name="Line2D5" type="Line2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, -48.036564)
+points = PackedVector2Array(-13, 72, 13, 72)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D" type="Line2D" parent="SelectableCanvasGroup/Line2D5"]
+position = Vector2(9, -0.557045)
+points = PackedVector2Array(-13, 79, -5, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D2" type="Line2D" parent="SelectableCanvasGroup/Line2D5"]
+position = Vector2(9, 4.597664)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D3" type="Line2D" parent="SelectableCanvasGroup/Line2D5"]
+position = Vector2(9, 3.2695389)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D4" type="Line2D" parent="SelectableCanvasGroup/Line2D5"]
+position = Vector2(9, 2.0004532)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D5" type="Line2D" parent="SelectableCanvasGroup/Line2D5"]
+position = Vector2(9, 0.71139073)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D6" type="Line2D" parent="SelectableCanvasGroup/Line2D5"]
+position = Vector2(9, -1.8433731)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D7" type="Line2D" parent="SelectableCanvasGroup/Line2D5"]
+position = Vector2(9, -3.1552093)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D8" type="Line2D" parent="SelectableCanvasGroup/Line2D5"]
+position = Vector2(9, -4.401334)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D9" type="Line2D" parent="SelectableCanvasGroup/Line2D5"]
+position = Vector2(9, -5.692075)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Label" type="Label" parent="SelectableCanvasGroup/Line2D5"]
+offset_left = 3.7976608
+offset_top = 64.792885
+offset_right = 43.79766
+offset_bottom = 100.792885
+scale = Vector2(0.22065055, 0.22065055)
+theme_override_colors/font_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+theme_override_font_sizes/font_size = 30
+text = "50"
+horizontal_alignment = 2
+
+[node name="Line2D6" type="Line2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, -60.74604)
+points = PackedVector2Array(-13, 72, 13, 72)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D" type="Line2D" parent="SelectableCanvasGroup/Line2D6"]
+position = Vector2(9, -0.557045)
+points = PackedVector2Array(-13, 79, -5, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D2" type="Line2D" parent="SelectableCanvasGroup/Line2D6"]
+position = Vector2(9, 4.597664)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D3" type="Line2D" parent="SelectableCanvasGroup/Line2D6"]
+position = Vector2(9, 3.2695389)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D4" type="Line2D" parent="SelectableCanvasGroup/Line2D6"]
+position = Vector2(9, 2.0004532)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D5" type="Line2D" parent="SelectableCanvasGroup/Line2D6"]
+position = Vector2(9, 0.71139073)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D6" type="Line2D" parent="SelectableCanvasGroup/Line2D6"]
+position = Vector2(9, -1.8433731)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D7" type="Line2D" parent="SelectableCanvasGroup/Line2D6"]
+position = Vector2(9, -3.1552093)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D8" type="Line2D" parent="SelectableCanvasGroup/Line2D6"]
+position = Vector2(9, -4.401334)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D9" type="Line2D" parent="SelectableCanvasGroup/Line2D6"]
+position = Vector2(9, -5.692075)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Label" type="Label" parent="SelectableCanvasGroup/Line2D6"]
+offset_left = 3.7976608
+offset_top = 64.792885
+offset_right = 43.79766
+offset_bottom = 100.792885
+scale = Vector2(0.22065055, 0.22065055)
+theme_override_colors/font_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+theme_override_font_sizes/font_size = 30
+text = "60"
+horizontal_alignment = 2
+
+[node name="Line2D7" type="Line2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, -73.627914)
+points = PackedVector2Array(-13, 72, 13, 72)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D" type="Line2D" parent="SelectableCanvasGroup/Line2D7"]
+position = Vector2(9, -0.557045)
+points = PackedVector2Array(-13, 79, -5, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D2" type="Line2D" parent="SelectableCanvasGroup/Line2D7"]
+position = Vector2(9, 4.597664)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D3" type="Line2D" parent="SelectableCanvasGroup/Line2D7"]
+position = Vector2(9, 3.2695389)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D4" type="Line2D" parent="SelectableCanvasGroup/Line2D7"]
+position = Vector2(9, 2.0004532)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D5" type="Line2D" parent="SelectableCanvasGroup/Line2D7"]
+position = Vector2(9, 0.71139073)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D6" type="Line2D" parent="SelectableCanvasGroup/Line2D7"]
+position = Vector2(9, -1.8433731)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D7" type="Line2D" parent="SelectableCanvasGroup/Line2D7"]
+position = Vector2(9, -3.1552093)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D8" type="Line2D" parent="SelectableCanvasGroup/Line2D7"]
+position = Vector2(9, -4.401334)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D9" type="Line2D" parent="SelectableCanvasGroup/Line2D7"]
+position = Vector2(9, -5.692075)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Label" type="Label" parent="SelectableCanvasGroup/Line2D7"]
+offset_left = 3.7976608
+offset_top = 64.792885
+offset_right = 43.79766
+offset_bottom = 100.792885
+scale = Vector2(0.22065055, 0.22065055)
+theme_override_colors/font_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+theme_override_font_sizes/font_size = 30
+text = "70"
+horizontal_alignment = 2
+
+[node name="Line2D8" type="Line2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, -86.43839)
+points = PackedVector2Array(-13, 72, 13, 72)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D" type="Line2D" parent="SelectableCanvasGroup/Line2D8"]
+position = Vector2(9, -0.557045)
+points = PackedVector2Array(-13, 79, -5, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D2" type="Line2D" parent="SelectableCanvasGroup/Line2D8"]
+position = Vector2(9, 4.597664)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D3" type="Line2D" parent="SelectableCanvasGroup/Line2D8"]
+position = Vector2(9, 3.2695389)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D4" type="Line2D" parent="SelectableCanvasGroup/Line2D8"]
+position = Vector2(9, 2.0004532)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D5" type="Line2D" parent="SelectableCanvasGroup/Line2D8"]
+position = Vector2(9, 0.71139073)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D6" type="Line2D" parent="SelectableCanvasGroup/Line2D8"]
+position = Vector2(9, -1.8433731)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D7" type="Line2D" parent="SelectableCanvasGroup/Line2D8"]
+position = Vector2(9, -3.1552093)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D8" type="Line2D" parent="SelectableCanvasGroup/Line2D8"]
+position = Vector2(9, -4.401334)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D9" type="Line2D" parent="SelectableCanvasGroup/Line2D8"]
+position = Vector2(9, -5.692075)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Label" type="Label" parent="SelectableCanvasGroup/Line2D8"]
+offset_left = 3.7976608
+offset_top = 64.792885
+offset_right = 43.79766
+offset_bottom = 100.792885
+scale = Vector2(0.22065055, 0.22065055)
+theme_override_colors/font_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+theme_override_font_sizes/font_size = 30
+text = "80"
+horizontal_alignment = 2
+
+[node name="Line2D9" type="Line2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, -99.17811)
+points = PackedVector2Array(-13, 72, 13, 72)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D" type="Line2D" parent="SelectableCanvasGroup/Line2D9"]
+position = Vector2(9, -0.557045)
+points = PackedVector2Array(-13, 79, -5, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D2" type="Line2D" parent="SelectableCanvasGroup/Line2D9"]
+position = Vector2(9, 4.597664)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D3" type="Line2D" parent="SelectableCanvasGroup/Line2D9"]
+position = Vector2(9, 3.2695389)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D4" type="Line2D" parent="SelectableCanvasGroup/Line2D9"]
+position = Vector2(9, 2.0004532)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D5" type="Line2D" parent="SelectableCanvasGroup/Line2D9"]
+position = Vector2(9, 0.71139073)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D6" type="Line2D" parent="SelectableCanvasGroup/Line2D9"]
+position = Vector2(9, -1.8433731)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D7" type="Line2D" parent="SelectableCanvasGroup/Line2D9"]
+position = Vector2(9, -3.1552093)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D8" type="Line2D" parent="SelectableCanvasGroup/Line2D9"]
+position = Vector2(9, -4.401334)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D9" type="Line2D" parent="SelectableCanvasGroup/Line2D9"]
+position = Vector2(9, -5.692075)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Label" type="Label" parent="SelectableCanvasGroup/Line2D9"]
+offset_left = 3.7976608
+offset_top = 64.792885
+offset_right = 43.79766
+offset_bottom = 100.792885
+scale = Vector2(0.22065055, 0.22065055)
+theme_override_colors/font_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+theme_override_font_sizes/font_size = 30
+text = "90"
+horizontal_alignment = 2
+
+[node name="Line2D10" type="Line2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, -112.03252)
+points = PackedVector2Array(-13, 72, 13, 72)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D" type="Line2D" parent="SelectableCanvasGroup/Line2D10"]
+position = Vector2(9, -0.557045)
+points = PackedVector2Array(-13, 79, -5, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D2" type="Line2D" parent="SelectableCanvasGroup/Line2D10"]
+position = Vector2(9, 4.597664)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D3" type="Line2D" parent="SelectableCanvasGroup/Line2D10"]
+position = Vector2(9, 3.2695389)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D4" type="Line2D" parent="SelectableCanvasGroup/Line2D10"]
+position = Vector2(9, 2.0004532)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D5" type="Line2D" parent="SelectableCanvasGroup/Line2D10"]
+position = Vector2(9, 0.71139073)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D6" type="Line2D" parent="SelectableCanvasGroup/Line2D10"]
+position = Vector2(9, -1.8433731)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D7" type="Line2D" parent="SelectableCanvasGroup/Line2D10"]
+position = Vector2(9, -3.1552093)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D8" type="Line2D" parent="SelectableCanvasGroup/Line2D10"]
+position = Vector2(9, -4.401334)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Line2D9" type="Line2D" parent="SelectableCanvasGroup/Line2D10"]
+position = Vector2(9, -5.692075)
+points = PackedVector2Array(-11, 79, -7, 79)
+width = 0.5
+default_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+
+[node name="Label" type="Label" parent="SelectableCanvasGroup/Line2D10"]
+offset_left = 2.0978854
+offset_top = 64.792885
+offset_right = 53.097885
+offset_bottom = 100.792885
+scale = Vector2(0.22065055, 0.22065055)
+theme_override_colors/font_color = Color(0.63413984, 0.22356468, 0.28413787, 1)
+theme_override_font_sizes/font_size = 30
+text = "100"
+horizontal_alignment = 2
+
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("6_g55fx")
-container_volume = 100.0
+container_volume = 125.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour"]]
