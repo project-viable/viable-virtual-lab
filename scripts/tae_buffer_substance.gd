@@ -95,16 +95,20 @@ func process(container: ContainerComponent, delta: float) -> void:
 		suspended_agarose_concentration -= agarose_conc_to_mix
 		agarose_concentration += agarose_conc_to_mix
 
-func report_tae_volume() -> void:
-	Game.report_log.new_total(snapped(get_volume(), 0.01), "total_tae_in_gel")
-	var tae_poured_data: String = str(Game.report_log.report_data["total_tae_in_gel"], " mL of TAE Buffer is in the gel")
-	Game.report_log.update_event(tae_poured_data, "poured_tae_in_gel")
-
 func handle_event(e: Event) -> void:
 	if e is MixSubstanceEvent:
 		is_mixing = e.is_mixing
 	elif e is MicrowaveSubstanceEvent:
 		temperature = min(100.0, temperature + MICROWAVE_RATE * e.duration)
+
+		Game.report_log.update_total(snapped(e.duration / 60, 0.01),"total_microwave_time")
+		var microwave_data: String = "Gel heated for %s minutes" % [Game.report_log.report_data["total_microwave_time"]]
+		Game.report_log.update_event(microwave_data, "microwave_time")
+		var temperature_data: String = "Gel heated to %.f°C" % [temperature]
+		Game.report_log.update_event(temperature_data, "gel_heated_temperature")
+		Game.report_log.new_total(snapped(get_volume(), 0.01), "total_tae_in_gel")
+		var tae_poured_data: String = str(Game.report_log.report_data["total_tae_in_gel"], " mL of TAE Buffer is in the gel")
+		Game.report_log.update_event(tae_poured_data, "poured_tae_in_gel")
 
 ## True if this has enough agarose and is cool enough to be a gel that can maintain wells.
 func is_solid_gel() -> bool:
