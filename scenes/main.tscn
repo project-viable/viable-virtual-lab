@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=40 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -90,6 +90,12 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
+[sub_resource type="InputEventAction" id="InputEventAction_y6deb"]
+action = &"toggle_journal"
+
+[sub_resource type="InputEventAction" id="InputEventAction_vxglm"]
+action = &"speed_up_time"
+
 [sub_resource type="InputEventAction" id="InputEventAction_xrxkg"]
 action = &"interact_inspect"
 
@@ -98,9 +104,6 @@ action = &"interact_left"
 
 [sub_resource type="InputEventAction" id="InputEventAction_og1vs"]
 action = &"interact_right"
-
-[sub_resource type="InputEventAction" id="InputEventAction_y6deb"]
-action = &"toggle_journal"
 
 [node name="Main" type="Node2D"]
 process_mode = 3
@@ -897,6 +900,39 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_constants/separation = 10
 
+[node name="GeneralPrompts" type="VBoxContainer" parent="UILayer/Prompts"]
+editor_description = "Button prompts for generic actions that can always be performed at any time in the simulation."
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="ScaleContainer" type="Container" parent="UILayer/Prompts/GeneralPrompts"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="JournalPrompt" parent="UILayer/Prompts/GeneralPrompts/ScaleContainer" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
+layout_mode = 2
+input_event = SubResource("InputEventAction_y6deb")
+description = "Toggle journal"
+auto_update_pressed = true
+
+[node name="ScaleContainer2" type="Container" parent="UILayer/Prompts/GeneralPrompts"]
+layout_mode = 2
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="SpeedUpTimePrompt" parent="UILayer/Prompts/GeneralPrompts/ScaleContainer2" instance=ExtResource("22_g2on7")]
+layout_mode = 2
+input_event = SubResource("InputEventAction_vxglm")
+description = "Speed up time"
+auto_update_pressed = true
+
 [node name="ScaleContainer2" type="Container" parent="UILayer/Prompts"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -939,21 +975,6 @@ metadata/_custom_type_script = "uid://smreqra2kcc2"
 unique_name_in_owner = true
 layout_mode = 2
 input_event = SubResource("InputEventAction_og1vs")
-auto_update_pressed = true
-
-[node name="ScaleContainer4" type="Container" parent="UILayer/Prompts"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-script = ExtResource("25_og1vs")
-child_scale = Vector2(0.7, 0.7)
-metadata/_custom_type_script = "uid://smreqra2kcc2"
-
-[node name="JournalPrompt" parent="UILayer/Prompts/ScaleContainer4" instance=ExtResource("22_g2on7")]
-unique_name_in_owner = true
-layout_mode = 2
-input_event = SubResource("InputEventAction_y6deb")
-description = "Toggle journal"
 auto_update_pressed = true
 
 [node name="GelLogReport" type="Node" parent="."]
