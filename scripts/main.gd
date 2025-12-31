@@ -38,6 +38,9 @@ var _interact_kind_prompts: Dictionary[InteractInfo.Kind, InteractionPrompt] = {
 var _time_warp_strength: float = 0
 var _popup_active: bool = false
 var _logs: Array[LogMessage] = []
+# Time the "speed up time" button has been held down.
+var _speed_up_time_time_held := 0.0
+var _is_speed_up_time_held := false
 
 @onready var _hand_pointing_cursor: Sprite2D = $%VirtualCursor/HandPointing
 @onready var _hand_open_cursor: Sprite2D = $%VirtualCursor/HandOpen
@@ -169,6 +172,11 @@ func _process(delta: float) -> void:
 	%RightWorkspacePrompt.visible = _current_workspace and not _camera_focus_owner
 	%RightWorkspacePrompt.disabled = _current_workspace and not _current_workspace.right_workspace
 
+	# Same as the wall clock code.
+	_speed_up_time_time_held += delta
+	if _is_speed_up_time_held:
+		LabTime.time_scale = ease(_speed_up_time_time_held / 3.0, 2.0) * 100.0 + 1.0
+
 	var target_time_warp_strength := (LabTime.time_scale - 1) / 20
 	if target_time_warp_strength > _time_warp_strength:
 		_time_warp_strength = min(target_time_warp_strength, _time_warp_strength + TIME_WARP_ADJUST_SPEED * delta)
@@ -190,6 +198,12 @@ func _unhandled_key_input(e: InputEvent) -> void:
 		# Toggling it while in the pause menu would be weird.
 		if not is_pause_menu_open():
 			set_journal_open(not is_journal_open())
+	elif e.is_action_pressed(&"speed_up_time"):
+		_speed_up_time_time_held = 0.0
+		_is_speed_up_time_held = true
+	elif e.is_action_released(&"speed_up_time"):
+		_is_speed_up_time_held = false
+		LabTime.time_scale = 1.0
 
 func _load_module(module: ModuleData) -> void:
 	set_scene(load(module.scene_path))
