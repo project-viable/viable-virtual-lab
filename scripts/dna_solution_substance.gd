@@ -16,7 +16,10 @@ const RATE := log(SMALL_FRAGMENT_SIZE) / VOLTAGE / RUN_TIME
 ## Evenly distribute the volumes in [member fragments] across the fragments. If any fragments are
 ## [code]null[/code], then they will be treated as having a volume of 0 and will automatically be
 ## generated.
-@export_tool_button("Distribute fragments", "Callable") var action_distribute_fragments: Callable = _distribute_fragments
+@export_tool_button("Distribute Fragment Volumes", "Callable") var action_distribute_fragments: Callable = _distribute_fragments
+
+## Remove fragment data from all fragments.
+@export_tool_button("Clear Fragment Volumes", "Callable") var action_clear_fragment_data: Callable = _clear_fragment_data
 
 
 ## Maps fragment sizes to their data.
@@ -26,7 +29,9 @@ const RATE := log(SMALL_FRAGMENT_SIZE) / VOLTAGE / RUN_TIME
 func get_volume() -> float:
 	var v := 0.0
 	for f: DNAFragment in fragments.values():
-		v += f.volume
+		# This should never be null at runtime, but it will temporarily be null when adding new
+		# fragments in the editor.
+		if f: v += f.volume
 	return v
 
 func get_color() -> Color:
@@ -70,10 +75,7 @@ func handle_event(e: Event) -> void:
 func _distribute_fragments() -> void:
 	if fragments.is_empty(): return
 
-	var total_volume := 0.0
-	for f: DNAFragment in fragments.values():
-		if f: total_volume += f.volume
-
+	var total_volume := get_volume()
 	var average_volume := total_volume / fragments.size()
 
 	for i: int in fragments.keys():
@@ -81,4 +83,11 @@ func _distribute_fragments() -> void:
 		f.volume = average_volume
 		fragments[i] = f
 
+	print("Distributed volume. Before: %s, After: %s" % [total_volume, get_volume()])
+
+	notify_property_list_changed()
+
+func _clear_fragment_data() -> void:
+	for i: int in fragments.keys():
+		fragments[i] = null
 	notify_property_list_changed()
