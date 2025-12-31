@@ -108,11 +108,21 @@ func _process(_delta: float) -> void:
 	var total_container_volume: float = source.container_volume
 	var total_area := _fill_area_cache.get_total_area()
 
+
+	var substances: Array[Substance] = source.substances
+	if Engine.is_editor_hint():
+		# Ignore null and non-tool substances when displaying in the editor to avoid getting
+		# repeated errors when first adding a substance or adding a non-tool substance.
+		var usable_substances: Array[Substance] = []
+		usable_substances.assign(source.substances.filter(func(s: Substance) -> bool:
+			return s != null and s.get_script().is_tool()))
+		substances = usable_substances
+
 	var depths: Array[float] = []
-	depths.assign(source.substances.map(func(s: Substance) -> float: return s.get_volume()))
+	depths.assign(substances.map(func(s: Substance) -> float: return s.get_volume()))
 
 	var colors: Array[Color] = []
-	colors.assign(source.substances.map(func(s: Substance) -> Color: return s.get_color()))
+	colors.assign(substances.map(func(s: Substance) -> Color: return s.get_color()))
 
 	var cur_volume := 0.0
 	for i in range(0, len(depths)):
