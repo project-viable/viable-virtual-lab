@@ -12,9 +12,9 @@ const ROOM_TEMP: float = 20.0
 # Time it takes to get a gram of agarose to suspended (but not mixed) into the buffer. This must be
 # shorter than the mix time to make sure some time is actually spent with the agarose visibly
 # suspended (so it's clear that something is happening).
-const SECONDS_PER_GRAM_SUSPENDED: float = 5.0
-# We want it to take about 20 seconds to mix in 1 gram of agarose powder.
-const SECONDS_PER_GRAM_MIXED: float = 20.0
+const SECONDS_PER_GRAM_SUSPENDED: float = 2.0
+# We want it to take about 5 seconds to mix in 1 gram of agarose powder.
+const SECONDS_PER_GRAM_MIXED: float = 5.0
 # 20 minutes to cool from 100°C to 20°C.
 const COOL_TIME: float = 60.0 * 20.0
 const COOL_RATE: float = (100.0 - ROOM_TEMP) / COOL_TIME
