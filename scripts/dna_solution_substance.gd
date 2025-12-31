@@ -13,6 +13,12 @@ const VOLTAGE := 120.0
 const RATE := log(SMALL_FRAGMENT_SIZE) / VOLTAGE / RUN_TIME
 
 
+## Evenly distribute the volumes in [member fragments] across the fragments. If any fragments are
+## [code]null[/code], then they will be treated as having a volume of 0 and will automatically be
+## generated.
+@export_tool_button("Distribute fragments", "Callable") var action_distribute_fragments: Callable = _distribute_fragments
+
+
 ## Maps fragment sizes to their data.
 @export var fragments: Dictionary[int, DNAFragment] = {}
 
@@ -60,3 +66,19 @@ func handle_event(e: Event) -> void:
 			var fragment: DNAFragment = fragments[fs]
 			fragment.position += e.gel.voltage * e.duration * gel_factor / log(float(fs)) * RATE
 			fragment.position = clamp(fragment.position, 0.0, 1.0)
+
+func _distribute_fragments() -> void:
+	if fragments.is_empty(): return
+
+	var total_volume := 0.0
+	for f: DNAFragment in fragments.values():
+		if f: total_volume += f.volume
+
+	var average_volume := total_volume / fragments.size()
+
+	for i: int in fragments.keys():
+		var f := DNAFragment.new()
+		f.volume = average_volume
+		fragments[i] = f
+
+	notify_property_list_changed()
