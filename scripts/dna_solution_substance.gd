@@ -3,11 +3,14 @@ class_name DNASolutionSubstance
 extends Substance
 
 
-const MAX_FRAGMENT_SIZE := 15000.0
-# We want it to take 20 minutes for the 15000 bp fragments to reach the end at 120 volts.
+# Small fragment size, which should take `RUN_TIME` to move across the 
+const SMALL_FRAGMENT_SIZE := 100.0
+# We want it to take 20 minutes for the 100 bp fragments to reach the end at 120 volts.
 const RUN_TIME := 60.0 * 20.0
 const VOLTAGE := 120.0
-const RATE := 1.0 / log(MAX_FRAGMENT_SIZE) / VOLTAGE / RUN_TIME
+# We divide this by the log of the fragment size and multiply by the voltage, so at 120 volts and
+# 100 bp, a fragment will take 20 minutes to move fully across the gel.
+const RATE := log(SMALL_FRAGMENT_SIZE) / VOLTAGE / RUN_TIME
 
 
 ## Maps fragment sizes to their data.
@@ -55,5 +58,5 @@ func handle_event(e: Event) -> void:
 		var gel_factor := 1.0
 		for fs: int in fragments.keys():
 			var fragment: DNAFragment = fragments[fs]
-			fragment.position += e.gel.voltage * e.duration * gel_factor * log(float(fs)) * RATE
+			fragment.position += e.gel.voltage * e.duration * gel_factor / log(float(fs)) * RATE
 			fragment.position = clamp(fragment.position, 0.0, 1.0)
