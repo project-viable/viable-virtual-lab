@@ -44,7 +44,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super(delta)
-	
+
 	if voltage > 0:
 		gel_state.voltage = voltage
 		gel_state.voltage_run_time += (delta * LabTime.time_scale)/60
@@ -60,7 +60,7 @@ func _physics_process(delta: float) -> void:
 func _process(_delta: float) -> void:
 	Game.debug_overlay.update("gel voltage", str(voltage))
 	Game.debug_overlay.update("gel comb attached", str($AttachmentInteractableArea.contained_object != null))
-	
+
 
 func num_wells() -> int: return 5
 
@@ -85,7 +85,7 @@ func set_gel_state() -> void:
 			gel_state.correct_gel_mixing = false
 			Game.report_log.update_event("Gel is not thoroughly mixed ", "gel_mixed")
 		check_gel_concentration = true
-	
+
 	gel_state.electrode_correct_placement = correct_wire_placement
 	for i in 5:
 		if get_well(i + 1).substances != null:
@@ -97,7 +97,7 @@ func set_gel_state() -> void:
 					else:
 						gel_state.correct_gel_temperature = false
 				gel_state.well_capacities[i] = s.get_volume()
-				Game.report_log.append_amount(str(gel_state.well_capacities[i]), "gel_well_capacities")
+				Game.report_log.append_to_array(str(gel_state.well_capacities[i]), "gel_well_capacities")
 		else:
 			continue
 	var well_max_data: String = str("The maximum each well can hold is ", gel_state.well_max_capacity, " mL")
