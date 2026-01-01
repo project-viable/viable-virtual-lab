@@ -1,5 +1,10 @@
 extends Imager
 
+
+# So the bands aren't so thick.
+const BAND_VERTICAL_SCALE := 0.1
+
+
 var band_texture: Texture2D = preload("res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg")
 var _is_light_on := false
 var _is_door_open: bool = false
@@ -23,9 +28,13 @@ func _draw() -> void:
 			analyze_gel_state(gel, well, i)
 
 			for fragment: DNAFragment in dna.fragments.values():
-				# 130 / 0.45 is about the distance in local sprite coordinates to the end of the
+				# 130 / 0.45 is about the distance in local sprite coordinates to the end of the gel.
 				var pos: Vector2 = Vector2.DOWN * fragment.position * 130.0 / 0.45
-				band_texture.draw(well_sprite.get_canvas_item(), pos)
+				var size := band_texture.get_size()
+				size.y *= BAND_VERTICAL_SCALE
+				# Center the band vertically.
+				pos.y -= size.y / 2
+				band_texture.draw_rect(well_sprite.get_canvas_item(), Rect2(pos, size), false)
 	else:
 		$DepthManagedNode2D/AttachmentInteractableArea.remove_object()
 		$DepthManagedNode2D/AttachmentInteractableArea.contained_object = null
@@ -57,7 +66,7 @@ func _update_door() -> void:
 		if $DepthManagedNode2D/AttachmentInteractableArea.contained_object != null:
 			$DepthManagedNode2D/AttachmentInteractableArea.contained_object.visible = true
 			$DepthManagedNode2D/AttachmentInteractableArea.contained_object.enable_interaction = true
-		
+
 	else:
 		$DepthManagedNode2D/AttachmentInteractableArea.allow_new_objects = false
 		$SelectableComponent.interact_info.description = "Open door"
@@ -66,12 +75,12 @@ func _update_door() -> void:
 		if $DepthManagedNode2D/AttachmentInteractableArea.contained_object != null:
 			$DepthManagedNode2D/AttachmentInteractableArea.contained_object.visible = false
 			$DepthManagedNode2D/AttachmentInteractableArea.contained_object.enable_interaction = false
-		
+
 
 func _on_door_selectable_pressed() -> void:
 	_is_door_open = not _is_door_open
 	_update_door()
-	
+
 func _on_uv_light_pressed() -> void:
 	_is_light_on = not _is_light_on
 
