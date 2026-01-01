@@ -20,7 +20,9 @@ const COOL_TIME: float = 60.0 * 20.0
 const COOL_RATE: float = (100.0 - ROOM_TEMP) / COOL_TIME
 # 5 minutes to get from 20°C to 100°C.
 const MICROWAVE_TIME: float = 60.0 * 5.0
-const MICROWAVE_RATE: float = (100.0 - 20.0) / MICROWAVE_TIME
+# If we don't account for the cool rate, then the buffer will fail to reach the target temperature
+# in the given time.
+const MICROWAVE_RATE: float = (100.0 - 20.0) / MICROWAVE_TIME + COOL_RATE
 # Maximum temperature to form a gel.
 const GEL_TEMP: float = 40.0
 # Minimum amount of agarose to form a solid gel.
