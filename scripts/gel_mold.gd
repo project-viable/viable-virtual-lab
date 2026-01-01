@@ -73,7 +73,6 @@ func set_gel_state() -> void:
 		gel_state.gel_analysis_asap = true
 	var gel_analysis_time_data: String = str("It took ", gel_analysis_time/60, " minutes for gel to be analyzed in imager")
 	Game.report_log.update_event(gel_analysis_time_data, "time_until_gel_analysis")
-	gel_state.correct_comb_placement = comb_placed
 	gel_state.gel_concentration = get_gel_concentration()
 	var concentration_data: String = str("The gel's concentration is ", gel_state.gel_concentration, "%")
 	Game.report_log.update_event(concentration_data, "gel_concentration")
@@ -86,7 +85,6 @@ func set_gel_state() -> void:
 			Game.report_log.update_event("Gel is not thoroughly mixed ", "gel_mixed")
 		check_gel_concentration = true
 
-	gel_state.electrode_correct_placement = correct_wire_placement
 	for i in 5:
 		if get_well(i + 1).substances != null:
 			for s in get_well(i + 1).substances:

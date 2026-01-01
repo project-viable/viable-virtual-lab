@@ -6,15 +6,11 @@
 class_name  GelState
 extends Resource
 
-# Global gel data
-@export var electrode_correct_placement: bool = false ## incorrect placement means bands will run backwards and bands will not be visible
 @export_custom(PROPERTY_HINT_NONE, "suffix:V") var voltage: int = 0 ## voltage that is too high or low will result in no visible bands or diffused bands
 @export_custom(PROPERTY_HINT_NONE, "suffix:%") var gel_concentration: float = 0.0 ## incorrect concentration (in percentage) will result in diffused bands
 @export var gel_analysis_asap: bool = false ## gel not put in the imager right after electropohresis results in diffused bands
 @export_custom(PROPERTY_HINT_NONE, "suffix:min")  var gel_analysis_time: float = 0.0 ## in minutes how long it took to take the gel out of the rig and put it into the imager
 @export var correct_gel_temperature: bool = false ## incorrect gel temperature (not between 50-70 deg C) results in smeared bands
-@export var correct_comb_placement: bool = false ## incorrect gel comb placement or damaged wells results in smiley/wavy bands or
-									## dna remainig in the wells
 @export var correct_gel_mixing: bool = false ## inconsistent gel density (not mixed well) resuls in smiley/wavy bands
 @export_custom(PROPERTY_HINT_NONE, "suffix:min") var voltage_run_time: float = 0.0 ## in mintues if the voltage is run for too long or not long enough this will
 							## result in gel bands that are distorted or fuzzy or not visible from running off
