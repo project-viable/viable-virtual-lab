@@ -18,8 +18,8 @@ const SECONDS_PER_GRAM_MIXED: float = 5.0
 # 20 minutes to cool from 100°C to 20°C.
 const COOL_TIME: float = 60.0 * 20.0
 const COOL_RATE: float = (100.0 - ROOM_TEMP) / COOL_TIME
-# 5 minutes to get from 20°C to 100°C.
-const MICROWAVE_TIME: float = 60.0 * 5.0
+# 1 minute to get from 20°C to 100°C.
+const MICROWAVE_TIME: float = 60.0 * 1.0
 # If we don't account for the cool rate, then the buffer will fail to reach the target temperature
 # in the given time.
 const MICROWAVE_RATE: float = (100.0 - 20.0) / MICROWAVE_TIME + COOL_RATE
