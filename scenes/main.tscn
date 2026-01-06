@@ -306,6 +306,8 @@ offset_bottom = 451.0
 
 [node name="FileDialog" type="FileDialog" parent="UILayer/Journal"]
 unique_name_in_owner = true
+oversampling_override = 1.0
+use_native_dialog = true
 
 [node name="MenuScreenManager" type="Control" parent="UILayer"]
 unique_name_in_owner = true
