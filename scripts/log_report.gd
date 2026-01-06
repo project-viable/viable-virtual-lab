@@ -1,8 +1,15 @@
 class_name GelLogReport
 extends Node
 
+
+const DEFAULT_REPORT_FILE_NAME: String = "viable_report.txt"
+
+
+
 @onready var rich_text_label: RichTextLabel = get_node("%ReportText")
 @onready var file_dialog: FileDialog = get_node("%FileDialog")
+
+
 
 var report_data := {
 	"scooped_agarose_powder": "0.0 mL of agarose powder add to ",
@@ -39,7 +46,7 @@ func _ready() -> void:
 		file_dialog.current_dir = desktop_path
 	else:
 		file_dialog.current_dir = "user://"
-	
+
 ## Function to update event values in the report log dictionary
 func update_event(data: String, event_name: String) -> void:
 	report_data[event_name] = data
@@ -62,15 +69,14 @@ func new_total(data:float, total_name: String) -> void:
 
 ## Function to save recorded user events to a log file in the form of a JSON Object
 func save_game_data() -> void:
-		var filename: String = "save_report.txt"
 		if OS.get_name() != "Web":
-			save_to_desktop_report_file(filename, rich_text_label.get_parsed_text())
+			save_to_desktop_report_file()
 		else:
 			if Engine.has_singleton("JavaScriptBridge"):
-				JavaScriptBridge.download_buffer(rich_text_label.get_parsed_text().to_utf8_buffer(), filename,"text/plain")
-			
-func save_to_desktop_report_file(file_name: String, content: String) -> void:
-	file_dialog.current_file = "new_report.txt"
+				JavaScriptBridge.download_buffer(rich_text_label.get_parsed_text().to_utf8_buffer(), DEFAULT_REPORT_FILE_NAME, "text/plain")
+
+func save_to_desktop_report_file() -> void:
+	file_dialog.current_file = DEFAULT_REPORT_FILE_NAME
 	file_dialog.popup_centered()
 
 ## Function to read the final report data from the JSON file to be formatted in a readable document
@@ -106,3 +112,13 @@ func load_report_data() -> void:
 
 func _on_button_pressed() -> void:
 	save_game_data()
+
+func _on_file_dialog_file_selected(path: String) -> void:
+	var data_to_save: String = get_node("%ReportText").get_parsed_text()
+	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
+	if file:
+		file.store_string(data_to_save) # Write the string data to the file
+		file.close() # Important to close the file after writing
+		print("Report saved successfully to %s" % [path])
+	else:
+		print("Error saving report. Check file access permissions.")

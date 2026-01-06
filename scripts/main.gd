@@ -524,17 +524,3 @@ func _update_simulation_pause() -> void:
 	else: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 	%VirtualCursor.visible = not should_pause
-
-func save_data_to_file(file_path: String) -> void:
-	var data_to_save: String = get_node("%ReportText").get_parsed_text()
-	var file: FileAccess = FileAccess.open(file_path, FileAccess.WRITE)
-	if file:
-		file.store_string(data_to_save) # Write the string data to the file
-		file.close() # Important to close the file after writing
-		print("File saved successfully to: ", file_path)
-	else:
-		print("Error saving file. Check file access permissions.")
-
-
-func _on_file_dialog_file_selected(path: String) -> void:
-	save_data_to_file(path)
