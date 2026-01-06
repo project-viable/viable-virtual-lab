@@ -2,6 +2,7 @@ class_name GelLogReport
 extends Node
 
 @onready var rich_text_label: RichTextLabel = get_node("%ReportText")
+@onready var file_dialog: FileDialog = get_node("%FileDialog")
 
 var report_data := {
 	"scooped_agarose_powder": "0.0 mL of agarose powder add to ",
@@ -30,7 +31,15 @@ var report_data := {
 
 func _ready() -> void:
 	rich_text_label.bbcode_enabled = true
-
+	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
+	file_dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
+	file_dialog.filters = ["*.txt ; Text File"]
+	var desktop_path: String = OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP)
+	if desktop_path and DirAccess.dir_exists_absolute(desktop_path):
+		file_dialog.current_dir = desktop_path
+	else:
+		file_dialog.current_dir = "user://"
+	
 ## Function to update event values in the report log dictionary
 func update_event(data: String, event_name: String) -> void:
 	report_data[event_name] = data
@@ -54,13 +63,18 @@ func new_total(data:float, total_name: String) -> void:
 ## Function to save recorded user events to a log file in the form of a JSON Object
 func save_game_data() -> void:
 		var filename: String = "save_report.txt"
-		if Engine.has_singleton("JavaScriptBridge"):
-			JavaScriptBridge.download_buffer(rich_text_label.get_parsed_text().to_utf8_buffer(), filename,"text/plain")
+		if OS.get_name() != "Web":
+			save_to_desktop_report_file(filename, rich_text_label.get_parsed_text())
 		else:
-			Game.debug_overlay.update("result", "JavaScriptBridge not available")
+			if Engine.has_singleton("JavaScriptBridge"):
+				JavaScriptBridge.download_buffer(rich_text_label.get_parsed_text().to_utf8_buffer(), filename,"text/plain")
+			
+func save_to_desktop_report_file(file_name: String, content: String) -> void:
+	file_dialog.current_file = "new_report.txt"
+	file_dialog.popup_centered()
 
 ## Function to read the final report data from the JSON file to be formatted in a readable document
-# report will be formatted here with rich text labels to put in report"
+# report will be formatted here with rich text labels to put in repot"
 func load_report_data() -> void:
 	rich_text_label.append_text("[center][b][font_size=36]Final Report[/font_size][/b][/center]\n")
 

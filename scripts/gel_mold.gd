@@ -77,7 +77,7 @@ func set_gel_state() -> void:
 	var concentration_data: String = str("The gel's concentration is ", gel_state.gel_concentration, "%")
 	Game.report_log.update_event(concentration_data, "gel_concentration")
 	if check_gel_concentration == false:
-		if gel_state.gel_concentration < 0.1 and suspended_agarose_concentration <=0.0:
+		if suspended_agarose_concentration <=0.0:
 			gel_state.correct_gel_mixing = true
 			Game.report_log.update_event("Gel is mixed thoroughly", "gel_mixed")
 		else:
@@ -96,6 +96,7 @@ func set_gel_state() -> void:
 						gel_state.correct_gel_temperature = false
 				gel_state.well_capacities[i] = s.get_volume()
 				Game.report_log.append_to_array(str(gel_state.well_capacities[i]), "gel_well_capacities")
+				break
 		else:
 			continue
 	var well_max_data: String = str("The maximum each well can hold is ", gel_state.well_max_capacity, " mL")
