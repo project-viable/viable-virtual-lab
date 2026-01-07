@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_lsgmi"]
 [ext_resource type="Texture2D" uid="uid://dxm0iobbxvvg7" path="res://textures/lab_objects/bottle_agarose.svg" id="5_w1h17"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="6_irog7"]
-[ext_resource type="Script" uid="uid://bgfh6xeb1mu4a" path="res://scripts/generic_substance.gd" id="7_f5f3v"]
-[ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://scripts/substance.gd" id="7_w1h17"]
+[ext_resource type="Script" uid="uid://bgfh6xeb1mu4a" path="res://scripts/substances/generic_substance.gd" id="7_f5f3v"]
+[ext_resource type="Script" uid="uid://bfxtjimfpijx4" path="res://scripts/substances/substance.gd" id="7_w1h17"]
 [ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://scripts/pour_use_component.gd" id="8_03c6b"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="8_tpcpl"]
 
