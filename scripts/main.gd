@@ -23,12 +23,6 @@ var _resolution_options: Array[Vector2i] = [
 	Vector2i(3840, 2160),
 ]
 
-var _unread_logs: Dictionary[LogMessage.Category, int] = {
-	LogMessage.Category.LOG: 0,
-	LogMessage.Category.WARNING: 0,
-	LogMessage.Category.ERROR: 0
-}
-
 var _current_module_scene: Node = null
 var _module_button: PackedScene = load("res://scenes/module_select_button.tscn")
 var _current_module: ModuleData = null
@@ -36,8 +30,6 @@ var _current_workspace: WorkspaceCamera = null
 var _camera_focus_owner: Node = null
 var _interact_kind_prompts: Dictionary[InteractInfo.Kind, InteractionPrompt] = {}
 var _time_warp_strength: float = 0
-var _popup_active: bool = false
-var _logs: Array[LogMessage] = []
 # Time the "speed up time" button has been held down.
 var _speed_up_time_time_held := 0.0
 var _is_speed_up_time_held := false
@@ -76,18 +68,9 @@ func _ready() -> void:
 			new_button.connect("pressed", Callable(self, &"_load_module").bind(module_data))
 			$%Modules.add_child(new_button)
 
-	#connect the log signals
-	LabLog.connect("new_message", Callable(self, "_on_New_Log_Message"))
-	LabLog.connect("logs_cleared", Callable(self, "_on_Logs_Cleared"))
-
 	Cursor.mode_changed.connect(_on_virtual_mouse_mode_changed)
 	Cursor.virtual_mouse_moved.connect(_on_virtual_mouse_moved)
 	%TransitionCamera.moved.connect(_update_virtual_mouse)
-
-	set_log_notification_counts()
-	$UILayer/LogButton/LogMenu.set_tab_icon(1, load("res://textures/old/Dot-Blue.png"))
-	$UILayer/LogButton/LogMenu.set_tab_icon(2, load("res://textures/old/Dot-Yellow.png"))
-	$UILayer/LogButton/LogMenu.set_tab_icon(3, load("res://textures/old/Dot-Red.png"))
 
 	# The subviewport needs to match the window size.
 	get_window().size_changed.connect(_update_viewport_to_window_size)
@@ -142,13 +125,6 @@ func _ready() -> void:
 		_interact_kind_prompts[kind] = prompt
 
 func _process(delta: float) -> void:
-	if _logs != []:
-		# Need to display log message(s)
-		if !_popup_active:
-			if _logs[0].popup:
-				show_popup(_logs[0])
-			_logs.remove_at(0)
-
 	for prompt: InteractionPrompt in _interact_kind_prompts.values():
 		prompt.hide()
 
@@ -215,9 +191,6 @@ func _load_module(module: ModuleData) -> void:
 	%MenuScreenManager/PauseMenu/Content/RestartModuleButton.show()
 
 	_current_module = module
-	$UILayer/LogButton.show()
-	$UILayer/LogButton/LogMenu/Instructions.text = module.instructions_bb_code
-	$UILayer/LogButton/LogMenu/Instructions.show()
 
 	%Prompts.show()
 
@@ -226,7 +199,6 @@ func _load_module(module: ModuleData) -> void:
 	set_pause_menu_open(false)
 
 func unload_current_module() -> void:
-	LabLog.clear_logs()
 	DepthManager.clear_layers()
 	for child in $%Scene.get_children():
 		child.queue_free()
@@ -240,29 +212,6 @@ func set_scene(scene: PackedScene) -> void:
 	$%Scene.call_deferred("add_child", new_scene)
 	_current_module_scene = new_scene
 	#$Camera.reset()
-
-func set_popup_border_color(color: Color) -> void:
-	$UILayer/LabLogPopup/Border.border_color = color
-
-func show_popup(new_log: LogMessage) -> void:
-	$UILayer/LabLogPopup/Panel/VBoxContainer/Type.text = log_category_to_string(new_log.category)
-	$UILayer/LabLogPopup/Panel/VBoxContainer/Description.text = new_log.message[0].to_upper() + new_log.message.substr(1, -1)
-	var color: Color
-	match new_log.category:
-		LogMessage.Category.LOG:
-			color = Color(0.0, 0.0, 1.0, 1.0)
-		LogMessage.Category.WARNING:
-			color = Color(1.0, 1.0, 0.0, 1.0)
-		LogMessage.Category.ERROR:
-			color = Color(1.0, 0.0, 0.0, 1.0)
-		_:
-			color = Color(0.0, 0.0, 0.0, 0.0)
-	set_popup_border_color(color)
-	_popup_active = true
-	$UILayer/LabLogPopup.visible = true
-	await get_tree().create_timer(GameSettings.popup_timeout).timeout
-	_popup_active = false
-	$UILayer/LabLogPopup.visible = false if _logs.size() == 0 else true
 
 # Sets whether the pause menu is shown and the game is paused.
 func set_pause_menu_open(paused: bool) -> void:
@@ -351,71 +300,6 @@ func focus_camera_and_show_subscene(rect: Rect2, camera: SubsceneCamera, use_ove
 	var full_rect := Util.expand_to_aspect(left_rect, viewport_size.aspect(), 0)
 	$%TransitionCamera.move_to_rect(full_rect, false, time)
 
-func _on_LogButton_pressed() -> void:
-	$UILayer/LogButton/LogMenu.visible = ! $UILayer/LogButton/LogMenu.visible
-	set_log_notification_counts()
-
-func _on_New_Log_Message(new_log: LogMessage) -> void:
-	if not new_log.hidden:
-		var bbcode: String = ("-" + new_log.message + "\n")
-		match new_log.category:
-			LogMessage.Category.LOG:
-				$UILayer/LogButton/LogMenu/Log.text += bbcode
-			LogMessage.Category.WARNING:
-				$UILayer/LogButton/LogMenu/Warnings.text += bbcode
-			LogMessage.Category.ERROR:
-				$UILayer/LogButton/LogMenu/Errors.text += bbcode
-
-	_logs.append(new_log)
-	_unread_logs[new_log.category] += 1
-	set_log_notification_counts()
-
-func _on_Logs_Cleared() -> void:
-	for key: LogMessage.Category in _unread_logs.keys():
-		_unread_logs[key] = 0
-
-	$UILayer/LogButton/LogMenu/Log.text = ""
-	$UILayer/LogButton/LogMenu/Warnings.text = ""
-	$UILayer/LogButton/LogMenu/Errors.text = ""
-
-# TODO (update): `tab` is unused. We should figure out why this was included.
-func set_log_notification_counts(tab: int = -1) -> void:
-	if $UILayer/LogButton/LogMenu.visible:
-		if $UILayer/LogButton/LogMenu.current_tab == 1:
-			_unread_logs[LogMessage.Category.LOG] = 0
-		elif $UILayer/LogButton/LogMenu.current_tab == 2:
-			_unread_logs[LogMessage.Category.WARNING] = 0
-		#Do not ever clear error notifications
-		#elif $LogButton/LogMenu.current_tab == 3:
-		#	_unread_logs[LogMessage.Category.ERROR] = 0
-
-	if _unread_logs[LogMessage.Category.LOG] == 0:
-		$UILayer/LogButton/LogMenu.set_tab_title(1, "Log")
-		$UILayer/LogButton/Notifications/Log.hide()
-	else:
-		$UILayer/LogButton/LogMenu.set_tab_title(1, "Log (" + str(_unread_logs[LogMessage.Category.LOG]) + "!)")
-		$UILayer/LogButton/Notifications/Log.show()
-
-	if _unread_logs[LogMessage.Category.WARNING] == 0:
-		$UILayer/LogButton/LogMenu.set_tab_title(2, "Warnings")
-		$UILayer/LogButton/Notifications/Warning.hide()
-	else:
-		$UILayer/LogButton/LogMenu.set_tab_title(2, "Warnings (" + str(_unread_logs[LogMessage.Category.WARNING]) + "!)")
-		$UILayer/LogButton/Notifications/Warning.show()
-
-	if _unread_logs[LogMessage.Category.ERROR] == 0:
-		$UILayer/LogButton/LogMenu.set_tab_title(3, "Errors")
-		$UILayer/LogButton/Notifications/Error.hide()
-	else:
-		$UILayer/LogButton/LogMenu.set_tab_title(3, "Errors (" + str(_unread_logs[LogMessage.Category.ERROR]) + "!)")
-		$UILayer/LogButton/Notifications/Error.show()
-
-func _on_PopupTimeout_value_changed(value: float) -> void:
-	GameSettings.popup_timeout = value
-
-static func log_category_to_string(category: LogMessage.Category) -> String:
-	return LogMessage.Category.keys()[category].to_lower()
-
 func _on_exit_module_button_pressed() -> void:
 	_switch_to_main_menu()
 
@@ -430,10 +314,6 @@ func _switch_to_main_menu() -> void:
 	%MenuScreenManager/PauseMenu/Content/ExitModuleButton.hide()
 	%MenuScreenManager/PauseMenu/Content/RestartModuleButton.hide()
 	$UILayer/Background.show()
-
-	$UILayer/LogButton.hide() #until we load a module
-	$UILayer/LogButton/LogMenu.hide()
-	$UILayer/LabLogPopup.hide()
 
 	%Prompts.hide()
 

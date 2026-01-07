@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=33 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -19,11 +19,7 @@
 [ext_resource type="Script" uid="uid://bmdn4p40xeusb" path="res://scripts/menu_screen_manager.gd" id="15_og1vs"]
 [ext_resource type="Script" uid="uid://d87mq61qhuq8" path="res://scripts/menu_screen.gd" id="16_2wyq8"]
 [ext_resource type="FontFile" path="res://fonts/roboto_medium_28.tres" id="16_gpyrr"]
-[ext_resource type="Texture2D" uid="uid://dgmytdnqonu6s" path="res://textures/old/HamburgerMenu.png" id="18_uoft2"]
-[ext_resource type="Texture2D" uid="uid://bxwnksqona14c" path="res://textures/old/Dot-Blue.png" id="19_a8iky"]
 [ext_resource type="Script" uid="uid://kxslh01sq2ny" path="res://scripts/menu_screen_button.gd" id="19_vxglm"]
-[ext_resource type="Texture2D" uid="uid://cm63yepobpmlk" path="res://textures/old/Dot-Yellow.png" id="20_7tk8h"]
-[ext_resource type="Texture2D" uid="uid://d4gne4i4iw4uq" path="res://textures/old/Dot-Red.png" id="21_grp7q"]
 [ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://scenes/interaction_prompt.tscn" id="22_g2on7"]
 [ext_resource type="Script" uid="uid://smreqra2kcc2" path="res://scripts/scale_container.gd" id="25_og1vs"]
 [ext_resource type="Script" uid="uid://bu1da87rm0cub" path="res://scripts/log_report.gd" id="26_2wyq8"]
@@ -44,51 +40,6 @@ shader_parameter/stds = Vector2(10, 1)
 shader = ExtResource("9_2wyq8")
 shader_parameter/axes = Vector2i(0, 10)
 shader_parameter/stds = Vector2(1, 10)
-
-[sub_resource type="StyleBoxFlat" id="1"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.866667, 0.866667, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-
-[sub_resource type="StyleBoxFlat" id="2"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(1, 1, 0.866667, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-
-[sub_resource type="StyleBoxFlat" id="3"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(1, 0.866667, 0.866667, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
 
 [sub_resource type="InputEventAction" id="InputEventAction_y6deb"]
 action = &"toggle_journal"
@@ -688,18 +639,6 @@ layout_mode = 2
 text = "Options"
 horizontal_alignment = 1
 
-[node name="PopupDuration" type="HSplitContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
-layout_mode = 2
-
-[node name="PopupDurationTitle" type="Label" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/PopupDuration"]
-layout_mode = 2
-text = "Popup Duration"
-
-[node name="PopupTimeout" type="SpinBox" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/PopupDuration"]
-layout_mode = 2
-max_value = 5.0
-step = 0.5
-
 [node name="Resolution" type="HBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
 layout_mode = 2
 
@@ -759,132 +698,6 @@ layout_mode = 2
 layout_mode = 2
 text = "Close"
 script = ExtResource("19_vxglm")
-
-[node name="LogButton" type="TextureButton" parent="UILayer"]
-visible = false
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -32.0
-offset_bottom = 32.0
-texture_normal = ExtResource("18_uoft2")
-texture_pressed = ExtResource("18_uoft2")
-texture_hover = ExtResource("18_uoft2")
-texture_disabled = ExtResource("18_uoft2")
-texture_focused = ExtResource("18_uoft2")
-
-[node name="Notifications" type="HBoxContainer" parent="UILayer/LogButton"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 2
-
-[node name="Log" type="TextureRect" parent="UILayer/LogButton/Notifications"]
-layout_mode = 2
-texture = ExtResource("19_a8iky")
-stretch_mode = 3
-
-[node name="Warning" type="TextureRect" parent="UILayer/LogButton/Notifications"]
-layout_mode = 2
-texture = ExtResource("20_7tk8h")
-stretch_mode = 3
-
-[node name="Error" type="TextureRect" parent="UILayer/LogButton/Notifications"]
-layout_mode = 2
-texture = ExtResource("21_grp7q")
-stretch_mode = 3
-
-[node name="LogMenu" type="TabContainer" parent="UILayer/LogButton"]
-custom_minimum_size = Vector2(450, 300)
-layout_mode = 0
-anchor_left = -10.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 10.0
-offset_left = -48.0
-offset_bottom = 12.0
-grow_horizontal = 0
-grow_vertical = 0
-tab_alignment = 2
-current_tab = 1
-
-[node name="Instructions" type="RichTextLabel" parent="UILayer/LogButton/LogMenu"]
-visible = false
-layout_mode = 2
-focus_mode = 2
-bbcode_enabled = true
-selection_enabled = true
-metadata/_tab_index = 0
-
-[node name="Log" type="RichTextLabel" parent="UILayer/LogButton/LogMenu"]
-layout_mode = 2
-focus_mode = 2
-theme_override_styles/normal = SubResource("1")
-bbcode_enabled = true
-selection_enabled = true
-metadata/_tab_index = 1
-
-[node name="Warnings" type="RichTextLabel" parent="UILayer/LogButton/LogMenu"]
-visible = false
-layout_mode = 2
-focus_mode = 2
-theme_override_styles/normal = SubResource("2")
-bbcode_enabled = true
-selection_enabled = true
-metadata/_tab_index = 2
-
-[node name="Errors" type="RichTextLabel" parent="UILayer/LogButton/LogMenu"]
-visible = false
-layout_mode = 2
-focus_mode = 2
-theme_override_styles/normal = SubResource("3")
-bbcode_enabled = true
-selection_enabled = true
-metadata/_tab_index = 3
-
-[node name="LabLogPopup" type="Control" parent="UILayer"]
-layout_mode = 3
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -371.0
-offset_top = -121.0
-offset_right = -5.0
-offset_bottom = -5.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="Panel" type="Panel" parent="UILayer/LabLogPopup"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/LabLogPopup/Panel"]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 9.0
-offset_right = 363.0
-offset_bottom = 113.0
-grow_horizontal = 2
-
-[node name="Type" type="Label" parent="UILayer/LabLogPopup/Panel/VBoxContainer"]
-layout_mode = 2
-horizontal_alignment = 1
-uppercase = true
-
-[node name="Description" type="RichTextLabel" parent="UILayer/LabLogPopup/Panel/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Border" type="ReferenceRect" parent="UILayer/LabLogPopup"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-border_color = Color(1, 1, 1, 1)
-border_width = 5.0
-editor_only = false
 
 [node name="Prompts" type="MarginContainer" parent="UILayer"]
 unique_name_in_owner = true
@@ -997,7 +810,4 @@ metadata/_custom_type_script = "uid://bu1da87rm0cub"
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/ExitModuleButton" to="." method="_on_exit_module_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="value_changed" from="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/PopupDuration/PopupTimeout" to="." method="_on_PopupTimeout_value_changed"]
 [connection signal="item_selected" from="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/Resolution/ResolutionDropdown" to="." method="_on_resolution_dropdown_item_selected"]
-[connection signal="pressed" from="UILayer/LogButton" to="." method="_on_LogButton_pressed"]
-[connection signal="tab_changed" from="UILayer/LogButton/LogMenu" to="." method="SetLogNotificationCounts"]

@@ -18,7 +18,6 @@ config/icon="res://favicon.png"
 
 [autoload]
 
-LabLog="*res://scripts/singletons/lab_log.gd"
 GameSettings="*res://scripts/singletons/game_settings.gd"
 Interaction="*res://scripts/singletons/interaction.gd"
 LabTime="*res://scripts/singletons/lab_time.gd"
