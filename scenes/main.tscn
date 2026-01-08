@@ -229,6 +229,7 @@ script = ExtResource("12_yc10j")
 
 [node name="Journal" type="Panel" parent="UILayer"]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -273,7 +274,6 @@ script = ExtResource("15_og1vs")
 metadata/_custom_type_script = "uid://bmdn4p40xeusb"
 
 [node name="PauseMenu" type="Control" parent="UILayer/MenuScreenManager"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -339,7 +339,6 @@ layout_mode = 2
 text = "Quit"
 
 [node name="AboutScreen" type="PanelContainer" parent="UILayer/MenuScreenManager"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -360,6 +359,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+theme_type_variation = &"MenuScreenTitleLabel"
 text = "About"
 horizontal_alignment = 1
 
@@ -611,6 +611,7 @@ The following tools, projects, and assets are used under their respective licens
 
 [node name="CloseButton" type="Button" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Close"
 script = ExtResource("19_vxglm")
 

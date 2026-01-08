@@ -1,15 +1,27 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://dnl552a0ac6ua"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://dnl552a0ac6ua"]
 
-[ext_resource type="StyleBox" path="res://themes/background_stylebox.tres" id="1"]
+[ext_resource type="StyleBox" uid="uid://bxkqkk5kh16ts" path="res://themes/background_stylebox.tres" id="1"]
 [ext_resource type="StyleBox" uid="uid://xx64mutayadc" path="res://themes/button_normal_stylebox.tres" id="2"]
-[ext_resource type="StyleBox" path="res://themes/button_disabled_stylebox.tres" id="3"]
-[ext_resource type="StyleBox" path="res://themes/button_pressed_stylebox.tres" id="4"]
+[ext_resource type="StyleBox" uid="uid://imgqf8h1ufvv" path="res://themes/button_disabled_stylebox.tres" id="3"]
+[ext_resource type="StyleBox" uid="uid://dmtcy3wg5rcao" path="res://themes/button_pressed_stylebox.tres" id="4"]
 [ext_resource type="StyleBox" uid="uid://co6eq5jxq4ama" path="res://themes/button_focus_stylebox.tres" id="5"]
-[ext_resource type="StyleBox" path="res://themes/button_hover_stylebox.tres" id="6"]
+[ext_resource type="StyleBox" uid="uid://ccyakbym7hdam" path="res://themes/button_hover_stylebox.tres" id="6"]
 [ext_resource type="FontFile" path="res://fonts/roboto_medium_16.tres" id="7"]
 [ext_resource type="StyleBox" path="res://themes/grabber_highlight.tres" id="8"]
 [ext_resource type="StyleBox" path="res://themes/grabber_pressed.tres" id="9"]
-[ext_resource type="StyleBox" path="res://themes/grabber.tres" id="10"]
+[ext_resource type="StyleBox" uid="uid://cx7s3i6l2su3m" path="res://themes/grabber.tres" id="10"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n0awv"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0.20392157, 0.3019608, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 3
 
 [sub_resource type="StyleBoxFlat" id="4"]
 content_margin_left = 6.0
@@ -57,13 +69,17 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aca5h"]
+border_width_left = 2
+border_width_right = 2
+border_color = Color(0.027011849, 0.08319571, 0.16097033, 1)
+
 [resource]
 default_font = ExtResource("7")
-Button/colors/font_color = Color(0, 0.670588, 0.666667, 1)
-Button/colors/font_color_disabled = Color(0.313726, 0.717647, 0.713726, 0.388235)
-Button/colors/font_color_focus = Color(0, 0.670588, 0.666667, 1)
-Button/colors/font_color_hover = Color(0, 0.670588, 0.666667, 1)
-Button/colors/font_color_pressed = Color(0, 0.670588, 0.666667, 1)
+Button/colors/font_color = Color(0.20392157, 0.7607843, 0.6039216, 1)
+Button/colors/font_hover_color = Color(0, 0.20392157, 0.3019608, 1)
+Button/colors/font_pressed_color = Color(0, 0.20392157, 0.3019608, 1)
+Button/font_sizes/font_size = 18
 Button/styles/disabled = ExtResource("3")
 Button/styles/focus = ExtResource("5")
 Button/styles/hover = ExtResource("6")
@@ -75,18 +91,22 @@ HScrollBar/styles/grabber_pressed = ExtResource("9")
 HScrollBar/styles/scroll = ExtResource("2")
 HScrollBar/styles/scroll_focus = ExtResource("5")
 HSlider/styles/slider = ExtResource("3")
-Label/colors/font_color = Color(0, 0, 0, 1)
+Label/colors/font_color = Color(1, 1, 1, 1)
 LineEdit/colors/cursor_color = Color(0, 0.952941, 0.94902, 1)
 LineEdit/colors/font_color = Color(0, 0.670588, 0.666667, 1)
 LineEdit/styles/focus = ExtResource("5")
 LineEdit/styles/normal = ExtResource("6")
 LineEdit/styles/read_only = ExtResource("3")
+MenuScreenTitleLabel/base_type = &"Label"
+MenuScreenTitleLabel/colors/font_color = Color(0.75346255, 0.92470396, 0.99911433, 1)
+MenuScreenTitleLabel/font_sizes/font_size = 28
 Panel/styles/panel = ExtResource("1")
 PanelContainer/styles/panel = ExtResource("1")
 PopupMenu/colors/font_color = Color(0, 0.670588, 0.666667, 1)
 PopupMenu/styles/panel = ExtResource("1")
 PopupMenu/styles/panel_disabled = ExtResource("3")
-RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+RichTextLabel/colors/default_color = Color(0.522246, 0.76089644, 0.82420874, 1)
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_n0awv")
 TabContainer/colors/font_color_bg = Color(0, 0, 0, 1)
 TabContainer/colors/font_color_disabled = Color(0.313726, 0.717647, 0.713726, 0.388235)
 TabContainer/colors/font_color_fg = Color(0, 0.670588, 0.666667, 1)
@@ -102,6 +122,6 @@ TextEdit/styles/read_only = ExtResource("3")
 VScrollBar/styles/grabber = ExtResource("10")
 VScrollBar/styles/grabber_highlight = ExtResource("8")
 VScrollBar/styles/grabber_pressed = ExtResource("9")
-VScrollBar/styles/scroll = ExtResource("2")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_aca5h")
 VScrollBar/styles/scroll_focus = ExtResource("5")
 VSlider/styles/slider = ExtResource("3")
