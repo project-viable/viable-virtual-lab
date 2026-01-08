@@ -194,6 +194,8 @@ func _load_module(module: ModuleData) -> void:
 
 	%Prompts.show()
 
+	_update_scene_overlay()
+
 	# To make the initial virtual mouse position feel less weird.
 	Cursor.virtual_mouse_position = get_global_mouse_position()
 	set_pause_menu_open(false)
@@ -217,6 +219,7 @@ func set_scene(scene: PackedScene) -> void:
 func set_pause_menu_open(paused: bool) -> void:
 	%MenuScreenManager.visible = paused
 	_update_simulation_pause()
+	_update_scene_overlay()
 
 func is_pause_menu_open() -> bool:
 	return %MenuScreenManager.visible
@@ -228,6 +231,7 @@ func set_journal_open(open: bool) -> void:
 	else:
 		Game.report_log.rich_text_label.clear()
 	_update_simulation_pause()
+	_update_scene_overlay()
 
 func is_journal_open() -> bool:
 	return %Journal.visible
@@ -282,13 +286,12 @@ func show_subscene(camera: SubsceneCamera, use_overlay: bool = false) -> float:
 	$%SubsceneContainer.position.y = (viewport_size.y - $%SubsceneContainer.size.y) / 2
 	$%SubsceneContainer.show()
 	camera.make_current()
-	if use_overlay:
-		$%SubsceneOverlay.show()
+	_update_scene_overlay()
 	return viewport_size.x - right_width
 
 func hide_subscene() -> void:
 	$%SubsceneContainer.hide()
-	$%SubsceneOverlay.hide()
+	_update_scene_overlay()
 
 ## Show the subscene camera [param camera] on the right side of the screen and use the left side of
 ## the screen to zoom in on the rectangle [param rect], similarly to [method focus_camera_on_rect].
@@ -316,6 +319,8 @@ func _switch_to_main_menu() -> void:
 	$UILayer/Background.show()
 
 	%Prompts.hide()
+
+	_update_scene_overlay()
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
@@ -404,3 +409,8 @@ func _update_simulation_pause() -> void:
 	else: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 	%VirtualCursor.visible = not should_pause
+
+func _update_scene_overlay() -> void:
+	# %SubsceneContainer is visible when the subscene is visible. Only show the overlay when in a
+	# scene.
+	%SceneOverlay.visible = (%SubsceneContainer.visible or is_pause_menu_open() or is_journal_open()) and _current_module_scene

@@ -160,8 +160,9 @@ offset_right = 640.0
 offset_bottom = 360.0
 texture = ExtResource("14_b4l0s")
 
-[node name="SubsceneOverlay" type="ColorRect" parent="UILayer"]
+[node name="SceneOverlay" type="ColorRect" parent="UILayer"]
 unique_name_in_owner = true
+editor_description = "Dark layer to cover the scene when paused or in the journal or showing a subscene."
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
