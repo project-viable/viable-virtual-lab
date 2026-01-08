@@ -9,12 +9,12 @@
 [ext_resource type="Script" uid="uid://bmcv1qehkhxri" path="res://scripts/scene_input_handler.gd" id="8_kpxdo"]
 [ext_resource type="Shader" uid="uid://ev3d6lurthgo" path="res://shaders/screen_gauss_blur.gdshader" id="9_2wyq8"]
 [ext_resource type="Script" uid="uid://b8kjtd0vdnq42" path="res://scripts/transition_camera.gd" id="9_agdoh"]
+[ext_resource type="Texture2D" uid="uid://dqjj7qlog4jy1" path="res://textures/main_menu_background.png" id="10_pm3ni"]
 [ext_resource type="Texture2D" uid="uid://dpjbw81s4cllc" path="res://textures/icons_and_buttons/cursors/hand_pointing.svg" id="10_tmkqk"]
 [ext_resource type="Theme" uid="uid://2lamnb3h2xxg" path="res://themes/debug_overlay.tres" id="11_gqmmt"]
 [ext_resource type="Texture2D" uid="uid://b0hfiq010v2bq" path="res://textures/icons_and_buttons/cursors/hand_open.svg" id="11_jc788"]
 [ext_resource type="Texture2D" uid="uid://bhpxxflq68efs" path="res://textures/icons_and_buttons/cursors/hand_closed.svg" id="12_4mycw"]
 [ext_resource type="Script" uid="uid://dftxhrc76wr2j" path="res://scripts/debug_overlay.gd" id="12_yc10j"]
-[ext_resource type="Texture2D" uid="uid://bdg0qubi6xt7d" path="res://textures/old/MainMenu-Background.png" id="14_b4l0s"]
 [ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://textures/old/VIABLE_Logo_Transparent.png" id="15_ki7y1"]
 [ext_resource type="Script" uid="uid://bmdn4p40xeusb" path="res://scripts/menu_screen_manager.gd" id="15_og1vs"]
 [ext_resource type="Script" uid="uid://d87mq61qhuq8" path="res://scripts/menu_screen.gd" id="16_2wyq8"]
@@ -158,7 +158,7 @@ offset_left = -640.0
 offset_top = -360.0
 offset_right = 640.0
 offset_bottom = 360.0
-texture = ExtResource("14_b4l0s")
+texture = ExtResource("10_pm3ni")
 
 [node name="SceneOverlay" type="ColorRect" parent="UILayer"]
 unique_name_in_owner = true
