@@ -313,7 +313,7 @@ func _switch_to_main_menu() -> void:
 	set_pause_menu_open(true)
 
 	%MenuScreenManager.pop_all_screens()
-	%MenuScreenManager/PauseMenu/Content/Logo.hide()
+	%MenuScreenManager/PauseMenu/Content/Logo.show()
 	%MenuScreenManager/PauseMenu/Content/ExitModuleButton.hide()
 	%MenuScreenManager/PauseMenu/Content/RestartModuleButton.hide()
 	$UILayer/Background.show()

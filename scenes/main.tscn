@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=34 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -15,10 +15,10 @@
 [ext_resource type="Texture2D" uid="uid://b0hfiq010v2bq" path="res://textures/icons_and_buttons/cursors/hand_open.svg" id="11_jc788"]
 [ext_resource type="Texture2D" uid="uid://bhpxxflq68efs" path="res://textures/icons_and_buttons/cursors/hand_closed.svg" id="12_4mycw"]
 [ext_resource type="Script" uid="uid://dftxhrc76wr2j" path="res://scripts/debug_overlay.gd" id="12_yc10j"]
-[ext_resource type="Texture2D" uid="uid://du4e2yowlkqv0" path="res://textures/old/VIABLE_Logo_Transparent.png" id="15_ki7y1"]
 [ext_resource type="Script" uid="uid://bmdn4p40xeusb" path="res://scripts/menu_screen_manager.gd" id="15_og1vs"]
 [ext_resource type="Script" uid="uid://d87mq61qhuq8" path="res://scripts/menu_screen.gd" id="16_2wyq8"]
 [ext_resource type="FontFile" path="res://fonts/roboto_medium_28.tres" id="16_gpyrr"]
+[ext_resource type="Texture2D" uid="uid://g570l32ipee5" path="res://textures/main_menu_logo.png" id="18_pm3ni"]
 [ext_resource type="Script" uid="uid://kxslh01sq2ny" path="res://scripts/menu_screen_button.gd" id="19_vxglm"]
 [ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://scenes/interaction_prompt.tscn" id="22_g2on7"]
 [ext_resource type="Script" uid="uid://smreqra2kcc2" path="res://scripts/scale_container.gd" id="25_og1vs"]
@@ -40,6 +40,10 @@ shader_parameter/stds = Vector2(10, 1)
 shader = ExtResource("9_2wyq8")
 shader_parameter/axes = Vector2i(0, 10)
 shader_parameter/stds = Vector2(1, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pm3ni"]
+atlas = ExtResource("18_pm3ni")
+region = Rect2(857.2771, 956.96234, 7436.5537, 1843.1575)
 
 [sub_resource type="InputEventAction" id="InputEventAction_y6deb"]
 action = &"toggle_journal"
@@ -297,12 +301,15 @@ offset_right = 200.0
 offset_bottom = 96.5
 
 [node name="Logo" type="TextureRect" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
-visible = false
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
-texture = ExtResource("15_ki7y1")
+texture = SubResource("AtlasTexture_pm3ni")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="Spacer" type="Control" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
 
 [node name="SelectModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
