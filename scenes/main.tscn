@@ -340,6 +340,7 @@ layout_mode = 2
 text = "Quit"
 
 [node name="AboutScreen" type="PanelContainer" parent="UILayer/MenuScreenManager"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -638,6 +639,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+theme_type_variation = &"MenuScreenTitleLabel"
 text = "Options"
 horizontal_alignment = 1
 
@@ -679,7 +681,8 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer"]
 layout_mode = 2
-text = "Modules"
+theme_type_variation = &"MenuScreenTitleLabel"
+text = "Select Module"
 horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer"]
