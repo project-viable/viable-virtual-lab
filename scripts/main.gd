@@ -164,8 +164,11 @@ func _process(delta: float) -> void:
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"toggle_menu"):
+		# Close the journal if it's open.
+		if is_journal_open():
+			set_journal_open(false)
 		# A page other than the main pause menu is being shown; return to the pause menu.
-		if is_pause_menu_open() and not %MenuScreenManager.is_on_primary_screen():
+		elif is_pause_menu_open() and not %MenuScreenManager.is_on_primary_screen():
 			%MenuScreenManager.pop_screen()
 		# Toggle the pause menu only if we're in a module.
 		elif _current_module_scene != null:
