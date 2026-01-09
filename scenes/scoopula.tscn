@@ -11,6 +11,7 @@
 [node name="Scoopula" type="RigidBody2D" groups=["attachment:scoopula", "zoom:scale"]]
 collision_layer = 0
 script = ExtResource("1_sbaom")
+hover_name = "scoopula"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]

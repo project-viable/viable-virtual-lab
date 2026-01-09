@@ -46,6 +46,7 @@ size = Vector2(675, 55)
 collision_layer = 0
 script = ExtResource("1_5cofj")
 gel_state = SubResource("Resource_yypu3")
+hover_name = "gel mold"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

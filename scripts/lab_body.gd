@@ -18,9 +18,8 @@ const MANAGED_COLLISION_LAYERS_MASK: int = 0b111
 const MAX_SLIDES: int = 5
 
 
-static var _pick_up_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up")
-static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
-
+## Name displayed in the "pick up" button prompt.
+@export var hover_name: String = ""
 ## Determines the physics of an object whether it free or kinematic
 @export var physics_mode: PhysicsMode = PhysicsMode.FREE
 ## [SelectableCanvasGroup] that will be outlined when hovered and can be clicked to pick this
@@ -43,6 +42,9 @@ static var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, 
 @export var depth_layer_to_drop_in: DepthManager.Layer = DepthManager.Layer.BENCH
 
 
+var _pick_up_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up")
+var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
+
 ## Keeps track of collision layers of any child physics objects. For example, the scale has a child
 ## [StaticBody2D] with one-way collision that acts as the surface for objects to be set on, which
 ## should be disabled while the object is being dragged.
@@ -60,6 +62,11 @@ var is_moused_over: bool = false
 
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
+
+	# As long as the name isn't empty, we want to show it in the button prompts.
+	if not hover_name.is_empty():
+		_pick_up_interaction.description += " %s" % [hover_name]
+		_put_down_interaction.description += " %s" % [hover_name]
 
 	# Needed by `Interaction` to find this object.
 	add_to_group(&"interactable_component")

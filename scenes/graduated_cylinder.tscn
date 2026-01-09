@@ -15,6 +15,7 @@ size = Vector2(26, 171)
 [node name="GraduatedCylinder" type="RigidBody2D" groups=["emptyable"]]
 collision_layer = 0
 script = ExtResource("1_5k7v7")
+hover_name = "graduated cylinder"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="SubstanceDisplayPolygon" type="Polygon2D" parent="." node_paths=PackedStringArray("source")]

@@ -2,14 +2,14 @@
 extends LabBody
 ## This class represents the contact wire object.
 class_name Wire #TODO: Previous simulation already uses "ContactWire". Replace this when the old simulation is removed
-## the texture to applied to objects that can be selected 
+## the texture to applied to objects that can be selected
 @export var texture: Texture2D
 
 ## an instance that holds all wire connection logic
 var connected_component: WireConnectableComponent
 
 ## Emits whenever the contact wire is moved
-signal moved() 
+signal moved()
 
 ## the previous wire postition
 var prev_pos: Vector2
@@ -33,5 +33,5 @@ func _ready() -> void:
 func get_component_on_other_end() -> WireConnectableComponent:
 	if other_end and other_end.connected_component and connected_component != other_end.connected_component:
 		return other_end.connected_component
-		
+
 	return null

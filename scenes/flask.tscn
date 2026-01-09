@@ -14,6 +14,7 @@
 [node name="Flask" type="RigidBody2D" groups=["emptyable"]]
 collision_layer = 0
 script = ExtResource("1_6iauc")
+hover_name = "flask"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="ContainerComponent" type="Node2D" parent="."]

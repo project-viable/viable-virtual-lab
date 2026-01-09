@@ -83,6 +83,7 @@ size = Vector2(50, 88)
 [node name="TAEBottle" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource("1_asuie")
+hover_name = "TAE bottle"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -24,6 +24,7 @@ size = Vector2(48, 67)
 [node name="AgaroseBottle" type="RigidBody2D" groups=["zoom:scale"]]
 collision_layer = 0
 script = ExtResource("1_w1h17")
+hover_name = "agarose bottle"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

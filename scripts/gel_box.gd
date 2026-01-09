@@ -30,6 +30,6 @@ func _on_mold_attachment_object_placed(body: LabBody) -> void:
 			body.get_well(i + 1).substances.clear()
 
 func _on_mold_attachment_object_removed(body: LabBody) -> void:
-	if body is GelMold: 
+	if body is GelMold:
 		body.voltage = 0
 		gel_in_rig = false

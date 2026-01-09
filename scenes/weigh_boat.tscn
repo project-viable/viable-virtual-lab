@@ -17,6 +17,7 @@ size = Vector2(108, 15)
 
 [node name="WeighBoat" type="RigidBody2D" groups=["zoom:scale"]]
 script = ExtResource("1_ngt2v")
+hover_name = "weigh boat"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
