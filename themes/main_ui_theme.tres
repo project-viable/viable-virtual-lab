@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=18 format=3 uid="uid://dnl552a0ac6ua"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://dnl552a0ac6ua"]
 
 [ext_resource type="StyleBox" uid="uid://bxkqkk5kh16ts" path="res://themes/background_stylebox.tres" id="1"]
 [ext_resource type="StyleBox" uid="uid://xx64mutayadc" path="res://themes/button_normal_stylebox.tres" id="2"]
@@ -11,6 +11,9 @@
 [ext_resource type="StyleBox" path="res://themes/grabber_pressed.tres" id="9"]
 [ext_resource type="StyleBox" uid="uid://dcihb8l1xtsiy" path="res://themes/nested_panel_stylebox.tres" id="9_aca5h"]
 [ext_resource type="StyleBox" uid="uid://cx7s3i6l2su3m" path="res://themes/grabber.tres" id="10"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_aca5h"]
+color = Color(0, 0.30588236, 0.40784314, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n0awv"]
 content_margin_left = 9.0
@@ -90,6 +93,7 @@ HScrollBar/styles/grabber_highlight = ExtResource("8")
 HScrollBar/styles/grabber_pressed = ExtResource("9")
 HScrollBar/styles/scroll = ExtResource("2")
 HScrollBar/styles/scroll_focus = ExtResource("5")
+HSeparator/styles/separator = SubResource("StyleBoxLine_aca5h")
 HSlider/styles/slider = ExtResource("3")
 Label/colors/font_color = Color(0.7529412, 0.9254902, 1, 1)
 LineEdit/colors/cursor_color = Color(0, 0.952941, 0.94902, 1)
