@@ -115,7 +115,7 @@ func _on_exclusive_object_hitbox_entered_purview_of(area: ExclusiveArea2D) -> vo
 			_cur_subscene_camera = area.camera
 			disable_follow_cursor = true
 			disable_drop = true
-			Game.main.focus_camera_and_show_subscene(rect, _cur_subscene_camera, true, 1.5)
+			Game.main.focus_camera_and_show_subscene(rect, _cur_subscene_camera, 1.5)
 			$%SubscenePipette.global_position = area.entry_node.global_position - $%SubsceneTipOpeningArea.position
 			# Slightly ugly way to position the pipette correctly in the subscene without its tip.
 			if not has_tip:

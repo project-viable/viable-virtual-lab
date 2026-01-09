@@ -276,7 +276,7 @@ func get_camera_focus_owner() -> Node:
 ## [code]true[/code], then a dark overlay will be placed over the screen behind the subscene. This
 ## should be used to indicate when control has moved to the subscene, like when the pipette subscene
 ## becomes controllable.
-func show_subscene(camera: SubsceneCamera, use_overlay: bool = false) -> float:
+func show_subscene(camera: SubsceneCamera) -> float:
 	var viewport_size := get_viewport_rect().size
 	var right_width: float = max(viewport_size.x / 2, camera.region_size.x + 50)
 	var padding: float = (right_width - camera.region_size.x) / 2
@@ -295,9 +295,9 @@ func hide_subscene() -> void:
 
 ## Show the subscene camera [param camera] on the right side of the screen and use the left side of
 ## the screen to zoom in on the rectangle [param rect], similarly to [method focus_camera_on_rect].
-func focus_camera_and_show_subscene(rect: Rect2, camera: SubsceneCamera, use_overlay: bool = false, time: float = 0.7) -> void:
+func focus_camera_and_show_subscene(rect: Rect2, camera: SubsceneCamera, time: float = 0.7) -> void:
 	var viewport_size := get_viewport().get_visible_rect().size
-	var left_width := show_subscene(camera, use_overlay)
+	var left_width := show_subscene(camera)
 	var left_aspect := Vector2(left_width, viewport_size.y).aspect()
 	var left_rect := Util.expand_to_aspect(rect.grow(10), left_aspect)
 	var full_rect := Util.expand_to_aspect(left_rect, viewport_size.aspect(), 0)

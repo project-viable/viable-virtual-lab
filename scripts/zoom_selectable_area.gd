@@ -64,7 +64,7 @@ func _press() -> void:
 	if not has_rect: return
 
 	if subscene_camera:
-		Game.main.focus_camera_and_show_subscene(zoom_rect, subscene_camera, true)
+		Game.main.focus_camera_and_show_subscene(zoom_rect, subscene_camera)
 	else:
 		Game.main.focus_camera_on_rect(zoom_rect)
 	Game.main.set_camera_focus_owner(self)
