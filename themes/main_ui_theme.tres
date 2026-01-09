@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://dnl552a0ac6ua"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://dnl552a0ac6ua"]
 
 [ext_resource type="StyleBox" uid="uid://bxkqkk5kh16ts" path="res://themes/background_stylebox.tres" id="1"]
 [ext_resource type="StyleBox" uid="uid://xx64mutayadc" path="res://themes/button_normal_stylebox.tres" id="2"]
@@ -10,6 +10,12 @@
 [ext_resource type="StyleBox" path="res://themes/grabber_highlight.tres" id="8"]
 [ext_resource type="StyleBox" path="res://themes/grabber_pressed.tres" id="9"]
 [ext_resource type="StyleBox" uid="uid://cx7s3i6l2su3m" path="res://themes/grabber.tres" id="10"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n0awv"]
+content_margin_left = 7.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 7.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n0awv"]
 content_margin_left = 10.0
@@ -97,6 +103,8 @@ LineEdit/colors/font_color = Color(0, 0.670588, 0.666667, 1)
 LineEdit/styles/focus = ExtResource("5")
 LineEdit/styles/normal = ExtResource("6")
 LineEdit/styles/read_only = ExtResource("3")
+MainMenuButton/base_type = &"Button"
+MainMenuButton/styles/normal = SubResource("StyleBoxEmpty_n0awv")
 MenuScreenTitleLabel/base_type = &"Label"
 MenuScreenTitleLabel/colors/font_color = Color(0.75346255, 0.92470396, 0.99911433, 1)
 MenuScreenTitleLabel/font_sizes/font_size = 28

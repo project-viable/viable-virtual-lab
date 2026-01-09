@@ -167,7 +167,6 @@ texture = ExtResource("10_pm3ni")
 [node name="SceneOverlay" type="ColorRect" parent="UILayer"]
 unique_name_in_owner = true
 editor_description = "Dark layer to cover the scene when paused or in the journal or showing a subscene."
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -313,6 +312,7 @@ layout_mode = 2
 
 [node name="SelectModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
+theme_type_variation = &"MainMenuButton"
 theme_override_fonts/font = ExtResource("16_gpyrr")
 text = "Select Module"
 script = ExtResource("19_vxglm")
@@ -321,15 +321,18 @@ menu_screen = NodePath("../../../ModuleSelect")
 [node name="RestartModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
 visible = false
 layout_mode = 2
+theme_type_variation = &"MainMenuButton"
 text = "Restart Module"
 
 [node name="ExitModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
 visible = false
 layout_mode = 2
+theme_type_variation = &"MainMenuButton"
 text = "Return to Main Menu"
 
 [node name="OptionsButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
+theme_type_variation = &"MainMenuButton"
 theme_override_fonts/font = ExtResource("16_gpyrr")
 text = "Options"
 script = ExtResource("19_vxglm")
@@ -337,6 +340,7 @@ menu_screen = NodePath("../../../OptionsScreen")
 
 [node name="AboutButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
+theme_type_variation = &"MainMenuButton"
 theme_override_fonts/font = ExtResource("16_gpyrr")
 text = "About"
 script = ExtResource("19_vxglm")
@@ -344,6 +348,7 @@ menu_screen = NodePath("../../../AboutScreen")
 
 [node name="QuitButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
 layout_mode = 2
+theme_type_variation = &"MainMenuButton"
 text = "Quit"
 
 [node name="AboutScreen" type="PanelContainer" parent="UILayer/MenuScreenManager"]
