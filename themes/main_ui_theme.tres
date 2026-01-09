@@ -32,11 +32,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 3
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n0awv"]
-content_margin_left = 9.0
-content_margin_top = 9.0
-content_margin_right = 9.0
-content_margin_bottom = 9.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d220q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8y4v8"]
 content_margin_left = 6.0
@@ -137,8 +133,9 @@ LineEdit/styles/normal = ExtResource("6")
 LineEdit/styles/read_only = ExtResource("3")
 MainMenuButton/base_type = &"Button"
 MainMenuButton/colors/font_color = Color(0.20392157, 0.7607843, 0.6039216, 1)
+MainMenuButton/constants/align_to_largest_stylebox = 1
 MainMenuButton/styles/hover = SubResource("StyleBoxFlat_d220q")
-MainMenuButton/styles/normal = SubResource("StyleBoxEmpty_n0awv")
+MainMenuButton/styles/normal = SubResource("StyleBoxEmpty_d220q")
 MainMenuButton/styles/pressed = SubResource("StyleBoxFlat_8y4v8")
 MenuScreenTitleLabel/base_type = &"Label"
 MenuScreenTitleLabel/font_sizes/font_size = 28
