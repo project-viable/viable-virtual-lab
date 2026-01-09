@@ -630,17 +630,12 @@ text = "Close"
 script = ExtResource("19_vxglm")
 
 [node name="OptionsScreen" type="PanelContainer" parent="UILayer/MenuScreenManager"]
-visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -84.5
-offset_right = 150.0
-offset_bottom = 84.5
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.3
+anchor_right = 0.7
+anchor_bottom = 0.7
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("16_2wyq8")
@@ -655,17 +650,27 @@ theme_type_variation = &"MenuScreenTitleLabel"
 text = "Options"
 horizontal_alignment = 1
 
-[node name="Resolution" type="HBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"MenuScrollContainer"
 
-[node name="Label" type="Label" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/Resolution"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Resolution" type="HBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/Resolution"]
 layout_mode = 2
 text = "Resolution"
 
-[node name="ResolutionDropdown" type="OptionButton" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/Resolution"]
+[node name="ResolutionDropdown" type="OptionButton" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/Resolution"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
 
 [node name="CloseButton" type="Button" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
 layout_mode = 2
@@ -827,4 +832,4 @@ metadata/_custom_type_script = "uid://bu1da87rm0cub"
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/ExitModuleButton" to="." method="_on_exit_module_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="item_selected" from="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/Resolution/ResolutionDropdown" to="." method="_on_resolution_dropdown_item_selected"]
+[connection signal="item_selected" from="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/Resolution/ResolutionDropdown" to="." method="_on_resolution_dropdown_item_selected"]
