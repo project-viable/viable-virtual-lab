@@ -13,10 +13,10 @@
 [ext_resource type="StyleBox" uid="uid://cx7s3i6l2su3m" path="res://themes/grabber.tres" id="10"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n0awv"]
-content_margin_left = 7.0
-content_margin_top = 7.0
-content_margin_right = 7.0
-content_margin_bottom = 7.0
+content_margin_left = 9.0
+content_margin_top = 9.0
+content_margin_right = 9.0
+content_margin_bottom = 9.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aca5h"]
 content_margin_top = 10.0
