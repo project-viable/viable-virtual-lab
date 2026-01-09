@@ -411,6 +411,5 @@ func _update_simulation_pause() -> void:
 	%VirtualCursor.visible = not should_pause
 
 func _update_scene_overlay() -> void:
-	# %SubsceneContainer is visible when the subscene is visible. Only show the overlay when in a
-	# scene.
-	%SceneOverlay.visible = (%SubsceneContainer.visible or is_pause_menu_open() or is_journal_open()) and _current_module_scene
+	# %SubsceneContainer is visible when the subscene is visible.
+	%SceneOverlay.visible = %SubsceneContainer.visible or is_pause_menu_open() or is_journal_open()

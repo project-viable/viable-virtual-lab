@@ -173,7 +173,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.501961)
+color = Color(0, 0, 0, 0.8156863)
 
 [node name="SubsceneContainer" type="SubViewportContainer" parent="UILayer"]
 unique_name_in_owner = true
