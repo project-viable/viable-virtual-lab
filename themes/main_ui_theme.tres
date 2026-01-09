@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=19 format=3 uid="uid://dnl552a0ac6ua"]
+[gd_resource type="Theme" load_steps=21 format=3 uid="uid://dnl552a0ac6ua"]
 
 [ext_resource type="StyleBox" uid="uid://bxkqkk5kh16ts" path="res://themes/background_stylebox.tres" id="1"]
 [ext_resource type="StyleBox" uid="uid://xx64mutayadc" path="res://themes/button_normal_stylebox.tres" id="2"]
@@ -15,11 +15,45 @@
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_aca5h"]
 color = Color(0, 0.30588236, 0.40784314, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d220q"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.20392157, 0.7607843, 0.6039216, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.20392157, 0.7607843, 0.6039216, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 3
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n0awv"]
 content_margin_left = 9.0
 content_margin_top = 9.0
 content_margin_right = 9.0
 content_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8y4v8"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.64705884, 0.8862745, 0.78431374, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.64705884, 0.8862745, 0.78431374, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aca5h"]
 content_margin_top = 10.0
@@ -78,7 +112,7 @@ border_color = Color(0.027011849, 0.08319571, 0.16097033, 1)
 
 [resource]
 default_font = ExtResource("7")
-Button/colors/font_color = Color(0.20392157, 0.7607843, 0.6039216, 1)
+Button/colors/font_color = Color(0.7529412, 0.9254902, 1, 1)
 Button/colors/font_hover_color = Color(0, 0.20392157, 0.3019608, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0.20392157, 0.3019608, 1)
 Button/colors/font_pressed_color = Color(0, 0.20392157, 0.3019608, 1)
@@ -102,7 +136,10 @@ LineEdit/styles/focus = ExtResource("5")
 LineEdit/styles/normal = ExtResource("6")
 LineEdit/styles/read_only = ExtResource("3")
 MainMenuButton/base_type = &"Button"
+MainMenuButton/colors/font_color = Color(0.20392157, 0.7607843, 0.6039216, 1)
+MainMenuButton/styles/hover = SubResource("StyleBoxFlat_d220q")
 MainMenuButton/styles/normal = SubResource("StyleBoxEmpty_n0awv")
+MainMenuButton/styles/pressed = SubResource("StyleBoxFlat_8y4v8")
 MenuScreenTitleLabel/base_type = &"Label"
 MenuScreenTitleLabel/font_sizes/font_size = 28
 MenuScreenTitleLabel/styles/normal = SubResource("StyleBoxEmpty_aca5h")
