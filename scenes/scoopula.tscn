@@ -38,11 +38,14 @@ texture = ExtResource("4_g0l2j")
 
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("8_h2xov")
+container_volume = 10.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="UseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container")]
 script = ExtResource("9_fpj3u")
 container = NodePath("../ContainerComponent")
+volume_to_take = 1.0
+volume_to_dispense = 1.0
 metadata/_custom_type_script = "uid://c5xu35ldxvqog"
 
 [node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:scoopula"]]

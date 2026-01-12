@@ -15,7 +15,8 @@ size = Vector2(103.704, 143.111)
 [sub_resource type="Resource" id="Resource_03c6b"]
 script = ExtResource("7_f5f3v")
 name = "agarose"
-volume = 100.0
+density = 0.1
+volume = 1000.0
 metadata/_custom_type_script = "uid://bgfh6xeb1mu4a"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_irog7"]
@@ -43,6 +44,7 @@ texture = ExtResource("5_w1h17")
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("6_irog7")
 substances = Array[ExtResource("7_w1h17")]([SubResource("Resource_03c6b")])
+container_volume = 1000.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="Label" type="Label" parent="."]
