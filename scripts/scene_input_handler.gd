@@ -23,7 +23,11 @@ func _unhandled_input(e: InputEvent) -> void:
 	var state: Interaction.InteractState = Interaction.interactions.get(kind)
 	if not state or not state.info: return
 
-	if e.is_pressed(): state._start_interact()
-	elif e.is_released(): state._stop_interact()
+	# Only start the interaction if it's not currently pressed.
+	if e.is_pressed() and not state.is_pressed:
+		state._start_interact()
+		get_viewport().set_input_as_handled()
+	elif e.is_released() and state.is_pressed:
+		state._stop_interact()
+		get_viewport().set_input_as_handled()
 
-	get_viewport().set_input_as_handled()

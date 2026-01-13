@@ -105,6 +105,15 @@ func on_interaction_area_exited(area: InteractableArea) -> void:
 func clear_interaction_stack() -> void:
 	_interact_area_stack.clear()
 
+func clear_all_interaction_state() -> void:
+	for kind: InteractInfo.Kind in interactions.keys():
+		if interactions[kind].is_pressed:
+			interactions[kind]._stop_interact()
+			interactions[kind]._stop_targeting()
+		interactions[kind] = InteractState.new()
+
+	clear_interaction_stack()
+
 # Return true if [param b] should be chosen as an interactable component to use, given that
 # [param a] was the previous best choice. This will [i]only[/i] return [code]true[/code] if
 # [param b] is a valid choice (i.e., it's of the correct type and is hovered).

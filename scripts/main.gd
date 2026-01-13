@@ -205,11 +205,13 @@ func _load_module(module: ModuleData) -> void:
 	set_pause_menu_open(false)
 
 func unload_current_module() -> void:
+	Interaction.clear_all_interaction_state()
 	DepthManager.clear_layers()
-	for child in $%Scene.get_children():
-		child.queue_free()
+	hide_subscene()
 	move_to_workspace(null)
 	_current_module_scene = null
+	for child in $%Scene.get_children():
+		child.queue_free()
 
 #instanciates scene and adds it as a child of %$Scene. Gets rid of any scene that's already been loaded, and hides the menu.
 func set_scene(scene: PackedScene) -> void:
