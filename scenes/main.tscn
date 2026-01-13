@@ -292,7 +292,6 @@ color = Color(0, 0, 0, 0.8156863)
 
 [node name="Journal" type="Panel" parent="UILayer"]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -304,6 +303,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Button" type="Button" parent="UILayer/Journal"]
+visible = false
 layout_mode = 0
 offset_left = 467.0
 offset_top = 460.0
@@ -313,6 +313,7 @@ text = "Download Report"
 
 [node name="ReportText" type="RichTextLabel" parent="UILayer/Journal"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 17.0
 offset_top = 21.0
@@ -375,6 +376,7 @@ auto_update_pressed = true
 [node name="PauseOverlay" type="ColorRect" parent="UILayer"]
 unique_name_in_owner = true
 editor_description = "Covers all of the simulation-specific stuff while paused (including button prompts)."
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -396,6 +398,7 @@ script = ExtResource("15_og1vs")
 metadata/_custom_type_script = "uid://bmdn4p40xeusb"
 
 [node name="PauseMenu" type="Control" parent="UILayer/MenuScreenManager"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -752,6 +755,7 @@ text = "Close"
 script = ExtResource("19_vxglm")
 
 [node name="OptionsScreen" type="PanelContainer" parent="UILayer/MenuScreenManager"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.3
