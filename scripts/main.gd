@@ -196,8 +196,9 @@ func _load_module(module: ModuleData) -> void:
 	_current_module = module
 
 	%Prompts.show()
+	%GeneralPrompts.show()
 
-	_update_scene_overlay()
+	_update_scene_overlays()
 
 	# To make the initial virtual mouse position feel less weird.
 	Cursor.virtual_mouse_position = get_global_mouse_position()
@@ -222,7 +223,7 @@ func set_scene(scene: PackedScene) -> void:
 func set_pause_menu_open(paused: bool) -> void:
 	%MenuScreenManager.visible = paused
 	_update_simulation_pause()
-	_update_scene_overlay()
+	_update_scene_overlays()
 
 func is_pause_menu_open() -> bool:
 	return %MenuScreenManager.visible
@@ -234,7 +235,7 @@ func set_journal_open(open: bool) -> void:
 	else:
 		Game.report_log.rich_text_label.clear()
 	_update_simulation_pause()
-	_update_scene_overlay()
+	_update_scene_overlays()
 
 func is_journal_open() -> bool:
 	return %Journal.visible
@@ -289,12 +290,12 @@ func show_subscene(camera: SubsceneCamera) -> float:
 	$%SubsceneContainer.position.y = (viewport_size.y - $%SubsceneContainer.size.y) / 2
 	$%SubsceneContainer.show()
 	camera.make_current()
-	_update_scene_overlay()
+	_update_scene_overlays()
 	return viewport_size.x - right_width
 
 func hide_subscene() -> void:
 	$%SubsceneContainer.hide()
-	_update_scene_overlay()
+	_update_scene_overlays()
 
 ## Show the subscene camera [param camera] on the right side of the screen and use the left side of
 ## the screen to zoom in on the rectangle [param rect], similarly to [method focus_camera_on_rect].
@@ -322,8 +323,9 @@ func _switch_to_main_menu() -> void:
 	$UILayer/Background.show()
 
 	%Prompts.hide()
+	%GeneralPrompts.hide()
 
-	_update_scene_overlay()
+	_update_scene_overlays()
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
@@ -413,6 +415,14 @@ func _update_simulation_pause() -> void:
 
 	%VirtualCursor.visible = not should_pause
 
-func _update_scene_overlay() -> void:
+func _update_scene_overlays() -> void:
 	# %SubsceneContainer is visible when the subscene is visible.
-	%SceneOverlay.visible = %SubsceneContainer.visible or is_pause_menu_open() or is_journal_open()
+	%SubsceneOverlay.visible = %SubsceneContainer.visible
+	# The journal and pause menu should never be open simultaneously, so we don't have to do any
+	# extra work here to make sure only one is open.
+	%JournalOverlay.visible = is_journal_open()
+	%PauseOverlay.visible = is_pause_menu_open()
+
+	# TODO: Should this really be here? Should it maybe get its own function?
+	# You can't speed up time while in the Journal.
+	%SpeedUpTimePrompt.visible = not is_journal_open()

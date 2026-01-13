@@ -41,16 +41,6 @@ shader = ExtResource("9_2wyq8")
 shader_parameter/axes = Vector2i(0, 10)
 shader_parameter/stds = Vector2(1, 10)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pm3ni"]
-atlas = ExtResource("18_pm3ni")
-region = Rect2(857.2771, 956.96234, 7436.5537, 1843.1575)
-
-[sub_resource type="InputEventAction" id="InputEventAction_y6deb"]
-action = &"toggle_journal"
-
-[sub_resource type="InputEventAction" id="InputEventAction_vxglm"]
-action = &"speed_up_time"
-
 [sub_resource type="InputEventAction" id="InputEventAction_xrxkg"]
 action = &"interact_inspect"
 
@@ -59,6 +49,16 @@ action = &"interact_left"
 
 [sub_resource type="InputEventAction" id="InputEventAction_og1vs"]
 action = &"interact_right"
+
+[sub_resource type="InputEventAction" id="InputEventAction_y6deb"]
+action = &"toggle_journal"
+
+[sub_resource type="InputEventAction" id="InputEventAction_vxglm"]
+action = &"speed_up_time"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pm3ni"]
+atlas = ExtResource("18_pm3ni")
+region = Rect2(857.2771, 956.96234, 7436.5537, 1843.1575)
 
 [node name="Main" type="Node2D"]
 process_mode = 3
@@ -164,16 +164,17 @@ offset_right = 640.0
 offset_bottom = 360.0
 texture = ExtResource("10_pm3ni")
 
-[node name="SceneOverlay" type="ColorRect" parent="UILayer"]
+[node name="SubsceneOverlay" type="ColorRect" parent="UILayer"]
 unique_name_in_owner = true
-editor_description = "Dark layer to cover the scene when paused or in the journal or showing a subscene."
+editor_description = "Covers the scene while showing a subscene"
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.8156863)
+color = Color(0, 0, 0, 0.58431375)
 
 [node name="SubsceneContainer" type="SubViewportContainer" parent="UILayer"]
 unique_name_in_owner = true
@@ -214,22 +215,80 @@ texture = ExtResource("12_4mycw")
 centered = false
 offset = Vector2(-110, -60)
 
-[node name="DebugOverlay" type="GridContainer" parent="UILayer"]
+[node name="Prompts" type="MarginContainer" parent="UILayer"]
 unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="InteractPrompts" type="VBoxContainer" parent="UILayer/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 10
+
+[node name="ScaleContainer2" type="Container" parent="UILayer/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="ZoomOutPrompt" parent="UILayer/Prompts/ScaleContainer2" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+input_event = SubResource("InputEventAction_xrxkg")
+description = "Zoom out"
+
+[node name="ScaleContainer3" type="Container" parent="UILayer/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="LeftWorkspacePrompt" parent="UILayer/Prompts/ScaleContainer3" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
+layout_mode = 2
+input_event = SubResource("InputEventAction_mxvw5")
+auto_update_pressed = true
+
+[node name="ScaleContainer" type="Container" parent="UILayer/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="RightWorkspacePrompt" parent="UILayer/Prompts/ScaleContainer" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
+layout_mode = 2
+input_event = SubResource("InputEventAction_og1vs")
+auto_update_pressed = true
+
+[node name="JournalOverlay" type="ColorRect" parent="UILayer"]
+unique_name_in_owner = true
+editor_description = "Covers all of the simulation-specific stuff while paused (including button prompts)."
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 100.0
-offset_top = 100.0
-offset_right = -100.0
-offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme = ExtResource("11_gqmmt")
-columns = 4
-script = ExtResource("12_yc10j")
+color = Color(0, 0, 0, 0.8156863)
 
 [node name="Journal" type="Panel" parent="UILayer"]
 unique_name_in_owner = true
@@ -264,6 +323,65 @@ offset_bottom = 451.0
 unique_name_in_owner = true
 oversampling_override = 1.0
 use_native_dialog = true
+
+[node name="GeneralPrompts" type="MarginContainer" parent="UILayer"]
+unique_name_in_owner = true
+editor_description = "Button prompts that may be relevant outside the simulation."
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Prompts" type="VBoxContainer" parent="UILayer/GeneralPrompts"]
+editor_description = "Button prompts for generic actions that can always be performed at any time in the simulation."
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="ScaleContainer" type="Container" parent="UILayer/GeneralPrompts/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="JournalPrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
+layout_mode = 2
+input_event = SubResource("InputEventAction_y6deb")
+description = "Toggle journal"
+auto_update_pressed = true
+
+[node name="ScaleContainer2" type="Container" parent="UILayer/GeneralPrompts/Prompts"]
+layout_mode = 2
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="SpeedUpTimePrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer2" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
+layout_mode = 2
+input_event = SubResource("InputEventAction_vxglm")
+description = "Speed up time"
+auto_update_pressed = true
+
+[node name="PauseOverlay" type="ColorRect" parent="UILayer"]
+unique_name_in_owner = true
+editor_description = "Covers all of the simulation-specific stuff while paused (including button prompts)."
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.8156863)
 
 [node name="MenuScreenManager" type="Control" parent="UILayer"]
 unique_name_in_owner = true
@@ -733,101 +851,22 @@ size_flags_horizontal = 4
 text = "Close"
 script = ExtResource("19_vxglm")
 
-[node name="Prompts" type="MarginContainer" parent="UILayer"]
+[node name="DebugOverlay" type="GridContainer" parent="UILayer"]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = -100.0
+offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="InteractPrompts" type="VBoxContainer" parent="UILayer/Prompts"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-theme_override_constants/separation = 10
-
-[node name="GeneralPrompts" type="VBoxContainer" parent="UILayer/Prompts"]
-editor_description = "Button prompts for generic actions that can always be performed at any time in the simulation."
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="ScaleContainer" type="Container" parent="UILayer/Prompts/GeneralPrompts"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-script = ExtResource("25_og1vs")
-child_scale = Vector2(0.7, 0.7)
-metadata/_custom_type_script = "uid://smreqra2kcc2"
-
-[node name="JournalPrompt" parent="UILayer/Prompts/GeneralPrompts/ScaleContainer" instance=ExtResource("22_g2on7")]
-unique_name_in_owner = true
-layout_mode = 2
-input_event = SubResource("InputEventAction_y6deb")
-description = "Toggle journal"
-auto_update_pressed = true
-
-[node name="ScaleContainer2" type="Container" parent="UILayer/Prompts/GeneralPrompts"]
-layout_mode = 2
-script = ExtResource("25_og1vs")
-child_scale = Vector2(0.7, 0.7)
-metadata/_custom_type_script = "uid://smreqra2kcc2"
-
-[node name="SpeedUpTimePrompt" parent="UILayer/Prompts/GeneralPrompts/ScaleContainer2" instance=ExtResource("22_g2on7")]
-layout_mode = 2
-input_event = SubResource("InputEventAction_vxglm")
-description = "Speed up time"
-auto_update_pressed = true
-
-[node name="ScaleContainer2" type="Container" parent="UILayer/Prompts"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-script = ExtResource("25_og1vs")
-child_scale = Vector2(0.7, 0.7)
-metadata/_custom_type_script = "uid://smreqra2kcc2"
-
-[node name="ZoomOutPrompt" parent="UILayer/Prompts/ScaleContainer2" instance=ExtResource("22_g2on7")]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-input_event = SubResource("InputEventAction_xrxkg")
-description = "Zoom out"
-
-[node name="ScaleContainer3" type="Container" parent="UILayer/Prompts"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-script = ExtResource("25_og1vs")
-child_scale = Vector2(0.7, 0.7)
-metadata/_custom_type_script = "uid://smreqra2kcc2"
-
-[node name="LeftWorkspacePrompt" parent="UILayer/Prompts/ScaleContainer3" instance=ExtResource("22_g2on7")]
-unique_name_in_owner = true
-layout_mode = 2
-input_event = SubResource("InputEventAction_mxvw5")
-auto_update_pressed = true
-
-[node name="ScaleContainer" type="Container" parent="UILayer/Prompts"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-script = ExtResource("25_og1vs")
-child_scale = Vector2(0.7, 0.7)
-metadata/_custom_type_script = "uid://smreqra2kcc2"
-
-[node name="RightWorkspacePrompt" parent="UILayer/Prompts/ScaleContainer" instance=ExtResource("22_g2on7")]
-unique_name_in_owner = true
-layout_mode = 2
-input_event = SubResource("InputEventAction_og1vs")
-auto_update_pressed = true
+theme = ExtResource("11_gqmmt")
+columns = 4
+script = ExtResource("12_yc10j")
 
 [node name="GelLogReport" type="Node" parent="."]
 unique_name_in_owner = true
