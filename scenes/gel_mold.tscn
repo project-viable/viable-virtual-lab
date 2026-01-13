@@ -1,0 +1,291 @@
+[gd_scene load_steps=25 format=3 uid="uid://cys6ccja2bnxo"]
+
+[ext_resource type="Script" uid="uid://ca8jqw4t8cnoh" path="res://scripts/gel_mold.gd" id="1_5cofj"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_ar43o"]
+[ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://scripts/attachment_point.gd" id="2_5cofj"]
+[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="2_5rd3r"]
+[ext_resource type="Script" uid="uid://06juxjpcn4yg" path="res://scripts/gel_state.gd" id="2_yypu3"]
+[ext_resource type="Texture2D" uid="uid://b3jxeuh2e6u2y" path="res://textures/lab_objects/gel_tray_empty.svg" id="3_u177l"]
+[ext_resource type="Script" uid="uid://dewfln6yuchb6" path="res://scripts/subscene_exclusive_area.gd" id="4_of7eg"]
+[ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="5_pmlyu"]
+[ext_resource type="Script" uid="uid://cs1o2bs2ponhi" path="res://scripts/subscene.gd" id="5_u177l"]
+[ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="7_mu26n"]
+[ext_resource type="Script" uid="uid://qeafyaxecqnu" path="res://scripts/substance_access_area.gd" id="8_ljbi8"]
+[ext_resource type="Script" uid="uid://b5a5765epdkf" path="res://scripts/subscene_camera.gd" id="9_xo6pi"]
+[ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="10_xir2l"]
+[ext_resource type="Texture2D" uid="uid://ooipsq06efqf" path="res://textures/lab_objects/gel_zoomed/gel.svg" id="14_gcxvw"]
+[ext_resource type="Texture2D" uid="uid://b0lcbypdklq05" path="res://textures/lab_objects/gel_zoomed/wells_back.svg" id="15_4i1yu"]
+[ext_resource type="Texture2D" uid="uid://clpt141onginf" path="res://textures/lab_objects/gel_zoomed/wells_front.svg" id="16_hox5e"]
+
+[sub_resource type="Resource" id="Resource_yypu3"]
+script = ExtResource("2_yypu3")
+metadata/_custom_type_script = "uid://06juxjpcn4yg"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_of7eg"]
+size = Vector2(74, 25.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5rd3r"]
+size = Vector2(74, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0cqv1"]
+size = Vector2(74, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u177l"]
+size = Vector2(59, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mobf"]
+size = Vector2(74, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cofj"]
+size = Vector2(89, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gcxvw"]
+size = Vector2(675, 55)
+
+[node name="GelMold" type="RigidBody2D"]
+collision_layer = 0
+script = ExtResource("1_5cofj")
+gel_state = SubResource("Resource_yypu3")
+hover_name = "gel mold"
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8.875)
+shape = SubResource("RectangleShape2D_of7eg")
+
+[node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:gel_mold"]]
+position = Vector2(0, 4)
+script = ExtResource("2_5cofj")
+metadata/_custom_type_script = "uid://cvvkvehovfwuy"
+
+[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour"]]
+script = ExtResource("2_5rd3r")
+container_component = NodePath("../ContainerComponent")
+metadata/_custom_type_script = "uid://dr7r4spi6qe72"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea"]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_5rd3r")
+debug_color = Color(0.970892, 0, 0.451665, 0.42)
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="." node_paths=PackedStringArray("source")]
+polygon = PackedVector2Array(-31, -19, 31, -19, 31, -2, -31, -2)
+script = ExtResource("7_mu26n")
+source = NodePath("../ContainerComponent")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("1_ar43o")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="GelTray" type="Sprite2D" parent="SelectableCanvasGroup"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_u177l")
+
+[node name="SubsceneExclusiveArea" type="Area2D" parent="." node_paths=PackedStringArray("camera", "entry_node") groups=["exclusive_area:pipette"]]
+script = ExtResource("4_of7eg")
+camera = NodePath("../Subscene/SubsceneCamera")
+entry_node = NodePath("../Subscene/EntryPoint")
+require_entry_point_shapes = true
+metadata/_custom_type_script = "uid://dewfln6yuchb6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubsceneExclusiveArea"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_0cqv1")
+debug_color = Color(0.553104, 0.562669, 3.85046e-07, 0.42)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SubsceneExclusiveArea" groups=["entry_point"]]
+position = Vector2(-1, -16)
+shape = SubResource("RectangleShape2D_u177l")
+debug_color = Color(0.553104, 0.562669, 3.85046e-07, 0.42)
+
+[node name="ContainerComponent" type="Node2D" parent="."]
+script = ExtResource("5_pmlyu")
+container_volume = 100.0
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+
+[node name="AttachmentInteractableArea" type="Area2D" parent="."]
+position = Vector2(0, -9)
+script = ExtResource("10_xir2l")
+place_prompt = "Insert comb"
+point_groups = Array[StringName]([&"attachment:gel_comb"])
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
+shape = SubResource("RectangleShape2D_2mobf")
+debug_color = Color(0.5893958, 0.54847246, 0, 0.41960785)
+
+[node name="GelTopRef" type="Node2D" parent="."]
+editor_description = "If the gel is above this point, it is considered an acceptable gel."
+position = Vector2(0, -7)
+
+[node name="Subscene" type="ReferenceRect" parent="."]
+top_level = true
+offset_left = 299.0
+offset_top = -260.0
+offset_right = 1525.0
+offset_bottom = 534.0
+script = ExtResource("5_u177l")
+metadata/_custom_type_script = "uid://cs1o2bs2ponhi"
+
+[node name="Well1" type="Node2D" parent="Subscene"]
+position = Vector2(264, 378)
+script = ExtResource("5_pmlyu")
+container_volume = 0.01
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+metadata/_edit_group_ = true
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene/Well1" node_paths=PackedStringArray("source")]
+polygon = PackedVector2Array(48, -36, 125, -36, 125, 3, 118, 16, 36, 17, 36, -18)
+script = ExtResource("7_mu26n")
+source = NodePath("..")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SubstanceAccessArea" type="Area2D" parent="Subscene/Well1" node_paths=PackedStringArray("substance_display")]
+position = Vector2(36, -33)
+script = ExtResource("8_ljbi8")
+substance_display = NodePath("../SubstanceDisplayPolygon")
+metadata/_custom_type_script = "uid://qeafyaxecqnu"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/Well1/SubstanceAccessArea"]
+position = Vector2(44.5, 33)
+shape = SubResource("RectangleShape2D_5cofj")
+
+[node name="Well2" type="Node2D" parent="Subscene"]
+position = Vector2(380, 378)
+script = ExtResource("5_pmlyu")
+container_volume = 0.01
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+metadata/_edit_group_ = true
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene/Well2" node_paths=PackedStringArray("source")]
+polygon = PackedVector2Array(30, -35, 109, -35, 109, 11, 105, 17, 23, 17, 23, -18)
+script = ExtResource("7_mu26n")
+source = NodePath("..")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SubstanceAccessArea" type="Area2D" parent="Subscene/Well2" node_paths=PackedStringArray("substance_display")]
+position = Vector2(31, -13)
+script = ExtResource("8_ljbi8")
+substance_display = NodePath("../SubstanceDisplayPolygon")
+metadata/_custom_type_script = "uid://qeafyaxecqnu"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/Well2/SubstanceAccessArea"]
+position = Vector2(33.5, 13.5)
+shape = SubResource("RectangleShape2D_5cofj")
+
+[node name="Well3" type="Node2D" parent="Subscene"]
+position = Vector2(493, 379)
+script = ExtResource("5_pmlyu")
+container_volume = 0.01
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+metadata/_edit_group_ = true
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene/Well3" node_paths=PackedStringArray("source")]
+polygon = PackedVector2Array(15, -37, 93, -37, 99, -19, 99, 15, 10, 15, 10, -19)
+script = ExtResource("7_mu26n")
+source = NodePath("..")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SubstanceAccessArea" type="Area2D" parent="Subscene/Well3" node_paths=PackedStringArray("substance_display")]
+position = Vector2(21, -14)
+script = ExtResource("8_ljbi8")
+substance_display = NodePath("../SubstanceDisplayPolygon")
+metadata/_custom_type_script = "uid://qeafyaxecqnu"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/Well3/SubstanceAccessArea"]
+position = Vector2(33.5, 13.5)
+shape = SubResource("RectangleShape2D_5cofj")
+
+[node name="Well4" type="Node2D" parent="Subscene"]
+position = Vector2(606, 378)
+script = ExtResource("5_pmlyu")
+container_volume = 0.01
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+metadata/_edit_group_ = true
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene/Well4" node_paths=PackedStringArray("source")]
+polygon = PackedVector2Array(-1, -35, 78, -35, 86, -18, 86, 20, 3, 18, -1, -2)
+script = ExtResource("7_mu26n")
+source = NodePath("..")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SubstanceAccessArea" type="Area2D" parent="Subscene/Well4" node_paths=PackedStringArray("substance_display")]
+position = Vector2(11, -13)
+script = ExtResource("8_ljbi8")
+substance_display = NodePath("../SubstanceDisplayPolygon")
+metadata/_custom_type_script = "uid://qeafyaxecqnu"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/Well4/SubstanceAccessArea"]
+position = Vector2(33.5, 13.5)
+shape = SubResource("RectangleShape2D_5cofj")
+
+[node name="Well5" type="Node2D" parent="Subscene"]
+position = Vector2(719, 378)
+script = ExtResource("5_pmlyu")
+container_volume = 0.01
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+metadata/_edit_group_ = true
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="Subscene/Well5" node_paths=PackedStringArray("source")]
+polygon = PackedVector2Array(-13, -34, 65, -34, 76, -18, 76, 17, -6, 17, -12, 4)
+script = ExtResource("7_mu26n")
+source = NodePath("..")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SubstanceAccessArea" type="Area2D" parent="Subscene/Well5" node_paths=PackedStringArray("substance_display")]
+position = Vector2(1, -14)
+script = ExtResource("8_ljbi8")
+substance_display = NodePath("../SubstanceDisplayPolygon")
+metadata/_custom_type_script = "uid://qeafyaxecqnu"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/Well5/SubstanceAccessArea"]
+position = Vector2(33.5, 13.5)
+shape = SubResource("RectangleShape2D_5cofj")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Subscene"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Subscene/StaticBody2D"]
+polygon = PackedVector2Array(194, 363, 300, 361, 300, 397, 381, 395, 382, 361, 404, 361, 404, 395, 485, 396, 484, 361, 503, 361, 503, 396, 593, 396, 592, 361, 609, 362, 609, 396, 693, 397, 692, 361, 712, 361, 712, 395, 796, 395, 795, 361, 981, 361, 981, 491, 195, 488)
+
+[node name="WellBlockCollision" type="CollisionShape2D" parent="Subscene/StaticBody2D"]
+unique_name_in_owner = true
+position = Vector2(531.5, 381.5)
+shape = SubResource("RectangleShape2D_gcxvw")
+
+[node name="EntryPoint" type="Node2D" parent="Subscene"]
+position = Vector2(362, 60)
+
+[node name="SubsceneCamera" type="Camera2D" parent="Subscene"]
+unique_name_in_owner = true
+position = Vector2(244, 41)
+anchor_mode = 0
+editor_draw_screen = false
+script = ExtResource("9_xo6pi")
+region_size = Vector2(600, 500)
+metadata/_custom_type_script = "uid://b5a5765epdkf"
+
+[node name="Gel" type="Sprite2D" parent="Subscene"]
+z_index = -1
+position = Vector2(547, 445)
+texture = ExtResource("14_gcxvw")
+
+[node name="SubsceneWellSprites" type="Node2D" parent="Subscene/Gel"]
+unique_name_in_owner = true
+
+[node name="WellsBack" type="Sprite2D" parent="Subscene/Gel/SubsceneWellSprites"]
+texture = ExtResource("15_4i1yu")
+
+[node name="WellsFront" type="Sprite2D" parent="Subscene/Gel/SubsceneWellSprites"]
+z_index = 1
+texture = ExtResource("16_hox5e")
+
+[connection signal="object_placed" from="AttachmentInteractableArea" to="." method="_on_attachment_interactable_area_object_placed"]
+[connection signal="object_removed" from="AttachmentInteractableArea" to="." method="_on_attachment_interactable_area_object_removed"]

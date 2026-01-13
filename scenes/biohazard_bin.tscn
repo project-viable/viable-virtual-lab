@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqc2dtt648v3m"]
+
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_85rdh"]
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_jx3lu"]
+[ext_resource type="Texture2D" uid="uid://b0qriex5es36u" path="res://textures/lab_objects/biohazard_bin.svg" id="3_jx3lu"]
+[ext_resource type="Script" uid="uid://boree4ige5a05" path="res://scripts/biohazard_bin_interactable_area.gd" id="5_fus4i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nf2rl"]
+size = Vector2(112, 84)
+
+[node name="BiohazardBin" type="RigidBody2D"]
+script = ExtResource("1_jx3lu")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("1_85rdh")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="BinHazard" type="Sprite2D" parent="SelectableCanvasGroup"]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_jx3lu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nf2rl")
+
+[node name="InteractableArea" type="Area2D" parent="."]
+script = ExtResource("5_fus4i")
+metadata/_custom_type_script = "uid://8jbti40eodk6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+shape = SubResource("RectangleShape2D_nf2rl")

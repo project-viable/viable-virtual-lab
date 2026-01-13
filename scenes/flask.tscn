@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://b5ff3gy87ykja"]
+
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_6iauc"]
+[ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="2_6iauc"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_rr7fa"]
+[ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="3_lx5v4"]
+[ext_resource type="Texture2D" uid="uid://c5pkfaov7ufug" path="res://textures/lab_objects/erlenmeyer_flask.svg" id="5_6iauc"]
+[ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://scripts/pour_use_component.gd" id="6_6iauc"]
+[ext_resource type="Script" uid="uid://dx8btkgbugnyv" path="res://scripts/swirl_use_component.gd" id="8_dyohf"]
+[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="8_e38bm"]
+[ext_resource type="Script" uid="uid://b6fn3sx53tn8l" path="res://scripts/focus_use_component.gd" id="9_dyohf"]
+[ext_resource type="Script" uid="uid://cvhaiwlpqy14p" path="res://scripts/spill_component.gd" id="10_rqua0"]
+
+[node name="Flask" type="RigidBody2D" groups=["emptyable"]]
+collision_layer = 0
+script = ExtResource("1_6iauc")
+hover_name = "flask"
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="ContainerComponent" type="Node2D" parent="."]
+script = ExtResource("2_6iauc")
+container_volume = 350.0
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(0.2, 0.2)
+polygon = PackedVector2Array(-53, -80, -139, 195, -139, 216, -115, 240, 115, 240, 135, 221, 142, 205, 54, -77, 52, -224, 66, -226, 62, -239, -64, -240, -65, -228, -53, -224)
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("2_rr7fa")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="SelectableCanvasGroup" node_paths=PackedStringArray("source")]
+polygon = PackedVector2Array(-25.767942, 41.232254, -21.803572, 46.187668, 21.803572, 46.187668, 25.767942, 41.232254, 8.919676, -14.267899, 8.919676, -46.973465, -8.919676, -46.973465, -8.919676, -15.258963)
+script = ExtResource("3_lx5v4")
+source = NodePath("../../ContainerComponent")
+
+[node name="ErlenmeyerflaskContainer" type="Sprite2D" parent="SelectableCanvasGroup"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_6iauc")
+
+[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour"]]
+script = ExtResource("8_e38bm")
+container_component = NodePath("../ContainerComponent")
+metadata/_custom_type_script = "uid://dr7r4spi6qe72"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ContainerInteractableArea"]
+scale = Vector2(0.2, 0.2)
+polygon = PackedVector2Array(-53, -80, -139, 195, -139, 216, -115, 240, 115, 240, 135, 221, 142, 205, 54, -77, 52, -224, 66, -226, 62, -239, -64, -240, -65, -228, -53, -224)
+
+[node name="SwirlUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container", "node_to_rotate")]
+script = ExtResource("8_dyohf")
+container = NodePath("../ContainerComponent")
+node_to_rotate = NodePath("../SelectableCanvasGroup")
+rotation_center_offset = Vector2(0, -10)
+metadata/_custom_type_script = "uid://c5xu35ldxvqog"
+
+[node name="FocusUseComponent" type="Node2D" parent="."]
+script = ExtResource("9_dyohf")
+top_padding = 20.0
+bottom_padding = 20.0
+metadata/_custom_type_script = "uid://c5xu35ldxvqog"
+
+[node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("spill_component")]
+script = ExtResource("6_6iauc")
+spill_component = NodePath("../SpillComponent")
+metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
+
+[node name="SpillComponent" type="Node2D" parent="." node_paths=PackedStringArray("substance_display_polygon")]
+position = Vector2(-8, -47)
+script = ExtResource("10_rqua0")
+substance_display_polygon = NodePath("../SelectableCanvasGroup/SubstanceDisplayPolygon")

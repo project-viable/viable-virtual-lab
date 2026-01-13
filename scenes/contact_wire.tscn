@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxmqgu76dc3v"]
+
+[ext_resource type="Script" uid="uid://bstdxu8mmw8e6" path="res://scripts/contact_wire.gd" id="1_py2n2"]
+[ext_resource type="Texture2D" uid="uid://c8bk01l556mhm" path="res://textures/icons_and_buttons/contact_positive.svg" id="2_4eh70"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="3_6tvr8"]
+[ext_resource type="Script" uid="uid://8jbti40eodk6" path="res://scripts/interactable_area.gd" id="5_8mduc"]
+[ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://scripts/attachment_point.gd" id="6_4eh70"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_05efo"]
+size = Vector2(12, 14)
+
+[node name="ContactWire" type="RigidBody2D" node_paths=PackedStringArray("interact_canvas_group") groups=["contact_wire", "zoom:power_supply"]]
+collision_layer = 2
+freeze_mode = 1
+script = ExtResource("1_py2n2")
+texture = ExtResource("2_4eh70")
+interact_canvas_group = NodePath("SelectableCanvasGroup")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+z_index = 3
+script = ExtResource("3_6tvr8")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="Sprite2D" type="Sprite2D" parent="SelectableCanvasGroup"]
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("2_4eh70")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_05efo")
+
+[node name="InteractableArea" type="Area2D" parent="."]
+script = ExtResource("5_8mduc")
+metadata/_custom_type_script = "uid://8jbti40eodk6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+shape = SubResource("RectangleShape2D_05efo")
+
+[node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:contact_wire"]]
+position = Vector2(0, 1)
+script = ExtResource("6_4eh70")

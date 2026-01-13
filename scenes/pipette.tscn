@@ -1,0 +1,160 @@
+[gd_scene load_steps=17 format=3 uid="uid://t5vephauatf2"]
+
+[ext_resource type="Script" uid="uid://c42ut7hyyijbv" path="res://scripts/pipette.gd" id="1_yutq4"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_drsrt"]
+[ext_resource type="Texture2D" uid="uid://dy2rxljf87eme" path="res://textures/lab_objects/pipette_plunger.svg" id="3_f8tg8"]
+[ext_resource type="Texture2D" uid="uid://bsexixwy1epg7" path="res://textures/lab_objects/pipette_base.svg" id="4_jnhs8"]
+[ext_resource type="Texture2D" uid="uid://c3cm22o72hi0e" path="res://textures/lab_objects/pipette_tip.svg" id="5_5ngtk"]
+[ext_resource type="Texture2D" uid="uid://b7xuw642wbnf6" path="res://textures/lab_objects/pipette_eject.svg" id="5_pthag"]
+[ext_resource type="Script" uid="uid://duuywc15ufiby" path="res://scripts/pipette_exclusive_object_hitbox.gd" id="6_5ngtk"]
+[ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://scripts/attachment_point.gd" id="6_y22yk"]
+[ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="9_jnhs8"]
+[ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="10_epgtn"]
+[ext_resource type="Script" uid="uid://cs1o2bs2ponhi" path="res://scripts/subscene.gd" id="11_8o06a"]
+[ext_resource type="Script" uid="uid://woiur8v4ue43" path="res://scripts/pipette_use_component.gd" id="11_p68vr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yutq4"]
+size = Vector2(3, 14.4)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f8tg8"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pthag"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8o06a"]
+radius = 8.0
+
+[node name="Pipette" type="RigidBody2D"]
+collision_layer = 0
+script = ExtResource("1_yutq4")
+is_tip_contaminated = true
+hover_name = "micropipette"
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-7, -76, -7, -68, -12, -67, -14, -64, -14, -61, -11, -60, -6, -59, -6, -2, -4, 10, 1, 19, 2, 68, 5, 68, 6, 19, 11, 10, 14, -2, 14, -76)
+
+[node name="TipCollision" type="CollisionShape2D" parent="."]
+position = Vector2(3.5, 75.2)
+shape = SubResource("RectangleShape2D_yutq4")
+disabled = true
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("2_drsrt")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="Plunger" type="Sprite2D" parent="SelectableCanvasGroup"]
+unique_name_in_owner = true
+position = Vector2(2.27374e-13, -9)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_f8tg8")
+
+[node name="PipetteBase" type="Sprite2D" parent="SelectableCanvasGroup"]
+position = Vector2(1.90735e-06, -2.38419e-07)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_jnhs8")
+
+[node name="PipetteEject" type="Sprite2D" parent="SelectableCanvasGroup"]
+position = Vector2(3.8147e-06, -3.8147e-06)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_pthag")
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="SelectableCanvasGroup" node_paths=PackedStringArray("source")]
+visible = false
+polygon = PackedVector2Array(2.7, 67, 4.3, 67, 3.5, 82)
+script = ExtResource("9_jnhs8")
+source = NodePath("../../ContainerComponent")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="PipetteWithTip" type="Sprite2D" parent="SelectableCanvasGroup"]
+visible = false
+position = Vector2(-0.5, 12)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_5ngtk")
+
+[node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:pipette"]]
+position = Vector2(3.5, -60)
+script = ExtResource("6_y22yk")
+
+[node name="ExclusiveObjectHitbox" type="Area2D" parent="."]
+script = ExtResource("6_5ngtk")
+metadata/_custom_type_script = "uid://cmig34nsw7h3"
+
+[node name="NoTipEnd" type="CollisionShape2D" parent="ExclusiveObjectHitbox"]
+position = Vector2(4, 67)
+shape = SubResource("CircleShape2D_f8tg8")
+
+[node name="WithTipEnd" type="CollisionShape2D" parent="ExclusiveObjectHitbox"]
+position = Vector2(4, 82)
+shape = SubResource("CircleShape2D_f8tg8")
+disabled = true
+
+[node name="ContainerComponent" type="Node2D" parent="."]
+script = ExtResource("10_epgtn")
+container_volume = 0.02
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+
+[node name="TipOpeningArea" type="Area2D" parent="."]
+position = Vector2(4, 83)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TipOpeningArea"]
+shape = SubResource("CircleShape2D_pthag")
+
+[node name="UseComponent" type="Node2D" parent="."]
+script = ExtResource("11_p68vr")
+metadata/_custom_type_script = "uid://c5xu35ldxvqog"
+
+[node name="Subscene" type="ReferenceRect" parent="."]
+top_level = true
+offset_left = 469.0
+offset_top = -987.0
+offset_right = 1116.0
+offset_bottom = 648.0
+script = ExtResource("11_8o06a")
+metadata/_custom_type_script = "uid://cs1o2bs2ponhi"
+
+[node name="SubscenePipette" type="CharacterBody2D" parent="Subscene"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Subscene/SubscenePipette"]
+polygon = PackedVector2Array(276, 862, 359, 862, 359, 886, 337, 945, 324, 1415, 307, 1416, 296, 943, 275, 886)
+
+[node name="PipetteBase" type="Sprite2D" parent="Subscene/SubscenePipette"]
+position = Vector2(281, 751)
+scale = Vector2(2, 2)
+texture = ExtResource("4_jnhs8")
+
+[node name="SubsceneSubstanceDisplay" type="Polygon2D" parent="Subscene/SubscenePipette" node_paths=PackedStringArray("source")]
+unique_name_in_owner = true
+polygon = PackedVector2Array(307, 1417, 323, 1417, 317, 1580, 314, 1580)
+script = ExtResource("9_jnhs8")
+source = NodePath("../../../ContainerComponent")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SubsceneTip" type="Sprite2D" parent="Subscene/SubscenePipette"]
+unique_name_in_owner = true
+position = Vector2(275, 876)
+scale = Vector2(2, 2)
+texture = ExtResource("5_5ngtk")
+
+[node name="SubsceneTipCollision" type="CollisionPolygon2D" parent="Subscene/SubscenePipette"]
+unique_name_in_owner = true
+polygon = PackedVector2Array(287, 1155, 342, 1155, 319, 1581, 312, 1580)
+
+[node name="SubsceneTipOpeningArea" type="Area2D" parent="Subscene/SubscenePipette"]
+unique_name_in_owner = true
+position = Vector2(316, 1580)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Subscene/SubscenePipette/SubsceneTipOpeningArea"]
+position = Vector2(-1, 0)
+shape = SubResource("CircleShape2D_8o06a")
+
+[connection signal="entered_purview_of" from="ExclusiveObjectHitbox" to="." method="_on_exclusive_object_hitbox_entered_purview_of"]
+[connection signal="left_purview_of" from="ExclusiveObjectHitbox" to="." method="_on_exclusive_object_hitbox_left_purview_of"]

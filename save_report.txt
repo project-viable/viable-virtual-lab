@@ -1,0 +1,28 @@
+Final Report
+
+Preparing The Gel
+
+0.0 mL of agarose powder add to 
+0.0 mL of TAE Buffer is in the gel
+___ heated for ___ minutes
+___ heated to ___ degrees Celsius
+Gel is not thoroughly mixed 
+
+Gel Electrophoresis Process
+
+0.0 mL of TAE Buffer poured into GelRig
+The gel comb has not been placed properly
+Electrodes have not been correctly plugged into the power supply and gel rig
+0 volts ran through the gel
+0 volts run for 0 minutes
+It took 0 minutes for gel to be analyzed in imager
+
+Gel Analysis
+
+The gel's concentration is 0%
+The maximum each well can hold is 0 mL
+The used wells hold  mLs of dna samples, respectively
+The dna samples had fragment sizes of 
+
+Final results
+

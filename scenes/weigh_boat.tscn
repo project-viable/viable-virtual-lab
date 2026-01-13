@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://cgju3rlfrqslw"]
+
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_ngt2v"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_4pv8k"]
+[ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="2_ukqvd"]
+[ext_resource type="Texture2D" uid="uid://bp4k3b1irg7n2" path="res://textures/lab_objects/weigh_boat.svg" id="4_ngt2v"]
+[ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="5_axhbs"]
+[ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://scripts/pour_use_component.gd" id="6_8osh1"]
+[ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="6_fafn4"]
+[ext_resource type="Script" uid="uid://cvhaiwlpqy14p" path="res://scripts/spill_component.gd" id="8_xaqjm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4pv8k"]
+size = Vector2(108, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8osh1"]
+size = Vector2(108, 15)
+
+[node name="WeighBoat" type="RigidBody2D" groups=["zoom:scale"]]
+script = ExtResource("1_ngt2v")
+hover_name = "weigh boat"
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_4pv8k")
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("2_4pv8k")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="WeighBoat" type="Sprite2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, -15)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_ngt2v")
+
+[node name="ContainerComponent" type="Node2D" parent="."]
+script = ExtResource("5_axhbs")
+container_volume = 25.0
+container_mass = 6.0
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"
+
+[node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("spill_component")]
+script = ExtResource("6_8osh1")
+spill_component = NodePath("../SpillComponent")
+tilt_angle = -0.785
+metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
+
+[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour", "container:scoop"]]
+script = ExtResource("6_fafn4")
+container_component = NodePath("../ContainerComponent")
+metadata/_custom_type_script = "uid://dr7r4spi6qe72"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ContainerInteractableArea"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_8osh1")
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="." node_paths=PackedStringArray("source")]
+visible = false
+position = Vector2(0.5053749, 0)
+scale = Vector2(1.0107527, 1)
+polygon = PackedVector2Array(-47, -1, -38, 7, 37.095745, 7, 46, -1)
+script = ExtResource("2_ukqvd")
+source = NodePath("../ContainerComponent")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="SpillComponent" type="Node2D" parent="." node_paths=PackedStringArray("substance_display_polygon")]
+position = Vector2(-47.29985, -0.6802349)
+script = ExtResource("8_xaqjm")
+substance_display_polygon = NodePath("../SubstanceDisplayPolygon")
+metadata/_custom_type_script = "uid://cvhaiwlpqy14p"

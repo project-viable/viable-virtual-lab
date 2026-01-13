@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1312pttnmcfe"]
-
-[ext_resource type="Script" uid="uid://bksw1ekvatcde" path="res://Scripts/Substances/GelModule/BinderSubstance.gd" id="1"]
-
-[node name="BinderSubstance" type="Node2D" groups=["Chillable", "Conductive", "Heatable", "Ionic Substance", "Liquid Substance", "Mixable", "Weighable"]]
-script = ExtResource("1")

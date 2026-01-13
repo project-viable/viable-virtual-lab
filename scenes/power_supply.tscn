@@ -1,0 +1,432 @@
+[gd_scene load_steps=26 format=3 uid="uid://b4q3npoc5c7fy"]
+
+[ext_resource type="Script" uid="uid://bepsdcjab3t21" path="res://scripts/power_supply.gd" id="1_7lagc"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_80iu8"]
+[ext_resource type="Texture2D" uid="uid://bi5tvuv5gh5u" path="res://textures/lab_objects/powerbox.svg" id="3_7lagc"]
+[ext_resource type="Texture2D" uid="uid://crtq0m4w5xpmy" path="res://textures/icons_and_buttons/plus_symbol.svg" id="7_5dnns"]
+[ext_resource type="Script" uid="uid://brj1u83e5o6i6" path="res://scripts/terminal_attachment.gd" id="7_07yqv"]
+[ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="7_r5man"]
+[ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://textures/icons_and_buttons/button_2.svg" id="8_5dnns"]
+[ext_resource type="Texture2D" uid="uid://spcel0l2t7ec" path="res://textures/icons_and_buttons/minus_symbol.svg" id="8_07yqv"]
+[ext_resource type="Script" uid="uid://dqaivlcqhms8h" path="res://scripts/time_line_edit.gd" id="8_agml6"]
+[ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="8_jimdi"]
+[ext_resource type="Script" uid="uid://chvv2ne60otwi" path="res://scripts/wire_connection.gd" id="9_07yqv"]
+[ext_resource type="Script" uid="uid://0k2e5xj6bo7p" path="res://scripts/voltage_line_edit.gd" id="9_agml6"]
+[ext_resource type="Script" uid="uid://bk0s8v1tcwcmr" path="res://scripts/lab_timer.gd" id="12_7xsxk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_80iu8"]
+size = Vector2(98, 38)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k6dxr"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7lagc"]
+radius = 7.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_46x6c"]
+size = Vector2(48, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_46x6c"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pbs0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_agml6"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_07yqv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5dnns"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ij5hy"]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5man"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xsxk"]
+draw_center = false
+
+[node name="PowerSupply" type="RigidBody2D" node_paths=PackedStringArray("increment_time_button", "decrement_time_button", "increment_volts_button", "decrement_volts_button", "time_line_edit", "voltage_line_edit")]
+collision_layer = 0
+script = ExtResource("1_7lagc")
+increment_time_button = NodePath("Screen/ZoomAwareControl/IncrementTime")
+decrement_time_button = NodePath("Screen/ZoomAwareControl/DecrementTime")
+increment_volts_button = NodePath("Screen/ZoomAwareControl/IncrementVolts")
+decrement_volts_button = NodePath("Screen/ZoomAwareControl/DecrementVolts")
+time_line_edit = NodePath("Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit")
+voltage_line_edit = NodePath("Screen/ZoomAwareControl/VoltageContainer/HBoxContainer/VoltageLineEdit")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("1_80iu8")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="PowerBox" type="Sprite2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, -8)
+scale = Vector2(0.174763, 0.174763)
+texture = ExtResource("3_7lagc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_80iu8")
+
+[node name="PlusSymbol" type="Sprite2D" parent="."]
+position = Vector2(-36, -12)
+scale = Vector2(0.0155412, 0.0155412)
+texture = ExtResource("7_5dnns")
+
+[node name="MinusSymbol" type="Sprite2D" parent="."]
+position = Vector2(-36, 4)
+scale = Vector2(0.016, 0.016)
+texture = ExtResource("8_07yqv")
+
+[node name="AttachmentPostiveOutlet" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
+position = Vector2(-36, -11)
+script = ExtResource("7_07yqv")
+selectable_canvas_group = NodePath("../SelectableCanvasGroup")
+point_groups = Array[StringName]([&"attachment:contact_wire"])
+metadata/_custom_type_script = "uid://brj1u83e5o6i6"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentPostiveOutlet"]
+shape = SubResource("CircleShape2D_k6dxr")
+debug_color = Color(0.960415, 0, 0.51616, 0.42)
+
+[node name="AttachmentNegativeOutlet" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
+position = Vector2(-36, 5)
+script = ExtResource("7_07yqv")
+terminal_charge = 1
+selectable_canvas_group = NodePath("../SelectableCanvasGroup")
+point_groups = Array[StringName]([&"attachment:contact_wire"])
+metadata/_custom_type_script = "uid://brj1u83e5o6i6"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentNegativeOutlet"]
+shape = SubResource("CircleShape2D_7lagc")
+debug_color = Color(0.799247, 0.420694, 0.0500949, 0.42)
+
+[node name="ZoomCamera" type="Camera2D" parent="."]
+zoom = Vector2(4.5, 4.5)
+position_smoothing_speed = 20.0
+
+[node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("area_camera", "click_area")]
+script = ExtResource("7_r5man")
+area_camera = NodePath("../ZoomCamera")
+search_groups = Array[StringName]([&"zoom:power_supply"])
+search_radius = 300.0
+click_area = NodePath("../Screen")
+metadata/_custom_type_script = "uid://ciw88e6ajyksw"
+
+[node name="Screen" type="Area2D" parent="."]
+z_index = 1
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Screen"]
+position = Vector2(-2, -3)
+shape = SubResource("RectangleShape2D_46x6c")
+
+[node name="ZoomAwareControl" type="Control" parent="Screen"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_jimdi")
+metadata/_custom_type_script = "uid://kqpdop5g7bqv"
+
+[node name="StartButton" type="Button" parent="Screen/ZoomAwareControl"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 25.0
+offset_top = -8.0
+offset_right = 43.0
+offset_bottom = 3.0
+mouse_default_cursor_shape = 2
+
+[node name="StartLabel" type="Label" parent="Screen/ZoomAwareControl/StartButton"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 42.0
+offset_bottom = 28.0
+scale = Vector2(0.388818, 0.388818)
+text = "Start"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeContainer" type="PanelContainer" parent="Screen/ZoomAwareControl"]
+layout_mode = 0
+offset_left = -24.0
+offset_top = -11.0
+offset_right = 83.0
+offset_bottom = 10.0
+scale = Vector2(0.3, 0.3)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_46x6c")
+metadata/_edit_group_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Screen/ZoomAwareControl/TimeContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TimeString" type="Label" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/outline_size = 0
+text = "Time:"
+
+[node name="TimeLabel" type="Label" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "00:00"
+
+[node name="TimeLineEdit" type="LineEdit" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel" node_paths=PackedStringArray("power_supply")]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -9.5
+offset_bottom = 9.5
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 10
+focus_mode = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_4pbs0")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_agml6")
+theme_override_styles/focus = SubResource("StyleBoxFlat_07yqv")
+alignment = 2
+max_length = 4
+caret_blink = true
+caret_mid_grapheme = true
+script = ExtResource("8_agml6")
+power_supply = NodePath("../../../../../..")
+
+[node name="VoltageContainer" type="PanelContainer" parent="Screen/ZoomAwareControl"]
+layout_mode = 0
+offset_left = -24.0
+offset_top = -2.0
+offset_right = 83.0
+offset_bottom = 19.0
+scale = Vector2(0.3, 0.3)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5dnns")
+metadata/_edit_group_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Screen/ZoomAwareControl/VoltageContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VoltageString" type="Label" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Voltage:"
+
+[node name="VoltageLineEdit" type="LineEdit" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer" node_paths=PackedStringArray("power_supply")]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0.223529, 0.627451, 0.776471, 0.552941)
+theme_override_constants/minimum_character_width = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_ij5hy")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_r5man")
+theme_override_styles/focus = SubResource("StyleBoxFlat_7xsxk")
+text = "50"
+alignment = 2
+max_length = 3
+expand_to_text_length = true
+caret_blink = true
+script = ExtResource("9_agml6")
+power_supply = NodePath("../../../../..")
+
+[node name="VLabel" type="Label" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "V"
+
+[node name="IncrementTime" type="TextureButton" parent="Screen/ZoomAwareControl"]
+self_modulate = Color(0.982343, 0.982342, 0.982342, 1)
+layout_mode = 0
+offset_left = 11.0
+offset_top = -13.0
+offset_right = 1035.0
+offset_bottom = 755.0
+scale = Vector2(0.00813575, 0.00813575)
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("8_5dnns")
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Screen/ZoomAwareControl/IncrementTime"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -176.0
+offset_right = 64.0
+offset_bottom = 286.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 300
+text = "^"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DecrementTime" type="TextureButton" parent="Screen/ZoomAwareControl"]
+self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
+layout_mode = 0
+offset_left = 11.0
+offset_top = -9.0
+offset_right = 1035.0
+offset_bottom = 759.0
+scale = Vector2(0.00813575, 0.00813575)
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("8_5dnns")
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Screen/ZoomAwareControl/DecrementTime"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 102.57
+offset_top = 230.57
+offset_right = 307.57
+offset_bottom = 761.57
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.14159
+theme_override_font_sizes/font_size = 300
+text = "^"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IncrementVolts" type="TextureButton" parent="Screen/ZoomAwareControl"]
+self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
+layout_mode = 0
+offset_left = 11.0
+offset_top = -4.0
+offset_right = 1035.0
+offset_bottom = 764.0
+scale = Vector2(0.00813575, 0.00813575)
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("8_5dnns")
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Screen/ZoomAwareControl/IncrementVolts"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -176.0
+offset_right = 64.0
+offset_bottom = 286.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 300
+text = "^"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DecrementVolts" type="TextureButton" parent="Screen/ZoomAwareControl"]
+self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
+layout_mode = 0
+offset_left = 11.0
+offset_right = 1035.0
+offset_bottom = 768.0
+scale = Vector2(0.00813575, 0.00813575)
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("8_5dnns")
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Screen/ZoomAwareControl/DecrementVolts"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 102.57
+offset_top = 230.57
+offset_right = 307.57
+offset_bottom = 761.57
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 3.14159
+theme_override_font_sizes/font_size = 300
+text = "^"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+editor_description = "Used to change how fast the values of Time and Voltage increases or decreases"
+wait_time = 0.15
+
+[node name="WireConnectableComponent" type="Node2D" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("9_07yqv")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://chvv2ne60otwi"
+
+[node name="LabTimer" type="Node" parent="."]
+script = ExtResource("12_7xsxk")
+one_shot = true
+metadata/_custom_type_script = "uid://bk0s8v1tcwcmr"
+
+[connection signal="object_placed" from="AttachmentPostiveOutlet" to="AttachmentPostiveOutlet" method="_on_object_placed"]
+[connection signal="object_removed" from="AttachmentPostiveOutlet" to="WireConnectableComponent" method="unplug_handler"]
+[connection signal="wire_connected" from="AttachmentPostiveOutlet" to="WireConnectableComponent" method="on_wire_connected"]
+[connection signal="object_placed" from="AttachmentNegativeOutlet" to="AttachmentNegativeOutlet" method="_on_object_placed"]
+[connection signal="object_removed" from="AttachmentNegativeOutlet" to="WireConnectableComponent" method="unplug_handler"]
+[connection signal="wire_connected" from="AttachmentNegativeOutlet" to="WireConnectableComponent" method="on_wire_connected"]
+[connection signal="pressed" from="Screen/ZoomAwareControl/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="editing_toggled" from="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" to="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" method="_on_editing_toggled"]
+[connection signal="text_changed" from="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" to="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" method="_on_time_line_edit_text_changed"]
+[connection signal="text_changed" from="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer/VoltageLineEdit" to="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer/VoltageLineEdit" method="_on_voltage_line_edit_text_changed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="terminals_connected" from="WireConnectableComponent" to="." method="_on_wire_connection"]
