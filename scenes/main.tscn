@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=36 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -18,6 +18,8 @@
 [ext_resource type="Script" uid="uid://bmdn4p40xeusb" path="res://scripts/menu_screen_manager.gd" id="15_og1vs"]
 [ext_resource type="Script" uid="uid://d87mq61qhuq8" path="res://scripts/menu_screen.gd" id="16_2wyq8"]
 [ext_resource type="FontFile" path="res://fonts/roboto_medium_28.tres" id="16_gpyrr"]
+[ext_resource type="Script" uid="uid://cnuiybm68m7ub" path="res://scripts/journal.gd" id="16_y6deb"]
+[ext_resource type="Script" uid="uid://dkacpjq2t2mj1" path="res://scripts/preprocessed_rich_text_label.gd" id="17_og1vs"]
 [ext_resource type="Texture2D" uid="uid://g570l32ipee5" path="res://textures/main_menu_logo.png" id="18_pm3ni"]
 [ext_resource type="Script" uid="uid://kxslh01sq2ny" path="res://scripts/menu_screen_button.gd" id="19_vxglm"]
 [ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://scenes/interaction_prompt.tscn" id="22_g2on7"]
@@ -289,7 +291,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.8156863)
 
-[node name="Journal" type="Panel" parent="UILayer"]
+[node name="Journal" type="PanelContainer" parent="UILayer" node_paths=PackedStringArray("back_button", "forward_button", "journal_label")]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -300,24 +302,50 @@ offset_right = -100.0
 offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("16_y6deb")
+back_button = NodePath("VBoxContainer/HBoxContainer/BackButton")
+forward_button = NodePath("VBoxContainer/HBoxContainer/ForwardButton")
+journal_label = NodePath("VBoxContainer/PreprocessedRichTextLabel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Journal"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Journal/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/Journal/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"MenuScreenTitleLabel"
+text = "Journal"
+
+[node name="BackButton" type="Button" parent="UILayer/Journal/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+text = "←"
+
+[node name="ForwardButton" type="Button" parent="UILayer/Journal/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "→
+"
+
+[node name="PreprocessedRichTextLabel" type="RichTextLabel" parent="UILayer/Journal/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+script = ExtResource("17_og1vs")
+metadata/_custom_type_script = "uid://dkacpjq2t2mj1"
 
 [node name="Button" type="Button" parent="UILayer/Journal"]
 visible = false
-layout_mode = 0
-offset_left = 467.0
-offset_top = 460.0
-offset_right = 597.0
-offset_bottom = 500.0
+layout_mode = 2
 text = "Download Report"
 
 [node name="ReportText" type="RichTextLabel" parent="UILayer/Journal"]
 unique_name_in_owner = true
 visible = false
-layout_mode = 0
-offset_left = 17.0
-offset_top = 21.0
-offset_right = 1066.0
-offset_bottom = 451.0
+layout_mode = 2
 
 [node name="FileDialog" type="FileDialog" parent="UILayer/Journal"]
 unique_name_in_owner = true
