@@ -9,3 +9,4 @@ var cursor_area: Area2D
 var debug_overlay: DebugOverlay
 
 var report_log: GelLogReport
+var journal: Journal

@@ -54,6 +54,7 @@ func _ready() -> void:
 	Game.cursor_area = $%CursorArea
 	Game.debug_overlay = $%DebugOverlay
 	Game.report_log = $%GelLogReport
+	Game.journal = %Journal
 
 	$%SubsceneViewport.world_2d = Subscenes.main_world_2d
 

@@ -20,6 +20,9 @@ const MAX_SLIDES: int = 5
 
 ## Name displayed in the "pick up" button prompt.
 @export var hover_name: String = ""
+## Path, relative to [code]res://journal_pages/[/code], to the help page for this object. If this is
+## empty, then there will be no help prompt.
+@export var help_page_path: String = ""
 ## Determines the physics of an object whether it free or kinematic
 @export var physics_mode: PhysicsMode = PhysicsMode.FREE
 ## [SelectableCanvasGroup] that will be outlined when hovered and can be clicked to pick this
@@ -44,6 +47,7 @@ const MAX_SLIDES: int = 5
 
 var _pick_up_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up")
 var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
+var _help_interaction := InteractInfo.new(InteractInfo.Kind.HELP, "Open help page")
 
 ## Keeps track of collision layers of any child physics objects. For example, the scale has a child
 ## [StaticBody2D] with one-way collision that acts as the surface for objects to be set on, which
@@ -67,6 +71,7 @@ func _ready() -> void:
 	if not hover_name.is_empty():
 		_pick_up_interaction.description += " %s" % [hover_name]
 		_put_down_interaction.description += " %s" % [hover_name]
+		_help_interaction.description += " for %s" % [hover_name]
 
 	# Needed by `Interaction` to find this object.
 	add_to_group(&"interactable_component")
@@ -129,28 +134,40 @@ func _physics_process(delta: float) -> void:
 			set_physics_mode(PhysicsMode.FREE)
 
 func get_interactions() -> Array[InteractInfo]:
-	if is_active():
-		if disable_drop: return []
-		else: return [_put_down_interaction]
-	else:
-		return [_pick_up_interaction]
+	var interactions: Array[InteractInfo] = []
+	if not help_page_path.is_empty():
+		interactions.push_back(_help_interaction)
 
-func start_targeting(_k: InteractInfo.Kind) -> void:
-	if not is_active():
+	if is_active():
+		if not disable_drop:
+			interactions.push_back(_put_down_interaction)
+	else:
+		interactions.push_back(_pick_up_interaction)
+
+	return interactions
+
+func start_targeting(k: InteractInfo.Kind) -> void:
+	if k == InteractInfo.Kind.PRIMARY and not is_active():
 		if interact_canvas_group: interact_canvas_group.is_outlined = true
 		Cursor.mode = Cursor.Mode.OPEN
 
-func stop_targeting(_kind: InteractInfo.Kind) -> void:
+func stop_targeting(k: InteractInfo.Kind) -> void:
 	# We want to stop highlighting if we moved the mouse off of the object *or* if we picked it up
 	# (and therefore stopped targeting the "pick up" interaction in favor of the "put down"
 	# interaction).
-	if interact_canvas_group: interact_canvas_group.is_outlined = false
-	if not is_active():
-		Cursor.mode = Cursor.Mode.POINTER
+	if k == InteractInfo.Kind.PRIMARY:
+		if interact_canvas_group: interact_canvas_group.is_outlined = false
+		if not is_active():
+			Cursor.mode = Cursor.Mode.POINTER
 
-func start_interact(_kind: InteractInfo.Kind) -> void:
-	if is_active(): stop_dragging()
-	else: start_dragging()
+func start_interact(k: InteractInfo.Kind) -> void:
+	match k:
+		InteractInfo.Kind.PRIMARY:
+			if is_active(): stop_dragging()
+			else: start_dragging()
+		InteractInfo.Kind.HELP:
+			Game.journal.go_to_page(help_page_path)
+			Game.journal.open()
 
 func stop_interact(_kind: InteractInfo.Kind) -> void:
 	pass

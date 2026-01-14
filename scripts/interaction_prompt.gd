@@ -94,7 +94,7 @@ func _show_text_in_key(s: String) -> void:
 
 func _mouse_button_to_texture(button_index: int) -> Texture2D:
 	match button_index:
-		MOUSE_BUTTON_LEFT: 
+		MOUSE_BUTTON_LEFT:
 			if _should_show_as_pressed(): return MOUSE_LEFT_PRESSED
 			else: return MOUSE_LEFT
 		MOUSE_BUTTON_MIDDLE: return MOUSE_MIDDLE

@@ -21,6 +21,12 @@ func _ready() -> void:
 	go_to_page("test.txt")
 	_update_history_buttons()
 
+func open() -> void:
+	Game.main.set_journal_open(true)
+
+func close() -> void:
+	Game.main.set_journal_open(false)
+
 ## Attempt to load the page [param path] ,given as a path relative to [const PAGE_ROOT]. If the file
 ## fails to load, do nothing and return [code]false[/code]. Otherwise, go to the page, add it to
 ## the history stack, and return [code]true[/code].

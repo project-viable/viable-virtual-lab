@@ -12,6 +12,7 @@ enum Kind
 	INSPECT, ## E by default. Used to zoom in on things.
 	LEFT, ## A by default.
 	RIGHT, ## D by default.
+	HELP, ## H by default.
 }
 
 
@@ -48,4 +49,5 @@ static func kind_to_action(k: Kind) -> StringName:
 		Kind.INSPECT: return &"interact_inspect"
 		Kind.LEFT: return &"interact_left"
 		Kind.RIGHT: return &"interact_right"
+		Kind.HELP: return &"interact_help"
 		_: return &""
