@@ -30,4 +30,3 @@ func _unhandled_input(e: InputEvent) -> void:
 	elif e.is_released() and state.is_pressed:
 		state._stop_interact()
 		get_viewport().set_input_as_handled()
-

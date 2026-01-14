@@ -76,6 +76,7 @@ process_mode = 1
 
 [node name="ContentScaledSubViewportContainer" type="TextureRect" parent="SceneLayer"]
 unique_name_in_owner = true
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -86,12 +87,16 @@ metadata/_custom_type_script = "uid://dmoeu8vq1th7i"
 
 [node name="MainViewport" type="SubViewport" parent="SceneLayer/ContentScaledSubViewportContainer"]
 unique_name_in_owner = true
+process_mode = 3
 physics_object_picking = true
 size_2d_override = Vector2i(1280, 720)
 size_2d_override_stretch = true
 
 [node name="Scene" type="Node2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
 unique_name_in_owner = true
+
+[node name="SceneInputHandler" type="Node2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+process_mode = 3
 script = ExtResource("8_kpxdo")
 
 [node name="CursorArea" type="Area2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
