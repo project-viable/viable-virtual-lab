@@ -109,6 +109,7 @@ border_color = Color(0.027011849, 0.08319571, 0.16097033, 1)
 [resource]
 default_font = ExtResource("7")
 Button/colors/font_color = Color(0.7529412, 0.9254902, 1, 1)
+Button/colors/font_disabled_color = Color(0.5271, 0.6475, 0.7, 0.7)
 Button/colors/font_hover_color = Color(0, 0.20392157, 0.3019608, 1)
 Button/colors/font_hover_pressed_color = Color(0, 0.20392157, 0.3019608, 1)
 Button/colors/font_pressed_color = Color(0, 0.20392157, 0.3019608, 1)
