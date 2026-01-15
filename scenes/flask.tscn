@@ -15,6 +15,7 @@
 collision_layer = 0
 script = ExtResource("1_6iauc")
 hover_name = "flask"
+help_page_path = "containers.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="ContainerComponent" type="Node2D" parent="."]

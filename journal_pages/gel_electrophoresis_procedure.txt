@@ -3,6 +3,8 @@
 #{h2:Equipment}#
 [ul]
 [url="pipette.txt"]Pipette[/url]
+[url="containers.txt"]Graduated cylinder[/url]
+[url="containers.txt"]Erlenmeyer flask[/url]
 [/ul]
 
 #{h2:To make the gel}#
