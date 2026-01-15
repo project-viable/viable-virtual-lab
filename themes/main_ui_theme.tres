@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=22 format=3 uid="uid://dnl552a0ac6ua"]
+[gd_resource type="Theme" load_steps=23 format=3 uid="uid://dnl552a0ac6ua"]
 
 [ext_resource type="StyleBox" uid="uid://bxkqkk5kh16ts" path="res://themes/background_stylebox.tres" id="1"]
 [ext_resource type="StyleBox" uid="uid://xx64mutayadc" path="res://themes/button_normal_stylebox.tres" id="2"]
@@ -10,6 +10,7 @@
 [ext_resource type="StyleBox" path="res://themes/grabber_pressed.tres" id="9"]
 [ext_resource type="StyleBox" uid="uid://dcihb8l1xtsiy" path="res://themes/nested_panel_stylebox.tres" id="9_aca5h"]
 [ext_resource type="StyleBox" uid="uid://cx7s3i6l2su3m" path="res://themes/grabber.tres" id="10"]
+[ext_resource type="FontFile" uid="uid://6w3vjxe8ci0e" path="res://fonts/Roboto/Roboto-Bold.ttf" id="11_fxk7p"]
 [ext_resource type="FontFile" uid="uid://dbryrhxi7xyiv" path="res://fonts/Roboto/Roboto-BoldItalic.ttf" id="12_6vhyt"]
 [ext_resource type="FontFile" uid="uid://hlq8gp5eo1ht" path="res://fonts/Roboto/Roboto-MediumItalic.ttf" id="13_4tmxm"]
 
@@ -156,7 +157,7 @@ PopupMenu/colors/font_hover_color = Color(0, 0.20392157, 0.3019608, 1)
 PopupMenu/styles/hover = ExtResource("6")
 PopupMenu/styles/panel = ExtResource("2")
 RichTextLabel/colors/default_color = Color(0.522246, 0.76089644, 0.82420874, 1)
-RichTextLabel/fonts/bold_font = null
+RichTextLabel/fonts/bold_font = ExtResource("11_fxk7p")
 RichTextLabel/fonts/bold_italics_font = ExtResource("12_6vhyt")
 RichTextLabel/fonts/italics_font = ExtResource("13_4tmxm")
 RichTextLabel/styles/normal = ExtResource("9_aca5h")
