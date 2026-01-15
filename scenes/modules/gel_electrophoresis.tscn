@@ -142,6 +142,7 @@ metadata/_custom_type_script = "uid://6lhyc3i5obbu"
 [node name="ProcedureOpener" type="Node" parent="."]
 script = ExtResource("1_wv41k")
 journal_page_path = "gel_electrophoresis_procedure.txt"
+initial_help_page_path = "usage.txt"
 
 [node name="BackgroundWall" type="Sprite2D" parent="."]
 z_index = -2

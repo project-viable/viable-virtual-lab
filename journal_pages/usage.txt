@@ -1,0 +1,5 @@
+[font_size=20]Basic usage[/font_size]
+
+Underlined text in the journal can be clicked to open a help page for that topic in this panel. For example, try clicking on [url="go_back.txt"]this link[/url]. You can navigate backward and forward in the help page history using the left and right arrow buttons above, respectively.
+
+Certain objects in the scene have help pages associated with them. While hovering or holding an object, press #{prompt:interact_help}# to open its help page.
