@@ -30,6 +30,7 @@ collision_layer = 0
 script = ExtResource("1_yutq4")
 is_tip_contaminated = true
 hover_name = "micropipette"
+help_page_path = "pipette.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

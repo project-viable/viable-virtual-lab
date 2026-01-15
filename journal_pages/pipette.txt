@@ -1,0 +1,5 @@
+[font_size=20]Pipette[/font_size]
+
+While holding the pipette, hold down #{prompt:interact_secondary}# or #{prompt:interact_tertiary}# to press the plunger to the first stop. While still holding down the first button, hold down the other button to press the plunger to the second stop.
+
+While holding the pipette, hover over the pipette tip box and press #{prompt:interact_primary}# to attach a tip. To dispose of the tip after using it, hover the pipette over the waste bin and press #{prompt:interact_primary}#.
