@@ -364,20 +364,10 @@ script = ExtResource("21_kobiv")
 [node name="RedContactWire" parent="Objects/ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
 unique_name_in_owner = true
 position = Vector2(686, 455)
-help_page_path = null
-physics_mode = ""
-enable_interaction = null
-disable_follow_cursor = true
-depth_layer_to_drop_in = false
 
 [node name="RedContactWire2" parent="Objects/ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
 unique_name_in_owner = true
 position = Vector2(718, 455)
-help_page_path = null
-physics_mode = ""
-enable_interaction = null
-disable_follow_cursor = true
-depth_layer_to_drop_in = false
 
 [node name="BlackContactWires" type="Node2D" parent="Objects/ContactWires"]
 
@@ -385,21 +375,11 @@ depth_layer_to_drop_in = false
 unique_name_in_owner = true
 position = Vector2(686, 479)
 texture = ExtResource("22_kobiv")
-help_page_path = null
-physics_mode = ""
-enable_interaction = null
-disable_follow_cursor = true
-depth_layer_to_drop_in = false
 
 [node name="BlackContactWire2" parent="Objects/ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
 unique_name_in_owner = true
 position = Vector2(718, 479)
 texture = ExtResource("22_kobiv")
-help_page_path = null
-physics_mode = ""
-enable_interaction = null
-disable_follow_cursor = true
-depth_layer_to_drop_in = false
 
 [node name="GelComb" parent="Objects" instance=ExtResource("30_bi4rt")]
 position = Vector2(1723, 487)
