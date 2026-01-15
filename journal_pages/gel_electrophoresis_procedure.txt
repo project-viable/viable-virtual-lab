@@ -1,10 +1,9 @@
 #{h1:Gel electrophoresis procedure}#
 
-#{h2:Equipment}#
+#{h2:Relevant help pages}#
 [ul]
 [url="pipette.txt"]Pipette[/url]
-[url="containers.txt"]Graduated cylinder[/url]
-[url="containers.txt"]Erlenmeyer flask[/url]
+[url="containers.txt"]Containers[/url]
 [/ul]
 
 #{h2:To make the gel}#
