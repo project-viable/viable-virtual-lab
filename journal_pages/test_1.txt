@@ -1,3 +1,0 @@
-[font_size=20]Help for thing[/font_size]
-
-This is the help for the other thing.

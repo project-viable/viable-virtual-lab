@@ -1,6 +1,7 @@
-[gd_scene load_steps=54 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=55 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://byucr1dj248ga" path="res://textures/environment/wall.svg" id="1_5fdni"]
+[ext_resource type="Script" uid="uid://b8p3xdpo3orid" path="res://scripts/journal_page_opener.gd" id="1_wv41k"]
 [ext_resource type="Texture2D" uid="uid://b0t52m7oh3lrt" path="res://textures/environment/white.svg" id="2_7cn0u"]
 [ext_resource type="PackedScene" uid="uid://b5ff3gy87ykja" path="res://scenes/flask.tscn" id="2_e4xug"]
 [ext_resource type="PackedScene" uid="uid://b7ygbkawlsvn8" path="res://scenes/graduated_cylinder.tscn" id="3_iy3xr"]
@@ -120,11 +121,11 @@ fragments = Dictionary[int, ExtResource("25_nbx6y")]({
 })
 metadata/_custom_type_script = "uid://6lhyc3i5obbu"
 
-[sub_resource type="Resource" id="Resource_bioxv"]
+[sub_resource type="Resource" id="Resource_3syhc"]
 script = ExtResource("25_nbx6y")
 volume = 0.05
 
-[sub_resource type="Resource" id="Resource_3syhc"]
+[sub_resource type="Resource" id="Resource_bioxv"]
 script = ExtResource("25_nbx6y")
 volume = 0.05
 
@@ -137,6 +138,10 @@ fragments = Dictionary[int, ExtResource("25_nbx6y")]({
 metadata/_custom_type_script = "uid://6lhyc3i5obbu"
 
 [node name="Combined" type="Node2D"]
+
+[node name="JournalPageOpener" type="Node" parent="."]
+script = ExtResource("1_wv41k")
+journal_page_path = "gel_electrophoresis_procedure.txt"
 
 [node name="BackgroundWall" type="Sprite2D" parent="."]
 z_index = -2
@@ -359,10 +364,20 @@ script = ExtResource("21_kobiv")
 [node name="RedContactWire" parent="Objects/ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
 unique_name_in_owner = true
 position = Vector2(686, 455)
+help_page_path = null
+physics_mode = ""
+enable_interaction = null
+disable_follow_cursor = true
+depth_layer_to_drop_in = false
 
 [node name="RedContactWire2" parent="Objects/ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
 unique_name_in_owner = true
 position = Vector2(718, 455)
+help_page_path = null
+physics_mode = ""
+enable_interaction = null
+disable_follow_cursor = true
+depth_layer_to_drop_in = false
 
 [node name="BlackContactWires" type="Node2D" parent="Objects/ContactWires"]
 
@@ -370,11 +385,21 @@ position = Vector2(718, 455)
 unique_name_in_owner = true
 position = Vector2(686, 479)
 texture = ExtResource("22_kobiv")
+help_page_path = null
+physics_mode = ""
+enable_interaction = null
+disable_follow_cursor = true
+depth_layer_to_drop_in = false
 
 [node name="BlackContactWire2" parent="Objects/ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
 unique_name_in_owner = true
 position = Vector2(718, 479)
 texture = ExtResource("22_kobiv")
+help_page_path = null
+physics_mode = ""
+enable_interaction = null
+disable_follow_cursor = true
+depth_layer_to_drop_in = false
 
 [node name="GelComb" parent="Objects" instance=ExtResource("30_bi4rt")]
 position = Vector2(1723, 487)

@@ -1,0 +1,6 @@
+[font_size=20]Gel electrophoresis procedure[/font_size]
+
+[ol]
+Measure 50 mL of TAE buffer into a flask using the graduated cylinder.
+Using the scoopula, weigh boat, and scale, measure 1.5 g of agarose powder into the flask with the TAE buffer.
+[/ol]

@@ -17,8 +17,6 @@ var _history_index: int = 0
 
 
 func _ready() -> void:
-	# Just a test. Remove this later.
-	go_to_page("test.txt")
 	_update_history_buttons()
 
 func open() -> void:
