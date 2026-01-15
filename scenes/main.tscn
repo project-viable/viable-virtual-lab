@@ -296,7 +296,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.8156863)
 
-[node name="Journal" type="PanelContainer" parent="UILayer" node_paths=PackedStringArray("back_button", "forward_button", "journal_label")]
+[node name="Journal" type="PanelContainer" parent="UILayer" node_paths=PackedStringArray("back_button", "forward_button", "journal_label", "procedure_label")]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -311,7 +311,8 @@ focus_behavior_recursive = 1
 script = ExtResource("16_y6deb")
 back_button = NodePath("VBoxContainer/HBoxContainer/BackButton")
 forward_button = NodePath("VBoxContainer/HBoxContainer/ForwardButton")
-journal_label = NodePath("VBoxContainer/PreprocessedRichTextLabel")
+journal_label = NodePath("VBoxContainer/HBoxContainer2/HelpLabel")
+procedure_label = NodePath("VBoxContainer/HBoxContainer2/ProcedureLabel")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Journal"]
 layout_mode = 2
@@ -336,8 +337,22 @@ size_flags_vertical = 4
 text = "→
 "
 
-[node name="PreprocessedRichTextLabel" type="RichTextLabel" parent="UILayer/Journal/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="UILayer/Journal/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="ProcedureLabel" type="RichTextLabel" parent="UILayer/Journal/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+bbcode_enabled = true
+script = ExtResource("17_og1vs")
+metadata/_custom_type_script = "uid://dkacpjq2t2mj1"
+
+[node name="HelpLabel" type="RichTextLabel" parent="UILayer/Journal/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 script = ExtResource("17_og1vs")
@@ -917,7 +932,7 @@ metadata/_custom_type_script = "uid://bu1da87rm0cub"
 [connection signal="body_exited" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_exited"]
 [connection signal="pressed" from="UILayer/Journal/VBoxContainer/HBoxContainer/BackButton" to="UILayer/Journal" method="_on_back_button_pressed"]
 [connection signal="pressed" from="UILayer/Journal/VBoxContainer/HBoxContainer/ForwardButton" to="UILayer/Journal" method="_on_forward_button_pressed"]
-[connection signal="meta_clicked" from="UILayer/Journal/VBoxContainer/PreprocessedRichTextLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
+[connection signal="meta_clicked" from="UILayer/Journal/VBoxContainer/HBoxContainer2/HelpLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
 [connection signal="pressed" from="UILayer/Journal/Button" to="GelLogReport" method="_on_button_pressed"]
 [connection signal="file_selected" from="UILayer/Journal/FileDialog" to="GelLogReport" method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]

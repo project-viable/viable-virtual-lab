@@ -8,6 +8,7 @@ const PAGE_ROOT: String = "res://journal_pages/"
 @export var back_button: Button
 @export var forward_button: Button
 @export var journal_label: PreprocessedRichTextLabel
+@export var procedure_label: PreprocessedRichTextLabel
 
 
 # Previously visited pages.
@@ -43,12 +44,12 @@ func go_to_page(path: String) -> bool:
 ## and return [code]false[/code]. Otherwise, return [code]true[/code]. This function does [i]not[/i]
 ## affect history.
 func show_page(path: String) -> bool:
-	var file := FileAccess.open(PAGE_ROOT + path, FileAccess.READ)
-	if not file:
-		print("Failed to load journal page %s" % [path])
-		return false
-	journal_label.custom_text = file.get_as_text()
-	return true
+	return _show_page_in_label(journal_label, path)
+
+## Set the procedure page (the left panel in the journal). This does not have a history. Return
+## [code]false[/code] if the page could not be loaded.
+func set_procedure_page(path: String) -> bool:
+	return _show_page_in_label(procedure_label, path)
 
 ## Move forward or backward in history by [param n]. A negative number will move backward in
 ## history, and a positive number will move forward.
@@ -68,6 +69,14 @@ func clear() -> void:
 func _update_history_buttons() -> void:
 	back_button.disabled = _history_index <= 1
 	forward_button.disabled = _history_index >= _history.size()
+
+func _show_page_in_label(label: PreprocessedRichTextLabel, path: String) -> bool:
+	var file := FileAccess.open(PAGE_ROOT + path, FileAccess.READ)
+	if not file:
+		print("Failed to load journal page %s" % [path])
+		return false
+	label.custom_text = file.get_as_text()
+	return true
 
 func _on_back_button_pressed() -> void:
 	move_in_history(-1)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=55 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://byucr1dj248ga" path="res://textures/environment/wall.svg" id="1_5fdni"]
-[ext_resource type="Script" uid="uid://b8p3xdpo3orid" path="res://scripts/journal_page_opener.gd" id="1_wv41k"]
+[ext_resource type="Script" uid="uid://b8p3xdpo3orid" path="res://scripts/procedure_opener.gd" id="1_wv41k"]
 [ext_resource type="Texture2D" uid="uid://b0t52m7oh3lrt" path="res://textures/environment/white.svg" id="2_7cn0u"]
 [ext_resource type="PackedScene" uid="uid://b5ff3gy87ykja" path="res://scenes/flask.tscn" id="2_e4xug"]
 [ext_resource type="PackedScene" uid="uid://b7ygbkawlsvn8" path="res://scenes/graduated_cylinder.tscn" id="3_iy3xr"]
@@ -139,7 +139,7 @@ metadata/_custom_type_script = "uid://6lhyc3i5obbu"
 
 [node name="Combined" type="Node2D"]
 
-[node name="JournalPageOpener" type="Node" parent="."]
+[node name="ProcedureOpener" type="Node" parent="."]
 script = ExtResource("1_wv41k")
 journal_page_path = "gel_electrophoresis_procedure.txt"
 
