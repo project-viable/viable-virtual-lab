@@ -915,6 +915,8 @@ metadata/_custom_type_script = "uid://bu1da87rm0cub"
 [connection signal="pressed_zoom_out" from="InteractableSystem" to="." method="_on_interactable_system_pressed_zoom_out"]
 [connection signal="body_entered" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_entered"]
 [connection signal="body_exited" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_exited"]
+[connection signal="pressed" from="UILayer/Journal/VBoxContainer/HBoxContainer/BackButton" to="UILayer/Journal" method="_on_back_button_pressed"]
+[connection signal="pressed" from="UILayer/Journal/VBoxContainer/HBoxContainer/ForwardButton" to="UILayer/Journal" method="_on_forward_button_pressed"]
 [connection signal="pressed" from="UILayer/Journal/Button" to="GelLogReport" method="_on_button_pressed"]
 [connection signal="file_selected" from="UILayer/Journal/FileDialog" to="GelLogReport" method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]

@@ -16,7 +16,7 @@ size = Vector2(26, 171)
 collision_layer = 0
 script = ExtResource("1_5k7v7")
 hover_name = "graduated cylinder"
-help_page_path = "test.txt"
+help_page_path = "test_1.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="SubstanceDisplayPolygon" type="Polygon2D" parent="." node_paths=PackedStringArray("source")]

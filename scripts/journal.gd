@@ -49,10 +49,24 @@ func show_page(path: String) -> bool:
 	journal_label.custom_text = file.get_as_text()
 	return true
 
+## Move forward or backward in history by [param n]. A negative number will move backward in
+## history, and a positive number will move forward.
+func move_in_history(n: int) -> void:
+	if _history.is_empty(): return
+	_history_index = clamp(_history_index + n, 1, _history.size())
+	# We assume a page already shown in history will always work.
+	show_page(_history[_history_index - 1].path)
+	_update_history_buttons()
+
 func _update_history_buttons() -> void:
 	back_button.disabled = _history_index <= 1
 	forward_button.disabled = _history_index >= _history.size()
 
+func _on_back_button_pressed() -> void:
+	move_in_history(-1)
+
+func _on_forward_button_pressed() -> void:
+	move_in_history(1)
 
 class HistoryEntry:
 	# Path relative to [const PAGE_ROOT].
