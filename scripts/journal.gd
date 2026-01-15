@@ -27,9 +27,12 @@ func close() -> void:
 
 ## Attempt to load the page [param path] ,given as a path relative to [const PAGE_ROOT]. If the file
 ## fails to load, do nothing and return [code]false[/code]. Otherwise, go to the page, add it to
-## the history stack, and return [code]true[/code].
+## the history stack, and return [code]true[/code]. The page is not added to history if it's already
+## the page being shown.
 func go_to_page(path: String) -> bool:
 	if not show_page(path): return false
+	if _history and _history[_history_index - 1].path == path: return true
+
 	_history = _history.slice(0, _history_index)
 	_history.push_back(HistoryEntry.new(path))
 	_history_index += 1
