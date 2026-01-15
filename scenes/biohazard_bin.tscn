@@ -10,6 +10,8 @@ size = Vector2(112, 84)
 
 [node name="BiohazardBin" type="RigidBody2D"]
 script = ExtResource("1_jx3lu")
+hover_name = "waste bin"
+help_page_path = "pipette.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]

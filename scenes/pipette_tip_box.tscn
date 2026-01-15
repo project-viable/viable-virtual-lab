@@ -12,6 +12,8 @@ size = Vector2(106, 43)
 [node name="PipetteTipBox" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource("1_f63uk")
+hover_name = "pipette tip box"
+help_page_path = "pipette.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
