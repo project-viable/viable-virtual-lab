@@ -56,6 +56,12 @@ func move_in_history(n: int) -> void:
 	show_page(_history[_history_index - 1].path)
 	_update_history_buttons()
 
+## Clear history and show a blank page.
+func clear() -> void:
+	_history = []
+	_history_index = 0
+	journal_label.custom_text = ""
+
 func _update_history_buttons() -> void:
 	back_button.disabled = _history_index <= 1
 	forward_button.disabled = _history_index >= _history.size()
