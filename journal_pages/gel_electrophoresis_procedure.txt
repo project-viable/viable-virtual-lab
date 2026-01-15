@@ -1,5 +1,10 @@
 [font_size=20]Gel electrophoresis procedure[/font_size]
 
+[font_size=18]Equipment[/font_size]
+[ul]
+[url="pipette.txt"]Pipette[/url]
+[/ul]
+
 [font_size=18]To make the gel[/font_size]
 [ol]
 Use the scoopula, weigh boat, and scale to measure 1 g of agarose powder.
