@@ -68,6 +68,10 @@ func _on_back_button_pressed() -> void:
 func _on_forward_button_pressed() -> void:
 	move_in_history(1)
 
+func _on_preprocessed_rich_text_label_meta_clicked(meta: Variant) -> void:
+	if meta is String: go_to_page(meta)
+
+
 class HistoryEntry:
 	# Path relative to [const PAGE_ROOT].
 	var path: String
