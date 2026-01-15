@@ -4,6 +4,7 @@
 [ul]
 [url="pipette.txt"]Pipette[/url]
 [url="containers.txt"]Containers[/url]
+[url="gel_rig.txt"]Gel rig, power supply, and wires[/url]
 [/ul]
 
 #{h2:To make the gel}#

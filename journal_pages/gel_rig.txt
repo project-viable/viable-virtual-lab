@@ -1,0 +1,5 @@
+#{h1:Gel rig, power supply, and wires}#
+
+Hover over the power supply and press #{prompt:interact_inspect}# to zoom in on it. You must zoom in to use it.
+
+To plug the power supply into the rig, pick up one end of a wire and attach it to the red socket on the power supply labeled "+", then plug the other end of the same wire into the red "+" socket on the rig. Repeat this with the other wire, connecting the corresponding "-" sockets. It is recommended that you use the red wire to connect the red sockets and the black wire to connect the black sockets, but it is not required.

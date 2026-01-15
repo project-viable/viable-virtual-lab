@@ -31,6 +31,8 @@ size = Vector2(12, 30)
 [node name="GelBox" type="RigidBody2D" groups=["zoom:power_supply"]]
 collision_layer = 0
 script = ExtResource("1_gl61q")
+hover_name = "gel rig"
+help_page_path = "gel_rig.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="FillRef" type="Node2D" parent="."]

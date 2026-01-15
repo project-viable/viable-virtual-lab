@@ -14,6 +14,8 @@ collision_layer = 2
 freeze_mode = 1
 script = ExtResource("1_py2n2")
 texture = ExtResource("2_4eh70")
+hover_name = "wire"
+help_page_path = "gel_rig.txt"
 interact_canvas_group = NodePath("SelectableCanvasGroup")
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 

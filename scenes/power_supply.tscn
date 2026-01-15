@@ -93,6 +93,8 @@ increment_volts_button = NodePath("Screen/ZoomAwareControl/IncrementVolts")
 decrement_volts_button = NodePath("Screen/ZoomAwareControl/DecrementVolts")
 time_line_edit = NodePath("Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit")
 voltage_line_edit = NodePath("Screen/ZoomAwareControl/VoltageContainer/HBoxContainer/VoltageLineEdit")
+hover_name = "power supply"
+help_page_path = "gel_rig.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
