@@ -1,11 +1,11 @@
-[font_size=20]Gel electrophoresis procedure[/font_size]
+#{h1:Gel electrophoresis procedure}#
 
-[font_size=18]Equipment[/font_size]
+#{h2:Equipment}#
 [ul]
 [url="pipette.txt"]Pipette[/url]
 [/ul]
 
-[font_size=18]To make the gel[/font_size]
+#{h2:To make the gel}#
 [ol]
 Use the scoopula, weigh boat, and scale to measure 1 g of agarose powder.
 Use the graduated cylinder to measure 50 mL of TAE buffer, and add it to the same flask.
@@ -15,7 +15,7 @@ Pour the gel solution from the flask into the gel mold, and place the gel comb i
 Wait 20 minutes for the gel to cool. Once the gel is solid, remove the comb. If the comb is removed before the gel is fully cool, then the wells will collapse.
 [/ol]
 
-[font_size=18]To run the gel[/font_size]
+#{h2:To run the gel}#
 [ol]
 Put the gel mold with the gel into the rig.
 Pour TAE buffer into the gel rig until it fully covers the gel. This is needed to allow an electric current to run through the gel.
@@ -28,7 +28,7 @@ Set the power supply to 120 volts and a running time of 20 minutes.
 Press the start button on the power supply and wait 20 minutes for it to run.
 [/ol]
 
-[font_size=18]To image the gel[/font_size]
+#{h2:To image the gel}#
 [ol]
 Once the gel running has finished, remove the gel mold with the gel from the electrolysis setup and place it into the gel imager.
 Press the button on the front of the imager to enable UV so that you can see the bands.

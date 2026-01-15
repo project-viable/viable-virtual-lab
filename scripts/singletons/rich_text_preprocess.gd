@@ -17,5 +17,11 @@ func process_custom_tag(command: String, arg: String) -> String:
 			var path: String = InteractPromptTextureGenerator.get_texture_for_action_prompt(args[0]).resource_path
 			return "[img%s]%s[/img]" % [img_opts, path]
 
+		# Headers.
+		"h1":
+			return "[font_size=28][b]%s[/b][/font_size]" % [arg]
+		"h2":
+			return "[font_size=18][b]%s[/b][/font_size]" % [arg]
+
 	# We've only reached this spot if the above match didn't return (i.e, there's an error).
 	return "[color=red](invalid)[/color]"
