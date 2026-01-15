@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cug6kav5s55iq"]
+[gd_scene load_steps=26 format=3 uid="uid://cug6kav5s55iq"]
 
 [ext_resource type="Script" uid="uid://bptf21x2a24jj" path="res://scripts/imager_gel_band_logic.gd" id="1_7wmgd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_w2ofj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="4_ylekj"]
 [ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="6_18obo"]
 [ext_resource type="Texture2D" uid="uid://d3dbby0blgo04" path="res://textures/gel_bands/Gel_Rig_Top_View.svg" id="6_p46ws"]
+[ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="6_u3h3s"]
 [ext_resource type="Texture2D" uid="uid://c3rfj3vqah8ph" path="res://textures/gel_bands/Gel_Well_Top_View_LADDER_MULTIPLE.svg" id="7_p0nad"]
 [ext_resource type="Texture2D" uid="uid://7mpyt0hujebl" path="res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg" id="8_us78d"]
 [ext_resource type="Texture2D" uid="uid://bvt8quy2u6lr" path="res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg" id="9_ryau1"]
@@ -21,6 +22,12 @@
 [ext_resource type="Script" uid="uid://b5a5765epdkf" path="res://scripts/subscene_camera.gd" id="17_ylekj"]
 [ext_resource type="Script" uid="uid://musakg3k6s1l" path="res://scripts/selectable_component.gd" id="20_oxmjg"]
 [ext_resource type="Script" uid="uid://nf1enjfal72f" path="res://scripts/depth_managed_node_2d.gd" id="21_u3h3s"]
+
+[sub_resource type="Resource" id="Resource_u3h3s"]
+script = ExtResource("6_u3h3s")
+kind = 3
+description = "Zoom in on imager screen"
+metadata/_custom_type_script = "uid://b810schxe1hne"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_deexq"]
 size = Vector2(133, 54)
@@ -51,6 +58,7 @@ texture = ExtResource("4_oxmjg")
 script = ExtResource("4_ylekj")
 objects = [NodePath("../DepthManagedNode2D/AttachmentInteractableArea")]
 subscene_camera = NodePath("../Subscene/SubsceneCamera")
+interact_info = SubResource("Resource_u3h3s")
 metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 
 [node name="Area2D" type="Area2D" parent="ZoomSelectableArea"]

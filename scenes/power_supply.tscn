@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b4q3npoc5c7fy"]
+[gd_scene load_steps=28 format=3 uid="uid://b4q3npoc5c7fy"]
 
 [ext_resource type="Script" uid="uid://bepsdcjab3t21" path="res://scripts/power_supply.gd" id="1_7lagc"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_80iu8"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://spcel0l2t7ec" path="res://textures/icons_and_buttons/minus_symbol.svg" id="8_07yqv"]
 [ext_resource type="Script" uid="uid://dqaivlcqhms8h" path="res://scripts/time_line_edit.gd" id="8_agml6"]
 [ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="8_jimdi"]
+[ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="8_vfgdq"]
 [ext_resource type="Script" uid="uid://chvv2ne60otwi" path="res://scripts/wire_connection.gd" id="9_07yqv"]
 [ext_resource type="Script" uid="uid://0k2e5xj6bo7p" path="res://scripts/voltage_line_edit.gd" id="9_agml6"]
 [ext_resource type="Script" uid="uid://bk0s8v1tcwcmr" path="res://scripts/lab_timer.gd" id="12_7xsxk"]
@@ -22,6 +23,12 @@ radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7lagc"]
 radius = 7.0
+
+[sub_resource type="Resource" id="Resource_jn1hy"]
+script = ExtResource("8_vfgdq")
+kind = 3
+description = "Zoom in on power supply and gel rig"
+metadata/_custom_type_script = "uid://b810schxe1hne"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_46x6c"]
 size = Vector2(48, 20)
@@ -147,6 +154,7 @@ area_camera = NodePath("../ZoomCamera")
 search_groups = Array[StringName]([&"zoom:power_supply"])
 search_radius = 300.0
 click_area = NodePath("../Screen")
+interact_info = SubResource("Resource_jn1hy")
 metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 
 [node name="Screen" type="Area2D" parent="."]

@@ -1,6 +1,9 @@
 class_name ZoomSelectableArea
 extends SelectableAreaComponent
 ## Allows the user to press the inspect button when hovering to zoom in on a set of objects.
+##
+## Note: If [member interact_info] does not use [const InteractInfo.Kind.INSPECT], then it will be
+## replaced with a generic zoom interact info.
 
 
 signal zoomed_in()
@@ -27,7 +30,8 @@ var _is_zoomed_in := false
 
 func _ready() -> void:
 	super()
-	interact_info = InteractInfo.new(InteractInfo.Kind.INSPECT, "Zoom in")
+	if interact_info.kind != InteractInfo.Kind.INSPECT:
+		interact_info = InteractInfo.new(InteractInfo.Kind.INSPECT, "Zoom in")
 	Game.main.camera_focus_owner_changed.connect(_on_main_camera_focus_owner_changed)
 
 

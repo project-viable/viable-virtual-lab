@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cs2tep7cd3vxf"]
+[gd_scene load_steps=22 format=3 uid="uid://cs2tep7cd3vxf"]
 
 [ext_resource type="Script" uid="uid://b10fibv688ggy" path="res://scripts/microwave.gd" id="1_caubw"]
 [ext_resource type="Texture2D" uid="uid://by1qv0us7rnwc" path="res://textures/lab_objects/microwave/base.svg" id="2_akh7v"]
@@ -14,9 +14,16 @@
 [ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="8_upun8"]
 [ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="9_phx7o"]
 [ext_resource type="Script" uid="uid://nf1enjfal72f" path="res://scripts/depth_managed_node_2d.gd" id="10_grr38"]
+[ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="13_8d2bd"]
+
+[sub_resource type="Resource" id="Resource_222yv"]
+script = ExtResource("13_8d2bd")
+kind = 3
+description = "Zoom in on microwave"
+metadata/_custom_type_script = "uid://b810schxe1hne"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwbat"]
-size = Vector2(53, 59)
+size = Vector2(272, 152)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0lrr"]
 size = Vector2(148, 115)
@@ -383,6 +390,7 @@ position_smoothing_speed = 1.0
 [node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("area_camera")]
 script = ExtResource("9_phx7o")
 area_camera = NodePath("../ZoomCamera")
+interact_info = SubResource("Resource_222yv")
 metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 
 [node name="KeypadArea" type="Area2D" parent="ZoomSelectableArea"]
@@ -391,7 +399,7 @@ position = Vector2(-4, 4)
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/KeypadArea"]
-position = Vector2(104.5, -0.5)
+position = Vector2(6, -1)
 shape = SubResource("RectangleShape2D_iwbat")
 
 [node name="DepthManagedNode2D" type="Node2D" parent="."]

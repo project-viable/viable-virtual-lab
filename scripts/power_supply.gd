@@ -219,7 +219,7 @@ func _is_circuit_ready() -> bool:
 		_object_to_recieve_current = positive_wire_other_end_component
 		closed_circut = true
 		return true
-		
+
 
 ## Determines the direction of current based on wire connections.
 ## Returns FORWARD if each wire connects matching terminals (positive to positive, negative to negative),
