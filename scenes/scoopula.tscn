@@ -12,6 +12,7 @@
 collision_layer = 0
 script = ExtResource("1_sbaom")
 hover_name = "scoopula"
+help_page_path = "scale.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
