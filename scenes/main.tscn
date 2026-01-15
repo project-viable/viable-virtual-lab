@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=35 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -17,7 +17,6 @@
 [ext_resource type="Script" uid="uid://dftxhrc76wr2j" path="res://scripts/debug_overlay.gd" id="12_yc10j"]
 [ext_resource type="Script" uid="uid://bmdn4p40xeusb" path="res://scripts/menu_screen_manager.gd" id="15_og1vs"]
 [ext_resource type="Script" uid="uid://d87mq61qhuq8" path="res://scripts/menu_screen.gd" id="16_2wyq8"]
-[ext_resource type="FontFile" path="res://fonts/roboto_medium_28.tres" id="16_gpyrr"]
 [ext_resource type="Script" uid="uid://cnuiybm68m7ub" path="res://scripts/journal.gd" id="16_y6deb"]
 [ext_resource type="Script" uid="uid://dkacpjq2t2mj1" path="res://scripts/preprocessed_rich_text_label.gd" id="17_og1vs"]
 [ext_resource type="Texture2D" uid="uid://g570l32ipee5" path="res://textures/main_menu_logo.png" id="18_pm3ni"]
@@ -298,6 +297,7 @@ color = Color(0, 0, 0, 0.8156863)
 
 [node name="Journal" type="PanelContainer" parent="UILayer" node_paths=PackedStringArray("back_button", "forward_button", "journal_label", "procedure_label")]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -446,7 +446,6 @@ script = ExtResource("15_og1vs")
 metadata/_custom_type_script = "uid://bmdn4p40xeusb"
 
 [node name="PauseMenu" type="Control" parent="UILayer/MenuScreenManager"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -482,7 +481,6 @@ layout_mode = 2
 [node name="SelectModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
-theme_override_fonts/font = ExtResource("16_gpyrr")
 text = "Select Module"
 script = ExtResource("19_vxglm")
 menu_screen = NodePath("../../../ModuleSelect")
@@ -502,7 +500,6 @@ text = "Return to Main Menu"
 [node name="OptionsButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
-theme_override_fonts/font = ExtResource("16_gpyrr")
 text = "Options"
 script = ExtResource("19_vxglm")
 menu_screen = NodePath("../../../OptionsScreen")
@@ -510,7 +507,6 @@ menu_screen = NodePath("../../../OptionsScreen")
 [node name="AboutButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
-theme_override_fonts/font = ExtResource("16_gpyrr")
 text = "About"
 script = ExtResource("19_vxglm")
 menu_screen = NodePath("../../../AboutScreen")

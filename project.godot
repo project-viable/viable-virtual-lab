@@ -61,7 +61,7 @@ attachment:gel_comb=""
 [gui]
 
 theme/custom="res://themes/main_ui_theme.tres"
-theme/custom_font="res://fonts/roboto_medium_16.tres"
+theme/custom_font="uid://blx2t4x33kcif"
 common/drop_mouse_on_gui_input_disabled=true
 
 [input]
