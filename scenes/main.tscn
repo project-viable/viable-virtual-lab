@@ -332,13 +332,12 @@ text = "Journal"
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
-text = "←"
+text = "<"
 
 [node name="ForwardButton" type="Button" parent="UILayer/Journal/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-text = "→
-"
+text = ">"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="UILayer/Journal/VBoxContainer"]
 layout_mode = 2
