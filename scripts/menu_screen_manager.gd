@@ -3,6 +3,10 @@ extends Control
 ## Manages a set of child [MenuScreen] UI nodes, ensuring that only one can be visible at a time.
 
 
+## The visible screen changed.
+signal screen_changed(screen: MenuScreen)
+
+
 ## The "main" or "root" menu screen. This is visible if no other screens have been pushed on the
 ## stack. If not set, this will automatically be set to the first [MenuScreen] child of this node.
 @export var primary_screen: MenuScreen
@@ -42,4 +46,6 @@ func _show_screen(screen: MenuScreen) -> void:
 	for c: MenuScreen in find_children("", "MenuScreen", false):
 		c.hide()
 	# Null check to deal with a potentially null primary screen.
-	if screen: screen.show()
+	if screen:
+		screen.show()
+		screen_changed.emit(screen)

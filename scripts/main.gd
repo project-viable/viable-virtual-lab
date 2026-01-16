@@ -206,7 +206,6 @@ func _load_module(module: ModuleData) -> void:
 	_current_module = module
 
 	%Prompts.show()
-	%GeneralPrompts.show()
 
 	_update_scene_overlays()
 
@@ -336,7 +335,6 @@ func _switch_to_main_menu() -> void:
 	$UILayer/Background.show()
 
 	%Prompts.hide()
-	%GeneralPrompts.hide()
 
 	_update_scene_overlays()
 
@@ -437,5 +435,22 @@ func _update_scene_overlays() -> void:
 	%PauseOverlay.visible = is_pause_menu_open()
 
 	# TODO: Should this really be here? Should it maybe get its own function?
-	# You can't speed up time while in the Journal.
-	%SpeedUpTimePrompt.visible = not is_journal_open()
+	# This mirrors the `toggle_menu` input handling in `_unhandled_key_input`.
+	%MenuPrompt.show()
+	if is_journal_open():
+		%MenuPrompt.hide()
+	elif is_pause_menu_open() and not %MenuScreenManager.is_on_primary_screen():
+		%MenuPrompt.description = "Go back"
+	elif _current_module_scene != null:
+		if is_pause_menu_open():
+			%MenuPrompt.description = "Resume"
+		else:
+			%MenuPrompt.description = "Pause"
+	else:
+		%MenuPrompt.hide()
+
+	%JournalPrompt.visible = not is_pause_menu_open()
+	%SpeedUpTimePrompt.visible = not is_journal_open() and not is_pause_menu_open()
+
+func _on_menu_screen_manager_screen_changed(_s: MenuScreen) -> void:
+	_update_scene_overlays()

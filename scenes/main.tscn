@@ -376,6 +376,18 @@ unique_name_in_owner = true
 oversampling_override = 1.0
 use_native_dialog = true
 
+[node name="PauseOverlay" type="ColorRect" parent="UILayer"]
+unique_name_in_owner = true
+editor_description = "Covers all of the simulation-specific stuff while paused (including button prompts)."
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.8156863)
+
 [node name="GeneralPrompts" type="MarginContainer" parent="UILayer"]
 unique_name_in_owner = true
 editor_description = "Button prompts that may be relevant outside the simulation."
@@ -402,7 +414,8 @@ script = ExtResource("25_og1vs")
 child_scale = Vector2(0.7, 0.7)
 metadata/_custom_type_script = "uid://smreqra2kcc2"
 
-[node name="InteractionPrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer3" instance=ExtResource("22_g2on7")]
+[node name="MenuPrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer3" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
 layout_mode = 2
 input_event = SubResource("InputEventAction_2wyq8")
 description = "Pause"
@@ -435,18 +448,6 @@ layout_mode = 2
 input_event = SubResource("InputEventAction_vxglm")
 description = "Speed up time"
 auto_update_pressed = true
-
-[node name="PauseOverlay" type="ColorRect" parent="UILayer"]
-unique_name_in_owner = true
-editor_description = "Covers all of the simulation-specific stuff while paused (including button prompts)."
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.8156863)
 
 [node name="MenuScreenManager" type="Control" parent="UILayer"]
 unique_name_in_owner = true
@@ -947,6 +948,7 @@ metadata/_custom_type_script = "uid://bu1da87rm0cub"
 [connection signal="meta_clicked" from="UILayer/Journal/VBoxContainer/HBoxContainer2/HelpLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
 [connection signal="pressed" from="UILayer/Journal/Button" to="GelLogReport" method="_on_button_pressed"]
 [connection signal="file_selected" from="UILayer/Journal/FileDialog" to="GelLogReport" method="_on_file_dialog_file_selected"]
+[connection signal="screen_changed" from="UILayer/MenuScreenManager" to="." method="_on_menu_screen_manager_screen_changed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/ExitModuleButton" to="." method="_on_exit_module_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/QuitButton" to="." method="_on_quit_button_pressed"]
