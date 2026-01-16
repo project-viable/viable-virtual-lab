@@ -62,7 +62,7 @@ action = &"speed_up_time"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pm3ni"]
 atlas = ExtResource("18_pm3ni")
-region = Rect2(857.2771, 956.96234, 7436.5537, 1843.1575)
+region = Rect2(190.77774, 223.89894, 1713.6912, 459.49268)
 
 [node name="Main" type="Node2D"]
 process_mode = 3
