@@ -107,10 +107,17 @@ func _should_show_as_pressed() -> bool:
 	return pressed
 
 static func _keyboard_key_name(e: InputEventKey) -> String:
-	if e.keycode != KEY_NONE: return e.as_text_keycode()
-	elif e.physical_keycode != KEY_NONE: return e.as_text_physical_keycode()
-	elif e.key_label != KEY_NONE: return e.as_text_key_label()
+	if e.keycode != KEY_NONE: return _keycode_to_string(e.keycode)
+	elif e.physical_keycode != KEY_NONE: return _keycode_to_string(e.physical_keycode)
+	elif e.key_label != KEY_NONE: return _keycode_to_string(e.key_label)
 	else: return "(unknown)"
+
+# Also handles some special keys.
+static func _keycode_to_string(k: Key) -> String:
+	match k:
+		KEY_ESCAPE: return "Esc"
+		KEY_QUOTELEFT: return "`"
+		_: return OS.get_keycode_string(k)
 
 static func _is_actively_pressed(e: InputEvent) -> bool:
 	if e is InputEventAction:
