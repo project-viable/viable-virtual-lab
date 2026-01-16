@@ -1,0 +1,441 @@
+[gd_scene load_steps=24 format=3 uid="uid://cs2tep7cd3vxf"]
+
+[ext_resource type="Script" uid="uid://b10fibv688ggy" path="res://scripts/microwave.gd" id="1_caubw"]
+[ext_resource type="Texture2D" uid="uid://by1qv0us7rnwc" path="res://textures/lab_objects/microwave/base.svg" id="2_akh7v"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_cwbd0"]
+[ext_resource type="Script" uid="uid://musakg3k6s1l" path="res://scripts/selectable_component.gd" id="3_arejl"]
+[ext_resource type="Texture2D" uid="uid://b8mt0p2o3t7pd" path="res://textures/lab_objects/microwave/door_closed.svg" id="4_arejl"]
+[ext_resource type="Script" uid="uid://bk0s8v1tcwcmr" path="res://scripts/lab_timer.gd" id="5_8bw4g"]
+[ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://textures/icons_and_buttons/button_2.svg" id="5_caubw"]
+[ext_resource type="Texture2D" uid="uid://qlu7b3wv1vpu" path="res://textures/lab_objects/microwave/door_open.svg" id="5_grr38"]
+[ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="5_iwbat"]
+[ext_resource type="PackedScene" uid="uid://cpguc3tomsylp" path="res://scenes/seven_segment_display.tscn" id="7_iwsb8"]
+[ext_resource type="Script" uid="uid://c2pro11bcd0sw" path="res://scripts/seven_segment_display_array.gd" id="7_svbq6"]
+[ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="8_upun8"]
+[ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="9_phx7o"]
+[ext_resource type="Script" uid="uid://nf1enjfal72f" path="res://scripts/depth_managed_node_2d.gd" id="10_grr38"]
+[ext_resource type="Script" uid="uid://blk6q1chtrgqi" path="res://scripts/help_selectable_area.gd" id="12_222yv"]
+[ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="13_8d2bd"]
+
+[sub_resource type="Resource" id="Resource_bc11o"]
+script = ExtResource("13_8d2bd")
+kind = 6
+description = "Open help page for microwave"
+metadata/_custom_type_script = "uid://b810schxe1hne"
+
+[sub_resource type="Resource" id="Resource_222yv"]
+script = ExtResource("13_8d2bd")
+kind = 3
+description = "Zoom in on microwave"
+metadata/_custom_type_script = "uid://b810schxe1hne"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iwbat"]
+size = Vector2(272, 152)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0lrr"]
+size = Vector2(148, 115)
+
+[sub_resource type="Animation" id="Animation_phx7o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Display:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_su0ss"]
+resource_name = "error_flash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Display:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1000000, 1, 1),
+"update": 0,
+"values": [Color(0.66921, 0.148082, 0.160623, 1), Color(0, 0, 0, 1), Color(0.670588, 0.14902, 0.160784, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_claib"]
+_data = {
+&"RESET": SubResource("Animation_phx7o"),
+&"error_flash": SubResource("Animation_su0ss")
+}
+
+[node name="Microwave" type="Node2D"]
+script = ExtResource("1_caubw")
+
+[node name="MicrowaveBase" type="Sprite2D" parent="."]
+z_index = 10
+z_as_relative = false
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_akh7v")
+
+[node name="DoorSelectable" type="Node2D" parent="." node_paths=PackedStringArray("interact_canvas_group")]
+script = ExtResource("3_arejl")
+interact_canvas_group = NodePath("../DoorGroup")
+metadata/_custom_type_script = "uid://musakg3k6s1l"
+
+[node name="DoorGroup" type="CanvasGroup" parent="."]
+z_index = 2000
+z_as_relative = false
+script = ExtResource("2_cwbd0")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="DoorClosed" type="Sprite2D" parent="DoorGroup"]
+unique_name_in_owner = true
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_arejl")
+
+[node name="DoorOpen" type="Sprite2D" parent="DoorGroup"]
+unique_name_in_owner = true
+visible = false
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_grr38")
+
+[node name="Display" type="Control" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0)
+z_index = 10
+layout_mode = 3
+anchors_preset = 0
+offset_left = 78.0
+offset_top = -53.0
+offset_right = 78.0
+offset_bottom = -53.0
+mouse_filter = 2
+script = ExtResource("7_svbq6")
+metadata/_custom_type_script = "uid://c2pro11bcd0sw"
+
+[node name="D0" parent="Display" instance=ExtResource("7_iwsb8")]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.9999998
+offset_right = 14.0
+offset_bottom = 22.0
+scale = Vector2(0.7, 0.7)
+mouse_filter = 2
+segment_bits = 0
+character = " "
+
+[node name="D1" parent="Display" instance=ExtResource("7_iwsb8")]
+layout_mode = 0
+offset_left = 11.999999
+offset_top = 3.9999998
+offset_right = 22.0
+offset_bottom = 22.0
+scale = Vector2(0.7, 0.7)
+mouse_filter = 2
+segment_bits = 0
+character = " "
+
+[node name="D2" parent="Display" instance=ExtResource("7_iwsb8")]
+layout_mode = 0
+offset_left = 22.999998
+offset_top = 3.9999998
+offset_right = 33.0
+offset_bottom = 22.0
+scale = Vector2(0.7, 0.7)
+mouse_filter = 2
+segment_bits = 0
+character = " "
+
+[node name="D3" parent="Display" instance=ExtResource("7_iwsb8")]
+layout_mode = 0
+offset_left = 30.999996
+offset_top = 3.9999998
+offset_right = 41.0
+offset_bottom = 22.0
+scale = Vector2(0.7, 0.7)
+mouse_filter = 2
+segment_bits = 0
+character = " "
+
+[node name="Colon" type="Node2D" parent="Display"]
+
+[node name="ColorRect" type="ColorRect" parent="Display/Colon"]
+offset_left = 20.0
+offset_top = 8.0
+offset_right = 22.0
+offset_bottom = 10.0
+
+[node name="ColorRect2" type="ColorRect" parent="Display/Colon"]
+offset_left = 20.0
+offset_top = 13.0
+offset_right = 22.0
+offset_bottom = 15.0
+
+[node name="Keypad" type="GridContainer" parent="."]
+z_index = 10
+z_as_relative = false
+offset_left = 71.0
+offset_top = -25.0
+offset_right = 3151.0
+offset_bottom = 3092.0
+scale = Vector2(0.0191429, 0.0190965)
+theme_override_constants/v_separation = 15
+columns = 3
+script = ExtResource("8_upun8")
+
+[node name="Button1" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
+layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button1"]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 192.0
+offset_right = 192.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "1"
+horizontal_alignment = 1
+
+[node name="Button2" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
+layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button2"]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 192.0
+offset_right = 206.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "2"
+horizontal_alignment = 1
+
+[node name="Button3" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
+layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button3"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 192.0
+offset_right = 222.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "3"
+horizontal_alignment = 1
+
+[node name="Button4" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
+layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button4"]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 192.0
+offset_right = 192.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "4"
+horizontal_alignment = 1
+
+[node name="Button5" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
+layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button5"]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 192.0
+offset_right = 206.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "5"
+horizontal_alignment = 1
+
+[node name="Button6" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
+layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button6"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 192.0
+offset_right = 222.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "6"
+horizontal_alignment = 1
+
+[node name="Button7" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
+layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button7"]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 192.0
+offset_right = 192.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "7"
+horizontal_alignment = 1
+
+[node name="Button8" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
+layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button8"]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 192.0
+offset_right = 206.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "8"
+horizontal_alignment = 1
+
+[node name="Button9" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
+layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button9"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 192.0
+offset_right = 222.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "9"
+horizontal_alignment = 1
+
+[node name="CancelButton" type="TextureButton" parent="Keypad"]
+self_modulate = Color(1, 0.203922, 0.203922, 1)
+z_index = 10
+z_as_relative = false
+layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/CancelButton"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 256.0
+offset_right = 236.0
+offset_bottom = 275.0
+scale = Vector2(14.4149, 14.4149)
+theme_override_font_sizes/font_size = 14
+text = "Cancel"
+horizontal_alignment = 1
+
+[node name="Button0" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
+custom_minimum_size = Vector2(43, 0)
+layout_mode = 2
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/Button0"]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 192.0
+offset_right = 206.0
+offset_bottom = 211.0
+scale = Vector2(20.7491, 20.7491)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+horizontal_alignment = 1
+
+[node name="StartButton" type="TextureButton" parent="Keypad"]
+self_modulate = Color(0.2, 0.776471, 0.0313726, 1)
+custom_minimum_size = Vector2(43, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+texture_normal = ExtResource("5_caubw")
+
+[node name="Label" type="Label" parent="Keypad/StartButton"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 256.0
+offset_right = 236.0
+offset_bottom = 275.0
+scale = Vector2(14.4149, 14.4149)
+theme_override_font_sizes/font_size = 12
+text = "Start"
+horizontal_alignment = 1
+
+[node name="MicrowaveTimer" type="Node" parent="."]
+script = ExtResource("5_8bw4g")
+one_shot = true
+metadata/_custom_type_script = "uid://bk0s8v1tcwcmr"
+
+[node name="ZoomCamera" type="Camera2D" parent="."]
+editor_description = "A template for the TransitionCamera in Main to transition to when necessary."
+zoom = Vector2(4, 4)
+position_smoothing_speed = 1.0
+
+[node name="HelpSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("click_area")]
+script = ExtResource("12_222yv")
+help_page_path = "microwave.txt"
+click_area = NodePath("../ZoomSelectableArea/KeypadArea")
+interact_info = SubResource("Resource_bc11o")
+
+[node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("area_camera")]
+script = ExtResource("9_phx7o")
+area_camera = NodePath("../ZoomCamera")
+interact_info = SubResource("Resource_222yv")
+metadata/_custom_type_script = "uid://ciw88e6ajyksw"
+
+[node name="KeypadArea" type="Area2D" parent="ZoomSelectableArea"]
+z_index = 1
+position = Vector2(-4, 4)
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/KeypadArea"]
+position = Vector2(6, -1)
+shape = SubResource("RectangleShape2D_iwbat")
+
+[node name="DepthManagedNode2D" type="Node2D" parent="."]
+script = ExtResource("10_grr38")
+depth_layer = 1
+
+[node name="ObjectContainmentInteractableArea" type="Area2D" parent="DepthManagedNode2D" node_paths=PackedStringArray("selectable_canvas_group")]
+unique_name_in_owner = true
+position = Vector2(-40, 51)
+script = ExtResource("5_iwbat")
+place_prompt = "Put in microwave"
+selectable_canvas_group = NodePath("../../DoorGroup")
+body_group_filter_type = 1
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DepthManagedNode2D/ObjectContainmentInteractableArea"]
+position = Vector2(-1, -46.5)
+shape = SubResource("RectangleShape2D_a0lrr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_claib")
+}
+
+[connection signal="pressed" from="DoorSelectable" to="." method="_on_door_selectable_pressed"]
+[connection signal="timeout" from="MicrowaveTimer" to="." method="_on_microwave_timer_timeout"]

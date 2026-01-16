@@ -1,0 +1,639 @@
+\setuppapersize[letter]
+\setuplayout[
+	width=middle,
+	backspace=1.7in,
+]
+
+\setupbodyfont[dejavu,10pt]
+\setupinterlinespace[line=1.6em]
+\setuppagenumbering[location={footer,middle}]
+\setupindenting[yes,next,medium]
+
+\definecolor[AyuRed][x=f07171]
+\definecolor[AyuOrange][x=fa8d3e]
+\definecolor[AyuYellow][x=f2ae49]
+\definecolor[AyuGreen][x=86b300]
+\definecolor[AyuBlue][x=399ee6]
+\definecolor[AyuPurple][x=a37acc]
+\definecolor[AyuLightGrey][x=fcfcfc]
+\definecolor[AyuDarkGrey][x=5c6166]
+
+\definecolor[Link][AyuBlue]
+\definecolor[CodeBg][AyuLightGrey]
+\definecolor[CodeFg][AyuDarkGrey]
+\definecolor[Wrong][AyuRed]
+\definecolor[Right][AyuGreen]
+
+\setuphead[title][style=ssbfb,alternative=middle]
+\setuphead[subject][style=ssbfa,after={\blank[medium]}]
+\setuphead[section][style=ssbfa,after={\blank[medium]},number=no]
+
+\setupinteraction[state=start,color=Link,style=rm]
+
+\setupcombinedlist[content][alternative=c]
+
+\definemargindata[InMarginHead][left][style=tf,width=\leftmarginwidth]
+
+% I can't make this work properly with \setuphead, so I'm just giving up and doing it this way.
+\def\MarginHead#1{%
+	\par
+	\blank[medium]%
+	\InMarginHead{#1}%
+	\noindentation
+}
+
+\def\Incorrect{%
+	\par
+	\inmargin[distance=.2em]{\color[Wrong]{\ssb ✗}}%
+	\noindentation\dontleavehmode
+}
+\def\Correct{%
+	\par
+	\inmargin[distance=.2em]{\color[Right]{\ssb ✓}}%
+	\noindentation\dontleavehmode
+}
+
+% Rule separating code details (e.g., "in file.cpp") from the code itself.
+\def\CodeSep{\blank[medium]\hrule height 0.8pt\blank[small]}
+\def\IncorrectSep{\color[Wrong]{\CodeSep}}
+\def\CorrectSep{\color[Right]{\CodeSep}}
+
+\defineframed[FramedCode][
+	align=flushleft,
+	width=\textwidth,
+	background=color,
+	backgroundcolor=CodeBg,
+	strut=none,
+	location=top,
+	offset=.5em,
+	rulethickness=0.8pt,
+]
+
+\defineframed[FramedWrongCode][FramedCode][framecolor=Wrong]
+\defineframed[FramedRightCode][FramedCode][framecolor=Right]
+
+\definestartstop[IncorrectCode][
+	before={\blank[big]\Incorrect\startframed[FramedWrongCode]},
+	after={\stopframed\blank[big]\noindentation},
+]
+
+\definestartstop[CorrectCode][
+	before={\blank[big]\Correct\startframed[FramedRightCode]},
+	after={\stopframed\blank[big]\noindentation},
+]
+
+\setuptype[color=CodeFg]
+\setuptyping[color=CodeFg,before=,after=]
+
+\definestartstop[MidFig][
+	before={\blank[big]\startalignment[middle]\noindentation\dontleavehmode},
+	after={\stopalignment\blank[big]\noindentation},
+]
+
+\setupitemize[
+	indentnext=no,
+	before={\blank[medium]},
+	inbetween={\blank[small]},
+	after={\blank[medium]},
+]
+
+\startMPinclusions
+	node_radius := 0.1in;
+	line_thickness := 0.02in;
+	h_dist := 0.4in;
+	v_dist := 0.3in;
+
+	% Radius of rounded part of branch bend.
+	branch_bend_radius := 0.1in;
+
+	labeloffset := node_radius + labeloffset;
+
+	color main_color, dev_color, topic_a_color, topic_b_color, topic_c_color, hotfix_color, line_color;
+	main_color := \MPcolor{AyuOrange};
+	dev_color := \MPcolor{AyuYellow};
+	topic_a_color := \MPcolor{AyuGreen};
+	topic_b_color := \MPcolor{AyuBlue};
+	topic_c_color := \MPcolor{AyuPurple};
+	hotfix_color := \MPcolor{AyuRed};
+	line_color := \MPcolor{AyuDarkGrey};
+
+	vardef make_branch(expr yp, name_xp, name, clr)(text xps) =
+		save min_xp, max_xp;
+
+		% `min` and `max` need at least two values each, but we want to support having only one
+		% node. So we provide "reasonable" default values for the min and max. It would be very
+		% weird if a node were outside the range [-1000, 1000], so we can just assume they never
+		% will be.
+		min_xp := min(xps, 1000);
+		max_xp := max(xps, -1000);
+
+		% Drawing from a node to itself puts little nubs out to the sides.
+		if min_xp <> max_xp:
+			draw_edge((min_xp, yp), (max_xp, yp));
+		fi
+
+		label_node.rt(name_xp, yp, name, clr);
+
+		for xp = xps:
+			draw_node(xp, yp, clr);
+		endfor
+	enddef;
+
+	vardef connect_branches(expr yp_a, yp_b, xp) =
+		% We shorten the start and end positions so that we can draw these after drawing the nodes
+		% without causing overlap.
+		draw_edge((xp - 1, yp_a), (xp, yp_b));
+	enddef;
+
+	vardef draw_node(expr xp, yp, clr) =
+		path border;
+		border := fullcircle scaled node_radius shifted (h_dist * xp, v_dist * yp);
+
+		fill border withcolor clr;
+		draw border withcolor line_color withpen pencircle scaled line_thickness;
+	enddef;
+
+	vardef draw_edge(expr cs, ce) =
+		save ps, pe, round_vec, ia, ib, ic, id, w, h;
+
+		pair ps, pe;
+		ps := (h_dist * (xpart cs), v_dist * (ypart cs));
+		pe := (h_dist * (xpart ce), v_dist * (ypart ce));
+
+		pair round_vec;
+		round_vec := (branch_bend_radius, 0);
+
+		if (ypart cs) < (ypart ce):
+			round_vec := (branch_bend_radius, branch_bend_radius);
+		elseif (ypart cs) > (ypart ce):
+			round_vec := (branch_bend_radius, -branch_bend_radius);
+		fi
+
+		pair ia, ib, ic, id;
+		numeric w, h;
+
+		ia = ps + (w, 0);
+		ib = ia + round_vec;
+		ic = ib + (0, h);
+		id = ic + round_vec;
+		pe = id + (w, 0);
+
+		draw ps -- ia {(xpart round_vec, 0)}..{(0, ypart round_vec)} ib
+			-- ic {(0, ypart round_vec)}..{(xpart round_vec, 0)} id -- pe
+			withcolor line_color
+			withpen pencircle scaled line_thickness;
+	enddef;
+
+	vardef label_node@#(expr xp, yp, txt, clr) =
+		label@#("{\ttbf " & txt & "}", (h_dist * xp, v_dist * yp)) withcolor clr;
+	enddef;
+
+\stopMPinclusions
+
+\starttext
+\title{Project VIABLE—Git guidelines}
+
+\subject{Contents}
+\placecontent
+
+\section{Commit messages}
+This section is somewhat optional—ignore it if you would like, but it's recommended for the sake of
+consistency and clarity.
+
+A commit message should consist of a single sentence, capitalized, but without a period.
+\startIncorrectCode
+Has period and is not capitalized
+\IncorrectSep
+\starttyping
+remove nasal demons.
+\stoptyping
+\stopIncorrectCode
+
+\startCorrectCode
+No period and capitalized
+\CorrectSep
+\starttyping
+Remove nasal demons
+\stoptyping
+\stopCorrectCode
+
+It should also be written in the imperative mood, as if instructing Git to execute the content of
+the message.
+
+\startIncorrectCode
+Not imperative
+\IncorrectSep
+\starttyping
+Fixed problem
+\stoptyping
+\stopIncorrectCode
+
+\startCorrectCode
+Imperative
+\CorrectSep
+\starttyping
+Fix problem
+\stoptyping
+\stopCorrectCode
+
+This is to keep consistent with the commit messages automatically generated by Git. E.g., if you
+merge a branch \type{A} into a branch \type{B}, the default message generated by Git is \type{Merge
+branch 'A' into B}.
+
+Commit messages should usually be only around 50–70 characters in length. But in some cases, you
+may have made a change for reasons that are not apparent just from the code and would like to
+further explain {\it why} you made the changes. In this case, you should make use of the commit
+message body; this can be done by putting a blank line in the commit message, followed by the body
+text. The command \type{git commit} without the \type{-m} option will open your editor—set with the
+\type{core.editor} git config option—and allow you to easily write a multiline commit description.
+
+For example, consider a commit message for a commit that adds bounds checking to prevent a buffer
+overflow. The following commit message is too long, making it harder to immediately tell {\it what}
+it changes:
+
+\startIncorrectCode
+Very long commit message
+\IncorrectSep
+\starttyping
+Add bounds checking to a buffer array that stores user
+input to prevent a buffer overflow that was a large
+security vulnerability
+\stoptyping
+\stopIncorrectCode
+
+On the other hand, this commit message has a short description of the change, followed by a body
+with more detail:
+\startCorrectCode
+Short commit summary with a detailed body
+\CorrectSep
+\starttyping
+Add bounds checking to input buffer
+
+Since users tend not to create items with names longer
+than 8192 characters, this is *typically* not a
+problem. But someone could theoretically send a message
+longer than that and cause a buffer overflow. Given
+that we have our stack set to be executable, this could
+easily lead to remote code execution.
+\stoptyping
+\stopCorrectCode
+
+In some cases, you may wish to express this kind of thing in a code comment; only do this if the
+comment is still relevant in the current state of the code.
+
+\startIncorrectCode
+Describing the reason for a change in a code comment
+\IncorrectSep
+\starttyping
+var x := get_value()
+# There used to be a line here that would check the
+# type of `x`, but it was unnecessary, so I removed it.
+\stoptyping
+\stopIncorrectCode
+
+\startCorrectCode
+Describing the reason for a change in the commit body
+\CorrectSep
+\starttyping
+Remove unnecessary type check
+
+`get_value()` is already guaranteed to return a value
+of type `Value`, so it's not necessary to check it.
+\stoptyping
+\stopCorrectCode
+
+\section[BranchTypes]{Branch types}
+\MarginHead{\type{main}}
+The \type{main} branch represents the \quotation{canonical} state of the project. I.e., if
+someone—in particular, a user rather than a developer—wants to try out VIABLE, then they should
+be able to clone the \type{main} branch and get it running out of the box.
+
+\MarginHead{\type{dev}}
+The \type{dev} branch is the working state of the repository from the developer's perspective. The
+current state of \type{dev} isn't guaranteed to be fully working, but the changes there have to be
+approved, so it's unlikely to be fully broken unless the current sprint inherently necessitates
+that the repository be broken.
+
+\MarginHead{\type{topic/*}}
+Topic branches should be given a name in the form \type{topic/<name>}, where \type{<name>} is a name
+describing the purpose of the branch. If the branch is clearly associated with a specific issue,
+then you may use GitHub's \quotation{create a branch} feature to create the branch; when doing this,
+prepend \type{topic/} to the name of the branch. For example, if the default branch name is
+\type{123-fix-stuff}, then rename it to \type{topic/123-fix-stuff}. You may also choose anything
+else for \type{<name>} that makes sense to you as long as it doesn't overlap with a topic branch
+that currently exists.
+
+Part of the reason for doing this is that it ensures all topic branches are listed {\it below} the
+\type{dev} branch on GitHub, but it also makes it easy to write commands that automatically pick
+out topic branches. For example, if you want to fetch all topic branches, you can use the command
+\type{git fetch origin 'refs/heads/topic/*:refs/remotes/origin/topic/*'}.
+
+Topic branches are short-lived branches intended to be merged into \type{dev} via pull request.
+Once a topic branch is merged, it should be deleted—typically, this will be done with the
+\quotation{delete branch} button in the pull request page once it's closed. The short-lived nature
+of these branches means that their name isn't {\it that} important; it's best to try not to use a
+name that has been used before, but it's not a big deal if you do.
+
+\MarginHead{\type{proto/*}}
+Prototype branches are given a name in the form \type{proto/<name>}, where \type{<name>} is the name
+of the thing being prototyped. Prototype branches do not have to be kept updated with \type{dev} or
+any other branch. Their commit history does not have to be clean. Their code quality and formatting
+also do not have to be good. They are {\it never} merged directly into \type{dev}. If you want to
+use some specific code from a prototype branch in a topic branch, then you should grab the changes
+either using \type{git cherry-pick} or copy and paste.
+
+% TODO: Add diagrams for topic branches.
+
+\MarginHead{\type{hotfix/*}}
+The name of a hotfix branch is in the form \type{hotfix/<name>}, where \type{<name>} describes the
+thing being fixed. These follow the same naming rules as topic branches, except prepended with
+\type{hotfix/} instead of \type{topic/}. See above in the \type{topic/*} section for an
+explanation.
+
+If an outstanding critical bug is found in the \type{main} branch and it needs to be fixed before
+the next time \type{dev} can be merged in, then a hotfix branch can be created to address it. This
+should then be merged into both \type{main} {\it and} \type{dev} via pull request. Once it has been
+merged into both, it should be deleted.
+
+For example, let's imagine we plan to demo the project in a week, and we've just finished
+implementing a feature, so we decide to merge \type{dev} into \type{main}. Over the next few days,
+we continue working on some new features in the \type{dev} branch, so the history looks like this:
+\startMidFig
+\startMPcode
+main := 2;
+dev := 0;
+
+connect_branches(dev, main, 2);
+connect_branches(dev, main, 0);
+
+make_branch(main, 3.5, "main", main_color)(0, 2);
+make_branch(dev, 3.5, "dev", dev_color)(-1, 0, 1, 2, 3);
+\stopMPcode
+\stopMidFig
+
+But a day before the demo, we realize that it crashes when running it on the demo platform! Then we
+can fix that on a hotfix branch. We create a branch off of \type{main} called
+\type{hotfix/demo-crash}. Once we've managed to fix the crash in the hotfix branch, we create two
+pull requests: one into \type{main} and one into \type{dev}. Once those pull requests have been
+merged, the history looks like this:
+
+\startMidFig
+\startMPcode
+main := 2;
+hotfix := 1;
+dev := 0;
+
+connect_branches(dev, main, 2);
+connect_branches(main, hotfix, 3);
+connect_branches(hotfix, main, 5);
+connect_branches(hotfix, dev, 5);
+connect_branches(dev, main, 0);
+
+make_branch(main, 5.5, "main", main_color)(0, 2, 5);
+make_branch(hotfix, 5.5, "hotfix/demo-crash", hotfix_color)(3, 4);
+make_branch(dev, 5.5, "dev", dev_color)(-1, 0, 1, 2, 3, 5);
+\stopMPcode
+\stopMidFig
+
+\section{The \type{main} branch}
+As much as is reasonably possible, \type{main} should {\it always} point to a commit that works
+correctly. This doesn't necessarily mean that it should have zero bugs, but there should be no
+\quotation{compile}-time errors, no runtime errors during normal usage, and no tests failing.
+
+If we have reached the end of a sprint, then we will discuss {\it as a team} whether the current
+state of \type{dev} is in good enough shape to be merged into \type{main}. If we agree, then one of
+us will create a pull request from \type{dev} to \type{main} and merge it in.
+
+\section{Prototyping}
+If you want to try something out or share an idea without having to worry about code quality or the
+bureaucracy surrounding topic branches, then you should use a prototype branch, named something like
+\type{proto/whatever}. See the \goto{branch types}[BranchTypes] section for more details.
+
+\section{Updating topic branches}
+Let's say you have checked out the topic branch \type{topic/a}, which is being worked on by
+someone else. When pulling these changes, always use the command \type{git pull --rebase}.
+Alternatively, if you set the config option \type{pull.rebase} to \type{true}, then \type{git pull}
+by itself will automatically use the rebase strategy.
+
+Let's say that \type{topic/a} originally looked like this:
+
+\startMidFig
+\startMPcode
+dev := 1;
+topic := 0;
+
+connect_branches(dev, topic, 2);
+
+make_branch(dev, 5.5, "dev", dev_color)(0, 1, 2, 3);
+make_branch(topic, 5.5, "topic/a", topic_a_color)(2, 3);
+\stopMPcode
+\stopMidFig
+
+In order to keep their branch up to date, they rebased \type{topic/a} on top of \type{dev}. If you
+were to fetch these changes without updating your local branch, then your local repository would
+look like this:
+
+\startMidFig
+\startMPcode
+dev := 2;
+origin_topic := 1;
+topic := 0;
+
+connect_branches(dev, origin_topic, 4);
+connect_branches(dev, topic, 2);
+
+make_branch(dev, 5.5, "dev", dev_color)(0, 1, 2, 3);
+make_branch(origin_topic, 5.5, "origin/topic/a", topic_a_color)(4, 5);
+make_branch(topic, 5.5, "topic/a", topic_a_color)(2, 3);
+\stopMPcode
+\stopMidFig
+
+By default, \type{git pull} will fetch these changes and then merge \type{origin/topic/a} into
+\type{topic/a}, which will produce something that looks like this:
+
+\startMidFig
+\startMPcode
+dev := 2;
+origin_topic := 1;
+topic := 0;
+
+connect_branches(dev, origin_topic, 4);
+connect_branches(dev, topic, 2);
+connect_branches(origin_topic, topic, 6);
+
+make_branch(dev, 6.5, "dev", dev_color)(0, 1, 2, 3);
+make_branch(origin_topic, 6.5, "origin/topic/a", topic_a_color)(4, 5);
+make_branch(topic, 6.5, "topic/a", topic_a_color)(2, 3, 6);
+\stopMPcode
+\stopMidFig
+
+This is undesirable, since it results in an extra merge commit with two different versions of the
+same branch as parents. On the other hand, using \type{git pull --rebase} will give the history:
+
+\startMidFig
+\startMPcode
+dev := 1;
+topic := 0;
+
+connect_branches(dev, topic, 4);
+
+make_branch(dev, 5.5, "dev", dev_color)(0, 1, 2, 3);
+make_branch(topic, 5.5, "topic/a", topic_a_color)(4, 5);
+\stopMPcode
+\stopMidFig
+
+which is much cleaner.
+
+\section{Incorporating changes from \type{dev}}
+Let's say you want to add some feature, so you create a branch from \type{dev} called
+\type{topic/add-feature}. At the same time, someone else fixes a bug in the branch
+\type{topic/fix-bug}:
+\startMidFig
+\startMPcode
+	dev := 2;
+	fix_bug := 1;
+	add_feature := 0;
+
+	connect_branches(dev, fix_bug, 2);
+	connect_branches(dev, add_feature, 2);
+
+	make_branch(fix_bug, 3.5, "topic/fix-bug", topic_b_color)(2);
+	make_branch(dev, 3.5, "dev", dev_color)(0, 1);
+	make_branch(add_feature, 3.5, "topic/add-feature", topic_a_color)(2, 3);
+\stopMPcode
+\stopMidFig
+
+While you're still working on \type{topic/add-feature}, \type{topic/fix-bug} is merged into
+\type{dev}:
+\startMidFig
+\startMPcode
+	dev := 2;
+	fix_bug := 1;
+	add_feature := 0;
+
+	connect_branches(dev, fix_bug, 2);
+	connect_branches(dev, add_feature, 2);
+	connect_branches(fix_bug, dev, 3);
+
+	make_branch(fix_bug, 3.5, "topic/fix-bug", topic_b_color)(2);
+	make_branch(dev, 3.5, "dev", dev_color)(0, 1, 3);
+	make_branch(add_feature, 3.5, "topic/add-feature", topic_a_color)(2, 3);
+\stopMPcode
+\stopMidFig
+
+You realize that you need the bug fix to keep working on the feature. To include the changes, do
+the following if possible:
+\startitemize
+	\item Pull the new changes into \type{dev}, then switch back to \type{topic/add-feature}.
+	\item Rebase \type{topic/add-feature} onto \type{dev} with the command \type{git rebase dev}.
+	\item If this resulted in a merge conflict, try to resolve the conflict. If you feel that you
+	have resolved it, use \type{git rebase --continue} to continue the rebase process. If you can't
+	find a good way to resolve it, use \type{git rebase --abort} to stop trying to rebase.
+	\item If \type{topic/add-feature} already has an upstream branch, you will need to use the
+	command \type{git push --force-with-lease} the next time you push changes to
+	\type{topic/add-feature}.
+\stopitemize
+
+Once the rebase is complete, the branches will look like this:
+\startMidFig
+\startMPcode
+	dev := 2;
+	fix_bug := 1;
+	add_feature := 0;
+
+	connect_branches(dev, fix_bug, 2);
+	connect_branches(dev, add_feature, 4);
+	connect_branches(fix_bug, dev, 3);
+
+	make_branch(fix_bug, 5.5, "topic/fix-bug", topic_b_color)(2);
+	make_branch(dev, 5.5, "dev", dev_color)(0, 1, 3);
+	make_branch(add_feature, 5.5, "topic/add-feature", topic_a_color)(4, 5);
+\stopMPcode
+\stopMidFig
+
+The benefit of rebasing is that it is practically invisible. It appears as if
+\type{topic/add-feature} was directly branched from the most recent commit in \type{dev} and
+doesn't create noisy merge commits.
+
+\section{Making issues}
+If you notice any problem or have any idea for a change you think would be good, make an issue.
+Don't hesitate to do this {\it even if you're unsure of whether it's a real problem or that we would
+ever address it}. When making an issue, please make sure to do the following:
+\startitemize[0]
+	\item Give it a title that clearly describes what the problem is. The exact formatting of this
+	isn't that important, as long as it's clear.
+
+	\item Use the description to give any additional context or to mention any ideas you already
+	have for solving the problem.
+
+	\item Add any relevant labels—this makes it much easier to quickly look through the issue list
+	for certain types of issues.
+
+	\item Add the issue to the correct section of the project board. This can either be done through
+	the \quotation{Project} section on the issue page or by directly creating the issue using the
+	\quotation{Add item} button on the project board. If the issue is something that you're sure is
+	relevant to the current sprint, add it to the \quotation{Todo} column; otherwise, add it to the
+	\quotation{Backlog} column.
+\stopitemize
+
+If you notice that an issue made by someone else doesn't have labels or isn't on the project board,
+you are welcome to add those yourself.
+
+\section{Assigning yourself work}
+If you have a particular thing you want to work on, first look in the \quotation{In Progress} column
+of the project board to make sure that nobody else is already working on it. If not, look in the
+\quotation{Todo} column and see if someone has already created an issue for it. Otherwise, you may
+create the issue yourself. Please follow the guidelines in the \quotation{Making issues} section.
+
+Once you have the issue, add yourself as an assignee. If you're planning on making changes that will
+solve multiple issues at once, then assign yourself to {\it all} such issues. If you plan to fix
+only {\it part} of an issue, then in addition to assigning yourself to the issue, also make a
+comment on the issue page explaining what part you're doing. You may assign yourself to an issue
+that already has assignees as long as your work doesn't overlap with other peoples' work and you
+make it clear what you're working on.
+
+\section{Topic branches}
+Once you have assigned yourself work, create a topic branch. If your work corresponds with exactly
+one issue, then you can create the topic branch using the \quotation{Create a branch} button on the
+issue page, or you can make the branch by hand. Otherwise, you must create the branch by hand.
+Either way, please follow the guidelines for topic branches as specified in the \quotation{Branch
+types} section.
+
+While working on your topic branch, please consider regularly incorporating changes from \type{dev}.
+This reduces the likelihood of running into merge conflicts and will prevent you from fixing stuff
+that has already been fixed.
+
+\section{Making pull requests}
+When you feel that your topic branch is done and have pushed all of your changes upstream, create a
+pull request from the topic branch into \type{dev}.
+
+A good rule of thumb for the title and description is to write them as if they were the summary and
+body of a commit message. I.e., the title should be in the imperative mood and explain the overall
+changes made by the pull request, and the description should give further explanation if necessary.
+
+For each issue that is {\it completely} resolved by the pull request, add a line in the description
+in the form \type{Resolves #<n>}, where \type{<n>} is the ID of the issue. For example, if your pull
+request resolves issue \#123, then the description should include \type{Resolves #123}. Since
+\type{dev} isn't the default branch, these won't be resolved automatically when the pull request is
+merged, but it {\it does} make it much easier to see what issues should be closed when the pull
+request is merged.
+
+Add at least one person as a reviewer for your pull request. If you have anything you're unsure of
+or you want reviewers to test something specific, then include those details in the pull request
+description or in a comment.
+
+\section{Reviewing and merging pull requests}
+If you can, try to regularly look through and review existing pull requests. If you're fairly
+confident that a pull request is correct, then leave an approval on it. If you're confident that
+something is incorrect, leave a review requesting changes with a comment explaining what you think
+needs to be changed. If you want to reference specific lines in your review, then you can click on
+the \quotation{+} button on the line in the diff viewer and drag to select more lines.
+
+Before it can be merged, a pull request must be approved by at least one person and must not have
+any requested changes. Once those requirements are met, anybody can merge the pull request. Note
+that this means you can merge a pull request immediately after approving it.
+
+After successfully merging a pull request, delete the topic branch using the \quotation{Delete
+branch} button on the pull request page.
+
+\stoptext

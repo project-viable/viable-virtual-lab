@@ -1,0 +1,158 @@
+[gd_scene load_steps=14 format=3 uid="uid://bt321lhs647bu"]
+
+[ext_resource type="Script" uid="uid://g83de1kv1cp3" path="res://scripts/microcentrifuge_holder.gd" id="1_x03pd"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_lhjef"]
+[ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="2_ufhtq"]
+[ext_resource type="Texture2D" uid="uid://4gatp66jseq6" path="res://textures/lab_objects/microcentrifuge_holder.svg" id="3_ufhtq"]
+[ext_resource type="Script" uid="uid://tqglxdgoq1xk" path="res://scripts/exclusive_area_2d.gd" id="5_ufhtq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0swob"]
+size = Vector2(8, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h3rdw"]
+size = Vector2(95, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lhjef"]
+size = Vector2(4.625, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_710li"]
+size = Vector2(35, 4.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c24ns"]
+size = Vector2(58, 43)
+
+[sub_resource type="Animation" id="Animation_5umuv"]
+resource_name = "pipette_zoom"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SelectableCanvasGroup/NinePatchRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.2784314)]
+}
+
+[sub_resource type="Animation" id="Animation_8qy4f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SelectableCanvasGroup/NinePatchRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uwuqn"]
+_data = {
+&"RESET": SubResource("Animation_8qy4f"),
+&"pipette_zoom": SubResource("Animation_5umuv")
+}
+
+[node name="MicrocentrifugeHolder" type="RigidBody2D"]
+script = ExtResource("1_x03pd")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="AttachmentInteractableArea" type="Area2D" parent="."]
+position = Vector2(-37, -9)
+script = ExtResource("2_ufhtq")
+point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
+shape = SubResource("RectangleShape2D_0swob")
+debug_color = Color(0.954008, 0.0952036, 0.484962, 0.42)
+
+[node name="AttachmentInteractableArea2" type="Area2D" parent="."]
+position = Vector2(-28, -9)
+script = ExtResource("2_ufhtq")
+point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea2"]
+shape = SubResource("RectangleShape2D_0swob")
+debug_color = Color(0.954008, 0.0952036, 0.484962, 0.42)
+
+[node name="AttachmentInteractableArea3" type="Area2D" parent="."]
+position = Vector2(-19, -9)
+script = ExtResource("2_ufhtq")
+point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea3"]
+shape = SubResource("RectangleShape2D_0swob")
+debug_color = Color(0.954008, 0.0952036, 0.484962, 0.42)
+
+[node name="AttachmentInteractableArea4" type="Area2D" parent="."]
+position = Vector2(-10, -9)
+script = ExtResource("2_ufhtq")
+point_groups = Array[StringName]([&"attachment:microcentrifuge_tube"])
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea4"]
+shape = SubResource("RectangleShape2D_0swob")
+debug_color = Color(0.954008, 0.0952036, 0.484962, 0.42)
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+z_index = 2
+script = ExtResource("2_lhjef")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SelectableCanvasGroup"]
+offset_left = -50.0
+offset_top = -14.0
+offset_right = 940.0
+offset_bottom = 247.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_ufhtq")
+region_rect = Rect2(36.0274, 219.375, 951.445, 392.665)
+patch_margin_left = 123
+patch_margin_top = 140
+patch_margin_right = 154
+patch_margin_bottom = 121
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -9.5)
+shape = SubResource("RectangleShape2D_h3rdw")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-45.125, 0.5)
+shape = SubResource("RectangleShape2D_lhjef")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(44.6875, 0)
+shape = SubResource("RectangleShape2D_lhjef")
+
+[node name="ExclusiveArea2D" type="Area2D" parent="." groups=["exclusive_area:pipette"]]
+script = ExtResource("5_ufhtq")
+require_entry_point_shapes = true
+metadata/_custom_type_script = "uid://tqglxdgoq1xk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExclusiveArea2D" groups=["entry_point"]]
+position = Vector2(-24, -25.75)
+shape = SubResource("RectangleShape2D_710li")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ExclusiveArea2D"]
+position = Vector2(-20, -10.5)
+shape = SubResource("RectangleShape2D_c24ns")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_uwuqn")
+}
+
+[connection signal="object_entered_purview" from="ExclusiveArea2D" to="." method="_on_exclusive_area_2d_object_entered_purview"]
+[connection signal="object_left_purview" from="ExclusiveArea2D" to="." method="_on_exclusive_area_2d_object_left_purview"]

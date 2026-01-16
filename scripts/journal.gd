@@ -1,0 +1,97 @@
+class_name Journal
+extends PanelContainer
+
+
+const PAGE_ROOT: String = "res://journal_pages/"
+
+
+@export var back_button: Button
+@export var forward_button: Button
+@export var journal_label: PreprocessedRichTextLabel
+@export var procedure_label: PreprocessedRichTextLabel
+
+
+# Previously visited pages.
+var _history: Array[HistoryEntry] = []
+# Position where the next history entry will be inserted.
+var _history_index: int = 0
+
+
+func _ready() -> void:
+	_update_history_buttons()
+
+func open() -> void:
+	Game.main.set_journal_open(true)
+
+func close() -> void:
+	Game.main.set_journal_open(false)
+
+## Attempt to load the page [param path] ,given as a path relative to [const PAGE_ROOT]. If the file
+## fails to load, do nothing and return [code]false[/code]. Otherwise, go to the page, add it to
+## the history stack, and return [code]true[/code]. The page is not added to history if it's already
+## the page being shown.
+func go_to_page(path: String) -> bool:
+	if not show_page(path): return false
+	if _history and _history[_history_index - 1].path == path: return true
+
+	_history = _history.slice(0, _history_index)
+	_history.push_back(HistoryEntry.new(path))
+	_history_index += 1
+	_update_history_buttons()
+	return true
+
+## Attempt to display the contents of the page [param path]. If the page can't be loaded, do nothing
+## and return [code]false[/code]. Otherwise, return [code]true[/code]. This function does [i]not[/i]
+## affect history.
+func show_page(path: String) -> bool:
+	return _show_page_in_label(journal_label, path)
+
+## Set the procedure page (the left panel in the journal). This does not have a history. Return
+## [code]false[/code] if the page could not be loaded.
+func set_procedure_page(path: String) -> bool:
+	return _show_page_in_label(procedure_label, path)
+
+## Move forward or backward in history by [param n]. A negative number will move backward in
+## history, and a positive number will move forward.
+func move_in_history(n: int) -> void:
+	if _history.is_empty(): return
+	_history_index = clamp(_history_index + n, 1, _history.size())
+	# We assume a page already shown in history will always work.
+	show_page(_history[_history_index - 1].path)
+	_update_history_buttons()
+
+## Clear history and show a blank page.
+func clear() -> void:
+	_history = []
+	_history_index = 0
+	journal_label.custom_text = ""
+
+func _update_history_buttons() -> void:
+	back_button.disabled = _history_index <= 1
+	forward_button.disabled = _history_index >= _history.size()
+
+func _show_page_in_label(label: PreprocessedRichTextLabel, path: String) -> bool:
+	var file := FileAccess.open(PAGE_ROOT + path, FileAccess.READ)
+	if not file:
+		print("Failed to load journal page %s" % [path])
+		return false
+	label.custom_text = file.get_as_text()
+	return true
+
+func _on_back_button_pressed() -> void:
+	move_in_history(-1)
+
+func _on_forward_button_pressed() -> void:
+	move_in_history(1)
+
+func _on_preprocessed_rich_text_label_meta_clicked(meta: Variant) -> void:
+	if meta is String: go_to_page(meta)
+
+
+class HistoryEntry:
+	# Path relative to [const PAGE_ROOT].
+	var path: String
+
+
+	func _init(p_path: String) -> void:
+		path = p_path

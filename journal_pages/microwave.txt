@@ -1,0 +1,5 @@
+#{h1:Microwave}#
+
+To use the keypad on the microwave, you must zoom in with #{prompt:interact_inspect}#.
+
+Open and close the door with #{prompt:interact_primary}#. Objects can be placed inside the microwave when the door is open.

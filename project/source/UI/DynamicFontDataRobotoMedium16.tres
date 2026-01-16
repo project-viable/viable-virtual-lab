@@ -1,5 +1,0 @@
-[gd_resource type="FontFile" format=2]
-
-[resource]
-override_oversampling = 5.0
-font_path = "res://UI/Roboto/Roboto-Medium.ttf"

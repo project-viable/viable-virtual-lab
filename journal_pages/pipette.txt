@@ -1,0 +1,11 @@
+#{h1:Pipette}#
+
+While holding the pipette, hold down #{prompt:interact_secondary}# or #{prompt:interact_tertiary}# to press the plunger to the first stop. While still holding down the first button, hold down the other button to press the plunger to the second stop.
+
+While holding the pipette, hover over the pipette tip box and press #{prompt:interact_primary}# to attach a tip. To dispose of the tip after using it, hover the pipette over the waste bin and press #{prompt:interact_primary}#.
+
+Bring the tip of the pipette near the top of a pipettable object to automatically zoom in and start pipetting. Pipettable objects include
+[ul]
+Microcentrifuge tubes
+Gel mold (use the pipette to transfer DNA samples to wells in the gel)
+[/ul]

@@ -1,0 +1,130 @@
+[gd_scene load_steps=14 format=3 uid="uid://gfmuo2b5e2b5"]
+
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_ceiaq"]
+[ext_resource type="Script" uid="uid://blk6q1chtrgqi" path="res://scripts/help_selectable_area.gd" id="4_s7pnd"]
+[ext_resource type="Texture2D" uid="uid://ceb3fqgxtqtqf" path="res://textures/lab_objects/scale.svg" id="4_ssuie"]
+[ext_resource type="Script" uid="uid://ceswiywyrstxd" path="res://scripts/scale_interactable_area.gd" id="5_7y61a"]
+[ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="5_f5hfo"]
+[ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="5_nayum"]
+[ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="5_ssuie"]
+[ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://textures/icons_and_buttons/button_2.svg" id="7_vhatv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vhatv"]
+size = Vector2(102, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkoys"]
+size = Vector2(102, 2)
+
+[sub_resource type="Resource" id="Resource_axik6"]
+script = ExtResource("5_f5hfo")
+kind = 6
+description = "Open help page for scale"
+metadata/_custom_type_script = "uid://b810schxe1hne"
+
+[sub_resource type="Resource" id="Resource_s7pnd"]
+script = ExtResource("5_f5hfo")
+kind = 3
+description = "Zoom in on scale"
+metadata/_custom_type_script = "uid://b810schxe1hne"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7y61a"]
+size = Vector2(95, 25)
+
+[node name="Scale" type="Node2D"]
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("2_ceiaq")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="Scale" type="Sprite2D" parent="SelectableCanvasGroup"]
+position = Vector2(1, -24)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("4_ssuie")
+
+[node name="Surface" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Surface"]
+position = Vector2(1, -17.5)
+shape = SubResource("RectangleShape2D_vhatv")
+debug_color = Color(0.404972, 0.46678, 1, 0.42)
+
+[node name="InteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("camera")]
+script = ExtResource("5_7y61a")
+camera = NodePath("../ZoomCamera")
+metadata/_custom_type_script = "uid://8jbti40eodk6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+position = Vector2(1, -22)
+shape = SubResource("RectangleShape2D_jkoys")
+
+[node name="ZoomCamera" type="Camera2D" parent="."]
+zoom = Vector2(7, 7)
+
+[node name="HelpSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("click_area")]
+script = ExtResource("4_s7pnd")
+help_page_path = "scale.txt"
+click_area = NodePath("../ZoomSelectableArea/Area2D")
+interact_info = SubResource("Resource_axik6")
+metadata/_custom_type_script = "uid://blk6q1chtrgqi"
+
+[node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("area_camera")]
+script = ExtResource("5_ssuie")
+area_camera = NodePath("../ZoomCamera")
+search_groups = Array[StringName]([&"zoom:scale"])
+interact_info = SubResource("Resource_s7pnd")
+metadata/_custom_type_script = "uid://ciw88e6ajyksw"
+
+[node name="Area2D" type="Area2D" parent="ZoomSelectableArea"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/Area2D"]
+position = Vector2(1.5, -1.5)
+shape = SubResource("RectangleShape2D_7y61a")
+
+[node name="ZoomAwareControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_nayum")
+metadata/_custom_type_script = "uid://kqpdop5g7bqv"
+
+[node name="TareButton" type="TextureButton" parent="ZoomAwareControl"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = -15.0
+offset_right = 1043.0
+offset_bottom = 753.0
+scale = Vector2(0.0293785, 0.0293785)
+texture_normal = ExtResource("7_vhatv")
+
+[node name="Label" type="Label" parent="ZoomAwareControl/TareButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -9.5
+offset_right = 20.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.00617)
+theme_override_font_sizes/font_size = 200
+text = "Tare"
+
+[node name="WeightLabel" type="Label" parent="ZoomAwareControl"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -27.0
+offset_top = -10.0
+offset_right = 11.0
+offset_bottom = 2.0
+theme_override_font_sizes/font_size = 9
+text = "0.0  g"
+horizontal_alignment = 2
+
+[connection signal="pressed" from="ZoomAwareControl/TareButton" to="InteractableArea" method="_on_tare_button_pressed"]

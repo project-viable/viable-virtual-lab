@@ -1,1 +1,0 @@
-For details on licenses for the Godot Editor and any other resources it uses, open the editor, and go to Help->About Godot->License, and Help->About Godot->Third-party Licenses.

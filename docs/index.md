@@ -15,13 +15,14 @@ https://docs.godotengine.org/en/4.3/
 
 ## Guides
 1. [Installation/Getting Started](/README.md#setup)
-2. [Project Overview](/docs/guide/overview.md)
-3. [Creating a new Module](/docs/reference/modules.md#making-a-new-module)
-4. [Adding a new object to the game](/docs/reference/labobject.md#creating-a-new-type-of-labobject)
-5. [Object Groups](/docs/reference/groups/index.md)
-6. [Using Subscenes](/docs/reference/subscenemanagers.md)
-7. [HTML5 Export and Deployment](/docs/reference/deployment.md)
-8. [Microscope Module](/docs/reference/fluorescent_microscope_module.md)
+2. [Git and project contribution guidelines](/docs/guide/git_guidelines/main.pdf)
+3. [Project Overview](/docs/guide/overview.md)
+4. [Creating a new Module](/docs/reference/modules.md#making-a-new-module)
+5. [Adding a new object to the game](/docs/reference/labobject.md#creating-a-new-type-of-labobject)
+6. [Object Groups](/docs/reference/groups/index.md)
+7. [Using Subscenes](/docs/reference/subscenemanagers.md)
+8. [HTML5 Export and Deployment](/docs/reference/deployment.md)
+9. [Microscope Module](/docs/reference/fluorescent_microscope_module.md)
 
 ## Reference
 1. [Modules](/docs/reference/modules.md)

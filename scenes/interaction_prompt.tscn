@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=3 uid="uid://bqq24b1qxt4r7"]
+
+[ext_resource type="Script" uid="uid://djoq1glbbojw1" path="res://scripts/interaction_prompt.gd" id="1_hyumr"]
+[ext_resource type="Texture2D" uid="uid://d062ywg2c6bnj" path="res://textures/icons_and_buttons/keyboard_key_unpressed.svg" id="2_a6f31"]
+[ext_resource type="Texture2D" uid="uid://cv05dk2ip135d" path="res://textures/icons_and_buttons/keyboard_key_pressed.svg" id="3_g1gqo"]
+[ext_resource type="Texture2D" uid="uid://dmev1jp2fxu07" path="res://textures/icons_and_buttons/mouse_left.svg" id="3_rbyiy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hyumr"]
+texture = ExtResource("2_a6f31")
+texture_margin_left = 15.5596
+texture_margin_top = 14.2369
+texture_margin_right = 15.9802
+texture_margin_bottom = 27.5031
+region_rect = Rect2(74.499, 86.3222, 66.0819, 72.3381)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_55hpe"]
+texture = ExtResource("3_g1gqo")
+texture_margin_left = 15.5596
+texture_margin_top = 16.6639
+texture_margin_right = 15.9802
+texture_margin_bottom = 19.2725
+region_rect = Rect2(74.499, 86.3222, 66.0819, 72.3381)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbyiy"]
+resource_local_to_scene = true
+atlas = ExtResource("3_rbyiy")
+region = Rect2(283.5, 13.962, 456, 741.72)
+
+[node name="InteractionPrompt" type="HBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+offset_right = 82.0
+offset_bottom = 40.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+script = ExtResource("1_hyumr")
+
+[node name="KeyUnpressed" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxTexture_hyumr")
+
+[node name="Label" type="Label" parent="KeyUnpressed"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "(unknown)"
+horizontal_alignment = 1
+
+[node name="KeyPressed" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxTexture_55hpe")
+
+[node name="Label" type="Label" parent="KeyPressed"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "(unknown)"
+horizontal_alignment = 1
+
+[node name="MouseButton" type="TextureRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(30, 50)
+layout_mode = 2
+texture = SubResource("AtlasTexture_rbyiy")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DescriptionLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.0778605, 0.191658, 0.245945, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20

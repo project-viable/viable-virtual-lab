@@ -1,0 +1,36 @@
+extends UseComponent
+
+@export var container: ContainerComponent
+@export var volume_to_take: float = 0.1
+@export var volume_to_dispense: float = 0.1
+
+func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
+	## If the scoopula is empty, return the interaction "scoop"
+	if not (area is ContainerInteractableArea) or not area.is_in_group(&"container:scoop"):
+		return []
+
+	if container.substances.is_empty():
+		return [
+			InteractInfo.new(InteractInfo.Kind.PRIMARY, "Scoop 0.1 mL"),
+			InteractInfo.new(InteractInfo.Kind.SECONDARY, "Scoopula is already full", false),
+		]
+	else:
+		return [
+			InteractInfo.new(InteractInfo.Kind.PRIMARY, "Scoopula is empty", false),
+			InteractInfo.new(InteractInfo.Kind.SECONDARY, "Dispense 0.1 mL"),
+		]
+
+func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
+	if not (area is ContainerInteractableArea): return
+
+	match kind:
+		InteractInfo.Kind.PRIMARY:
+			container.add_array(area.container_component.take_volume(volume_to_take))
+			get_parent().find_child("FillSprite").visible = true
+
+		InteractInfo.Kind.SECONDARY:
+			area.container_component.add_array(container.take_volume(volume_to_dispense))
+			Game.report_log.update_total(volume_to_dispense,"total_agarose_powder")
+			var scoop_data: String = str(Game.report_log.report_data["total_agarose_powder"], " mL of agarose powder added to ", area.container_component.get_parent().name)
+			Game.report_log.update_event(scoop_data, "scooped_agarose_powder")
+			get_parent().find_child("FillSprite").visible = false

@@ -1,0 +1,5 @@
+#{h1:Measuring solids}#
+
+Place a weigh boat on top of the scale and tare it by first zooming in on the scale with #{prompt:interact_inspect}# and then pressing the "tare" button. The screen on the scale should read "0 g".
+
+The scoopula can then be used to transfer solids to the weigh boat, including agarose powder. While holding the scoopula, hover over a container and press #{prompt:interact_primary}# to scoop from it. Then move the scoopula to the weigh boat and press #{prompt:interact_secondary}# to pour out the contents of the scoopula.

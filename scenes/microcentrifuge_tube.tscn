@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://dbb4h6gqfr7wb"]
+
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_v7kqd"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_w81e0"]
+[ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="3_rvoxf"]
+[ext_resource type="Texture2D" uid="uid://d1kyht6iivf6s" path="res://textures/lab_objects/microcentrifuge_tube.svg" id="4_f37ir"]
+[ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://scripts/attachment_point.gd" id="5_ulp6r"]
+[ext_resource type="Script" uid="uid://qeafyaxecqnu" path="res://scripts/substance_access_area.gd" id="7_0ksr7"]
+[ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="8_oemyf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwg5x"]
+size = Vector2(8, 22)
+
+[node name="MicrocentrifugeTube" type="RigidBody2D"]
+collision_layer = 0
+script = ExtResource("1_v7kqd")
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-2, 1, -1, 11, 3, 11, 4, 1, 4, -11, -2, -11)
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+z_index = 1
+script = ExtResource("2_w81e0")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="SelectableCanvasGroup" node_paths=PackedStringArray("source")]
+polygon = PackedVector2Array(-1.5, -11, 3, -11, 3, 1, 2, 10, -0.5, 10, -1.5, 1)
+script = ExtResource("3_rvoxf")
+source = NodePath("../../ContainerComponent")
+metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
+
+[node name="MicrocentrifugeContainer" type="Sprite2D" parent="SelectableCanvasGroup"]
+position = Vector2(1, 0)
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("4_f37ir")
+region_enabled = true
+region_rect = Rect2(436.905, 194.177, 158.322, 372.7)
+
+[node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:microcentrifuge_tube"]]
+position = Vector2(1, -2)
+script = ExtResource("5_ulp6r")
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls"]
+polygon = PackedVector2Array(-2.32222, -11.0387, -2.33868, 1.19256, -0.948257, 10.2563, 2.39752, 10.1741, 3.875, 0.945312, 3.83456, -11.0113, 5, -11, 5, 11, -3, 11, -3, -11)
+
+[node name="SubstanceAccessArea" type="Area2D" parent="." node_paths=PackedStringArray("substance_display")]
+script = ExtResource("7_0ksr7")
+substance_display = NodePath("../SelectableCanvasGroup/SubstanceDisplayPolygon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubstanceAccessArea"]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_xwg5x")
+debug_color = Color(0.602255, 0.542326, 0.0192213, 0.42)
+
+[node name="ContainerComponent" type="Node2D" parent="."]
+script = ExtResource("8_oemyf")
+container_volume = 0.5
+metadata/_custom_type_script = "uid://sscbm7kfq4jj"

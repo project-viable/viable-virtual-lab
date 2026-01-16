@@ -1,0 +1,5 @@
+#{h1:Containers}#
+
+Many containers can be poured from. While holding such a container, hover it over another container and hold #{prompt:interact_secondary}# to pour from the held container into the targeted one.
+
+Certain containers (in particular, Erlenmeyer flasks) can be swirled to mix their contents. Hold #{prompt:interact_tertiary}# to swirl a container. 

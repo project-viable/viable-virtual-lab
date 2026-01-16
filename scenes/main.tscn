@@ -1,0 +1,954 @@
+[gd_scene load_steps=36 format=3 uid="uid://ch4jildorp0b3"]
+
+[ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
+[ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
+[ext_resource type="Shader" uid="uid://dp36jhy06j2x4" path="res://shaders/screen_time_warp.gdshader" id="5_jscy8"]
+[ext_resource type="Resource" uid="uid://d3tt3s0try6s7" path="res://modules/gel_electrophoresis.tres" id="5_pj8lk"]
+[ext_resource type="Script" uid="uid://c6mualde27mwh" path="res://scripts/main_interactable_system.gd" id="6_5ktsy"]
+[ext_resource type="Script" uid="uid://cmnnbli12q46a" path="res://scripts/virtual_mouse_content_scaled_sub_viewport_container.gd" id="7_uhp2u"]
+[ext_resource type="Script" uid="uid://bmcv1qehkhxri" path="res://scripts/scene_input_handler.gd" id="8_kpxdo"]
+[ext_resource type="Shader" uid="uid://ev3d6lurthgo" path="res://shaders/screen_gauss_blur.gdshader" id="9_2wyq8"]
+[ext_resource type="Script" uid="uid://b8kjtd0vdnq42" path="res://scripts/transition_camera.gd" id="9_agdoh"]
+[ext_resource type="Texture2D" uid="uid://dqjj7qlog4jy1" path="res://textures/main_menu_background.png" id="10_pm3ni"]
+[ext_resource type="Texture2D" uid="uid://dpjbw81s4cllc" path="res://textures/icons_and_buttons/cursors/hand_pointing.svg" id="10_tmkqk"]
+[ext_resource type="Theme" uid="uid://2lamnb3h2xxg" path="res://themes/debug_overlay.tres" id="11_gqmmt"]
+[ext_resource type="Texture2D" uid="uid://b0hfiq010v2bq" path="res://textures/icons_and_buttons/cursors/hand_open.svg" id="11_jc788"]
+[ext_resource type="Texture2D" uid="uid://bhpxxflq68efs" path="res://textures/icons_and_buttons/cursors/hand_closed.svg" id="12_4mycw"]
+[ext_resource type="Script" uid="uid://dftxhrc76wr2j" path="res://scripts/debug_overlay.gd" id="12_yc10j"]
+[ext_resource type="Script" uid="uid://bmdn4p40xeusb" path="res://scripts/menu_screen_manager.gd" id="15_og1vs"]
+[ext_resource type="Script" uid="uid://d87mq61qhuq8" path="res://scripts/menu_screen.gd" id="16_2wyq8"]
+[ext_resource type="Script" uid="uid://cnuiybm68m7ub" path="res://scripts/journal.gd" id="16_y6deb"]
+[ext_resource type="Script" uid="uid://dkacpjq2t2mj1" path="res://scripts/preprocessed_rich_text_label.gd" id="17_og1vs"]
+[ext_resource type="Texture2D" uid="uid://g570l32ipee5" path="res://textures/main_menu_logo.png" id="18_pm3ni"]
+[ext_resource type="Script" uid="uid://kxslh01sq2ny" path="res://scripts/menu_screen_button.gd" id="19_vxglm"]
+[ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://scenes/interaction_prompt.tscn" id="22_g2on7"]
+[ext_resource type="Script" uid="uid://smreqra2kcc2" path="res://scripts/scale_container.gd" id="25_og1vs"]
+[ext_resource type="Script" uid="uid://bu1da87rm0cub" path="res://scripts/log_report.gd" id="26_2wyq8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqmmt"]
+size = Vector2(20, 30)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2f3dj"]
+shader = ExtResource("5_jscy8")
+shader_parameter/strength = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxglm"]
+shader = ExtResource("9_2wyq8")
+shader_parameter/axes = Vector2i(10, 0)
+shader_parameter/stds = Vector2(10, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2wyq8"]
+shader = ExtResource("9_2wyq8")
+shader_parameter/axes = Vector2i(0, 10)
+shader_parameter/stds = Vector2(1, 10)
+
+[sub_resource type="InputEventAction" id="InputEventAction_xrxkg"]
+action = &"interact_inspect"
+
+[sub_resource type="InputEventAction" id="InputEventAction_mxvw5"]
+action = &"interact_left"
+
+[sub_resource type="InputEventAction" id="InputEventAction_og1vs"]
+action = &"interact_right"
+
+[sub_resource type="InputEventAction" id="InputEventAction_2wyq8"]
+action = &"toggle_menu"
+
+[sub_resource type="InputEventAction" id="InputEventAction_y6deb"]
+action = &"toggle_journal"
+
+[sub_resource type="InputEventAction" id="InputEventAction_vxglm"]
+action = &"speed_up_time"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pm3ni"]
+atlas = ExtResource("18_pm3ni")
+region = Rect2(190.77774, 223.89894, 1713.6912, 459.49268)
+
+[node name="Main" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_ufg5n")
+all_modules = Array[ExtResource("4_m64kl")]([ExtResource("5_pj8lk")])
+
+[node name="InteractableSystem" type="Node2D" parent="."]
+script = ExtResource("6_5ktsy")
+metadata/_custom_type_script = "uid://brv8o6bvj0yqp"
+
+[node name="SceneLayer" type="CanvasLayer" parent="."]
+process_mode = 1
+
+[node name="ContentScaledSubViewportContainer" type="TextureRect" parent="SceneLayer"]
+unique_name_in_owner = true
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_uhp2u")
+metadata/_custom_type_script = "uid://dmoeu8vq1th7i"
+
+[node name="MainViewport" type="SubViewport" parent="SceneLayer/ContentScaledSubViewportContainer"]
+unique_name_in_owner = true
+process_mode = 3
+physics_object_picking = true
+size_2d_override = Vector2i(1280, 720)
+size_2d_override_stretch = true
+
+[node name="Scene" type="Node2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+unique_name_in_owner = true
+
+[node name="SceneInputHandler" type="Node2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+process_mode = 3
+script = ExtResource("8_kpxdo")
+
+[node name="CursorArea" type="Area2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+unique_name_in_owner = true
+position = Vector2(66, 52)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea"]
+position = Vector2(8, 12)
+shape = SubResource("RectangleShape2D_gqmmt")
+
+[node name="TransitionCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+unique_name_in_owner = true
+position = Vector2(640, 360)
+script = ExtResource("9_agdoh")
+metadata/_custom_type_script = "uid://b8kjtd0vdnq42"
+
+[node name="MainSceneCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+position = Vector2(640, 360)
+
+[node name="Postprocess" type="Node2D" parent="SceneLayer"]
+unique_name_in_owner = true
+
+[node name="TimeWarp" type="BackBufferCopy" parent="SceneLayer/Postprocess"]
+copy_mode = 2
+
+[node name="Rect" type="ColorRect" parent="SceneLayer/Postprocess/TimeWarp"]
+material = SubResource("ShaderMaterial_2f3dj")
+offset_left = -10.0
+offset_top = -9.0
+offset_right = 1293.0
+offset_bottom = 737.0
+mouse_filter = 2
+
+[node name="HBlur" type="BackBufferCopy" parent="SceneLayer/Postprocess"]
+visible = false
+copy_mode = 2
+
+[node name="Rect" type="ColorRect" parent="SceneLayer/Postprocess/HBlur"]
+material = SubResource("ShaderMaterial_vxglm")
+offset_left = -10.0
+offset_top = -9.0
+offset_right = 1293.0
+offset_bottom = 737.0
+mouse_filter = 2
+
+[node name="VBlur" type="BackBufferCopy" parent="SceneLayer/Postprocess"]
+visible = false
+copy_mode = 2
+
+[node name="Rect" type="ColorRect" parent="SceneLayer/Postprocess/VBlur"]
+material = SubResource("ShaderMaterial_2wyq8")
+offset_left = -10.0
+offset_top = -9.0
+offset_right = 1293.0
+offset_bottom = 737.0
+mouse_filter = 2
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="Background" type="TextureRect" parent="UILayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("10_pm3ni")
+
+[node name="SubsceneOverlay" type="ColorRect" parent="UILayer"]
+unique_name_in_owner = true
+editor_description = "Covers the scene while showing a subscene"
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.58431375)
+
+[node name="SubsceneContainer" type="SubViewportContainer" parent="UILayer"]
+unique_name_in_owner = true
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+stretch = true
+
+[node name="SubsceneViewport" type="SubViewport" parent="UILayer/SubsceneContainer"]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(40, 40)
+render_target_update_mode = 0
+
+[node name="VirtualCursor" type="Node2D" parent="UILayer"]
+unique_name_in_owner = true
+position = Vector2(66, 52)
+
+[node name="HandPointing" type="Sprite2D" parent="UILayer/VirtualCursor"]
+position = Vector2(-6.299999, -7.799999)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("10_tmkqk")
+centered = false
+offset = Vector2(-110, -60)
+
+[node name="HandOpen" type="Sprite2D" parent="UILayer/VirtualCursor"]
+position = Vector2(-6.299999, -7.799999)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("11_jc788")
+centered = false
+offset = Vector2(-110, -60)
+
+[node name="HandClosed" type="Sprite2D" parent="UILayer/VirtualCursor"]
+position = Vector2(-6.299999, -7.799999)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("12_4mycw")
+centered = false
+offset = Vector2(-110, -60)
+
+[node name="Prompts" type="MarginContainer" parent="UILayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="InteractPrompts" type="VBoxContainer" parent="UILayer/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 10
+
+[node name="ScaleContainer2" type="Container" parent="UILayer/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="ZoomOutPrompt" parent="UILayer/Prompts/ScaleContainer2" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+input_event = SubResource("InputEventAction_xrxkg")
+description = "Zoom out"
+
+[node name="ScaleContainer3" type="Container" parent="UILayer/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="LeftWorkspacePrompt" parent="UILayer/Prompts/ScaleContainer3" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
+layout_mode = 2
+input_event = SubResource("InputEventAction_mxvw5")
+auto_update_pressed = true
+
+[node name="ScaleContainer" type="Container" parent="UILayer/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="RightWorkspacePrompt" parent="UILayer/Prompts/ScaleContainer" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
+layout_mode = 2
+input_event = SubResource("InputEventAction_og1vs")
+auto_update_pressed = true
+
+[node name="JournalOverlay" type="ColorRect" parent="UILayer"]
+unique_name_in_owner = true
+editor_description = "Covers all of the simulation-specific stuff while paused (including button prompts)."
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.8156863)
+
+[node name="Journal" type="PanelContainer" parent="UILayer" node_paths=PackedStringArray("back_button", "forward_button", "journal_label", "procedure_label")]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_behavior_recursive = 1
+script = ExtResource("16_y6deb")
+back_button = NodePath("VBoxContainer/HBoxContainer/BackButton")
+forward_button = NodePath("VBoxContainer/HBoxContainer/ForwardButton")
+journal_label = NodePath("VBoxContainer/HBoxContainer2/HelpLabel")
+procedure_label = NodePath("VBoxContainer/HBoxContainer2/ProcedureLabel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Journal"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Journal/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/Journal/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"MenuScreenTitleLabel"
+text = "Journal"
+
+[node name="BackButton" type="Button" parent="UILayer/Journal/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+text = "<"
+
+[node name="ForwardButton" type="Button" parent="UILayer/Journal/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = ">"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UILayer/Journal/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="ProcedureLabel" type="RichTextLabel" parent="UILayer/Journal/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+bbcode_enabled = true
+script = ExtResource("17_og1vs")
+metadata/_custom_type_script = "uid://dkacpjq2t2mj1"
+
+[node name="HelpLabel" type="RichTextLabel" parent="UILayer/Journal/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+script = ExtResource("17_og1vs")
+metadata/_custom_type_script = "uid://dkacpjq2t2mj1"
+
+[node name="Button" type="Button" parent="UILayer/Journal"]
+visible = false
+layout_mode = 2
+text = "Download Report"
+
+[node name="ReportText" type="RichTextLabel" parent="UILayer/Journal"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="FileDialog" type="FileDialog" parent="UILayer/Journal"]
+unique_name_in_owner = true
+oversampling_override = 1.0
+use_native_dialog = true
+
+[node name="PauseOverlay" type="ColorRect" parent="UILayer"]
+unique_name_in_owner = true
+editor_description = "Covers all of the simulation-specific stuff while paused (including button prompts)."
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.8156863)
+
+[node name="GeneralPrompts" type="MarginContainer" parent="UILayer"]
+unique_name_in_owner = true
+editor_description = "Button prompts that may be relevant outside the simulation."
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Prompts" type="VBoxContainer" parent="UILayer/GeneralPrompts"]
+editor_description = "Button prompts for generic actions that can always be performed at any time in the simulation."
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="ScaleContainer3" type="Container" parent="UILayer/GeneralPrompts/Prompts"]
+layout_mode = 2
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="MenuPrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer3" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
+layout_mode = 2
+input_event = SubResource("InputEventAction_2wyq8")
+description = "Pause"
+auto_update_pressed = true
+
+[node name="ScaleContainer" type="Container" parent="UILayer/GeneralPrompts/Prompts"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="JournalPrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
+layout_mode = 2
+input_event = SubResource("InputEventAction_y6deb")
+description = "Toggle journal"
+auto_update_pressed = true
+
+[node name="ScaleContainer2" type="Container" parent="UILayer/GeneralPrompts/Prompts"]
+layout_mode = 2
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="SpeedUpTimePrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer2" instance=ExtResource("22_g2on7")]
+unique_name_in_owner = true
+layout_mode = 2
+input_event = SubResource("InputEventAction_vxglm")
+description = "Speed up time"
+auto_update_pressed = true
+
+[node name="MenuScreenManager" type="Control" parent="UILayer"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_behavior_recursive = 1
+script = ExtResource("15_og1vs")
+metadata/_custom_type_script = "uid://bmdn4p40xeusb"
+
+[node name="PauseMenu" type="Control" parent="UILayer/MenuScreenManager"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_2wyq8")
+
+[node name="Content" type="VBoxContainer" parent="UILayer/MenuScreenManager/PauseMenu"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -96.5
+offset_right = 200.0
+offset_bottom = 96.5
+
+[node name="Logo" type="TextureRect" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+texture = SubResource("AtlasTexture_pm3ni")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Spacer" type="Control" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="SelectModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+text = "Select Module"
+script = ExtResource("19_vxglm")
+menu_screen = NodePath("../../../ModuleSelect")
+
+[node name="RestartModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+text = "Restart Module"
+
+[node name="ExitModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+text = "Return to Main Menu"
+
+[node name="OptionsButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+text = "Options"
+script = ExtResource("19_vxglm")
+menu_screen = NodePath("../../../OptionsScreen")
+
+[node name="AboutButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+text = "About"
+script = ExtResource("19_vxglm")
+menu_screen = NodePath("../../../AboutScreen")
+
+[node name="QuitButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+text = "Quit"
+
+[node name="AboutScreen" type="PanelContainer" parent="UILayer/MenuScreenManager"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -235.0
+offset_right = 400.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_2wyq8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuScreenManager/AboutScreen"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_type_variation = &"MenuScreenTitleLabel"
+text = "About"
+horizontal_alignment = 1
+
+[node name="Text" type="RichTextLabel" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 2
+bbcode_enabled = true
+text = "This project is a web-based simulation framework that intends to provide virtual lab experience to users without access to a physical lab space. The framework is built to allow users the freedom to experiment and make mistakes in a controlled environment, with user mistakes carrying through to future steps and influencing the final result as they would in a real lab environment.
+
+This project was developed by Jonas Courtney, Jeffrey Collins, Conor Harris, Michael Jordan, Tyler Hand, and Justin Astalos as part of the 2023-2024 CS Senior Capstone class, sponsored by Jian Wei Tay and Kristin Moore. Most graphics used within the simulation were created by Sahba Setareh.
+
+
+
+License Information:
+The following tools, projects, and assets are used under their respective licenses, provided here.
+	Godot:
+		This game uses Godot Engine, available under the following license:
+	    Copyright (c) 2014-present Godot Engine contributors. Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
+
+	    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+	    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+	    THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	FreeType:
+		Portions of this software are copyright © 1996-2019 The FreeType Project (www.freetype.org). All rights reserved.
+
+	ENet:
+	    Copyright (c) 2002-2020 Lee Salzman
+
+	    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+	    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+	    THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	mbed TLS:
+	    Copyright The Mbed TLS Contributors
+
+	    Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+	    http://www.apache.org/licenses/LICENSE-2.0
+
+	    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+	Roboto Font:
+																		Apache License
+									                           Version 2.0, January 2004
+									                        http://www.apache.org/licenses/
+
+									   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+									   1. Definitions.
+
+									      \"License\" shall mean the terms and conditions for use, reproduction,
+									      and distribution as defined by Sections 1 through 9 of this document.
+
+									      \"Licensor\" shall mean the copyright owner or entity authorized by
+									      the copyright owner that is granting the License.
+
+									      \"Legal Entity\" shall mean the union of the acting entity and all
+									      other entities that control, are controlled by, or are under common
+									      control with that entity. For the purposes of this definition,
+									      \"control\" means (i) the power, direct or indirect, to cause the
+									      direction or management of such entity, whether by contract or
+									      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+									      outstanding shares, or (iii) beneficial ownership of such entity.
+
+									      \"You\" (or \"Your\") shall mean an individual or Legal Entity
+									      exercising permissions granted by this License.
+
+									      \"Source\" form shall mean the preferred form for making modifications,
+									      including but not limited to software source code, documentation
+									      source, and configuration files.
+
+									      \"Object\" form shall mean any form resulting from mechanical
+									      transformation or position of a Source form, including but
+									      not limited to compiled object code, generated documentation,
+									      and conversions to other media types.
+
+									      \"Work\" shall mean the work of authorship, whether in Source or
+									      Object form, made available under the License, as indicated by a
+									      copyright notice that is included in or attached to the work
+									      (an example is provided in the Appendix below).
+
+									      \"Derivative Works\" shall mean any work, whether in Source or Object
+									      form, that is based on (or derived from) the Work and for which the
+									      editorial revisions, annotations, elaborations, or other modifications
+									      represent, as a whole, an original work of authorship. For the purposes
+									      of this License, Derivative Works shall not include works that remain
+									      separable from, or merely link (or bind by name) to the interfaces of,
+									      the Work and Derivative Works thereof.
+
+									      \"Contribution\" shall mean any work of authorship, including
+									      the original version of the Work and any modifications or additions
+									      to that Work or Derivative Works thereof, that is intentionally
+									      submitted to Licensor for inclusion in the Work by the copyright owner
+									      or by an individual or Legal Entity authorized to submit on behalf of
+									      the copyright owner. For the purposes of this definition, \"submitted\"
+									      means any form of electronic, verbal, or written communication sent
+									      to the Licensor or its representatives, including but not limited to
+									      communication on electronic mailing lists, source code control systems,
+									      and issue tracking systems that are managed by, or on behalf of, the
+									      Licensor for the purpose of discussing and improving the Work, but
+									      excluding communication that is conspicuously marked or otherwise
+									      designated in writing by the copyright owner as \"Not a Contribution.\"
+
+									      \"Contributor\" shall mean Licensor and any individual or Legal Entity
+									      on behalf of whom a Contribution has been received by Licensor and
+									      subsequently incorporated within the Work.
+
+									   2. Grant of Copyright License. Subject to the terms and conditions of
+									      this License, each Contributor hereby grants to You a perpetual,
+									      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+									      copyright license to reproduce, prepare Derivative Works of,
+									      publicly display, publicly perform, sublicense, and distribute the
+									      Work and such Derivative Works in Source or Object form.
+
+									   3. Grant of Patent License. Subject to the terms and conditions of
+									      this License, each Contributor hereby grants to You a perpetual,
+									      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+									      (except as stated in this section) patent license to make, have made,
+									      use, offer to sell, sell, import, and otherwise transfer the Work,
+									      where such license applies only to those patent claims licensable
+									      by such Contributor that are necessarily infringed by their
+									      Contribution(s) alone or by combination of their Contribution(s)
+									      with the Work to which such Contribution(s) was submitted. If You
+									      institute patent litigation against any entity (including a
+									      cross-claim or counterclaim in a lawsuit) alleging that the Work
+									      or a Contribution incorporated within the Work constitutes direct
+									      or contributory patent infringement, then any patent licenses
+									      granted to You under this License for that Work shall terminate
+									      as of the date such litigation is filed.
+
+									   4. Redistribution. You may reproduce and distribute copies of the
+									      Work or Derivative Works thereof in any medium, with or without
+									      modifications, and in Source or Object form, provided that You
+									      meet the following conditions:
+
+									      (a) You must give any other recipients of the Work or
+									          Derivative Works a copy of this License; and
+
+									      (b) You must cause any modified files to carry prominent notices
+									          stating that You changed the files; and
+
+									      (c) You must retain, in the Source form of any Derivative Works
+									          that You distribute, all copyright, patent, trademark, and
+									          attribution notices from the Source form of the Work,
+									          excluding those notices that do not pertain to any part of
+									          the Derivative Works; and
+
+									      (d) If the Work includes a \"NOTICE\" text file as part of its
+									          distribution, then any Derivative Works that You distribute must
+									          include a readable copy of the attribution notices contained
+									          within such NOTICE file, excluding those notices that do not
+									          pertain to any part of the Derivative Works, in at least one
+									          of the following places: within a NOTICE text file distributed
+									          as part of the Derivative Works; within the Source form or
+									          documentation, if provided along with the Derivative Works; or,
+									          within a display generated by the Derivative Works, if and
+									          wherever such third-party notices normally appear. The contents
+									          of the NOTICE file are for informational purposes only and
+									          do not modify the License. You may add Your own attribution
+									          notices within Derivative Works that You distribute, alongside
+									          or as an addendum to the NOTICE text from the Work, provided
+									          that such additional attribution notices cannot be construed
+									          as modifying the License.
+
+									      You may add Your own copyright statement to Your modifications and
+									      may provide additional or different license terms and conditions
+									      for use, reproduction, or distribution of Your modifications, or
+									      for any such Derivative Works as a whole, provided Your use,
+									      reproduction, and distribution of the Work otherwise complies with
+									      the conditions stated in this License.
+
+									   5. Submission of Contributions. Unless You explicitly state otherwise,
+									      any Contribution intentionally submitted for inclusion in the Work
+									      by You to the Licensor shall be under the terms and conditions of
+									      this License, without any additional terms or conditions.
+									      Notwithstanding the above, nothing herein shall supersede or modify
+									      the terms of any separate license agreement you may have executed
+									      with Licensor regarding such Contributions.
+
+									   6. Trademarks. This License does not grant permission to use the trade
+									      names, trademarks, service marks, or product names of the Licensor,
+									      except as required for reasonable and customary use in describing the
+									      origin of the Work and reproducing the content of the NOTICE file.
+
+									   7. Disclaimer of Warranty. Unless required by applicable law or
+									      agreed to in writing, Licensor provides the Work (and each
+									      Contributor provides its Contributions) on an \"AS IS\" BASIS,
+									      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+									      implied, including, without limitation, any warranties or conditions
+									      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+									      PARTICULAR PURPOSE. You are solely responsible for determining the
+									      appropriateness of using or redistributing the Work and assume any
+									      risks associated with Your exercise of permissions under this License.
+
+									   8. Limitation of Liability. In no event and under no legal theory,
+									      whether in tort (including negligence), contract, or otherwise,
+									      unless required by applicable law (such as deliberate and grossly
+									      negligent acts) or agreed to in writing, shall any Contributor be
+									      liable to You for damages, including any direct, indirect, special,
+									      incidental, or consequential damages of any character arising as a
+									      result of this License or out of the use or inability to use the
+									      Work (including but not limited to damages for loss of goodwill,
+									      work stoppage, computer failure or malfunction, or any and all
+									      other commercial damages or losses), even if such Contributor
+									      has been advised of the possibility of such damages.
+
+									   9. Accepting Warranty or Additional Liability. While redistributing
+									      the Work or Derivative Works thereof, You may choose to offer,
+									      and charge a fee for, acceptance of support, warranty, indemnity,
+									      or other liability obligations and/or rights consistent with this
+									      License. However, in accepting such obligations, You may act only
+									      on Your own behalf and on Your sole responsibility, not on behalf
+									      of any other Contributor, and only if You agree to indemnify,
+									      defend, and hold each Contributor harmless for any liability
+									      incurred by, or claims asserted against, such Contributor by reason
+									      of your accepting any such warranty or additional liability.
+
+									   END OF TERMS AND CONDITIONS
+
+									   APPENDIX: How to apply the Apache License to your work.
+
+									      To apply the Apache License to your work, attach the following
+									      boilerplate notice, with the fields enclosed by brackets \"[]\"
+									      replaced with your own identifying information. (Don't include
+									      the brackets!)  The text should be enclosed in the appropriate
+									      comment syntax for the file format. We also recommend that a
+									      file or class name and description of purpose be included on the
+									      same \"printed page\" as the copyright notice for easier
+									      identification within third-party archives.
+
+									   Copyright [yyyy] [name of copyright owner]
+
+									   Licensed under the Apache License, Version 2.0 (the \"License\");
+									   you may not use this file except in compliance with the License.
+									   You may obtain a copy of the License at
+
+									       http://www.apache.org/licenses/LICENSE-2.0
+
+									   Unless required by applicable law or agreed to in writing, software
+									   distributed under the License is distributed on an \"AS IS\" BASIS,
+									   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+									   See the License for the specific language governing permissions and
+									   limitations under the License."
+
+[node name="Blank" type="Control" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"
+script = ExtResource("19_vxglm")
+
+[node name="OptionsScreen" type="PanelContainer" parent="UILayer/MenuScreenManager"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.3
+anchor_right = 0.7
+anchor_bottom = 0.7
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_2wyq8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_type_variation = &"MenuScreenTitleLabel"
+text = "Options"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"MenuScrollContainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Resolution" type="HBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/Resolution"]
+layout_mode = 2
+theme_type_variation = &"MainScreenLabel"
+text = "Resolution"
+
+[node name="ResolutionDropdown" type="OptionButton" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/Resolution"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HSeparator" type="HSeparator" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Blank" type="Control" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"
+script = ExtResource("19_vxglm")
+
+[node name="ModuleSelect" type="PanelContainer" parent="UILayer/MenuScreenManager"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_2wyq8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuScreenManager/ModuleSelect"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"MenuScreenTitleLabel"
+text = "Select Module"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"MenuScrollContainer"
+horizontal_scroll_mode = 0
+
+[node name="Modules" type="GridContainer" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 3
+
+[node name="Blank" type="Control" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"
+script = ExtResource("19_vxglm")
+
+[node name="DebugOverlay" type="GridContainer" parent="UILayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("11_gqmmt")
+columns = 4
+script = ExtResource("12_yc10j")
+
+[node name="GelLogReport" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("26_2wyq8")
+metadata/_custom_type_script = "uid://bu1da87rm0cub"
+
+[connection signal="pressed_left" from="InteractableSystem" to="." method="_on_interactable_system_pressed_left"]
+[connection signal="pressed_right" from="InteractableSystem" to="." method="_on_interactable_system_pressed_right"]
+[connection signal="pressed_zoom_out" from="InteractableSystem" to="." method="_on_interactable_system_pressed_zoom_out"]
+[connection signal="body_entered" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_entered"]
+[connection signal="body_exited" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_exited"]
+[connection signal="pressed" from="UILayer/Journal/VBoxContainer/HBoxContainer/BackButton" to="UILayer/Journal" method="_on_back_button_pressed"]
+[connection signal="pressed" from="UILayer/Journal/VBoxContainer/HBoxContainer/ForwardButton" to="UILayer/Journal" method="_on_forward_button_pressed"]
+[connection signal="meta_clicked" from="UILayer/Journal/VBoxContainer/HBoxContainer2/ProcedureLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
+[connection signal="meta_clicked" from="UILayer/Journal/VBoxContainer/HBoxContainer2/HelpLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
+[connection signal="pressed" from="UILayer/Journal/Button" to="GelLogReport" method="_on_button_pressed"]
+[connection signal="file_selected" from="UILayer/Journal/FileDialog" to="GelLogReport" method="_on_file_dialog_file_selected"]
+[connection signal="screen_changed" from="UILayer/MenuScreenManager" to="." method="_on_menu_screen_manager_screen_changed"]
+[connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]
+[connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/ExitModuleButton" to="." method="_on_exit_module_button_pressed"]
+[connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="item_selected" from="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/Resolution/ResolutionDropdown" to="." method="_on_resolution_dropdown_item_selected"]

@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://cj0ivwgwls2pt"]
+
+[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_t5pci"]
+[ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_ak0ib"]
+[ext_resource type="Texture2D" uid="uid://gfa6ppdv2r6n" path="res://textures/lab_objects/gel_comb.svg" id="3_ss5wb"]
+[ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://scripts/attachment_point.gd" id="4_k267d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b112e"]
+size = Vector2(56, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vfh2y"]
+size = Vector2(6, 5.75)
+
+[node name="GelComb" type="RigidBody2D"]
+script = ExtResource("1_t5pci")
+hover_name = "gel comb"
+metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+script = ExtResource("2_ak0ib")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="GelComb" type="Sprite2D" parent="SelectableCanvasGroup"]
+position = Vector2(0, 9.999999)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_ss5wb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_b112e")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(31, -12.125)
+shape = SubResource("RectangleShape2D_vfh2y")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(-31, -12.25)
+shape = SubResource("RectangleShape2D_vfh2y")
+
+[node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:gel_comb"]]
+script = ExtResource("4_k267d")
+metadata/_custom_type_script = "uid://cvvkvehovfwuy"
