@@ -85,6 +85,10 @@ func _ready() -> void:
 	# The subviewport needs to match the window size.
 	get_window().size_changed.connect(_update_viewport_to_window_size)
 
+	# The quit button is meaningless in a browser.
+	if _is_in_web_browser():
+		%MenuScreenManager/PauseMenu/Content/QuitButton.hide()
+
 	# Only give resolution options if we can actually set the size. Otherwise, don't touch the
 	# resolution options.
 	if _can_resize_os_window():
