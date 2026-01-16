@@ -48,6 +48,15 @@ func _enter_tree() -> void:
 	Subscenes.main_world_2d = $%MainViewport.get_world_2d()
 	Subscenes.top_level_viewport = get_viewport()
 
+	# Change pause key on the browser version.
+	if _is_in_web_browser():
+		# Backtick key.
+		var input_event := InputEventKey.new()
+		input_event.physical_keycode = KEY_QUOTELEFT
+
+		InputMap.action_erase_events(&"toggle_menu")
+		InputMap.action_add_event(&"toggle_menu", input_event)
+
 func _ready() -> void:
 	Game.main = self
 	Game.camera = $%TransitionCamera

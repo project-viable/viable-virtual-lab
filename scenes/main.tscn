@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=36 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -50,6 +50,9 @@ action = &"interact_left"
 
 [sub_resource type="InputEventAction" id="InputEventAction_og1vs"]
 action = &"interact_right"
+
+[sub_resource type="InputEventAction" id="InputEventAction_2wyq8"]
+action = &"toggle_menu"
 
 [sub_resource type="InputEventAction" id="InputEventAction_y6deb"]
 action = &"toggle_journal"
@@ -392,6 +395,18 @@ editor_description = "Button prompts for generic actions that can always be perf
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+
+[node name="ScaleContainer3" type="Container" parent="UILayer/GeneralPrompts/Prompts"]
+layout_mode = 2
+script = ExtResource("25_og1vs")
+child_scale = Vector2(0.7, 0.7)
+metadata/_custom_type_script = "uid://smreqra2kcc2"
+
+[node name="InteractionPrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer3" instance=ExtResource("22_g2on7")]
+layout_mode = 2
+input_event = SubResource("InputEventAction_2wyq8")
+description = "Pause"
+auto_update_pressed = true
 
 [node name="ScaleContainer" type="Container" parent="UILayer/GeneralPrompts/Prompts"]
 layout_mode = 2
