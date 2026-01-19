@@ -445,7 +445,7 @@ metadata/_custom_type_script = "uid://smreqra2kcc2"
 unique_name_in_owner = true
 layout_mode = 2
 input_event = SubResource("InputEventAction_vxglm")
-description = "Speed up time"
+description = "(hold) Speed up time"
 auto_update_pressed = true
 
 [node name="MenuScreenManager" type="Control" parent="UILayer"]
