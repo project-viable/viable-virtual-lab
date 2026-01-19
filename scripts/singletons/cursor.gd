@@ -6,7 +6,9 @@ signal mode_changed(mode: Mode)
 signal virtual_mouse_moved(old_pos: Vector2, new_pos: Vector2)
 ## Objects in the scene receive [InputEventMouseMotion]s based on the movement of the virtual mouse
 ## rather than movements of the actual mouse, so if they want to detect non-virtual relative mouse
-## motion, they have to do it through this signal rather than through [method Node._input].
+## motion, they have to do it through this signal rather than through [method Node._input]. Note
+## that [param actual_relative] already has the mouse sensitivity applied to it, so this isn't the
+## [i]actual[/i] actual mouse.
 signal actual_mouse_moved_relative(actual_relative: Vector2)
 ## This is the same as [signal actual_mouse_moved_relative], but it gives its relative coordinates
 ## in world space instead of in screen space, so it can be used for in-world operations. Note that
@@ -48,8 +50,15 @@ var automatically_move_with_mouse: bool = true
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		actual_mouse_moved_relative.emit(event.relative)
-		var virtual_relative: Vector2 = event.relative / Game.camera.zoom
+		var sensitivity_multiplier: float = \
+				lerp(0.1, 1.0, GameSettings.mouse_sensitivity + 1) \
+				if GameSettings.mouse_sensitivity < 0 \
+				else lerp(1.0, 3.0, GameSettings.mouse_sensitivity)
+
+		var base_mouse_movement: Vector2 = event.relative * sensitivity_multiplier
+
+		actual_mouse_moved_relative.emit(base_mouse_movement)
+		var virtual_relative: Vector2 = base_mouse_movement / Game.camera.zoom
 		virtual_mouse_moved_relative.emit(virtual_relative)
 
 		if automatically_move_with_mouse:

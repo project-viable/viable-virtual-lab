@@ -122,6 +122,9 @@ func _ready() -> void:
 		$%ResolutionDropdown.add_item("cannot resize")
 		_update_viewport_to_window_size()
 
+	# Update UI elements for settings.
+	%MouseSensitivitySlider.set_value_no_signal(GameSettings.mouse_sensitivity)
+
 	# The zoom prompt is at the top always.
 	_interact_kind_prompts[InteractInfo.Kind.INSPECT] = %ZoomOutPrompt
 
@@ -458,3 +461,6 @@ func _update_scene_overlays() -> void:
 
 func _on_menu_screen_manager_screen_changed(_s: MenuScreen) -> void:
 	_update_scene_overlays()
+
+func _on_mouse_sensitivity_slider_value_changed(value: float) -> void:
+	GameSettings.mouse_sensitivity = value

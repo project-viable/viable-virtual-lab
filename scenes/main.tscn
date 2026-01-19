@@ -814,7 +814,6 @@ text = "Close"
 script = ExtResource("19_vxglm")
 
 [node name="OptionsScreen" type="PanelContainer" parent="UILayer/MenuScreenManager"]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.3
@@ -859,6 +858,27 @@ layout_mode = 2
 size_flags_horizontal = 10
 
 [node name="HSeparator" type="HSeparator" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"MainScreenLabel"
+text = "Mouse sensitivity"
+
+[node name="MouseSensitivitySlider" type="HSlider" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = -1.0
+max_value = 1.0
+step = 0.1
+tick_count = 3
+
+[node name="HSeparator2" type="HSeparator" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Blank" type="Control" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
@@ -952,3 +972,4 @@ metadata/_custom_type_script = "uid://bu1da87rm0cub"
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/ExitModuleButton" to="." method="_on_exit_module_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="item_selected" from="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/Resolution/ResolutionDropdown" to="." method="_on_resolution_dropdown_item_selected"]
+[connection signal="value_changed" from="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/MouseSensitivitySlider" to="." method="_on_mouse_sensitivity_slider_value_changed"]

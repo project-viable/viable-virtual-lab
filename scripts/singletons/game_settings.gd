@@ -6,12 +6,17 @@ const MAIN_SECTION_NAME: String = "config"
 
 
 var resolution: Vector2i = Vector2i(1280, 720)
+# Not a direct multiplier on mouse movement speed. This is a value between -1 and 1, inclusive, and
+# a value of 0 should give a multiplier of 1, but otherwise, it's up to the `Cursor` singleton to
+# decide what the multiplier should be based on that.
+var mouse_sensitivity: float = 0.0
 
 
 # None of these properties can be null; they must have a fixed type so [method load] can handle them
 # properly.
 var _saved_properties: Array[StringName] = [
 	&"resolution",
+	&"mouse_sensitivity",
 ]
 
 
