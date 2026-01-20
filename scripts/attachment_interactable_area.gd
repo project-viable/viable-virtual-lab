@@ -154,7 +154,7 @@ func _place_object_unchecked(body: LabBody) -> void:
 	if hide_object:
 		contained_object.hide()
 		contained_object.enable_interaction = false
-	contained_object.set_physics_mode(LabBody.PhysicsMode.KINEMATIC)
+	contained_object.set_physics_mode(LabBody.PhysicsMode.FROZEN)
 
 	var offset: Variant = _find_attachment_offset(contained_object)
 	if offset is Vector2:

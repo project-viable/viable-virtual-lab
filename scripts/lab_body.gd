@@ -6,6 +6,7 @@ extends RigidBody2D
 enum PhysicsMode
 {
 	KINEMATIC, ## Not affected by gravity, but can interact with `InteractableArea`s when being dragged, and will collide with boundaries.
+	FROZEN, ## Very similar to [constant PhysicsMode.KINEMATIC], but the body is frozen. This mode must be used if the body's position is going to be set directly (see [AttachmentInteractableArea], for example).
 	FREE, ## Affected by gravity and will collide with shelves and the lab boundary.
 	FALLING_THROUGH_SHELVES, ## Affected by gravity, but does not interact with shelves. In this mode, `physics_mode` will automatically be set to `FREE` when the body is no longer overlapping with a shelf.
 }
@@ -81,10 +82,10 @@ func _ready() -> void:
 
 	DepthManager.move_to_front_of_layer(self, depth_layer_to_drop_in)
 
-	freeze_mode = FREEZE_MODE_KINEMATIC
 	# We need collisions in layer 3 so that interaction areas detect this object.
 	collision_layer = 0b100
 	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
+	freeze_mode = FREEZE_MODE_KINEMATIC
 
 	for p: PhysicsBody2D in find_children("", "PhysicsBody2D", false):
 		_child_physics_object_layers.set(p, p.collision_layer & MANAGED_COLLISION_LAYERS_MASK)
@@ -245,7 +246,7 @@ func get_global_hand_pos() -> Vector2:
 	else: return to_global(_offset)
 
 func _update_physics_to_mode(mode: PhysicsMode) -> void:
-	if mode == PhysicsMode.KINEMATIC:
+	if mode == PhysicsMode.KINEMATIC or mode == PhysicsMode.FROZEN:
 		# Save physics states of child physics bodies.
 		for p: PhysicsBody2D in _child_physics_object_layers.keys():
 			_child_physics_object_layers[p] = p.collision_layer & MANAGED_COLLISION_LAYERS_MASK
@@ -257,9 +258,14 @@ func _update_physics_to_mode(mode: PhysicsMode) -> void:
 	# We always have the boundary collision enabled by default.
 	var new_collision_mask := 0b001
 	var new_gravity_scale := 1.0
+	var new_frozen := false
 
 	match mode:
 		PhysicsMode.KINEMATIC:
+			new_gravity_scale = 0.0
+			set_deferred(&"linear_velocity", Vector2.ZERO)
+		PhysicsMode.FROZEN:
+			new_frozen = true
 			new_gravity_scale = 0.0
 			set_deferred(&"linear_velocity", Vector2.ZERO)
 		PhysicsMode.FREE:
@@ -268,6 +274,7 @@ func _update_physics_to_mode(mode: PhysicsMode) -> void:
 
 	collision_mask = Util.bitwise_set(collision_mask, MANAGED_COLLISION_LAYERS_MASK, new_collision_mask)
 	gravity_scale = new_gravity_scale
+	freeze = new_frozen
 
 func is_active() -> bool:
 	return Interaction.held_body == self
