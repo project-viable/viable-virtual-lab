@@ -5,10 +5,10 @@ extends RigidBody2D
 
 enum PhysicsMode
 {
-	KINEMATIC, ## Not affected by gravity, but can interact with `InteractableArea`s when being dragged, and will collide with boundaries.
+	KINEMATIC, ## Not affected by gravity, but can interact with [InteractableArea]s when being dragged, and will collide with boundaries.
 	FROZEN, ## Very similar to [constant PhysicsMode.KINEMATIC], but the body is frozen. This mode must be used if the body's position is going to be set directly (see [AttachmentInteractableArea], for example).
 	FREE, ## Affected by gravity and will collide with shelves and the lab boundary.
-	FALLING_THROUGH_SHELVES, ## Affected by gravity, but does not interact with shelves. In this mode, `physics_mode` will automatically be set to `FREE` when the body is no longer overlapping with a shelf.
+	FALLING_THROUGH_SHELVES, ## Affected by gravity, but does not interact with shelves. In this mode, [member physics_mode] will automatically be set to [constant PhysicsMode.FREE] when the body is no longer overlapping with a shelf.
 }
 
 
@@ -24,7 +24,8 @@ const MAX_SLIDES: int = 5
 ## Path, relative to [code]res://journal_pages/[/code], to the help page for this object. If this is
 ## empty, then there will be no help prompt.
 @export var help_page_path: String = ""
-## Determines the physics of an object whether it free or kinematic
+## Determines how the object interacts with physics in the simulation. This should always be set via
+## [method set_physics_mode].
 @export var physics_mode: PhysicsMode = PhysicsMode.FREE
 ## [SelectableCanvasGroup] that will be outlined when hovered and can be clicked to pick this
 ## object up. If set to [code]null[/code], this will automatically be set to the first
@@ -50,9 +51,9 @@ var _pick_up_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up
 var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
 var _help_interaction := InteractInfo.new(InteractInfo.Kind.HELP, "Open help page")
 
-## Keeps track of collision layers of any child physics objects. For example, the scale has a child
-## [StaticBody2D] with one-way collision that acts as the surface for objects to be set on, which
-## should be disabled while the object is being dragged.
+# Keeps track of collision layers of any child physics objects. For example, the scale has a child
+# [StaticBody2D] with one-way collision that acts as the surface for objects to be set on, which
+# should be disabled while the object is being dragged.
 var _child_physics_object_layers: Dictionary[PhysicsBody2D, int] = {}
 var _offset: Vector2 = Vector2.ZERO
 # In the coordinate system of [member interact_canvas_group] so it follows the object visually
@@ -212,6 +213,8 @@ func stop_dragging() -> void:
 	Cursor.mode = Cursor.Mode.POINTER
 	Cursor.automatically_move_with_mouse = true
 
+## Sets the physics mode for this object. This can also affect the velocity, collision layers,
+## gravity, and freeze state of this object.
 func set_physics_mode(mode: PhysicsMode) -> void:
 	if mode == physics_mode: return
 	_update_physics_to_mode(mode)
