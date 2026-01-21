@@ -125,7 +125,7 @@ func _on_exclusive_object_hitbox_entered_purview_of(area: ExclusiveArea2D) -> vo
 			Game.main.focus_camera_on_rect(rect, 1.5)
 		Game.main.set_camera_focus_owner(self)
 
-func _on_exclusive_object_hitbox_left_purview_of(area: ExclusiveArea2D) -> void:
+func _on_exclusive_object_hitbox_left_purview_of(_area: ExclusiveArea2D) -> void:
 	collision_mask &= ~0b1000
 	if is_active():
 		DepthManager.move_to_front_of_layer(self, DepthManager.Layer.HELD)

@@ -10,12 +10,12 @@ var current_weight: float = 0.0 #in terms of grams
 func _physics_process(_delta: float) -> void:
 	## The scale will constantly be waiting to update the display of grams
 	current_weight = 0.0
-	for body:LabBody in get_parent().find_child("InteractableArea").get_overlapping_bodies():
+	for b: LabBody in get_parent().find_child("InteractableArea").get_overlapping_bodies():
 		# Don't weigh objects unless they are affected by gravity.
-		if not (body is LabBody) or body.physics_mode != LabBody.PhysicsMode.FREE:
+		if not (b is LabBody) or b.physics_mode != LabBody.PhysicsMode.FREE:
 			continue
 
-		for c: ContainerComponent in body.find_children("", "ContainerComponent", false):
+		for c: ContainerComponent in b.find_children("", "ContainerComponent", false):
 			current_weight += (c.container_mass + c.get_substances_mass())
 
 	get_node("%WeightLabel").text = "%.2f g" % [current_weight-tare_weight]

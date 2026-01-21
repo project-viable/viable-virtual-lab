@@ -56,6 +56,7 @@ var _delta_volts: int = 1
 var time_string_input: String = "":
 	set(value):
 		time_string_input = value
+		@warning_ignore("integer_division")
 		var minutes: int = int(time_string_input) / 100
 		var seconds: int = int(time_string_input) % 100
 		time = minutes * 60 + seconds
@@ -169,6 +170,7 @@ func decrement_time() -> int:
 	return time
 
 func update_timer_display() -> void:
+	@warning_ignore("integer_division")
 	var minutes: int = time / 60
 	var seconds: int = time % 60
 	%TimeLabel.text = "%02d:%02d" % [minutes, seconds]

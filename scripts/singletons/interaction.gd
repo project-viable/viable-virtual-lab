@@ -143,7 +143,7 @@ class InteractState:
 	# (virtual) Returns true if [param new_state] is effectively the same state as this (this
 	# should ignore the state of [member is_pressed] and the kind, because states are already
 	# separated by kind.
-	func _is_equivalent_to(new_state: InteractState) -> bool: return false
+	func _is_equivalent_to(_new_state: InteractState) -> bool: return false
 
 	# (virtual)
 	func _start_targeting() -> void: pass
