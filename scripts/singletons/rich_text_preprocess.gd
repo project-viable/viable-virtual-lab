@@ -13,17 +13,22 @@ extends Node
 ## headings.
 
 
+const H1_SCALE := 28.0 / 16.0
+const H2_SCALE := 18.0 / 16.0
+const PROMPT_SCALE := 32.0 / 16.0
+
+
 # Used to find custom tags.
 var _regex := RegEx.create_from_string(r"#\{\s*(\w+)\s*(:(.*?))?\}#")
 
 
-func process_custom_tag(command: String, arg: String) -> String:
+func process_custom_tag(command: String, arg: String, context: Context) -> String:
 	match command:
 		"prompt":
 			var args := arg.split(",", true, 1)
 
 			# We use a default height of 32 pixels unless custom options are provided.
-			var img_opts := " height=32"
+			var img_opts := " height=%s" % [context.base_font_size * PROMPT_SCALE]
 			if len(args) == 2:
 				img_opts = args[1]
 				# We want to keep the lack of space before "=" because it's required for certain
@@ -35,15 +40,15 @@ func process_custom_tag(command: String, arg: String) -> String:
 
 		# Headers.
 		"h1":
-			return "[font_size=28][b]%s[/b][/font_size]" % [arg]
+			return "[font_size=%s][b]%s[/b][/font_size]" % [round(context.base_font_size * H1_SCALE), arg]
 		"h2":
-			return "[font_size=18][b]%s[/b][/font_size]" % [arg]
+			return "[font_size=%s][b]%s[/b][/font_size]" % [round(context.base_font_size * H2_SCALE), arg]
 
 	# We've only reached this spot if the above match didn't return (i.e, there's an error).
 	return "[color=red](invalid)[/color]"
 
 ## Process custom tags in [param s].
-func process_text(s: String) -> String:
+func process_text(s: String, context: Context) -> String:
 	var processed_text := ""
 
 	var idx := 0
@@ -52,9 +57,15 @@ func process_text(s: String) -> String:
 		var args := m.get_string(3)
 
 		processed_text += s.substr(idx, m.get_start() - idx)
-		processed_text += RichTextPreprocess.process_custom_tag(command, args)
+		processed_text += RichTextPreprocess.process_custom_tag(command, args, context)
 
 		idx = m.get_end()
 	processed_text += s.substr(idx)
 
 	return processed_text
+
+
+## Contains information about the context of the text being processed (like font size).
+class Context:
+	## Base normal font size of the label. Button prompts and headings are scaled relative to this.
+	var base_font_size: int = 16
