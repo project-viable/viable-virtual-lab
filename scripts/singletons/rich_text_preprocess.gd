@@ -2,7 +2,15 @@ extends Node
 ## Tools for preprocessing, mainly for use with [PreprocessedRichTextLabel].
 ##
 ## Use [method process_text] to preprocess special tags in the string. Tags are in the form
-## [code]#{<command>:<arg>}#[/code], where [code]<command>[/code]
+## [code]#{<command>:<arg>}#[/code], where [code]<command>[/code] is the tag type, and
+## [code]<arg>[/code] is the argument that the tag will use.
+##
+## The [code]prompt[/code] command will display a button prompt image for [code]<arg>[/code], taken
+## as the name of an input action. For example, [code]#{prompt:ui_accept}#[/code] will show a
+## [kbd]space[/kbd] button prompt.
+##
+## The [code]h1[/code] and [code]h2[/code] commands will show the contents of [code]<arg>[/code] as
+## headings.
 
 
 # Used to find custom tags.
