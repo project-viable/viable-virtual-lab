@@ -189,7 +189,7 @@ func _find_attachment_point(body: LabBody) -> AttachmentPoint:
 	for a: AttachmentPoint in body.find_children("", "AttachmentPoint", false):
 		if _matches_filter(point_groups, point_group_filter_type, a):
 			return a
-	
+
 	return null
 
 static func _matches_filter(groups: Array[StringName], method: GroupFilterType, node: Node2D) -> bool:
