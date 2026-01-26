@@ -1,11 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqq24b1qxt4r7"]
+[gd_scene load_steps=9 format=3 uid="uid://bqq24b1qxt4r7"]
 
 [ext_resource type="Script" uid="uid://djoq1glbbojw1" path="res://scripts/interaction_prompt.gd" id="1_hyumr"]
 [ext_resource type="Texture2D" uid="uid://d062ywg2c6bnj" path="res://textures/icons_and_buttons/keyboard_key_unpressed.svg" id="2_a6f31"]
+[ext_resource type="FontFile" uid="uid://c5jqyemsa330f" path="res://fonts/Roboto/Roboto-Black.ttf" id="3_2mm7j"]
 [ext_resource type="Texture2D" uid="uid://cv05dk2ip135d" path="res://textures/icons_and_buttons/keyboard_key_pressed.svg" id="3_g1gqo"]
 [ext_resource type="Texture2D" uid="uid://dmev1jp2fxu07" path="res://textures/icons_and_buttons/mouse_left.svg" id="3_rbyiy"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hyumr"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 14.0
 texture = ExtResource("2_a6f31")
 texture_margin_left = 15.5596
 texture_margin_top = 14.2369
@@ -14,6 +19,10 @@ texture_margin_bottom = 27.5031
 region_rect = Rect2(74.499, 86.3222, 66.0819, 72.3381)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_55hpe"]
+content_margin_left = 4.0
+content_margin_top = 10.0
+content_margin_right = 4.0
+content_margin_bottom = 8.0
 texture = ExtResource("3_g1gqo")
 texture_margin_left = 15.5596
 texture_margin_top = 16.6639
@@ -27,7 +36,7 @@ atlas = ExtResource("3_rbyiy")
 region = Rect2(283.5, 13.962, 456, 741.72)
 
 [node name="InteractionPrompt" type="HBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 50)
 offset_right = 82.0
 offset_bottom = 40.0
 size_flags_horizontal = 0
@@ -36,29 +45,32 @@ theme_override_constants/separation = 10
 script = ExtResource("1_hyumr")
 
 [node name="KeyUnpressed" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(40, 50)
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxTexture_hyumr")
 
 [node name="Label" type="Label" parent="KeyUnpressed"]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("3_2mm7j")
+theme_override_font_sizes/font_size = 24
 text = "(unknown)"
 horizontal_alignment = 1
 
 [node name="KeyPressed" type="PanelContainer" parent="."]
-visible = false
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(40, 50)
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxTexture_55hpe")
 
 [node name="Label" type="Label" parent="KeyPressed"]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("3_2mm7j")
+theme_override_font_sizes/font_size = 24
 text = "(unknown)"
 horizontal_alignment = 1
 

@@ -15,7 +15,7 @@ extends Node
 
 const H1_SCALE := 28.0 / 16.0
 const H2_SCALE := 18.0 / 16.0
-const PROMPT_SCALE := 32.0 / 16.0
+const PROMPT_SCALE := 24.0 / 16.0
 
 
 # Used to find custom tags.
