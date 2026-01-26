@@ -1,4 +1,12 @@
 extends Node
+## Tools for preprocessing, mainly for use with [PreprocessedRichTextLabel].
+##
+## Use [method process_text] to preprocess special tags in the string. Tags are in the form
+## [code]#{<command>:<arg>}#[/code], where [code]<command>[/code]
+
+
+# Used to find custom tags.
+var _regex := RegEx.create_from_string(r"#\{\s*(\w+)\s*(:(.*?))?\}#")
 
 
 func process_custom_tag(command: String, arg: String) -> String:
@@ -25,3 +33,20 @@ func process_custom_tag(command: String, arg: String) -> String:
 
 	# We've only reached this spot if the above match didn't return (i.e, there's an error).
 	return "[color=red](invalid)[/color]"
+
+## Process custom tags in [param s].
+func process_text(s: String) -> String:
+	var processed_text := ""
+
+	var idx := 0
+	for m in _regex.search_all(s):
+		var command := m.get_string(1)
+		var args := m.get_string(3)
+
+		processed_text += s.substr(idx, m.get_start() - idx)
+		processed_text += RichTextPreprocess.process_custom_tag(command, args)
+
+		idx = m.get_end()
+	processed_text += s.substr(idx)
+
+	return processed_text
