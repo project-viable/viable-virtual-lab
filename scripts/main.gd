@@ -199,6 +199,11 @@ func _unhandled_key_input(e: InputEvent) -> void:
 	elif e.is_action_pressed(&"toggle_journal"):
 		# Toggling it while in the pause menu would be weird.
 		if not is_pause_menu_open():
+			# Dismiss "press J to open the procedure" hint if this is pressed to *open* the
+			# journal. We know it will be opened if it's closed here.
+			if not is_journal_open():
+				Game.hint_popup.journal_hint.notify_condition_met()
+
 			set_journal_open(not is_journal_open())
 	elif e.is_action_pressed(&"speed_up_time"):
 		_speed_up_time_time_held = 0.0
