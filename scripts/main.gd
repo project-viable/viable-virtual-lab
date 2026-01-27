@@ -36,6 +36,9 @@ var _time_warp_strength: float = 0
 var _speed_up_time_time_held := 0.0
 var _is_speed_up_time_held := false
 
+var _moved_left_during_hint := false
+var _moved_right_during_hint := false
+
 @onready var _hand_pointing_cursor: Sprite2D = $%VirtualCursor/HandPointing
 @onready var _hand_open_cursor: Sprite2D = $%VirtualCursor/HandOpen
 @onready var _hand_closed_cursor: Sprite2D = $%VirtualCursor/HandClosed
@@ -231,6 +234,7 @@ func _load_module(module: ModuleData) -> void:
 	Cursor.virtual_mouse_position = get_global_mouse_position()
 	set_pause_menu_open(false)
 
+	Game.hint_popup.left_right_hint.request()
 	Game.hint_popup.journal_hint.request()
 
 func unload_current_module() -> void:
@@ -397,10 +401,16 @@ func _on_cursor_area_body_exited(body: Node2D) -> void:
 func _on_interactable_system_pressed_left() -> void:
 	if _current_workspace and _current_workspace.left_workspace and not _camera_focus_owner:
 		move_to_workspace(_current_workspace.left_workspace, 1.0)
+		if Game.hint_popup.left_right_hint.is_shown():
+			_moved_left_during_hint = true
+			_update_left_right_hint()
 
 func _on_interactable_system_pressed_right() -> void:
 	if _current_workspace and _current_workspace.right_workspace and not _camera_focus_owner:
 		move_to_workspace(_current_workspace.right_workspace, 1.0)
+		if Game.hint_popup.left_right_hint.is_shown():
+			_moved_right_during_hint = true
+			_update_left_right_hint()
 
 func _on_interactable_system_pressed_zoom_out() -> void:
 	if _camera_focus_owner: return_to_current_workspace()
@@ -410,6 +420,10 @@ func _on_virtual_mouse_moved(_old: Vector2, _new: Vector2) -> void:
 
 func _on_virtual_mouse_mode_changed(_mode: Cursor.Mode) -> void:
 	_update_virtual_mouse();
+
+func _update_left_right_hint() -> void:
+	if _moved_left_during_hint and _moved_right_during_hint:
+		Game.hint_popup.left_right_hint.dismiss()
 
 func _update_virtual_mouse() -> void:
 	# The coordinate system for the main viewport and the cursor canvas layer are different, so
