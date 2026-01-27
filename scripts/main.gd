@@ -174,7 +174,7 @@ func _process(delta: float) -> void:
 		LabTime.time_scale = ease(_speed_up_time_time_held / 3.0, 2.0) * 100.0 + 1.0
 
 		if _speed_up_time_time_held >= SPEED_UP_TIME_HOLD_HINT_DURATION:
-			Game.hint_popup.speed_up_time_hint.notify_condition_met()
+			Game.hint_popup.speed_up_time_hint.dismiss()
 
 	var target_time_warp_strength := (LabTime.time_scale - 1) / 20
 	if target_time_warp_strength > _time_warp_strength:
@@ -202,7 +202,7 @@ func _unhandled_key_input(e: InputEvent) -> void:
 			# Dismiss "press J to open the procedure" hint if this is pressed to *open* the
 			# journal. We know it will be opened if it's closed here.
 			if not is_journal_open():
-				Game.hint_popup.journal_hint.notify_condition_met()
+				Game.hint_popup.journal_hint.dismiss()
 
 			set_journal_open(not is_journal_open())
 	elif e.is_action_pressed(&"speed_up_time"):
