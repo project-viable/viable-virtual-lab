@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=23 format=3 uid="uid://dnl552a0ac6ua"]
+[gd_resource type="Theme" load_steps=24 format=3 uid="uid://dnl552a0ac6ua"]
 
 [ext_resource type="StyleBox" uid="uid://bxkqkk5kh16ts" path="res://themes/background_stylebox.tres" id="1"]
 [ext_resource type="StyleBox" uid="uid://xx64mutayadc" path="res://themes/button_normal_stylebox.tres" id="2"]
@@ -16,6 +16,8 @@
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_aca5h"]
 color = Color(0, 0.30588236, 0.40784314, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8y4v8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d220q"]
 content_margin_left = 6.0
@@ -128,11 +130,16 @@ HScrollBar/styles/scroll_focus = ExtResource("5")
 HSeparator/styles/separator = SubResource("StyleBoxLine_aca5h")
 HSlider/styles/slider = ExtResource("3")
 HintPopup/base_type = &"RichTextLabel"
-HintPopup/font_sizes/bold_font_size = 32
-HintPopup/font_sizes/bold_italics_font_size = 32
-HintPopup/font_sizes/italics_font_size = 32
-HintPopup/font_sizes/mono_font_size = 32
-HintPopup/font_sizes/normal_font_size = 32
+HintPopup/colors/default_color = Color(0, 0, 0, 1)
+HintPopup/colors/font_outline_color = Color(1, 1, 1, 1)
+HintPopup/constants/outline_size = 7
+HintPopup/font_sizes/bold_font_size = 40
+HintPopup/font_sizes/bold_italics_font_size = 40
+HintPopup/font_sizes/italics_font_size = 40
+HintPopup/font_sizes/mono_font_size = 40
+HintPopup/font_sizes/normal_font_size = 40
+HintPopup/fonts/normal_font = ExtResource("11_fxk7p")
+HintPopup/styles/normal = SubResource("StyleBoxEmpty_8y4v8")
 Label/colors/font_color = Color(0, 0, 0, 1)
 LineEdit/colors/cursor_color = Color(0, 0.952941, 0.94902, 1)
 LineEdit/colors/font_color = Color(0, 0.670588, 0.666667, 1)

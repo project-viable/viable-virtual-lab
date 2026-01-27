@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=40 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -51,6 +51,42 @@ action = &"interact_left"
 
 [sub_resource type="InputEventAction" id="InputEventAction_og1vs"]
 action = &"interact_right"
+
+[sub_resource type="Animation" id="Animation_og1vs"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2wyq8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vxglm"]
+_data = {
+&"RESET": SubResource("Animation_2wyq8"),
+&"fade_in": SubResource("Animation_og1vs")
+}
 
 [sub_resource type="InputEventAction" id="InputEventAction_2wyq8"]
 action = &"toggle_menu"
@@ -378,6 +414,7 @@ use_native_dialog = true
 
 [node name="HintPopup" type="RichTextLabel" parent="UILayer"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(500, 100)
 anchors_preset = 8
 anchor_left = 0.5
@@ -390,11 +427,19 @@ offset_right = 250.0
 offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_type_variation = &"HintPopup"
 bbcode_enabled = true
 text = "Press F to pay respects"
+fit_content = true
+scroll_active = false
 script = ExtResource("18_og1vs")
 metadata/_custom_type_script = "uid://dkacpjq2t2mj1"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UILayer/HintPopup"]
+libraries = {
+&"": SubResource("AnimationLibrary_vxglm")
+}
 
 [node name="PauseOverlay" type="ColorRect" parent="UILayer"]
 unique_name_in_owner = true
