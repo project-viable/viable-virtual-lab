@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dprdt04vorokp" path="res://scripts/singletons/interact_prompt_texture_generator.gd" id="1_ttxoe"]
 
 [node name="InteractPromptTextureGenerator" type="Node"]
+process_mode = 3
 script = ExtResource("1_ttxoe")
 
 [node name="SubViewport" type="SubViewport" parent="."]
