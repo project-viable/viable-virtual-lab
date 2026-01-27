@@ -12,9 +12,10 @@ enum HintState
 
 
 # General hints. These are mainly dismissed in `main.gd` and `main_interactable_system.gd`.
-var left_right_hint := Hint.new("Press #{prompt:interact_left}# and #{prompt:interact_right}# to move left and right in the lab")
-var journal_hint := Hint.new("Press #{prompt:toggle_journal}# to open the procedure")
-var speed_up_time_hint := Hint.new("Hold #{prompt:speed_up_time}# to speed up time")
+# `left_right_hint` and `journal_hint` have delays, since they're shown at the start of the level.
+var left_right_hint := Hint.new("Press #{prompt:interact_left}# and #{prompt:interact_right}# to move left and right in the lab", 1)
+var journal_hint := Hint.new("Press #{prompt:toggle_journal}# to open the procedure", 1)
+var speed_up_time_hint := Hint.new("Hold #{prompt:speed_up_time}# to speed up time", 0.5)
 
 
 var _hint_queue: Array[Hint] = []
@@ -39,8 +40,9 @@ func _process(_delta: float) -> void:
 
 	if _cur_hint:
 		custom_text = _cur_hint.text
-		$DelayTimer.start(_cur_hint.delay_time)
-		await $DelayTimer.timeout
+		if _cur_hint.delay_time > 0:
+			$DelayTimer.start(_cur_hint.delay_time)
+			await $DelayTimer.timeout
 		_cur_hint._state = HintState.SHOWING
 		$AnimationPlayer.play("fade_in")
 

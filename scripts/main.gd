@@ -231,6 +231,8 @@ func _load_module(module: ModuleData) -> void:
 	Cursor.virtual_mouse_position = get_global_mouse_position()
 	set_pause_menu_open(false)
 
+	Game.hint_popup.journal_hint.request()
+
 func unload_current_module() -> void:
 	Interaction.clear_all_interaction_state()
 	DepthManager.clear_layers()
