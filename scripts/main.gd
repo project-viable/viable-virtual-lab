@@ -64,6 +64,7 @@ func _ready() -> void:
 	Game.debug_overlay = $%DebugOverlay
 	Game.report_log = $%GelLogReport
 	Game.journal = %Journal
+	Game.hint_popup = %HintPopup
 
 	$%SubsceneViewport.world_2d = Subscenes.main_world_2d
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene load_steps=37 format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://d87mq61qhuq8" path="res://scripts/menu_screen.gd" id="16_2wyq8"]
 [ext_resource type="Script" uid="uid://cnuiybm68m7ub" path="res://scripts/journal.gd" id="16_y6deb"]
 [ext_resource type="Script" uid="uid://dkacpjq2t2mj1" path="res://scripts/preprocessed_rich_text_label.gd" id="17_og1vs"]
+[ext_resource type="Script" uid="uid://dg36i1xua0jde" path="res://scripts/hint_popup.gd" id="18_og1vs"]
 [ext_resource type="Texture2D" uid="uid://g570l32ipee5" path="res://textures/main_menu_logo.png" id="18_pm3ni"]
 [ext_resource type="Script" uid="uid://kxslh01sq2ny" path="res://scripts/menu_screen_button.gd" id="19_vxglm"]
 [ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://scenes/interaction_prompt.tscn" id="22_g2on7"]
@@ -374,6 +375,26 @@ layout_mode = 2
 unique_name_in_owner = true
 oversampling_override = 1.0
 use_native_dialog = true
+
+[node name="HintPopup" type="RichTextLabel" parent="UILayer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 100)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -50.0
+offset_right = 250.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HintPopup"
+bbcode_enabled = true
+text = "Press F to pay respects"
+script = ExtResource("18_og1vs")
+metadata/_custom_type_script = "uid://dkacpjq2t2mj1"
 
 [node name="PauseOverlay" type="ColorRect" parent="UILayer"]
 unique_name_in_owner = true
@@ -814,6 +835,7 @@ text = "Close"
 script = ExtResource("19_vxglm")
 
 [node name="OptionsScreen" type="PanelContainer" parent="UILayer/MenuScreenManager"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.3
