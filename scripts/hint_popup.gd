@@ -13,9 +13,9 @@ enum HintState
 
 # General hints. These are mainly dismissed in `main.gd` and `main_interactable_system.gd`.
 # `left_right_hint` and `journal_hint` have delays, since they're shown at the start of the level.
-var left_right_hint := Hint.new("Press #{prompt:interact_left}# and #{prompt:interact_right}# to move left and right in the lab", 1)
-var journal_hint := Hint.new("Press #{prompt:toggle_journal}# to open the procedure", 1)
-var speed_up_time_hint := Hint.new("Hold #{prompt:speed_up_time}# to speed up time", 0.5)
+var left_right_hint := Hint.new("#{prompt:interact_left}# #{prompt:interact_right}#: navigate lab", 1)
+var journal_hint := Hint.new("#{prompt:toggle_journal}#: open procedure", 1)
+var speed_up_time_hint := Hint.new("Hold #{prompt:speed_up_time}#: speed up time", 0.5)
 
 
 var _hint_queue: Array[Hint] = []
