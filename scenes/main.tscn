@@ -441,6 +441,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_vxglm")
 }
 
+[node name="DelayTimer" type="Timer" parent="UILayer/HintPopup"]
+one_shot = true
+
 [node name="PauseOverlay" type="ColorRect" parent="UILayer"]
 unique_name_in_owner = true
 editor_description = "Covers all of the simulation-specific stuff while paused (including button prompts)."

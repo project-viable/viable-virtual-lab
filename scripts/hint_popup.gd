@@ -23,7 +23,8 @@ var _cur_hint: Hint = null
 
 func _process(_delta: float) -> void:
 	# Don't change the hint state until the animation has been fully played.
-	if _cur_hint and _cur_hint._state != HintState.DISMISSED or $AnimationPlayer.is_playing():
+	if _cur_hint and _cur_hint._state != HintState.DISMISSED \
+			or $AnimationPlayer.is_playing() or not $DelayTimer.is_stopped():
 		return
 
 	var _prev_hint := _cur_hint
@@ -38,6 +39,8 @@ func _process(_delta: float) -> void:
 
 	if _cur_hint:
 		custom_text = _cur_hint.text
+		$DelayTimer.start(_cur_hint.delay_time)
+		await $DelayTimer.timeout
 		_cur_hint._state = HintState.SHOWING
 		$AnimationPlayer.play("fade_in")
 
@@ -56,12 +59,17 @@ class Hint:
 	## Text to display in the label. This will be used as the
 	## [member PreprocessedRichTextLabel.custom_text] of a [PreprocessedRichTextLabel].
 	var text: String = ""
+	## Time in seconds that [HintPopup] should wait before fading in this hint. During the delay,
+	## no other hints can be shown. This might be used, for example, for general hints shown at
+	## the very beginning of a module to give the user some time to breathe between hints.
+	var delay_time: float = 0.0
 
 	var _state := HintState.NOT_REQUESTED
 
 
-	func _init(p_text: String) -> void:
+	func _init(p_text: String, p_delay_time: float = 0.0) -> void:
 		text = p_text
+		delay_time = p_delay_time
 
 	## Request that this hint be shown. This effectively calls
 	## [code]Game.hint_popup.request_hint(self)[/code].
