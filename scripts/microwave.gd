@@ -72,6 +72,10 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 				$MicrowaveTimer.start(minutes * 60 + seconds)
 				_no_update_display = false
 
+				# Show "press R to speed up time" hint only when the microwave actually starts
+				# running.
+				Game.hint_popup.speed_up_time_hint.request()
+
 			_input_time = 0
 			_update_door()
 		_:

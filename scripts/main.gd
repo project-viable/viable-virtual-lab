@@ -4,6 +4,8 @@ extends Node2D
 
 const INTERACTION_PROMPT_SCENE := preload("res://scenes/interaction_prompt.tscn")
 const TIME_WARP_ADJUST_SPEED := 10.0
+# Amount of time the "speed up time" button must be held to dismiss a hint.
+const SPEED_UP_TIME_HOLD_HINT_DURATION := 0.5
 
 
 ## This will be called with [code]null[/code] when returning to the workspace.
@@ -167,9 +169,12 @@ func _process(delta: float) -> void:
 	%RightWorkspacePrompt.disabled = _current_workspace and not _current_workspace.right_workspace
 
 	# Same as the wall clock code.
-	_speed_up_time_time_held += delta
 	if _is_speed_up_time_held:
+		_speed_up_time_time_held += delta
 		LabTime.time_scale = ease(_speed_up_time_time_held / 3.0, 2.0) * 100.0 + 1.0
+
+		if _speed_up_time_time_held >= SPEED_UP_TIME_HOLD_HINT_DURATION:
+			Game.hint_popup.speed_up_time_hint.notify_condition_met()
 
 	var target_time_warp_strength := (LabTime.time_scale - 1) / 20
 	if target_time_warp_strength > _time_warp_strength:
