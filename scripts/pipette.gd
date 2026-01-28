@@ -39,6 +39,10 @@ var _mouse_pos_before_zoom := Vector2.ZERO
 func _ready() -> void:
 	super()
 
+	# Disengage when the user manually leaves by pressing the zoom button instead of moving the
+	# pipette.
+	Game.main.camera_focus_owner_changed.connect(_on_main_camera_focus_owner_changed)
+
 	# Run setter.
 	has_tip = has_tip
 	Cursor.actual_mouse_moved_relative.connect(func (v: Vector2) -> void: _mouse_movement += v)
@@ -143,3 +147,7 @@ func _leave_subscene() -> void:
 		$%SubscenePipette.position = _orig_sub_pipette_pos
 		Cursor.virtual_mouse_position = _mouse_pos_before_zoom
 		_cur_subscene_camera = null
+
+func _on_main_camera_focus_owner_changed(focus_owner: Node) -> void:
+	if _cur_subscene_camera and focus_owner != self:
+		_leave_subscene()
