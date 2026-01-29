@@ -60,6 +60,7 @@ text = "(unknown)"
 horizontal_alignment = 1
 
 [node name="KeyPressed" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(40, 50)
 layout_mode = 2
 size_flags_vertical = 8
