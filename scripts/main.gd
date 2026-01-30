@@ -39,6 +39,10 @@ var _is_speed_up_time_held := false
 var _moved_left_during_hint := false
 var _moved_right_during_hint := false
 
+# Mouse mode we're *supposed* to be in. Since the mouse mode can behave weirdly in the web build, we
+# keep track of this and re-update it as needed.
+var _target_mouse_mode := Input.MOUSE_MODE_VISIBLE
+
 @onready var _hand_pointing_cursor: Sprite2D = $%VirtualCursor/HandPointing
 @onready var _hand_open_cursor: Sprite2D = $%VirtualCursor/HandOpen
 @onready var _hand_closed_cursor: Sprite2D = $%VirtualCursor/HandClosed
@@ -188,6 +192,13 @@ func _process(delta: float) -> void:
 
 	# Time warp shader.
 	%Postprocess/TimeWarp/Rect.material.set(&"shader_parameter/strength", _time_warp_strength)
+
+func _input(e: InputEvent) -> void:
+	# Needed to deal with weird mouse mode behavior in the web build. Fix the mouse mode when
+	# clicking in the game.
+	if e is InputEventMouseButton and Input.mouse_mode != _target_mouse_mode:
+		Input.mouse_mode = _target_mouse_mode
+		get_viewport().set_input_as_handled()
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"toggle_menu"):
@@ -456,8 +467,9 @@ func _update_simulation_pause() -> void:
 	var should_pause := is_pause_menu_open() or is_journal_open()
 	get_tree().paused = should_pause
 
-	if should_pause: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	else: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if should_pause: _target_mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else: _target_mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode = _target_mouse_mode
 
 	%VirtualCursor.visible = not should_pause
 

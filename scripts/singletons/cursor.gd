@@ -49,6 +49,12 @@ var automatically_move_with_mouse: bool = true
 
 
 func _input(event: InputEvent) -> void:
+	# If we still allow mouse movement when the mouse isn't captured, it ends up looking like the OS
+	# cursor is "desynced" with the virtual cursor, which is confusing. If we disable mouse movement
+	# completely, then it's more clear that they need to click into the game to re-engage the
+	# cursor.
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED: return
+
 	if event is InputEventMouseMotion:
 		var sensitivity_multiplier: float = \
 				lerp(0.1, 1.0, GameSettings.mouse_sensitivity + 1) \
