@@ -165,6 +165,7 @@ func _process(delta: float) -> void:
 				prompt.pressed = state.is_pressed
 
 	Game.debug_overlay.update("FPS", str(Engine.get_frames_per_second()))
+	Game.debug_overlay.update("mouse_mode", str(Input.mouse_mode))
 
 	%LeftWorkspacePrompt.visible = _current_workspace and not _camera_focus_owner
 	%LeftWorkspacePrompt.disabled = _current_workspace and not _current_workspace.left_workspace
