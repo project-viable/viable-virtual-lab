@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7ygbkawlsvn8"]
+[gd_scene load_steps=11 format=3 uid="uid://b7ygbkawlsvn8"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_5k7v7"]
 [ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="2_5k7v7"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_8riox"]
+[ext_resource type="Script" uid="uid://cyki6lorl8wam" path="res://scripts/lab_body_grab_point.gd" id="2_faksb"]
 [ext_resource type="Texture2D" uid="uid://dn3h2fdnrisw6" path="res://textures/lab_objects/graduated_cylinder.svg" id="4_5k7v7"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="6_g55fx"]
 [ext_resource type="Script" uid="uid://cvhaiwlpqy14p" path="res://scripts/spill_component.gd" id="7_c1gkm"]
@@ -18,6 +19,10 @@ script = ExtResource("1_5k7v7")
 hover_name = "graduated cylinder"
 help_page_path = "containers.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="LabBodyGrabPoint" type="Node2D" parent="."]
+position = Vector2(-5, -46)
+script = ExtResource("2_faksb")
 
 [node name="SubstanceDisplayPolygon" type="Polygon2D" parent="." node_paths=PackedStringArray("source")]
 polygon = PackedVector2Array(-12, 88, 12, 88, 12, -72, -12, -72)

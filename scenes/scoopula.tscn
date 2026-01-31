@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1af3h23bqbvv"]
+[gd_scene load_steps=9 format=3 uid="uid://c1af3h23bqbvv"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_sbaom"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_g0l2j"]
+[ext_resource type="Script" uid="uid://cyki6lorl8wam" path="res://scripts/lab_body_grab_point.gd" id="2_sy6lh"]
 [ext_resource type="Texture2D" uid="uid://yrxt2sxidd3c" path="res://textures/old/FillSprites/scoopula_fill.png" id="4_g0l2j"]
 [ext_resource type="Texture2D" uid="uid://cak418sbeesy5" path="res://textures/lab_objects/scoopula.svg" id="4_sbaom"]
 [ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://scripts/attachment_point.gd" id="7_na6ud"]
@@ -14,6 +15,10 @@ script = ExtResource("1_sbaom")
 hover_name = "scoopula"
 help_page_path = "scale.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="LabBodyGrabPoint" type="Node2D" parent="."]
+position = Vector2(-4, -13)
+script = ExtResource("2_sy6lh")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(0, -1)

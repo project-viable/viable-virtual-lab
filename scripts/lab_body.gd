@@ -189,10 +189,12 @@ func get_absolute_z_index() -> int:
 	return 0
 
 func start_dragging() -> void:
-	Interaction.held_body = self
-	set_physics_mode(PhysicsMode.KINEMATIC)
-
 	DepthManager.move_to_front_of_layer(self, DepthManager.Layer.HELD)
+
+	# Grab on to a grab point, if there is one.
+	var grab_point: LabBodyGrabPoint = Util.find_child_of_type(self, LabBodyGrabPoint)
+	if grab_point:
+		Cursor.virtual_mouse_position = grab_point.global_position
 
 	_offset = _get_local_virtual_mouse_position()
 	if interact_canvas_group:
@@ -200,6 +202,9 @@ func start_dragging() -> void:
 
 	Cursor.mode = Cursor.Mode.CLOSED
 	Cursor.automatically_move_with_mouse = false
+
+	Interaction.held_body = self
+	set_physics_mode(PhysicsMode.KINEMATIC)
 
 ## Can be safely called from elsewhere. Also cancels any interaction that was pressed down.
 func stop_dragging() -> void:
