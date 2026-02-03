@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=54 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://byucr1dj248ga" path="res://textures/environment/wall.svg" id="1_5fdni"]
 [ext_resource type="Script" uid="uid://b8p3xdpo3orid" path="res://scripts/procedure_opener.gd" id="1_wv41k"]
@@ -32,9 +32,6 @@
 [ext_resource type="Script" uid="uid://bcu5ibe722dk1" path="res://scripts/dna_fragment.gd" id="25_nbx6y"]
 [ext_resource type="Texture2D" uid="uid://brx5qwivdoj2a" path="res://textures/environment/black.svg" id="26_w0rbf"]
 [ext_resource type="PackedScene" uid="uid://cj0ivwgwls2pt" path="res://scenes/gel_comb.tscn" id="30_bi4rt"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cn0u"]
-size = Vector2(12495, 590)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5fdni"]
 distance = 96.0
@@ -146,7 +143,8 @@ initial_help_page_path = "usage.txt"
 
 [node name="BackgroundWall" type="Sprite2D" parent="."]
 z_index = -2
-scale = Vector2(1.94479, 0.668519)
+position = Vector2(0, -230.00003)
+scale = Vector2(1.94479, 0.88148195)
 texture = ExtResource("1_5fdni")
 centered = false
 
@@ -200,20 +198,10 @@ patch_margin_top = 66
 patch_margin_right = 7
 patch_margin_bottom = 7
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(11, 495)
-scale = Vector2(0.2, 0.2)
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(6247.5, 295)
-scale = Vector2(0.999999, 0.999999)
-shape = SubResource("RectangleShape2D_7cn0u")
-
 [node name="Boundary" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary"]
-position = Vector2(647, 816)
+position = Vector2(647, 593)
 shape = SubResource("WorldBoundaryShape2D_5fdni")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Boundary"]
@@ -230,6 +218,7 @@ shape = SubResource("WorldBoundaryShape2D_7cn0u")
 position = Vector2(2466, 195)
 
 [node name="WorkspaceCamera" type="Camera2D" parent="." node_paths=PackedStringArray("right_workspace")]
+position = Vector2(0, -80)
 anchor_mode = 0
 script = ExtResource("25_5fdni")
 is_main_workspace = true
@@ -237,7 +226,7 @@ right_workspace = NodePath("../WorkspaceCamera2")
 metadata/_custom_type_script = "uid://f3pegl6tyuqt"
 
 [node name="WorkspaceCamera2" type="Camera2D" parent="." node_paths=PackedStringArray("left_workspace")]
-position = Vector2(1280, 0)
+position = Vector2(1280, -80)
 anchor_mode = 0
 script = ExtResource("25_5fdni")
 left_workspace = NodePath("../WorkspaceCamera")
