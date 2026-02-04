@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b5ff3gy87ykja"]
+[gd_scene load_steps=13 format=3 uid="uid://b5ff3gy87ykja"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_6iauc"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="2_6iauc"]
@@ -11,6 +11,9 @@
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="8_e38bm"]
 [ext_resource type="Script" uid="uid://b6fn3sx53tn8l" path="res://scripts/focus_use_component.gd" id="9_dyohf"]
 [ext_resource type="Script" uid="uid://cvhaiwlpqy14p" path="res://scripts/spill_component.gd" id="10_rqua0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wadb5"]
+size = Vector2(56.25, 55.25)
 
 [node name="Flask" type="RigidBody2D" groups=["emptyable"]]
 collision_layer = 0
@@ -46,13 +49,14 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_6iauc")
 
 [node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour"]]
+position = Vector2(0, -48)
 script = ExtResource("8_e38bm")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ContainerInteractableArea"]
-scale = Vector2(0.2, 0.2)
-polygon = PackedVector2Array(-53, -80, -139, 195, -139, 216, -115, 240, 115, 240, 135, 221, 142, 205, 54, -77, 52, -224, 66, -226, 62, -239, -64, -240, -65, -228, -53, -224)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea"]
+position = Vector2(0.125, 9.375)
+shape = SubResource("RectangleShape2D_wadb5")
 
 [node name="SwirlUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container", "node_to_rotate")]
 script = ExtResource("8_dyohf")

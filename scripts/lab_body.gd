@@ -253,6 +253,14 @@ func get_global_hand_pos() -> Vector2:
 	elif interact_canvas_group: return interact_canvas_group.to_global(_hand_offset)
 	else: return to_global(_offset)
 
+## Get the position where the virtual cursor should be relative to this object while held, in local
+## coordinates.
+func get_local_hand_pos() -> Vector2:
+	# TODO: `interact_canvas_group.transform` will only get us to our local coordinates if
+	# `interact_canvas_group` is a direct child of this node, which may not always be the case.
+	if interact_canvas_group: return interact_canvas_group.transform * _hand_offset
+	else: return _hand_offset
+
 func _update_physics_to_mode(mode: PhysicsMode) -> void:
 	if mode == PhysicsMode.KINEMATIC or mode == PhysicsMode.FROZEN:
 		# Save physics states of child physics bodies.

@@ -1,5 +1,13 @@
 extends UseComponent
 class_name PourUseComponent
+## Makes it possible to pour using a [SpillComponent] into a [ContainerInteractableArea].
+##
+## The position of the [ContainerInteractableArea] is treated as a "good spot to pour into". This
+## object will first be moved to a target position and then tilted about the cursor to a global
+## angle of [member tilt_angle]. The target position is such that, when this object is tilted, the
+## position of [member spill_component] will be equal to
+## [code]a.global_position + pour_offset[/code], where [code]a[/code] is the target
+## [ContainerInteractableArea].
 
 
 signal started_pouring()
@@ -14,10 +22,48 @@ signal stopped_pouring()
 ## Angle, in radians, that [member body] will be tilted to while pouring. By default, tilt to the
 ## left.
 @export_custom(PROPERTY_HINT_NONE, "suffix:rad") var tilt_angle: float = -3 * PI / 4
+## Average speed the object moves to get to the target position.
+@export_custom(PROPERTY_HINT_NONE, "suffix:1/s") var move_speed: float = 100
+## Average speed the object rotates to its target tilt.
+@export_custom(PROPERTY_HINT_NONE, "suffix:rad/s") var tilt_speed: float = PI / 2
+## Offset in global coordinates from the location of the target [ContainerInteractableArea] to the
+## final destination of [member spill_component].
+@export var pour_offset: Vector2 = Vector2(0, -10)
+## The container will start being tilted when the container is within [member pour_range] units of
+## the target position.
+@export var pour_range: float = 20
+
+
+var _move_duration := 1.0
+var _tilt_duration := 1.0
+
+# Start and target hand positions.
+var _start_pos: Vector2 = Vector2.ZERO
+var _target_pos: Vector2 = Vector2.ZERO
+# These will be greater than zero if we're moving to the pour target.
+var _move_duration_left: float = 0.0
+var _tilt_duration_left: float = 0.0
 
 
 func _enter_tree() -> void:
 	if not body: body = get_parent() as LabBody
+
+func _physics_process(delta: float) -> void:
+	if not body: return
+
+	_move_duration_left = move_toward(_move_duration_left, 0.0, delta)
+
+	if _move_duration_left > 0.0:
+		var t: float = 1.0 - _move_duration_left / _move_duration
+		# Move the body to get the hand in the right position.
+		body.global_position = body.global_position - body.get_global_hand_pos() + lerp(_start_pos, _target_pos, ease(t, 0.2))
+
+	# Only tilt when close enough.
+	if body.get_global_hand_pos().distance_to(_target_pos) <= pour_range:
+		_tilt_duration_left = move_toward(_tilt_duration_left, 0.0, delta)
+	if _tilt_duration_left > 0.0:
+		var t: float = 1.0 - _tilt_duration_left / _tilt_duration
+		body.set_global_rotation_about_cursor(lerp(0.0, tilt_angle, ease(t, 0.2)))
 
 func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 	var results: Array[InteractInfo] = []
@@ -36,10 +82,24 @@ func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 	match kind:
 		InteractInfo.Kind.SECONDARY:
 			spill_component.target_container = area.container_component
-			if body:
+			if body and spill_component:
 				body.disable_drop = true
 				body.disable_rotate_upright = true
-				body.set_global_rotation_about_cursor(tilt_angle)
+				body.disable_follow_cursor = true
+
+				_start_pos = body.get_global_hand_pos()
+				# TODO: We're assuming with this calculation that `spill_component`'s position is
+				# relative to `body`, which is not necessarily correct if it's not a direct child of
+				# `body`.
+				var hand_pos := body.get_local_hand_pos()
+				_target_pos = area.global_position + pour_offset \
+						+ (hand_pos - spill_component.position).rotated(tilt_angle)
+
+				_move_duration = _start_pos.distance_to(_target_pos) / move_speed
+				_tilt_duration = abs(tilt_angle) / tilt_speed
+
+				_move_duration_left = _move_duration
+				_tilt_duration_left = _tilt_duration
 			started_pouring.emit()
 
 		InteractInfo.Kind.INSPECT:
@@ -56,5 +116,7 @@ func stop_use(_area: InteractableArea, kind: InteractInfo.Kind) -> void:
 			if body:
 				body.disable_drop = false
 				body.disable_rotate_upright = false
-				body.set_global_rotation_about_cursor(0)
+				body.disable_follow_cursor = false
+				_move_duration_left = 0.0
+				_tilt_duration_left = 0.0
 			stopped_pouring.emit()
