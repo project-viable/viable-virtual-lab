@@ -191,6 +191,9 @@ func get_absolute_z_index() -> int:
 func start_dragging() -> void:
 	DepthManager.move_to_front_of_layer(self, DepthManager.Layer.HELD)
 
+	# The mode must be set first so the offset is at the right position on the cursor.
+	Cursor.mode = Cursor.Mode.CLOSED
+
 	# Grab on to a grab point, if there is one.
 	var grab_point: LabBodyGrabPoint = Util.find_child_of_type(self, LabBodyGrabPoint)
 	if grab_point:
@@ -200,7 +203,6 @@ func start_dragging() -> void:
 	if interact_canvas_group:
 		_hand_offset = _get_local_virtual_mouse_position(interact_canvas_group)
 
-	Cursor.mode = Cursor.Mode.CLOSED
 	Cursor.automatically_move_with_mouse = false
 
 	Interaction.held_body = self

@@ -89,7 +89,7 @@ func _ready() -> void:
 			$%Modules.add_child(new_button)
 
 	Cursor.mode_changed.connect(_on_virtual_mouse_mode_changed)
-	Cursor.virtual_mouse_moved.connect(_on_virtual_mouse_moved)
+	Cursor.virtual_mouse_base_moved.connect(_on_virtual_mouse_base_moved)
 	%TransitionCamera.moved.connect(_update_virtual_mouse)
 
 	# The subviewport needs to match the window size.
@@ -170,6 +170,7 @@ func _process(delta: float) -> void:
 
 	Game.debug_overlay.update("FPS", str(Engine.get_frames_per_second()))
 	Game.debug_overlay.update("mouse_mode", str(Input.mouse_mode))
+	Game.debug_overlay.update("palm offset", str(get_virtual_cursor_palm_world_offset()))
 
 	%LeftWorkspacePrompt.visible = _current_workspace and not _camera_focus_owner
 	%LeftWorkspacePrompt.disabled = _current_workspace and not _current_workspace.left_workspace
@@ -355,6 +356,13 @@ func focus_camera_and_show_subscene(rect: Rect2, camera: SubsceneCamera, time: f
 	var full_rect := Util.expand_to_aspect(left_rect, viewport_size.aspect(), 0)
 	$%TransitionCamera.move_to_rect(full_rect, false, time)
 
+## The current world-space offset of the virtual cursor's palm relative to the base position
+## (the end of the index finger). This is used to determine the position of
+## [member Cursor.virtual_mouse_position] when it's not in pointer mode.
+func get_virtual_cursor_palm_world_offset() -> Vector2:
+	var ui_to_main: Transform2D = %MainViewport.canvas_transform.affine_inverse() * $UILayer.get_final_transform()
+	return ui_to_main * %VirtualCursor/PalmRef.global_position - ui_to_main * %VirtualCursor.global_position
+
 func _on_exit_module_button_pressed() -> void:
 	_switch_to_main_menu()
 
@@ -427,7 +435,7 @@ func _on_interactable_system_pressed_right() -> void:
 func _on_interactable_system_pressed_zoom_out() -> void:
 	if _camera_focus_owner: return_to_current_workspace()
 
-func _on_virtual_mouse_moved(_old: Vector2, _new: Vector2) -> void:
+func _on_virtual_mouse_base_moved(_old: Vector2, _new: Vector2) -> void:
 	_update_virtual_mouse();
 
 func _on_virtual_mouse_mode_changed(_mode: Cursor.Mode) -> void:
@@ -441,7 +449,7 @@ func _update_virtual_mouse() -> void:
 	# The coordinate system for the main viewport and the cursor canvas layer are different, so
 	# we have to convert.
 	var main_to_cursor_canvas: Transform2D = $UILayer.get_final_transform().affine_inverse() * $%MainViewport.canvas_transform
-	var cursor_canvas_mouse_pos := main_to_cursor_canvas * Cursor.virtual_mouse_position
+	var cursor_canvas_mouse_pos := main_to_cursor_canvas * Cursor.virtual_mouse_base_position
 
 	for c in $%VirtualCursor.get_children():
 		c.hide()
@@ -455,7 +463,7 @@ func _update_virtual_mouse() -> void:
 	# We have to call `$%CursorArea.get_global_mouse_position` instead of just calling
 	# `get_global_mouse_position` directly because it needs to be in the same coordinate system
 	# as the area (i.e., the main world).
-	$%CursorArea.global_position = Cursor.virtual_mouse_position
+	$%CursorArea.global_position = Cursor.virtual_mouse_base_position
 
 	# Match the cursor's collision and position to the relative size of the hand.
 	_cursor_collision.shape.size = _cursor_collision_original_size / %TransitionCamera.zoom

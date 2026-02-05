@@ -262,6 +262,9 @@ texture = ExtResource("12_4mycw")
 centered = false
 offset = Vector2(-110, -60)
 
+[node name="PalmRef" type="Node2D" parent="UILayer/VirtualCursor"]
+position = Vector2(8, 18)
+
 [node name="Prompts" type="MarginContainer" parent="UILayer"]
 unique_name_in_owner = true
 anchors_preset = 15
