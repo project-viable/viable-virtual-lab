@@ -24,7 +24,7 @@ help_page_path = "containers.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="LabBodyGrabPoint" type="Node2D" parent="."]
-position = Vector2(-5, -46)
+position = Vector2(0, -31)
 script = ExtResource("2_faksb")
 
 [node name="SubstanceDisplayPolygon" type="Polygon2D" parent="." node_paths=PackedStringArray("source")]

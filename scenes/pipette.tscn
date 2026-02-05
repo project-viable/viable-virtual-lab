@@ -35,7 +35,7 @@ help_page_path = "pipette.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="LabBodyGrabPoint" type="Node2D" parent="."]
-position = Vector2(-2, -45)
+position = Vector2(3, -45)
 script = ExtResource("2_dnssk")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

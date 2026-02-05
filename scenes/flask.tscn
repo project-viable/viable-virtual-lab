@@ -23,7 +23,7 @@ help_page_path = "containers.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="LabBodyGrabPoint" type="Node2D" parent="."]
-position = Vector2(-3, -36)
+position = Vector2(0, -27)
 script = ExtResource("2_wadb5")
 
 [node name="ContainerComponent" type="Node2D" parent="."]

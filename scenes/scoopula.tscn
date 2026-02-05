@@ -17,7 +17,7 @@ help_page_path = "scale.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="LabBodyGrabPoint" type="Node2D" parent="."]
-position = Vector2(-4, -13)
+position = Vector2(-4, -1)
 script = ExtResource("2_sy6lh")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
