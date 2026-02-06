@@ -42,6 +42,12 @@ var _moved_right_during_hint := false
 # Mouse mode we're *supposed* to be in. Since the mouse mode can behave weirdly in the web build, we
 # keep track of this and re-update it as needed.
 var _target_mouse_mode := Input.MOUSE_MODE_VISIBLE
+# If we change to `MOUSE_MODE_CAPTURED` while the mouse is off-screen in the web version, then it
+# will be stuck and unable to send click events to the engine. So we instead set
+# `_change_mouse_mode_on_next_mouse_motion` to `true`, which will cause the mode change to be
+# delayed until the next time a mouse motion is received within the main window's bounds (we can
+# be sure the mouse is on-screen if an input event was actually received.
+var _change_mouse_mode_on_next_mouse_motion := false
 
 @onready var _hand_pointing_cursor: Sprite2D = $%VirtualCursor/HandPointing
 @onready var _hand_open_cursor: Sprite2D = $%VirtualCursor/HandOpen
@@ -200,6 +206,15 @@ func _input(e: InputEvent) -> void:
 	if e is InputEventMouseButton and Input.mouse_mode != _target_mouse_mode:
 		Input.mouse_mode = _target_mouse_mode
 		get_viewport().set_input_as_handled()
+	# Avoid capturing the mouse while the mouse is off-screen. Only count it if the mouse is
+	# currently in the bounds of the window. I've also made it so it ignores a 30 pixel wide margin
+	# around the edge of the viewport, because Safari actually shrinks the viewport to show the
+	# "press esc to show cursor" popup, meaning that there are cases where the mouse is on-screen
+	# when the event is received, but is no longer in the viewport when the popup appears.
+	elif e is InputEventMouseMotion and _change_mouse_mode_on_next_mouse_motion \
+			and get_window().get_visible_rect().grow(-30).has_point(get_window().get_mouse_position()):
+		Input.mouse_mode = _target_mouse_mode
+		_change_mouse_mode_on_next_mouse_motion = false
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"toggle_menu"):
@@ -476,8 +491,15 @@ func _update_simulation_pause() -> void:
 	get_tree().paused = should_pause
 
 	if should_pause: _target_mouse_mode = Input.MOUSE_MODE_VISIBLE
-	else: _target_mouse_mode = Input.MOUSE_MODE_CAPTURED
-	Input.mouse_mode = _target_mouse_mode
+	else:
+		_target_mouse_mode = Input.MOUSE_MODE_CAPTURED
+		# Delay capturing the mouse until we know it's on-screen. See the comment above
+		# `_change_mouse_mode_on_next_mouse_motion` for more details.
+		if _is_in_web_browser():
+			_change_mouse_mode_on_next_mouse_motion = true
+
+	if not _change_mouse_mode_on_next_mouse_motion:
+		Input.mouse_mode = _target_mouse_mode
 
 	%VirtualCursor.visible = not should_pause
 
