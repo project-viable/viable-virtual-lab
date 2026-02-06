@@ -49,7 +49,14 @@ func _enter_tree() -> void:
 	if not body: body = get_parent() as LabBody
 
 func _physics_process(delta: float) -> void:
-	if not body: return
+	if not body or not spill_component: return
+
+	var is_in_pour_range := body.get_global_hand_pos().distance_to(_target_pos) <= pour_range
+
+	# Stop allowing further pouring if the container is taken outside of the pour range after being
+	# moved into it.
+	if spill_component.target_container and not is_in_pour_range and _move_duration_left <= 0:
+		_leave_pour_mode()
 
 	_move_duration_left = move_toward(_move_duration_left, 0.0, delta)
 
@@ -59,7 +66,7 @@ func _physics_process(delta: float) -> void:
 		body.global_position = body.global_position - body.get_global_hand_pos() + lerp(_start_pos, _target_pos, ease(t, 0.2))
 
 	# Only tilt when close enough.
-	if body.get_global_hand_pos().distance_to(_target_pos) <= pour_range:
+	if is_in_pour_range:
 		_tilt_duration_left = move_toward(_tilt_duration_left, 0.0, delta)
 	if _tilt_duration_left > 0.0:
 		var t: float = 1.0 - _tilt_duration_left / _tilt_duration
@@ -68,9 +75,15 @@ func _physics_process(delta: float) -> void:
 func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 	var results: Array[InteractInfo] = []
 
+	# If the user stops pouring but is still within range to pour, allow them to continue, even if
+	# the object is not explicitly overlapping the target container.
+	var can_continue_pouring: bool = spill_component.target_container \
+			and body and body.get_global_hand_pos().distance_to(_target_pos) <= pour_range
+
 	if area is ContainerInteractableArea \
 			and area.is_in_group(&"container:pour") \
-			and area.container_component and spill_component:
+			and area.container_component and spill_component \
+			or can_continue_pouring:
 		results.push_back(InteractInfo.new(InteractInfo.Kind.SECONDARY, "(hold) Pour"))
 
 	if results and not Game.main.get_camera_focus_owner():
@@ -81,13 +94,17 @@ func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 	match kind:
 		InteractInfo.Kind.SECONDARY:
-			spill_component.target_container = area.container_component
-			if body and spill_component:
+			if body:
 				body.disable_drop = true
 				body.disable_rotate_upright = true
 				body.disable_follow_cursor = true
 
 				_start_pos = body.get_global_hand_pos()
+
+			# We only need to recompute this stuff if we're targeting a new object.
+			if body and spill_component and area:
+				spill_component.target_container = area.container_component
+
 				# TODO: We're assuming with this calculation that `spill_component`'s position is
 				# relative to `body`, which is not necessarily correct if it's not a direct child of
 				# `body`.
@@ -95,28 +112,34 @@ func start_use(area: InteractableArea, kind: InteractInfo.Kind) -> void:
 				_target_pos = area.global_position + pour_offset \
 						+ (hand_pos - spill_component.position).rotated(tilt_angle)
 
-				_move_duration = _start_pos.distance_to(_target_pos) / move_speed
-				_tilt_duration = abs(tilt_angle) / tilt_speed
+			_move_duration = _start_pos.distance_to(_target_pos) / move_speed
+			_tilt_duration = abs(tilt_angle) / tilt_speed
 
-				_move_duration_left = _move_duration
-				_tilt_duration_left = _tilt_duration
+			_move_duration_left = _move_duration
+			_tilt_duration_left = _tilt_duration
+
 			started_pouring.emit()
 
-		InteractInfo.Kind.INSPECT:
-			var parent_body := get_parent() as CollisionObject2D
-			var area_parent_body := area.get_parent() as CollisionObject2D
-			if not parent_body or not area_parent_body: return
-			Game.main.focus_camera_on_rect(Util.get_global_bounding_box(parent_body).merge(Util.get_global_bounding_box(area_parent_body)))
-			Game.main.set_camera_focus_owner(self)
+		#InteractInfo.Kind.INSPECT:
+		#	var parent_body := get_parent() as CollisionObject2D
+		#	var area_parent_body := area.get_parent() as CollisionObject2D
+		#	if not parent_body or not area_parent_body: return
+		#	Game.main.focus_camera_on_rect(Util.get_global_bounding_box(parent_body).merge(Util.get_global_bounding_box(area_parent_body)))
+		#	Game.main.set_camera_focus_owner(self)
 
 func stop_use(_area: InteractableArea, kind: InteractInfo.Kind) -> void:
 	match kind:
 		InteractInfo.Kind.SECONDARY:
-			spill_component.target_container = null
-			if body:
-				body.disable_drop = false
-				body.disable_rotate_upright = false
-				body.disable_follow_cursor = false
-				_move_duration_left = 0.0
-				_tilt_duration_left = 0.0
+			body.disable_drop = false
+			body.disable_rotate_upright = false
+			body.disable_follow_cursor = false
+			_move_duration_left = 0.0
+			_tilt_duration_left = 0.0
 			stopped_pouring.emit()
+
+func _leave_pour_mode() -> void:
+	spill_component.target_container = null
+	if body:
+		body.disable_drop = false
+		body.disable_rotate_upright = false
+		body.disable_follow_cursor = false
