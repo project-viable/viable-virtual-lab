@@ -36,6 +36,9 @@ const POUR_RANGE_ZOOM_MARGIN := 5.0
 ## Angle, in radians, that [member body] will be tilted to while pouring. By default, tilt to the
 ## left.
 @export_custom(PROPERTY_HINT_NONE, "suffix:rad") var tilt_angle: float = -3 * PI / 4
+## Angle that [member body] will be tilted to while in pour mode but not pouring. This can be used
+## to prevent the body from tilting back and forth a massive amount while doing small adjustments.
+@export_custom(PROPERTY_HINT_NONE, "suffix:rad") var standby_tilt_angle: float = -PI / 2
 ## Average speed the object moves to get to the target position.
 @export_custom(PROPERTY_HINT_NONE, "suffix:1/s") var move_speed: float = 100
 ## Average speed the object rotates to its target tilt.
@@ -94,7 +97,7 @@ func _physics_process(delta: float) -> void:
 
 	if _pour_state == PourState.POURING or _pour_state == PourState.IN_ZONE:
 		# Tilt forward if in the pouring state or tilt back if we're just in the zone, not pouring.
-		var target_angle: float = tilt_angle if _pour_state == PourState.POURING else 0.0
+		var target_angle: float = tilt_angle if _pour_state == PourState.POURING else standby_tilt_angle
 		var speed: float = tilt_speed if _pour_state == PourState.POURING else untilt_speed
 		body.set_global_rotation_about_cursor(move_toward(body.global_rotation, target_angle, speed * delta))
 

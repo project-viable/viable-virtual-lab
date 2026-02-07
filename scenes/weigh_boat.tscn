@@ -50,6 +50,7 @@ metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 script = ExtResource("6_8osh1")
 spill_component = NodePath("../SpillComponent")
 tilt_angle = -0.785
+standby_tilt_angle = 0.0
 metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
 
 [node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour", "container:scoop"]]
