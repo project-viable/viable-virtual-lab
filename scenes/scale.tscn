@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://gfmuo2b5e2b5"]
+[gd_scene load_steps=17 format=3 uid="uid://gfmuo2b5e2b5"]
 
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_ceiaq"]
 [ext_resource type="Script" uid="uid://blk6q1chtrgqi" path="res://scripts/help_selectable_area.gd" id="4_s7pnd"]
@@ -7,7 +7,10 @@
 [ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="5_f5hfo"]
 [ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="5_nayum"]
 [ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="5_ssuie"]
+[ext_resource type="Script" uid="uid://uor6fay5jtyy" path="res://scripts/combined_region_provider.gd" id="7_nfia4"]
 [ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://textures/icons_and_buttons/button_2.svg" id="7_vhatv"]
+[ext_resource type="Script" uid="uid://b15sd4jw5afoa" path="res://scripts/camera_region_provider.gd" id="8_87x6m"]
+[ext_resource type="Script" uid="uid://ccy0k2wrm316p" path="res://scripts/group_region_provider.gd" id="9_s0r2f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vhatv"]
 size = Vector2(102, 5)
@@ -52,15 +55,12 @@ debug_color = Color(0.404972, 0.46678, 1, 0.42)
 
 [node name="InteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("camera")]
 script = ExtResource("5_7y61a")
-camera = NodePath("../ZoomCamera")
+camera = NodePath("../ZoomSelectableArea/CombinedRegionProvider/CameraRegionProvider/ZoomCamera")
 metadata/_custom_type_script = "uid://8jbti40eodk6"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
 position = Vector2(1, -22)
 shape = SubResource("RectangleShape2D_jkoys")
-
-[node name="ZoomCamera" type="Camera2D" parent="."]
-zoom = Vector2(7, 7)
 
 [node name="HelpSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("click_area")]
 script = ExtResource("4_s7pnd")
@@ -69,10 +69,8 @@ click_area = NodePath("../ZoomSelectableArea/Area2D")
 interact_info = SubResource("Resource_axik6")
 metadata/_custom_type_script = "uid://blk6q1chtrgqi"
 
-[node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("area_camera")]
+[node name="ZoomSelectableArea" type="Node2D" parent="."]
 script = ExtResource("5_ssuie")
-area_camera = NodePath("../ZoomCamera")
-search_groups = Array[StringName]([&"zoom:scale"])
 interact_info = SubResource("Resource_s7pnd")
 metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 
@@ -81,6 +79,20 @@ metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/Area2D"]
 position = Vector2(1.5, -1.5)
 shape = SubResource("RectangleShape2D_7y61a")
+
+[node name="CombinedRegionProvider" type="Node2D" parent="ZoomSelectableArea"]
+script = ExtResource("7_nfia4")
+
+[node name="CameraRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider"]
+script = ExtResource("8_87x6m")
+
+[node name="ZoomCamera" type="Camera2D" parent="ZoomSelectableArea/CombinedRegionProvider/CameraRegionProvider"]
+zoom = Vector2(7, 7)
+
+[node name="GroupRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider"]
+script = ExtResource("9_s0r2f")
+groups = Array[StringName]([&"zoom:scale"])
+metadata/_custom_type_script = "uid://ccy0k2wrm316p"
 
 [node name="ZoomAwareControl" type="Control" parent="."]
 layout_mode = 3

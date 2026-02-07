@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cug6kav5s55iq"]
+[gd_scene load_steps=27 format=3 uid="uid://cug6kav5s55iq"]
 
 [ext_resource type="Script" uid="uid://bptf21x2a24jj" path="res://scripts/imager_gel_band_logic.gd" id="1_7wmgd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_w2ofj"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="6_18obo"]
 [ext_resource type="Texture2D" uid="uid://d3dbby0blgo04" path="res://textures/gel_bands/Gel_Rig_Top_View.svg" id="6_p46ws"]
 [ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="6_u3h3s"]
+[ext_resource type="Script" uid="uid://b15sd4jw5afoa" path="res://scripts/camera_region_provider.gd" id="7_au8w4"]
 [ext_resource type="Texture2D" uid="uid://c3rfj3vqah8ph" path="res://textures/gel_bands/Gel_Well_Top_View_LADDER_MULTIPLE.svg" id="7_p0nad"]
 [ext_resource type="Texture2D" uid="uid://7mpyt0hujebl" path="res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg" id="8_us78d"]
 [ext_resource type="Texture2D" uid="uid://bvt8quy2u6lr" path="res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg" id="9_ryau1"]
@@ -54,9 +55,8 @@ position = Vector2(-3, -0.9999995)
 scale = Vector2(0.26431274, 0.26431274)
 texture = ExtResource("4_oxmjg")
 
-[node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("objects", "subscene_camera")]
+[node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("subscene_camera")]
 script = ExtResource("4_ylekj")
-objects = [NodePath("../DepthManagedNode2D/AttachmentInteractableArea")]
 subscene_camera = NodePath("../Subscene/SubsceneCamera")
 interact_info = SubResource("Resource_u3h3s")
 metadata/_custom_type_script = "uid://ciw88e6ajyksw"
@@ -67,6 +67,14 @@ metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 position = Vector2(-0.5, -71)
 shape = SubResource("RectangleShape2D_deexq")
 debug_color = Color(0.961975, 0.191001, 0.110021, 0.42)
+
+[node name="CameraRegionProvider" type="Node2D" parent="ZoomSelectableArea"]
+script = ExtResource("7_au8w4")
+
+[node name="Camera2D" type="Camera2D" parent="ZoomSelectableArea/CameraRegionProvider"]
+position = Vector2(2, -7)
+enabled = false
+zoom = Vector2(5.5, 3)
 
 [node name="ZoomAwareControl" type="Control" parent="."]
 layout_mode = 3

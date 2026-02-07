@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b4q3npoc5c7fy"]
+[gd_scene load_steps=31 format=3 uid="uid://b4q3npoc5c7fy"]
 
 [ext_resource type="Script" uid="uid://bepsdcjab3t21" path="res://scripts/power_supply.gd" id="1_7lagc"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_80iu8"]
@@ -13,6 +13,9 @@
 [ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="8_vfgdq"]
 [ext_resource type="Script" uid="uid://chvv2ne60otwi" path="res://scripts/wire_connection.gd" id="9_07yqv"]
 [ext_resource type="Script" uid="uid://0k2e5xj6bo7p" path="res://scripts/voltage_line_edit.gd" id="9_agml6"]
+[ext_resource type="Script" uid="uid://uor6fay5jtyy" path="res://scripts/combined_region_provider.gd" id="9_hsrjq"]
+[ext_resource type="Script" uid="uid://ccy0k2wrm316p" path="res://scripts/group_region_provider.gd" id="10_y7ksa"]
+[ext_resource type="Script" uid="uid://b15sd4jw5afoa" path="res://scripts/camera_region_provider.gd" id="11_y7ksa"]
 [ext_resource type="Script" uid="uid://bk0s8v1tcwcmr" path="res://scripts/lab_timer.gd" id="12_7xsxk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80iu8"]
@@ -146,18 +149,28 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_7lagc")
 debug_color = Color(0.799247, 0.420694, 0.0500949, 0.42)
 
-[node name="ZoomCamera" type="Camera2D" parent="."]
-zoom = Vector2(4.5, 4.5)
-position_smoothing_speed = 20.0
-
-[node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("area_camera", "click_area")]
+[node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("click_area")]
 script = ExtResource("7_r5man")
-area_camera = NodePath("../ZoomCamera")
-search_groups = Array[StringName]([&"zoom:power_supply"])
-search_radius = 300.0
 click_area = NodePath("../Screen")
 interact_info = SubResource("Resource_jn1hy")
 metadata/_custom_type_script = "uid://ciw88e6ajyksw"
+
+[node name="CombinedRegionProvider" type="Node2D" parent="ZoomSelectableArea"]
+script = ExtResource("9_hsrjq")
+
+[node name="GroupRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider"]
+script = ExtResource("10_y7ksa")
+search_radius = 300.0
+groups = Array[StringName]([&"zoom:power_supply"])
+metadata/_custom_type_script = "uid://ccy0k2wrm316p"
+
+[node name="CameraRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider"]
+script = ExtResource("11_y7ksa")
+
+[node name="ZoomCamera" type="Camera2D" parent="ZoomSelectableArea/CombinedRegionProvider/CameraRegionProvider"]
+enabled = false
+zoom = Vector2(4.5, 4.5)
+position_smoothing_speed = 20.0
 
 [node name="Screen" type="Area2D" parent="."]
 z_index = 1
