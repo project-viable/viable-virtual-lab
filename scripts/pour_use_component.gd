@@ -10,6 +10,10 @@ class_name PourUseComponent
 ## [ContainerInteractableArea].
 
 
+signal started_pouring()
+signal stopped_pouring()
+
+
 enum PourState
 {
 	NONE,
@@ -17,10 +21,6 @@ enum PourState
 	IN_ZONE,
 	POURING,
 }
-
-
-signal started_pouring()
-signal stopped_pouring()
 
 
 ## When zooming in, a little extra space is given around the pour range zone to allow the container
