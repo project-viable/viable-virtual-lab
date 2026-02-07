@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://du0xgct56vfqx"]
+[gd_scene load_steps=24 format=3 uid="uid://du0xgct56vfqx"]
 
 [ext_resource type="Script" uid="uid://uqwl8yn4726k" path="res://scripts/tae_bottle.gd" id="1_asuie"]
+[ext_resource type="Script" uid="uid://cyki6lorl8wam" path="res://scripts/lab_body_grab_point.gd" id="2_751b4"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_rqhjd"]
 [ext_resource type="Texture2D" uid="uid://dk7ebgdccfetq" path="res://textures/lab_objects/bottle_TAE_back.svg" id="3_3h5nj"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="4_jcpv6"]
@@ -88,6 +89,11 @@ collision_layer = 0
 script = ExtResource("1_asuie")
 hover_name = "TAE bottle"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="LabBodyGrabPoint" type="Node2D" parent="."]
+position = Vector2(0, -12)
+script = ExtResource("2_751b4")
+metadata/_custom_type_script = "uid://cyki6lorl8wam"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)

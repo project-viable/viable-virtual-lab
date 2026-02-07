@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cgju3rlfrqslw"]
+[gd_scene load_steps=12 format=3 uid="uid://cgju3rlfrqslw"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_ngt2v"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_4pv8k"]
 [ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="2_ukqvd"]
+[ext_resource type="Script" uid="uid://cyki6lorl8wam" path="res://scripts/lab_body_grab_point.gd" id="2_xaqjm"]
 [ext_resource type="Texture2D" uid="uid://bp4k3b1irg7n2" path="res://textures/lab_objects/weigh_boat.svg" id="4_ngt2v"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="5_axhbs"]
 [ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://scripts/pour_use_component.gd" id="6_8osh1"]
@@ -20,6 +21,11 @@ script = ExtResource("1_ngt2v")
 hover_name = "weigh boat"
 help_page_path = "scale.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="LabBodyGrabPoint" type="Node2D" parent="."]
+position = Vector2(-7, 0)
+script = ExtResource("2_xaqjm")
+metadata/_custom_type_script = "uid://cyki6lorl8wam"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.5)
