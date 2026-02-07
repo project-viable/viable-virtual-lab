@@ -147,7 +147,6 @@ func start_use(area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 func stop_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 	if _pour_state == PourState.POURING:
 		_pour_state = PourState.IN_ZONE
-		body.disable_drop = false
 		body.disable_follow_cursor = false
 		spill_component.target_container = null
 		stopped_pouring.emit()
