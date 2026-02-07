@@ -96,11 +96,10 @@ func _physics_process(delta: float) -> void:
 		# Move the body to get the hand in the right position.
 		body.global_position = body.global_position - body.get_global_hand_pos() + lerp(_start_pos, _target_pos, ease(t, 0.2))
 
-	if _pour_state == PourState.POURING or _pour_state == PourState.IN_ZONE:
-		# Tilt forward if in the pouring state or tilt back if we're just in the zone, not pouring.
-		var target_angle: float = tilt_angle if _pour_state == PourState.POURING else standby_tilt_angle
-		var speed: float = tilt_speed if _pour_state == PourState.POURING else untilt_speed
-		body.set_global_rotation_about_cursor(move_toward(body.global_rotation, target_angle, speed * delta))
+	# Tilt forward if in the pouring state or tilt back if we're just in the zone, not pouring.
+	var target_angle: float = tilt_angle if _pour_state == PourState.POURING else standby_tilt_angle
+	var speed: float = tilt_speed if _pour_state == PourState.POURING else untilt_speed
+	body.set_global_rotation_about_cursor(move_toward(body.global_rotation, target_angle, speed * delta))
 
 func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 	var results: Array[InteractInfo] = []
