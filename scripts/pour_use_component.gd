@@ -86,6 +86,7 @@ func _physics_process(delta: float) -> void:
 	if is_in_pour_range and _pour_state == PourState.MOVING_TO_ZONE:
 		_pour_state = PourState.POURING
 		spill_component.target_container = _target_container
+		body.disable_follow_cursor = true
 		started_pouring.emit()
 
 	_move_duration_left = move_toward(_move_duration_left, 0.0, delta)
@@ -116,6 +117,7 @@ func start_use(area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 	if _pour_state == PourState.IN_ZONE:
 		_pour_state = PourState.POURING
 		spill_component.target_container = _target_container
+		body.disable_follow_cursor = true
 		started_pouring.emit()
 	elif _pour_state == PourState.NONE:
 		_pour_state = PourState.MOVING_TO_ZONE
