@@ -48,12 +48,12 @@ signal stopped_pouring()
 var _pour_state := PourState.NONE
 
 var _move_duration := 1.0
-
 # Start and target hand positions.
 var _start_pos: Vector2 = Vector2.ZERO
 var _target_pos: Vector2 = Vector2.ZERO
 # These will be greater than zero if we're moving to the pour target.
 var _move_duration_left: float = 0.0
+var _target_container: ContainerComponent = null
 
 
 func _enter_tree() -> void:
@@ -72,6 +72,7 @@ func _physics_process(delta: float) -> void:
 
 	if is_in_pour_range and _pour_state == PourState.MOVING_TO_ZONE:
 		_pour_state = PourState.POURING
+		spill_component.target_container = _target_container
 		started_pouring.emit()
 
 	_move_duration_left = move_toward(_move_duration_left, 0.0, delta)
@@ -101,6 +102,7 @@ func get_interactions(area: InteractableArea) -> Array[InteractInfo]:
 func start_use(area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 	if _pour_state == PourState.IN_ZONE:
 		_pour_state = PourState.POURING
+		spill_component.target_container = _target_container
 		started_pouring.emit()
 	elif _pour_state == PourState.NONE:
 		_pour_state = PourState.MOVING_TO_ZONE
@@ -112,7 +114,7 @@ func start_use(area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 
 		# We only need to recompute this stuff if we're targeting a new object.
 		if body and spill_component and area:
-			spill_component.target_container = area.container_component
+			_target_container = area.container_component
 
 			_start_pos = body.get_global_hand_pos()
 
@@ -139,12 +141,14 @@ func stop_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 		_pour_state = PourState.IN_ZONE
 		body.disable_drop = false
 		body.disable_follow_cursor = false
+		spill_component.target_container = null
 		stopped_pouring.emit()
 	elif _pour_state == PourState.MOVING_TO_ZONE:
 		_leave_pour_mode()
 
 # Stop doing any of the pour stuff we were doing, returning to neutral.
 func _leave_pour_mode() -> void:
+	_target_container = null
 	spill_component.target_container = null
 	_pour_state = PourState.NONE
 	if body:
