@@ -17,6 +17,8 @@ enum PhysicsMode
 const MANAGED_COLLISION_LAYERS_MASK: int = 0b111
 # Same as [member CharacterBody2D.max_slides].
 const MAX_SLIDES: int = 5
+## Angle rotated upright per pixel the mouse moved.
+const ROTATE_UPRIGHT_ANGLE_PER_MOUSE_PIXEL: float = PI / 100
 
 
 ## Name displayed in the "pick up" button prompt.
@@ -106,13 +108,10 @@ func _physics_process(delta: float) -> void:
 	_mouse_motion_since_last_tick = Vector2.ZERO
 
 	if is_active():
-		if not disable_rotate_upright and abs(global_rotation) > 0.001:
-			var is_rotating_clockwise := global_rotation < 0
-			var new_global_rotation := global_rotation
-			new_global_rotation -= global_rotation * delta * 50
-
-			if is_rotating_clockwise: set_global_rotation_about_cursor(min(0.0, new_global_rotation))
-			else: set_global_rotation_about_cursor(max(0.0, new_global_rotation))
+		# Rotate the object back upright as we move the mouse.
+		if not disable_rotate_upright:
+			var new_rot := move_toward(global_rotation, 0.0, ROTATE_UPRIGHT_ANGLE_PER_MOUSE_PIXEL * mouse_motion_this_tick.length())
+			set_global_rotation_about_cursor(new_rot)
 
 		if not disable_follow_cursor:
 			_velocity = mouse_motion_this_tick / delta
