@@ -42,9 +42,9 @@ const POUR_RANGE_ZOOM_MARGIN := 5.0
 ## Average speed the object moves to get to the target position.
 @export_custom(PROPERTY_HINT_NONE, "suffix:1/s") var move_speed: float = 100
 ## Average speed the object rotates to its target tilt.
-@export_custom(PROPERTY_HINT_NONE, "suffix:rad/s") var tilt_speed: float = 2 * PI / 2
+@export_custom(PROPERTY_HINT_NONE, "suffix:rad/s") var tilt_speed: float = PI / 2
 ## Average speed the object rotates when it's being tilted back up after stopping pouring.
-@export_custom(PROPERTY_HINT_NONE, "suffix:rad/s") var untilt_speed: float = 5 * PI / 2
+@export_custom(PROPERTY_HINT_NONE, "suffix:rad/s") var untilt_speed: float = 2 * PI / 2
 ## Offset in global coordinates from the location of the target [ContainerInteractableArea] to the
 ## final destination of [member spill_component].
 @export var pour_offset: Vector2 = Vector2(0, -10)
