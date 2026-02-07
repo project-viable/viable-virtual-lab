@@ -23,6 +23,11 @@ signal started_pouring()
 signal stopped_pouring()
 
 
+## When zooming in, a little extra space is given around the pour range zone to allow the container
+## to be removed from that zone.
+const POUR_RANGE_ZOOM_MARGIN := 5.0
+
+
 ## While pouring, this will be set to spill into the target container.
 @export var spill_component: SpillComponent
 ## Body to tilt while pouring. If this is not set in the editor, then it will automatically be set
@@ -54,10 +59,15 @@ var _target_pos: Vector2 = Vector2.ZERO
 # These will be greater than zero if we're moving to the pour target.
 var _move_duration_left: float = 0.0
 var _target_container: ContainerComponent = null
+# Used to zoom in.
+var _target_body: CollisionObject2D = null
 
 
 func _enter_tree() -> void:
 	if not body: body = get_parent() as LabBody
+
+func _ready() -> void:
+	Game.main.camera_focus_owner_changed.connect(_on_main_camera_focus_owner_changed)
 
 func _physics_process(delta: float) -> void:
 	if not body or not spill_component or _pour_state == PourState.NONE:
@@ -115,6 +125,7 @@ func start_use(area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 		# We only need to recompute this stuff if we're targeting a new object.
 		if body and spill_component and area:
 			_target_container = area.container_component
+			_target_body = area.get_parent() as CollisionObject2D
 
 			_start_pos = body.get_global_hand_pos()
 
@@ -126,15 +137,9 @@ func start_use(area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 					+ (hand_pos - spill_component.position).rotated(tilt_angle)
 
 		_move_duration = _start_pos.distance_to(_target_pos) / move_speed
-
 		_move_duration_left = _move_duration
 
-		#InteractInfo.Kind.INSPECT:
-		#	var parent_body := get_parent() as CollisionObject2D
-		#	var area_parent_body := area.get_parent() as CollisionObject2D
-		#	if not parent_body or not area_parent_body: return
-		#	Game.main.focus_camera_on_rect(Util.get_global_bounding_box(parent_body).merge(Util.get_global_bounding_box(area_parent_body)))
-		#	Game.main.set_camera_focus_owner(self)
+		_zoom_in()
 
 func stop_use(_area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 	if _pour_state == PourState.POURING:
@@ -155,3 +160,18 @@ func _leave_pour_mode() -> void:
 		body.disable_drop = false
 		body.disable_rotate_upright = false
 		body.disable_follow_cursor = false
+	Game.main.return_to_current_workspace()
+
+func _zoom_in() -> void:
+	if not _target_body: return
+	var hand_rect := Util.make_centered_rect(_target_pos, Vector2.ONE * (pour_range * 2 + POUR_RANGE_ZOOM_MARGIN * 2))
+
+	var region := Util.get_global_bounding_box(_target_body).merge(hand_rect)
+
+	# Zoom very quickly to avoid too much time not seeing what's going on.
+	Game.main.focus_camera_on_rect(region, 0.5)
+	Game.main.set_camera_focus_owner(self)
+
+func _on_main_camera_focus_owner_changed(focus_owner: Node) -> void:
+	if _pour_state != PourState.NONE and focus_owner != self:
+		_leave_pour_mode()
