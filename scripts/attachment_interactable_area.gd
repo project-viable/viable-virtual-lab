@@ -53,6 +53,7 @@ signal object_removed(body: LabBody)
 
 var _remote_transform := RemoteTransform2D.new()
 var _ghost_sprite: Node2D = null
+var _offset: OffsetResult = null
 
 
 func _enter_tree() -> void:
@@ -94,11 +95,11 @@ func start_targeting(_k: InteractInfo.Kind) -> void:
 	if not Interaction.held_body: return
 
 	var offset: Variant = _find_attachment_offset(Interaction.held_body)
-	if offset is not Vector2: return
+	if not offset: return
 
 	if show_ghost_sprite:
 		_ghost_sprite = GhostCanvasGroup.create_from_sprites(Interaction.held_body)
-		_ghost_sprite.position = offset
+		_ghost_sprite.position = offset.offset
 		call_deferred(&"add_child", _ghost_sprite)
 
 ## See [method InteractableArea.stop_targeting]
@@ -114,7 +115,7 @@ func start_interact(_k: InteractInfo.Kind) -> void:
 
 ## This is called to check if an object can snap into place within at attachment area.
 func can_place(body: LabBody) -> bool:
-	return allow_new_objects and _find_attachment_offset(body) is Vector2
+	return allow_new_objects and _find_attachment_offset(body)
 
 ## Call this to attempt to place an object. Returns true if the object was placed.
 func place_object(body: LabBody) -> bool:
@@ -135,6 +136,9 @@ func remove_object() -> bool:
 			contained_object.enable_interaction = true
 
 		object_removed.emit(contained_object)
+		if _offset.attachment_point:
+			_offset.attachment_point.remove(self)
+		_offset = null
 		contained_object = null
 
 		return true
@@ -156,32 +160,33 @@ func _place_object_unchecked(body: LabBody) -> void:
 		contained_object.enable_interaction = false
 	contained_object.set_physics_mode(LabBody.PhysicsMode.FROZEN)
 
-	var offset: Variant = _find_attachment_offset(contained_object)
-	if offset is Vector2:
+	_offset = _find_attachment_offset(contained_object)
+	if _offset:
 		# Since `LabObject`s do `set_deferred("linear_velocity")` in `stop_dragging`, it seems like
 		# this can occasionally cause the position to be reset even after it has been initially set
 		# by `_remote_transform` (I'm not 100% sure of this, but it seems to be the cause of the
 		# incorrect position problem). Deferring this call will ensure that the position of the
 		# object will be set after that and not broken.
 		(func() -> void:
-			_remote_transform.position = offset
-			_remote_transform.remote_path = contained_object.get_path()).call_deferred()
+			_remote_transform.position = _offset.offset
+			_remote_transform.remote_path = contained_object.get_path()
+			if _offset.attachment_point:
+				_offset.attachment_point.place(self)
+		).call_deferred()
 
 	object_placed.emit(body)
 
-# Gives the offset that the object should be placed at from this as a `Vector2`, or null if the
-# object cannot be placed. If there is a valid attachment point, then it will attach to that;
-# otherwise, it will automatically attach to the bottom of `body`'s bounding box. This has to
-# return `Variant` because there's no other great way to make an optional `Vector2` without making
-# a whole new class. It's fine here since this function is private.
-func _find_attachment_offset(body: LabBody) -> Variant:
+# Gives details about the offset that the object should be placed at, or null if the object cannot
+# be placed. If there is a valid attachment point, then it will attach to that; otherwise, it will
+# automatically attach to the bottom of `body`'s bounding box.
+func _find_attachment_offset(body: LabBody) -> OffsetResult:
 	var ap := _find_attachment_point(body)
-	if ap: return -ap.position
+	if ap: return OffsetResult.new(-ap.position, ap)
 
 	if _matches_filter(body_groups, body_group_filter_type, body):
 		var bbox := Util.get_bounding_box(body)
 		# Bottom of the box.
-		return -bbox.position - bbox.size * Vector2(0.5, 1.0)
+		return OffsetResult.new(-bbox.position - bbox.size * Vector2(0.5, 1.0))
 
 	return null
 
@@ -196,3 +201,14 @@ static func _matches_filter(groups: Array[StringName], method: GroupFilterType, 
 	var is_in_any_group := groups.any(func(g: StringName) -> bool: return node.is_in_group(g))
 	if method == GroupFilterType.WHITELIST: return is_in_any_group
 	else: return not is_in_any_group
+
+
+class OffsetResult:
+	var offset: Vector2 = Vector2.ZERO
+	# Might be null if attaching directly to a body.
+	var attachment_point: AttachmentPoint
+
+
+	func _init(p_offset: Vector2, p_attachment_point: AttachmentPoint = null) -> void:
+		offset = p_offset
+		attachment_point = p_attachment_point
