@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b5ff3gy87ykja"]
+[gd_scene load_steps=14 format=3 uid="uid://b5ff3gy87ykja"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_6iauc"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="2_6iauc"]
@@ -9,8 +9,9 @@
 [ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://scripts/pour_use_component.gd" id="6_6iauc"]
 [ext_resource type="Script" uid="uid://dx8btkgbugnyv" path="res://scripts/swirl_use_component.gd" id="8_dyohf"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="8_e38bm"]
-[ext_resource type="Script" uid="uid://b6fn3sx53tn8l" path="res://scripts/focus_use_component.gd" id="9_dyohf"]
 [ext_resource type="Script" uid="uid://cvhaiwlpqy14p" path="res://scripts/spill_component.gd" id="10_rqua0"]
+[ext_resource type="Script" uid="uid://uor6fay5jtyy" path="res://scripts/combined_region_provider.gd" id="12_tvmew"]
+[ext_resource type="Script" uid="uid://bsaytgd1m2sxq" path="res://scripts/object_region_provider.gd" id="13_7rgkh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wadb5"]
 size = Vector2(56.25, 55.25)
@@ -58,17 +59,12 @@ metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 position = Vector2(0.125, 9.375)
 shape = SubResource("RectangleShape2D_wadb5")
 
-[node name="SwirlUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container", "node_to_rotate")]
+[node name="SwirlUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container", "node_to_rotate", "region_provider")]
 script = ExtResource("8_dyohf")
 container = NodePath("../ContainerComponent")
 node_to_rotate = NodePath("../SelectableCanvasGroup")
 rotation_center_offset = Vector2(0, -10)
-metadata/_custom_type_script = "uid://c5xu35ldxvqog"
-
-[node name="FocusUseComponent" type="Node2D" parent="."]
-script = ExtResource("9_dyohf")
-top_padding = 20.0
-bottom_padding = 20.0
+region_provider = NodePath("../CombinedRegionProvider")
 metadata/_custom_type_script = "uid://c5xu35ldxvqog"
 
 [node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("spill_component")]
@@ -80,3 +76,13 @@ metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
 position = Vector2(-8, -47)
 script = ExtResource("10_rqua0")
 substance_display_polygon = NodePath("../SelectableCanvasGroup/SubstanceDisplayPolygon")
+
+[node name="CombinedRegionProvider" type="Node2D" parent="."]
+script = ExtResource("12_tvmew")
+top_padding = 20.0
+bottom_padding = 20.0
+metadata/_custom_type_script = "uid://uor6fay5jtyy"
+
+[node name="ObjectRegionProvider" type="Node2D" parent="CombinedRegionProvider" node_paths=PackedStringArray("objects")]
+script = ExtResource("13_7rgkh")
+objects = [NodePath("../..")]
