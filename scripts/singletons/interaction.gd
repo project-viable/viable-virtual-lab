@@ -49,6 +49,7 @@ func _process(_delta: float) -> void:
 			if not c.enable_interaction: continue
 
 			for a in _interact_area_stack:
+				if not a.enable_interaction: continue
 				for info in c.get_interactions(a):
 					new_interactions.set(info.kind, UseInteractState.new(info, c, a))
 
