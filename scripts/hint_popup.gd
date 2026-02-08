@@ -23,8 +23,10 @@ var _cur_hint: Hint = null
 
 
 func _process(_delta: float) -> void:
-	# Don't change the hint state until the animation has been fully played.
+	# Don't change the hint state until the animation has been fully played. We pull the next hint
+	# when the hint has either been dismissed or unrequested.
 	if _cur_hint and _cur_hint._state != HintState.DISMISSED \
+			and _cur_hint._state != HintState.NOT_REQUESTED \
 			or $AnimationPlayer.is_playing() or not $DelayTimer.is_stopped():
 		return
 
@@ -55,6 +57,14 @@ func request_hint(hint: Hint) -> void:
 		hint._state = HintState.QUEUED
 		_hint_queue.push_back(hint)
 
+## If [param hint] is in the hint queue, it is removed. If it is currently being displayed, then it
+## will be hidden. The hint is not fully dismissed, meaning that it will still be show if it is
+## requested again.
+func unrequest_hint(hint: Hint) -> void:
+	if hint._state != HintState.DISMISSED:
+		hint._state = HintState.NOT_REQUESTED
+	_hint_queue.erase(hint)
+
 ## A hint/tutorial that can be displayed in the middle of the screen via a [HintPopup], and can be
 ## dismissed once the user has done what it says.
 class Hint:
@@ -77,6 +87,10 @@ class Hint:
 	## [code]Game.hint_popup.request_hint(self)[/code].
 	func request() -> void:
 		Game.hint_popup.request_hint(self)
+
+	## Effectively calls [code]Game.hint_popup.unrequest_hint(self)[/code].
+	func unrequest() -> void:
+		Game.hint_popup.unrequest_hint(self)
 
 	## If this hint is actively visible on the screen, then this function will hide it and prevent
 	## it from ever being shown again. For example, if the hint says something like

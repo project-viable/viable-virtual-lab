@@ -111,12 +111,14 @@ func _cancel() -> void:
 	_no_update_display = false
 	_input_time = 0
 	_update_door()
+	Game.hint_popup.speed_up_time_hint.unrequest()
 
 ## Updates the Display to countdown the timer
 func _on_microwave_timer_timeout() -> void:
 	_display_text("End")
 	_no_update_display = true
 	_update_door()
+	Game.hint_popup.speed_up_time_hint.unrequest()
 
 func _update_door() -> void:
 	if _is_door_open:

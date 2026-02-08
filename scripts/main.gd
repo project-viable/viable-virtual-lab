@@ -262,8 +262,6 @@ func _load_module(module: ModuleData) -> void:
 	Cursor.virtual_mouse_position = get_global_mouse_position()
 	set_pause_menu_open(false)
 
-	Game.hint_popup.left_right_hint.request()
-	Game.hint_popup.journal_hint.request()
 
 func unload_current_module() -> void:
 	Interaction.clear_all_interaction_state()
@@ -333,6 +331,16 @@ func set_camera_focus_owner(focus_owner: Node) -> void:
 	$InteractableSystem.can_zoom_out = (focus_owner != null)
 	_camera_focus_owner = focus_owner
 	camera_focus_owner_changed.emit(_camera_focus_owner)
+
+	# Only show the journal and navigation hints when zoomed out (so they don't show when the user
+	# is in the middle of doing stuff zoomed in).
+	if focus_owner == null:
+		Game.hint_popup.left_right_hint.request()
+		Game.hint_popup.journal_hint.request()
+	else:
+		Game.hint_popup.left_right_hint.unrequest()
+		Game.hint_popup.journal_hint.unrequest()
+
 
 ## Use this to determine whether the screen in "zoomed out".
 func get_camera_focus_owner() -> Node:
