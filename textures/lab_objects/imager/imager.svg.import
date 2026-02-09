@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxlubb0tdgn5x"
-path="res://.godot/imported/Imager_open_inside_and_door.svg-96a43b19996d715cd48aa5f017aaa49e.ctex"
+uid="uid://cslhw30pcab3a"
+path="res://.godot/imported/imager.svg-30b0dd760affd38f180e529c92c3673c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/lab_objects/Imager_open_inside_and_door.svg"
-dest_files=["res://.godot/imported/Imager_open_inside_and_door.svg-96a43b19996d715cd48aa5f017aaa49e.ctex"]
+source_file="res://textures/lab_objects/imager/imager.svg"
+dest_files=["res://.godot/imported/imager.svg-30b0dd760affd38f180e529c92c3673c.ctex"]
 
 [params]
 
