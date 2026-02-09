@@ -255,6 +255,7 @@ func _load_module(module: ModuleData) -> void:
 	_current_module = module
 
 	%Prompts.show()
+	%HintPopup.show()
 
 	_update_scene_overlays()
 
@@ -402,6 +403,7 @@ func _switch_to_main_menu() -> void:
 	$UILayer/Background.show()
 
 	%Prompts.hide()
+	%HintPopup.hide()
 
 	_update_scene_overlays()
 
