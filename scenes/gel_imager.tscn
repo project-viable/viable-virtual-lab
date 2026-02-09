@@ -120,6 +120,7 @@ enabled = false
 zoom = Vector2(5.5, 3)
 
 [node name="ZoomAwareControl" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

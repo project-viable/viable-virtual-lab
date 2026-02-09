@@ -6,7 +6,7 @@ const BAND_VERTICAL_SCALE := 0.1
 
 
 var band_texture: Texture2D = preload("res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg")
-var _is_light_on := false
+var _is_light_on := true
 var _is_door_open: bool = false
 var results_message: String = ""
 
@@ -66,14 +66,12 @@ func _update_door() -> void:
 		$DoorSelectable.interact_info.description = "Close door"
 		%DoorOpen.show()
 		%DoorClosed.hide()
-		%"UV Light".hide()
 
 	else:
 		$DepthManagedNode2D/AttachmentInteractableArea.allow_new_objects = false
 		$DoorSelectable.interact_info.description = "Open door"
 		%DoorOpen.hide()
 		%DoorClosed.show()
-		%"UV Light".show()
 
 func _on_door_selectable_pressed() -> void:
 	_is_door_open = not _is_door_open
