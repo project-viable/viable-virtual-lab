@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://yrxt2sxidd3c"
-path="res://.godot/imported/scoopula_fill.png-825376105792e0d7e66202e8fa8b57e0.ctex"
+path="res://.godot/imported/scoopula_fill.png-6853cbc3e4cba72200887ccfbbb68ce6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/old/FillSprites/scoopula_fill.png"
-dest_files=["res://.godot/imported/scoopula_fill.png-825376105792e0d7e66202e8fa8b57e0.ctex"]
+source_file="res://textures/lab_objects/tmp/scoopula_fill.png"
+dest_files=["res://.godot/imported/scoopula_fill.png-6853cbc3e4cba72200887ccfbbb68ce6.ctex"]
 
 [params]
 
