@@ -263,7 +263,6 @@ func _load_module(module: ModuleData) -> void:
 	Cursor.virtual_mouse_position = get_global_mouse_position()
 	set_pause_menu_open(false)
 
-
 func unload_current_module() -> void:
 	Interaction.clear_all_interaction_state()
 	DepthManager.clear_layers()
@@ -334,8 +333,8 @@ func set_camera_focus_owner(focus_owner: Node) -> void:
 	camera_focus_owner_changed.emit(_camera_focus_owner)
 
 	# Only show the journal and navigation hints when zoomed out (so they don't show when the user
-	# is in the middle of doing stuff zoomed in).
-	if focus_owner == null:
+	# is in the middle of doing stuff zoomed in). Don't request the hints in the main menu.
+	if focus_owner == null and _current_module_scene != null:
 		Game.hint_popup.left_right_hint.request()
 		Game.hint_popup.journal_hint.request()
 	else:
