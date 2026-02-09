@@ -10,6 +10,9 @@ var _is_light_on := false
 var _is_door_open: bool = false
 var results_message: String = ""
 
+func _ready() -> void:
+	_update_door()
+
 func _draw() -> void:
 	if $DepthManagedNode2D/AttachmentInteractableArea.contained_object is GelMold:
 		var gel := $DepthManagedNode2D/AttachmentInteractableArea.contained_object as GelMold
@@ -60,22 +63,17 @@ func on_gel_removed() -> void:
 func _update_door() -> void:
 	if _is_door_open:
 		$DepthManagedNode2D/AttachmentInteractableArea.allow_new_objects = true
-		$SelectableComponent.interact_info.description = "Close door"
-		%ImagerOpenInsideAndDoor.show()
+		$DoorSelectable.interact_info.description = "Close door"
+		%DoorOpen.show()
+		%DoorClosed.hide()
 		%"UV Light".hide()
-		if $DepthManagedNode2D/AttachmentInteractableArea.contained_object != null:
-			$DepthManagedNode2D/AttachmentInteractableArea.contained_object.visible = true
-			$DepthManagedNode2D/AttachmentInteractableArea.contained_object.enable_interaction = true
 
 	else:
 		$DepthManagedNode2D/AttachmentInteractableArea.allow_new_objects = false
-		$SelectableComponent.interact_info.description = "Open door"
-		%ImagerOpenInsideAndDoor.hide()
+		$DoorSelectable.interact_info.description = "Open door"
+		%DoorOpen.hide()
+		%DoorClosed.show()
 		%"UV Light".show()
-		if $DepthManagedNode2D/AttachmentInteractableArea.contained_object != null:
-			$DepthManagedNode2D/AttachmentInteractableArea.contained_object.visible = false
-			$DepthManagedNode2D/AttachmentInteractableArea.contained_object.enable_interaction = false
-
 
 func _on_door_selectable_pressed() -> void:
 	_is_door_open = not _is_door_open
