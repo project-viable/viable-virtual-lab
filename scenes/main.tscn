@@ -341,7 +341,6 @@ color = Color(0, 0, 0, 0.8156863)
 
 [node name="Journal" type="PanelContainer" parent="UILayer" node_paths=PackedStringArray("back_button", "forward_button", "journal_label", "procedure_label")]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -400,6 +399,11 @@ size_flags_vertical = 3
 bbcode_enabled = true
 script = ExtResource("17_og1vs")
 metadata/_custom_type_script = "uid://dkacpjq2t2mj1"
+
+[node name="CloseButton" type="Button" parent="UILayer/Journal/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"
 
 [node name="Button" type="Button" parent="UILayer/Journal"]
 visible = false
@@ -562,6 +566,11 @@ stretch_mode = 5
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
+[node name="ResumeButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+text = "Resume"
+
 [node name="SelectModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
@@ -574,12 +583,6 @@ visible = false
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 text = "Restart Module"
-
-[node name="ExitModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
-visible = false
-layout_mode = 2
-theme_type_variation = &"MainMenuButton"
-text = "Return to Main Menu"
 
 [node name="OptionsButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
@@ -594,6 +597,12 @@ theme_type_variation = &"MainMenuButton"
 text = "About"
 script = ExtResource("19_vxglm")
 menu_screen = NodePath("../../../AboutScreen")
+
+[node name="ExitModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+text = "Return to Main Menu"
 
 [node name="QuitButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
 layout_mode = 2
@@ -1035,9 +1044,11 @@ metadata/_custom_type_script = "uid://bu1da87rm0cub"
 [connection signal="pressed" from="UILayer/Journal/VBoxContainer/HBoxContainer/ForwardButton" to="UILayer/Journal" method="_on_forward_button_pressed"]
 [connection signal="meta_clicked" from="UILayer/Journal/VBoxContainer/HBoxContainer2/ProcedureLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
 [connection signal="meta_clicked" from="UILayer/Journal/VBoxContainer/HBoxContainer2/HelpLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
+[connection signal="pressed" from="UILayer/Journal/VBoxContainer/CloseButton" to="UILayer/Journal" method="_on_close_button_pressed"]
 [connection signal="pressed" from="UILayer/Journal/Button" to="GelLogReport" method="_on_button_pressed"]
 [connection signal="file_selected" from="UILayer/Journal/FileDialog" to="GelLogReport" method="_on_file_dialog_file_selected"]
 [connection signal="screen_changed" from="UILayer/MenuScreenManager" to="." method="_on_menu_screen_manager_screen_changed"]
+[connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/ExitModuleButton" to="." method="_on_exit_module_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/QuitButton" to="." method="_on_quit_button_pressed"]

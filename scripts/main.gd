@@ -251,6 +251,7 @@ func _load_module(module: ModuleData) -> void:
 	%MenuScreenManager/PauseMenu/Content/Logo.hide()
 	%MenuScreenManager/PauseMenu/Content/ExitModuleButton.show()
 	%MenuScreenManager/PauseMenu/Content/RestartModuleButton.show()
+	%MenuScreenManager/PauseMenu/Content/ResumeButton.show()
 
 	_current_module = module
 
@@ -399,6 +400,7 @@ func _switch_to_main_menu() -> void:
 	%MenuScreenManager/PauseMenu/Content/Logo.show()
 	%MenuScreenManager/PauseMenu/Content/ExitModuleButton.hide()
 	%MenuScreenManager/PauseMenu/Content/RestartModuleButton.hide()
+	%MenuScreenManager/PauseMenu/Content/ResumeButton.hide()
 	$UILayer/Background.show()
 
 	%Prompts.hide()
@@ -543,3 +545,6 @@ func _on_menu_screen_manager_screen_changed(_s: MenuScreen) -> void:
 
 func _on_mouse_sensitivity_slider_value_changed(value: float) -> void:
 	GameSettings.mouse_sensitivity = value
+
+func _on_resume_button_pressed() -> void:
+	set_pause_menu_open(false)

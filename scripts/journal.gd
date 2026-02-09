@@ -87,6 +87,9 @@ func _on_forward_button_pressed() -> void:
 func _on_preprocessed_rich_text_label_meta_clicked(meta: Variant) -> void:
 	if meta is String: go_to_page(meta)
 
+func _on_close_button_pressed() -> void:
+	close()
+
 
 class HistoryEntry:
 	# Path relative to [const PAGE_ROOT].
