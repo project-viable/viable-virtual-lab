@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cs2tep7cd3vxf"]
+[gd_scene load_steps=25 format=3 uid="uid://cs2tep7cd3vxf"]
 
 [ext_resource type="Script" uid="uid://b10fibv688ggy" path="res://scripts/microwave.gd" id="1_caubw"]
 [ext_resource type="Texture2D" uid="uid://by1qv0us7rnwc" path="res://textures/lab_objects/microwave/base.svg" id="2_akh7v"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://nf1enjfal72f" path="res://scripts/depth_managed_node_2d.gd" id="10_grr38"]
 [ext_resource type="Script" uid="uid://blk6q1chtrgqi" path="res://scripts/help_selectable_area.gd" id="12_222yv"]
 [ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="13_8d2bd"]
+[ext_resource type="Script" uid="uid://b15sd4jw5afoa" path="res://scripts/camera_region_provider.gd" id="15_bc11o"]
 
 [sub_resource type="Resource" id="Resource_bc11o"]
 script = ExtResource("13_8d2bd")
@@ -123,7 +124,6 @@ offset_top = 3.9999998
 offset_right = 14.0
 offset_bottom = 22.0
 scale = Vector2(0.7, 0.7)
-mouse_filter = 2
 segment_bits = 0
 character = " "
 
@@ -134,7 +134,6 @@ offset_top = 3.9999998
 offset_right = 22.0
 offset_bottom = 22.0
 scale = Vector2(0.7, 0.7)
-mouse_filter = 2
 segment_bits = 0
 character = " "
 
@@ -145,7 +144,6 @@ offset_top = 3.9999998
 offset_right = 33.0
 offset_bottom = 22.0
 scale = Vector2(0.7, 0.7)
-mouse_filter = 2
 segment_bits = 0
 character = " "
 
@@ -156,7 +154,6 @@ offset_top = 3.9999998
 offset_right = 41.0
 offset_bottom = 22.0
 scale = Vector2(0.7, 0.7)
-mouse_filter = 2
 segment_bits = 0
 character = " "
 
@@ -389,20 +386,14 @@ script = ExtResource("5_8bw4g")
 one_shot = true
 metadata/_custom_type_script = "uid://bk0s8v1tcwcmr"
 
-[node name="ZoomCamera" type="Camera2D" parent="."]
-editor_description = "A template for the TransitionCamera in Main to transition to when necessary."
-zoom = Vector2(4, 4)
-position_smoothing_speed = 1.0
-
 [node name="HelpSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("click_area")]
 script = ExtResource("12_222yv")
 help_page_path = "microwave.txt"
 click_area = NodePath("../ZoomSelectableArea/KeypadArea")
 interact_info = SubResource("Resource_bc11o")
 
-[node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("area_camera")]
+[node name="ZoomSelectableArea" type="Node2D" parent="."]
 script = ExtResource("9_phx7o")
-area_camera = NodePath("../ZoomCamera")
 interact_info = SubResource("Resource_222yv")
 metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 
@@ -414,6 +405,15 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/KeypadArea"]
 position = Vector2(6, -1)
 shape = SubResource("RectangleShape2D_iwbat")
+
+[node name="CameraRegionProvider" type="Node2D" parent="ZoomSelectableArea"]
+script = ExtResource("15_bc11o")
+
+[node name="ZoomCamera" type="Camera2D" parent="ZoomSelectableArea/CameraRegionProvider"]
+editor_description = "A template for the TransitionCamera in Main to transition to when necessary."
+enabled = false
+zoom = Vector2(4, 4)
+position_smoothing_speed = 1.0
 
 [node name="DepthManagedNode2D" type="Node2D" parent="."]
 script = ExtResource("10_grr38")

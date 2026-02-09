@@ -5,9 +5,10 @@ extends RigidBody2D
 
 enum PhysicsMode
 {
-	KINEMATIC, ## Not affected by gravity, but can interact with `InteractableArea`s when being dragged, and will collide with boundaries.
+	KINEMATIC, ## Not affected by gravity, but can interact with [InteractableArea]s when being dragged, and will collide with boundaries.
+	FROZEN, ## Very similar to [constant PhysicsMode.KINEMATIC], but the body is frozen. This mode must be used if the body's position is going to be set directly (see [AttachmentInteractableArea], for example).
 	FREE, ## Affected by gravity and will collide with shelves and the lab boundary.
-	FALLING_THROUGH_SHELVES, ## Affected by gravity, but does not interact with shelves. In this mode, `physics_mode` will automatically be set to `FREE` when the body is no longer overlapping with a shelf.
+	FALLING_THROUGH_SHELVES, ## Affected by gravity, but does not interact with shelves. In this mode, [member physics_mode] will automatically be set to [constant PhysicsMode.FREE] when the body is no longer overlapping with a shelf.
 }
 
 
@@ -16,6 +17,8 @@ enum PhysicsMode
 const MANAGED_COLLISION_LAYERS_MASK: int = 0b111
 # Same as [member CharacterBody2D.max_slides].
 const MAX_SLIDES: int = 5
+## Angle rotated upright per pixel the mouse moved.
+const ROTATE_UPRIGHT_ANGLE_PER_MOUSE_PIXEL: float = PI / 100
 
 
 ## Name displayed in the "pick up" button prompt.
@@ -23,7 +26,8 @@ const MAX_SLIDES: int = 5
 ## Path, relative to [code]res://journal_pages/[/code], to the help page for this object. If this is
 ## empty, then there will be no help prompt.
 @export var help_page_path: String = ""
-## Determines the physics of an object whether it free or kinematic
+## Determines how the object interacts with physics in the simulation. This should always be set via
+## [method set_physics_mode].
 @export var physics_mode: PhysicsMode = PhysicsMode.FREE
 ## [SelectableCanvasGroup] that will be outlined when hovered and can be clicked to pick this
 ## object up. If set to [code]null[/code], this will automatically be set to the first
@@ -49,9 +53,9 @@ var _pick_up_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up
 var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
 var _help_interaction := InteractInfo.new(InteractInfo.Kind.HELP, "Open help page")
 
-## Keeps track of collision layers of any child physics objects. For example, the scale has a child
-## [StaticBody2D] with one-way collision that acts as the surface for objects to be set on, which
-## should be disabled while the object is being dragged.
+# Keeps track of collision layers of any child physics objects. For example, the scale has a child
+# [StaticBody2D] with one-way collision that acts as the surface for objects to be set on, which
+# should be disabled while the object is being dragged.
 var _child_physics_object_layers: Dictionary[PhysicsBody2D, int] = {}
 var _offset: Vector2 = Vector2.ZERO
 # In the coordinate system of [member interact_canvas_group] so it follows the object visually
@@ -81,10 +85,10 @@ func _ready() -> void:
 
 	DepthManager.move_to_front_of_layer(self, depth_layer_to_drop_in)
 
-	freeze_mode = FREEZE_MODE_KINEMATIC
 	# We need collisions in layer 3 so that interaction areas detect this object.
 	collision_layer = 0b100
 	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
+	freeze_mode = FREEZE_MODE_KINEMATIC
 
 	for p: PhysicsBody2D in find_children("", "PhysicsBody2D", false):
 		_child_physics_object_layers.set(p, p.collision_layer & MANAGED_COLLISION_LAYERS_MASK)
@@ -104,13 +108,10 @@ func _physics_process(delta: float) -> void:
 	_mouse_motion_since_last_tick = Vector2.ZERO
 
 	if is_active():
-		if not disable_rotate_upright and abs(global_rotation) > 0.001:
-			var is_rotating_clockwise := global_rotation < 0
-			var new_global_rotation := global_rotation
-			new_global_rotation -= global_rotation * delta * 50
-
-			if is_rotating_clockwise: set_global_rotation_about_cursor(min(0.0, new_global_rotation))
-			else: set_global_rotation_about_cursor(max(0.0, new_global_rotation))
+		# Rotate the object back upright as we move the mouse.
+		if not disable_rotate_upright:
+			var new_rot := move_toward(global_rotation, 0.0, ROTATE_UPRIGHT_ANGLE_PER_MOUSE_PIXEL * mouse_motion_this_tick.length())
+			set_global_rotation_about_cursor(new_rot)
 
 		if not disable_follow_cursor:
 			_velocity = mouse_motion_this_tick / delta
@@ -187,17 +188,24 @@ func get_absolute_z_index() -> int:
 	return 0
 
 func start_dragging() -> void:
-	Interaction.held_body = self
-	set_physics_mode(PhysicsMode.KINEMATIC)
-
 	DepthManager.move_to_front_of_layer(self, DepthManager.Layer.HELD)
+
+	# The mode must be set first so the offset is at the right position on the cursor.
+	Cursor.mode = Cursor.Mode.CLOSED
+
+	# Grab on to a grab point, if there is one.
+	var grab_point: LabBodyGrabPoint = Util.find_child_of_type(self, LabBodyGrabPoint)
+	if grab_point:
+		Cursor.virtual_mouse_position = grab_point.global_position
 
 	_offset = _get_local_virtual_mouse_position()
 	if interact_canvas_group:
 		_hand_offset = _get_local_virtual_mouse_position(interact_canvas_group)
 
-	Cursor.mode = Cursor.Mode.CLOSED
 	Cursor.automatically_move_with_mouse = false
+
+	Interaction.held_body = self
+	set_physics_mode(PhysicsMode.KINEMATIC)
 
 ## Can be safely called from elsewhere. Also cancels any interaction that was pressed down.
 func stop_dragging() -> void:
@@ -211,6 +219,8 @@ func stop_dragging() -> void:
 	Cursor.mode = Cursor.Mode.POINTER
 	Cursor.automatically_move_with_mouse = true
 
+## Sets the physics mode for this object. This can also affect the velocity, collision layers,
+## gravity, and freeze state of this object.
 func set_physics_mode(mode: PhysicsMode) -> void:
 	if mode == physics_mode: return
 	_update_physics_to_mode(mode)
@@ -244,8 +254,16 @@ func get_global_hand_pos() -> Vector2:
 	elif interact_canvas_group: return interact_canvas_group.to_global(_hand_offset)
 	else: return to_global(_offset)
 
+## Get the position where the virtual cursor should be relative to this object while held, in local
+## coordinates.
+func get_local_hand_pos() -> Vector2:
+	# TODO: `interact_canvas_group.transform` will only get us to our local coordinates if
+	# `interact_canvas_group` is a direct child of this node, which may not always be the case.
+	if interact_canvas_group: return interact_canvas_group.transform * _hand_offset
+	else: return _hand_offset
+
 func _update_physics_to_mode(mode: PhysicsMode) -> void:
-	if mode == PhysicsMode.KINEMATIC:
+	if mode == PhysicsMode.KINEMATIC or mode == PhysicsMode.FROZEN:
 		# Save physics states of child physics bodies.
 		for p: PhysicsBody2D in _child_physics_object_layers.keys():
 			_child_physics_object_layers[p] = p.collision_layer & MANAGED_COLLISION_LAYERS_MASK
@@ -257,9 +275,14 @@ func _update_physics_to_mode(mode: PhysicsMode) -> void:
 	# We always have the boundary collision enabled by default.
 	var new_collision_mask := 0b001
 	var new_gravity_scale := 1.0
+	var new_frozen := false
 
 	match mode:
 		PhysicsMode.KINEMATIC:
+			new_gravity_scale = 0.0
+			set_deferred(&"linear_velocity", Vector2.ZERO)
+		PhysicsMode.FROZEN:
+			new_frozen = true
 			new_gravity_scale = 0.0
 			set_deferred(&"linear_velocity", Vector2.ZERO)
 		PhysicsMode.FREE:
@@ -268,6 +291,7 @@ func _update_physics_to_mode(mode: PhysicsMode) -> void:
 
 	collision_mask = Util.bitwise_set(collision_mask, MANAGED_COLLISION_LAYERS_MASK, new_collision_mask)
 	gravity_scale = new_gravity_scale
+	freeze = new_frozen
 
 func is_active() -> bool:
 	return Interaction.held_body == self

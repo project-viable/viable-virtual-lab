@@ -49,6 +49,7 @@ func _process(_delta: float) -> void:
 			if not c.enable_interaction: continue
 
 			for a in _interact_area_stack:
+				if not a.enable_interaction: continue
 				for info in c.get_interactions(a):
 					new_interactions.set(info.kind, UseInteractState.new(info, c, a))
 
@@ -143,7 +144,7 @@ class InteractState:
 	# (virtual) Returns true if [param new_state] is effectively the same state as this (this
 	# should ignore the state of [member is_pressed] and the kind, because states are already
 	# separated by kind.
-	func _is_equivalent_to(new_state: InteractState) -> bool: return false
+	func _is_equivalent_to(_new_state: InteractState) -> bool: return false
 
 	# (virtual)
 	func _start_targeting() -> void: pass

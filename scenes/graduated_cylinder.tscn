@@ -1,16 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7ygbkawlsvn8"]
+[gd_scene load_steps=12 format=3 uid="uid://b7ygbkawlsvn8"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_5k7v7"]
 [ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="2_5k7v7"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_8riox"]
+[ext_resource type="Script" uid="uid://cyki6lorl8wam" path="res://scripts/lab_body_grab_point.gd" id="2_faksb"]
 [ext_resource type="Texture2D" uid="uid://dn3h2fdnrisw6" path="res://textures/lab_objects/graduated_cylinder.svg" id="4_5k7v7"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="6_g55fx"]
 [ext_resource type="Script" uid="uid://cvhaiwlpqy14p" path="res://scripts/spill_component.gd" id="7_c1gkm"]
 [ext_resource type="Script" uid="uid://bnw0l25uwaqo6" path="res://scripts/pour_use_component.gd" id="7_xrcvl"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="8_dw6my"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_faksb"]
+size = Vector2(27, 169)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ufkpi"]
-size = Vector2(26, 171)
+size = Vector2(45, 77)
 
 [node name="GraduatedCylinder" type="RigidBody2D" groups=["emptyable"]]
 collision_layer = 0
@@ -19,15 +23,18 @@ hover_name = "graduated cylinder"
 help_page_path = "containers.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
+[node name="LabBodyGrabPoint" type="Node2D" parent="."]
+position = Vector2(0, -31)
+script = ExtResource("2_faksb")
+
 [node name="SubstanceDisplayPolygon" type="Polygon2D" parent="." node_paths=PackedStringArray("source")]
 polygon = PackedVector2Array(-12, 88, 12, 88, 12, -72, -12, -72)
 script = ExtResource("2_5k7v7")
 source = NodePath("../ContainerComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, 14.5)
-shape = SubResource("RectangleShape2D_ufkpi")
+position = Vector2(-0.5, 13.5)
+shape = SubResource("RectangleShape2D_faksb")
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
 script = ExtResource("2_8riox")
@@ -753,12 +760,13 @@ container_volume = 125.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
 [node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour"]]
+position = Vector2(0, -71)
 script = ExtResource("8_dw6my")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea"]
-position = Vector2(0, 14.5)
+position = Vector2(-0.5, 16.5)
 shape = SubResource("RectangleShape2D_ufkpi")
 
 [node name="SpillComponent" type="Node2D" parent="." node_paths=PackedStringArray("substance_display_polygon")]

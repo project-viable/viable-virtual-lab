@@ -4,6 +4,8 @@ extends Node2D
 
 const INTERACTION_PROMPT_SCENE := preload("res://scenes/interaction_prompt.tscn")
 const TIME_WARP_ADJUST_SPEED := 10.0
+# Amount of time the "speed up time" button must be held to dismiss a hint.
+const SPEED_UP_TIME_HOLD_HINT_DURATION := 0.5
 
 
 ## This will be called with [code]null[/code] when returning to the workspace.
@@ -33,6 +35,19 @@ var _time_warp_strength: float = 0
 # Time the "speed up time" button has been held down.
 var _speed_up_time_time_held := 0.0
 var _is_speed_up_time_held := false
+
+var _moved_left_during_hint := false
+var _moved_right_during_hint := false
+
+# Mouse mode we're *supposed* to be in. Since the mouse mode can behave weirdly in the web build, we
+# keep track of this and re-update it as needed.
+var _target_mouse_mode := Input.MOUSE_MODE_VISIBLE
+# If we change to `MOUSE_MODE_CAPTURED` while the mouse is off-screen in the web version, then it
+# will be stuck and unable to send click events to the engine. So we instead set
+# `_change_mouse_mode_on_next_mouse_motion` to `true`, which will cause the mode change to be
+# delayed until the next time a mouse motion is received within the main window's bounds (we can
+# be sure the mouse is on-screen if an input event was actually received.
+var _change_mouse_mode_on_next_mouse_motion := false
 
 @onready var _hand_pointing_cursor: Sprite2D = $%VirtualCursor/HandPointing
 @onready var _hand_open_cursor: Sprite2D = $%VirtualCursor/HandOpen
@@ -64,6 +79,7 @@ func _ready() -> void:
 	Game.debug_overlay = $%DebugOverlay
 	Game.report_log = $%GelLogReport
 	Game.journal = %Journal
+	Game.hint_popup = %HintPopup
 
 	$%SubsceneViewport.world_2d = Subscenes.main_world_2d
 
@@ -79,7 +95,7 @@ func _ready() -> void:
 			$%Modules.add_child(new_button)
 
 	Cursor.mode_changed.connect(_on_virtual_mouse_mode_changed)
-	Cursor.virtual_mouse_moved.connect(_on_virtual_mouse_moved)
+	Cursor.virtual_mouse_base_moved.connect(_on_virtual_mouse_base_moved)
 	%TransitionCamera.moved.connect(_update_virtual_mouse)
 
 	# The subviewport needs to match the window size.
@@ -122,6 +138,9 @@ func _ready() -> void:
 		$%ResolutionDropdown.add_item("cannot resize")
 		_update_viewport_to_window_size()
 
+	# Update UI elements for settings.
+	%MouseSensitivitySlider.set_value_no_signal(GameSettings.mouse_sensitivity)
+
 	# The zoom prompt is at the top always.
 	_interact_kind_prompts[InteractInfo.Kind.INSPECT] = %ZoomOutPrompt
 
@@ -156,6 +175,8 @@ func _process(delta: float) -> void:
 				prompt.pressed = state.is_pressed
 
 	Game.debug_overlay.update("FPS", str(Engine.get_frames_per_second()))
+	Game.debug_overlay.update("mouse_mode", str(Input.mouse_mode))
+	Game.debug_overlay.update("palm offset", str(get_virtual_cursor_palm_world_offset()))
 
 	%LeftWorkspacePrompt.visible = _current_workspace and not _camera_focus_owner
 	%LeftWorkspacePrompt.disabled = _current_workspace and not _current_workspace.left_workspace
@@ -163,9 +184,12 @@ func _process(delta: float) -> void:
 	%RightWorkspacePrompt.disabled = _current_workspace and not _current_workspace.right_workspace
 
 	# Same as the wall clock code.
-	_speed_up_time_time_held += delta
 	if _is_speed_up_time_held:
+		_speed_up_time_time_held += delta
 		LabTime.time_scale = ease(_speed_up_time_time_held / 3.0, 2.0) * 100.0 + 1.0
+
+		if _speed_up_time_time_held >= SPEED_UP_TIME_HOLD_HINT_DURATION:
+			Game.hint_popup.speed_up_time_hint.dismiss()
 
 	var target_time_warp_strength := (LabTime.time_scale - 1) / 20
 	if target_time_warp_strength > _time_warp_strength:
@@ -175,6 +199,22 @@ func _process(delta: float) -> void:
 
 	# Time warp shader.
 	%Postprocess/TimeWarp/Rect.material.set(&"shader_parameter/strength", _time_warp_strength)
+
+func _input(e: InputEvent) -> void:
+	# Needed to deal with weird mouse mode behavior in the web build. Fix the mouse mode when
+	# clicking in the game.
+	if e is InputEventMouseButton and Input.mouse_mode != _target_mouse_mode:
+		Input.mouse_mode = _target_mouse_mode
+		get_viewport().set_input_as_handled()
+	# Avoid capturing the mouse while the mouse is off-screen. Only count it if the mouse is
+	# currently in the bounds of the window. I've also made it so it ignores a 30 pixel wide margin
+	# around the edge of the viewport, because Safari actually shrinks the viewport to show the
+	# "press esc to show cursor" popup, meaning that there are cases where the mouse is on-screen
+	# when the event is received, but is no longer in the viewport when the popup appears.
+	elif e is InputEventMouseMotion and _change_mouse_mode_on_next_mouse_motion \
+			and get_window().get_visible_rect().grow(-30).has_point(get_window().get_mouse_position()):
+		Input.mouse_mode = _target_mouse_mode
+		_change_mouse_mode_on_next_mouse_motion = false
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e.is_action_pressed(&"toggle_menu"):
@@ -190,6 +230,11 @@ func _unhandled_key_input(e: InputEvent) -> void:
 	elif e.is_action_pressed(&"toggle_journal"):
 		# Toggling it while in the pause menu would be weird.
 		if not is_pause_menu_open():
+			# Dismiss "press J to open the procedure" hint if this is pressed to *open* the
+			# journal. We know it will be opened if it's closed here.
+			if not is_journal_open():
+				Game.hint_popup.journal_hint.dismiss()
+
 			set_journal_open(not is_journal_open())
 	elif e.is_action_pressed(&"speed_up_time"):
 		_speed_up_time_time_held = 0.0
@@ -206,10 +251,12 @@ func _load_module(module: ModuleData) -> void:
 	%MenuScreenManager/PauseMenu/Content/Logo.hide()
 	%MenuScreenManager/PauseMenu/Content/ExitModuleButton.show()
 	%MenuScreenManager/PauseMenu/Content/RestartModuleButton.show()
+	%MenuScreenManager/PauseMenu/Content/ResumeButton.show()
 
 	_current_module = module
 
 	%Prompts.show()
+	%HintPopup.show()
 
 	_update_scene_overlays()
 
@@ -286,6 +333,16 @@ func set_camera_focus_owner(focus_owner: Node) -> void:
 	_camera_focus_owner = focus_owner
 	camera_focus_owner_changed.emit(_camera_focus_owner)
 
+	# Only show the journal and navigation hints when zoomed out (so they don't show when the user
+	# is in the middle of doing stuff zoomed in). Don't request the hints in the main menu.
+	if focus_owner == null and _current_module_scene != null:
+		Game.hint_popup.left_right_hint.request()
+		Game.hint_popup.journal_hint.request()
+	else:
+		Game.hint_popup.left_right_hint.unrequest()
+		Game.hint_popup.journal_hint.unrequest()
+
+
 ## Use this to determine whether the screen in "zoomed out".
 func get_camera_focus_owner() -> Node:
 	return _camera_focus_owner
@@ -323,6 +380,13 @@ func focus_camera_and_show_subscene(rect: Rect2, camera: SubsceneCamera, time: f
 	var full_rect := Util.expand_to_aspect(left_rect, viewport_size.aspect(), 0)
 	$%TransitionCamera.move_to_rect(full_rect, false, time)
 
+## The current world-space offset of the virtual cursor's palm relative to the base position
+## (the end of the index finger). This is used to determine the position of
+## [member Cursor.virtual_mouse_position] when it's not in pointer mode.
+func get_virtual_cursor_palm_world_offset() -> Vector2:
+	var ui_to_main: Transform2D = %MainViewport.canvas_transform.affine_inverse() * $UILayer.get_final_transform()
+	return ui_to_main * %VirtualCursor/PalmRef.global_position - ui_to_main * %VirtualCursor.global_position
+
 func _on_exit_module_button_pressed() -> void:
 	_switch_to_main_menu()
 
@@ -336,9 +400,11 @@ func _switch_to_main_menu() -> void:
 	%MenuScreenManager/PauseMenu/Content/Logo.show()
 	%MenuScreenManager/PauseMenu/Content/ExitModuleButton.hide()
 	%MenuScreenManager/PauseMenu/Content/RestartModuleButton.hide()
+	%MenuScreenManager/PauseMenu/Content/ResumeButton.hide()
 	$UILayer/Background.show()
 
 	%Prompts.hide()
+	%HintPopup.hide()
 
 	_update_scene_overlays()
 
@@ -381,25 +447,35 @@ func _on_cursor_area_body_exited(body: Node2D) -> void:
 func _on_interactable_system_pressed_left() -> void:
 	if _current_workspace and _current_workspace.left_workspace and not _camera_focus_owner:
 		move_to_workspace(_current_workspace.left_workspace, 1.0)
+		if Game.hint_popup.left_right_hint.is_shown():
+			_moved_left_during_hint = true
+			_update_left_right_hint()
 
 func _on_interactable_system_pressed_right() -> void:
 	if _current_workspace and _current_workspace.right_workspace and not _camera_focus_owner:
 		move_to_workspace(_current_workspace.right_workspace, 1.0)
+		if Game.hint_popup.left_right_hint.is_shown():
+			_moved_right_during_hint = true
+			_update_left_right_hint()
 
 func _on_interactable_system_pressed_zoom_out() -> void:
 	if _camera_focus_owner: return_to_current_workspace()
 
-func _on_virtual_mouse_moved(_old: Vector2, _new: Vector2) -> void:
+func _on_virtual_mouse_base_moved(_old: Vector2, _new: Vector2) -> void:
 	_update_virtual_mouse();
 
 func _on_virtual_mouse_mode_changed(_mode: Cursor.Mode) -> void:
 	_update_virtual_mouse();
 
+func _update_left_right_hint() -> void:
+	if _moved_left_during_hint and _moved_right_during_hint:
+		Game.hint_popup.left_right_hint.dismiss()
+
 func _update_virtual_mouse() -> void:
 	# The coordinate system for the main viewport and the cursor canvas layer are different, so
 	# we have to convert.
 	var main_to_cursor_canvas: Transform2D = $UILayer.get_final_transform().affine_inverse() * $%MainViewport.canvas_transform
-	var cursor_canvas_mouse_pos := main_to_cursor_canvas * Cursor.virtual_mouse_position
+	var cursor_canvas_mouse_pos := main_to_cursor_canvas * Cursor.virtual_mouse_base_position
 
 	for c in $%VirtualCursor.get_children():
 		c.hide()
@@ -413,7 +489,7 @@ func _update_virtual_mouse() -> void:
 	# We have to call `$%CursorArea.get_global_mouse_position` instead of just calling
 	# `get_global_mouse_position` directly because it needs to be in the same coordinate system
 	# as the area (i.e., the main world).
-	$%CursorArea.global_position = Cursor.virtual_mouse_position
+	$%CursorArea.global_position = Cursor.virtual_mouse_base_position
 
 	# Match the cursor's collision and position to the relative size of the hand.
 	_cursor_collision.shape.size = _cursor_collision_original_size / %TransitionCamera.zoom
@@ -425,8 +501,16 @@ func _update_simulation_pause() -> void:
 	var should_pause := is_pause_menu_open() or is_journal_open()
 	get_tree().paused = should_pause
 
-	if should_pause: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	else: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if should_pause: _target_mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		_target_mouse_mode = Input.MOUSE_MODE_CAPTURED
+		# Delay capturing the mouse until we know it's on-screen. See the comment above
+		# `_change_mouse_mode_on_next_mouse_motion` for more details.
+		if _is_in_web_browser():
+			_change_mouse_mode_on_next_mouse_motion = true
+
+	if not _change_mouse_mode_on_next_mouse_motion:
+		Input.mouse_mode = _target_mouse_mode
 
 	%VirtualCursor.visible = not should_pause
 
@@ -458,3 +542,9 @@ func _update_scene_overlays() -> void:
 
 func _on_menu_screen_manager_screen_changed(_s: MenuScreen) -> void:
 	_update_scene_overlays()
+
+func _on_mouse_sensitivity_slider_value_changed(value: float) -> void:
+	GameSettings.mouse_sensitivity = value
+
+func _on_resume_button_pressed() -> void:
+	set_pause_menu_open(false)

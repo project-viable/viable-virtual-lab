@@ -87,7 +87,7 @@ func process(container: ContainerComponent, delta: float) -> void:
 			# just don't even let it get suspended when the temperature is too low.
 			if temperature > MIN_MIX_TEMP and is_mixing and s.name == "agarose":
 				var agarose := s.take_volume(delta / s.get_density() / SECONDS_PER_GRAM_SUSPENDED)
-				suspended_agarose_concentration += agarose.get_volume() / agarose.get_density() / volume
+				suspended_agarose_concentration += agarose.get_volume() * agarose.get_density() / volume
 		elif s is DNASolutionSubstance:
 			s.take_volume(INF)
 

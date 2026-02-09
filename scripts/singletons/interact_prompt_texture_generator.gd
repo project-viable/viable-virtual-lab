@@ -20,7 +20,7 @@ func _ready() -> void:
 		var info: PromptInfo = _action_prompt_info[a]
 		var event := InputEventAction.new()
 		event.action = a
-		
+
 		info.prompt = INTERACTION_PROMPT_SCENE.instantiate()
 		info.prompt.input_event = event
 		info.prompt.auto_update_pressed = true

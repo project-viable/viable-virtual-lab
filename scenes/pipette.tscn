@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://t5vephauatf2"]
+[gd_scene load_steps=18 format=3 uid="uid://t5vephauatf2"]
 
 [ext_resource type="Script" uid="uid://c42ut7hyyijbv" path="res://scripts/pipette.gd" id="1_yutq4"]
+[ext_resource type="Script" uid="uid://cyki6lorl8wam" path="res://scripts/lab_body_grab_point.gd" id="2_dnssk"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_drsrt"]
 [ext_resource type="Texture2D" uid="uid://dy2rxljf87eme" path="res://textures/lab_objects/pipette_plunger.svg" id="3_f8tg8"]
 [ext_resource type="Texture2D" uid="uid://bsexixwy1epg7" path="res://textures/lab_objects/pipette_base.svg" id="4_jnhs8"]
@@ -32,6 +33,10 @@ is_tip_contaminated = true
 hover_name = "micropipette"
 help_page_path = "pipette.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="LabBodyGrabPoint" type="Node2D" parent="."]
+position = Vector2(3, -45)
+script = ExtResource("2_dnssk")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-7, -76, -7, -68, -12, -67, -14, -64, -14, -61, -11, -60, -6, -59, -6, -2, -4, 10, 1, 19, 2, 68, 5, 68, 6, 19, 11, 10, 14, -2, 14, -76)

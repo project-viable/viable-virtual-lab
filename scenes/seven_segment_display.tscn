@@ -8,6 +8,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 10.0
 offset_bottom = 15.0
+mouse_filter = 2
 script = ExtResource("1_bgwuh")
 
 [node name="0" type="Polygon2D" parent="."]

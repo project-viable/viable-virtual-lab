@@ -130,3 +130,9 @@ static func as_sortable_control(node: Node) -> Control:
 	var c := node as Control
 	if not c or c.top_level or not c.visible: return null
 	else: return c
+
+## Make a [Rect2] of size [param size] centered at the point [param pos].
+static func make_centered_rect(pos: Vector2, size: Vector2) -> Rect2:
+	var r := Rect2(pos, size)
+	r.position -= size / 2
+	return r

@@ -20,6 +20,7 @@ func _process(_delta: float) -> void:
 		if _is_microwaving():
 			var seconds_left: int = ceil(max($MicrowaveTimer.time_left, 0))
 			# Convert seconds to minutes and seconds
+			@warning_ignore("integer_division")
 			var minutes: int = seconds_left / 60
 			var seconds: int = seconds_left % 60
 
@@ -49,6 +50,7 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 			_cancel()
 		"Start":
 			# If the user input is 300, it should be in the form 3:00
+			@warning_ignore("integer_division")
 			var minutes: int = _input_time / 100
 			var seconds: int = _input_time % 100
 
@@ -70,6 +72,10 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 				$MicrowaveTimer.start(minutes * 60 + seconds)
 				_no_update_display = false
 
+				# Show "press R to speed up time" hint only when the microwave actually starts
+				# running.
+				Game.hint_popup.speed_up_time_hint.request()
+
 			_input_time = 0
 			_update_door()
 		_:
@@ -81,6 +87,7 @@ func _on_keypad_button_pressed(button_value: String) -> void:
 			_input_time = (_input_time * 10 + int(button_value))
 
 			# If the user input is 300, it should be in the form 3:00
+			@warning_ignore("integer_division")
 			var minutes: int = _input_time / 100
 			var seconds: int = _input_time % 100
 
@@ -104,12 +111,14 @@ func _cancel() -> void:
 	_no_update_display = false
 	_input_time = 0
 	_update_door()
+	Game.hint_popup.speed_up_time_hint.unrequest()
 
 ## Updates the Display to countdown the timer
 func _on_microwave_timer_timeout() -> void:
 	_display_text("End")
 	_no_update_display = true
 	_update_door()
+	Game.hint_popup.speed_up_time_hint.unrequest()
 
 func _update_door() -> void:
 	if _is_door_open:
