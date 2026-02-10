@@ -14,7 +14,6 @@ var interactions: Dictionary[InteractInfo.Kind, InteractState] = {}
 # idea that the order they call `_draw` would correspond with the which one is on top (if `_draw`
 # is called later, then it is on top).
 var _next_draw_order: int = 0
-var _interact_area_stack: Array[InteractableArea] = []
 
 
 func _ready() -> void:
@@ -39,7 +38,7 @@ func _process(_delta: float) -> void:
 		for info in held_body.get_interactions():
 			new_interactions.set(info.kind, UseInteractState.new(info, held_body, null))
 
-		for a in _interact_area_stack:
+		for a in held_body.interactable_area_stack:
 			if not a.enable_interaction: continue
 			for info in a.get_interactions():
 				new_interactions.set(info.kind, UseInteractState.new(info, null, a))
@@ -48,7 +47,7 @@ func _process(_delta: float) -> void:
 		for c: UseComponent in held_body.find_children("", "UseComponent", false):
 			if not c.enable_interaction: continue
 
-			for a in _interact_area_stack:
+			for a in held_body.interactable_area_stack:
 				if not a.enable_interaction: continue
 				for info in c.get_interactions(a):
 					new_interactions.set(info.kind, UseInteractState.new(info, c, a))
@@ -94,26 +93,12 @@ func get_next_draw_order() -> int:
 	_next_draw_order += 1
 	return _next_draw_order - 1
 
-# When a body `b` enters an `InteractableArea` and `held_body` is equal to `b`, that interaction
-# area should call this function, passing itself as the argument.
-func on_interaction_area_entered(area: InteractableArea) -> void:
-	_interact_area_stack.append(area)
-
-func on_interaction_area_exited(area: InteractableArea) -> void:
-	_interact_area_stack.erase(area)
-
-# Delete any hovered interactions. This is called by `DragComponent` when it's dropped.
-func clear_interaction_stack() -> void:
-	_interact_area_stack.clear()
-
 func clear_all_interaction_state() -> void:
 	for kind: InteractInfo.Kind in interactions.keys():
 		if interactions[kind].is_pressed:
 			interactions[kind]._stop_interact()
 			interactions[kind]._stop_targeting()
 		interactions[kind] = InteractState.new()
-
-	clear_interaction_stack()
 
 # Return true if [param b] should be chosen as an interactable component to use, given that
 # [param a] was the previous best choice. This will [i]only[/i] return [code]true[/code] if

@@ -49,6 +49,11 @@ const ROTATE_UPRIGHT_ANGLE_PER_MOUSE_PIXEL: float = PI / 100
 @export var depth_layer_to_drop_in: DepthManager.Layer = DepthManager.Layer.BENCH
 
 
+## Keeps track of [InteractableArea]s in the order they were entered. This should not be modified
+## from outside this node.
+var interactable_area_stack: Array[InteractableArea]
+
+
 var _pick_up_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Pick up")
 var _put_down_interaction := InteractInfo.new(InteractInfo.Kind.PRIMARY, "Put down")
 var _help_interaction := InteractInfo.new(InteractInfo.Kind.HELP, "Open help page")
@@ -211,7 +216,6 @@ func start_dragging() -> void:
 func stop_dragging() -> void:
 	Interaction.held_body = null
 	set_physics_mode(PhysicsMode.FALLING_THROUGH_SHELVES)
-	Interaction.clear_interaction_stack()
 	set_deferred(&"linear_velocity", _velocity / 5.0)
 
 	DepthManager.move_to_front_of_layer(self, depth_layer_to_drop_in)
@@ -261,6 +265,14 @@ func get_local_hand_pos() -> Vector2:
 	# `interact_canvas_group` is a direct child of this node, which may not always be the case.
 	if interact_canvas_group: return interact_canvas_group.transform * _hand_offset
 	else: return _hand_offset
+
+## Called by [InteractableArea] when this body enters it.
+func enter_interactable_area(area: InteractableArea) -> void:
+	interactable_area_stack.push_back(area)
+
+## Called by [InteractableArea] when this body leaves it.
+func exit_interactable_area(area: InteractableArea) -> void:
+	interactable_area_stack.erase(area)
 
 func _update_physics_to_mode(mode: PhysicsMode) -> void:
 	if mode == PhysicsMode.KINEMATIC or mode == PhysicsMode.FROZEN:
