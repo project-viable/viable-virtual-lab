@@ -419,12 +419,11 @@ position_smoothing_speed = 1.0
 script = ExtResource("10_grr38")
 depth_layer = 1
 
-[node name="ObjectContainmentInteractableArea" type="Area2D" parent="DepthManagedNode2D" node_paths=PackedStringArray("selectable_canvas_group")]
+[node name="ObjectContainmentInteractableArea" type="Area2D" parent="DepthManagedNode2D"]
 unique_name_in_owner = true
 position = Vector2(-40, 51)
 script = ExtResource("5_iwbat")
 place_prompt = "Put in microwave"
-selectable_canvas_group = NodePath("../../DoorGroup")
 body_group_filter_type = 1
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 
