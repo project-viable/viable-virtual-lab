@@ -2,7 +2,7 @@ extends Imager
 
 
 # So the bands aren't so thick.
-const BAND_VERTICAL_SCALE := 0.1
+const BAND_SCALE := Vector2(0.5, 0.1)
 
 
 var band_texture: Texture2D = preload("res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg")
@@ -33,10 +33,9 @@ func _draw() -> void:
 			for fragment: DNAFragment in dna.fragments.values():
 				# 130 / 0.45 is about the distance in local sprite coordinates to the end of the gel.
 				var pos: Vector2 = Vector2.DOWN * fragment.position * 130.0 / 0.45
-				var size := band_texture.get_size()
-				size.y *= BAND_VERTICAL_SCALE
-				# Center the band vertically.
-				pos.y -= size.y / 2
+				var size := band_texture.get_size() * BAND_SCALE
+				# Center the bands.
+				pos -= size / 2
 				band_texture.draw_rect(well_sprite.get_canvas_item(), Rect2(pos, size), false)
 	else:
 		$DepthManagedNode2D/AttachmentInteractableArea.remove_object()
