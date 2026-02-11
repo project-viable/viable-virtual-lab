@@ -1,0 +1,46 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://c5j70x0ximbuc"]
+
+[ext_resource type="FontFile" uid="uid://b4fdeodha8haf" path="res://fonts/Roboto/Roboto-BlackItalic.ttf" id="1_eo6b5"]
+[ext_resource type="FontFile" uid="uid://hlq8gp5eo1ht" path="res://fonts/Roboto/Roboto-MediumItalic.ttf" id="1_had6q"]
+[ext_resource type="FontFile" uid="uid://c5jqyemsa330f" path="res://fonts/Roboto/Roboto-Black.ttf" id="2_3uxti"]
+[ext_resource type="FontFile" uid="uid://blx2t4x33kcif" path="res://fonts/Roboto/Roboto-Medium.ttf" id="2_260dw"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_had6q"]
+color = Color(0.52156866, 0.7607843, 0.8235294, 1)
+thickness = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y871g"]
+content_margin_left = 7.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(0, 0.20392157, 0.3019608, 0.8745098)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.52156866, 0.7607843, 0.8235294, 0.84705883)
+corner_detail = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eo6b5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3uxti"]
+
+[resource]
+DetailRichTextLabel/base_type = &"RichTextLabel"
+DetailRichTextLabel/font_sizes/italics_font_size = 16
+DetailRichTextLabel/font_sizes/normal_font_size = 16
+DetailRichTextLabel/fonts/italics_font = ExtResource("1_had6q")
+DetailRichTextLabel/fonts/normal_font = ExtResource("2_260dw")
+GridContainer/constants/h_separation = 8
+GridContainer/constants/v_separation = 8
+HSeparator/styles/separator = SubResource("StyleBoxLine_had6q")
+Label/colors/font_color = Color(0.52156866, 0.7607843, 0.8235294, 1)
+Label/fonts/font = ExtResource("2_3uxti")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_y871g")
+RichTextLabel/colors/default_color = Color(0.52156866, 0.7607843, 0.8235294, 1)
+RichTextLabel/font_sizes/normal_font_size = 16
+RichTextLabel/fonts/italics_font = ExtResource("1_eo6b5")
+RichTextLabel/fonts/normal_font = ExtResource("2_3uxti")
+RichTextLabel/styles/focus = SubResource("StyleBoxEmpty_eo6b5")
+RichTextLabel/styles/normal = SubResource("StyleBoxEmpty_3uxti")
