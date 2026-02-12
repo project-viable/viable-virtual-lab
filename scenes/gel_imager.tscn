@@ -250,9 +250,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="UVLabel" type="Label" parent="Subscene/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_colors/font_color = Color(0.14656794, 0.6027695, 0.29964295, 1)
+theme_type_variation = &"OnLabel"
 text = "UV on"
 
 [node name="MarginContainer" type="MarginContainer" parent="Subscene/ColorRect/MarginContainer/VBoxContainer"]

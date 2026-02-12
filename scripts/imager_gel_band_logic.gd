@@ -65,12 +65,18 @@ func _update_door() -> void:
 		$DoorSelectable.interact_info.description = "Close door"
 		%DoorOpen.show()
 		%DoorClosed.hide()
+		_is_light_on = false
+		%UVLabel.theme_type_variation = "OffLabel"
+		%UVLabel.text = "UV Off (door open)"
 
 	else:
 		$DepthManagedNode2D/AttachmentInteractableArea.allow_new_objects = false
 		$DoorSelectable.interact_info.description = "Open door"
 		%DoorOpen.hide()
 		%DoorClosed.show()
+		_is_light_on = true
+		%UVLabel.theme_type_variation = "OnLabel"
+		%UVLabel.text = "UV On"
 
 func _on_door_selectable_pressed() -> void:
 	_is_door_open = not _is_door_open
