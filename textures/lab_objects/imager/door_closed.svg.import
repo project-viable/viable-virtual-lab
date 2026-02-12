@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://extc4t1tnvs1"
-path="res://.godot/imported/door_closed.png-c729cd7236b6a345edd3cb47ec7e7cb3.ctex"
+uid="uid://dp227u41wvdjd"
+path="res://.godot/imported/door_closed.svg-02cafba85d23b638b5f9ca16f2975feb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/lab_objects/imager/tmp/door_closed.png"
-dest_files=["res://.godot/imported/door_closed.png-c729cd7236b6a345edd3cb47ec7e7cb3.ctex"]
+source_file="res://textures/lab_objects/imager/door_closed.svg"
+dest_files=["res://.godot/imported/door_closed.svg-02cafba85d23b638b5f9ca16f2975feb.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
