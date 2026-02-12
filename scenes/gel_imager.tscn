@@ -37,7 +37,7 @@ description = "Zoom in on imager screen"
 metadata/_custom_type_script = "uid://b810schxe1hne"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_deexq"]
-size = Vector2(133, 54)
+size = Vector2(165, 195)
 
 [node name="GelImager" type="Node2D"]
 script = ExtResource("1_7wmgd")
@@ -108,7 +108,7 @@ metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 [node name="Area2D" type="Area2D" parent="ZoomSelectableArea"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/Area2D"]
-position = Vector2(-0.5, -71)
+position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_deexq")
 debug_color = Color(0.961975, 0.191001, 0.110021, 0.42)
 
