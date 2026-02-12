@@ -1,3 +1,4 @@
+@tool
 extends Node
 ## Tools for preprocessing, mainly for use with [PreprocessedRichTextLabel].
 ##
@@ -35,8 +36,11 @@ func process_custom_tag(command: String, arg: String, context: Context) -> Strin
 				# image options, but other options need extra space.
 				if not img_opts.begins_with("="): img_opts = " " + img_opts
 
-			var path: String = InteractPromptTextureGenerator.get_texture_for_action_prompt(args[0]).resource_path
-			return "[img%s]%s[/img]" % [img_opts, path]
+			if Engine.is_editor_hint():
+				return "#{prompt:%s}#" % arg
+			else:
+				var path: String = InteractPromptTextureGenerator.get_texture_for_action_prompt(args[0]).resource_path
+				return "[img%s]%s[/img]" % [img_opts, path]
 
 		# Headers.
 		"h1":
