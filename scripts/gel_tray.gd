@@ -2,6 +2,10 @@ class_name GelTray
 extends LabBody
 
 
+## Rate non-gel TAE is spilled, in mL/s.
+const TAE_SPILL_RATE: float = 20
+
+
 ## Voltage, where positive is down the gel.
 @export_custom(PROPERTY_HINT_NONE, "suffix:V") var voltage: float = 0.0
 @export var gel_state: GelState
@@ -12,6 +16,7 @@ extends LabBody
 var comb_placed: bool = false
 var check_gel_concentration:bool = false
 var suspended_agarose_concentration: float
+var is_sealed: bool = false
 
 class GelConcentrationData:
 	var total_volume: float
@@ -44,6 +49,11 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super(delta)
+
+	if not is_sealed:
+		for s: Substance in $ContainerComponent.substances:
+			if s is TAEBufferSubstance and not s.is_solid_gel():
+				s.take_volume(TAE_SPILL_RATE * delta)
 
 	if voltage > 0:
 		gel_state.voltage = voltage
