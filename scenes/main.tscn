@@ -156,9 +156,6 @@ position = Vector2(640, 360)
 script = ExtResource("9_agdoh")
 metadata/_custom_type_script = "uid://b8kjtd0vdnq42"
 
-[node name="MainSceneCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
-position = Vector2(640, 360)
-
 [node name="Postprocess" type="Node2D" parent="SceneLayer"]
 unique_name_in_owner = true
 
