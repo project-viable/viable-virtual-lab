@@ -138,10 +138,3 @@ class RunGelSubstanceEvent extends Substance.Event:
 	func _init(p_gel: GelTray, p_duration: float) -> void:
 		gel = p_gel
 		duration = p_duration
-
-func _on_attachment_point_placed(area: AttachmentInteractableArea) -> void:
-	# Prevent pouring buffer into the tray itself instead of filling up the rig.
-	$ContainerInteractableArea.enable_interaction = false
-
-func _on_attachment_point_removed(area: AttachmentInteractableArea) -> void:
-	$ContainerInteractableArea.enable_interaction = true

@@ -288,7 +288,5 @@ texture = ExtResource("15_4i1yu")
 z_index = 1
 texture = ExtResource("16_hox5e")
 
-[connection signal="placed" from="AttachmentPoint" to="." method="_on_attachment_point_placed"]
-[connection signal="removed" from="AttachmentPoint" to="." method="_on_attachment_point_removed"]
 [connection signal="object_placed" from="AttachmentInteractableArea" to="." method="_on_attachment_interactable_area_object_placed"]
 [connection signal="object_removed" from="AttachmentInteractableArea" to="." method="_on_attachment_interactable_area_object_removed"]

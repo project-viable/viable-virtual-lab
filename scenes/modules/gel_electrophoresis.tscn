@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene load_steps=55 format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://byucr1dj248ga" path="res://textures/environment/wall.svg" id="1_5fdni"]
 [ext_resource type="Script" uid="uid://b8p3xdpo3orid" path="res://scripts/procedure_opener.gd" id="1_wv41k"]
@@ -32,6 +32,7 @@
 [ext_resource type="Script" uid="uid://bcu5ibe722dk1" path="res://scripts/dna_fragment.gd" id="25_nbx6y"]
 [ext_resource type="Texture2D" uid="uid://brx5qwivdoj2a" path="res://textures/environment/black.svg" id="26_w0rbf"]
 [ext_resource type="PackedScene" uid="uid://cj0ivwgwls2pt" path="res://scenes/gel_comb.tscn" id="30_bi4rt"]
+[ext_resource type="PackedScene" uid="uid://codj1o2nmt7iq" path="res://scenes/gel_mold_thing.tscn" id="33_ompny"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5fdni"]
 distance = 96.0
@@ -373,6 +374,9 @@ texture = ExtResource("22_kobiv")
 
 [node name="GelComb" parent="Objects" instance=ExtResource("30_bi4rt")]
 position = Vector2(1723, 487)
+
+[node name="GelMoldThing" parent="." instance=ExtResource("33_ompny")]
+position = Vector2(1824, 468)
 
 [editable path="Objects/Flask"]
 [editable path="Objects/Flask2"]
