@@ -51,12 +51,12 @@ ghost:always_include="Always include this node in a sprite ghost (made via `Util
 ghost:never_include="Never include this node in a sprite ghost (made via `Util.make_sprite_ghost`), regardless of visibility"
 entry_point="A collision shape owner that must be used to enter the purview of an `ExclusiveShape2D` if it has `require_entry_point_shapes` enabled"
 exclusive_area:pipette="Allow the pipette to enter this area"
-attachment:gel_mold=""
 zoom:scale=""
 zoom:power_supply=""
 container:pour="This container can be poured into"
 container:scoop="This container can be scooped from and to using the scoopula"
 attachment:gel_comb=""
+attachment:gel_tray=""
 
 [gui]
 

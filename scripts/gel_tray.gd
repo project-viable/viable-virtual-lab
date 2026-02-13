@@ -1,4 +1,4 @@
-class_name GelMold
+class_name GelTray
 extends LabBody
 
 
@@ -130,17 +130,17 @@ func _set_subscene_has_wells(new_has_wells: bool) -> void:
 ## Event sent by this gel repeatedly while it's running.
 class RunGelSubstanceEvent extends Substance.Event:
 	## The gel that's doing the running.
-	var gel: GelMold
+	var gel: GelTray
 	## Amount of time run, in seconds of lab time.
 	var duration: float
 
 
-	func _init(p_gel: GelMold, p_duration: float) -> void:
+	func _init(p_gel: GelTray, p_duration: float) -> void:
 		gel = p_gel
 		duration = p_duration
 
 func _on_attachment_point_placed(area: AttachmentInteractableArea) -> void:
-	# Prevent pouring buffer into the mold itself instead of filling up the rig.
+	# Prevent pouring buffer into the tray itself instead of filling up the rig.
 	$ContainerInteractableArea.enable_interaction = false
 
 func _on_attachment_point_removed(area: AttachmentInteractableArea) -> void:

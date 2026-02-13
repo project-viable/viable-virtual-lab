@@ -5,7 +5,7 @@ var gel_in_rig: bool = true
 
 func _physics_process(delta: float) -> void:
 	super(delta)
-	var gel := $MoldAttachment.contained_object as GelMold
+	var gel := $TrayAttachment.contained_object as GelTray
 	if gel:
 		gel.voltage = $WireConnectableComponent.voltage if _is_filled() else 0.0
 		if (gel.gel_state.gel_analysis_time/60.0) > 5.0:
@@ -25,11 +25,11 @@ func _is_filled() -> bool:
 
 func _on_mold_attachment_object_placed(body: LabBody) -> void:
 	# Flood and clear the wells if already full.
-	if body is GelMold and _is_filled():
+	if body is GelTray and _is_filled():
 		for i: int in body.num_wells():
 			body.get_well(i + 1).substances.clear()
 
 func _on_mold_attachment_object_removed(body: LabBody) -> void:
-	if body is GelMold:
+	if body is GelTray:
 		body.voltage = 0
 		gel_in_rig = false

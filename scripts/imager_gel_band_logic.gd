@@ -14,8 +14,8 @@ func _ready() -> void:
 	_update_door()
 
 func _draw() -> void:
-	if $DepthManagedNode2D/AttachmentInteractableArea.contained_object is GelMold:
-		var gel := $DepthManagedNode2D/AttachmentInteractableArea.contained_object as GelMold
+	if $DepthManagedNode2D/AttachmentInteractableArea.contained_object is GelTray:
+		var gel := $DepthManagedNode2D/AttachmentInteractableArea.contained_object as GelTray
 		if not gel or not _is_light_on: return
 		gel.set_gel_state()
 		for i:int in gel.num_wells():
@@ -85,7 +85,7 @@ func _on_door_selectable_pressed() -> void:
 func _on_uv_light_pressed() -> void:
 	_is_light_on = not _is_light_on
 
-func analyze_gel_state(gel: GelMold, well: ContainerComponent, i: int) -> void:
+func analyze_gel_state(gel: GelTray, well: ContainerComponent, i: int) -> void:
 	var dna: DNASolutionSubstance = well.find_substance_of_type(DNASolutionSubstance)
 	if not dna: return
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://cys6ccja2bnxo"]
 
-[ext_resource type="Script" uid="uid://ca8jqw4t8cnoh" path="res://scripts/gel_mold.gd" id="1_5cofj"]
+[ext_resource type="Script" uid="uid://ca8jqw4t8cnoh" path="res://scripts/gel_tray.gd" id="1_5cofj"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_ar43o"]
 [ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://scripts/attachment_point.gd" id="2_5cofj"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="2_5rd3r"]
@@ -42,18 +42,18 @@ size = Vector2(89, 34)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gcxvw"]
 size = Vector2(675, 55)
 
-[node name="GelMold" type="RigidBody2D"]
+[node name="GelTray" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource("1_5cofj")
 gel_state = SubResource("Resource_yypu3")
-hover_name = "gel mold"
+hover_name = "gel tray"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8.875)
 shape = SubResource("RectangleShape2D_of7eg")
 
-[node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:gel_mold"]]
+[node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:gel_tray"]]
 position = Vector2(0, 4)
 script = ExtResource("2_5cofj")
 metadata/_custom_type_script = "uid://cvvkvehovfwuy"
