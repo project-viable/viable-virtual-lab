@@ -25,11 +25,14 @@ func _is_filled() -> bool:
 
 func _on_mold_attachment_object_placed(body: LabBody) -> void:
 	# Flood and clear the wells if already full.
-	if body is GelTray and _is_filled():
-		for i: int in body.num_wells():
-			body.get_well(i + 1).substances.clear()
+	if body is GelTray:
+		body.rig_container = $ContainerComponent
+		if _is_filled():
+			for i: int in body.num_wells():
+				body.get_well(i + 1).substances.clear()
 
 func _on_mold_attachment_object_removed(body: LabBody) -> void:
 	if body is GelTray:
 		body.voltage = 0
 		gel_in_rig = false
+		body.rig_container = null

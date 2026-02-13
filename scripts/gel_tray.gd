@@ -17,6 +17,8 @@ var comb_placed: bool = false
 var check_gel_concentration:bool = false
 var suspended_agarose_concentration: float
 var is_sealed: bool = false
+# Used to allow TAE to leak from the tray into the rig.
+var rig_container: ContainerComponent = null
 
 class GelConcentrationData:
 	var total_volume: float
@@ -53,7 +55,9 @@ func _physics_process(delta: float) -> void:
 	if not is_sealed:
 		for s: Substance in $ContainerComponent.substances:
 			if s is TAEBufferSubstance and not s.is_solid_gel():
-				s.take_volume(TAE_SPILL_RATE * delta)
+				var taken := s.take_volume(TAE_SPILL_RATE * delta)
+				if rig_container:
+					rig_container.add(taken)
 
 	if voltage > 0:
 		gel_state.voltage = voltage
