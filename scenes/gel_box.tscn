@@ -39,13 +39,13 @@ metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 position = Vector2(0, -5)
 
 [node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour"]]
-position = Vector2(0, -24)
+position = Vector2(40, -24)
 script = ExtResource("2_gl61q")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea"]
-position = Vector2(0, 27.5)
+position = Vector2(-40, 27.5)
 shape = SubResource("RectangleShape2D_qsq1u")
 
 [node name="ContainerComponent" type="Node2D" parent="."]
@@ -109,13 +109,13 @@ body = NodePath("..")
 target_container = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://chvv2ne60otwi"
 
-[node name="MoldAttachment" type="Area2D" parent="."]
+[node name="TrayAttachment" type="Area2D" parent="."]
 position = Vector2(0, 7)
 script = ExtResource("6_r7so7")
-point_groups = Array[StringName]([&"attachment:gel_mold"])
+point_groups = Array[StringName]([&"attachment:gel_tray"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MoldAttachment"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrayAttachment"]
 position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_r7so7")
 debug_color = Color(3.46541e-06, 0.635788, 0.412943, 0.42)
@@ -134,5 +134,5 @@ shape = SubResource("RectangleShape2D_xl5qd")
 [connection signal="object_placed" from="NegativeAttachmentInteractableArea2" to="NegativeAttachmentInteractableArea2" method="_on_object_placed"]
 [connection signal="object_removed" from="NegativeAttachmentInteractableArea2" to="WireConnectableComponent" method="unplug_handler"]
 [connection signal="wire_connected" from="NegativeAttachmentInteractableArea2" to="WireConnectableComponent" method="on_wire_connected"]
-[connection signal="object_placed" from="MoldAttachment" to="." method="_on_mold_attachment_object_placed"]
-[connection signal="object_removed" from="MoldAttachment" to="." method="_on_mold_attachment_object_removed"]
+[connection signal="object_placed" from="TrayAttachment" to="." method="_on_mold_attachment_object_placed"]
+[connection signal="object_removed" from="TrayAttachment" to="." method="_on_mold_attachment_object_removed"]

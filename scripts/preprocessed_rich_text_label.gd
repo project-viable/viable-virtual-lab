@@ -19,12 +19,11 @@ var _context := RichTextPreprocess.Context.new()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_THEME_CHANGED:
-		_context.base_font_size = get_theme_font_size("normal_font_size")
 		_update_text()
 
-func _update_text() -> void:
-	if _can_use_preprocessor():
-		text = RichTextPreprocess.process_text(custom_text, _context)
+func _ready() -> void:
+	_update_text()
 
-func _can_use_preprocessor() -> bool:
-	return not Engine.is_editor_hint()
+func _update_text() -> void:
+	_context.base_font_size = get_theme_font_size("normal_font_size")
+	text = RichTextPreprocess.process_text(custom_text, _context)

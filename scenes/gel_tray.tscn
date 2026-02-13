@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://cys6ccja2bnxo"]
 
-[ext_resource type="Script" uid="uid://ca8jqw4t8cnoh" path="res://scripts/gel_mold.gd" id="1_5cofj"]
+[ext_resource type="Script" uid="uid://ca8jqw4t8cnoh" path="res://scripts/gel_tray.gd" id="1_5cofj"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_ar43o"]
 [ext_resource type="Script" uid="uid://cvvkvehovfwuy" path="res://scripts/attachment_point.gd" id="2_5cofj"]
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="2_5rd3r"]
@@ -27,14 +27,14 @@ size = Vector2(74, 25.75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5rd3r"]
 size = Vector2(74, 26)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mobf"]
+size = Vector2(74, 26)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0cqv1"]
 size = Vector2(74, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u177l"]
 size = Vector2(59, 2)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mobf"]
-size = Vector2(74, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5cofj"]
 size = Vector2(89, 34)
@@ -42,18 +42,18 @@ size = Vector2(89, 34)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gcxvw"]
 size = Vector2(675, 55)
 
-[node name="GelMold" type="RigidBody2D"]
+[node name="GelTray" type="RigidBody2D"]
 collision_layer = 0
 script = ExtResource("1_5cofj")
 gel_state = SubResource("Resource_yypu3")
-hover_name = "gel mold"
+hover_name = "gel tray"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8.875)
 shape = SubResource("RectangleShape2D_of7eg")
 
-[node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:gel_mold"]]
+[node name="AttachmentPoint" type="Node2D" parent="." groups=["attachment:gel_tray"]]
 position = Vector2(0, 4)
 script = ExtResource("2_5cofj")
 metadata/_custom_type_script = "uid://cvvkvehovfwuy"
@@ -69,13 +69,26 @@ position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_5rd3r")
 debug_color = Color(0.970892, 0, 0.451665, 0.42)
 
+[node name="AttachmentInteractableArea" type="Area2D" parent="."]
+position = Vector2(0, -9)
+script = ExtResource("10_xir2l")
+place_prompt = "Insert comb"
+point_groups = Array[StringName]([&"attachment:gel_comb"])
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
+shape = SubResource("RectangleShape2D_2mobf")
+debug_color = Color(0.5893958, 0.54847246, 0, 0.41960785)
+
 [node name="SubstanceDisplayPolygon" type="Polygon2D" parent="." node_paths=PackedStringArray("source")]
+z_index = 1
 polygon = PackedVector2Array(-31, -19, 31, -19, 31, -2, -31, -2)
 script = ExtResource("7_mu26n")
 source = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+z_index = 1
 script = ExtResource("1_ar43o")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
@@ -104,17 +117,6 @@ debug_color = Color(0.553104, 0.562669, 3.85046e-07, 0.42)
 script = ExtResource("5_pmlyu")
 container_volume = 100.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
-
-[node name="AttachmentInteractableArea" type="Area2D" parent="."]
-position = Vector2(0, -9)
-script = ExtResource("10_xir2l")
-place_prompt = "Insert comb"
-point_groups = Array[StringName]([&"attachment:gel_comb"])
-metadata/_custom_type_script = "uid://ul3h2acp7c3y"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
-shape = SubResource("RectangleShape2D_2mobf")
-debug_color = Color(0.5893958, 0.54847246, 0, 0.41960785)
 
 [node name="GelTopRef" type="Node2D" parent="."]
 editor_description = "If the gel is above this point, it is considered an acceptable gel."
@@ -288,7 +290,5 @@ texture = ExtResource("15_4i1yu")
 z_index = 1
 texture = ExtResource("16_hox5e")
 
-[connection signal="placed" from="AttachmentPoint" to="." method="_on_attachment_point_placed"]
-[connection signal="removed" from="AttachmentPoint" to="." method="_on_attachment_point_removed"]
 [connection signal="object_placed" from="AttachmentInteractableArea" to="." method="_on_attachment_interactable_area_object_placed"]
 [connection signal="object_removed" from="AttachmentInteractableArea" to="." method="_on_attachment_interactable_area_object_removed"]

@@ -3,7 +3,7 @@ class_name DNASolutionSubstance
 extends Substance
 
 
-# Small fragment size, which should take `RUN_TIME` to move across the 
+# Small fragment size, which should take `RUN_TIME` to move across the
 const SMALL_FRAGMENT_SIZE := 100.0
 # We want it to take 20 minutes for the 100 bp fragments to reach the end at 120 volts.
 const RUN_TIME := 60.0 * 20.0
@@ -64,7 +64,7 @@ func take_volume(v: float) -> DNASolutionSubstance:
 	return result
 
 func handle_event(e: Event) -> void:
-	if e is GelMold.RunGelSubstanceEvent:
+	if e is GelTray.RunGelSubstanceEvent:
 		# TODO: This should change based on the gel concentration.
 		var gel_factor := 1.0
 		for fs: int in fragments.keys():

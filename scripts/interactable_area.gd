@@ -33,8 +33,9 @@ func start_targeting(_kind: InteractInfo.Kind) -> void: pass
 func stop_targeting(_kind: InteractInfo.Kind) -> void: pass
 
 func _on_body_entered(body: Node2D) -> void:
-	if body == Interaction.held_body and not body.is_ancestor_of(self):
-		Interaction.on_interaction_area_entered(self)
+	if body is LabBody and not body.is_ancestor_of(self):
+		body.enter_interactable_area(self)
 
-func _on_body_exited(_body: Node2D) -> void:
-	Interaction.on_interaction_area_exited(self)
+func _on_body_exited(body: Node2D) -> void:
+	if body is LabBody:
+		body.exit_interactable_area(self)

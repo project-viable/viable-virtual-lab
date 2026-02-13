@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cug6kav5s55iq"]
+[gd_scene load_steps=30 format=3 uid="uid://cug6kav5s55iq"]
 
 [ext_resource type="Script" uid="uid://bptf21x2a24jj" path="res://scripts/imager_gel_band_logic.gd" id="1_7wmgd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_w2ofj"]
@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="6_u3h3s"]
 [ext_resource type="Script" uid="uid://b15sd4jw5afoa" path="res://scripts/camera_region_provider.gd" id="7_au8w4"]
 [ext_resource type="Texture2D" uid="uid://c3rfj3vqah8ph" path="res://textures/gel_bands/Gel_Well_Top_View_LADDER_MULTIPLE.svg" id="7_p0nad"]
-[ext_resource type="Texture2D" uid="uid://extc4t1tnvs1" path="res://textures/lab_objects/imager/tmp/door_closed.png" id="8_kr104"]
+[ext_resource type="Texture2D" uid="uid://dp227u41wvdjd" path="res://textures/lab_objects/imager/door_closed.svg" id="8_0k0au"]
 [ext_resource type="Texture2D" uid="uid://7mpyt0hujebl" path="res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg" id="8_us78d"]
 [ext_resource type="Texture2D" uid="uid://d4edj3swx618i" path="res://textures/lab_objects/imager/door_open.svg" id="9_0k0au"]
 [ext_resource type="Texture2D" uid="uid://bvt8quy2u6lr" path="res://textures/gel_bands/Gel_Well_Top_View_DIFFUSED.svg" id="9_ryau1"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://b5a5765epdkf" path="res://scripts/subscene_camera.gd" id="17_ylekj"]
 [ext_resource type="Script" uid="uid://musakg3k6s1l" path="res://scripts/selectable_component.gd" id="20_oxmjg"]
 [ext_resource type="Script" uid="uid://nf1enjfal72f" path="res://scripts/depth_managed_node_2d.gd" id="21_u3h3s"]
+[ext_resource type="Theme" uid="uid://be287f8q5fsmc" path="res://themes/imager_screen.tres" id="23_0k0au"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omd45"]
 size = Vector2(167, 109.5)
@@ -36,7 +37,7 @@ description = "Zoom in on imager screen"
 metadata/_custom_type_script = "uid://b810schxe1hne"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_deexq"]
-size = Vector2(133, 54)
+size = Vector2(165, 195)
 
 [node name="GelImager" type="Node2D"]
 script = ExtResource("1_7wmgd")
@@ -88,14 +89,14 @@ metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="DoorClosed" type="Sprite2D" parent="ImagerDoorGroup"]
 unique_name_in_owner = true
-position = Vector2(2.0000029, 23.499998)
-scale = Vector2(0.63, 0.555)
-texture = ExtResource("8_kr104")
+position = Vector2(0, 7.000001)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("8_0k0au")
 
 [node name="DoorOpen" type="Sprite2D" parent="ImagerDoorGroup"]
 unique_name_in_owner = true
-visible = false
-scale = Vector2(0.2, 0.2)
+position = Vector2(13, -13)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("9_0k0au")
 
 [node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("subscene_camera")]
@@ -107,7 +108,7 @@ metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 [node name="Area2D" type="Area2D" parent="ZoomSelectableArea"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/Area2D"]
-position = Vector2(-0.5, -71)
+position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_deexq")
 debug_color = Color(0.961975, 0.191001, 0.110021, 0.42)
 
@@ -207,47 +208,104 @@ texture = ExtResource("15_ryau1")
 top_level = true
 offset_left = 381.0
 offset_top = -275.0
-offset_right = 986.0
-offset_bottom = 368.0
+offset_right = 881.0
+offset_bottom = 145.0
+theme = ExtResource("23_0k0au")
 script = ExtResource("14_hcb6o")
 metadata/_custom_type_script = "uid://cs1o2bs2ponhi"
 
+[node name="ColorRect" type="ColorRect" parent="Subscene"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.92580456, 0.93647724, 0.9328323, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Subscene/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Subscene/ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Subscene/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Subscene/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Imager results"
+
+[node name="Spacer" type="Control" parent="Subscene/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="UVLabel" type="Label" parent="Subscene/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme_type_variation = &"OnLabel"
+text = "UV on"
+
+[node name="MarginContainer" type="MarginContainer" parent="Subscene/ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="Subscene/ColorRect/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
 [node name="GelRigTopView" type="Sprite2D" parent="Subscene"]
+visible = false
 modulate = Color(0.250213, 0.250213, 0.250213, 1)
 position = Vector2(301, 314)
 texture = ExtResource("6_p46ws")
 
-[node name="Well1" type="Node2D" parent="Subscene"]
+[node name="Wells" type="Node2D" parent="Subscene"]
+position = Vector2(64, 48)
+
+[node name="Well1" type="Node2D" parent="Subscene/Wells"]
 unique_name_in_owner = true
-position = Vector2(98.5848, 92.2047)
+position = Vector2(56.000008, 29)
 scale = Vector2(0.969638, 1.00427)
 
-[node name="Well2" type="Node2D" parent="Subscene"]
+[node name="Well2" type="Node2D" parent="Subscene/Wells"]
 unique_name_in_owner = true
-position = Vector2(163.185, 92.2047)
+position = Vector2(120.6002, 29)
 scale = Vector2(0.969638, 1.00427)
 
-[node name="Well3" type="Node2D" parent="Subscene"]
+[node name="Well3" type="Node2D" parent="Subscene/Wells"]
 unique_name_in_owner = true
-position = Vector2(225.633, 92.2047)
+position = Vector2(183.04819, 29)
 scale = Vector2(0.969638, 1.00427)
 
-[node name="Well4" type="Node2D" parent="Subscene"]
+[node name="Well4" type="Node2D" parent="Subscene/Wells"]
 unique_name_in_owner = true
-position = Vector2(288.08, 92.2047)
+position = Vector2(245.49515, 29)
 scale = Vector2(0.969638, 1.00427)
 
-[node name="Well5" type="Node2D" parent="Subscene"]
+[node name="Well5" type="Node2D" parent="Subscene/Wells"]
 unique_name_in_owner = true
-position = Vector2(350.527, 92.2047)
+position = Vector2(307.94217, 29)
 scale = Vector2(0.969638, 1.00427)
 
 [node name="SubsceneCamera" type="Camera2D" parent="Subscene"]
-position = Vector2(143, 160)
 anchor_mode = 0
 editor_draw_screen = false
 script = ExtResource("17_ylekj")
-region_size = Vector2(330, 300)
+region_size = Vector2(500, 420)
 metadata/_custom_type_script = "uid://b5a5765epdkf"
 
 [connection signal="pressed" from="DoorSelectable" to="." method="_on_door_selectable_pressed"]

@@ -7,5 +7,5 @@ While holding the pipette, hover over the pipette tip box and press #{prompt:int
 Bring the tip of the pipette near the top of a pipettable object to automatically zoom in and start pipetting. Pipettable objects include
 [ul]
 Microcentrifuge tubes
-Gel mold (use the pipette to transfer DNA samples to wells in the gel)
+Gel tray (use the pipette to transfer DNA samples to wells in the gel)
 [/ul]

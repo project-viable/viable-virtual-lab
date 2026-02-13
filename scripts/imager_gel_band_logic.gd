@@ -2,7 +2,7 @@ extends Imager
 
 
 # So the bands aren't so thick.
-const BAND_VERTICAL_SCALE := 0.1
+const BAND_SCALE := Vector2(0.5, 0.1)
 
 
 var band_texture: Texture2D = preload("res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg")
@@ -14,8 +14,8 @@ func _ready() -> void:
 	_update_door()
 
 func _draw() -> void:
-	if $DepthManagedNode2D/AttachmentInteractableArea.contained_object is GelMold:
-		var gel := $DepthManagedNode2D/AttachmentInteractableArea.contained_object as GelMold
+	if $DepthManagedNode2D/AttachmentInteractableArea.contained_object is GelTray:
+		var gel := $DepthManagedNode2D/AttachmentInteractableArea.contained_object as GelTray
 		if not gel or not _is_light_on: return
 		gel.set_gel_state()
 		for i:int in gel.num_wells():
@@ -33,10 +33,9 @@ func _draw() -> void:
 			for fragment: DNAFragment in dna.fragments.values():
 				# 130 / 0.45 is about the distance in local sprite coordinates to the end of the gel.
 				var pos: Vector2 = Vector2.DOWN * fragment.position * 130.0 / 0.45
-				var size := band_texture.get_size()
-				size.y *= BAND_VERTICAL_SCALE
-				# Center the band vertically.
-				pos.y -= size.y / 2
+				var size := band_texture.get_size() * BAND_SCALE
+				# Center the bands.
+				pos -= size / 2
 				band_texture.draw_rect(well_sprite.get_canvas_item(), Rect2(pos, size), false)
 	else:
 		$DepthManagedNode2D/AttachmentInteractableArea.remove_object()
@@ -66,12 +65,18 @@ func _update_door() -> void:
 		$DoorSelectable.interact_info.description = "Close door"
 		%DoorOpen.show()
 		%DoorClosed.hide()
+		_is_light_on = false
+		%UVLabel.theme_type_variation = "OffLabel"
+		%UVLabel.text = "UV Off (door open)"
 
 	else:
 		$DepthManagedNode2D/AttachmentInteractableArea.allow_new_objects = false
 		$DoorSelectable.interact_info.description = "Open door"
 		%DoorOpen.hide()
 		%DoorClosed.show()
+		_is_light_on = true
+		%UVLabel.theme_type_variation = "OnLabel"
+		%UVLabel.text = "UV On"
 
 func _on_door_selectable_pressed() -> void:
 	_is_door_open = not _is_door_open
@@ -80,7 +85,7 @@ func _on_door_selectable_pressed() -> void:
 func _on_uv_light_pressed() -> void:
 	_is_light_on = not _is_light_on
 
-func analyze_gel_state(gel: GelMold, well: ContainerComponent, i: int) -> void:
+func analyze_gel_state(gel: GelTray, well: ContainerComponent, i: int) -> void:
 	var dna: DNASolutionSubstance = well.find_substance_of_type(DNASolutionSubstance)
 	if not dna: return
 

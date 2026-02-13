@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://extc4t1tnvs1"
-path="res://.godot/imported/door_closed.png-c729cd7236b6a345edd3cb47ec7e7cb3.ctex"
+uid="uid://dhvw5k7gd5e4m"
+path="res://.godot/imported/gel_mold_thing.png-85e102a97e8219b4d84582af07e7513f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/lab_objects/imager/tmp/door_closed.png"
-dest_files=["res://.godot/imported/door_closed.png-c729cd7236b6a345edd3cb47ec7e7cb3.ctex"]
+source_file="res://textures/lab_objects/tmp/gel_mold_thing.png"
+dest_files=["res://.godot/imported/gel_mold_thing.png-85e102a97e8219b4d84582af07e7513f.ctex"]
 
 [params]
 

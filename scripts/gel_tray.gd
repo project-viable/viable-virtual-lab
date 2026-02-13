@@ -1,5 +1,9 @@
-class_name GelMold
+class_name GelTray
 extends LabBody
+
+
+## Rate non-gel TAE is spilled, in mL/s.
+const TAE_SPILL_RATE: float = 20
 
 
 ## Voltage, where positive is down the gel.
@@ -12,6 +16,9 @@ extends LabBody
 var comb_placed: bool = false
 var check_gel_concentration:bool = false
 var suspended_agarose_concentration: float
+var is_sealed: bool = false
+# Used to allow TAE to leak from the tray into the rig.
+var rig_container: ContainerComponent = null
 
 class GelConcentrationData:
 	var total_volume: float
@@ -44,6 +51,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super(delta)
+
+	if not is_sealed:
+		for s: Substance in $ContainerComponent.substances:
+			if s is TAEBufferSubstance and not s.is_solid_gel():
+				var taken := s.take_volume(TAE_SPILL_RATE * delta)
+				if rig_container:
+					rig_container.add(taken)
 
 	if voltage > 0:
 		gel_state.voltage = voltage
@@ -130,18 +144,11 @@ func _set_subscene_has_wells(new_has_wells: bool) -> void:
 ## Event sent by this gel repeatedly while it's running.
 class RunGelSubstanceEvent extends Substance.Event:
 	## The gel that's doing the running.
-	var gel: GelMold
+	var gel: GelTray
 	## Amount of time run, in seconds of lab time.
 	var duration: float
 
 
-	func _init(p_gel: GelMold, p_duration: float) -> void:
+	func _init(p_gel: GelTray, p_duration: float) -> void:
 		gel = p_gel
 		duration = p_duration
-
-func _on_attachment_point_placed(area: AttachmentInteractableArea) -> void:
-	# Prevent pouring buffer into the mold itself instead of filling up the rig.
-	$ContainerInteractableArea.enable_interaction = false
-
-func _on_attachment_point_removed(area: AttachmentInteractableArea) -> void:
-	$ContainerInteractableArea.enable_interaction = true

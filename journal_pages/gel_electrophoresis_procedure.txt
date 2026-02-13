@@ -15,13 +15,14 @@ Use the scoopula, weigh boat, and scale to measure 1 g of agarose powder.
 Use the graduated cylinder to measure 50 mL of TAE buffer, and add it to the same flask.
 Microwave the flask for 1 minute.
 Swirl the flask until the agarose is fully dissolved into the buffer.
-Pour the gel solution from the flask into the gel mold, and place the gel comb into the gel mold.
+Place the gel tray into the gel mold thing to seal it.
+Pour the gel solution from the flask into the gel tray, and place the gel comb into the gel tray.
 Wait 20 minutes for the gel to cool. Once the gel is solid, remove the comb. If the comb is removed before the gel is fully cool, then the wells will collapse.
 [/ol]
 
 #{h2:To run the gel}#
 [ol]
-Put the gel mold with the gel into the rig.
+Put the gel tray with the gel into the rig.
 Pour TAE buffer into the gel rig until it fully covers the gel. This is needed to allow an electric current to run through the gel.
 Place a tip onto the pipette using the tip box.
 Use the pipette to move a DNA sample from one of the microcentrifuge tubes into a well in the gel. Note that this [i]must[/i] be done after covering the gel in TAE buffer (see step 2), since adding the buffer after will cause the samples to be removed from the wells.
@@ -34,6 +35,6 @@ Press the start button on the power supply and wait 20 minutes for it to run.
 
 #{h2:To image the gel}#
 [ol]
-Once the gel running has finished, remove the gel mold with the gel from the electrolysis setup and place it into the gel imager.
+Once the gel running has finished, remove the gel tray with the gel from the electrolysis setup and place it into the gel imager.
 Press the button on the front of the imager to enable UV so that you can see the bands.
 [/ol]

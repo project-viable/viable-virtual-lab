@@ -24,19 +24,20 @@ func get_UV_state() -> bool: return UV_state
 ## (virutal) called when the UV_state = [code]false[/code] and sets the visibility of the blank gel sprite to [code]true[/code].
 func display_blank_gel_bands() -> void: pass
 
-## (virtual) should be called by the on_gel_inserted function to display, or rather, set the visibility
-## of a sprite to [code]true[/code] showing the gel bands corresponding with the specific gel state presented. This
-## function accepts a dictionary of the gel's state and using these factors, a different sprite image
-## will be shown.  For example, if the regardless of the gel's state, if the UV_state is
-## [code]false[/code], then, the gel image sprite should show a blank image. The same result can occur if the
-## electrodes were placed backwards before running electricity through the gel. Each well within the gel mold has it's
-## GelBandState key read and the appropriate sprites are made visible.
+## (virtual) should be called by the on_gel_inserted function to display, or rather, set the
+## visibility of a sprite to [code]true[/code] showing the gel bands corresponding with the specific
+## gel state presented. This function accepts a dictionary of the gel's state and using these
+## factors, a different sprite image will be shown.  For example, if the regardless of the gel's
+## state, if the UV_state is [code]false[/code], then, the gel image sprite should show a blank
+## image. The same result can occur if the electrodes were placed backwards before running
+## electricity through the gel. Each well within the gel tray has its GelBandState key read and the
+## appropriate sprites are made visible.
 func display_gel_bands() -> void: pass
 
 ## (virtual) called by the display_gel_bands method to analyze the gel state data members before adding what the gell band state
 ## should be within the each well's dicitonary key GelBandState. This is  determined via a switch case statment, matching appropriate sprite with
 ## a specific set of gel states.
-func analyze_gel_state(_gel: GelMold, _well: ContainerComponent, _i: int) -> void: pass
+func analyze_gel_state(_gel: GelTray, _well: ContainerComponent, _i: int) -> void: pass
 
 ## (virtual) called when gel is placed in the imager. If the UV light was not turned on before imaging,
 ## the display_blank_gel_bands function is called. Otherwise, the display_gel_bands is called.

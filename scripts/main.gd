@@ -384,8 +384,16 @@ func focus_camera_and_show_subscene(rect: Rect2, camera: SubsceneCamera, time: f
 ## (the end of the index finger). This is used to determine the position of
 ## [member Cursor.virtual_mouse_position] when it's not in pointer mode.
 func get_virtual_cursor_palm_world_offset() -> Vector2:
-	var ui_to_main: Transform2D = %MainViewport.canvas_transform.affine_inverse() * $UILayer.get_final_transform()
+	var ui_to_main := get_ui_to_world_transform()
 	return ui_to_main * %VirtualCursor/PalmRef.global_position - ui_to_main * %VirtualCursor.global_position
+
+## Get the transform from simulation world space to UI space.
+func get_world_to_ui_transform() -> Transform2D:
+	return $UILayer.get_final_transform().affine_inverse() * $%MainViewport.canvas_transform
+
+## Get the transform from UI space to simulation world space
+func get_ui_to_world_transform() -> Transform2D:
+	return %MainViewport.canvas_transform.affine_inverse() * $UILayer.get_final_transform()
 
 func _on_exit_module_button_pressed() -> void:
 	_switch_to_main_menu()
@@ -474,7 +482,7 @@ func _update_left_right_hint() -> void:
 func _update_virtual_mouse() -> void:
 	# The coordinate system for the main viewport and the cursor canvas layer are different, so
 	# we have to convert.
-	var main_to_cursor_canvas: Transform2D = $UILayer.get_final_transform().affine_inverse() * $%MainViewport.canvas_transform
+	var main_to_cursor_canvas: Transform2D = get_world_to_ui_transform()
 	var cursor_canvas_mouse_pos := main_to_cursor_canvas * Cursor.virtual_mouse_base_position
 
 	for c in $%VirtualCursor.get_children():
