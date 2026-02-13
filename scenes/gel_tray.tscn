@@ -27,14 +27,14 @@ size = Vector2(74, 25.75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5rd3r"]
 size = Vector2(74, 26)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mobf"]
+size = Vector2(74, 26)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0cqv1"]
 size = Vector2(74, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u177l"]
 size = Vector2(59, 2)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mobf"]
-size = Vector2(74, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5cofj"]
 size = Vector2(89, 34)
@@ -69,13 +69,26 @@ position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_5rd3r")
 debug_color = Color(0.970892, 0, 0.451665, 0.42)
 
+[node name="AttachmentInteractableArea" type="Area2D" parent="."]
+position = Vector2(0, -9)
+script = ExtResource("10_xir2l")
+place_prompt = "Insert comb"
+point_groups = Array[StringName]([&"attachment:gel_comb"])
+metadata/_custom_type_script = "uid://ul3h2acp7c3y"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
+shape = SubResource("RectangleShape2D_2mobf")
+debug_color = Color(0.5893958, 0.54847246, 0, 0.41960785)
+
 [node name="SubstanceDisplayPolygon" type="Polygon2D" parent="." node_paths=PackedStringArray("source")]
+z_index = 1
 polygon = PackedVector2Array(-31, -19, 31, -19, 31, -2, -31, -2)
 script = ExtResource("7_mu26n")
 source = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+z_index = 1
 script = ExtResource("1_ar43o")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
@@ -104,17 +117,6 @@ debug_color = Color(0.553104, 0.562669, 3.85046e-07, 0.42)
 script = ExtResource("5_pmlyu")
 container_volume = 100.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
-
-[node name="AttachmentInteractableArea" type="Area2D" parent="."]
-position = Vector2(0, -9)
-script = ExtResource("10_xir2l")
-place_prompt = "Insert comb"
-point_groups = Array[StringName]([&"attachment:gel_comb"])
-metadata/_custom_type_script = "uid://ul3h2acp7c3y"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
-shape = SubResource("RectangleShape2D_2mobf")
-debug_color = Color(0.5893958, 0.54847246, 0, 0.41960785)
 
 [node name="GelTopRef" type="Node2D" parent="."]
 editor_description = "If the gel is above this point, it is considered an acceptable gel."
