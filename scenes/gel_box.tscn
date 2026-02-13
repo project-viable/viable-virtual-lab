@@ -39,13 +39,13 @@ metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 position = Vector2(0, -5)
 
 [node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour"]]
-position = Vector2(0, -24)
+position = Vector2(40, -24)
 script = ExtResource("2_gl61q")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea"]
-position = Vector2(0, 27.5)
+position = Vector2(-40, 27.5)
 shape = SubResource("RectangleShape2D_qsq1u")
 
 [node name="ContainerComponent" type="Node2D" parent="."]
