@@ -4,9 +4,11 @@ extends Substance
 ## This is the same as agarose.
 
 
-const COOL_BASE_COLOR: Color = Color(0.0, 0.645, 0.86, 0.471)
-const HOT_BASE_COLOR: Color = Color(0.989, 0.289, 0.506, 0.471)
-const SATURATED_COLOR: Color = Color(0.94, 0.928, 0.921, 0.871)
+const SOLID_COLOR: Color = Color(1.0, 1.0, 1.0, 0.91)
+const LIQUID_COLOR: Color = Color(1.0, 1.0, 1.0, 0.733)
+const AGAROSE_COLOR: Color = Color(1.0, 1.0, 1.0, 1.0)
+const COOL_BASE_COLOR: Color = Color(0.318, 0.725, 0.86, 1.0)
+const HOT_BASE_COLOR: Color = Color(0.99, 0.416, 0.54, 1.0)
 
 const ROOM_TEMP: float = 20.0
 # Time it takes to get a gram of agarose to suspended (but not mixed) into the buffer. This must be
@@ -48,9 +50,12 @@ func get_density() -> float: return 1.08
 func get_volume() -> float: return volume
 func get_color() -> Color:
 	var temp_t: float = clamp((temperature - ROOM_TEMP) / (100.0 - ROOM_TEMP), 0.0, 1.0)
-	var base_color: Color = lerp(COOL_BASE_COLOR, HOT_BASE_COLOR, temp_t)
-	var agar_t: float = clamp(suspended_agarose_concentration / CLOUDY_SUSPENSION_CONCENTRATION , 0.0, 0.85)
-	return lerp(base_color, SATURATED_COLOR, agar_t)
+	var temp_color: Color = lerp(COOL_BASE_COLOR, HOT_BASE_COLOR, temp_t)
+	var agar_color := AGAROSE_COLOR
+	agar_color.a = clamp(suspended_agarose_concentration / CLOUDY_SUSPENSION_CONCENTRATION , 0.0, 0.85)
+	var base_color: Color = lerp(LIQUID_COLOR, SOLID_COLOR, get_viscosity())
+
+	return (base_color * temp_color).blend(agar_color)
 
 func get_viscosity() -> float:
 	return clamp(agarose_concentration / 0.015, 0.0, 1.0) \
@@ -64,7 +69,12 @@ func take_volume(v: float) -> TAEBufferSubstance:
 	return result
 
 func try_incorporate(s: Substance) -> bool:
+	if is_solid_gel():
+		return false
+
 	if s is TAEBufferSubstance:
+		if s.is_solid_gel(): return false
+
 		# TODO: Handle temperature and avoid divide by zero.
 		agarose_concentration = \
 			(agarose_concentration * volume + s.agarose_concentration * s.volume) \
@@ -77,6 +87,7 @@ func try_incorporate(s: Substance) -> bool:
 	return false
 
 func process(container: ContainerComponent, delta: float) -> void:
+	if is_solid_gel(): return
 	temperature = max(temperature - COOL_RATE * delta, ROOM_TEMP)
 	if volume <= 0: return
 	for s in container.substances:
