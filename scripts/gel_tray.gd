@@ -13,6 +13,20 @@ const TAE_SPILL_RATE: float = 20
 @export var correct_wire_placement: bool
 @export var gel_analysis_time: float
 
+@export_group("Initial Run")
+## Automatically run the gel when this node is ready. This can be used for debugging.
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var enable_initial_run: bool = false
+@export var initial_run_default_voltage: float = 120.0
+## Specify different voltages for each well in the initial run.
+@export var initial_run_well_voltages: Array[float] = []
+@export var initial_run_default_concentration: float = 1 / 100.0
+## Agarose concentrations for each well in the initial run.
+@export var initial_run_well_concentrations: Array[float] = []
+@export var initial_run_default_time: float = 20 * 60
+## Run times for each well in the initial run.
+@export var initial_run_well_times: Array[float] = []
+
+
 var comb_placed: bool = false
 var check_gel_concentration:bool = false
 var suspended_agarose_concentration: float
@@ -47,7 +61,18 @@ func get_gel_concentration() -> float:
 
 func _ready() -> void:
 	super()
-	_set_subscene_has_wells(has_wells)
+	_set_subscene_has_wells(has_wells or enable_initial_run)
+
+	var initial_voltage: float = voltage
+
+	if enable_initial_run:
+		for i in 5:
+			voltage = _get_or_default(initial_run_well_voltages, i, initial_run_default_voltage)
+			# Cheaty way to make this work for now.
+			var time := _get_or_default(initial_run_well_times, i, initial_run_default_time)
+			get_well(i + 1).send_event(RunGelSubstanceEvent.new(self, time))
+
+	voltage = initial_voltage
 
 func _physics_process(delta: float) -> void:
 	super(delta)
@@ -139,6 +164,10 @@ func _set_subscene_has_wells(new_has_wells: bool) -> void:
 	if not has_wells:
 		for i in num_wells():
 			get_well(i + 1).substances.clear()
+
+func _get_or_default(arr: Array[float], index: int, default: float) -> float:
+	if index < arr.size(): return arr[index]
+	else: return default
 
 
 ## Event sent by this gel repeatedly while it's running.
