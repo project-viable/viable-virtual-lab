@@ -67,10 +67,10 @@ func _ready() -> void:
 
 	if enable_initial_run:
 		for i in 5:
-			voltage = _get_or_default(initial_run_well_voltages, i, initial_run_default_voltage)
-			# Cheaty way to make this work for now.
-			var time := _get_or_default(initial_run_well_times, i, initial_run_default_time)
-			get_well(i + 1).send_event(RunGelSubstanceEvent.new(self, time))
+			var v := _get_or_default(initial_run_well_voltages, i, initial_run_default_voltage)
+			var c := _get_or_default(initial_run_well_concentrations, i, initial_run_default_concentration)
+			var t := _get_or_default(initial_run_well_times, i, initial_run_default_time)
+			get_well(i + 1).send_event(RunGelSubstanceEvent.new(v, c, t))
 
 	voltage = initial_voltage
 
@@ -94,7 +94,8 @@ func _physics_process(delta: float) -> void:
 		Game.report_log.update_event(voltage_time_data, "voltage_run_time")
 
 		for i in 5:
-			get_well(i + 1).send_event(RunGelSubstanceEvent.new(self, delta * LabTime.time_scale))
+			## Use 1% concentration by default for now.
+			get_well(i + 1).send_event(RunGelSubstanceEvent.new(voltage, 1 / 100.0, delta * LabTime.time_scale))
 
 func _process(_delta: float) -> void:
 	Game.debug_overlay.update("gel voltage", str(voltage))
@@ -172,12 +173,15 @@ func _get_or_default(arr: Array[float], index: int, default: float) -> float:
 
 ## Event sent by this gel repeatedly while it's running.
 class RunGelSubstanceEvent extends Substance.Event:
-	## The gel that's doing the running.
-	var gel: GelTray
+	## Voltage of the current.
+	var voltage: float
+	## Concentration of the gel (in g/mL).
+	var gel_concentration: float
 	## Amount of time run, in seconds of lab time.
 	var duration: float
 
 
-	func _init(p_gel: GelTray, p_duration: float) -> void:
-		gel = p_gel
+	func _init(p_voltage: float, p_gel_concentration: float, p_duration: float) -> void:
+		voltage = p_voltage
+		gel_concentration = p_gel_concentration
 		duration = p_duration
