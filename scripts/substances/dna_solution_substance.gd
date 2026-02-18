@@ -12,9 +12,9 @@ const HIGH_PERCENT: float = 0.03
 # and high concentration gels. I got these numbers by measuring the lengths on a random picture from
 # the internet. We don't need the 2% high fragment size one, because these three are enough to
 # solve.
-const DIST_1PERC_SMALL: float = 10.0 / 11.0
-const DIST_1PERC_BIG: float = 4.0 / 11.0
-const DIST_2PERC_SMALL: float = 0.45 #6.5 / 11.0
+const DIST_1PERC_SMALL: float = 0.9
+const DIST_1PERC_BIG: float = 0.4
+const DIST_2PERC_SMALL: float = 0.5
 
 # Solutions to system of equations ensuring the above distances will work. I did these on paper,
 # so I don't feel like trying to explain these calculations in detail. At 1%, the agarose
@@ -25,8 +25,8 @@ const DIST_2PERC_SMALL: float = 0.45 #6.5 / 11.0
 const FRAG_SIZE_RATE: float = (1 / DIST_1PERC_BIG - 1 / DIST_1PERC_SMALL) / log(BIG_FRAG_SIZE / SMALL_FRAG_SIZE)
 const FRAG_SIZE_BASE: float = 1 / DIST_1PERC_SMALL - log(SMALL_FRAG_SIZE) * FRAG_SIZE_RATE
 # Rate that time taken scales with the agarose concentration.
-const CONCENTRATION_RATE: float = (DIST_2PERC_SMALL * (FRAG_SIZE_BASE + FRAG_SIZE_RATE * log(SMALL_FRAG_SIZE)) - 1.0) / (1.0 / HIGH_PERCENT - 1.0 / LOW_PERCENT)
-const CONCENTRATION_BASE: float = 1.0 - CONCENTRATION_RATE / LOW_PERCENT
+const CONCENTRATION_RATE: float = (DIST_2PERC_SMALL * (FRAG_SIZE_BASE + FRAG_SIZE_RATE * log(SMALL_FRAG_SIZE)) - 1.0) / (HIGH_PERCENT - LOW_PERCENT)
+const CONCENTRATION_BASE: float = 1.0 - CONCENTRATION_RATE * LOW_PERCENT
 
 
 # Time and voltage of a "normal" gel. We scale based on these.
@@ -86,7 +86,9 @@ func take_volume(v: float) -> DNASolutionSubstance:
 
 func handle_event(e: Event) -> void:
 	if e is GelTray.RunGelSubstanceEvent:
-		var gel_factor: float = CONCENTRATION_BASE + CONCENTRATION_RATE / e.gel_concentration
+		var gel_factor: float = CONCENTRATION_BASE + CONCENTRATION_RATE * e.gel_concentration
+		# Thick gel can never make bands go backwards.
+		gel_factor = max(gel_factor, 0)
 		# Scale directly with voltage.
 		var voltage_factor: float = e.voltage / VOLTAGE
 		# TODO: This should change based on the gel concentration.
