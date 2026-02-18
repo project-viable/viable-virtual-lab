@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b5ff3gy87ykja"]
+[gd_scene format=3 uid="uid://b5ff3gy87ykja"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_6iauc"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="2_6iauc"]
@@ -16,50 +16,50 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wadb5"]
 size = Vector2(56.25, 55.25)
 
-[node name="Flask" type="RigidBody2D" groups=["emptyable"]]
+[node name="Flask" type="RigidBody2D" unique_id=1626799622 groups=["emptyable"]]
 collision_layer = 0
 script = ExtResource("1_6iauc")
 hover_name = "flask"
 help_page_path = "containers.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
-[node name="LabBodyGrabPoint" type="Node2D" parent="."]
+[node name="LabBodyGrabPoint" type="Node2D" parent="." unique_id=172141948]
 position = Vector2(0, -27)
 script = ExtResource("2_wadb5")
 
-[node name="ContainerComponent" type="Node2D" parent="."]
+[node name="ContainerComponent" type="Node2D" parent="." unique_id=1909757746]
 script = ExtResource("2_6iauc")
 container_volume = 350.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=756269364]
 scale = Vector2(0.2, 0.2)
 polygon = PackedVector2Array(-53, -80, -139, 195, -139, 216, -115, 240, 115, 240, 135, 221, 142, 205, 54, -77, 52, -224, 66, -226, 62, -239, -64, -240, -65, -228, -53, -224)
 
-[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="." unique_id=1870121099]
 script = ExtResource("2_rr7fa")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="SelectableCanvasGroup" node_paths=PackedStringArray("source")]
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="SelectableCanvasGroup" unique_id=315708360 node_paths=PackedStringArray("source")]
 polygon = PackedVector2Array(-25.767942, 41.232254, -21.803572, 46.187668, 21.803572, 46.187668, 25.767942, 41.232254, 8.919676, -14.267899, 8.919676, -46.973465, -8.919676, -46.973465, -8.919676, -15.258963)
 script = ExtResource("3_lx5v4")
 source = NodePath("../../ContainerComponent")
 
-[node name="ErlenmeyerflaskContainer" type="Sprite2D" parent="SelectableCanvasGroup"]
+[node name="ErlenmeyerflaskContainer" type="Sprite2D" parent="SelectableCanvasGroup" unique_id=1516659341]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5_6iauc")
 
-[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour"]]
+[node name="ContainerInteractableArea" type="Area2D" parent="." unique_id=248170928 node_paths=PackedStringArray("container_component") groups=["container:pour"]]
 position = Vector2(0, -48)
 script = ExtResource("8_e38bm")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea" unique_id=427192144]
 position = Vector2(0.125, 9.375)
 shape = SubResource("RectangleShape2D_wadb5")
 
-[node name="SwirlUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("container", "node_to_rotate", "region_provider")]
+[node name="SwirlUseComponent" type="Node2D" parent="." unique_id=1566032770 node_paths=PackedStringArray("container", "node_to_rotate", "region_provider")]
 script = ExtResource("8_dyohf")
 container = NodePath("../ContainerComponent")
 node_to_rotate = NodePath("../SelectableCanvasGroup")
@@ -67,22 +67,22 @@ rotation_center_offset = Vector2(0, -10)
 region_provider = NodePath("../CombinedRegionProvider")
 metadata/_custom_type_script = "uid://c5xu35ldxvqog"
 
-[node name="PourUseComponent" type="Node2D" parent="." node_paths=PackedStringArray("spill_component")]
+[node name="PourUseComponent" type="Node2D" parent="." unique_id=387131344 node_paths=PackedStringArray("spill_component")]
 script = ExtResource("6_6iauc")
 spill_component = NodePath("../SpillComponent")
 metadata/_custom_type_script = "uid://bnw0l25uwaqo6"
 
-[node name="SpillComponent" type="Node2D" parent="." node_paths=PackedStringArray("substance_display_polygon")]
+[node name="SpillComponent" type="Node2D" parent="." unique_id=826786180 node_paths=PackedStringArray("substance_display_polygon")]
 position = Vector2(-8, -47)
 script = ExtResource("10_rqua0")
 substance_display_polygon = NodePath("../SelectableCanvasGroup/SubstanceDisplayPolygon")
 
-[node name="CombinedRegionProvider" type="Node2D" parent="."]
+[node name="CombinedRegionProvider" type="Node2D" parent="." unique_id=1090999989]
 script = ExtResource("12_tvmew")
 top_padding = 20.0
 bottom_padding = 20.0
 metadata/_custom_type_script = "uid://uor6fay5jtyy"
 
-[node name="ObjectRegionProvider" type="Node2D" parent="CombinedRegionProvider" node_paths=PackedStringArray("objects")]
+[node name="ObjectRegionProvider" type="Node2D" parent="CombinedRegionProvider" unique_id=951078986 node_paths=PackedStringArray("objects")]
 script = ExtResource("13_7rgkh")
 objects = [NodePath("../..")]

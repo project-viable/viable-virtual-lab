@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://codj1o2nmt7iq"]
+[gd_scene format=3 uid="uid://codj1o2nmt7iq"]
 
 [ext_resource type="Texture2D" uid="uid://dhvw5k7gd5e4m" path="res://textures/lab_objects/tmp/gel_mold_thing.png" id="1_o0d0s"]
 [ext_resource type="Script" uid="uid://dmdc4v2qj6ch8" path="res://scripts/gel_mold_thing.gd" id="1_oo5xd"]
@@ -7,21 +7,21 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oo5xd"]
 size = Vector2(116, 52)
 
-[node name="GelMoldThing" type="Node2D"]
+[node name="GelMoldThing" type="Node2D" unique_id=601266015]
 script = ExtResource("1_oo5xd")
 
-[node name="GelMoldThing" type="Sprite2D" parent="."]
+[node name="GelMoldThing" type="Sprite2D" parent="." unique_id=311655269]
 z_index = 1
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_o0d0s")
 
-[node name="AttachmentInteractableArea" type="Area2D" parent="."]
+[node name="AttachmentInteractableArea" type="Area2D" parent="." unique_id=654744687]
 script = ExtResource("2_fa800")
 place_prompt = "Place tray"
 point_groups = Array[StringName]([&"attachment:gel_tray"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea" unique_id=929348707]
 position = Vector2(-1, -4)
 shape = SubResource("RectangleShape2D_oo5xd")
 

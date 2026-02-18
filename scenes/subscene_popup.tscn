@@ -1,22 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://ghabj1opdhxl"]
+[gd_scene format=3 uid="uid://ghabj1opdhxl"]
 
 [ext_resource type="Script" uid="uid://2u6dicxchesm" path="res://scripts/subscene_popup.gd" id="1_veijv"]
 
-[node name="SubscenePopup" type="Node2D"]
+[node name="SubscenePopup" type="Node2D" unique_id=729108878]
 script = ExtResource("1_veijv")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1113161667]
 editor_description = "Canvas layer 2 is dedicated to subscenes."
 layer = 2
 follow_viewport_enabled = true
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer" unique_id=237844332]
 unique_name_in_owner = true
 offset_right = 40.0
 offset_bottom = 40.0
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer" unique_id=1668440050]
 unique_name_in_owner = true
 handle_input_locally = false
 size = Vector2i(40, 40)

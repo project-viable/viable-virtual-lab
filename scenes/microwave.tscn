@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cs2tep7cd3vxf"]
+[gd_scene format=3 uid="uid://cs2tep7cd3vxf"]
 
 [ext_resource type="Script" uid="uid://b10fibv688ggy" path="res://scripts/microwave.gd" id="1_caubw"]
 [ext_resource type="Texture2D" uid="uid://by1qv0us7rnwc" path="res://textures/lab_objects/microwave/base.svg" id="2_akh7v"]
@@ -72,38 +72,38 @@ _data = {
 &"error_flash": SubResource("Animation_su0ss")
 }
 
-[node name="Microwave" type="Node2D"]
+[node name="Microwave" type="Node2D" unique_id=1313766113]
 script = ExtResource("1_caubw")
 
-[node name="MicrowaveBase" type="Sprite2D" parent="."]
+[node name="MicrowaveBase" type="Sprite2D" parent="." unique_id=620426010]
 z_index = 10
 z_as_relative = false
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_akh7v")
 
-[node name="DoorSelectable" type="Node2D" parent="." node_paths=PackedStringArray("interact_canvas_group")]
+[node name="DoorSelectable" type="Node2D" parent="." unique_id=1114048382 node_paths=PackedStringArray("interact_canvas_group")]
 script = ExtResource("3_arejl")
 interact_canvas_group = NodePath("../DoorGroup")
 metadata/_custom_type_script = "uid://musakg3k6s1l"
 
-[node name="DoorGroup" type="CanvasGroup" parent="."]
+[node name="DoorGroup" type="CanvasGroup" parent="." unique_id=782188665]
 z_index = 2000
 z_as_relative = false
 script = ExtResource("2_cwbd0")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="DoorClosed" type="Sprite2D" parent="DoorGroup"]
+[node name="DoorClosed" type="Sprite2D" parent="DoorGroup" unique_id=710143411]
 unique_name_in_owner = true
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_arejl")
 
-[node name="DoorOpen" type="Sprite2D" parent="DoorGroup"]
+[node name="DoorOpen" type="Sprite2D" parent="DoorGroup" unique_id=1850859733]
 unique_name_in_owner = true
 visible = false
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("5_grr38")
 
-[node name="Display" type="Control" parent="."]
+[node name="Display" type="Control" parent="." unique_id=281557093]
 modulate = Color(0, 0, 0, 1)
 self_modulate = Color(1, 1, 1, 0)
 z_index = 10
@@ -117,7 +117,7 @@ mouse_filter = 2
 script = ExtResource("7_svbq6")
 metadata/_custom_type_script = "uid://c2pro11bcd0sw"
 
-[node name="D0" parent="Display" instance=ExtResource("7_iwsb8")]
+[node name="D0" parent="Display" unique_id=212456 instance=ExtResource("7_iwsb8")]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 3.9999998
@@ -127,7 +127,7 @@ scale = Vector2(0.7, 0.7)
 segment_bits = 0
 character = " "
 
-[node name="D1" parent="Display" instance=ExtResource("7_iwsb8")]
+[node name="D1" parent="Display" unique_id=704217926 instance=ExtResource("7_iwsb8")]
 layout_mode = 0
 offset_left = 11.999999
 offset_top = 3.9999998
@@ -137,7 +137,7 @@ scale = Vector2(0.7, 0.7)
 segment_bits = 0
 character = " "
 
-[node name="D2" parent="Display" instance=ExtResource("7_iwsb8")]
+[node name="D2" parent="Display" unique_id=1799873033 instance=ExtResource("7_iwsb8")]
 layout_mode = 0
 offset_left = 22.999998
 offset_top = 3.9999998
@@ -147,7 +147,7 @@ scale = Vector2(0.7, 0.7)
 segment_bits = 0
 character = " "
 
-[node name="D3" parent="Display" instance=ExtResource("7_iwsb8")]
+[node name="D3" parent="Display" unique_id=1535604689 instance=ExtResource("7_iwsb8")]
 layout_mode = 0
 offset_left = 30.999996
 offset_top = 3.9999998
@@ -157,21 +157,21 @@ scale = Vector2(0.7, 0.7)
 segment_bits = 0
 character = " "
 
-[node name="Colon" type="Node2D" parent="Display"]
+[node name="Colon" type="Node2D" parent="Display" unique_id=279952302]
 
-[node name="ColorRect" type="ColorRect" parent="Display/Colon"]
+[node name="ColorRect" type="ColorRect" parent="Display/Colon" unique_id=635053161]
 offset_left = 20.0
 offset_top = 8.0
 offset_right = 22.0
 offset_bottom = 10.0
 
-[node name="ColorRect2" type="ColorRect" parent="Display/Colon"]
+[node name="ColorRect2" type="ColorRect" parent="Display/Colon" unique_id=999316736]
 offset_left = 20.0
 offset_top = 13.0
 offset_right = 22.0
 offset_bottom = 15.0
 
-[node name="Keypad" type="GridContainer" parent="."]
+[node name="Keypad" type="GridContainer" parent="." unique_id=1417958373]
 z_index = 10
 z_as_relative = false
 offset_left = 71.0
@@ -183,12 +183,12 @@ theme_override_constants/v_separation = 15
 columns = 3
 script = ExtResource("8_upun8")
 
-[node name="Button1" type="TextureButton" parent="Keypad"]
+[node name="Button1" type="TextureButton" parent="Keypad" unique_id=1508634046]
 self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
-[node name="Label" type="Label" parent="Keypad/Button1"]
+[node name="Label" type="Label" parent="Keypad/Button1" unique_id=827132577]
 layout_mode = 0
 offset_left = 157.0
 offset_top = 192.0
@@ -199,12 +199,12 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "1"
 horizontal_alignment = 1
 
-[node name="Button2" type="TextureButton" parent="Keypad"]
+[node name="Button2" type="TextureButton" parent="Keypad" unique_id=1312162139]
 self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
-[node name="Label" type="Label" parent="Keypad/Button2"]
+[node name="Label" type="Label" parent="Keypad/Button2" unique_id=957330123]
 layout_mode = 0
 offset_left = 173.0
 offset_top = 192.0
@@ -215,12 +215,12 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "2"
 horizontal_alignment = 1
 
-[node name="Button3" type="TextureButton" parent="Keypad"]
+[node name="Button3" type="TextureButton" parent="Keypad" unique_id=238626293]
 self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
-[node name="Label" type="Label" parent="Keypad/Button3"]
+[node name="Label" type="Label" parent="Keypad/Button3" unique_id=1398196442]
 layout_mode = 0
 offset_left = 190.0
 offset_top = 192.0
@@ -231,12 +231,12 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "3"
 horizontal_alignment = 1
 
-[node name="Button4" type="TextureButton" parent="Keypad"]
+[node name="Button4" type="TextureButton" parent="Keypad" unique_id=515522897]
 self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
-[node name="Label" type="Label" parent="Keypad/Button4"]
+[node name="Label" type="Label" parent="Keypad/Button4" unique_id=54638626]
 layout_mode = 0
 offset_left = 157.0
 offset_top = 192.0
@@ -247,12 +247,12 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "4"
 horizontal_alignment = 1
 
-[node name="Button5" type="TextureButton" parent="Keypad"]
+[node name="Button5" type="TextureButton" parent="Keypad" unique_id=1763069157]
 self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
-[node name="Label" type="Label" parent="Keypad/Button5"]
+[node name="Label" type="Label" parent="Keypad/Button5" unique_id=601170594]
 layout_mode = 0
 offset_left = 173.0
 offset_top = 192.0
@@ -263,12 +263,12 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "5"
 horizontal_alignment = 1
 
-[node name="Button6" type="TextureButton" parent="Keypad"]
+[node name="Button6" type="TextureButton" parent="Keypad" unique_id=588977349]
 self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
-[node name="Label" type="Label" parent="Keypad/Button6"]
+[node name="Label" type="Label" parent="Keypad/Button6" unique_id=886435564]
 layout_mode = 0
 offset_left = 190.0
 offset_top = 192.0
@@ -279,12 +279,12 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "6"
 horizontal_alignment = 1
 
-[node name="Button7" type="TextureButton" parent="Keypad"]
+[node name="Button7" type="TextureButton" parent="Keypad" unique_id=1343348225]
 self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
-[node name="Label" type="Label" parent="Keypad/Button7"]
+[node name="Label" type="Label" parent="Keypad/Button7" unique_id=616292764]
 layout_mode = 0
 offset_left = 157.0
 offset_top = 192.0
@@ -295,12 +295,12 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "7"
 horizontal_alignment = 1
 
-[node name="Button8" type="TextureButton" parent="Keypad"]
+[node name="Button8" type="TextureButton" parent="Keypad" unique_id=326830822]
 self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
-[node name="Label" type="Label" parent="Keypad/Button8"]
+[node name="Label" type="Label" parent="Keypad/Button8" unique_id=1194986569]
 layout_mode = 0
 offset_left = 173.0
 offset_top = 192.0
@@ -311,12 +311,12 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "8"
 horizontal_alignment = 1
 
-[node name="Button9" type="TextureButton" parent="Keypad"]
+[node name="Button9" type="TextureButton" parent="Keypad" unique_id=397976660]
 self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
-[node name="Label" type="Label" parent="Keypad/Button9"]
+[node name="Label" type="Label" parent="Keypad/Button9" unique_id=1034222075]
 layout_mode = 0
 offset_left = 190.0
 offset_top = 192.0
@@ -327,14 +327,14 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "9"
 horizontal_alignment = 1
 
-[node name="CancelButton" type="TextureButton" parent="Keypad"]
+[node name="CancelButton" type="TextureButton" parent="Keypad" unique_id=146387664]
 self_modulate = Color(1, 0.203922, 0.203922, 1)
 z_index = 10
 z_as_relative = false
 layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
-[node name="Label" type="Label" parent="Keypad/CancelButton"]
+[node name="Label" type="Label" parent="Keypad/CancelButton" unique_id=1092047461]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 256.0
@@ -345,13 +345,13 @@ theme_override_font_sizes/font_size = 14
 text = "Cancel"
 horizontal_alignment = 1
 
-[node name="Button0" type="TextureButton" parent="Keypad"]
+[node name="Button0" type="TextureButton" parent="Keypad" unique_id=52633998]
 self_modulate = Color(0.176471, 0.223529, 0.258824, 1)
 custom_minimum_size = Vector2(43, 0)
 layout_mode = 2
 texture_normal = ExtResource("5_caubw")
 
-[node name="Label" type="Label" parent="Keypad/Button0"]
+[node name="Label" type="Label" parent="Keypad/Button0" unique_id=1109648296]
 layout_mode = 0
 offset_left = 173.0
 offset_top = 192.0
@@ -362,7 +362,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "0"
 horizontal_alignment = 1
 
-[node name="StartButton" type="TextureButton" parent="Keypad"]
+[node name="StartButton" type="TextureButton" parent="Keypad" unique_id=1879194824]
 self_modulate = Color(0.2, 0.776471, 0.0313726, 1)
 custom_minimum_size = Vector2(43, 0)
 layout_mode = 2
@@ -370,7 +370,7 @@ size_flags_horizontal = 10
 size_flags_vertical = 3
 texture_normal = ExtResource("5_caubw")
 
-[node name="Label" type="Label" parent="Keypad/StartButton"]
+[node name="Label" type="Label" parent="Keypad/StartButton" unique_id=964491515]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 256.0
@@ -381,45 +381,45 @@ theme_override_font_sizes/font_size = 12
 text = "Start"
 horizontal_alignment = 1
 
-[node name="MicrowaveTimer" type="Node" parent="."]
+[node name="MicrowaveTimer" type="Node" parent="." unique_id=110946505]
 script = ExtResource("5_8bw4g")
 one_shot = true
 metadata/_custom_type_script = "uid://bk0s8v1tcwcmr"
 
-[node name="HelpSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("click_area")]
+[node name="HelpSelectableArea" type="Node2D" parent="." unique_id=434274597 node_paths=PackedStringArray("click_area")]
 script = ExtResource("12_222yv")
 help_page_path = "microwave.txt"
 click_area = NodePath("../ZoomSelectableArea/KeypadArea")
 interact_info = SubResource("Resource_bc11o")
 
-[node name="ZoomSelectableArea" type="Node2D" parent="."]
+[node name="ZoomSelectableArea" type="Node2D" parent="." unique_id=1193901968]
 script = ExtResource("9_phx7o")
 interact_info = SubResource("Resource_222yv")
 metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 
-[node name="KeypadArea" type="Area2D" parent="ZoomSelectableArea"]
+[node name="KeypadArea" type="Area2D" parent="ZoomSelectableArea" unique_id=1258784189]
 z_index = 1
 position = Vector2(-4, 4)
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/KeypadArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/KeypadArea" unique_id=421534520]
 position = Vector2(6, -1)
 shape = SubResource("RectangleShape2D_iwbat")
 
-[node name="CameraRegionProvider" type="Node2D" parent="ZoomSelectableArea"]
+[node name="CameraRegionProvider" type="Node2D" parent="ZoomSelectableArea" unique_id=1470821701]
 script = ExtResource("15_bc11o")
 
-[node name="ZoomCamera" type="Camera2D" parent="ZoomSelectableArea/CameraRegionProvider"]
+[node name="ZoomCamera" type="Camera2D" parent="ZoomSelectableArea/CameraRegionProvider" unique_id=285568665]
 editor_description = "A template for the TransitionCamera in Main to transition to when necessary."
 enabled = false
 zoom = Vector2(4, 4)
 position_smoothing_speed = 1.0
 
-[node name="DepthManagedNode2D" type="Node2D" parent="."]
+[node name="DepthManagedNode2D" type="Node2D" parent="." unique_id=2135177723]
 script = ExtResource("10_grr38")
 depth_layer = 1
 
-[node name="ObjectContainmentInteractableArea" type="Area2D" parent="DepthManagedNode2D"]
+[node name="ObjectContainmentInteractableArea" type="Area2D" parent="DepthManagedNode2D" unique_id=479055658]
 unique_name_in_owner = true
 position = Vector2(-40, 51)
 script = ExtResource("5_iwbat")
@@ -427,14 +427,12 @@ place_prompt = "Put in microwave"
 body_group_filter_type = 1
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DepthManagedNode2D/ObjectContainmentInteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DepthManagedNode2D/ObjectContainmentInteractableArea" unique_id=779127281]
 position = Vector2(-1, -46.5)
 shape = SubResource("RectangleShape2D_a0lrr")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_claib")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=50154938]
+libraries/ = SubResource("AnimationLibrary_claib")
 
 [connection signal="pressed" from="DoorSelectable" to="." method="_on_door_selectable_pressed"]
 [connection signal="timeout" from="MicrowaveTimer" to="." method="_on_microwave_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqc2dtt648v3m"]
+[gd_scene format=3 uid="uid://dqc2dtt648v3m"]
 
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_85rdh"]
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_jx3lu"]
@@ -8,26 +8,26 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nf2rl"]
 size = Vector2(112, 84)
 
-[node name="BiohazardBin" type="RigidBody2D"]
+[node name="BiohazardBin" type="RigidBody2D" unique_id=237083453]
 script = ExtResource("1_jx3lu")
 hover_name = "waste bin"
 help_page_path = "pipette.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
-[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="." unique_id=1238659454]
 script = ExtResource("1_85rdh")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="BinHazard" type="Sprite2D" parent="SelectableCanvasGroup"]
+[node name="BinHazard" type="Sprite2D" parent="SelectableCanvasGroup" unique_id=1230386063]
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("3_jx3lu")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1411905642]
 shape = SubResource("RectangleShape2D_nf2rl")
 
-[node name="InteractableArea" type="Area2D" parent="."]
+[node name="InteractableArea" type="Area2D" parent="." unique_id=635965607]
 script = ExtResource("5_fus4i")
 metadata/_custom_type_script = "uid://8jbti40eodk6"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea" unique_id=1578281723]
 shape = SubResource("RectangleShape2D_nf2rl")

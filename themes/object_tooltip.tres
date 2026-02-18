@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://c5j70x0ximbuc"]
+[gd_resource type="Theme" format=3 uid="uid://c5j70x0ximbuc"]
 
 [ext_resource type="FontFile" uid="uid://b4fdeodha8haf" path="res://fonts/Roboto/Roboto-BlackItalic.ttf" id="1_eo6b5"]
 [ext_resource type="FontFile" uid="uid://hlq8gp5eo1ht" path="res://fonts/Roboto/Roboto-MediumItalic.ttf" id="1_had6q"]
