@@ -1,5 +1,5 @@
 class_name Journal
-extends PanelContainer
+extends MenuScreenManager
 
 
 const PAGE_ROOT: String = "res://journal_pages/"
@@ -9,6 +9,7 @@ const PAGE_ROOT: String = "res://journal_pages/"
 @export var forward_button: Button
 @export var journal_label: PreprocessedRichTextLabel
 @export var procedure_label: PreprocessedRichTextLabel
+@export var report_label: RichTextLabel
 
 
 # Previously visited pages.
@@ -18,7 +19,10 @@ var _history_index: int = 0
 
 
 func _ready() -> void:
+	super()
 	_update_history_buttons()
+	# Generate the report when the report screen is opened.
+	screen_changed.connect(_on_screen_changed)
 
 func open() -> void:
 	Game.main.set_journal_open(true)
@@ -90,6 +94,9 @@ func _on_preprocessed_rich_text_label_meta_clicked(meta: Variant) -> void:
 func _on_close_button_pressed() -> void:
 	close()
 
+func _on_screen_changed(screen: MenuScreen) -> void:
+	if screen == $ReportScreen:
+		LabReport.generate_report(report_label)
 
 class HistoryEntry:
 	# Path relative to [const PAGE_ROOT].

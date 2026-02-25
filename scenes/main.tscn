@@ -335,8 +335,9 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.8156863)
 
-[node name="Journal" type="PanelContainer" parent="UILayer" unique_id=1194437498 node_paths=PackedStringArray("back_button", "forward_button", "journal_label", "procedure_label")]
+[node name="Journal" type="Control" parent="UILayer" unique_id=1623381348 node_paths=PackedStringArray("back_button", "forward_button", "journal_label", "procedure_label", "report_label")]
 unique_name_in_owner = true
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -348,39 +349,49 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_behavior_recursive = 1
 script = ExtResource("16_y6deb")
-back_button = NodePath("VBoxContainer/HBoxContainer/BackButton")
-forward_button = NodePath("VBoxContainer/HBoxContainer/ForwardButton")
-journal_label = NodePath("VBoxContainer/HBoxContainer2/HelpLabel")
-procedure_label = NodePath("VBoxContainer/HBoxContainer2/ProcedureLabel")
+back_button = NodePath("HelpScreen/VBoxContainer/HBoxContainer/BackButton")
+forward_button = NodePath("HelpScreen/VBoxContainer/HBoxContainer/ForwardButton")
+journal_label = NodePath("HelpScreen/VBoxContainer/HBoxContainer2/HelpLabel")
+procedure_label = NodePath("HelpScreen/VBoxContainer/HBoxContainer2/ProcedureLabel")
+report_label = NodePath("ReportScreen/VBoxContainer/RichTextLabel")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Journal" unique_id=1475977787]
+[node name="HelpScreen" type="PanelContainer" parent="UILayer/Journal" unique_id=62004317]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_2wyq8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Journal/HelpScreen" unique_id=1475977787]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Journal/VBoxContainer" unique_id=50863220]
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Journal/HelpScreen/VBoxContainer" unique_id=50863220]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UILayer/Journal/VBoxContainer/HBoxContainer" unique_id=1962075140]
+[node name="Label" type="Label" parent="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer" unique_id=1962075140]
 layout_mode = 2
 theme_type_variation = &"MenuScreenTitleLabel"
 text = "Journal"
 
-[node name="BackButton" type="Button" parent="UILayer/Journal/VBoxContainer/HBoxContainer" unique_id=2010307480]
+[node name="BackButton" type="Button" parent="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer" unique_id=2010307480]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
 text = "<"
 
-[node name="ForwardButton" type="Button" parent="UILayer/Journal/VBoxContainer/HBoxContainer" unique_id=1845544217]
+[node name="ForwardButton" type="Button" parent="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer" unique_id=1845544217]
 layout_mode = 2
 size_flags_vertical = 4
 text = ">"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="UILayer/Journal/VBoxContainer" unique_id=672022717]
+[node name="HBoxContainer2" type="HBoxContainer" parent="UILayer/Journal/HelpScreen/VBoxContainer" unique_id=672022717]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 
-[node name="ProcedureLabel" type="RichTextLabel" parent="UILayer/Journal/VBoxContainer/HBoxContainer2" unique_id=1604132476]
+[node name="ProcedureLabel" type="RichTextLabel" parent="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2" unique_id=1604132476]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
@@ -388,7 +399,7 @@ bbcode_enabled = true
 script = ExtResource("17_og1vs")
 metadata/_custom_type_script = "uid://dkacpjq2t2mj1"
 
-[node name="HelpLabel" type="RichTextLabel" parent="UILayer/Journal/VBoxContainer/HBoxContainer2" unique_id=1186676104]
+[node name="HelpLabel" type="RichTextLabel" parent="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2" unique_id=1186676104]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -396,25 +407,70 @@ bbcode_enabled = true
 script = ExtResource("17_og1vs")
 metadata/_custom_type_script = "uid://dkacpjq2t2mj1"
 
-[node name="CloseButton" type="Button" parent="UILayer/Journal/VBoxContainer" unique_id=350712259]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/Journal/HelpScreen/VBoxContainer" unique_id=1045057423]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="UILayer/Journal/HelpScreen/VBoxContainer/MarginContainer" unique_id=350712259]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
 
-[node name="Button" type="Button" parent="UILayer/Journal" unique_id=988986872]
+[node name="MenuScreenButton" type="Button" parent="UILayer/Journal/HelpScreen/VBoxContainer/MarginContainer" unique_id=1898566190 node_paths=PackedStringArray("menu_screen")]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "View report"
+script = ExtResource("19_vxglm")
+menu_screen = NodePath("../../../../ReportScreen")
+metadata/_custom_type_script = "uid://kxslh01sq2ny"
+
+[node name="Button" type="Button" parent="UILayer/Journal/HelpScreen/VBoxContainer" unique_id=988986872]
 visible = false
 layout_mode = 2
 text = "Download Report"
 
-[node name="ReportText" type="RichTextLabel" parent="UILayer/Journal" unique_id=1631240291]
+[node name="ReportText" type="RichTextLabel" parent="UILayer/Journal/HelpScreen" unique_id=1631240291]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="FileDialog" type="FileDialog" parent="UILayer/Journal" unique_id=686536379]
+[node name="FileDialog" type="FileDialog" parent="UILayer/Journal/HelpScreen" unique_id=686536379]
 unique_name_in_owner = true
 oversampling_override = 1.0
 use_native_dialog = true
+
+[node name="ReportScreen" type="PanelContainer" parent="UILayer/Journal" unique_id=1307003022]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_2wyq8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Journal/ReportScreen" unique_id=1615430741]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Journal/ReportScreen/VBoxContainer" unique_id=875907561]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/Journal/ReportScreen/VBoxContainer/HBoxContainer" unique_id=1943040019]
+layout_mode = 2
+theme_type_variation = &"MenuScreenTitleLabel"
+text = "Report"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UILayer/Journal/ReportScreen/VBoxContainer" unique_id=557979561]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+
+[node name="BackButton" type="Button" parent="UILayer/Journal/ReportScreen/VBoxContainer" unique_id=1367209415]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back
+"
+script = ExtResource("19_vxglm")
+metadata/_custom_type_script = "uid://kxslh01sq2ny"
 
 [node name="HintPopup" type="RichTextLabel" parent="UILayer" unique_id=523938709]
 unique_name_in_owner = true
@@ -1034,13 +1090,13 @@ metadata/_custom_type_script = "uid://bu1da87rm0cub"
 [connection signal="pressed_zoom_out" from="InteractableSystem" to="." method="_on_interactable_system_pressed_zoom_out"]
 [connection signal="body_entered" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_entered"]
 [connection signal="body_exited" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_exited"]
-[connection signal="pressed" from="UILayer/Journal/VBoxContainer/HBoxContainer/BackButton" to="UILayer/Journal" method="_on_back_button_pressed"]
-[connection signal="pressed" from="UILayer/Journal/VBoxContainer/HBoxContainer/ForwardButton" to="UILayer/Journal" method="_on_forward_button_pressed"]
-[connection signal="meta_clicked" from="UILayer/Journal/VBoxContainer/HBoxContainer2/ProcedureLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
-[connection signal="meta_clicked" from="UILayer/Journal/VBoxContainer/HBoxContainer2/HelpLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
-[connection signal="pressed" from="UILayer/Journal/VBoxContainer/CloseButton" to="UILayer/Journal" method="_on_close_button_pressed"]
-[connection signal="pressed" from="UILayer/Journal/Button" to="GelLogReport" method="_on_button_pressed"]
-[connection signal="file_selected" from="UILayer/Journal/FileDialog" to="GelLogReport" method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer/BackButton" to="UILayer/Journal" method="_on_back_button_pressed"]
+[connection signal="pressed" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer/ForwardButton" to="UILayer/Journal" method="_on_forward_button_pressed"]
+[connection signal="meta_clicked" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2/ProcedureLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
+[connection signal="meta_clicked" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2/HelpLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
+[connection signal="pressed" from="UILayer/Journal/HelpScreen/VBoxContainer/MarginContainer/CloseButton" to="UILayer/Journal" method="_on_close_button_pressed"]
+[connection signal="pressed" from="UILayer/Journal/HelpScreen/VBoxContainer/Button" to="GelLogReport" method="_on_button_pressed"]
+[connection signal="file_selected" from="UILayer/Journal/HelpScreen/FileDialog" to="GelLogReport" method="_on_file_dialog_file_selected"]
 [connection signal="screen_changed" from="UILayer/MenuScreenManager" to="." method="_on_menu_screen_manager_screen_changed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]

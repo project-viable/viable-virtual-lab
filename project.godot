@@ -28,6 +28,7 @@ DepthManager="*res://scripts/singletons/depth_manager.gd"
 RuntimeResourcePathManager="*res://scripts/singletons/runtime_resource_path_manager.gd"
 RichTextPreprocess="*res://scripts/singletons/rich_text_preprocess.gd"
 InteractPromptTextureGenerator="*res://scenes/interact_prompt_texture_generator_singleton.tscn"
+LabReport="*uid://bdrx02ypxx17d"
 
 [debug]
 
