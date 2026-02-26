@@ -22,8 +22,9 @@ var _report_note_by_name: Dictionary[Array, LabReportNote] = {}
 func get_or_create_report_note(note_type: Script, note_name: String = "") -> LabReportNote:
 	var instance: LabReportNote = _report_note_by_name.get([note_name, note_type])
 	if not instance:
-		instance = Object.new()
-		instance.set_script(note_type)
+		var created_instance := Resource.new()
+		created_instance.set_script(note_type)
+		instance = created_instance
 
 		# I'm not sure if there's a better way to check the type of the script.
 		if not is_instance_of(instance, LabReportNote): return null
