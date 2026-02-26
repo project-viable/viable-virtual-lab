@@ -11,7 +11,6 @@ const VOLUME_PER_DIST: float = PLUNGE_VOLUME / PLUNGER_OFFSETS[2]
 const PLUNGE_DOWN_VOLUME_RATIO: float = 0.98
 
 
-@export var is_tip_contaminated: bool = false
 @export var has_tip: bool = false:
 	set(value):
 		has_tip = value
@@ -28,12 +27,17 @@ const PLUNGE_DOWN_VOLUME_RATIO: float = 0.98
 
 		if not has_tip:
 			$ContainerComponent.substances.clear()
+			_last_container_taken_from = null
 
+@onready var _report_note: BasicEquipmentLabReportNote = \
+		LabReport.get_or_create_report_note(BasicEquipmentLabReportNote)
 @onready var _orig_plunger_pos: float = $%Plunger.position.y
 @onready var _orig_sub_pipette_pos: Vector2 = $%SubscenePipette.position
 var _cur_subscene_camera: SubsceneCamera = null
 var _mouse_movement := Vector2.ZERO
 var _mouse_pos_before_zoom := Vector2.ZERO
+# If we take from another container before
+var _last_container_taken_from: ContainerComponent = null
 
 
 func _ready() -> void:
@@ -97,6 +101,13 @@ func _physics_process(delta: float) -> void:
 		var tip_node: Node2D = $%SubsceneTipOpeningArea if _cur_subscene_camera else $TipOpeningArea
 		# Only pull if we're below the fluid level.
 		if plunge_diff < -0.001:
+			# Report a contaminated container.
+			var container := substance_display.source
+			if _last_container_taken_from and _last_container_taken_from != container:
+				if not _report_note.contaminated_containers.has(container):
+					_report_note.contaminated_containers.push_back(container)
+			_last_container_taken_from = container
+
 			var substance_to_take := substance_display.get_substance_at_global(tip_node.global_position)
 			if substance_to_take:
 				var volume: float = -plunge_diff * VOLUME_PER_DIST
