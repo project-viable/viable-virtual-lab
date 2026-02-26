@@ -268,6 +268,7 @@ func unload_current_module() -> void:
 	Interaction.clear_all_interaction_state()
 	DepthManager.clear_layers()
 	Game.journal.clear()
+	LabReport.clear()
 	hide_subscene()
 	move_to_workspace(null)
 	_current_module_scene = null
