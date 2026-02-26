@@ -24,7 +24,6 @@
 [ext_resource type="Script" uid="uid://kxslh01sq2ny" path="res://scripts/menu_screen_button.gd" id="19_vxglm"]
 [ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://scenes/interaction_prompt.tscn" id="22_g2on7"]
 [ext_resource type="Script" uid="uid://smreqra2kcc2" path="res://scripts/scale_container.gd" id="25_og1vs"]
-[ext_resource type="Script" uid="uid://bu1da87rm0cub" path="res://scripts/log_report.gd" id="26_2wyq8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqmmt"]
 size = Vector2(20, 30)
@@ -422,11 +421,6 @@ text = "View report"
 script = ExtResource("19_vxglm")
 menu_screen = NodePath("../../../../ReportScreen")
 metadata/_custom_type_script = "uid://kxslh01sq2ny"
-
-[node name="Button" type="Button" parent="UILayer/Journal/HelpScreen/VBoxContainer" unique_id=988986872]
-visible = false
-layout_mode = 2
-text = "Download Report"
 
 [node name="ReportText" type="RichTextLabel" parent="UILayer/Journal/HelpScreen" unique_id=1631240291]
 unique_name_in_owner = true
@@ -1080,11 +1074,6 @@ theme = ExtResource("11_gqmmt")
 columns = 4
 script = ExtResource("12_yc10j")
 
-[node name="GelLogReport" type="Node" parent="." unique_id=286644502]
-unique_name_in_owner = true
-script = ExtResource("26_2wyq8")
-metadata/_custom_type_script = "uid://bu1da87rm0cub"
-
 [connection signal="pressed_left" from="InteractableSystem" to="." method="_on_interactable_system_pressed_left"]
 [connection signal="pressed_right" from="InteractableSystem" to="." method="_on_interactable_system_pressed_right"]
 [connection signal="pressed_zoom_out" from="InteractableSystem" to="." method="_on_interactable_system_pressed_zoom_out"]
@@ -1095,8 +1084,6 @@ metadata/_custom_type_script = "uid://bu1da87rm0cub"
 [connection signal="meta_clicked" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2/ProcedureLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
 [connection signal="meta_clicked" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2/HelpLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
 [connection signal="pressed" from="UILayer/Journal/HelpScreen/VBoxContainer/MarginContainer/CloseButton" to="UILayer/Journal" method="_on_close_button_pressed"]
-[connection signal="pressed" from="UILayer/Journal/HelpScreen/VBoxContainer/Button" to="GelLogReport" method="_on_button_pressed"]
-[connection signal="file_selected" from="UILayer/Journal/HelpScreen/FileDialog" to="GelLogReport" method="_on_file_dialog_file_selected"]
 [connection signal="screen_changed" from="UILayer/MenuScreenManager" to="." method="_on_menu_screen_manager_screen_changed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]

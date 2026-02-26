@@ -91,7 +91,6 @@ func analyze_gel_state(gel: GelTray, well: ContainerComponent, i: int) -> void:
 
 	for fs: int in dna.fragments.keys():
 		var fragment: float = fs / 1000.0
-		Game.report_log.append_to_array(str(fragment), "dna_fragment_sizes")
 		#Conditions for singular well invisible gel bands
 		if gel.gel_state.well_capacities[i] <= (gel.gel_state.well_max_capacity/2.0):
 			results_message = str("well %s capacity not full enough gel sprite will be blank" % [i+1])
@@ -215,4 +214,3 @@ func analyze_gel_state(gel: GelTray, well: ContainerComponent, i: int) -> void:
 		else:
 			band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg")
 			results_message = str("Inconclusive results.")
-		Game.report_log.append_to_string((results_message + "\n"), "final_results")

@@ -77,7 +77,6 @@ func _ready() -> void:
 	Game.camera = $%TransitionCamera
 	Game.cursor_area = $%CursorArea
 	Game.debug_overlay = $%DebugOverlay
-	Game.report_log = $%GelLogReport
 	Game.journal = %Journal
 	Game.hint_popup = %HintPopup
 
@@ -294,10 +293,6 @@ func is_pause_menu_open() -> bool:
 
 func set_journal_open(open: bool) -> void:
 	%Journal.visible = open
-	if %Journal.visible:
-		Game.report_log.load_report_data()
-	else:
-		Game.report_log.rich_text_label.clear()
 	_update_simulation_pause()
 	_update_scene_overlays()
 
