@@ -4,7 +4,7 @@ extends MenuScreenManager
 
 const PAGE_ROOT: String = "res://journal_pages/"
 # To avoid trying to save a massively large report.
-const MAX_SAVE_HEIGHT: int = 1024
+const MAX_SAVE_HEIGHT: int = 16384
 
 
 @export var back_button: Button
