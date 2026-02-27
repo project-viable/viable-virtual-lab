@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cug6kav5s55iq"]
 
-[ext_resource type="Script" uid="uid://bptf21x2a24jj" path="res://scripts/imager_gel_band_logic.gd" id="1_7wmgd"]
+[ext_resource type="Script" uid="uid://bptf21x2a24jj" path="res://scripts/imager.gd" id="1_7wmgd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_w2ofj"]
 [ext_resource type="Texture2D" uid="uid://bg8b5dpp8av5t" path="res://textures/lab_objects/imager/inside_back.svg" id="3_au8w4"]
 [ext_resource type="Texture2D" uid="uid://cslhw30pcab3a" path="res://textures/lab_objects/imager/base.svg" id="3_p46ws"]
