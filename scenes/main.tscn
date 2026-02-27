@@ -334,7 +334,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.8156863)
 
-[node name="Journal" type="Control" parent="UILayer" unique_id=1623381348 node_paths=PackedStringArray("back_button", "forward_button", "journal_label", "procedure_label", "report_label")]
+[node name="Journal" type="Control" parent="UILayer" unique_id=1623381348 node_paths=PackedStringArray("back_button", "forward_button", "journal_label", "procedure_label", "report_label", "save_viewport", "save_label")]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
@@ -353,6 +353,8 @@ forward_button = NodePath("HelpScreen/VBoxContainer/HBoxContainer/ForwardButton"
 journal_label = NodePath("HelpScreen/VBoxContainer/HBoxContainer2/HelpLabel")
 procedure_label = NodePath("HelpScreen/VBoxContainer/HBoxContainer2/ProcedureLabel")
 report_label = NodePath("ReportScreen/VBoxContainer/RichTextLabel")
+save_viewport = NodePath("ReportSaveViewport")
+save_label = NodePath("ReportSaveViewport/ReportSaveLabel")
 
 [node name="HelpScreen" type="PanelContainer" parent="UILayer/Journal" unique_id=62004317]
 layout_mode = 1
@@ -428,7 +430,6 @@ visible = false
 layout_mode = 2
 
 [node name="ReportScreen" type="PanelContainer" parent="UILayer/Journal" unique_id=1307003022]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -460,6 +461,22 @@ text = "Back
 "
 script = ExtResource("19_vxglm")
 metadata/_custom_type_script = "uid://kxslh01sq2ny"
+
+[node name="DownloadButton" type="Button" parent="UILayer/Journal/ReportScreen/VBoxContainer" unique_id=280891715]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Save report as JPG"
+
+[node name="ReportSaveViewport" type="SubViewport" parent="UILayer/Journal" unique_id=1596498107]
+render_target_update_mode = 0
+
+[node name="ReportSaveLabel" type="RichTextLabel" parent="UILayer/Journal/ReportSaveViewport" unique_id=1281276058]
+custom_minimum_size = Vector2(512, 0)
+offset_right = 21.0
+offset_bottom = 20.0
+text = "Test text (if this is visible, something went wrong)."
+fit_content = true
+scroll_active = false
 
 [node name="HintPopup" type="RichTextLabel" parent="UILayer" unique_id=523938709]
 unique_name_in_owner = true
@@ -1085,6 +1102,7 @@ use_native_dialog = true
 [connection signal="meta_clicked" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2/ProcedureLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
 [connection signal="meta_clicked" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2/HelpLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
 [connection signal="pressed" from="UILayer/Journal/HelpScreen/VBoxContainer/MarginContainer/CloseButton" to="UILayer/Journal" method="_on_close_button_pressed"]
+[connection signal="pressed" from="UILayer/Journal/ReportScreen/VBoxContainer/DownloadButton" to="UILayer/Journal" method="_on_download_button_pressed"]
 [connection signal="screen_changed" from="UILayer/MenuScreenManager" to="." method="_on_menu_screen_manager_screen_changed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]
