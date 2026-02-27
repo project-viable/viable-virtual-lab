@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://cslhw30pcab3a" path="res://textures/lab_objects/imager/base.svg" id="3_p46ws"]
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="4_7wmgd"]
 [ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="4_ylekj"]
-[ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="6_18obo"]
 [ext_resource type="Texture2D" uid="uid://d3dbby0blgo04" path="res://textures/gel_bands/Gel_Rig_Top_View.svg" id="6_p46ws"]
 [ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="6_u3h3s"]
 [ext_resource type="Script" uid="uid://b15sd4jw5afoa" path="res://scripts/camera_region_provider.gd" id="7_au8w4"]
@@ -52,6 +51,7 @@ offset_left = -16.0
 offset_top = -37.0
 offset_right = 24.0
 offset_bottom = 3.0
+mouse_filter = 2
 color = Color(0.9867516, 0.9867516, 0.9867516, 1)
 
 [node name="InsideBack" type="Sprite2D" parent="." unique_id=93250638]
@@ -119,34 +119,6 @@ script = ExtResource("7_au8w4")
 position = Vector2(2, -7)
 enabled = false
 zoom = Vector2(5.5, 3)
-
-[node name="ZoomAwareControl" type="Control" parent="." unique_id=1216985841]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("6_18obo")
-metadata/_custom_type_script = "uid://kqpdop5g7bqv"
-
-[node name="UV Light" type="Button" parent="ZoomAwareControl" unique_id=658620779]
-unique_name_in_owner = true
-z_index = 2000
-layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.65000004
-anchor_bottom = -0.65000004
-offset_left = -4.0
-offset_top = -3.999998
-offset_right = 4.0
-offset_bottom = 4.000002
-
-[node name="ClosedDoor" type="TextureButton" parent="ZoomAwareControl" unique_id=256593635]
-layout_mode = 0
-offset_left = 68.0
-offset_top = -40.0
-offset_right = 82.0
-offset_bottom = 92.0
 
 [node name="GelWellTopViewLadderMultiple" type="Sprite2D" parent="." unique_id=1238052413]
 visible = false
@@ -309,5 +281,3 @@ region_size = Vector2(500, 420)
 metadata/_custom_type_script = "uid://b5a5765epdkf"
 
 [connection signal="pressed" from="DoorSelectable" to="." method="_on_door_selectable_pressed"]
-[connection signal="pressed" from="ZoomAwareControl/UV Light" to="." method="_on_uv_light_pressed"]
-[connection signal="pressed" from="ZoomAwareControl/ClosedDoor" to="." method="on_gel_removed"]
