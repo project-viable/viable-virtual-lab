@@ -427,11 +427,6 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="FileDialog" type="FileDialog" parent="UILayer/Journal/HelpScreen" unique_id=686536379]
-unique_name_in_owner = true
-oversampling_override = 1.0
-use_native_dialog = true
-
 [node name="ReportScreen" type="PanelContainer" parent="UILayer/Journal" unique_id=1307003022]
 visible = false
 layout_mode = 1
@@ -1073,6 +1068,12 @@ mouse_filter = 2
 theme = ExtResource("11_gqmmt")
 columns = 4
 script = ExtResource("12_yc10j")
+
+[node name="FileDialog" type="FileDialog" parent="UILayer" unique_id=686536379]
+unique_name_in_owner = true
+oversampling_override = 1.0
+access = 2
+use_native_dialog = true
 
 [connection signal="pressed_left" from="InteractableSystem" to="." method="_on_interactable_system_pressed_left"]
 [connection signal="pressed_right" from="InteractableSystem" to="." method="_on_interactable_system_pressed_right"]
