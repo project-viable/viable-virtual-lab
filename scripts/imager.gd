@@ -17,8 +17,8 @@ func _ready() -> void:
 	print("Imager thing: %s" % _report_note.imager_display_texture)
 
 func _draw() -> void:
-	if $DepthManagedNode2D/AttachmentInteractableArea.contained_object is GelTray:
-		var gel := $DepthManagedNode2D/AttachmentInteractableArea.contained_object as GelTray
+	if %AttachmentInteractableArea.contained_object is GelTray:
+		var gel := %AttachmentInteractableArea.contained_object as GelTray
 		if not gel or not _is_light_on: return
 		gel.set_gel_state()
 		for i:int in gel.num_wells():
@@ -40,10 +40,6 @@ func _draw() -> void:
 				# Center the bands.
 				pos -= size / 2
 				band_texture.draw_rect(well_sprite.get_canvas_item(), Rect2(pos, size), false)
-	else:
-		$DepthManagedNode2D/AttachmentInteractableArea.remove_object()
-		$DepthManagedNode2D/AttachmentInteractableArea.contained_object = null
-
 
 func _process(_delta: float) -> void:
 	for i in 5:
@@ -58,7 +54,7 @@ func _get_well_sprite(i: int) -> Node2D:
 
 func _update_door() -> void:
 	if _is_door_open:
-		$DepthManagedNode2D/AttachmentInteractableArea.allow_new_objects = true
+		%AttachmentInteractableArea.allow_new_objects = true
 		$DoorSelectable.interact_info.description = "Close door"
 		%DoorOpen.show()
 		%DoorClosed.hide()
@@ -67,13 +63,22 @@ func _update_door() -> void:
 		%UVLabel.text = "UV Off (door open)"
 
 	else:
-		$DepthManagedNode2D/AttachmentInteractableArea.allow_new_objects = false
+		%AttachmentInteractableArea.allow_new_objects = false
 		$DoorSelectable.interact_info.description = "Open door"
 		%DoorOpen.hide()
 		%DoorClosed.show()
 		_is_light_on = true
 		%UVLabel.theme_type_variation = "OnLabel"
 		%UVLabel.text = "UV On"
+
+	_maybe_update_report_async()
+
+func _maybe_update_report_async() -> void:
+	if $ZoomSelectableArea.is_zoomed_in() and _is_light_on and %AttachmentInteractableArea.contained_object is GelTray:
+		# Make sure the subscene has actually been rendered.
+		await RenderingServer.frame_post_draw
+		_report_note.imager_display_texture = ImageTexture.create_from_image(Game.main.get_subscene_viewport_texture().get_image())
+
 
 func _on_door_selectable_pressed() -> void:
 	_is_door_open = not _is_door_open

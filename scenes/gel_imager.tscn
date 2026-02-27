@@ -281,3 +281,5 @@ region_size = Vector2(500, 420)
 metadata/_custom_type_script = "uid://b5a5765epdkf"
 
 [connection signal="pressed" from="DoorSelectable" to="." method="_on_door_selectable_pressed"]
+[connection signal="object_placed" from="DepthManagedNode2D/AttachmentInteractableArea" to="." method="_maybe_update_report_async" unbinds=1]
+[connection signal="zoomed_in" from="ZoomSelectableArea" to="." method="_maybe_update_report_async"]
