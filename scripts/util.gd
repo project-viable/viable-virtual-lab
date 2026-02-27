@@ -136,3 +136,30 @@ static func make_centered_rect(pos: Vector2, size: Vector2) -> Rect2:
 	var r := Rect2(pos, size)
 	r.position -= size / 2
 	return r
+
+## Wait for one of the given signals to be emitted. Return the index of the signal received.
+static func wait_for_one_async(signals: Array[Signal]) -> int:
+	return await DisjunctAwaitable.new(signals).received
+
+
+class DisjunctAwaitable:
+	# Emitted when the `i`th signal is emitted. This is only emitted for that one, and all others
+	# are disconnected.
+	signal received(i: int)
+
+
+	var _signals: Array[Signal]
+	var _callables: Array[Callable] = []
+
+	func _init(signals: Array[Signal]) -> void:
+		_signals = signals
+
+		for i in _signals.size():
+			# Must take varargs to absorb the signal arguments.
+			var c: Callable = func(..._rest: Array) -> void:
+				for j in _signals.size():
+					_signals[j].disconnect(_callables[j])
+				received.emit(i)
+
+			_signals[i].connect(c, CONNECT_ONE_SHOT)
+			_callables.push_back(c)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://b4q3npoc5c7fy"]
+[gd_scene format=3 uid="uid://b4q3npoc5c7fy"]
 
 [ext_resource type="Script" uid="uid://bepsdcjab3t21" path="res://scripts/power_supply.gd" id="1_7lagc"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_80iu8"]
@@ -87,7 +87,7 @@ draw_center = false
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xsxk"]
 draw_center = false
 
-[node name="PowerSupply" type="RigidBody2D" node_paths=PackedStringArray("increment_time_button", "decrement_time_button", "increment_volts_button", "decrement_volts_button", "time_line_edit", "voltage_line_edit")]
+[node name="PowerSupply" type="RigidBody2D" unique_id=1203067396 node_paths=PackedStringArray("increment_time_button", "decrement_time_button", "increment_volts_button", "decrement_volts_button", "time_line_edit", "voltage_line_edit")]
 collision_layer = 0
 script = ExtResource("1_7lagc")
 increment_time_button = NodePath("Screen/ZoomAwareControl/IncrementTime")
@@ -100,31 +100,31 @@ hover_name = "power supply"
 help_page_path = "gel_rig.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
-[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="." unique_id=1633304623]
 script = ExtResource("1_80iu8")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="PowerBox" type="Sprite2D" parent="SelectableCanvasGroup"]
+[node name="PowerBox" type="Sprite2D" parent="SelectableCanvasGroup" unique_id=1114546702]
 position = Vector2(0, -8)
 scale = Vector2(0.174763, 0.174763)
 texture = ExtResource("3_7lagc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1886831396]
 visible = false
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_80iu8")
 
-[node name="PlusSymbol" type="Sprite2D" parent="."]
+[node name="PlusSymbol" type="Sprite2D" parent="." unique_id=140888260]
 position = Vector2(-36, -12)
 scale = Vector2(0.0155412, 0.0155412)
 texture = ExtResource("7_5dnns")
 
-[node name="MinusSymbol" type="Sprite2D" parent="."]
+[node name="MinusSymbol" type="Sprite2D" parent="." unique_id=1471351554]
 position = Vector2(-36, 4)
 scale = Vector2(0.016, 0.016)
 texture = ExtResource("8_07yqv")
 
-[node name="AttachmentPostiveOutlet" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
+[node name="AttachmentPostiveOutlet" type="Area2D" parent="." unique_id=1919772877 node_paths=PackedStringArray("selectable_canvas_group")]
 position = Vector2(-36, -11)
 script = ExtResource("7_07yqv")
 selectable_canvas_group = NodePath("../SelectableCanvasGroup")
@@ -132,11 +132,11 @@ point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://brj1u83e5o6i6"
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentPostiveOutlet"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentPostiveOutlet" unique_id=824515313]
 shape = SubResource("CircleShape2D_k6dxr")
 debug_color = Color(0.960415, 0, 0.51616, 0.42)
 
-[node name="AttachmentNegativeOutlet" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
+[node name="AttachmentNegativeOutlet" type="Area2D" parent="." unique_id=107701177 node_paths=PackedStringArray("selectable_canvas_group")]
 position = Vector2(-36, 5)
 script = ExtResource("7_07yqv")
 terminal_charge = 1
@@ -145,42 +145,42 @@ point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://brj1u83e5o6i6"
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentNegativeOutlet"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentNegativeOutlet" unique_id=1332358116]
 shape = SubResource("CircleShape2D_7lagc")
 debug_color = Color(0.799247, 0.420694, 0.0500949, 0.42)
 
-[node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("click_area")]
+[node name="ZoomSelectableArea" type="Node2D" parent="." unique_id=727419360 node_paths=PackedStringArray("click_area")]
 script = ExtResource("7_r5man")
 click_area = NodePath("../Screen")
 interact_info = SubResource("Resource_jn1hy")
 metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 
-[node name="CombinedRegionProvider" type="Node2D" parent="ZoomSelectableArea"]
+[node name="CombinedRegionProvider" type="Node2D" parent="ZoomSelectableArea" unique_id=850231634]
 script = ExtResource("9_hsrjq")
 
-[node name="GroupRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider"]
+[node name="GroupRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider" unique_id=1694491529]
 script = ExtResource("10_y7ksa")
 search_radius = 300.0
 groups = Array[StringName]([&"zoom:power_supply"])
 metadata/_custom_type_script = "uid://ccy0k2wrm316p"
 
-[node name="CameraRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider"]
+[node name="CameraRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider" unique_id=945778159]
 script = ExtResource("11_y7ksa")
 
-[node name="ZoomCamera" type="Camera2D" parent="ZoomSelectableArea/CombinedRegionProvider/CameraRegionProvider"]
+[node name="ZoomCamera" type="Camera2D" parent="ZoomSelectableArea/CombinedRegionProvider/CameraRegionProvider" unique_id=534390558]
 enabled = false
 zoom = Vector2(4.5, 4.5)
 position_smoothing_speed = 20.0
 
-[node name="Screen" type="Area2D" parent="."]
+[node name="Screen" type="Area2D" parent="." unique_id=1767641917]
 z_index = 1
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Screen"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Screen" unique_id=1543275109]
 position = Vector2(-2, -3)
 shape = SubResource("RectangleShape2D_46x6c")
 
-[node name="ZoomAwareControl" type="Control" parent="Screen"]
+[node name="ZoomAwareControl" type="Control" parent="Screen" unique_id=138078334]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -188,7 +188,7 @@ offset_bottom = 40.0
 script = ExtResource("8_jimdi")
 metadata/_custom_type_script = "uid://kqpdop5g7bqv"
 
-[node name="StartButton" type="Button" parent="Screen/ZoomAwareControl"]
+[node name="StartButton" type="Button" parent="Screen/ZoomAwareControl" unique_id=1728666204]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 25.0
@@ -197,7 +197,7 @@ offset_right = 43.0
 offset_bottom = 3.0
 mouse_default_cursor_shape = 2
 
-[node name="StartLabel" type="Label" parent="Screen/ZoomAwareControl/StartButton"]
+[node name="StartLabel" type="Label" parent="Screen/ZoomAwareControl/StartButton" unique_id=908346683]
 layout_mode = 0
 offset_left = 1.0
 offset_right = 42.0
@@ -207,7 +207,7 @@ text = "Start"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TimeContainer" type="PanelContainer" parent="Screen/ZoomAwareControl"]
+[node name="TimeContainer" type="PanelContainer" parent="Screen/ZoomAwareControl" unique_id=990735061]
 layout_mode = 0
 offset_left = -24.0
 offset_top = -11.0
@@ -218,23 +218,23 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_46x6c")
 metadata/_edit_group_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Screen/ZoomAwareControl/TimeContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Screen/ZoomAwareControl/TimeContainer" unique_id=240150536]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="TimeString" type="Label" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer"]
+[node name="TimeString" type="Label" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer" unique_id=49480257]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/outline_size = 0
 text = "Time:"
 
-[node name="TimeLabel" type="Label" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer"]
+[node name="TimeLabel" type="Label" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer" unique_id=1147258208]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 text = "00:00"
 
-[node name="TimeLineEdit" type="LineEdit" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel" node_paths=PackedStringArray("power_supply")]
+[node name="TimeLineEdit" type="LineEdit" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel" unique_id=801244198 node_paths=PackedStringArray("power_supply")]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 6
@@ -259,7 +259,7 @@ caret_mid_grapheme = true
 script = ExtResource("8_agml6")
 power_supply = NodePath("../../../../../..")
 
-[node name="VoltageContainer" type="PanelContainer" parent="Screen/ZoomAwareControl"]
+[node name="VoltageContainer" type="PanelContainer" parent="Screen/ZoomAwareControl" unique_id=358235806]
 layout_mode = 0
 offset_left = -24.0
 offset_top = -2.0
@@ -270,16 +270,16 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5dnns")
 metadata/_edit_group_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Screen/ZoomAwareControl/VoltageContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Screen/ZoomAwareControl/VoltageContainer" unique_id=43800258]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="VoltageString" type="Label" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer"]
+[node name="VoltageString" type="Label" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer" unique_id=159349281]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Voltage:"
 
-[node name="VoltageLineEdit" type="LineEdit" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer" node_paths=PackedStringArray("power_supply")]
+[node name="VoltageLineEdit" type="LineEdit" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer" unique_id=1944917346 node_paths=PackedStringArray("power_supply")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -297,12 +297,12 @@ caret_blink = true
 script = ExtResource("9_agml6")
 power_supply = NodePath("../../../../..")
 
-[node name="VLabel" type="Label" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer"]
+[node name="VLabel" type="Label" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer" unique_id=1660761099]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "V"
 
-[node name="IncrementTime" type="TextureButton" parent="Screen/ZoomAwareControl"]
+[node name="IncrementTime" type="TextureButton" parent="Screen/ZoomAwareControl" unique_id=182349386]
 self_modulate = Color(0.982343, 0.982342, 0.982342, 1)
 layout_mode = 0
 offset_left = 11.0
@@ -315,7 +315,7 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("8_5dnns")
 metadata/_edit_group_ = true
 
-[node name="Label" type="Label" parent="Screen/ZoomAwareControl/IncrementTime"]
+[node name="Label" type="Label" parent="Screen/ZoomAwareControl/IncrementTime" unique_id=976915270]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -333,7 +333,7 @@ text = "^"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DecrementTime" type="TextureButton" parent="Screen/ZoomAwareControl"]
+[node name="DecrementTime" type="TextureButton" parent="Screen/ZoomAwareControl" unique_id=1187659975]
 self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
 layout_mode = 0
 offset_left = 11.0
@@ -346,7 +346,7 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("8_5dnns")
 metadata/_edit_group_ = true
 
-[node name="Label" type="Label" parent="Screen/ZoomAwareControl/DecrementTime"]
+[node name="Label" type="Label" parent="Screen/ZoomAwareControl/DecrementTime" unique_id=1192318445]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -365,7 +365,7 @@ text = "^"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="IncrementVolts" type="TextureButton" parent="Screen/ZoomAwareControl"]
+[node name="IncrementVolts" type="TextureButton" parent="Screen/ZoomAwareControl" unique_id=1444579110]
 self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
 layout_mode = 0
 offset_left = 11.0
@@ -378,7 +378,7 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("8_5dnns")
 metadata/_edit_group_ = true
 
-[node name="Label" type="Label" parent="Screen/ZoomAwareControl/IncrementVolts"]
+[node name="Label" type="Label" parent="Screen/ZoomAwareControl/IncrementVolts" unique_id=1770319715]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -396,7 +396,7 @@ text = "^"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DecrementVolts" type="TextureButton" parent="Screen/ZoomAwareControl"]
+[node name="DecrementVolts" type="TextureButton" parent="Screen/ZoomAwareControl" unique_id=595830509]
 self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
 layout_mode = 0
 offset_left = 11.0
@@ -408,7 +408,7 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("8_5dnns")
 metadata/_edit_group_ = true
 
-[node name="Label" type="Label" parent="Screen/ZoomAwareControl/DecrementVolts"]
+[node name="Label" type="Label" parent="Screen/ZoomAwareControl/DecrementVolts" unique_id=1023791999]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -427,16 +427,16 @@ text = "^"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1028421179]
 editor_description = "Used to change how fast the values of Time and Voltage increases or decreases"
 wait_time = 0.15
 
-[node name="WireConnectableComponent" type="Node2D" parent="." node_paths=PackedStringArray("body")]
+[node name="WireConnectableComponent" type="Node2D" parent="." unique_id=95876809 node_paths=PackedStringArray("body")]
 script = ExtResource("9_07yqv")
 body = NodePath("..")
 metadata/_custom_type_script = "uid://chvv2ne60otwi"
 
-[node name="LabTimer" type="Node" parent="."]
+[node name="LabTimer" type="Node" parent="." unique_id=1866955426]
 script = ExtResource("12_7xsxk")
 one_shot = true
 metadata/_custom_type_script = "uid://bk0s8v1tcwcmr"

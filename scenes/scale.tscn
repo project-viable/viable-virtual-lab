@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://gfmuo2b5e2b5"]
+[gd_scene format=3 uid="uid://gfmuo2b5e2b5"]
 
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_ceiaq"]
 [ext_resource type="Script" uid="uid://blk6q1chtrgqi" path="res://scripts/help_selectable_area.gd" id="4_s7pnd"]
@@ -33,68 +33,68 @@ metadata/_custom_type_script = "uid://b810schxe1hne"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7y61a"]
 size = Vector2(95, 25)
 
-[node name="Scale" type="Node2D"]
+[node name="Scale" type="Node2D" unique_id=1538647824]
 
-[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="." unique_id=1139474135]
 script = ExtResource("2_ceiaq")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="Scale" type="Sprite2D" parent="SelectableCanvasGroup"]
+[node name="Scale" type="Sprite2D" parent="SelectableCanvasGroup" unique_id=1461645303]
 position = Vector2(1, -24)
 scale = Vector2(0.18, 0.18)
 texture = ExtResource("4_ssuie")
 
-[node name="Surface" type="StaticBody2D" parent="."]
+[node name="Surface" type="StaticBody2D" parent="." unique_id=307729223]
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Surface"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Surface" unique_id=372350447]
 position = Vector2(1, -17.5)
 shape = SubResource("RectangleShape2D_vhatv")
 debug_color = Color(0.404972, 0.46678, 1, 0.42)
 
-[node name="InteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("camera")]
+[node name="InteractableArea" type="Area2D" parent="." unique_id=417701529 node_paths=PackedStringArray("camera")]
 script = ExtResource("5_7y61a")
 camera = NodePath("../ZoomSelectableArea/CombinedRegionProvider/CameraRegionProvider/ZoomCamera")
 metadata/_custom_type_script = "uid://8jbti40eodk6"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea" unique_id=253812921]
 position = Vector2(1, -22)
 shape = SubResource("RectangleShape2D_jkoys")
 
-[node name="HelpSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("click_area")]
+[node name="HelpSelectableArea" type="Node2D" parent="." unique_id=147292132 node_paths=PackedStringArray("click_area")]
 script = ExtResource("4_s7pnd")
 help_page_path = "scale.txt"
 click_area = NodePath("../ZoomSelectableArea/Area2D")
 interact_info = SubResource("Resource_axik6")
 metadata/_custom_type_script = "uid://blk6q1chtrgqi"
 
-[node name="ZoomSelectableArea" type="Node2D" parent="."]
+[node name="ZoomSelectableArea" type="Node2D" parent="." unique_id=485793860]
 script = ExtResource("5_ssuie")
 interact_info = SubResource("Resource_s7pnd")
 metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 
-[node name="Area2D" type="Area2D" parent="ZoomSelectableArea"]
+[node name="Area2D" type="Area2D" parent="ZoomSelectableArea" unique_id=2101713627]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/Area2D" unique_id=766808859]
 position = Vector2(1.5, -1.5)
 shape = SubResource("RectangleShape2D_7y61a")
 
-[node name="CombinedRegionProvider" type="Node2D" parent="ZoomSelectableArea"]
+[node name="CombinedRegionProvider" type="Node2D" parent="ZoomSelectableArea" unique_id=1551145357]
 script = ExtResource("7_nfia4")
 
-[node name="CameraRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider"]
+[node name="CameraRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider" unique_id=604291930]
 script = ExtResource("8_87x6m")
 
-[node name="ZoomCamera" type="Camera2D" parent="ZoomSelectableArea/CombinedRegionProvider/CameraRegionProvider"]
+[node name="ZoomCamera" type="Camera2D" parent="ZoomSelectableArea/CombinedRegionProvider/CameraRegionProvider" unique_id=1855153084]
 zoom = Vector2(7, 7)
 
-[node name="GroupRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider"]
+[node name="GroupRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider" unique_id=1215495508]
 script = ExtResource("9_s0r2f")
 groups = Array[StringName]([&"zoom:scale"])
 metadata/_custom_type_script = "uid://ccy0k2wrm316p"
 
-[node name="ZoomAwareControl" type="Control" parent="."]
+[node name="ZoomAwareControl" type="Control" parent="." unique_id=1680431842]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -102,7 +102,7 @@ offset_bottom = 40.0
 script = ExtResource("5_nayum")
 metadata/_custom_type_script = "uid://kqpdop5g7bqv"
 
-[node name="TareButton" type="TextureButton" parent="ZoomAwareControl"]
+[node name="TareButton" type="TextureButton" parent="ZoomAwareControl" unique_id=1029236459]
 layout_mode = 0
 offset_left = 19.0
 offset_top = -15.0
@@ -111,7 +111,7 @@ offset_bottom = 753.0
 scale = Vector2(0.0293785, 0.0293785)
 texture_normal = ExtResource("7_vhatv")
 
-[node name="Label" type="Label" parent="ZoomAwareControl/TareButton"]
+[node name="Label" type="Label" parent="ZoomAwareControl/TareButton" unique_id=734648330]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -128,7 +128,7 @@ scale = Vector2(1, 1.00617)
 theme_override_font_sizes/font_size = 200
 text = "Tare"
 
-[node name="WeightLabel" type="Label" parent="ZoomAwareControl"]
+[node name="WeightLabel" type="Label" parent="ZoomAwareControl" unique_id=1794165305]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = -27.0

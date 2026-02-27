@@ -1,12 +1,11 @@
-[gd_scene load_steps=30 format=3 uid="uid://cug6kav5s55iq"]
+[gd_scene format=3 uid="uid://cug6kav5s55iq"]
 
-[ext_resource type="Script" uid="uid://bptf21x2a24jj" path="res://scripts/imager_gel_band_logic.gd" id="1_7wmgd"]
+[ext_resource type="Script" uid="uid://bptf21x2a24jj" path="res://scripts/imager.gd" id="1_7wmgd"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_w2ofj"]
 [ext_resource type="Texture2D" uid="uid://bg8b5dpp8av5t" path="res://textures/lab_objects/imager/inside_back.svg" id="3_au8w4"]
 [ext_resource type="Texture2D" uid="uid://cslhw30pcab3a" path="res://textures/lab_objects/imager/base.svg" id="3_p46ws"]
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="4_7wmgd"]
 [ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="4_ylekj"]
-[ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="6_18obo"]
 [ext_resource type="Texture2D" uid="uid://d3dbby0blgo04" path="res://textures/gel_bands/Gel_Rig_Top_View.svg" id="6_p46ws"]
 [ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="6_u3h3s"]
 [ext_resource type="Script" uid="uid://b15sd4jw5afoa" path="res://scripts/camera_region_provider.gd" id="7_au8w4"]
@@ -39,36 +38,37 @@ metadata/_custom_type_script = "uid://b810schxe1hne"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_deexq"]
 size = Vector2(165, 195)
 
-[node name="GelImager" type="Node2D"]
+[node name="GelImager" type="Node2D" unique_id=808032401]
 script = ExtResource("1_7wmgd")
 
-[node name="Imager" type="Sprite2D" parent="."]
+[node name="Imager" type="Sprite2D" parent="." unique_id=1896975882]
 unique_name_in_owner = true
 scale = Vector2(0.327149, 0.327149)
 texture = ExtResource("3_p46ws")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1948449284]
 offset_left = -16.0
 offset_top = -37.0
 offset_right = 24.0
 offset_bottom = 3.0
+mouse_filter = 2
 color = Color(0.9867516, 0.9867516, 0.9867516, 1)
 
-[node name="InsideBack" type="Sprite2D" parent="."]
+[node name="InsideBack" type="Sprite2D" parent="." unique_id=93250638]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_au8w4")
 
-[node name="DoorSelectable" type="Node2D" parent="." node_paths=PackedStringArray("interact_canvas_group")]
+[node name="DoorSelectable" type="Node2D" parent="." unique_id=329021704 node_paths=PackedStringArray("interact_canvas_group")]
 script = ExtResource("20_oxmjg")
 interact_canvas_group = NodePath("../ImagerDoorGroup")
 metadata/_custom_type_script = "uid://musakg3k6s1l"
 
-[node name="DepthManagedNode2D" type="Node2D" parent="."]
+[node name="DepthManagedNode2D" type="Node2D" parent="." unique_id=969994064]
 script = ExtResource("21_u3h3s")
 depth_layer = 1
 metadata/_custom_type_script = "uid://nf1enjfal72f"
 
-[node name="AttachmentInteractableArea" type="Area2D" parent="DepthManagedNode2D" node_paths=PackedStringArray("selectable_canvas_group")]
+[node name="AttachmentInteractableArea" type="Area2D" parent="DepthManagedNode2D" unique_id=1244578249 node_paths=PackedStringArray("selectable_canvas_group")]
 unique_name_in_owner = true
 position = Vector2(1, 53)
 script = ExtResource("4_7wmgd")
@@ -77,78 +77,50 @@ selectable_canvas_group = NodePath("../../ImagerDoorGroup")
 body_group_filter_type = 1
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DepthManagedNode2D/AttachmentInteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DepthManagedNode2D/AttachmentInteractableArea" unique_id=1577104243]
 position = Vector2(0, -33.25)
 shape = SubResource("RectangleShape2D_omd45")
 
-[node name="ImagerDoorGroup" type="CanvasGroup" parent="."]
+[node name="ImagerDoorGroup" type="CanvasGroup" parent="." unique_id=1004087561]
 z_index = 2000
 z_as_relative = false
 script = ExtResource("1_w2ofj")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="DoorClosed" type="Sprite2D" parent="ImagerDoorGroup"]
+[node name="DoorClosed" type="Sprite2D" parent="ImagerDoorGroup" unique_id=1251603592]
 unique_name_in_owner = true
 position = Vector2(0, 7.000001)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("8_0k0au")
 
-[node name="DoorOpen" type="Sprite2D" parent="ImagerDoorGroup"]
+[node name="DoorOpen" type="Sprite2D" parent="ImagerDoorGroup" unique_id=101369638]
 unique_name_in_owner = true
 position = Vector2(13, -13)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("9_0k0au")
 
-[node name="ZoomSelectableArea" type="Node2D" parent="." node_paths=PackedStringArray("subscene_camera")]
+[node name="ZoomSelectableArea" type="Node2D" parent="." unique_id=516274163 node_paths=PackedStringArray("subscene_camera")]
 script = ExtResource("4_ylekj")
 subscene_camera = NodePath("../Subscene/SubsceneCamera")
 interact_info = SubResource("Resource_u3h3s")
 metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 
-[node name="Area2D" type="Area2D" parent="ZoomSelectableArea"]
+[node name="Area2D" type="Area2D" parent="ZoomSelectableArea" unique_id=850659007]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomSelectableArea/Area2D" unique_id=1503232920]
 position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_deexq")
 debug_color = Color(0.961975, 0.191001, 0.110021, 0.42)
 
-[node name="CameraRegionProvider" type="Node2D" parent="ZoomSelectableArea"]
+[node name="CameraRegionProvider" type="Node2D" parent="ZoomSelectableArea" unique_id=302079454]
 script = ExtResource("7_au8w4")
 
-[node name="Camera2D" type="Camera2D" parent="ZoomSelectableArea/CameraRegionProvider"]
+[node name="Camera2D" type="Camera2D" parent="ZoomSelectableArea/CameraRegionProvider" unique_id=843289598]
 position = Vector2(2, -7)
 enabled = false
 zoom = Vector2(5.5, 3)
 
-[node name="ZoomAwareControl" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("6_18obo")
-metadata/_custom_type_script = "uid://kqpdop5g7bqv"
-
-[node name="UV Light" type="Button" parent="ZoomAwareControl"]
-unique_name_in_owner = true
-z_index = 2000
-layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.65000004
-anchor_bottom = -0.65000004
-offset_left = -4.0
-offset_top = -3.999998
-offset_right = 4.0
-offset_bottom = 4.000002
-
-[node name="ClosedDoor" type="TextureButton" parent="ZoomAwareControl"]
-layout_mode = 0
-offset_left = 68.0
-offset_top = -40.0
-offset_right = 82.0
-offset_bottom = 92.0
-
-[node name="GelWellTopViewLadderMultiple" type="Sprite2D" parent="."]
+[node name="GelWellTopViewLadderMultiple" type="Sprite2D" parent="." unique_id=1238052413]
 visible = false
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 1, 1, 0)
@@ -156,55 +128,55 @@ position = Vector2(3, -223)
 scale = Vector2(0.444733, 0.444733)
 texture = ExtResource("7_p0nad")
 
-[node name="GelWellTopViewPerfect" type="Sprite2D" parent="."]
+[node name="GelWellTopViewPerfect" type="Sprite2D" parent="." unique_id=1921038641]
 visible = false
 position = Vector2(-52.5156, -278.516)
 scale = Vector2(0.438414, 0.438414)
 texture = ExtResource("8_us78d")
 
-[node name="GelWellTopViewDiffused" type="Sprite2D" parent="."]
+[node name="GelWellTopViewDiffused" type="Sprite2D" parent="." unique_id=1144422794]
 visible = false
 position = Vector2(-53.3359, -278.336)
 scale = Vector2(0.40159, 0.40159)
 texture = ExtResource("9_ryau1")
 
-[node name="GelWellTopViewPerfect9Slice" type="Sprite2D" parent="."]
+[node name="GelWellTopViewPerfect9Slice" type="Sprite2D" parent="." unique_id=1765484701]
 visible = false
 position = Vector2(-52.1953, -269.195)
 scale = Vector2(0.376553, 0.376553)
 texture = ExtResource("10_v62sd")
 
-[node name="GelWellTopViewSmudge" type="Sprite2D" parent="."]
+[node name="GelWellTopViewSmudge" type="Sprite2D" parent="." unique_id=2133969327]
 visible = false
 position = Vector2(-52.1641, -279.164)
 scale = Vector2(0.177357, 0.177357)
 texture = ExtResource("11_hcb6o")
 
-[node name="GelWellTopViewSmudge2" type="Sprite2D" parent="."]
+[node name="GelWellTopViewSmudge2" type="Sprite2D" parent="." unique_id=449543961]
 visible = false
 position = Vector2(-51.8672, -277.867)
 scale = Vector2(0.173885, 0.173885)
 texture = ExtResource("12_ylekj")
 
-[node name="GelWellTopViewWavy" type="Sprite2D" parent="."]
+[node name="GelWellTopViewWavy" type="Sprite2D" parent="." unique_id=676017357]
 visible = false
 position = Vector2(-52.5, -278.516)
 scale = Vector2(0.157895, 0.122442)
 texture = ExtResource("13_deexq")
 
-[node name="GelWellTopViewWavy2" type="Sprite2D" parent="."]
+[node name="GelWellTopViewWavy2" type="Sprite2D" parent="." unique_id=2017297542]
 visible = false
 position = Vector2(-52.5, -277.516)
 scale = Vector2(0.169591, 0.135234)
 texture = ExtResource("14_r6ay8")
 
-[node name="GelWellTopViewDiffused9Slice" type="Sprite2D" parent="."]
+[node name="GelWellTopViewDiffused9Slice" type="Sprite2D" parent="." unique_id=1414934097]
 visible = false
 position = Vector2(-53, -268)
 scale = Vector2(0.331506, 0.331506)
 texture = ExtResource("15_ryau1")
 
-[node name="Subscene" type="ReferenceRect" parent="."]
+[node name="Subscene" type="ReferenceRect" parent="." unique_id=246495155]
 top_level = true
 offset_left = 381.0
 offset_top = -275.0
@@ -214,7 +186,7 @@ theme = ExtResource("23_0k0au")
 script = ExtResource("14_hcb6o")
 metadata/_custom_type_script = "uid://cs1o2bs2ponhi"
 
-[node name="ColorRect" type="ColorRect" parent="Subscene"]
+[node name="ColorRect" type="ColorRect" parent="Subscene" unique_id=27534875]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -223,7 +195,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.92580456, 0.93647724, 0.9328323, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="Subscene/ColorRect"]
+[node name="MarginContainer" type="MarginContainer" parent="Subscene/ColorRect" unique_id=1741204042]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -235,28 +207,28 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Subscene/ColorRect/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Subscene/ColorRect/MarginContainer" unique_id=362620888]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Subscene/ColorRect/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Subscene/ColorRect/MarginContainer/VBoxContainer" unique_id=331724014]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Subscene/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Subscene/ColorRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1943314641]
 layout_mode = 2
 text = "Imager results"
 
-[node name="Spacer" type="Control" parent="Subscene/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Spacer" type="Control" parent="Subscene/ColorRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=819370317]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="UVLabel" type="Label" parent="Subscene/ColorRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="UVLabel" type="Label" parent="Subscene/ColorRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=566192913]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 theme_type_variation = &"OnLabel"
 text = "UV on"
 
-[node name="MarginContainer" type="MarginContainer" parent="Subscene/ColorRect/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Subscene/ColorRect/MarginContainer/VBoxContainer" unique_id=1724985657]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 50
@@ -264,44 +236,44 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="Subscene/ColorRect/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Subscene/ColorRect/MarginContainer/VBoxContainer/MarginContainer" unique_id=1170516394]
 layout_mode = 2
 
-[node name="GelRigTopView" type="Sprite2D" parent="Subscene"]
+[node name="GelRigTopView" type="Sprite2D" parent="Subscene" unique_id=184265674]
 visible = false
 modulate = Color(0.250213, 0.250213, 0.250213, 1)
 position = Vector2(301, 314)
 texture = ExtResource("6_p46ws")
 
-[node name="Wells" type="Node2D" parent="Subscene"]
+[node name="Wells" type="Node2D" parent="Subscene" unique_id=627825491]
 position = Vector2(64, 48)
 
-[node name="Well1" type="Node2D" parent="Subscene/Wells"]
+[node name="Well1" type="Node2D" parent="Subscene/Wells" unique_id=1292496965]
 unique_name_in_owner = true
 position = Vector2(56.000008, 29)
 scale = Vector2(0.969638, 1.00427)
 
-[node name="Well2" type="Node2D" parent="Subscene/Wells"]
+[node name="Well2" type="Node2D" parent="Subscene/Wells" unique_id=1087340378]
 unique_name_in_owner = true
 position = Vector2(120.6002, 29)
 scale = Vector2(0.969638, 1.00427)
 
-[node name="Well3" type="Node2D" parent="Subscene/Wells"]
+[node name="Well3" type="Node2D" parent="Subscene/Wells" unique_id=1638185712]
 unique_name_in_owner = true
 position = Vector2(183.04819, 29)
 scale = Vector2(0.969638, 1.00427)
 
-[node name="Well4" type="Node2D" parent="Subscene/Wells"]
+[node name="Well4" type="Node2D" parent="Subscene/Wells" unique_id=1810911876]
 unique_name_in_owner = true
 position = Vector2(245.49515, 29)
 scale = Vector2(0.969638, 1.00427)
 
-[node name="Well5" type="Node2D" parent="Subscene/Wells"]
+[node name="Well5" type="Node2D" parent="Subscene/Wells" unique_id=1033790835]
 unique_name_in_owner = true
 position = Vector2(307.94217, 29)
 scale = Vector2(0.969638, 1.00427)
 
-[node name="SubsceneCamera" type="Camera2D" parent="Subscene"]
+[node name="SubsceneCamera" type="Camera2D" parent="Subscene" unique_id=150491125]
 anchor_mode = 0
 editor_draw_screen = false
 script = ExtResource("17_ylekj")
@@ -309,5 +281,5 @@ region_size = Vector2(500, 420)
 metadata/_custom_type_script = "uid://b5a5765epdkf"
 
 [connection signal="pressed" from="DoorSelectable" to="." method="_on_door_selectable_pressed"]
-[connection signal="pressed" from="ZoomAwareControl/UV Light" to="." method="_on_uv_light_pressed"]
-[connection signal="pressed" from="ZoomAwareControl/ClosedDoor" to="." method="on_gel_removed"]
+[connection signal="object_placed" from="DepthManagedNode2D/AttachmentInteractableArea" to="." method="_maybe_update_report_async" unbinds=1]
+[connection signal="zoomed_in" from="ZoomSelectableArea" to="." method="_maybe_update_report_async"]

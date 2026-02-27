@@ -49,6 +49,8 @@ var _target_mouse_mode := Input.MOUSE_MODE_VISIBLE
 # be sure the mouse is on-screen if an input event was actually received.
 var _change_mouse_mode_on_next_mouse_motion := false
 
+var _file_save_prompt_lock := AsyncLock.new()
+
 @onready var _hand_pointing_cursor: Sprite2D = $%VirtualCursor/HandPointing
 @onready var _hand_open_cursor: Sprite2D = $%VirtualCursor/HandOpen
 @onready var _hand_closed_cursor: Sprite2D = $%VirtualCursor/HandClosed
@@ -77,7 +79,6 @@ func _ready() -> void:
 	Game.camera = $%TransitionCamera
 	Game.cursor_area = $%CursorArea
 	Game.debug_overlay = $%DebugOverlay
-	Game.report_log = $%GelLogReport
 	Game.journal = %Journal
 	Game.hint_popup = %HintPopup
 
@@ -143,6 +144,13 @@ func _ready() -> void:
 
 	# The zoom prompt is at the top always.
 	_interact_kind_prompts[InteractInfo.Kind.INSPECT] = %ZoomOutPrompt
+
+	# Prompt user to save to desktop by default.
+	var desktop_path: String = OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP)
+	if desktop_path and DirAccess.dir_exists_absolute(desktop_path):
+		%FileDialog.current_dir = desktop_path
+	else:
+		%FileDialog.current_dir = "user://"
 
 	for kind: InteractInfo.Kind in InteractInfo.Kind.values():
 		# Don't make a new prompt for one already set previously (like the inspect prompt at the top
@@ -268,6 +276,7 @@ func unload_current_module() -> void:
 	Interaction.clear_all_interaction_state()
 	DepthManager.clear_layers()
 	Game.journal.clear()
+	LabReport.clear()
 	hide_subscene()
 	move_to_workspace(null)
 	_current_module_scene = null
@@ -293,10 +302,6 @@ func is_pause_menu_open() -> bool:
 
 func set_journal_open(open: bool) -> void:
 	%Journal.visible = open
-	if %Journal.visible:
-		Game.report_log.load_report_data()
-	else:
-		Game.report_log.rich_text_label.clear()
 	_update_simulation_pause()
 	_update_scene_overlays()
 
@@ -394,6 +399,40 @@ func get_world_to_ui_transform() -> Transform2D:
 ## Get the transform from UI space to simulation world space
 func get_ui_to_world_transform() -> Transform2D:
 	return %MainViewport.canvas_transform.affine_inverse() * $UILayer.get_final_transform()
+
+## Get the [ViewportTexture] of the subscene viewport.
+func get_subscene_viewport_texture() -> Texture2D:
+	return %SubsceneViewport.get_texture()
+
+## Open a prompt allowing the user to save [param buffer] to disk. The default file name will be
+## [param file_name], but the user is allowed to choose a different name, so this shouldn't be
+## used in cases where the exact path matters. On the web, this will simply download the file. This
+## function will not block, and if called multiple times in a row, prompts for each request will be
+## opened in the order they were made.
+func open_file_save_prompt_async(file_name: String, buffer: PackedByteArray) -> void:
+	if _is_in_web_browser():
+		JavaScriptBridge.download_buffer(buffer, file_name)
+	else:
+		await _file_save_prompt_lock.lock_async()
+
+		%FileDialog.current_file = file_name
+		%FileDialog.popup_centered()
+
+		if await Util.wait_for_one_async([%FileDialog.file_selected, %FileDialog.canceled]) == 0:
+			var path: String = %FileDialog.current_path
+
+			var file := FileAccess.open(path, FileAccess.WRITE)
+			if file:
+				file.store_buffer(buffer)
+				file.close()
+				print("Saved to %s" % path)
+			else:
+				print("Failed to save to %s" % path)
+		else:
+			print("Save canceled")
+
+		_file_save_prompt_lock.unlock()
+
 
 func _on_exit_module_button_pressed() -> void:
 	_switch_to_main_menu()

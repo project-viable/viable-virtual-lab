@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bnn7yyuvh6jsj"]
+[gd_scene format=3 uid="uid://bnn7yyuvh6jsj"]
 
 [ext_resource type="Texture2D" uid="uid://byucr1dj248ga" path="res://textures/environment/wall.svg" id="1_5fdni"]
 [ext_resource type="Script" uid="uid://b8p3xdpo3orid" path="res://scripts/procedure_opener.gd" id="1_wv41k"]
@@ -135,21 +135,21 @@ fragments = Dictionary[int, ExtResource("25_nbx6y")]({
 })
 metadata/_custom_type_script = "uid://6lhyc3i5obbu"
 
-[node name="Combined" type="Node2D"]
+[node name="Combined" type="Node2D" unique_id=1201902275]
 
-[node name="ProcedureOpener" type="Node" parent="."]
+[node name="ProcedureOpener" type="Node" parent="." unique_id=842138330]
 script = ExtResource("1_wv41k")
 journal_page_path = "gel_electrophoresis_procedure.txt"
 initial_help_page_path = "usage.txt"
 
-[node name="BackgroundWall" type="Sprite2D" parent="."]
+[node name="BackgroundWall" type="Sprite2D" parent="." unique_id=802742008]
 z_index = -2
 position = Vector2(0, -230.00003)
 scale = Vector2(1.94479, 0.88148195)
 texture = ExtResource("1_5fdni")
 centered = false
 
-[node name="BenchBackground" type="NinePatchRect" parent="."]
+[node name="BenchBackground" type="NinePatchRect" parent="." unique_id=1593517957]
 modulate = Color(0.433266, 0.433266, 0.433266, 1)
 offset_left = 33.0
 offset_top = 502.0
@@ -162,7 +162,7 @@ patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 21
 
-[node name="BenchBackground2" type="NinePatchRect" parent="."]
+[node name="BenchBackground2" type="NinePatchRect" parent="." unique_id=149556095]
 offset_left = 18.0
 offset_top = 502.0
 offset_right = 475.0
@@ -174,7 +174,7 @@ patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 21
 
-[node name="BenchBackground3" type="NinePatchRect" parent="."]
+[node name="BenchBackground3" type="NinePatchRect" parent="." unique_id=1831249280]
 offset_left = 1960.0
 offset_top = 502.0
 offset_right = 2500.0
@@ -186,7 +186,7 @@ patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 21
 
-[node name="BenchTop" type="NinePatchRect" parent="."]
+[node name="BenchTop" type="NinePatchRect" parent="." unique_id=1287758173]
 offset_left = 11.0
 offset_top = 495.0
 offset_right = 12506.0
@@ -199,26 +199,26 @@ patch_margin_top = 66
 patch_margin_right = 7
 patch_margin_bottom = 7
 
-[node name="Boundary" type="StaticBody2D" parent="."]
+[node name="Boundary" type="StaticBody2D" parent="." unique_id=1420099895]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary" unique_id=133298403]
 position = Vector2(647, 593)
 shape = SubResource("WorldBoundaryShape2D_5fdni")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Boundary"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Boundary" unique_id=2137523565]
 position = Vector2(12, 356)
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_w0rbf")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Boundary"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Boundary" unique_id=1185064025]
 position = Vector2(3736, 350)
 rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_7cn0u")
 
-[node name="WallClock" parent="." instance=ExtResource("21_8cc2w")]
+[node name="WallClock" parent="." unique_id=636094401 instance=ExtResource("21_8cc2w")]
 position = Vector2(2466, 195)
 
-[node name="WorkspaceCamera" type="Camera2D" parent="." node_paths=PackedStringArray("right_workspace")]
+[node name="WorkspaceCamera" type="Camera2D" parent="." unique_id=471144226 node_paths=PackedStringArray("right_workspace")]
 position = Vector2(0, -80)
 anchor_mode = 0
 script = ExtResource("25_5fdni")
@@ -226,156 +226,156 @@ is_main_workspace = true
 right_workspace = NodePath("../WorkspaceCamera2")
 metadata/_custom_type_script = "uid://f3pegl6tyuqt"
 
-[node name="WorkspaceCamera2" type="Camera2D" parent="." node_paths=PackedStringArray("left_workspace")]
+[node name="WorkspaceCamera2" type="Camera2D" parent="." unique_id=32487788 node_paths=PackedStringArray("left_workspace")]
 position = Vector2(1280, -80)
 anchor_mode = 0
 script = ExtResource("25_5fdni")
 left_workspace = NodePath("../WorkspaceCamera")
 metadata/_custom_type_script = "uid://f3pegl6tyuqt"
 
-[node name="Objects" type="Node2D" parent="."]
+[node name="Objects" type="Node2D" parent="." unique_id=218005458]
 
-[node name="Flask" parent="Objects" instance=ExtResource("2_e4xug")]
+[node name="Flask" parent="Objects" unique_id=2013075379 instance=ExtResource("2_e4xug")]
 position = Vector2(431, 444)
 metadata/_edit_group_ = true
 
-[node name="Flask2" parent="Objects" instance=ExtResource("2_e4xug")]
+[node name="Flask2" parent="Objects" unique_id=756353850 instance=ExtResource("2_e4xug")]
 position = Vector2(536, 444)
 metadata/_edit_group_ = true
 
-[node name="GraduatedCylinder" parent="Objects" instance=ExtResource("3_iy3xr")]
+[node name="GraduatedCylinder" parent="Objects" unique_id=78682580 instance=ExtResource("3_iy3xr")]
 position = Vector2(662, 395)
 
-[node name="PipetteStand" parent="Objects" instance=ExtResource("4_5fdni")]
+[node name="PipetteStand" parent="Objects" unique_id=268434943 instance=ExtResource("4_5fdni")]
 position = Vector2(2066, 419)
 metadata/_edit_group_ = true
 
-[node name="AttachmentInteractableArea" parent="Objects/PipetteStand" index="1" node_paths=PackedStringArray("contained_object")]
+[node name="AttachmentInteractableArea" parent="Objects/PipetteStand" index="1" unique_id=738379239 node_paths=PackedStringArray("contained_object")]
 contained_object = NodePath("../../Pipette")
 
-[node name="Pipette" parent="Objects" instance=ExtResource("4_t02aw")]
+[node name="Pipette" parent="Objects" unique_id=1631717484 instance=ExtResource("4_t02aw")]
 position = Vector2(2065, 418)
 
-[node name="PipetteTipBox" parent="Objects" instance=ExtResource("5_vwsp8")]
+[node name="PipetteTipBox" parent="Objects" unique_id=1679121128 instance=ExtResource("5_vwsp8")]
 position = Vector2(2155, 457)
 
-[node name="WeighBoat" parent="Objects" instance=ExtResource("6_vj1mp")]
+[node name="WeighBoat" parent="Objects" unique_id=326374940 instance=ExtResource("6_vj1mp")]
 position = Vector2(802, 443)
 
-[node name="AgaroseBottle" parent="Objects" instance=ExtResource("7_yik3d")]
+[node name="AgaroseBottle" parent="Objects" unique_id=746679624 instance=ExtResource("7_yik3d")]
 position = Vector2(927, 446)
 
-[node name="TAEBottle" parent="Objects" instance=ExtResource("8_yik3d")]
+[node name="TAEBottle" parent="Objects" unique_id=1807041059 instance=ExtResource("8_yik3d")]
 position = Vector2(1173, 446)
 
-[node name="Microwave" parent="Objects" instance=ExtResource("9_y4qw0")]
+[node name="Microwave" parent="Objects" unique_id=518464025 instance=ExtResource("9_y4qw0")]
 position = Vector2(236, 412)
 
-[node name="GelMold" parent="Objects" instance=ExtResource("11_l4mh3")]
+[node name="GelMold" parent="Objects" unique_id=346569152 instance=ExtResource("11_l4mh3")]
 position = Vector2(1646, 486)
 
-[node name="GelBox" parent="Objects" instance=ExtResource("12_sdlgg")]
+[node name="GelBox" parent="Objects" unique_id=710832823 instance=ExtResource("12_sdlgg")]
 position = Vector2(1553, 468)
 
-[node name="PowerSupply" parent="Objects" instance=ExtResource("13_36q3s")]
+[node name="PowerSupply" parent="Objects" unique_id=1404866884 instance=ExtResource("13_36q3s")]
 position = Vector2(1366, 477)
 
-[node name="GelImager" parent="Objects" instance=ExtResource("14_eg6i0")]
+[node name="GelImager" parent="Objects" unique_id=624465869 instance=ExtResource("14_eg6i0")]
 position = Vector2(2422, 396)
 
-[node name="Scoopula" parent="Objects" instance=ExtResource("15_aby4o")]
+[node name="Scoopula" parent="Objects" unique_id=2052144478 instance=ExtResource("15_aby4o")]
 position = Vector2(1027, 430)
 
-[node name="ScoopulaHolder" parent="Objects" instance=ExtResource("14_82fmo")]
+[node name="ScoopulaHolder" parent="Objects" unique_id=2071736484 instance=ExtResource("14_82fmo")]
 position = Vector2(1020, 435)
 metadata/_edit_group_ = true
 
-[node name="AttachmentInteractableArea" parent="Objects/ScoopulaHolder" index="0" node_paths=PackedStringArray("contained_object")]
+[node name="AttachmentInteractableArea" parent="Objects/ScoopulaHolder" index="0" unique_id=1010796996 node_paths=PackedStringArray("contained_object")]
 contained_object = NodePath("../../Scoopula")
 
-[node name="Scale" parent="Objects" instance=ExtResource("16_c15s6")]
+[node name="Scale" parent="Objects" unique_id=1390978317 instance=ExtResource("16_c15s6")]
 position = Vector2(801, 477)
 
-[node name="BiohazardBin" parent="Objects" instance=ExtResource("17_6se67")]
+[node name="BiohazardBin" parent="Objects" unique_id=758099352 instance=ExtResource("17_6se67")]
 position = Vector2(2273, 448)
 
-[node name="MicrocentrifugeTube" parent="Objects" instance=ExtResource("10_bi7f4")]
+[node name="MicrocentrifugeTube" parent="Objects" unique_id=756292388 instance=ExtResource("10_bi7f4")]
 position = Vector2(1945, 472)
 metadata/_edit_group_ = true
 
-[node name="ContainerComponent" parent="Objects/MicrocentrifugeTube" index="5"]
+[node name="ContainerComponent" parent="Objects/MicrocentrifugeTube" index="5" unique_id=1295020617]
 substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_120qc")])
 
-[node name="MicrocentrifugeTube2" parent="Objects" instance=ExtResource("10_bi7f4")]
+[node name="MicrocentrifugeTube2" parent="Objects" unique_id=363960288 instance=ExtResource("10_bi7f4")]
 position = Vector2(1954, 472)
 metadata/_edit_group_ = true
 
-[node name="ContainerComponent" parent="Objects/MicrocentrifugeTube2" index="5"]
+[node name="ContainerComponent" parent="Objects/MicrocentrifugeTube2" index="5" unique_id=1295020617]
 substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_ah5la")])
 
-[node name="MicrocentrifugeTube3" parent="Objects" instance=ExtResource("10_bi7f4")]
+[node name="MicrocentrifugeTube3" parent="Objects" unique_id=903225657 instance=ExtResource("10_bi7f4")]
 position = Vector2(1963, 472)
 metadata/_edit_group_ = true
 
-[node name="ContainerComponent" parent="Objects/MicrocentrifugeTube3" index="5"]
+[node name="ContainerComponent" parent="Objects/MicrocentrifugeTube3" index="5" unique_id=1295020617]
 substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_c13rf")])
 
-[node name="MicrocentrifugeTube4" parent="Objects" instance=ExtResource("10_bi7f4")]
+[node name="MicrocentrifugeTube4" parent="Objects" unique_id=346003705 instance=ExtResource("10_bi7f4")]
 position = Vector2(1972, 472)
 metadata/_edit_group_ = true
 
-[node name="ContainerComponent" parent="Objects/MicrocentrifugeTube4" index="5"]
+[node name="ContainerComponent" parent="Objects/MicrocentrifugeTube4" index="5" unique_id=1295020617]
 substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_pdbow")])
 
-[node name="MicrocentrifugeHolder" parent="Objects" instance=ExtResource("18_xe06v")]
+[node name="MicrocentrifugeHolder" parent="Objects" unique_id=1765066719 instance=ExtResource("18_xe06v")]
 position = Vector2(1982, 481)
 metadata/_edit_group_ = true
 
-[node name="AttachmentInteractableArea" parent="Objects/MicrocentrifugeHolder" index="0" node_paths=PackedStringArray("contained_object")]
+[node name="AttachmentInteractableArea" parent="Objects/MicrocentrifugeHolder" index="0" unique_id=2131851507 node_paths=PackedStringArray("contained_object")]
 contained_object = NodePath("../../MicrocentrifugeTube")
 
-[node name="AttachmentInteractableArea2" parent="Objects/MicrocentrifugeHolder" index="1" node_paths=PackedStringArray("contained_object")]
+[node name="AttachmentInteractableArea2" parent="Objects/MicrocentrifugeHolder" index="1" unique_id=210277733 node_paths=PackedStringArray("contained_object")]
 contained_object = NodePath("../../MicrocentrifugeTube2")
 
-[node name="AttachmentInteractableArea3" parent="Objects/MicrocentrifugeHolder" index="2" node_paths=PackedStringArray("contained_object")]
+[node name="AttachmentInteractableArea3" parent="Objects/MicrocentrifugeHolder" index="2" unique_id=1122410702 node_paths=PackedStringArray("contained_object")]
 contained_object = NodePath("../../MicrocentrifugeTube3")
 
-[node name="AttachmentInteractableArea4" parent="Objects/MicrocentrifugeHolder" index="3" node_paths=PackedStringArray("contained_object")]
+[node name="AttachmentInteractableArea4" parent="Objects/MicrocentrifugeHolder" index="3" unique_id=338442989 node_paths=PackedStringArray("contained_object")]
 contained_object = NodePath("../../MicrocentrifugeTube4")
 
-[node name="NinePatchRect" parent="Objects/MicrocentrifugeHolder/SelectableCanvasGroup" index="0"]
+[node name="NinePatchRect" parent="Objects/MicrocentrifugeHolder/SelectableCanvasGroup" parent_id_path=PackedInt32Array(1765066719, 462571090) index="0" unique_id=1172589962]
 metadata/_edit_use_anchors_ = true
 
-[node name="ContactWires" type="Node2D" parent="Objects"]
+[node name="ContactWires" type="Node2D" parent="Objects" unique_id=944036867]
 position = Vector2(742, 6)
 script = ExtResource("21_kobiv")
 
-[node name="RedContactWires" type="Node2D" parent="Objects/ContactWires"]
+[node name="RedContactWires" type="Node2D" parent="Objects/ContactWires" unique_id=1234139582]
 
-[node name="RedContactWire" parent="Objects/ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
+[node name="RedContactWire" parent="Objects/ContactWires/RedContactWires" unique_id=1306257772 instance=ExtResource("21_gvdu8")]
 unique_name_in_owner = true
 position = Vector2(754, 460)
 
-[node name="RedContactWire2" parent="Objects/ContactWires/RedContactWires" instance=ExtResource("21_gvdu8")]
+[node name="RedContactWire2" parent="Objects/ContactWires/RedContactWires" unique_id=490597288 instance=ExtResource("21_gvdu8")]
 unique_name_in_owner = true
 position = Vector2(731, 455)
 
-[node name="BlackContactWires" type="Node2D" parent="Objects/ContactWires"]
+[node name="BlackContactWires" type="Node2D" parent="Objects/ContactWires" unique_id=1329764363]
 
-[node name="BlackContactWire" parent="Objects/ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
+[node name="BlackContactWire" parent="Objects/ContactWires/BlackContactWires" unique_id=2126625256 instance=ExtResource("21_gvdu8")]
 unique_name_in_owner = true
 position = Vector2(686, 479)
 texture = ExtResource("22_kobiv")
 
-[node name="BlackContactWire2" parent="Objects/ContactWires/BlackContactWires" instance=ExtResource("21_gvdu8")]
+[node name="BlackContactWire2" parent="Objects/ContactWires/BlackContactWires" unique_id=2023449086 instance=ExtResource("21_gvdu8")]
 unique_name_in_owner = true
 position = Vector2(711, 476)
 texture = ExtResource("22_kobiv")
 
-[node name="GelComb" parent="Objects" instance=ExtResource("30_bi4rt")]
+[node name="GelComb" parent="Objects" unique_id=1887527958 instance=ExtResource("30_bi4rt")]
 position = Vector2(1723, 487)
 
-[node name="GelMoldThing" parent="." instance=ExtResource("33_ompny")]
+[node name="GelMoldThing" parent="." unique_id=1646695503 instance=ExtResource("33_ompny")]
 position = Vector2(1824, 468)
 
 [editable path="Objects/Flask"]

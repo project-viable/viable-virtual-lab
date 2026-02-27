@@ -42,6 +42,8 @@ func _press() -> void:
 	enable_interaction = false
 	zoomed_in.emit()
 
+func is_zoomed_in() -> bool: return _is_zoomed_in
+
 func _on_main_camera_focus_owner_changed(focus_owner: Node) -> void:
 	if _is_zoomed_in and focus_owner != self:
 		_is_zoomed_in = false

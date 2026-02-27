@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bqq24b1qxt4r7"]
+[gd_scene format=3 uid="uid://bqq24b1qxt4r7"]
 
 [ext_resource type="Script" uid="uid://djoq1glbbojw1" path="res://scripts/interaction_prompt.gd" id="1_hyumr"]
 [ext_resource type="Texture2D" uid="uid://d062ywg2c6bnj" path="res://textures/icons_and_buttons/keyboard_key_unpressed.svg" id="2_a6f31"]
@@ -35,7 +35,7 @@ resource_local_to_scene = true
 atlas = ExtResource("3_rbyiy")
 region = Rect2(283.5, 13.962, 456, 741.72)
 
-[node name="InteractionPrompt" type="HBoxContainer"]
+[node name="InteractionPrompt" type="HBoxContainer" unique_id=548199008]
 custom_minimum_size = Vector2(0, 50)
 offset_right = 82.0
 offset_bottom = 40.0
@@ -44,13 +44,13 @@ size_flags_vertical = 0
 theme_override_constants/separation = 10
 script = ExtResource("1_hyumr")
 
-[node name="KeyUnpressed" type="PanelContainer" parent="."]
+[node name="KeyUnpressed" type="PanelContainer" parent="." unique_id=1303375622]
 custom_minimum_size = Vector2(40, 50)
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxTexture_hyumr")
 
-[node name="Label" type="Label" parent="KeyUnpressed"]
+[node name="Label" type="Label" parent="KeyUnpressed" unique_id=879584464]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -59,14 +59,14 @@ theme_override_font_sizes/font_size = 24
 text = "(unknown)"
 horizontal_alignment = 1
 
-[node name="KeyPressed" type="PanelContainer" parent="."]
+[node name="KeyPressed" type="PanelContainer" parent="." unique_id=1341925590]
 visible = false
 custom_minimum_size = Vector2(40, 50)
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxTexture_55hpe")
 
-[node name="Label" type="Label" parent="KeyPressed"]
+[node name="Label" type="Label" parent="KeyPressed" unique_id=124903593]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -75,7 +75,7 @@ theme_override_font_sizes/font_size = 24
 text = "(unknown)"
 horizontal_alignment = 1
 
-[node name="MouseButton" type="TextureRect" parent="."]
+[node name="MouseButton" type="TextureRect" parent="." unique_id=1382766343]
 visible = false
 custom_minimum_size = Vector2(30, 50)
 layout_mode = 2
@@ -83,7 +83,7 @@ texture = SubResource("AtlasTexture_rbyiy")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="DescriptionLabel" type="Label" parent="."]
+[node name="DescriptionLabel" type="Label" parent="." unique_id=347707954]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2

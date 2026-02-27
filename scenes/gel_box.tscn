@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://5orfeca6lgvk"]
+[gd_scene format=3 uid="uid://5orfeca6lgvk"]
 
 [ext_resource type="Script" uid="uid://b4opfmf7566v4" path="res://scripts/gel_box.gd" id="1_gl61q"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_t800u"]
@@ -28,32 +28,32 @@ size = Vector2(94, 47)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xl5qd"]
 size = Vector2(12, 30)
 
-[node name="GelBox" type="RigidBody2D" groups=["zoom:power_supply"]]
+[node name="GelBox" type="RigidBody2D" unique_id=1610903139 groups=["zoom:power_supply"]]
 collision_layer = 0
 script = ExtResource("1_gl61q")
 hover_name = "gel rig"
 help_page_path = "gel_rig.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
-[node name="FillRef" type="Node2D" parent="."]
+[node name="FillRef" type="Node2D" parent="." unique_id=854354737]
 position = Vector2(0, -5)
 
-[node name="ContainerInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("container_component") groups=["container:pour"]]
+[node name="ContainerInteractableArea" type="Area2D" parent="." unique_id=1743705605 node_paths=PackedStringArray("container_component") groups=["container:pour"]]
 position = Vector2(40, -24)
 script = ExtResource("2_gl61q")
 container_component = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea" unique_id=774504756]
 position = Vector2(-40, 27.5)
 shape = SubResource("RectangleShape2D_qsq1u")
 
-[node name="ContainerComponent" type="Node2D" parent="."]
+[node name="ContainerComponent" type="Node2D" parent="." unique_id=92853723]
 script = ExtResource("3_8th0w")
 container_volume = 100.0
 metadata/_custom_type_script = "uid://sscbm7kfq4jj"
 
-[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="." node_paths=PackedStringArray("source")]
+[node name="SubstanceDisplayPolygon" type="Polygon2D" parent="." unique_id=18272781 node_paths=PackedStringArray("source")]
 z_index = 1
 position = Vector2(0, 1)
 polygon = PackedVector2Array(-45, 24, -30, 24, -30, 12, -26, 7, 25, 7, 30, 12, 30, 25, 45, 25, 45, -21, -45, -21)
@@ -61,21 +61,21 @@ script = ExtResource("2_xl5qd")
 source = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://b0ywjj7uwvbji"
 
-[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="." unique_id=1781747441]
 z_index = 2
 script = ExtResource("1_t800u")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="GelRig" type="Sprite2D" parent="SelectableCanvasGroup"]
+[node name="GelRig" type="Sprite2D" parent="SelectableCanvasGroup" unique_id=1814981601]
 modulate = Color(1, 1, 1, 0.776471)
 scale = Vector2(0.095, 0.095)
 texture = ExtResource("3_r7so7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1089900112]
 position = Vector2(0, 15.5)
 shape = SubResource("RectangleShape2D_t800u")
 
-[node name="PositiveAttachmentInteractableArea" type="Area2D" parent="." node_paths=PackedStringArray("selectable_canvas_group")]
+[node name="PositiveAttachmentInteractableArea" type="Area2D" parent="." unique_id=1028091214 node_paths=PackedStringArray("selectable_canvas_group")]
 z_index = 2
 position = Vector2(-38, 12)
 script = ExtResource("5_r7so7")
@@ -84,11 +84,11 @@ point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PositiveAttachmentInteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PositiveAttachmentInteractableArea" unique_id=1423401901]
 shape = SubResource("CircleShape2D_r7so7")
 debug_color = Color(0.927163, 0.143775, 0.567313, 0.42)
 
-[node name="NegativeAttachmentInteractableArea2" type="Area2D" parent="."]
+[node name="NegativeAttachmentInteractableArea2" type="Area2D" parent="." unique_id=726295831]
 z_index = 2
 position = Vector2(38, 12)
 script = ExtResource("5_r7so7")
@@ -98,33 +98,33 @@ point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NegativeAttachmentInteractableArea2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NegativeAttachmentInteractableArea2" unique_id=1727071804]
 position = Vector2(-1, 0)
 shape = SubResource("CircleShape2D_xl5qd")
 debug_color = Color(0.74071, 0.462915, 0.148127, 0.42)
 
-[node name="WireConnectableComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "target_container")]
+[node name="WireConnectableComponent" type="Node2D" parent="." unique_id=114193620 node_paths=PackedStringArray("body", "target_container")]
 script = ExtResource("6_xl5qd")
 body = NodePath("..")
 target_container = NodePath("../ContainerComponent")
 metadata/_custom_type_script = "uid://chvv2ne60otwi"
 
-[node name="TrayAttachment" type="Area2D" parent="."]
+[node name="TrayAttachment" type="Area2D" parent="." unique_id=230654187]
 position = Vector2(0, 7)
 script = ExtResource("6_r7so7")
 point_groups = Array[StringName]([&"attachment:gel_tray"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TrayAttachment"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrayAttachment" unique_id=1375073678]
 position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_r7so7")
 debug_color = Color(3.46541e-06, 0.635788, 0.412943, 0.42)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1149645945]
 position = Vector2(-40, -5)
 shape = SubResource("RectangleShape2D_xl5qd")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=501426647]
 position = Vector2(41, -5)
 shape = SubResource("RectangleShape2D_xl5qd")
 

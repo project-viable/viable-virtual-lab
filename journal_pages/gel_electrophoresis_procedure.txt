@@ -11,8 +11,8 @@
 
 #{h2:To make the gel}#
 [ol]
-Use the scoopula, weigh boat, and scale to measure 1 g of agarose powder.
-Use the graduated cylinder to measure 50 mL of TAE buffer, and add it to the same flask.
+Use the graduated cylinder to measure 50 mL of TAE buffer into a flask.
+Use the scoopula, weigh boat, and scale to measure 0.5 g of agarose powder into the same flask. This will produce a 1% gel; for a 2% gel, you would use 1 g of agarose.
 Microwave the flask for 1 minute.
 Swirl the flask until the agarose is fully dissolved into the buffer.
 Place the gel tray into the gel mold thing to seal it.

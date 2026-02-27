@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2owhv1drxs7p"]
+[gd_scene format=3 uid="uid://b2owhv1drxs7p"]
 
 [ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_f63uk"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_3s6eo"]
@@ -9,63 +9,63 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gs6p0"]
 size = Vector2(106, 43)
 
-[node name="PipetteTipBox" type="RigidBody2D"]
+[node name="PipetteTipBox" type="RigidBody2D" unique_id=1876775352]
 collision_layer = 0
 script = ExtResource("1_f63uk")
 hover_name = "pipette tip box"
 help_page_path = "pipette.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1391985142]
 position = Vector2(0, 15.5)
 shape = SubResource("RectangleShape2D_gs6p0")
 
-[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="." unique_id=56542452]
 script = ExtResource("2_3s6eo")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="Tips" type="Node2D" parent="SelectableCanvasGroup"]
+[node name="Tips" type="Node2D" parent="SelectableCanvasGroup" unique_id=720048556]
 position = Vector2(0, 15)
 
-[node name="Sprite2D" type="Sprite2D" parent="SelectableCanvasGroup/Tips"]
+[node name="Sprite2D" type="Sprite2D" parent="SelectableCanvasGroup/Tips" unique_id=1558896181]
 position = Vector2(-43.6, -61.2)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("7_02ny6")
 
-[node name="Sprite2D2" type="Sprite2D" parent="SelectableCanvasGroup/Tips"]
+[node name="Sprite2D2" type="Sprite2D" parent="SelectableCanvasGroup/Tips" unique_id=132713648]
 position = Vector2(-27.6, -61.2)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("7_02ny6")
 
-[node name="Sprite2D3" type="Sprite2D" parent="SelectableCanvasGroup/Tips"]
+[node name="Sprite2D3" type="Sprite2D" parent="SelectableCanvasGroup/Tips" unique_id=382621098]
 position = Vector2(-11.6, -61.2)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("7_02ny6")
 
-[node name="Sprite2D4" type="Sprite2D" parent="SelectableCanvasGroup/Tips"]
+[node name="Sprite2D4" type="Sprite2D" parent="SelectableCanvasGroup/Tips" unique_id=518654702]
 position = Vector2(4.39999, -61.2)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("7_02ny6")
 
-[node name="Sprite2D5" type="Sprite2D" parent="SelectableCanvasGroup/Tips"]
+[node name="Sprite2D5" type="Sprite2D" parent="SelectableCanvasGroup/Tips" unique_id=1479661018]
 position = Vector2(36.4, -61.2)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("7_02ny6")
 
-[node name="Sprite2D6" type="Sprite2D" parent="SelectableCanvasGroup/Tips"]
+[node name="Sprite2D6" type="Sprite2D" parent="SelectableCanvasGroup/Tips" unique_id=1773990633]
 position = Vector2(20.4, -61.2)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("7_02ny6")
 
-[node name="PipetteTipBox" type="Sprite2D" parent="SelectableCanvasGroup"]
+[node name="PipetteTipBox" type="Sprite2D" parent="SelectableCanvasGroup" unique_id=1290082101]
 position = Vector2(0, -70)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_f63uk")
 
-[node name="InteractableArea" type="Area2D" parent="."]
+[node name="InteractableArea" type="Area2D" parent="." unique_id=1047668592]
 script = ExtResource("6_f63uk")
 metadata/_custom_type_script = "uid://8jbti40eodk6"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea" unique_id=439612903]
 position = Vector2(0, 15.5)
 shape = SubResource("RectangleShape2D_gs6p0")

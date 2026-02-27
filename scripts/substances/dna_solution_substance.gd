@@ -3,14 +3,35 @@ class_name DNASolutionSubstance
 extends Substance
 
 
-# Small fragment size, which should take `RUN_TIME` to move across the
-const SMALL_FRAGMENT_SIZE := 100.0
-# We want it to take 20 minutes for the 100 bp fragments to reach the end at 120 volts.
+const SMALL_FRAG_SIZE: float = 250
+const BIG_FRAG_SIZE: float = 10000
+const LOW_PERCENT: float = 0.01
+const HIGH_PERCENT: float = 0.03
+
+# Distances (as fractions of the length of the gel) traveled by small and big fragments in low
+# and high concentration gels. I got these numbers by measuring the lengths on a random picture from
+# the internet. We don't need the 2% high fragment size one, because these three are enough to
+# solve.
+const DIST_1PERC_SMALL: float = 0.9
+const DIST_1PERC_BIG: float = 0.4
+const DIST_2PERC_SMALL: float = 0.5
+
+# Solutions to system of equations ensuring the above distances will work. I did these on paper,
+# so I don't feel like trying to explain these calculations in detail. At 1%, the agarose
+# concentration factor should be exactly 1. You can see how these are used in `_handle_event` below,
+# which handles the gel running.
+
+# Rate that the time taken scales with the log of the fragment size.
+const FRAG_SIZE_RATE: float = (1 / DIST_1PERC_BIG - 1 / DIST_1PERC_SMALL) / log(BIG_FRAG_SIZE / SMALL_FRAG_SIZE)
+const FRAG_SIZE_BASE: float = 1 / DIST_1PERC_SMALL - log(SMALL_FRAG_SIZE) * FRAG_SIZE_RATE
+# Rate that time taken scales with the agarose concentration.
+const CONCENTRATION_RATE: float = (DIST_2PERC_SMALL * (FRAG_SIZE_BASE + FRAG_SIZE_RATE * log(SMALL_FRAG_SIZE)) - 1.0) / (HIGH_PERCENT - LOW_PERCENT)
+const CONCENTRATION_BASE: float = 1.0 - CONCENTRATION_RATE * LOW_PERCENT
+
+
+# Time and voltage of a "normal" gel. We scale based on these.
 const RUN_TIME := 60.0 * 20.0
 const VOLTAGE := 120.0
-# We divide this by the log of the fragment size and multiply by the voltage, so at 120 volts and
-# 100 bp, a fragment will take 20 minutes to move fully across the gel.
-const RATE := log(SMALL_FRAGMENT_SIZE) / VOLTAGE / RUN_TIME
 
 
 ## Evenly distribute the volumes in [member fragments] across the fragments. If any fragments are
@@ -65,12 +86,18 @@ func take_volume(v: float) -> DNASolutionSubstance:
 
 func handle_event(e: Event) -> void:
 	if e is GelTray.RunGelSubstanceEvent:
+		var gel_factor: float = CONCENTRATION_BASE + CONCENTRATION_RATE * e.gel_concentration
+		# Thick gel can never make bands go backwards.
+		gel_factor = max(gel_factor, 0)
+		# Scale directly with voltage.
+		var voltage_factor: float = e.voltage / VOLTAGE
 		# TODO: This should change based on the gel concentration.
-		var gel_factor := 1.0
 		for fs: int in fragments.keys():
 			var fragment: DNAFragment = fragments[fs]
-			fragment.position += e.gel.voltage * e.duration * gel_factor / log(float(fs)) * RATE
-			fragment.position = clamp(fragment.position, 0.0, 1.0)
+			var frag_size_divisor := FRAG_SIZE_BASE + FRAG_SIZE_RATE * log(float(fs))
+			var rate := gel_factor * voltage_factor / frag_size_divisor / RUN_TIME
+			fragment.position += rate * e.duration
+			#fragment.position = clamp(fragment.position, 0.0, 1.0)
 
 func _distribute_fragments() -> void:
 	if fragments.is_empty(): return

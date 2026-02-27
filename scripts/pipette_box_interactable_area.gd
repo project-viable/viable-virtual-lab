@@ -19,7 +19,6 @@ func get_interactions() -> Array[InteractInfo]:
 func start_interact(_kind: InteractInfo.Kind) -> void:
 	var pipette: Pipette = Interaction.held_body
 	pipette.has_tip = true
-	pipette.is_tip_contaminated = false
 
 func start_targeting(_kind: InteractInfo.Kind) -> void:
 	if _interact_canvas_group: _interact_canvas_group.is_outlined = true

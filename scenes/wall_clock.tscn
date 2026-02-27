@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ch8ljtcuvjg48"]
+[gd_scene format=3 uid="uid://ch8ljtcuvjg48"]
 
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_5u6i1"]
 [ext_resource type="Script" uid="uid://dbt7erpalpnhb" path="res://scripts/wall_clock.gd" id="1_rsrms"]
@@ -14,33 +14,33 @@ script = ExtResource("3_rj6r8")
 description = "(hold) Speed up time"
 metadata/_custom_type_script = "uid://b810schxe1hne"
 
-[node name="WallClock" type="Node2D"]
+[node name="WallClock" type="Node2D" unique_id=1181953387]
 script = ExtResource("1_rsrms")
 
-[node name="SelectableComponent" type="Node2D" parent="."]
+[node name="SelectableComponent" type="Node2D" parent="." unique_id=1451422631]
 script = ExtResource("2_x0q8p")
 interact_info = SubResource("Resource_isgb8")
 metadata/_custom_type_script = "uid://musakg3k6s1l"
 
-[node name="SelectableCanvasGroup" type="CanvasGroup" parent="SelectableComponent"]
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="SelectableComponent" unique_id=1969546148]
 script = ExtResource("1_5u6i1")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="Clock" type="Sprite2D" parent="SelectableComponent/SelectableCanvasGroup"]
+[node name="Clock" type="Sprite2D" parent="SelectableComponent/SelectableCanvasGroup" unique_id=379468511]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_6mva3")
 
-[node name="HourHand" type="Sprite2D" parent="."]
+[node name="HourHand" type="Sprite2D" parent="." unique_id=846982081]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("6_p2loy")
 offset = Vector2(-2, -60)
 
-[node name="MinuteHand" type="Sprite2D" parent="."]
+[node name="MinuteHand" type="Sprite2D" parent="." unique_id=793852914]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("7_x0q8p")
 offset = Vector2(-2, -60)
 
-[node name="SecondHand" type="Sprite2D" parent="."]
+[node name="SecondHand" type="Sprite2D" parent="." unique_id=212374882]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("7_rj6r8")
 offset = Vector2(-2, -60)

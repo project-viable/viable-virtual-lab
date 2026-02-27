@@ -15,13 +15,7 @@ func _physics_process(delta: float) -> void:
 
 # True if the box is filled enough with buffer to conduct and stuff.
 func _is_filled() -> bool:
-	if $SubstanceDisplayPolygon.get_substance_at_global($FillRef.global_position) != null:
-		Game.report_log.update_total($ContainerComponent.get_total_volume(),"total_poured_tae_in_rig")
-		var tae_pour_data: String = str(Game.report_log.report_data["total_poured_tae_in_rig"], " mL of TAE Buffer poured into GelRig")
-		Game.report_log.update_event(tae_pour_data, "poured_tae_in_rig")
-		return true
-	else:
-		return false
+	return $SubstanceDisplayPolygon.get_substance_at_global($FillRef.global_position) != null
 
 func _on_mold_attachment_object_placed(body: LabBody) -> void:
 	# Flood and clear the wells if already full.

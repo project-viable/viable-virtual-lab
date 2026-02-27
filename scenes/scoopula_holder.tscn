@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqwtudfa80qn"]
+[gd_scene format=3 uid="uid://cqwtudfa80qn"]
 
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_epgyh"]
 [ext_resource type="Texture2D" uid="uid://b533er73htfu6" path="res://textures/lab_objects/scoopula_holder.svg" id="3_jp3dn"]
@@ -7,24 +7,24 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epgyh"]
 size = Vector2(80, 26.5)
 
-[node name="ScoopulaHolder" type="Node2D"]
+[node name="ScoopulaHolder" type="Node2D" unique_id=402530289]
 
-[node name="AttachmentInteractableArea" type="Area2D" parent="."]
+[node name="AttachmentInteractableArea" type="Area2D" parent="." unique_id=1010796996]
 position = Vector2(7, 53)
 rotation = -1.5707964
 script = ExtResource("4_epgyh")
 point_groups = Array[StringName]([&"attachment:scoopula"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentInteractableArea" unique_id=846989607]
 position = Vector2(37, 1.0000018)
 shape = SubResource("RectangleShape2D_epgyh")
 debug_color = Color(0.921745, 5.49653e-05, 0.690079, 0.42)
 
-[node name="SelectableCanvasGroup" type="CanvasGroup" parent="."]
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="." unique_id=193551470]
 script = ExtResource("2_epgyh")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="Sprite2D" type="Sprite2D" parent="SelectableCanvasGroup"]
+[node name="Sprite2D" type="Sprite2D" parent="SelectableCanvasGroup" unique_id=1099252879]
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("3_jp3dn")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ch4jildorp0b3"]
+[gd_scene format=3 uid="uid://ch4jildorp0b3"]
 
 [ext_resource type="Script" uid="uid://ydjnw2ldtisl" path="res://scripts/main.gd" id="1_ufg5n"]
 [ext_resource type="Script" uid="uid://dr8kufon8ubeo" path="res://scripts/module_data.gd" id="4_m64kl"]
@@ -24,7 +24,6 @@
 [ext_resource type="Script" uid="uid://kxslh01sq2ny" path="res://scripts/menu_screen_button.gd" id="19_vxglm"]
 [ext_resource type="PackedScene" uid="uid://bqq24b1qxt4r7" path="res://scenes/interaction_prompt.tscn" id="22_g2on7"]
 [ext_resource type="Script" uid="uid://smreqra2kcc2" path="res://scripts/scale_container.gd" id="25_og1vs"]
-[ext_resource type="Script" uid="uid://bu1da87rm0cub" path="res://scripts/log_report.gd" id="26_2wyq8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqmmt"]
 size = Vector2(20, 30)
@@ -102,21 +101,20 @@ action = &"speed_up_time"
 atlas = ExtResource("18_pm3ni")
 region = Rect2(190.77774, 223.89894, 1713.6912, 459.49268)
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=1405165330]
 process_mode = 3
 script = ExtResource("1_ufg5n")
 all_modules = Array[ExtResource("4_m64kl")]([ExtResource("5_pj8lk")])
 
-[node name="InteractableSystem" type="Node2D" parent="."]
+[node name="InteractableSystem" type="Node2D" parent="." unique_id=1797705452]
 script = ExtResource("6_5ktsy")
 metadata/_custom_type_script = "uid://brv8o6bvj0yqp"
 
-[node name="SceneLayer" type="CanvasLayer" parent="."]
+[node name="SceneLayer" type="CanvasLayer" parent="." unique_id=883350320]
 process_mode = 1
 
-[node name="ContentScaledSubViewportContainer" type="TextureRect" parent="SceneLayer"]
+[node name="ContentScaledSubViewportContainer" type="TextureRect" parent="SceneLayer" unique_id=906644840]
 unique_name_in_owner = true
-process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -125,47 +123,43 @@ grow_vertical = 2
 script = ExtResource("7_uhp2u")
 metadata/_custom_type_script = "uid://dmoeu8vq1th7i"
 
-[node name="MainViewport" type="SubViewport" parent="SceneLayer/ContentScaledSubViewportContainer"]
+[node name="MainViewport" type="SubViewport" parent="SceneLayer/ContentScaledSubViewportContainer" unique_id=2062124221]
 unique_name_in_owner = true
-process_mode = 3
 transparent_bg = true
 physics_object_picking = true
 size_2d_override = Vector2i(1280, 720)
 size_2d_override_stretch = true
 
-[node name="Scene" type="Node2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+[node name="Scene" type="Node2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport" unique_id=845858519]
 unique_name_in_owner = true
 
-[node name="SceneInputHandler" type="Node2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+[node name="SceneInputHandler" type="Node2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport" unique_id=778256702]
 process_mode = 3
 script = ExtResource("8_kpxdo")
 
-[node name="CursorArea" type="Area2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+[node name="CursorArea" type="Area2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport" unique_id=1521417342]
 unique_name_in_owner = true
 position = Vector2(66, 52)
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" unique_id=623439671]
 position = Vector2(8, 12)
 shape = SubResource("RectangleShape2D_gqmmt")
 
-[node name="TransitionCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
+[node name="TransitionCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport" unique_id=687866566]
 unique_name_in_owner = true
 position = Vector2(640, 360)
 script = ExtResource("9_agdoh")
 metadata/_custom_type_script = "uid://b8kjtd0vdnq42"
 
-[node name="MainSceneCamera" type="Camera2D" parent="SceneLayer/ContentScaledSubViewportContainer/MainViewport"]
-position = Vector2(640, 360)
-
-[node name="Postprocess" type="Node2D" parent="SceneLayer"]
+[node name="Postprocess" type="Node2D" parent="SceneLayer" unique_id=1461303883]
 unique_name_in_owner = true
 
-[node name="TimeWarp" type="BackBufferCopy" parent="SceneLayer/Postprocess"]
+[node name="TimeWarp" type="BackBufferCopy" parent="SceneLayer/Postprocess" unique_id=1451671264]
 copy_mode = 2
 
-[node name="Rect" type="ColorRect" parent="SceneLayer/Postprocess/TimeWarp"]
+[node name="Rect" type="ColorRect" parent="SceneLayer/Postprocess/TimeWarp" unique_id=2071722712]
 material = SubResource("ShaderMaterial_2f3dj")
 offset_left = -10.0
 offset_top = -9.0
@@ -173,11 +167,11 @@ offset_right = 1293.0
 offset_bottom = 737.0
 mouse_filter = 2
 
-[node name="HBlur" type="BackBufferCopy" parent="SceneLayer/Postprocess"]
+[node name="HBlur" type="BackBufferCopy" parent="SceneLayer/Postprocess" unique_id=1331965940]
 visible = false
 copy_mode = 2
 
-[node name="Rect" type="ColorRect" parent="SceneLayer/Postprocess/HBlur"]
+[node name="Rect" type="ColorRect" parent="SceneLayer/Postprocess/HBlur" unique_id=1159379591]
 material = SubResource("ShaderMaterial_vxglm")
 offset_left = -10.0
 offset_top = -9.0
@@ -185,11 +179,11 @@ offset_right = 1293.0
 offset_bottom = 737.0
 mouse_filter = 2
 
-[node name="VBlur" type="BackBufferCopy" parent="SceneLayer/Postprocess"]
+[node name="VBlur" type="BackBufferCopy" parent="SceneLayer/Postprocess" unique_id=1673366201]
 visible = false
 copy_mode = 2
 
-[node name="Rect" type="ColorRect" parent="SceneLayer/Postprocess/VBlur"]
+[node name="Rect" type="ColorRect" parent="SceneLayer/Postprocess/VBlur" unique_id=1779349600]
 material = SubResource("ShaderMaterial_2wyq8")
 offset_left = -10.0
 offset_top = -9.0
@@ -197,10 +191,10 @@ offset_right = 1293.0
 offset_bottom = 737.0
 mouse_filter = 2
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1997992244]
 layer = 128
 
-[node name="Background" type="TextureRect" parent="UILayer"]
+[node name="Background" type="TextureRect" parent="UILayer" unique_id=1125087609]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -212,7 +206,7 @@ offset_right = 640.0
 offset_bottom = 360.0
 texture = ExtResource("10_pm3ni")
 
-[node name="SubsceneOverlay" type="ColorRect" parent="UILayer"]
+[node name="SubsceneOverlay" type="ColorRect" parent="UILayer" unique_id=1013503141]
 unique_name_in_owner = true
 editor_description = "Covers the scene while showing a subscene"
 visible = false
@@ -224,7 +218,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.58431375)
 
-[node name="SubsceneContainer" type="SubViewportContainer" parent="UILayer"]
+[node name="SubsceneContainer" type="SubViewportContainer" parent="UILayer" unique_id=331293618]
 unique_name_in_owner = true
 visible = false
 offset_right = 40.0
@@ -232,41 +226,41 @@ offset_bottom = 40.0
 mouse_filter = 2
 stretch = true
 
-[node name="SubsceneViewport" type="SubViewport" parent="UILayer/SubsceneContainer"]
+[node name="SubsceneViewport" type="SubViewport" parent="UILayer/SubsceneContainer" unique_id=681313342]
 unique_name_in_owner = true
 handle_input_locally = false
 size = Vector2i(40, 40)
 render_target_update_mode = 0
 
-[node name="VirtualCursor" type="Node2D" parent="UILayer"]
+[node name="VirtualCursor" type="Node2D" parent="UILayer" unique_id=844167655]
 unique_name_in_owner = true
 position = Vector2(66, 52)
 
-[node name="HandPointing" type="Sprite2D" parent="UILayer/VirtualCursor"]
+[node name="HandPointing" type="Sprite2D" parent="UILayer/VirtualCursor" unique_id=777893989]
 position = Vector2(-6.299999, -7.799999)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("10_tmkqk")
 centered = false
 offset = Vector2(-110, -60)
 
-[node name="HandOpen" type="Sprite2D" parent="UILayer/VirtualCursor"]
+[node name="HandOpen" type="Sprite2D" parent="UILayer/VirtualCursor" unique_id=823789824]
 position = Vector2(-6.299999, -7.799999)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("11_jc788")
 centered = false
 offset = Vector2(-110, -60)
 
-[node name="HandClosed" type="Sprite2D" parent="UILayer/VirtualCursor"]
+[node name="HandClosed" type="Sprite2D" parent="UILayer/VirtualCursor" unique_id=1466846761]
 position = Vector2(-6.299999, -7.799999)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("12_4mycw")
 centered = false
 offset = Vector2(-110, -60)
 
-[node name="PalmRef" type="Node2D" parent="UILayer/VirtualCursor"]
+[node name="PalmRef" type="Node2D" parent="UILayer/VirtualCursor" unique_id=923473208]
 position = Vector2(8, 18)
 
-[node name="Prompts" type="MarginContainer" parent="UILayer"]
+[node name="Prompts" type="MarginContainer" parent="UILayer" unique_id=1029624474]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -279,13 +273,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="InteractPrompts" type="VBoxContainer" parent="UILayer/Prompts"]
+[node name="InteractPrompts" type="VBoxContainer" parent="UILayer/Prompts" unique_id=1801509678]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_constants/separation = 10
 
-[node name="ScaleContainer2" type="Container" parent="UILayer/Prompts"]
+[node name="ScaleContainer2" type="Container" parent="UILayer/Prompts" unique_id=1059901341]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -293,14 +287,14 @@ script = ExtResource("25_og1vs")
 child_scale = Vector2(0.7, 0.7)
 metadata/_custom_type_script = "uid://smreqra2kcc2"
 
-[node name="ZoomOutPrompt" parent="UILayer/Prompts/ScaleContainer2" instance=ExtResource("22_g2on7")]
+[node name="ZoomOutPrompt" parent="UILayer/Prompts/ScaleContainer2" unique_id=508677000 instance=ExtResource("22_g2on7")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 input_event = SubResource("InputEventAction_xrxkg")
 description = "Zoom out"
 
-[node name="ScaleContainer3" type="Container" parent="UILayer/Prompts"]
+[node name="ScaleContainer3" type="Container" parent="UILayer/Prompts" unique_id=1043147436]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -308,13 +302,13 @@ script = ExtResource("25_og1vs")
 child_scale = Vector2(0.7, 0.7)
 metadata/_custom_type_script = "uid://smreqra2kcc2"
 
-[node name="LeftWorkspacePrompt" parent="UILayer/Prompts/ScaleContainer3" instance=ExtResource("22_g2on7")]
+[node name="LeftWorkspacePrompt" parent="UILayer/Prompts/ScaleContainer3" unique_id=343374909 instance=ExtResource("22_g2on7")]
 unique_name_in_owner = true
 layout_mode = 2
 input_event = SubResource("InputEventAction_mxvw5")
 auto_update_pressed = true
 
-[node name="ScaleContainer" type="Container" parent="UILayer/Prompts"]
+[node name="ScaleContainer" type="Container" parent="UILayer/Prompts" unique_id=1396987664]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
@@ -322,13 +316,13 @@ script = ExtResource("25_og1vs")
 child_scale = Vector2(0.7, 0.7)
 metadata/_custom_type_script = "uid://smreqra2kcc2"
 
-[node name="RightWorkspacePrompt" parent="UILayer/Prompts/ScaleContainer" instance=ExtResource("22_g2on7")]
+[node name="RightWorkspacePrompt" parent="UILayer/Prompts/ScaleContainer" unique_id=73060826 instance=ExtResource("22_g2on7")]
 unique_name_in_owner = true
 layout_mode = 2
 input_event = SubResource("InputEventAction_og1vs")
 auto_update_pressed = true
 
-[node name="JournalOverlay" type="ColorRect" parent="UILayer"]
+[node name="JournalOverlay" type="ColorRect" parent="UILayer" unique_id=1319423958]
 unique_name_in_owner = true
 editor_description = "Covers all of the simulation-specific stuff while paused (including button prompts)."
 visible = false
@@ -340,8 +334,9 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.8156863)
 
-[node name="Journal" type="PanelContainer" parent="UILayer" node_paths=PackedStringArray("back_button", "forward_button", "journal_label", "procedure_label")]
+[node name="Journal" type="Control" parent="UILayer" unique_id=1623381348 node_paths=PackedStringArray("back_button", "forward_button", "journal_label", "procedure_label", "report_label", "save_viewport", "save_label")]
 unique_name_in_owner = true
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -353,39 +348,51 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_behavior_recursive = 1
 script = ExtResource("16_y6deb")
-back_button = NodePath("VBoxContainer/HBoxContainer/BackButton")
-forward_button = NodePath("VBoxContainer/HBoxContainer/ForwardButton")
-journal_label = NodePath("VBoxContainer/HBoxContainer2/HelpLabel")
-procedure_label = NodePath("VBoxContainer/HBoxContainer2/ProcedureLabel")
+back_button = NodePath("HelpScreen/VBoxContainer/HBoxContainer/BackButton")
+forward_button = NodePath("HelpScreen/VBoxContainer/HBoxContainer/ForwardButton")
+journal_label = NodePath("HelpScreen/VBoxContainer/HBoxContainer2/HelpLabel")
+procedure_label = NodePath("HelpScreen/VBoxContainer/HBoxContainer2/ProcedureLabel")
+report_label = NodePath("ReportScreen/VBoxContainer/RichTextLabel")
+save_viewport = NodePath("ReportSaveViewport")
+save_label = NodePath("ReportSaveViewport/ReportSaveLabel")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Journal"]
+[node name="HelpScreen" type="PanelContainer" parent="UILayer/Journal" unique_id=62004317]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_2wyq8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Journal/HelpScreen" unique_id=1475977787]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Journal/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Journal/HelpScreen/VBoxContainer" unique_id=50863220]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UILayer/Journal/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer" unique_id=1962075140]
 layout_mode = 2
 theme_type_variation = &"MenuScreenTitleLabel"
 text = "Journal"
 
-[node name="BackButton" type="Button" parent="UILayer/Journal/VBoxContainer/HBoxContainer"]
+[node name="BackButton" type="Button" parent="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer" unique_id=2010307480]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
 text = "<"
 
-[node name="ForwardButton" type="Button" parent="UILayer/Journal/VBoxContainer/HBoxContainer"]
+[node name="ForwardButton" type="Button" parent="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer" unique_id=1845544217]
 layout_mode = 2
 size_flags_vertical = 4
 text = ">"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="UILayer/Journal/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="UILayer/Journal/HelpScreen/VBoxContainer" unique_id=672022717]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 
-[node name="ProcedureLabel" type="RichTextLabel" parent="UILayer/Journal/VBoxContainer/HBoxContainer2"]
+[node name="ProcedureLabel" type="RichTextLabel" parent="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2" unique_id=1604132476]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
@@ -393,7 +400,7 @@ bbcode_enabled = true
 script = ExtResource("17_og1vs")
 metadata/_custom_type_script = "uid://dkacpjq2t2mj1"
 
-[node name="HelpLabel" type="RichTextLabel" parent="UILayer/Journal/VBoxContainer/HBoxContainer2"]
+[node name="HelpLabel" type="RichTextLabel" parent="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2" unique_id=1186676104]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -401,27 +408,80 @@ bbcode_enabled = true
 script = ExtResource("17_og1vs")
 metadata/_custom_type_script = "uid://dkacpjq2t2mj1"
 
-[node name="CloseButton" type="Button" parent="UILayer/Journal/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/Journal/HelpScreen/VBoxContainer" unique_id=1045057423]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="UILayer/Journal/HelpScreen/VBoxContainer/MarginContainer" unique_id=350712259]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
 
-[node name="Button" type="Button" parent="UILayer/Journal"]
-visible = false
+[node name="MenuScreenButton" type="Button" parent="UILayer/Journal/HelpScreen/VBoxContainer/MarginContainer" unique_id=1898566190 node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
-text = "Download Report"
+size_flags_horizontal = 8
+text = "View report"
+script = ExtResource("19_vxglm")
+menu_screen = NodePath("../../../../ReportScreen")
+metadata/_custom_type_script = "uid://kxslh01sq2ny"
 
-[node name="ReportText" type="RichTextLabel" parent="UILayer/Journal"]
+[node name="ReportText" type="RichTextLabel" parent="UILayer/Journal/HelpScreen" unique_id=1631240291]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="FileDialog" type="FileDialog" parent="UILayer/Journal"]
-unique_name_in_owner = true
-oversampling_override = 1.0
-use_native_dialog = true
+[node name="ReportScreen" type="PanelContainer" parent="UILayer/Journal" unique_id=1307003022]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_2wyq8")
 
-[node name="HintPopup" type="RichTextLabel" parent="UILayer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Journal/ReportScreen" unique_id=1615430741]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Journal/ReportScreen/VBoxContainer" unique_id=875907561]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UILayer/Journal/ReportScreen/VBoxContainer/HBoxContainer" unique_id=1943040019]
+layout_mode = 2
+theme_type_variation = &"MenuScreenTitleLabel"
+text = "Report"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UILayer/Journal/ReportScreen/VBoxContainer" unique_id=557979561]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/Journal/ReportScreen/VBoxContainer" unique_id=1911956433]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="UILayer/Journal/ReportScreen/VBoxContainer/MarginContainer" unique_id=1367209415]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back
+"
+script = ExtResource("19_vxglm")
+metadata/_custom_type_script = "uid://kxslh01sq2ny"
+
+[node name="DownloadButton" type="Button" parent="UILayer/Journal/ReportScreen/VBoxContainer/MarginContainer" unique_id=280891715]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Save report as JPG"
+
+[node name="ReportSaveViewport" type="SubViewport" parent="UILayer/Journal" unique_id=1596498107]
+render_target_update_mode = 0
+
+[node name="ReportSaveLabel" type="RichTextLabel" parent="UILayer/Journal/ReportSaveViewport" unique_id=1281276058]
+custom_minimum_size = Vector2(512, 0)
+offset_right = 21.0
+offset_bottom = 20.0
+text = "Test text (if this is visible, something went wrong)."
+fit_content = true
+scroll_active = false
+
+[node name="HintPopup" type="RichTextLabel" parent="UILayer" unique_id=523938709]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(500, 100)
@@ -441,15 +501,13 @@ vertical_alignment = 1
 script = ExtResource("18_og1vs")
 metadata/_custom_type_script = "uid://dkacpjq2t2mj1"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UILayer/HintPopup"]
-libraries = {
-&"": SubResource("AnimationLibrary_vxglm")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UILayer/HintPopup" unique_id=1594385916]
+libraries/ = SubResource("AnimationLibrary_vxglm")
 
-[node name="DelayTimer" type="Timer" parent="UILayer/HintPopup"]
+[node name="DelayTimer" type="Timer" parent="UILayer/HintPopup" unique_id=698733671]
 one_shot = true
 
-[node name="PauseOverlay" type="ColorRect" parent="UILayer"]
+[node name="PauseOverlay" type="ColorRect" parent="UILayer" unique_id=1457496798]
 unique_name_in_owner = true
 editor_description = "Covers all of the simulation-specific stuff while paused (including button prompts)."
 visible = false
@@ -461,7 +519,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.8156863)
 
-[node name="GeneralPrompts" type="MarginContainer" parent="UILayer"]
+[node name="GeneralPrompts" type="MarginContainer" parent="UILayer" unique_id=751510187]
 unique_name_in_owner = true
 editor_description = "Button prompts that may be relevant outside the simulation."
 anchors_preset = 15
@@ -475,26 +533,26 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Prompts" type="VBoxContainer" parent="UILayer/GeneralPrompts"]
+[node name="Prompts" type="VBoxContainer" parent="UILayer/GeneralPrompts" unique_id=287341884]
 editor_description = "Button prompts for generic actions that can always be performed at any time in the simulation."
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="ScaleContainer3" type="Container" parent="UILayer/GeneralPrompts/Prompts"]
+[node name="ScaleContainer3" type="Container" parent="UILayer/GeneralPrompts/Prompts" unique_id=618098394]
 layout_mode = 2
 script = ExtResource("25_og1vs")
 child_scale = Vector2(0.7, 0.7)
 metadata/_custom_type_script = "uid://smreqra2kcc2"
 
-[node name="MenuPrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer3" instance=ExtResource("22_g2on7")]
+[node name="MenuPrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer3" unique_id=800519515 instance=ExtResource("22_g2on7")]
 unique_name_in_owner = true
 layout_mode = 2
 input_event = SubResource("InputEventAction_2wyq8")
 description = "Pause"
 auto_update_pressed = true
 
-[node name="ScaleContainer" type="Container" parent="UILayer/GeneralPrompts/Prompts"]
+[node name="ScaleContainer" type="Container" parent="UILayer/GeneralPrompts/Prompts" unique_id=715549722]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -502,27 +560,27 @@ script = ExtResource("25_og1vs")
 child_scale = Vector2(0.7, 0.7)
 metadata/_custom_type_script = "uid://smreqra2kcc2"
 
-[node name="JournalPrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer" instance=ExtResource("22_g2on7")]
+[node name="JournalPrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer" unique_id=2019460697 instance=ExtResource("22_g2on7")]
 unique_name_in_owner = true
 layout_mode = 2
 input_event = SubResource("InputEventAction_y6deb")
 description = "Toggle journal"
 auto_update_pressed = true
 
-[node name="ScaleContainer2" type="Container" parent="UILayer/GeneralPrompts/Prompts"]
+[node name="ScaleContainer2" type="Container" parent="UILayer/GeneralPrompts/Prompts" unique_id=1778252567]
 layout_mode = 2
 script = ExtResource("25_og1vs")
 child_scale = Vector2(0.7, 0.7)
 metadata/_custom_type_script = "uid://smreqra2kcc2"
 
-[node name="SpeedUpTimePrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer2" instance=ExtResource("22_g2on7")]
+[node name="SpeedUpTimePrompt" parent="UILayer/GeneralPrompts/Prompts/ScaleContainer2" unique_id=209156750 instance=ExtResource("22_g2on7")]
 unique_name_in_owner = true
 layout_mode = 2
 input_event = SubResource("InputEventAction_vxglm")
 description = "(hold) Speed up time"
 auto_update_pressed = true
 
-[node name="MenuScreenManager" type="Control" parent="UILayer"]
+[node name="MenuScreenManager" type="Control" parent="UILayer" unique_id=1825010525]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
@@ -534,7 +592,7 @@ focus_behavior_recursive = 1
 script = ExtResource("15_og1vs")
 metadata/_custom_type_script = "uid://bmdn4p40xeusb"
 
-[node name="PauseMenu" type="Control" parent="UILayer/MenuScreenManager"]
+[node name="PauseMenu" type="Control" parent="UILayer/MenuScreenManager" unique_id=1752903061]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -545,7 +603,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("16_2wyq8")
 
-[node name="Content" type="VBoxContainer" parent="UILayer/MenuScreenManager/PauseMenu"]
+[node name="Content" type="VBoxContainer" parent="UILayer/MenuScreenManager/PauseMenu" unique_id=514769923]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -556,61 +614,61 @@ offset_top = -96.5
 offset_right = 200.0
 offset_bottom = 96.5
 
-[node name="Logo" type="TextureRect" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+[node name="Logo" type="TextureRect" parent="UILayer/MenuScreenManager/PauseMenu/Content" unique_id=289742433]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 texture = SubResource("AtlasTexture_pm3ni")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Spacer" type="Control" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+[node name="Spacer" type="Control" parent="UILayer/MenuScreenManager/PauseMenu/Content" unique_id=1844922239]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="ResumeButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+[node name="ResumeButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" unique_id=1580882903]
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 text = "Resume"
 
-[node name="SelectModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
+[node name="SelectModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" unique_id=792641230 node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 text = "Select Module"
 script = ExtResource("19_vxglm")
 menu_screen = NodePath("../../../ModuleSelect")
 
-[node name="RestartModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+[node name="RestartModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" unique_id=1033978384]
 visible = false
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 text = "Restart Module"
 
-[node name="OptionsButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
+[node name="OptionsButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" unique_id=2067982678 node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 text = "Options"
 script = ExtResource("19_vxglm")
 menu_screen = NodePath("../../../OptionsScreen")
 
-[node name="AboutButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" node_paths=PackedStringArray("menu_screen")]
+[node name="AboutButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" unique_id=571456988 node_paths=PackedStringArray("menu_screen")]
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 text = "About"
 script = ExtResource("19_vxglm")
 menu_screen = NodePath("../../../AboutScreen")
 
-[node name="ExitModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+[node name="ExitModuleButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" unique_id=885535389]
 visible = false
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 text = "Return to Main Menu"
 
-[node name="QuitButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content"]
+[node name="QuitButton" type="Button" parent="UILayer/MenuScreenManager/PauseMenu/Content" unique_id=2090619372]
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 text = "Quit"
 
-[node name="AboutScreen" type="PanelContainer" parent="UILayer/MenuScreenManager"]
+[node name="AboutScreen" type="PanelContainer" parent="UILayer/MenuScreenManager" unique_id=1076887851]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -626,17 +684,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("16_2wyq8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuScreenManager/AboutScreen"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuScreenManager/AboutScreen" unique_id=253745757]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer"]
+[node name="Label" type="Label" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer" unique_id=1646413531]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_type_variation = &"MenuScreenTitleLabel"
 text = "About"
 horizontal_alignment = 1
 
-[node name="Text" type="RichTextLabel" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer"]
+[node name="Text" type="RichTextLabel" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer" unique_id=821241030]
 custom_minimum_size = Vector2(600, 400)
 layout_mode = 2
 bbcode_enabled = true
@@ -882,17 +940,17 @@ The following tools, projects, and assets are used under their respective licens
 									   See the License for the specific language governing permissions and
 									   limitations under the License."
 
-[node name="Blank" type="Control" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer"]
+[node name="Blank" type="Control" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer" unique_id=749932431]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="CloseButton" type="Button" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer"]
+[node name="CloseButton" type="Button" parent="UILayer/MenuScreenManager/AboutScreen/VBoxContainer" unique_id=119486069]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
 script = ExtResource("19_vxglm")
 
-[node name="OptionsScreen" type="PanelContainer" parent="UILayer/MenuScreenManager"]
+[node name="OptionsScreen" type="PanelContainer" parent="UILayer/MenuScreenManager" unique_id=1082508206]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -904,51 +962,51 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("16_2wyq8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen" unique_id=1495782924]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
+[node name="Label" type="Label" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer" unique_id=1314242357]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_type_variation = &"MenuScreenTitleLabel"
 text = "Options"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer" unique_id=1582070754]
 layout_mode = 2
 size_flags_vertical = 3
 theme_type_variation = &"MenuScrollContainer"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer" unique_id=1724678026]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Resolution" type="HBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="Resolution" type="HBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1198633291]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/Resolution"]
+[node name="Label" type="Label" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/Resolution" unique_id=780215584]
 layout_mode = 2
 theme_type_variation = &"MainScreenLabel"
 text = "Resolution"
 
-[node name="ResolutionDropdown" type="OptionButton" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/Resolution"]
+[node name="ResolutionDropdown" type="OptionButton" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/Resolution" unique_id=1320245091]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="HSeparator" type="HSeparator" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1466356251]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1786933064]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=1596739005]
 layout_mode = 2
 theme_type_variation = &"MainScreenLabel"
 text = "Mouse sensitivity"
 
-[node name="MouseSensitivitySlider" type="HSlider" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="MouseSensitivitySlider" type="HSlider" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=745135261]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -958,20 +1016,20 @@ max_value = 1.0
 step = 0.1
 tick_count = 3
 
-[node name="HSeparator2" type="HSeparator" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=556284006]
 layout_mode = 2
 
-[node name="Blank" type="Control" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
+[node name="Blank" type="Control" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer" unique_id=586781514]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="CloseButton" type="Button" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer"]
+[node name="CloseButton" type="Button" parent="UILayer/MenuScreenManager/OptionsScreen/VBoxContainer" unique_id=1115195422]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
 script = ExtResource("19_vxglm")
 
-[node name="ModuleSelect" type="PanelContainer" parent="UILayer/MenuScreenManager"]
+[node name="ModuleSelect" type="PanelContainer" parent="UILayer/MenuScreenManager" unique_id=2022551926]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -983,38 +1041,38 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("16_2wyq8")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuScreenManager/ModuleSelect"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/MenuScreenManager/ModuleSelect" unique_id=1085817306]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer"]
+[node name="Label" type="Label" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer" unique_id=1954670125]
 layout_mode = 2
 theme_type_variation = &"MenuScreenTitleLabel"
 text = "Select Module"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer" unique_id=170210378]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
 theme_type_variation = &"MenuScrollContainer"
 horizontal_scroll_mode = 0
 
-[node name="Modules" type="GridContainer" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer/ScrollContainer"]
+[node name="Modules" type="GridContainer" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer/ScrollContainer" unique_id=1091013201]
 unique_name_in_owner = true
 layout_mode = 2
 columns = 3
 
-[node name="Blank" type="Control" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer"]
+[node name="Blank" type="Control" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer" unique_id=406409736]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="CloseButton" type="Button" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer"]
+[node name="CloseButton" type="Button" parent="UILayer/MenuScreenManager/ModuleSelect/VBoxContainer" unique_id=1961661079]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
 script = ExtResource("19_vxglm")
 
-[node name="DebugOverlay" type="GridContainer" parent="UILayer"]
+[node name="DebugOverlay" type="GridContainer" parent="UILayer" unique_id=1448255498]
 unique_name_in_owner = true
 visible = false
 anchors_preset = 15
@@ -1031,23 +1089,23 @@ theme = ExtResource("11_gqmmt")
 columns = 4
 script = ExtResource("12_yc10j")
 
-[node name="GelLogReport" type="Node" parent="."]
+[node name="FileDialog" type="FileDialog" parent="UILayer" unique_id=686536379]
 unique_name_in_owner = true
-script = ExtResource("26_2wyq8")
-metadata/_custom_type_script = "uid://bu1da87rm0cub"
+oversampling_override = 1.0
+access = 2
+use_native_dialog = true
 
 [connection signal="pressed_left" from="InteractableSystem" to="." method="_on_interactable_system_pressed_left"]
 [connection signal="pressed_right" from="InteractableSystem" to="." method="_on_interactable_system_pressed_right"]
 [connection signal="pressed_zoom_out" from="InteractableSystem" to="." method="_on_interactable_system_pressed_zoom_out"]
 [connection signal="body_entered" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_entered"]
 [connection signal="body_exited" from="SceneLayer/ContentScaledSubViewportContainer/MainViewport/CursorArea" to="." method="_on_cursor_area_body_exited"]
-[connection signal="pressed" from="UILayer/Journal/VBoxContainer/HBoxContainer/BackButton" to="UILayer/Journal" method="_on_back_button_pressed"]
-[connection signal="pressed" from="UILayer/Journal/VBoxContainer/HBoxContainer/ForwardButton" to="UILayer/Journal" method="_on_forward_button_pressed"]
-[connection signal="meta_clicked" from="UILayer/Journal/VBoxContainer/HBoxContainer2/ProcedureLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
-[connection signal="meta_clicked" from="UILayer/Journal/VBoxContainer/HBoxContainer2/HelpLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
-[connection signal="pressed" from="UILayer/Journal/VBoxContainer/CloseButton" to="UILayer/Journal" method="_on_close_button_pressed"]
-[connection signal="pressed" from="UILayer/Journal/Button" to="GelLogReport" method="_on_button_pressed"]
-[connection signal="file_selected" from="UILayer/Journal/FileDialog" to="GelLogReport" method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer/BackButton" to="UILayer/Journal" method="_on_back_button_pressed"]
+[connection signal="pressed" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer/ForwardButton" to="UILayer/Journal" method="_on_forward_button_pressed"]
+[connection signal="meta_clicked" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2/ProcedureLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
+[connection signal="meta_clicked" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2/HelpLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
+[connection signal="pressed" from="UILayer/Journal/HelpScreen/VBoxContainer/MarginContainer/CloseButton" to="UILayer/Journal" method="_on_close_button_pressed"]
+[connection signal="pressed" from="UILayer/Journal/ReportScreen/VBoxContainer/MarginContainer/DownloadButton" to="UILayer/Journal" method="_on_download_button_pressed"]
 [connection signal="screen_changed" from="UILayer/MenuScreenManager" to="." method="_on_menu_screen_manager_screen_changed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]

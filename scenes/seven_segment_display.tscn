@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpguc3tomsylp"]
+[gd_scene format=3 uid="uid://cpguc3tomsylp"]
 
 [ext_resource type="Script" uid="uid://dg7qfav0b50q1" path="res://scripts/seven_segment_display.gd" id="1_bgwuh"]
 
-[node name="SevenSegmentDisplay" type="Control"]
+[node name="SevenSegmentDisplay" type="Control" unique_id=971294527]
 custom_minimum_size = Vector2(10, 18)
 layout_mode = 3
 anchors_preset = 0
@@ -11,39 +11,39 @@ offset_bottom = 15.0
 mouse_filter = 2
 script = ExtResource("1_bgwuh")
 
-[node name="0" type="Polygon2D" parent="."]
+[node name="0" type="Polygon2D" parent="." unique_id=608407088]
 polygon = PackedVector2Array(1.2, 1, 2, 0.5, 8, 0.5, 8.8, 1, 7, 2.8, 3, 2.8)
 
-[node name="1" type="Polygon2D" parent="."]
+[node name="1" type="Polygon2D" parent="." unique_id=1310617810]
 position = Vector2(10, 0)
 rotation = 1.5707964
 polygon = PackedVector2Array(1.2, 1, 2, 0.5, 8, 0.5, 8.8, 1, 7.5, 2.8, 3, 2.8)
 
-[node name="2" type="Polygon2D" parent="."]
+[node name="2" type="Polygon2D" parent="." unique_id=638577161]
 position = Vector2(10, 8)
 rotation = 1.5707964
 polygon = PackedVector2Array(1.2, 1, 2, 0.5, 8, 0.5, 8.8, 1, 7, 2.8, 2.5, 2.8)
 
-[node name="3" type="Polygon2D" parent="."]
+[node name="3" type="Polygon2D" parent="." unique_id=1459015887]
 position = Vector2(10, 18)
 rotation = 3.1415927
 polygon = PackedVector2Array(1.2, 1, 2, 0.5, 8, 0.5, 8.8, 1, 7, 2.8, 3, 2.8)
 
-[node name="4" type="Polygon2D" parent="."]
+[node name="4" type="Polygon2D" parent="." unique_id=598825995]
 position = Vector2(0, 18)
 rotation = -1.5707964
 polygon = PackedVector2Array(1.2, 1, 2, 0.5, 8, 0.5, 8.8, 1, 7.5, 2.8, 3, 2.8)
 
-[node name="5" type="Polygon2D" parent="."]
+[node name="5" type="Polygon2D" parent="." unique_id=1517908191]
 position = Vector2(0, 10)
 rotation = -1.5707964
 polygon = PackedVector2Array(1.2, 1, 2, 0.5, 8, 0.5, 8.8, 1, 7, 2.8, 2.5, 2.8)
 
-[node name="6" type="Polygon2D" parent="."]
+[node name="6" type="Polygon2D" parent="." unique_id=1134344872]
 position = Vector2(0, 8)
 polygon = PackedVector2Array(1.2, 1, 3, -0.2, 7, -0.2, 8.8, 1, 7, 2.2, 3, 2.2)
 
-[node name="ReferenceRect" type="ReferenceRect" parent="."]
+[node name="ReferenceRect" type="ReferenceRect" parent="." unique_id=1743085146]
 visible = false
 layout_mode = 1
 anchors_preset = 15

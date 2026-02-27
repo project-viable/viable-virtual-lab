@@ -8,6 +8,9 @@ const SOLID_COLOR: Color = Color(1.0, 1.0, 1.0, 0.91)
 const LIQUID_COLOR: Color = Color(1.0, 1.0, 1.0, 0.733)
 const AGAROSE_COLOR: Color = Color(1.0, 1.0, 1.0, 1.0)
 const COOL_BASE_COLOR: Color = Color(0.318, 0.725, 0.86, 1.0)
+# Base color when the gel is *at* `GEL_TEMP`. Ensures that the gel is still red even when done, so
+# that it doesn't start to look done too early.
+const GEL_BASE_COLOR: Color = Color(0.737, 0.533, 0.799, 1.0)
 const HOT_BASE_COLOR: Color = Color(0.99, 0.416, 0.54, 1.0)
 
 const ROOM_TEMP: float = 20.0
@@ -49,8 +52,16 @@ var is_mixing: bool = false
 func get_density() -> float: return 1.08
 func get_volume() -> float: return volume
 func get_color() -> Color:
-	var temp_t: float = clamp((temperature - ROOM_TEMP) / (100.0 - ROOM_TEMP), 0.0, 1.0)
-	var temp_color: Color = lerp(COOL_BASE_COLOR, HOT_BASE_COLOR, temp_t)
+	var temp_color: Color = (func() -> Color:
+		var display_temp: float = clamp(temperature, ROOM_TEMP, 100.0)
+		if display_temp < GEL_TEMP:
+			var temp_t := (display_temp - ROOM_TEMP) / (GEL_TEMP - ROOM_TEMP)
+			return lerp(COOL_BASE_COLOR, GEL_BASE_COLOR, temp_t)
+		else:
+			var temp_t := (display_temp - GEL_TEMP) / (100.0 - GEL_TEMP)
+			return lerp(GEL_BASE_COLOR, HOT_BASE_COLOR, temp_t)
+	).call()
+
 	var agar_color := AGAROSE_COLOR
 	agar_color.a = clamp(suspended_agarose_concentration / CLOUDY_SUSPENSION_CONCENTRATION , 0.0, 0.85)
 	var base_color: Color = lerp(LIQUID_COLOR, SOLID_COLOR, get_viscosity())
@@ -87,8 +98,8 @@ func try_incorporate(s: Substance) -> bool:
 	return false
 
 func process(container: ContainerComponent, delta: float) -> void:
+	temperature = move_toward(temperature, ROOM_TEMP, COOL_RATE * delta)
 	if is_solid_gel(): return
-	temperature = max(temperature - COOL_RATE * delta, ROOM_TEMP)
 	if volume <= 0: return
 	for s in container.substances:
 		if s is GenericSubstance:
@@ -113,15 +124,6 @@ func handle_event(e: Event) -> void:
 		is_mixing = e.is_mixing
 	elif e is MicrowaveSubstanceEvent:
 		temperature = min(100.0, temperature + MICROWAVE_RATE * e.duration)
-
-		Game.report_log.update_total(snapped(e.duration / 60, 0.01),"total_microwave_time")
-		var microwave_data: String = "Gel heated for %s minutes" % [Game.report_log.report_data["total_microwave_time"]]
-		Game.report_log.update_event(microwave_data, "microwave_time")
-		var temperature_data: String = "Gel heated to %.f°C" % [temperature]
-		Game.report_log.update_event(temperature_data, "gel_heated_temperature")
-		Game.report_log.new_total(snapped(get_volume(), 0.01), "total_tae_in_gel")
-		var tae_poured_data: String = str(Game.report_log.report_data["total_tae_in_gel"], " mL of TAE Buffer is in the gel")
-		Game.report_log.update_event(tae_poured_data, "poured_tae_in_gel")
 
 ## True if this has enough agarose and is cool enough to be a gel that can maintain wells.
 func is_solid_gel() -> bool:

@@ -11,7 +11,6 @@ func _ready() -> void:
 	for button: TextureButton in $Keypad.get_children():
 		var button_label: Label = button.get_node("Label")
 		button.pressed.connect(_on_keypad_button_pressed.bind(button_label.text))
-		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	_update_door()
 

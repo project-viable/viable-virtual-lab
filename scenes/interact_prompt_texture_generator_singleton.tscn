@@ -1,15 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwrmj887of7f8"]
+[gd_scene format=3 uid="uid://cwrmj887of7f8"]
 
 [ext_resource type="Script" uid="uid://dprdt04vorokp" path="res://scripts/singletons/interact_prompt_texture_generator.gd" id="1_ttxoe"]
 
-[node name="InteractPromptTextureGenerator" type="Node"]
+[node name="InteractPromptTextureGenerator" type="Node" unique_id=1592675199]
 process_mode = 3
 script = ExtResource("1_ttxoe")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="." unique_id=833660508]
 transparent_bg = true
 
-[node name="Prompts" type="VBoxContainer" parent="SubViewport"]
+[node name="Prompts" type="VBoxContainer" parent="SubViewport" unique_id=1884555694]
 unique_name_in_owner = true
 offset_right = 40.0
 offset_bottom = 40.0

@@ -1,14 +1,20 @@
 class_name Journal
-extends PanelContainer
+extends MenuScreenManager
 
 
 const PAGE_ROOT: String = "res://journal_pages/"
+# To avoid trying to save a massively large report.
+const MAX_SAVE_HEIGHT: int = 16384
 
 
 @export var back_button: Button
 @export var forward_button: Button
 @export var journal_label: PreprocessedRichTextLabel
 @export var procedure_label: PreprocessedRichTextLabel
+@export var report_label: RichTextLabel
+## We capture this to save the report as an image.
+@export var save_viewport: SubViewport
+@export var save_label: RichTextLabel
 
 
 # Previously visited pages.
@@ -18,7 +24,10 @@ var _history_index: int = 0
 
 
 func _ready() -> void:
+	super()
 	_update_history_buttons()
+	# Generate the report when the report screen is opened.
+	screen_changed.connect(_on_screen_changed)
 
 func open() -> void:
 	Game.main.set_journal_open(true)
@@ -89,6 +98,24 @@ func _on_preprocessed_rich_text_label_meta_clicked(meta: Variant) -> void:
 
 func _on_close_button_pressed() -> void:
 	close()
+
+func _on_screen_changed(screen: MenuScreen) -> void:
+	if screen == $ReportScreen:
+		LabReport.generate_report(report_label)
+		# We generate the save report here instead of when the download button is pressed to make
+		# sure there is enough time for the label to resize and stuff before we download it, since
+		# the viewport size needs to be updated to match. There's probably a signal somewhere that
+		# can be used to better ensure the timing of this, but this is good enough.
+		LabReport.generate_report(save_label)
+
+func _on_download_button_pressed() -> void:
+	#LabReport.generate_report(save_label)
+	save_viewport.size.y = min(save_label.size.y, MAX_SAVE_HEIGHT)
+	save_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+
+	# Wait for the update before saving.
+	await RenderingServer.frame_post_draw
+	Game.main.open_file_save_prompt_async("viable_report.jpg", save_viewport.get_texture().get_image().save_jpg_to_buffer())
 
 
 class HistoryEntry:
