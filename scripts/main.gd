@@ -391,6 +391,10 @@ func get_world_to_ui_transform() -> Transform2D:
 func get_ui_to_world_transform() -> Transform2D:
 	return %MainViewport.canvas_transform.affine_inverse() * $UILayer.get_final_transform()
 
+## Get the [ViewportTexture] of the subscene viewport.
+func get_subscene_viewport_texture() -> Texture2D:
+	return %SubsceneViewport.get_texture()
+
 func _on_exit_module_button_pressed() -> void:
 	_switch_to_main_menu()
 

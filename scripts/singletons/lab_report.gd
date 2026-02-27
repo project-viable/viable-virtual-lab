@@ -36,7 +36,14 @@ func get_or_create_report_note(note_type: Script, note_name: String = "") -> Lab
 ## Generate the report into [param label].
 func generate_report(label: RichTextLabel) -> void:
 	label.clear()
+	var first := true
 	for note: LabReportNote in _report_note_by_name.values():
+		if not first:
+			# Leave enough room between sections.
+			label.newline()
+			label.newline()
+			label.newline()
+		first = false
 		note.add_to_label(label)
 
 ## Remove all notes.

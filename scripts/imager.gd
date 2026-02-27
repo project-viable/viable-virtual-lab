@@ -10,8 +10,11 @@ var _is_light_on := true
 var _is_door_open: bool = false
 var results_message: String = ""
 
+@onready var _report_note: ImagerLabReportNote = LabReport.get_or_create_report_note(ImagerLabReportNote)
+
 func _ready() -> void:
 	_update_door()
+	print("Imager thing: %s" % _report_note.imager_display_texture)
 
 func _draw() -> void:
 	if $DepthManagedNode2D/AttachmentInteractableArea.contained_object is GelTray:
@@ -208,3 +211,22 @@ func analyze_gel_state(gel: GelTray, well: ContainerComponent, i: int) -> void:
 		else:
 			band_texture = load("res://textures/gel_bands/Gel_Well_Top_View_PERFECT.svg")
 			results_message = str("Inconclusive results.")
+
+
+class ImagerLabReportNote extends LabReportNote:
+	# The imager's display (the subscene) as a texture. Only captured when a gel is in the imager
+	# and the light is turned on.
+	var imager_display_texture: Texture2D = null
+
+
+	func add_to_label(label: RichTextLabel) -> void:
+		label.push_font_size(24)
+		label.add_text("Gel result")
+		label.pop()
+		label.newline()
+		label.newline()
+
+		if imager_display_texture:
+			label.add_image(imager_display_texture)
+		else:
+			label.add_text("Gel has not been imaged yet.")
