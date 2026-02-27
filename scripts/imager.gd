@@ -14,7 +14,6 @@ var results_message: String = ""
 
 func _ready() -> void:
 	_update_door()
-	print("Imager thing: %s" % _report_note.imager_display_texture)
 
 func _draw() -> void:
 	if %AttachmentInteractableArea.contained_object is GelTray:
