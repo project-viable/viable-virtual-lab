@@ -454,7 +454,10 @@ layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 
-[node name="BackButton" type="Button" parent="UILayer/Journal/ReportScreen/VBoxContainer" unique_id=1367209415]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/Journal/ReportScreen/VBoxContainer" unique_id=1911956433]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="UILayer/Journal/ReportScreen/VBoxContainer/MarginContainer" unique_id=1367209415]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Back
@@ -462,9 +465,9 @@ text = "Back
 script = ExtResource("19_vxglm")
 metadata/_custom_type_script = "uid://kxslh01sq2ny"
 
-[node name="DownloadButton" type="Button" parent="UILayer/Journal/ReportScreen/VBoxContainer" unique_id=280891715]
+[node name="DownloadButton" type="Button" parent="UILayer/Journal/ReportScreen/VBoxContainer/MarginContainer" unique_id=280891715]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 8
 text = "Save report as JPG"
 
 [node name="ReportSaveViewport" type="SubViewport" parent="UILayer/Journal" unique_id=1596498107]
@@ -1102,7 +1105,7 @@ use_native_dialog = true
 [connection signal="meta_clicked" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2/ProcedureLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
 [connection signal="meta_clicked" from="UILayer/Journal/HelpScreen/VBoxContainer/HBoxContainer2/HelpLabel" to="UILayer/Journal" method="_on_preprocessed_rich_text_label_meta_clicked"]
 [connection signal="pressed" from="UILayer/Journal/HelpScreen/VBoxContainer/MarginContainer/CloseButton" to="UILayer/Journal" method="_on_close_button_pressed"]
-[connection signal="pressed" from="UILayer/Journal/ReportScreen/VBoxContainer/DownloadButton" to="UILayer/Journal" method="_on_download_button_pressed"]
+[connection signal="pressed" from="UILayer/Journal/ReportScreen/VBoxContainer/MarginContainer/DownloadButton" to="UILayer/Journal" method="_on_download_button_pressed"]
 [connection signal="screen_changed" from="UILayer/MenuScreenManager" to="." method="_on_menu_screen_manager_screen_changed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="UILayer/MenuScreenManager/PauseMenu/Content/RestartModuleButton" to="." method="_on_restart_module_button_pressed"]
