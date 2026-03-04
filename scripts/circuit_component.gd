@@ -6,9 +6,11 @@ extends Node
 ## connected together at both terminals. Circuits of three or more components don't work.
 
 
-## Emitted when the connected component is disconnected, a new one is connected, or either side of
-## the circuit changes its closed state.
-signal connection_changed()
+## Emitted the connected component ([param component]) is fully disconnected from this component.
+## This is not emitted when the connected component changes the value of [member closed].
+signal disconnected(component: CircuitComponent)
+## Emitted when this circuit component is connected to [param component].
+signal connected(component: CircuitComponent)
 
 
 ## A side of a component that can be connected to.
@@ -20,14 +22,7 @@ enum TerminalSide
 
 
 ## If set to [code]false[/code], then this component cannot form a full circuit.
-@export var closed: bool = true :
-	set(v):
-		var is_changed := v != closed
-		closed = v
-		if is_changed:
-			connection_changed.emit()
-			var c := get_connected_component()
-			if c: c.connection_changed.emit()
+@export var closed: bool = true
 
 ## Voltage running through this component. This is typically set by a power supply on the other end.
 @export_custom(PROPERTY_HINT_NONE, "suffix:V") var voltage: float = 0
@@ -67,26 +62,36 @@ func get_connected_component_direction() -> float:
 ## consistent and 1:1. [signal connection_changed] will be emitted for all involved circuit
 ## components, even if the connections didn't actually change.
 func connect_to(component: CircuitComponent, our_side: TerminalSide, their_side: TerminalSide) -> void:
+	# Keep track of circuit components that might have had their full connections (i.e., those
+	# obtained via `get_connected_component`) changed. We only want to emit the signals for these
+	# once, so we use a dictionary to ensure uniqueness.
+	var components_to_old_connected: Dictionary[CircuitComponent, CircuitComponent] = {}
+	components_to_old_connected[self] = get_connected_component()
+
 	var our_connection := _connections[our_side]
 	# If we were already connected to something else on that terminal, disconnect it.
 	if our_connection.component:
+		components_to_old_connected[our_connection.component] = our_connection.component.get_connected_component()
 		our_connection.component._connections[our_connection.side].component = null
 	our_connection.component = component
 	our_connection.side = their_side
 
-	var their_old_connected_component: CircuitComponent = null
 	if component:
+		components_to_old_connected[component] = component.get_connected_component()
 		var their_connection := component._connections[their_side]
 		# Disconnect whatever might have been connected to the other component at its terminal.
 		if their_connection.component:
-			their_old_connected_component = their_connection.component
+			components_to_old_connected[their_connection.component] = their_connection.component.get_connected_component()
 			their_connection.component._connections[their_connection.side].component = null
 		their_connection.component = self
 		their_connection.side = our_side
 
-	connection_changed.emit()
-	if component: component.connection_changed.emit()
-	if their_old_connected_component: their_old_connected_component.connection_changed.emit()
+	for c: CircuitComponent in components_to_old_connected.keys():
+		var old_connected := components_to_old_connected[c]
+		var new_connected := c.get_connected_component()
+		if old_connected != new_connected:
+			if old_connected: c.disconnected.emit(old_connected)
+			if new_connected: c.connected.emit(new_connected)
 
 
 class Connection extends Resource:
