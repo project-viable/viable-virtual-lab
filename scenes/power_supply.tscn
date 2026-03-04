@@ -442,6 +442,7 @@ script = ExtResource("12_7xsxk")
 one_shot = true
 metadata/_custom_type_script = "uid://bk0s8v1tcwcmr"
 
+[connection signal="disconnected" from="CircuitComponent" to="." method="_on_circuit_component_disconnected"]
 [connection signal="pressed" from="Screen/ZoomAwareControl/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="editing_toggled" from="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" to="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" method="_on_editing_toggled"]
 [connection signal="text_changed" from="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" to="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" method="_on_time_line_edit_text_changed"]

@@ -68,12 +68,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 
-	# If there is time left, we are still running.
-	var cur_voltage: float = float(volts) if $LabTimer.time_left > 0 else 0.0
-
 	var target: CircuitComponent = $CircuitComponent.get_connected_component()
-	if target and target.closed:
-		target.voltage = cur_voltage * $CircuitComponent.get_connected_component_direction()
+	if not target: return
+
+	if target.closed and $LabTimer.time_left > 0:
+		target.voltage = float(volts) * $CircuitComponent.get_connected_component_direction()
+	else:
+		target.voltage = 0.0
 
 	if $LabTimer.time_left > 0:
 		time = round($LabTimer.time_left)
@@ -174,3 +175,6 @@ func decrement_volts() -> int:
 
 func _update_volt_display() -> void:
 	voltage_line_edit.text = "%d" % [volts]
+
+func _on_circuit_component_disconnected(component: CircuitComponent) -> void:
+	component.voltage = 0.0
