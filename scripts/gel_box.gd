@@ -7,6 +7,7 @@ func _physics_process(delta: float) -> void:
 	super(delta)
 	
 	$CircuitComponent.closed = _is_filled()
+	Game.debug_overlay.update("rig voltage", str($CircuitComponent.voltage))
 	
 	var gel := $TrayAttachment.contained_object as GelTray
 	if gel:
