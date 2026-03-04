@@ -32,9 +32,6 @@ enum TerminalSide
 var _connections: Array[Connection] = [Connection.new(), Connection.new()]
 
 
-static func _connections_equal(a: Connection, b: Connection) -> bool:
-	return a.component == b.component and a.side == b.side
-
 ## Get the [CircuitComponent] on the other end of this, as long as both terminals of this component
 ## are connected to the same component. If no component is fully connected, return [code]null[/code]
 ## To determine whether the connection is backwards or forwards, use
