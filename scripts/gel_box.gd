@@ -5,9 +5,13 @@ var gel_in_rig: bool = true
 
 func _physics_process(delta: float) -> void:
 	super(delta)
+	
+	$CircuitComponent.closed = _is_filled()
+	
 	var gel := $TrayAttachment.contained_object as GelTray
 	if gel:
-		gel.voltage = $WireConnectableComponent.voltage if _is_filled() else 0.0
+		# This should automatically be updated by the power supply to zero after setting `closed`.
+		gel.voltage = $CircuitComponent.voltage
 		if (gel.gel_state.gel_analysis_time/60.0) > 5.0:
 			gel.gel_state.gel_analysis_asap = false
 	if gel_in_rig == false:

@@ -6,9 +6,9 @@
 [ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="2_xl5qd"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="3_8th0w"]
 [ext_resource type="Texture2D" uid="uid://diqycgd18toud" path="res://textures/lab_objects/gel_rig_empty.svg" id="3_r7so7"]
-[ext_resource type="Script" uid="uid://brj1u83e5o6i6" path="res://scripts/terminal_attachment.gd" id="5_r7so7"]
+[ext_resource type="Script" uid="uid://brj1u83e5o6i6" path="res://scripts/wire_attachment_interactable_area.gd" id="5_r7so7"]
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="6_r7so7"]
-[ext_resource type="Script" uid="uid://chvv2ne60otwi" path="res://scripts/wire_connection.gd" id="6_xl5qd"]
+[ext_resource type="Script" uid="uid://b3ambmyo5etar" path="res://scripts/circuit_component.gd" id="7_4jb1l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qsq1u"]
 size = Vector2(92, 47)
@@ -75,10 +75,16 @@ texture = ExtResource("3_r7so7")
 position = Vector2(0, 15.5)
 shape = SubResource("RectangleShape2D_t800u")
 
-[node name="PositiveAttachmentInteractableArea" type="Area2D" parent="." unique_id=1028091214 node_paths=PackedStringArray("selectable_canvas_group")]
+[node name="CircuitComponent" type="Node" parent="." unique_id=1971808340]
+script = ExtResource("7_4jb1l")
+metadata/_custom_type_script = "uid://b3ambmyo5etar"
+
+[node name="PositiveAttachmentInteractableArea" type="Area2D" parent="." unique_id=1028091214 node_paths=PackedStringArray("circuit_component", "selectable_canvas_group")]
 z_index = 2
 position = Vector2(-38, 12)
 script = ExtResource("5_r7so7")
+circuit_component = NodePath("../CircuitComponent")
+place_prompt = "Connect"
 selectable_canvas_group = NodePath("../SelectableCanvasGroup")
 point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
@@ -88,11 +94,12 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_r7so7")
 debug_color = Color(0.927163, 0.143775, 0.567313, 0.42)
 
-[node name="NegativeAttachmentInteractableArea2" type="Area2D" parent="." unique_id=726295831]
+[node name="NegativeAttachmentInteractableArea2" type="Area2D" parent="." unique_id=726295831 node_paths=PackedStringArray("circuit_component")]
 z_index = 2
 position = Vector2(38, 12)
 script = ExtResource("5_r7so7")
-terminal_charge = 1
+circuit_component = NodePath("../CircuitComponent")
+terminal_side = 1
 place_prompt = "Connect"
 point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
@@ -102,12 +109,6 @@ metadata/_edit_group_ = true
 position = Vector2(-1, 0)
 shape = SubResource("CircleShape2D_xl5qd")
 debug_color = Color(0.74071, 0.462915, 0.148127, 0.42)
-
-[node name="WireConnectableComponent" type="Node2D" parent="." unique_id=114193620 node_paths=PackedStringArray("body", "target_container")]
-script = ExtResource("6_xl5qd")
-body = NodePath("..")
-target_container = NodePath("../ContainerComponent")
-metadata/_custom_type_script = "uid://chvv2ne60otwi"
 
 [node name="TrayAttachment" type="Area2D" parent="." unique_id=230654187]
 position = Vector2(0, 7)
@@ -128,11 +129,5 @@ shape = SubResource("RectangleShape2D_xl5qd")
 position = Vector2(41, -5)
 shape = SubResource("RectangleShape2D_xl5qd")
 
-[connection signal="object_placed" from="PositiveAttachmentInteractableArea" to="PositiveAttachmentInteractableArea" method="_on_object_placed"]
-[connection signal="object_removed" from="PositiveAttachmentInteractableArea" to="WireConnectableComponent" method="unplug_handler"]
-[connection signal="wire_connected" from="PositiveAttachmentInteractableArea" to="WireConnectableComponent" method="on_wire_connected"]
-[connection signal="object_placed" from="NegativeAttachmentInteractableArea2" to="NegativeAttachmentInteractableArea2" method="_on_object_placed"]
-[connection signal="object_removed" from="NegativeAttachmentInteractableArea2" to="WireConnectableComponent" method="unplug_handler"]
-[connection signal="wire_connected" from="NegativeAttachmentInteractableArea2" to="WireConnectableComponent" method="on_wire_connected"]
 [connection signal="object_placed" from="TrayAttachment" to="." method="_on_mold_attachment_object_placed"]
 [connection signal="object_removed" from="TrayAttachment" to="." method="_on_mold_attachment_object_removed"]

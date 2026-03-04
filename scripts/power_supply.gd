@@ -7,7 +7,6 @@ class_name PowerSupply
 @export var decrement_volts_button: TextureButton
 @export var time_line_edit: LineEdit
 @export var voltage_line_edit: LineEdit
-var closed_circut: bool = false
 
 
 @onready var button_function_dict: Dictionary = {
@@ -34,16 +33,7 @@ enum ConfigType{
 	VOLT
 }
 
-enum CurrentDirection{
-	FORWARD,
-	REVERSE
-}
-
 var _should_increment: bool = false
-var _is_power_supply_connected: bool = false
-var _object_to_recieve_current: WireConnectableComponent
-var positive_terminal_wire: Wire
-var negative_terminal_wire: Wire
 
 var _current_pressed_button: TextureButton
 var time: int = 0 # Time in seconds
@@ -77,21 +67,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super(delta)
-	# If the timer is still running, we are running current.
-	var prev_current_recipient := _object_to_recieve_current
-	# This changes state for some reason.
-	# TODO: Fix this hacky way of doing this.
-	if not _is_circuit_ready(): _object_to_recieve_current = null
-
-	if prev_current_recipient and prev_current_recipient != _object_to_recieve_current:
-		prev_current_recipient.voltage = 0
 
 	# If there is time left, we are still running.
 	var cur_voltage: float = float(volts) if $LabTimer.time_left > 0 else 0.0
-	if _object_to_recieve_current:
-		_object_to_recieve_current.voltage = cur_voltage
-		var dir := get_current_direction()
-		if dir == CurrentDirection.REVERSE: _object_to_recieve_current.voltage *= -1
+
+	var target: CircuitComponent = $CircuitComponent.get_connected_component()
+	if target and target.closed:
+		target.voltage = cur_voltage * $CircuitComponent.get_connected_component_direction()
 
 	if $LabTimer.time_left > 0:
 		time = round($LabTimer.time_left)
@@ -102,13 +84,14 @@ func is_hovered() -> bool:
 	return super() and not Game.main.get_camera_focus_owner()
 
 func _on_start_button_pressed() -> void:
-	if _object_to_recieve_current.body.name == "GelBox":
-		if closed_circut and _object_to_recieve_current.target_container.get_total_volume() >0:
-			initial_time = time
-			$LabTimer.start(time)
-		else:
-			%TimeLabel.text = "Err"
-			voltage_line_edit.text = "Err"
+	# Error if we start when not connected.
+	var c: CircuitComponent = $CircuitComponent.get_connected_component()
+	if c and c.closed:
+		initial_time = time
+		$LabTimer.start(time)
+	else:
+		%TimeLabel.text = "Err"
+		voltage_line_edit.text = "Err"
 
 func _on_timer_timeout() -> void:
 	var is_pressed: bool = _current_pressed_button.button_pressed
@@ -191,51 +174,3 @@ func decrement_volts() -> int:
 
 func _update_volt_display() -> void:
 	voltage_line_edit.text = "%d" % [volts]
-
-## Can be triggered from [signal WireConnectableComponent.terminals_connected] signal whenever a wire is
-## connected to a terminal.
-func _on_wire_connection(is_every_terminal_connected: bool) -> void:
-	_is_power_supply_connected = is_every_terminal_connected
-
-## Checks if both terminals of the power supply are connected
-## and if the other ends of those wires are both connected to
-## another object.
-func _is_circuit_ready() -> bool:
-	# Both terminals of the power supply must be connected
-	if not _is_power_supply_connected:
-		return false
-
-	positive_terminal_wire = $WireConnectableComponent.get_positive_terminal_wire()
-	negative_terminal_wire = $WireConnectableComponent.get_negative_terminal_wire()
-
-	var positive_wire_other_end_component: WireConnectableComponent = positive_terminal_wire.get_component_on_other_end()
-	var negative_wire_other_end_component: WireConnectableComponent = negative_terminal_wire.get_component_on_other_end()
-
-	# Both of the wires connected to the power supply must have their other ends
-	# be connected to the same target
-	if positive_wire_other_end_component == null \
-			or positive_wire_other_end_component != negative_wire_other_end_component:
-		return false
-
-	else:
-		_object_to_recieve_current = positive_wire_other_end_component
-		closed_circut = true
-		return true
-
-
-## Determines the direction of current based on wire connections.
-## Returns FORWARD if each wire connects matching terminals (positive to positive, negative to negative),
-## otherwise returns REVERSE.
-func get_current_direction() -> CurrentDirection:
-	var target: WireConnectableComponent = _object_to_recieve_current
-	var target_positive_terminal_wire: Wire = target.get_positive_terminal_wire()
-	var target_negative_terminal_wire: Wire = target.get_negative_terminal_wire()
-
-	# Both ends of a wire are connected to a positive terminal, resulting in a forward current direction
-	if target_positive_terminal_wire.other_end == positive_terminal_wire \
-		and target_negative_terminal_wire.other_end == negative_terminal_wire:
-			return CurrentDirection.FORWARD
-
-	# Ends of a wire are connected to different terminal denotations, resulting in a reversed current direction
-	else:
-		return CurrentDirection.REVERSE
