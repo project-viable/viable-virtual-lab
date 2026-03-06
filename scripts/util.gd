@@ -114,6 +114,11 @@ static func bitwise_set(value: int, mask: int, new_value: int) -> int:
 static func direction_to_local(node: Node2D, direction: Vector2) -> Vector2:
 	return node.to_local(node.global_position + direction)
 
+## Convert the direction [param direction] in [param node]'s local coordinates to a direction in
+## global coordinates.
+static func direction_to_global(node: Node2D, direction: Vector2) -> Vector2:
+	return node.to_global(direction) - node.global_position
+
 ## Attempt to get the best possible [SelectableCanvasGroup] to be highlighted by a component that
 ## does interaction. If [param component]'s parent is a [LabBody] and its
 ## [member LabBody.interact_canvas_group] is not [code]null[/code], then it will use that.
