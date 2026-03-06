@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://bepsdcjab3t21" path="res://scripts/power_supply.gd" id="1_7lagc"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_80iu8"]
 [ext_resource type="Texture2D" uid="uid://bi5tvuv5gh5u" path="res://textures/lab_objects/powerbox.svg" id="3_7lagc"]
+[ext_resource type="Texture2D" uid="uid://xt04jdwgfgem" path="res://textures/lab_objects/power_supply_large_clean.svg" id="4_cexob"]
+[ext_resource type="Texture2D" uid="uid://dcr83ip704kyq" path="res://textures/lab_objects/tmp/power_supply_front_atlas.png" id="5_w22cc"]
 [ext_resource type="Script" uid="uid://b3ambmyo5etar" path="res://scripts/circuit_component.gd" id="6_y7ksa"]
-[ext_resource type="Texture2D" uid="uid://crtq0m4w5xpmy" path="res://textures/icons_and_buttons/plus_symbol.svg" id="7_5dnns"]
 [ext_resource type="Script" uid="uid://brj1u83e5o6i6" path="res://scripts/wire_attachment_interactable_area.gd" id="7_07yqv"]
 [ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="7_r5man"]
 [ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://textures/icons_and_buttons/button_2.svg" id="8_5dnns"]
-[ext_resource type="Texture2D" uid="uid://spcel0l2t7ec" path="res://textures/icons_and_buttons/minus_symbol.svg" id="8_07yqv"]
 [ext_resource type="Script" uid="uid://dqaivlcqhms8h" path="res://scripts/time_line_edit.gd" id="8_agml6"]
 [ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="8_jimdi"]
 [ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="8_vfgdq"]
@@ -17,9 +17,26 @@
 [ext_resource type="Script" uid="uid://ccy0k2wrm316p" path="res://scripts/group_region_provider.gd" id="10_y7ksa"]
 [ext_resource type="Script" uid="uid://b15sd4jw5afoa" path="res://scripts/camera_region_provider.gd" id="11_y7ksa"]
 [ext_resource type="Script" uid="uid://bk0s8v1tcwcmr" path="res://scripts/lab_timer.gd" id="12_7xsxk"]
+[ext_resource type="Script" uid="uid://cqtfwlewgwy21" path="res://scripts/dial_selectable_component.gd" id="18_w22cc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifdxy"]
+atlas = ExtResource("5_w22cc")
+region = Rect2(0, 26.666313, 199.9993, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cexob"]
+atlas = ExtResource("5_w22cc")
+region = Rect2(320.4015, 23.083498, 56.62039, 110.89784)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w22cc"]
+atlas = ExtResource("5_w22cc")
+region = Rect2(240.28812, 23.083498, 60.33914, 122.52373)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2q34u"]
+atlas = ExtResource("5_w22cc")
+region = Rect2(44.453827, 317.69736, 93.69737, 95.16904)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80iu8"]
-size = Vector2(98, 38)
+size = Vector2(112, 86)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k6dxr"]
 radius = 7.0
@@ -32,6 +49,10 @@ script = ExtResource("8_vfgdq")
 kind = 3
 description = "Zoom in on power supply and gel rig"
 metadata/_custom_type_script = "uid://b810schxe1hne"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlby0"]
+atlas = ExtResource("5_w22cc")
+region = Rect2(9.999298, 89.332985, 176, 174.00003)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_46x6c"]
 size = Vector2(48, 20)
@@ -105,31 +126,45 @@ script = ExtResource("1_80iu8")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="PowerBox" type="Sprite2D" parent="SelectableCanvasGroup" unique_id=1114546702]
+visible = false
 position = Vector2(0, -8)
 scale = Vector2(0.174763, 0.174763)
 texture = ExtResource("3_7lagc")
 
+[node name="PowerSupplyLargeClean" type="Sprite2D" parent="SelectableCanvasGroup" unique_id=540939811]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_cexob")
+
+[node name="PlusMinusDirection" type="Sprite2D" parent="." unique_id=127106228]
+position = Vector2(39.94999, -47.899994)
+scale = Vector2(0.1, 0.1)
+texture = SubResource("AtlasTexture_ifdxy")
+
+[node name="MinusOutlet" type="Sprite2D" parent="." unique_id=1479630373]
+position = Vector2(26.000002, 19)
+scale = Vector2(0.1, 0.1)
+texture = SubResource("AtlasTexture_cexob")
+
+[node name="MinusOutlet2" type="Sprite2D" parent="." unique_id=1109771051]
+position = Vector2(44, 19)
+scale = Vector2(0.1, 0.1)
+texture = SubResource("AtlasTexture_w22cc")
+
+[node name="MinusOutlet3" type="Sprite2D" parent="." unique_id=581987776]
+position = Vector2(35, 2)
+scale = Vector2(0.1, 0.1)
+texture = SubResource("AtlasTexture_2q34u")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1886831396]
-visible = false
-position = Vector2(0, -2)
+position = Vector2(0, -14)
 shape = SubResource("RectangleShape2D_80iu8")
-
-[node name="PlusSymbol" type="Sprite2D" parent="." unique_id=140888260]
-position = Vector2(-36, -12)
-scale = Vector2(0.0155412, 0.0155412)
-texture = ExtResource("7_5dnns")
-
-[node name="MinusSymbol" type="Sprite2D" parent="." unique_id=1471351554]
-position = Vector2(-36, 4)
-scale = Vector2(0.016, 0.016)
-texture = ExtResource("8_07yqv")
 
 [node name="CircuitComponent" type="Node" parent="." unique_id=1750124371]
 script = ExtResource("6_y7ksa")
 metadata/_custom_type_script = "uid://b3ambmyo5etar"
 
 [node name="AttachmentPostiveOutlet" type="Area2D" parent="." unique_id=1919772877 node_paths=PackedStringArray("circuit_component", "selectable_canvas_group")]
-position = Vector2(-36, -11)
+position = Vector2(44, 16)
 script = ExtResource("7_07yqv")
 circuit_component = NodePath("../CircuitComponent")
 selectable_canvas_group = NodePath("../SelectableCanvasGroup")
@@ -142,7 +177,7 @@ shape = SubResource("CircleShape2D_k6dxr")
 debug_color = Color(0.960415, 0, 0.51616, 0.42)
 
 [node name="AttachmentNegativeOutlet" type="Area2D" parent="." unique_id=107701177 node_paths=PackedStringArray("circuit_component", "selectable_canvas_group")]
-position = Vector2(-36, 5)
+position = Vector2(26, 16)
 script = ExtResource("7_07yqv")
 circuit_component = NodePath("../CircuitComponent")
 terminal_side = 1
@@ -178,8 +213,24 @@ enabled = false
 zoom = Vector2(4.5, 4.5)
 position_smoothing_speed = 20.0
 
+[node name="DialSelectableComponent" type="Node2D" parent="." unique_id=1865659444]
+position = Vector2(39.949997, -38.899998)
+script = ExtResource("18_w22cc")
+target_only_when_zoomed = true
+metadata/_custom_type_script = "uid://cqtfwlewgwy21"
+metadata/_edit_group_ = true
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="DialSelectableComponent" unique_id=1674755206]
+script = ExtResource("1_80iu8")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="Dial" type="Sprite2D" parent="DialSelectableComponent/SelectableCanvasGroup" unique_id=1375112540]
+scale = Vector2(0.1, 0.1)
+texture = SubResource("AtlasTexture_xlby0")
+
 [node name="Screen" type="Area2D" parent="." unique_id=1767641917]
 z_index = 1
+position = Vector2(-25, -39)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Screen" unique_id=1543275109]

@@ -278,7 +278,7 @@ position = Vector2(1646, 486)
 position = Vector2(1553, 468)
 
 [node name="PowerSupply" parent="Objects" unique_id=1404866884 instance=ExtResource("13_36q3s")]
-position = Vector2(1366, 477)
+position = Vector2(1363, 466)
 
 [node name="GelImager" parent="Objects" unique_id=624465869 instance=ExtResource("14_eg6i0")]
 position = Vector2(2422, 396)
