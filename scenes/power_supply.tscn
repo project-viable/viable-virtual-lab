@@ -84,17 +84,17 @@ texture = ExtResource("4_cexob")
 
 [node name="MinusOutlet" type="Sprite2D" parent="." unique_id=1479630373]
 position = Vector2(26.000002, 19)
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.13, 0.13)
 texture = SubResource("AtlasTexture_cexob")
 
 [node name="MinusOutlet2" type="Sprite2D" parent="." unique_id=1109771051]
 position = Vector2(44, 19)
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.13, 0.13)
 texture = SubResource("AtlasTexture_w22cc")
 
 [node name="MinusOutlet3" type="Sprite2D" parent="." unique_id=581987776]
-position = Vector2(44, 4)
-scale = Vector2(0.1, 0.1)
+position = Vector2(44, -9)
+scale = Vector2(0.13, 0.13)
 texture = SubResource("AtlasTexture_2q34u")
 
 [node name="CircuitComponent" type="Node" parent="." unique_id=1750124371]
@@ -162,7 +162,7 @@ position = Vector2(30, 30)
 shape = SubResource("RectangleShape2D_46x6c")
 
 [node name="Dial" type="Node2D" parent="." unique_id=1865659444]
-position = Vector2(27, -11)
+position = Vector2(35, -36)
 script = ExtResource("18_w22cc")
 target_only_when_zoomed = true
 metadata/_custom_type_script = "uid://cqtfwlewgwy21"
@@ -173,12 +173,12 @@ script = ExtResource("1_80iu8")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
 [node name="Dial" type="Sprite2D" parent="Dial/SelectableCanvasGroup" unique_id=1375112540]
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.13, 0.13)
 texture = SubResource("AtlasTexture_xlby0")
 
 [node name="PlusMinusDirection" type="Sprite2D" parent="Dial" unique_id=127106228]
-position = Vector2(-7.6293945e-06, -8.999996)
-scale = Vector2(0.1, 0.1)
+position = Vector2(0, -11)
+scale = Vector2(0.13, 0.13)
 texture = SubResource("AtlasTexture_ifdxy")
 
 [node name="Screen" type="Panel" parent="." unique_id=1561646655]
