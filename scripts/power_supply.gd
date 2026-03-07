@@ -8,6 +8,7 @@ class_name PowerSupply
 
 
 var _input_voltage: float = min_voltage
+var _is_outputting: bool = false
 
 
 func _ready() -> void:
@@ -36,10 +37,17 @@ func _update_display() -> void:
 	%TimeDisplay.string = str(minutes * 100 + seconds)
 	%VoltDisplay.string = str(roundi(_input_voltage))
 
+	%OutputLightOff.visible = not _is_outputting
+	%OutputLightOn.visible = _is_outputting
+
 func _on_circuit_component_disconnected(component: CircuitComponent) -> void:
 	component.voltage = 0.0
 
 func _on_dial_rotated(angle: float) -> void:
 	_input_voltage += angle * voltage_per_radian
 	_input_voltage = clamp(_input_voltage, min_voltage, max_voltage)
+	_update_display()
+
+func _on_power_button_pressed() -> void:
+	_is_outputting = not _is_outputting
 	_update_display()

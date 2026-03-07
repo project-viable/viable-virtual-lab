@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://ccy0k2wrm316p" path="res://scripts/group_region_provider.gd" id="10_y7ksa"]
 [ext_resource type="Script" uid="uid://b15sd4jw5afoa" path="res://scripts/camera_region_provider.gd" id="11_y7ksa"]
 [ext_resource type="Script" uid="uid://bk0s8v1tcwcmr" path="res://scripts/lab_timer.gd" id="12_7xsxk"]
+[ext_resource type="Script" uid="uid://musakg3k6s1l" path="res://scripts/selectable_component.gd" id="13_cexob"]
 [ext_resource type="Theme" uid="uid://die27mvdpv6e5" path="res://themes/power_supply_screen.tres" id="14_jn1hy"]
 [ext_resource type="Script" uid="uid://c2pro11bcd0sw" path="res://scripts/seven_segment_display_array.gd" id="15_y7ksa"]
 [ext_resource type="PackedScene" uid="uid://cpguc3tomsylp" path="res://scenes/seven_segment_display.tscn" id="16_cexob"]
@@ -29,9 +30,17 @@ region = Rect2(320.4015, 23.083498, 56.62039, 110.89784)
 atlas = ExtResource("5_w22cc")
 region = Rect2(240.28812, 23.083498, 60.33914, 122.52373)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2q34u"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7ksa"]
 atlas = ExtResource("5_w22cc")
-region = Rect2(44.453827, 317.69736, 93.69737, 95.16904)
+region = Rect2(178.91772, 317.69736, 107.923676, 95.16904)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27kqs"]
+atlas = ExtResource("5_w22cc")
+region = Rect2(178.91772, 405.50797, 107.923676, 59.17459)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksl78"]
+atlas = ExtResource("5_w22cc")
+region = Rect2(290.7014, 407.65674, 92.35809, 57.025818)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k6dxr"]
 radius = 7.0
@@ -47,6 +56,10 @@ metadata/_custom_type_script = "uid://b810schxe1hne"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_46x6c"]
 size = Vector2(112, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2q34u"]
+atlas = ExtResource("5_w22cc")
+region = Rect2(44.453827, 317.69736, 93.69737, 95.16904)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xlby0"]
 atlas = ExtResource("5_w22cc")
@@ -92,10 +105,22 @@ position = Vector2(44, 19)
 scale = Vector2(0.13, 0.13)
 texture = SubResource("AtlasTexture_w22cc")
 
-[node name="MinusOutlet3" type="Sprite2D" parent="." unique_id=581987776]
-position = Vector2(44, -9)
+[node name="OutputLightBase" type="Sprite2D" parent="." unique_id=973408875]
+position = Vector2(45, -2)
 scale = Vector2(0.13, 0.13)
-texture = SubResource("AtlasTexture_2q34u")
+texture = SubResource("AtlasTexture_y7ksa")
+
+[node name="OutputLightOff" type="Sprite2D" parent="." unique_id=1887132117]
+unique_name_in_owner = true
+position = Vector2(45, -2)
+scale = Vector2(0.13, 0.13)
+texture = SubResource("AtlasTexture_27kqs")
+
+[node name="OutputLightOn" type="Sprite2D" parent="." unique_id=1754655121]
+unique_name_in_owner = true
+position = Vector2(45, -2)
+scale = Vector2(0.13, 0.13)
+texture = SubResource("AtlasTexture_ksl78")
 
 [node name="CircuitComponent" type="Node" parent="." unique_id=1750124371]
 script = ExtResource("6_y7ksa")
@@ -160,6 +185,19 @@ metadata/_edit_group_ = true
 visible = false
 position = Vector2(30, 30)
 shape = SubResource("RectangleShape2D_46x6c")
+
+[node name="PowerButton" type="Node2D" parent="." unique_id=2024675172]
+script = ExtResource("13_cexob")
+metadata/_custom_type_script = "uid://musakg3k6s1l"
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="PowerButton" unique_id=1768966590]
+script = ExtResource("1_80iu8")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="PowerButton" type="Sprite2D" parent="PowerButton/SelectableCanvasGroup" unique_id=581987776]
+position = Vector2(45, -16)
+scale = Vector2(0.13, 0.13)
+texture = SubResource("AtlasTexture_2q34u")
 
 [node name="Dial" type="Node2D" parent="." unique_id=1865659444]
 position = Vector2(35, -36)
@@ -300,6 +338,15 @@ offset_right = 56.0
 offset_bottom = 17.0
 text = ":"
 
+[node name="Label3" type="Label" parent="Screen" unique_id=859117972]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 44.0
+offset_right = 109.0
+offset_bottom = 63.0
+theme_override_font_sizes/font_size = 5
+text = "Output"
+
 [node name="Timer" type="Timer" parent="." unique_id=1028421179]
 editor_description = "Used to change how fast the values of Time and Voltage increases or decreases"
 wait_time = 0.15
@@ -310,5 +357,6 @@ one_shot = true
 metadata/_custom_type_script = "uid://bk0s8v1tcwcmr"
 
 [connection signal="disconnected" from="CircuitComponent" to="." method="_on_circuit_component_disconnected"]
+[connection signal="pressed" from="PowerButton" to="." method="_on_power_button_pressed"]
 [connection signal="rotated" from="Dial" to="." method="_on_dial_rotated"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
