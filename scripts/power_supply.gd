@@ -8,6 +8,7 @@ class_name PowerSupply
 
 
 var _input_voltage: float = min_voltage
+var _output_voltage: float = 0.0
 var _is_outputting: bool = false
 
 
@@ -19,12 +20,17 @@ func _physics_process(delta: float) -> void:
 	super(delta)
 
 	var target: CircuitComponent = $CircuitComponent.get_connected_component()
-	if not target: return
+	if target:
+		if target.closed and $LabTimer.time_left > 0 and _is_outputting:
+			target.voltage = float(_input_voltage) * $CircuitComponent.get_connected_component_direction()
+		else:
+			target.voltage = 0.0
 
-	if target.closed and $LabTimer.time_left > 0:
-		target.voltage = float(_input_voltage) * $CircuitComponent.get_connected_component_direction()
+		_output_voltage = target.voltage
 	else:
-		target.voltage = 0.0
+		_output_voltage = 0.0
+
+	_update_display()
 
 func is_hovered() -> bool:
 	# Don't allow the power supply to be picked up while zoomed in, so the buttons can be pressed.
@@ -35,7 +41,9 @@ func _update_display() -> void:
 	var minutes: int = t / 60
 	var seconds: int = t % 60
 	%TimeDisplay.string = str(minutes * 100 + seconds)
-	%VoltDisplay.string = str(roundi(_input_voltage))
+
+	var disp_voltage := _output_voltage if _is_outputting else _input_voltage
+	%VoltDisplay.string = str(roundi(disp_voltage))
 
 	%OutputLightOff.visible = not _is_outputting
 	%OutputLightOn.visible = _is_outputting
