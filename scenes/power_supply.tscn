@@ -42,6 +42,14 @@ region = Rect2(320.4015, 23.083498, 56.62039, 110.89784)
 atlas = ExtResource("5_w22cc")
 region = Rect2(240.28812, 23.083498, 60.33914, 122.52373)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qmgt"]
+atlas = ExtResource("5_w22cc")
+region = Rect2(220.51984, 163.95349, 100.54016, 59.986115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgf8a"]
+atlas = ExtResource("5_w22cc")
+region = Rect2(220.51984, 247.00015, 100.54016, 50.077545)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_k6dxr"]
 radius = 7.0
 
@@ -118,10 +126,53 @@ position = Vector2(26.000002, 19)
 scale = Vector2(0.13, 0.13)
 texture = SubResource("AtlasTexture_cexob")
 
-[node name="MinusOutlet2" type="Sprite2D" parent="." unique_id=1109771051]
+[node name="PlusOutlet" type="Sprite2D" parent="." unique_id=1109771051]
 position = Vector2(44, 19)
 scale = Vector2(0.13, 0.13)
 texture = SubResource("AtlasTexture_w22cc")
+
+[node name="TimeUpButton" type="Node2D" parent="." unique_id=1374771198]
+script = ExtResource("13_cexob")
+target_only_when_zoomed = true
+metadata/_custom_type_script = "uid://musakg3k6s1l"
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="TimeUpButton" unique_id=1502914520]
+script = ExtResource("1_80iu8")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="TimeUpButton" type="Sprite2D" parent="TimeUpButton/SelectableCanvasGroup" unique_id=402419947]
+position = Vector2(24, -46)
+scale = Vector2(0.13, 0.13)
+texture = SubResource("AtlasTexture_2qmgt")
+
+[node name="TimeDownButton" type="Node2D" parent="." unique_id=1014104719]
+script = ExtResource("13_cexob")
+target_only_when_zoomed = true
+metadata/_custom_type_script = "uid://musakg3k6s1l"
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="TimeDownButton" unique_id=1684657675]
+script = ExtResource("1_80iu8")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="TimeDownButton" type="Sprite2D" parent="TimeDownButton/SelectableCanvasGroup" unique_id=1552635526]
+position = Vector2(24, -35)
+rotation = 3.1412723
+scale = Vector2(0.13, 0.13)
+texture = SubResource("AtlasTexture_2qmgt")
+
+[node name="TimeDownButton2" type="Node2D" parent="." unique_id=954184835]
+script = ExtResource("13_cexob")
+target_only_when_zoomed = true
+metadata/_custom_type_script = "uid://musakg3k6s1l"
+
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="TimeDownButton2" unique_id=1122213832]
+script = ExtResource("1_80iu8")
+metadata/_custom_type_script = "uid://p0x2f70nn1sy"
+
+[node name="TimerButton" type="Sprite2D" parent="TimeDownButton2/SelectableCanvasGroup" unique_id=1366214127]
+position = Vector2(41, -46)
+scale = Vector2(0.13, 0.13)
+texture = SubResource("AtlasTexture_pgf8a")
 
 [node name="CircuitComponent" type="Node" parent="." unique_id=1750124371]
 script = ExtResource("6_y7ksa")
@@ -337,7 +388,7 @@ character = "9"
 layout_mode = 0
 offset_left = 16.0
 offset_top = 2.0
-offset_right = 56.0
+offset_right = 20.0
 offset_bottom = 17.0
 text = ":"
 
@@ -349,6 +400,15 @@ offset_right = 30.0
 offset_bottom = 75.0
 theme_override_font_sizes/font_size = 5
 text = "Output"
+
+[node name="Label4" type="Label" parent="Screen" unique_id=12084244]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 6.0
+offset_right = 98.0
+offset_bottom = 13.0
+theme_override_font_sizes/font_size = 5
+text = "Timer"
 
 [node name="VoltFluctuationTimer" type="Timer" parent="." unique_id=1028421179]
 editor_description = "Each time this timer ends, there's a chance the displayed output voltage will fluctuate a bit (this does not affect the actual output voltage)"
