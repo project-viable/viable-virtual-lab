@@ -50,4 +50,6 @@ func _on_dial_rotated(angle: float) -> void:
 
 func _on_power_button_pressed() -> void:
 	_is_outputting = not _is_outputting
+	# Only count down time while outputting.
+	$LabTimer.paused = not _is_outputting
 	_update_display()
