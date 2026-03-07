@@ -1,0 +1,21 @@
+[gd_resource type="Theme" format=3 uid="uid://die27mvdpv6e5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrkcg"]
+bg_color = Color(0.11777567, 0.025353417, 0.07654489, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.11764706, 0.023529412, 0.078431375, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[resource]
+Label/colors/font_color = Color(0.936613, 0.8133617, 0.81977147, 1)
+Label/font_sizes/font_size = 12
+Panel/styles/panel = SubResource("StyleBoxFlat_jrkcg")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_jrkcg")
+RedLabel/base_type = &"Label"
+RedLabel/colors/font_color = Color(0.8669823, 0.28004554, 0.32287392, 1)

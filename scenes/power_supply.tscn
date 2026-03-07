@@ -8,20 +8,18 @@
 [ext_resource type="Script" uid="uid://b3ambmyo5etar" path="res://scripts/circuit_component.gd" id="6_y7ksa"]
 [ext_resource type="Script" uid="uid://brj1u83e5o6i6" path="res://scripts/wire_attachment_interactable_area.gd" id="7_07yqv"]
 [ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="7_r5man"]
-[ext_resource type="Texture2D" uid="uid://bd4nu6l1dgnec" path="res://textures/icons_and_buttons/button_2.svg" id="8_5dnns"]
-[ext_resource type="Script" uid="uid://dqaivlcqhms8h" path="res://scripts/time_line_edit.gd" id="8_agml6"]
-[ext_resource type="Script" uid="uid://kqpdop5g7bqv" path="res://scripts/zoom_aware_control.gd" id="8_jimdi"]
 [ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="8_vfgdq"]
-[ext_resource type="Script" uid="uid://0k2e5xj6bo7p" path="res://scripts/voltage_line_edit.gd" id="9_agml6"]
 [ext_resource type="Script" uid="uid://uor6fay5jtyy" path="res://scripts/combined_region_provider.gd" id="9_hsrjq"]
 [ext_resource type="Script" uid="uid://ccy0k2wrm316p" path="res://scripts/group_region_provider.gd" id="10_y7ksa"]
 [ext_resource type="Script" uid="uid://b15sd4jw5afoa" path="res://scripts/camera_region_provider.gd" id="11_y7ksa"]
 [ext_resource type="Script" uid="uid://bk0s8v1tcwcmr" path="res://scripts/lab_timer.gd" id="12_7xsxk"]
+[ext_resource type="Theme" uid="uid://die27mvdpv6e5" path="res://themes/power_supply_screen.tres" id="14_jn1hy"]
+[ext_resource type="Script" uid="uid://c2pro11bcd0sw" path="res://scripts/seven_segment_display_array.gd" id="15_y7ksa"]
+[ext_resource type="PackedScene" uid="uid://cpguc3tomsylp" path="res://scenes/seven_segment_display.tscn" id="16_cexob"]
 [ext_resource type="Script" uid="uid://cqtfwlewgwy21" path="res://scripts/dial_selectable_component.gd" id="18_w22cc"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ifdxy"]
-atlas = ExtResource("5_w22cc")
-region = Rect2(0, 26.666313, 199.9993, 62)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_80iu8"]
+size = Vector2(112, 86)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cexob"]
 atlas = ExtResource("5_w22cc")
@@ -35,9 +33,6 @@ region = Rect2(240.28812, 23.083498, 60.33914, 122.52373)
 atlas = ExtResource("5_w22cc")
 region = Rect2(44.453827, 317.69736, 93.69737, 95.16904)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_80iu8"]
-size = Vector2(112, 86)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_k6dxr"]
 radius = 7.0
 
@@ -50,76 +45,28 @@ kind = 3
 description = "Zoom in on power supply and gel rig"
 metadata/_custom_type_script = "uid://b810schxe1hne"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_46x6c"]
+size = Vector2(112, 86)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_xlby0"]
 atlas = ExtResource("5_w22cc")
 region = Rect2(9.999298, 89.332985, 176, 174.00003)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_46x6c"]
-size = Vector2(48, 20)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifdxy"]
+atlas = ExtResource("5_w22cc")
+region = Rect2(0, 26.666313, 199.9993, 62)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_46x6c"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pbs0"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_agml6"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_07yqv"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5dnns"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ij5hy"]
-draw_center = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5man"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-draw_center = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xsxk"]
-draw_center = false
-
-[node name="PowerSupply" type="RigidBody2D" unique_id=1203067396 node_paths=PackedStringArray("increment_time_button", "decrement_time_button", "increment_volts_button", "decrement_volts_button", "time_line_edit", "voltage_line_edit")]
+[node name="PowerSupply" type="RigidBody2D" unique_id=1203067396]
 collision_layer = 0
 script = ExtResource("1_7lagc")
-increment_time_button = NodePath("Screen/ZoomAwareControl/IncrementTime")
-decrement_time_button = NodePath("Screen/ZoomAwareControl/DecrementTime")
-increment_volts_button = NodePath("Screen/ZoomAwareControl/IncrementVolts")
-decrement_volts_button = NodePath("Screen/ZoomAwareControl/DecrementVolts")
-time_line_edit = NodePath("Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit")
-voltage_line_edit = NodePath("Screen/ZoomAwareControl/VoltageContainer/HBoxContainer/VoltageLineEdit")
 hover_name = "power supply"
 help_page_path = "gel_rig.txt"
 metadata/_custom_type_script = "uid://b4dann3kdfg3k"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1886831396]
+visible = false
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_80iu8")
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="." unique_id=1633304623]
 script = ExtResource("1_80iu8")
@@ -135,11 +82,6 @@ texture = ExtResource("3_7lagc")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_cexob")
 
-[node name="PlusMinusDirection" type="Sprite2D" parent="." unique_id=127106228]
-position = Vector2(39.94999, -47.899994)
-scale = Vector2(0.1, 0.1)
-texture = SubResource("AtlasTexture_ifdxy")
-
 [node name="MinusOutlet" type="Sprite2D" parent="." unique_id=1479630373]
 position = Vector2(26.000002, 19)
 scale = Vector2(0.1, 0.1)
@@ -151,13 +93,9 @@ scale = Vector2(0.1, 0.1)
 texture = SubResource("AtlasTexture_w22cc")
 
 [node name="MinusOutlet3" type="Sprite2D" parent="." unique_id=581987776]
-position = Vector2(35, 2)
+position = Vector2(44, 4)
 scale = Vector2(0.1, 0.1)
 texture = SubResource("AtlasTexture_2q34u")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1886831396]
-position = Vector2(0, -14)
-shape = SubResource("RectangleShape2D_80iu8")
 
 [node name="CircuitComponent" type="Node" parent="." unique_id=1750124371]
 script = ExtResource("6_y7ksa")
@@ -192,7 +130,7 @@ debug_color = Color(0.799247, 0.420694, 0.0500949, 0.42)
 
 [node name="ZoomSelectableArea" type="Node2D" parent="." unique_id=727419360 node_paths=PackedStringArray("click_area")]
 script = ExtResource("7_r5man")
-click_area = NodePath("../Screen")
+click_area = NodePath("ZoomArea")
 interact_info = SubResource("Resource_jn1hy")
 metadata/_custom_type_script = "uid://ciw88e6ajyksw"
 
@@ -213,276 +151,154 @@ enabled = false
 zoom = Vector2(4.5, 4.5)
 position_smoothing_speed = 20.0
 
-[node name="DialSelectableComponent" type="Node2D" parent="." unique_id=1865659444]
-position = Vector2(39.949997, -38.899998)
+[node name="ZoomArea" type="Area2D" parent="ZoomSelectableArea" unique_id=1767641917]
+z_index = 1
+position = Vector2(-30, -44)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ZoomSelectableArea/ZoomArea" unique_id=1543275109]
+visible = false
+position = Vector2(30, 30)
+shape = SubResource("RectangleShape2D_46x6c")
+
+[node name="Dial" type="Node2D" parent="." unique_id=1865659444]
+position = Vector2(27, -11)
 script = ExtResource("18_w22cc")
 target_only_when_zoomed = true
 metadata/_custom_type_script = "uid://cqtfwlewgwy21"
 metadata/_edit_group_ = true
 
-[node name="SelectableCanvasGroup" type="CanvasGroup" parent="DialSelectableComponent" unique_id=1674755206]
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="Dial" unique_id=1674755206]
 script = ExtResource("1_80iu8")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="Dial" type="Sprite2D" parent="DialSelectableComponent/SelectableCanvasGroup" unique_id=1375112540]
+[node name="Dial" type="Sprite2D" parent="Dial/SelectableCanvasGroup" unique_id=1375112540]
 scale = Vector2(0.1, 0.1)
 texture = SubResource("AtlasTexture_xlby0")
 
-[node name="Screen" type="Area2D" parent="." unique_id=1767641917]
-z_index = 1
-position = Vector2(-25, -39)
-metadata/_edit_group_ = true
+[node name="PlusMinusDirection" type="Sprite2D" parent="Dial" unique_id=127106228]
+position = Vector2(-7.6293945e-06, -8.999996)
+scale = Vector2(0.1, 0.1)
+texture = SubResource("AtlasTexture_ifdxy")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Screen" unique_id=1543275109]
-position = Vector2(-2, -3)
-shape = SubResource("RectangleShape2D_46x6c")
+[node name="Screen" type="Panel" parent="." unique_id=1561646655]
+offset_left = -47.0
+offset_top = -49.0
+offset_right = 14.0
+offset_bottom = 21.0
+theme = ExtResource("14_jn1hy")
 
-[node name="ZoomAwareControl" type="Control" parent="Screen" unique_id=138078334]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("8_jimdi")
-metadata/_custom_type_script = "uid://kqpdop5g7bqv"
-
-[node name="StartButton" type="Button" parent="Screen/ZoomAwareControl" unique_id=1728666204]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_left = 25.0
-offset_top = -8.0
-offset_right = 43.0
-offset_bottom = 3.0
-mouse_default_cursor_shape = 2
-
-[node name="StartLabel" type="Label" parent="Screen/ZoomAwareControl/StartButton" unique_id=908346683]
-layout_mode = 0
-offset_left = 1.0
-offset_right = 42.0
-offset_bottom = 28.0
-scale = Vector2(0.388818, 0.388818)
-text = "Start"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TimeContainer" type="PanelContainer" parent="Screen/ZoomAwareControl" unique_id=990735061]
-layout_mode = 0
-offset_left = -24.0
-offset_top = -11.0
-offset_right = 83.0
-offset_bottom = 10.0
-scale = Vector2(0.3, 0.3)
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_46x6c")
-metadata/_edit_group_ = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Screen/ZoomAwareControl/TimeContainer" unique_id=240150536]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="TimeString" type="Label" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer" unique_id=49480257]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/outline_size = 0
-text = "Time:"
-
-[node name="TimeLabel" type="Label" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer" unique_id=1147258208]
+[node name="VoltDisplay" type="Control" parent="Screen" unique_id=2099381037]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 10
-text = "00:00"
+modulate = Color(0.7739972, 0.19601136, 0.2127015, 1)
+anchors_preset = 0
+offset_left = 4.0
+offset_top = 27.0
+offset_right = 37.0
+offset_bottom = 46.0
+mouse_filter = 2
+script = ExtResource("15_y7ksa")
+string = "999"
+metadata/_custom_type_script = "uid://c2pro11bcd0sw"
 
-[node name="TimeLineEdit" type="LineEdit" parent="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel" unique_id=801244198 node_paths=PackedStringArray("power_supply")]
-self_modulate = Color(0, 0, 0, 1)
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -56.0
-offset_top = -9.5
-offset_bottom = 9.5
-grow_horizontal = 0
-grow_vertical = 2
-size_flags_horizontal = 10
-focus_mode = 1
-theme_override_styles/normal = SubResource("StyleBoxFlat_4pbs0")
-theme_override_styles/read_only = SubResource("StyleBoxFlat_agml6")
-theme_override_styles/focus = SubResource("StyleBoxFlat_07yqv")
-alignment = 2
-max_length = 4
-caret_blink = true
-caret_mid_grapheme = true
-script = ExtResource("8_agml6")
-power_supply = NodePath("../../../../../..")
-
-[node name="VoltageContainer" type="PanelContainer" parent="Screen/ZoomAwareControl" unique_id=358235806]
+[node name="SevenSegmentDisplay" parent="Screen/VoltDisplay" unique_id=971294527 instance=ExtResource("16_cexob")]
 layout_mode = 0
-offset_left = -24.0
-offset_top = -2.0
-offset_right = 83.0
-offset_bottom = 19.0
-scale = Vector2(0.3, 0.3)
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5dnns")
-metadata/_edit_group_ = true
+segment_bits = 123
+character = "9"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Screen/ZoomAwareControl/VoltageContainer" unique_id=43800258]
-layout_mode = 2
-mouse_filter = 2
+[node name="SevenSegmentDisplay2" parent="Screen/VoltDisplay" unique_id=1436522646 instance=ExtResource("16_cexob")]
+layout_mode = 0
+offset_left = 12.0
+offset_right = 22.0
+offset_bottom = 18.0
+segment_bits = 123
+character = "9"
 
-[node name="VoltageString" type="Label" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer" unique_id=159349281]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Voltage:"
+[node name="SevenSegmentDisplay3" parent="Screen/VoltDisplay" unique_id=669918647 instance=ExtResource("16_cexob")]
+layout_mode = 0
+offset_left = 24.0
+offset_right = 34.0
+offset_bottom = 18.0
+segment_bits = 123
+character = "9"
 
-[node name="VoltageLineEdit" type="LineEdit" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer" unique_id=1944917346 node_paths=PackedStringArray("power_supply")]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/caret_color = Color(0, 0, 0, 1)
-theme_override_colors/selection_color = Color(0.223529, 0.627451, 0.776471, 0.552941)
-theme_override_constants/minimum_character_width = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_ij5hy")
-theme_override_styles/read_only = SubResource("StyleBoxFlat_r5man")
-theme_override_styles/focus = SubResource("StyleBoxFlat_7xsxk")
-text = "50"
-alignment = 2
-max_length = 3
-expand_to_text_length = true
-caret_blink = true
-script = ExtResource("9_agml6")
-power_supply = NodePath("../../../../..")
-
-[node name="VLabel" type="Label" parent="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer" unique_id=1660761099]
-layout_mode = 2
-size_flags_horizontal = 8
+[node name="Label" type="Label" parent="Screen" unique_id=588495221]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 32.0
+offset_right = 50.0
+offset_bottom = 47.0
 text = "V"
 
-[node name="IncrementTime" type="TextureButton" parent="Screen/ZoomAwareControl" unique_id=182349386]
-self_modulate = Color(0.982343, 0.982342, 0.982342, 1)
+[node name="Label2" type="Label" parent="Screen" unique_id=1384185551]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 45.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 8
+text = "Timer"
+
+[node name="TimeDisplay" type="Control" parent="Screen" unique_id=404038223]
+unique_name_in_owner = true
+modulate = Color(0.7739972, 0.19601136, 0.2127015, 1)
+anchors_preset = 0
+offset_left = 26.0
+offset_top = -1.0
+offset_right = 66.0
+offset_bottom = 15.0
+mouse_filter = 2
+script = ExtResource("15_y7ksa")
+string = "9999"
+metadata/_custom_type_script = "uid://c2pro11bcd0sw"
+
+[node name="SevenSegmentDisplay" parent="Screen/TimeDisplay" unique_id=469192923 instance=ExtResource("16_cexob")]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 6.0
+offset_right = 15.0
+offset_bottom = 24.0
+scale = Vector2(0.5, 0.5)
+segment_bits = 123
+character = "9"
+
+[node name="SevenSegmentDisplay2" parent="Screen/TimeDisplay" unique_id=517810963 instance=ExtResource("16_cexob")]
 layout_mode = 0
 offset_left = 11.0
-offset_top = -13.0
-offset_right = 1035.0
-offset_bottom = 755.0
-scale = Vector2(0.00813575, 0.00813575)
-size_flags_horizontal = 4
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource("8_5dnns")
-metadata/_edit_group_ = true
+offset_top = 6.0
+offset_right = 21.0
+offset_bottom = 24.0
+scale = Vector2(0.5, 0.5)
+segment_bits = 123
+character = "9"
 
-[node name="Label" type="Label" parent="Screen/ZoomAwareControl/IncrementTime" unique_id=976915270]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -176.0
-offset_right = 64.0
-offset_bottom = 286.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 300
-text = "^"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="DecrementTime" type="TextureButton" parent="Screen/ZoomAwareControl" unique_id=1187659975]
-self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
+[node name="SevenSegmentDisplay3" parent="Screen/TimeDisplay" unique_id=352382794 instance=ExtResource("16_cexob")]
 layout_mode = 0
-offset_left = 11.0
-offset_top = -9.0
-offset_right = 1035.0
-offset_bottom = 759.0
-scale = Vector2(0.00813575, 0.00813575)
-size_flags_horizontal = 4
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource("8_5dnns")
-metadata/_edit_group_ = true
+offset_left = 19.0
+offset_top = 6.0
+offset_right = 29.0
+offset_bottom = 24.0
+scale = Vector2(0.5, 0.5)
+segment_bits = 123
+character = "9"
 
-[node name="Label" type="Label" parent="Screen/ZoomAwareControl/DecrementTime" unique_id=1192318445]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 102.57
-offset_top = 230.57
-offset_right = 307.57
-offset_bottom = 761.57
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 3.14159
-theme_override_font_sizes/font_size = 300
-text = "^"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="IncrementVolts" type="TextureButton" parent="Screen/ZoomAwareControl" unique_id=1444579110]
-self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
+[node name="SevenSegmentDisplay4" parent="Screen/TimeDisplay" unique_id=833198882 instance=ExtResource("16_cexob")]
 layout_mode = 0
-offset_left = 11.0
-offset_top = -4.0
-offset_right = 1035.0
-offset_bottom = 764.0
-scale = Vector2(0.00813575, 0.00813575)
-size_flags_horizontal = 4
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource("8_5dnns")
-metadata/_edit_group_ = true
+offset_left = 25.0
+offset_top = 6.0
+offset_right = 35.0
+offset_bottom = 24.0
+scale = Vector2(0.5, 0.5)
+segment_bits = 123
+character = "9"
 
-[node name="Label" type="Label" parent="Screen/ZoomAwareControl/IncrementVolts" unique_id=1770319715]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -176.0
-offset_right = 64.0
-offset_bottom = 286.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 300
-text = "^"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="DecrementVolts" type="TextureButton" parent="Screen/ZoomAwareControl" unique_id=595830509]
-self_modulate = Color(0.980392, 0.980392, 0.980392, 1)
+[node name="Colon" type="Label" parent="Screen/TimeDisplay" unique_id=23550482]
 layout_mode = 0
-offset_left = 11.0
-offset_right = 1035.0
-offset_bottom = 768.0
-scale = Vector2(0.00813575, 0.00813575)
-size_flags_horizontal = 4
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource("8_5dnns")
-metadata/_edit_group_ = true
-
-[node name="Label" type="Label" parent="Screen/ZoomAwareControl/DecrementVolts" unique_id=1023791999]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 102.57
-offset_top = 230.57
-offset_right = 307.57
-offset_bottom = 761.57
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 3.14159
-theme_override_font_sizes/font_size = 300
-text = "^"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_left = 16.0
+offset_top = 2.0
+offset_right = 56.0
+offset_bottom = 17.0
+text = ":"
 
 [node name="Timer" type="Timer" parent="." unique_id=1028421179]
 editor_description = "Used to change how fast the values of Time and Voltage increases or decreases"
@@ -494,8 +310,5 @@ one_shot = true
 metadata/_custom_type_script = "uid://bk0s8v1tcwcmr"
 
 [connection signal="disconnected" from="CircuitComponent" to="." method="_on_circuit_component_disconnected"]
-[connection signal="pressed" from="Screen/ZoomAwareControl/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="editing_toggled" from="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" to="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" method="_on_editing_toggled"]
-[connection signal="text_changed" from="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" to="Screen/ZoomAwareControl/TimeContainer/HBoxContainer/TimeLabel/TimeLineEdit" method="_on_time_line_edit_text_changed"]
-[connection signal="text_changed" from="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer/VoltageLineEdit" to="Screen/ZoomAwareControl/VoltageContainer/HBoxContainer/VoltageLineEdit" method="_on_voltage_line_edit_text_changed"]
+[connection signal="rotated" from="Dial" to="." method="_on_dial_rotated"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

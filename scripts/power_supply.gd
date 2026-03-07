@@ -1,69 +1,18 @@
 extends LabBody
 class_name PowerSupply
 
-@export var increment_time_button: TextureButton
-@export var decrement_time_button: TextureButton
-@export var increment_volts_button: TextureButton
-@export var decrement_volts_button: TextureButton
-@export var time_line_edit: LineEdit
-@export var voltage_line_edit: LineEdit
+
+@export var min_voltage: float = 0
+@export var max_voltage: float = 999
+@export_custom(PROPERTY_HINT_NONE, "suffix:V/rad") var voltage_per_radian: float = 60 / PI
 
 
-@onready var button_function_dict: Dictionary = {
-	increment_time_button: {
-		"function": increment_time,
-		"type": ConfigType.TIME,
-	},
-	decrement_time_button: {
-		"function": decrement_time,
-		"type": ConfigType.TIME,
-	},
-	increment_volts_button: {
-		"function": increment_volts,
-		"type": ConfigType.VOLT,
-	},
-	decrement_volts_button: {
-		"function": decrement_volts,
-		"type": ConfigType.VOLT,
-	},
-}
+var _input_voltage: float = min_voltage
 
-enum ConfigType{
-	TIME,
-	VOLT
-}
-
-var _should_increment: bool = false
-
-var _current_pressed_button: TextureButton
-var time: int = 0 # Time in seconds
-var initial_time: int = 0
-var volts: int = 50
-var _delta_time: int = 1
-var _delta_volts: int = 1
-
-# When the user is typing in a time like 1230, convert to 12:30 and convert time to seconds
-var time_string_input: String = "":
-	set(value):
-		time_string_input = value
-		@warning_ignore("integer_division")
-		var minutes: int = int(time_string_input) / 100
-		var seconds: int = int(time_string_input) % 100
-		time = minutes * 60 + seconds
-		update_timer_display()
-
-# How much it should increment by if the button is held down long enough
-var _time_increment: int = 60
-var _volts_increment: int = 50
-
-var _wait_time_threshold: float = .05
 
 func _ready() -> void:
 	super()
-	voltage_line_edit.text = "%d" % [volts]
-	for button: TextureButton in find_children("", "TextureButton", true):
-		button.button_down.connect(_on_screen_button_pressed.bind(button))
-		button.button_up.connect(_on_screen_button_released.bind(button))
+	_update_display()
 
 func _physics_process(delta: float) -> void:
 	super(delta)
@@ -72,109 +21,25 @@ func _physics_process(delta: float) -> void:
 	if not target: return
 
 	if target.closed and $LabTimer.time_left > 0:
-		target.voltage = float(volts) * $CircuitComponent.get_connected_component_direction()
+		target.voltage = float(_input_voltage) * $CircuitComponent.get_connected_component_direction()
 	else:
 		target.voltage = 0.0
-
-	if $LabTimer.time_left > 0:
-		time = round($LabTimer.time_left)
-		update_timer_display()
 
 func is_hovered() -> bool:
 	# Don't allow the power supply to be picked up while zoomed in, so the buttons can be pressed.
 	return super() and not Game.main.get_camera_focus_owner()
 
-func _on_start_button_pressed() -> void:
-	# Error if we start when not connected.
-	var c: CircuitComponent = $CircuitComponent.get_connected_component()
-	if c and c.closed:
-		initial_time = time
-		$LabTimer.start(time)
-	else:
-		%TimeLabel.text = "Err"
-		voltage_line_edit.text = "Err"
-
-func _on_timer_timeout() -> void:
-	var is_pressed: bool = _current_pressed_button.button_pressed
-	var button_function: Callable = button_function_dict[_current_pressed_button]["function"]
-	var config_type: ConfigType = button_function_dict[_current_pressed_button]["type"]
-
-	if is_pressed and config_type == ConfigType.TIME:
-		gradually_change(button_function, config_type, _time_increment)
-
-	elif is_pressed and config_type == ConfigType.VOLT:
-		gradually_change(button_function, config_type, _volts_increment)
-
-func _on_screen_button_pressed(button: TextureButton) -> void:
-	_current_pressed_button = button
-	button_function_dict[_current_pressed_button]["function"].call() # Call once for single clicks
-	$Timer.start()
-
-func _on_screen_button_released(_button: TextureButton) -> void:
-	$Timer.stop()
-	$Timer.wait_time = 0.15
-	_delta_time = 1
-	_delta_volts = 1
-	_should_increment = false
-
-
-func gradually_change(button_func: Callable, type: ConfigType, increment_value: int) -> void:
-	# Get either _time or _volts
-	var target_var_value: int = button_func.call()
-
-	# Decrease the Timer's wait time to gradually increase the speed of changing values
-	if (target_var_value % increment_value != 0 or $Timer.wait_time > _wait_time_threshold) and not _should_increment:
-		$Timer.wait_time = max($Timer.wait_time - 0.0025, .05)
-
-	# Start incrementing the value by a set amount
-	else:
-		_should_increment = true
-		$Timer.wait_time = .3 # Values change more slowly
-		$Timer.start() # Timer needs to start again to update the wait_time
-		change_delta_rate(type, increment_value)
-
-## Updates the delta for time or volts to a set increment
-func change_delta_rate(type: ConfigType, new_delta: int) -> void:
-	if type == ConfigType.TIME:
-		_delta_time = new_delta
-
-	elif type == ConfigType.VOLT:
-		_delta_volts = new_delta
-
-func increment_time() -> int:
-	time += _delta_time
-	update_timer_display()
-	return time
-
-func decrement_time() -> int:
-	if time > 0:
-		time -= _delta_time
-		update_timer_display()
-
-	return time
-
-func update_timer_display() -> void:
-	@warning_ignore("integer_division")
-	var minutes: int = time / 60
-	var seconds: int = time % 60
-	%TimeLabel.text = "%02d:%02d" % [minutes, seconds]
-
-func increment_volts() -> int:
-	volts += _delta_volts
-	volts = min(volts, 999)
-	_update_volt_display()
-
-	return volts
-
-func decrement_volts() -> int:
-	if volts > 0:
-		volts -= _delta_volts
-		_update_volt_display()
-
-	return volts
-
-func _update_volt_display() -> void:
-	voltage_line_edit.text = "%d" % [volts]
+func _update_display() -> void:
+	var t: int = ceili(max($LabTimer.time_left, 0))
+	var minutes: int = t / 60
+	var seconds: int = t % 60
+	%TimeDisplay.string = str(minutes * 100 + seconds)
+	%VoltDisplay.string = str(roundi(_input_voltage))
 
 func _on_circuit_component_disconnected(component: CircuitComponent) -> void:
 	component.voltage = 0.0
+
+func _on_dial_rotated(angle: float) -> void:
+	_input_voltage += angle * voltage_per_radian
+	_input_voltage = clamp(_input_voltage, min_voltage, max_voltage)
+	_update_display()
