@@ -10,6 +10,8 @@ class_name PowerSupply
 var _input_voltage: float = min_voltage
 var _output_voltage: float = 0.0
 var _is_outputting: bool = false
+# Amount added to the displayed output voltage to make it look like it's fluctuating a bit.
+var _volt_fluctuation: float = 0
 
 
 func _ready() -> void:
@@ -26,7 +28,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			target.voltage = 0.0
 
-		_output_voltage = target.voltage
+		_output_voltage = abs(target.voltage)
 	else:
 		_output_voltage = 0.0
 
@@ -42,7 +44,8 @@ func _update_display() -> void:
 	var seconds: int = t % 60
 	%TimeDisplay.string = str(minutes * 100 + seconds)
 
-	var disp_voltage := _output_voltage if _is_outputting else _input_voltage
+	var disp_voltage := _output_voltage + _volt_fluctuation if _is_outputting else _input_voltage
+	disp_voltage = clamp(disp_voltage, min_voltage, max_voltage)
 	%VoltDisplay.string = str(roundi(disp_voltage))
 
 	%OutputLightOff.visible = not _is_outputting
@@ -61,3 +64,6 @@ func _on_power_button_pressed() -> void:
 	# Only count down time while outputting.
 	$LabTimer.paused = not _is_outputting
 	_update_display()
+
+func _on_volt_fluctuation_timer_timeout() -> void:
+	_volt_fluctuation = randf_range(-1.1, 1.1)

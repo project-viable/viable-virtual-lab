@@ -350,9 +350,10 @@ offset_bottom = 75.0
 theme_override_font_sizes/font_size = 5
 text = "Output"
 
-[node name="Timer" type="Timer" parent="." unique_id=1028421179]
-editor_description = "Used to change how fast the values of Time and Voltage increases or decreases"
-wait_time = 0.15
+[node name="VoltFluctuationTimer" type="Timer" parent="." unique_id=1028421179]
+editor_description = "Each time this timer ends, there's a chance the displayed output voltage will fluctuate a bit (this does not affect the actual output voltage)"
+wait_time = 0.5
+autostart = true
 
 [node name="LabTimer" type="Node" parent="." unique_id=1866955426]
 script = ExtResource("12_7xsxk")
@@ -362,4 +363,4 @@ metadata/_custom_type_script = "uid://bk0s8v1tcwcmr"
 [connection signal="disconnected" from="CircuitComponent" to="." method="_on_circuit_component_disconnected"]
 [connection signal="pressed" from="PowerButton" to="." method="_on_power_button_pressed"]
 [connection signal="rotated" from="Dial" to="." method="_on_dial_rotated"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="VoltFluctuationTimer" to="." method="_on_volt_fluctuation_timer_timeout"]
