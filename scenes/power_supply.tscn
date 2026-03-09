@@ -77,6 +77,43 @@ region = Rect2(9.999298, 89.332985, 176, 174.00003)
 atlas = ExtResource("5_w22cc")
 region = Rect2(0, 26.666313, 199.9993, 62)
 
+[sub_resource type="Animation" id="Animation_cexob"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen/TimeDisplay/Colon:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_w22cc"]
+resource_name = "time_colon_blink"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen/TimeDisplay/Colon:visible")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ifdxy"]
+_data = {
+&"RESET": SubResource("Animation_cexob"),
+&"time_colon_blink": SubResource("Animation_w22cc")
+}
+
 [node name="PowerSupply" type="RigidBody2D" unique_id=1203067396]
 collision_layer = 0
 script = ExtResource("1_7lagc")
@@ -160,16 +197,16 @@ rotation = 3.1412723
 scale = Vector2(0.13, 0.13)
 texture = SubResource("AtlasTexture_2qmgt")
 
-[node name="TimeDownButton2" type="Node2D" parent="." unique_id=954184835]
+[node name="TimeToggleButton" type="Node2D" parent="." unique_id=954184835]
 script = ExtResource("13_cexob")
 target_only_when_zoomed = true
 metadata/_custom_type_script = "uid://musakg3k6s1l"
 
-[node name="SelectableCanvasGroup" type="CanvasGroup" parent="TimeDownButton2" unique_id=1122213832]
+[node name="SelectableCanvasGroup" type="CanvasGroup" parent="TimeToggleButton" unique_id=1122213832]
 script = ExtResource("1_80iu8")
 metadata/_custom_type_script = "uid://p0x2f70nn1sy"
 
-[node name="TimerButton" type="Sprite2D" parent="TimeDownButton2/SelectableCanvasGroup" unique_id=1366214127]
+[node name="TimerButton" type="Sprite2D" parent="TimeToggleButton/SelectableCanvasGroup" unique_id=1366214127]
 position = Vector2(41, -46)
 scale = Vector2(0.13, 0.13)
 texture = SubResource("AtlasTexture_pgf8a")
@@ -420,7 +457,17 @@ script = ExtResource("12_7xsxk")
 one_shot = true
 metadata/_custom_type_script = "uid://bk0s8v1tcwcmr"
 
+[node name="ColonBlinkAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1984008862]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_ifdxy")
+
+[connection signal="started_holding" from="TimeUpButton" to="." method="_on_time_up_button_started_holding"]
+[connection signal="stopped_holding" from="TimeUpButton" to="." method="_on_time_up_button_stopped_holding"]
+[connection signal="started_holding" from="TimeDownButton" to="." method="_on_time_down_button_started_holding"]
+[connection signal="stopped_holding" from="TimeDownButton" to="." method="_on_time_down_button_stopped_holding"]
+[connection signal="pressed" from="TimeToggleButton" to="." method="_on_time_toggle_button_pressed"]
 [connection signal="disconnected" from="CircuitComponent" to="." method="_on_circuit_component_disconnected"]
 [connection signal="pressed" from="PowerButton" to="." method="_on_power_button_pressed"]
 [connection signal="rotated" from="Dial" to="." method="_on_dial_rotated"]
 [connection signal="timeout" from="VoltFluctuationTimer" to="." method="_on_volt_fluctuation_timer_timeout"]
+[connection signal="timeout" from="LabTimer" to="." method="_on_lab_timer_timeout"]
