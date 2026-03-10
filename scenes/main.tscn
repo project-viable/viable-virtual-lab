@@ -126,7 +126,9 @@ metadata/_custom_type_script = "uid://dmoeu8vq1th7i"
 [node name="MainViewport" type="SubViewport" parent="SceneLayer/ContentScaledSubViewportContainer" unique_id=2062124221]
 unique_name_in_owner = true
 transparent_bg = true
+canvas_item_default_texture_filter = 2
 physics_object_picking = true
+oversampling_override = 4.0
 size_2d_override = Vector2i(1280, 720)
 size_2d_override_stretch = true
 
