@@ -126,7 +126,7 @@ script = ExtResource("1_7lagc")
 
 [node name="HelpSelectableArea" type="Node2D" parent="." unique_id=559801234]
 script = ExtResource("2_w22cc")
-help_page_path = "gel_rig.txt"
+help_page_path = "power_supply.txt"
 interact_info = SubResource("Resource_w22cc")
 metadata/_custom_type_script = "uid://blk6q1chtrgqi"
 
