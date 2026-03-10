@@ -24,7 +24,7 @@ var _is_outputting: bool = false
 # Amount added to the displayed output voltage to make it look like it's fluctuating a bit.
 var _amp_fluctuation: float = 0
 var _timer_state := TimerState.OFF
-var _input_time: int = 0
+var _input_time_mins: int = 0
 # We want integer voltages, but if we just round the value when the dial moves, then tiny movements
 # of the dial will not add enough to affect the voltage, which is very confusing when trying to
 # carefully adjust the voltage. To fix this, we keep track of the extra accumulated value here.
@@ -58,11 +58,12 @@ func is_hovered() -> bool:
 
 func _update_display() -> void:
 	if _timer_state != TimerState.OFF:
-		var time_to_show: float = $LabTimer.time_left if _timer_state == TimerState.ON else _input_time
+		# Divide by 60 to get minutes.
+		var time_to_show: float = $LabTimer.time_left / 60.0 if _timer_state == TimerState.ON else _input_time_mins
 		var t: int = ceili(max(time_to_show, 0))
-		var minutes: int = t / 60
-		var seconds: int = t % 60
-		%TimeDisplay.string = str(minutes * 100 + seconds)
+		var hours: int = t / 60
+		var minutes: int = t % 60
+		%TimeDisplay.string = str(hours * 100 + minutes)
 
 	var disp_current := _output_current if _is_outputting else 0.0
 	# Don't fluctuate the current if the output is basically zero.
@@ -113,10 +114,10 @@ func _on_amp_fluctuation_timer_timeout() -> void:
 func _on_time_toggle_button_pressed() -> void:
 	match _timer_state:
 		TimerState.OFF:
-			_input_time = 0
+			_input_time_mins = 0
 			_update_timer_state(TimerState.INPUTTING)
 		TimerState.INPUTTING:
-			$LabTimer.start(_input_time)
+			$LabTimer.start(_input_time_mins * 60.0)
 			_update_timer_state(TimerState.ON)
 		TimerState.ON:
 			$LabTimer.stop()
@@ -124,13 +125,13 @@ func _on_time_toggle_button_pressed() -> void:
 	_update_timer_pause()
 
 func _on_time_up_button_started_holding() -> void:
-	_input_time = clamp(_input_time + 1, 0, MAX_INPUT_TIME)
+	_input_time_mins = clamp(_input_time_mins + 1, 0, MAX_INPUT_TIME)
 
 func _on_time_up_button_stopped_holding() -> void:
 	pass # Replace with function body.
 
 func _on_time_down_button_started_holding() -> void:
-	_input_time = clamp(_input_time - 1, 0, MAX_INPUT_TIME)
+	_input_time_mins = clamp(_input_time_mins - 1, 0, MAX_INPUT_TIME)
 
 func _on_time_down_button_stopped_holding() -> void:
 	pass # Replace with function body.
