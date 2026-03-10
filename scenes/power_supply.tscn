@@ -332,9 +332,9 @@ unique_name_in_owner = true
 modulate = Color(0.7739972, 0.19601136, 0.2127015, 1)
 anchors_preset = 0
 offset_left = 5.0
-offset_top = 18.0
+offset_top = 21.0
 offset_right = 38.0
-offset_bottom = 31.0
+offset_bottom = 34.0
 mouse_filter = 2
 script = ExtResource("15_y7ksa")
 string = "999"
@@ -394,9 +394,9 @@ unique_name_in_owner = true
 modulate = Color(0.7739972, 0.19601136, 0.2127015, 1)
 anchors_preset = 0
 offset_left = 5.0
-offset_top = 36.0
+offset_top = 39.0
 offset_right = 38.0
-offset_bottom = 49.0
+offset_bottom = 52.0
 mouse_filter = 2
 script = ExtResource("15_y7ksa")
 string = "999"
@@ -454,36 +454,36 @@ character = "9"
 [node name="Label" type="Label" parent="Screen" unique_id=588495221]
 layout_mode = 0
 offset_left = 50.0
-offset_top = 18.0
+offset_top = 21.0
 offset_right = 58.0
-offset_bottom = 33.0
+offset_bottom = 36.0
 text = "V"
 
 [node name="Label5" type="Label" parent="Screen" unique_id=2006956985]
 layout_mode = 0
 offset_left = 50.0
-offset_top = 36.0
+offset_top = 39.0
 offset_right = 58.0
-offset_bottom = 51.0
+offset_bottom = 54.0
 text = "A"
 
 [node name="Label2" type="Label" parent="Screen" unique_id=1384185551]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 45.0
-offset_bottom = 20.0
-theme_override_font_sizes/font_size = 8
+offset_left = 17.0
+offset_top = 2.0
+offset_right = 36.0
+offset_bottom = 11.0
+theme_override_font_sizes/font_size = 7
 text = "Timer"
 
 [node name="TimeDisplay" type="Control" parent="Screen" unique_id=404038223]
 unique_name_in_owner = true
 modulate = Color(0.7739972, 0.19601136, 0.2127015, 1)
 anchors_preset = 0
-offset_left = 26.0
-offset_top = -1.0
-offset_right = 66.0
-offset_bottom = 15.0
+offset_left = 36.0
+offset_top = -3.0
+offset_right = 68.0
+offset_bottom = 9.0
 mouse_filter = 2
 script = ExtResource("15_y7ksa")
 string = "9999"
@@ -491,51 +491,52 @@ metadata/_custom_type_script = "uid://c2pro11bcd0sw"
 
 [node name="SevenSegmentDisplay" parent="Screen/TimeDisplay" unique_id=469192923 instance=ExtResource("16_cexob")]
 layout_mode = 0
-offset_left = 5.0
+offset_left = 2.0
 offset_top = 6.0
-offset_right = 15.0
+offset_right = 12.0
 offset_bottom = 24.0
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 segment_bits = 123
 character = "9"
 
 [node name="SevenSegmentDisplay2" parent="Screen/TimeDisplay" unique_id=517810963 instance=ExtResource("16_cexob")]
 layout_mode = 0
-offset_left = 11.0
+offset_left = 6.000002
 offset_top = 6.0
-offset_right = 21.0
+offset_right = 16.000002
 offset_bottom = 24.0
-scale = Vector2(0.5, 0.5)
-segment_bits = 123
-character = "9"
-
-[node name="SevenSegmentDisplay3" parent="Screen/TimeDisplay" unique_id=352382794 instance=ExtResource("16_cexob")]
-layout_mode = 0
-offset_left = 19.0
-offset_top = 6.0
-offset_right = 29.0
-offset_bottom = 24.0
-scale = Vector2(0.5, 0.5)
-segment_bits = 123
-character = "9"
-
-[node name="SevenSegmentDisplay4" parent="Screen/TimeDisplay" unique_id=833198882 instance=ExtResource("16_cexob")]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 6.0
-offset_right = 35.0
-offset_bottom = 24.0
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 segment_bits = 123
 character = "9"
 
 [node name="Colon" type="Label" parent="Screen/TimeDisplay" unique_id=23550482]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 2.0
-offset_right = 20.0
-offset_bottom = 17.0
+offset_left = 10.0
+offset_top = 4.0
+offset_right = 14.0
+offset_bottom = 19.0
+theme_override_font_sizes/font_size = 8
 text = ":"
+
+[node name="SevenSegmentDisplay3" parent="Screen/TimeDisplay" unique_id=352382794 instance=ExtResource("16_cexob")]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 6.0
+offset_right = 22.0
+offset_bottom = 24.0
+scale = Vector2(0.4, 0.4)
+segment_bits = 123
+character = "9"
+
+[node name="SevenSegmentDisplay4" parent="Screen/TimeDisplay" unique_id=833198882 instance=ExtResource("16_cexob")]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 6.0
+offset_right = 26.0
+offset_bottom = 24.0
+scale = Vector2(0.4, 0.4)
+segment_bits = 123
+character = "9"
 
 [node name="Label3" type="Label" parent="Screen" unique_id=859117972]
 layout_mode = 0
