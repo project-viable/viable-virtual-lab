@@ -9,7 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://t5vephauatf2" path="res://scenes/pipette.tscn" id="4_t02aw"]
 [ext_resource type="PackedScene" uid="uid://b2owhv1drxs7p" path="res://scenes/pipette_tip_box.tscn" id="5_vwsp8"]
 [ext_resource type="PackedScene" uid="uid://cgju3rlfrqslw" path="res://scenes/weigh_boat.tscn" id="6_vj1mp"]
+[ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="7_k7n6l"]
 [ext_resource type="PackedScene" uid="uid://dl7pwqhm483yt" path="res://scenes/agarose_bottle.tscn" id="7_yik3d"]
+[ext_resource type="Script" uid="uid://b15sd4jw5afoa" path="res://scripts/camera_region_provider.gd" id="8_gq3ab"]
 [ext_resource type="PackedScene" uid="uid://du0xgct56vfqx" path="res://scenes/tae_bottle.tscn" id="8_yik3d"]
 [ext_resource type="PackedScene" uid="uid://cs2tep7cd3vxf" path="res://scenes/microwave.tscn" id="9_y4qw0"]
 [ext_resource type="PackedScene" uid="uid://dbb4h6gqfr7wb" path="res://scenes/microcentrifuge_tube.tscn" id="10_bi7f4"]
@@ -40,6 +42,9 @@ distance = 96.0
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_w0rbf"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7cn0u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gq3ab"]
+size = Vector2(306, 95)
 
 [sub_resource type="Resource" id="Resource_nbx6y"]
 script = ExtResource("25_nbx6y")
@@ -233,6 +238,28 @@ script = ExtResource("25_5fdni")
 left_workspace = NodePath("../WorkspaceCamera")
 metadata/_custom_type_script = "uid://f3pegl6tyuqt"
 
+[node name="Interaction" type="Node2D" parent="." unique_id=1361085680]
+position = Vector2(1457, 412)
+metadata/_edit_group_ = true
+
+[node name="ZoomSelectableArea" type="Node2D" parent="Interaction" unique_id=1719150574]
+script = ExtResource("7_k7n6l")
+metadata/_custom_type_script = "uid://ciw88e6ajyksw"
+
+[node name="Area2D" type="Area2D" parent="Interaction/ZoomSelectableArea" unique_id=460863509]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction/ZoomSelectableArea/Area2D" unique_id=2109011803]
+position = Vector2(-4, 37.5)
+shape = SubResource("RectangleShape2D_gq3ab")
+
+[node name="CameraRegionProvider" type="Node2D" parent="Interaction/ZoomSelectableArea" unique_id=705426529]
+script = ExtResource("8_gq3ab")
+metadata/_custom_type_script = "uid://b15sd4jw5afoa"
+
+[node name="Camera2D" type="Camera2D" parent="Interaction/ZoomSelectableArea/CameraRegionProvider" unique_id=731838947]
+enabled = false
+zoom = Vector2(3, 3)
+
 [node name="Objects" type="Node2D" parent="." unique_id=218005458]
 
 [node name="Flask" parent="Objects" unique_id=2013075379 instance=ExtResource("2_e4xug")]
@@ -297,7 +324,7 @@ contained_object = NodePath("../../Scoopula")
 position = Vector2(801, 477)
 
 [node name="BiohazardBin" parent="Objects" unique_id=758099352 instance=ExtResource("17_6se67")]
-position = Vector2(2273, 448)
+position = Vector2(2273, 454)
 
 [node name="MicrocentrifugeTube" parent="Objects" unique_id=756292388 instance=ExtResource("10_bi7f4")]
 position = Vector2(1945, 472)

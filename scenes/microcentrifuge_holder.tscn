@@ -9,12 +9,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0swob"]
 size = Vector2(8, 24)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h3rdw"]
-size = Vector2(95, 7)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lhjef"]
-size = Vector2(4.625, 21)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_710li"]
 size = Vector2(35, 4.5)
 
@@ -58,9 +52,8 @@ _data = {
 &"pipette_zoom": SubResource("Animation_5umuv")
 }
 
-[node name="MicrocentrifugeHolder" type="RigidBody2D" unique_id=1844837715]
+[node name="MicrocentrifugeHolder" type="Node2D" unique_id=181890896]
 script = ExtResource("1_x03pd")
-metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="AttachmentInteractableArea" type="Area2D" parent="." unique_id=2131851507]
 position = Vector2(-37, -9)
@@ -123,18 +116,6 @@ patch_margin_left = 123
 patch_margin_top = 140
 patch_margin_right = 154
 patch_margin_bottom = 121
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1611216392]
-position = Vector2(-0.5, -9.5)
-shape = SubResource("RectangleShape2D_h3rdw")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=303757471]
-position = Vector2(-45.125, 0.5)
-shape = SubResource("RectangleShape2D_lhjef")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=831717674]
-position = Vector2(44.6875, 0)
-shape = SubResource("RectangleShape2D_lhjef")
 
 [node name="ExclusiveArea2D" type="Area2D" parent="." unique_id=386136701 groups=["exclusive_area:pipette"]]
 script = ExtResource("5_ufhtq")

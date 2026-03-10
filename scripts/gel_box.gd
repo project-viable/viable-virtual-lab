@@ -1,11 +1,9 @@
-extends LabBody
+extends Node2D
 
 var gel_in_rig: bool = true
 @export var gel_analysis_time: float
 
 func _physics_process(delta: float) -> void:
-	super(delta)
-	
 	$CircuitComponent.closed = _is_filled()
 	Game.debug_overlay.update("rig voltage", str($CircuitComponent.voltage))
 	

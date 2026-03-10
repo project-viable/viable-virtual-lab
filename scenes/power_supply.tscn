@@ -8,11 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dcr83ip704kyq" path="res://textures/lab_objects/tmp/power_supply_front_atlas.png" id="5_w22cc"]
 [ext_resource type="Script" uid="uid://b3ambmyo5etar" path="res://scripts/circuit_component.gd" id="6_y7ksa"]
 [ext_resource type="Script" uid="uid://brj1u83e5o6i6" path="res://scripts/wire_attachment_interactable_area.gd" id="7_07yqv"]
-[ext_resource type="Script" uid="uid://ciw88e6ajyksw" path="res://scripts/zoom_selectable_area.gd" id="7_r5man"]
 [ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="8_vfgdq"]
-[ext_resource type="Script" uid="uid://uor6fay5jtyy" path="res://scripts/combined_region_provider.gd" id="9_hsrjq"]
-[ext_resource type="Script" uid="uid://ccy0k2wrm316p" path="res://scripts/group_region_provider.gd" id="10_y7ksa"]
-[ext_resource type="Script" uid="uid://b15sd4jw5afoa" path="res://scripts/camera_region_provider.gd" id="11_y7ksa"]
 [ext_resource type="Script" uid="uid://bk0s8v1tcwcmr" path="res://scripts/lab_timer.gd" id="12_7xsxk"]
 [ext_resource type="Script" uid="uid://musakg3k6s1l" path="res://scripts/selectable_component.gd" id="13_cexob"]
 [ext_resource type="Theme" uid="uid://die27mvdpv6e5" path="res://themes/power_supply_screen.tres" id="14_jn1hy"]
@@ -62,15 +58,6 @@ radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7lagc"]
 radius = 7.0
-
-[sub_resource type="Resource" id="Resource_jn1hy"]
-script = ExtResource("8_vfgdq")
-kind = 3
-description = "Zoom in on power supply and gel rig"
-metadata/_custom_type_script = "uid://b810schxe1hne"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_46x6c"]
-size = Vector2(112, 86)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2q34u"]
 atlas = ExtResource("5_w22cc")
@@ -225,11 +212,10 @@ texture = SubResource("AtlasTexture_pgf8a")
 script = ExtResource("6_y7ksa")
 metadata/_custom_type_script = "uid://b3ambmyo5etar"
 
-[node name="AttachmentPostiveOutlet" type="Area2D" parent="." unique_id=1919772877 node_paths=PackedStringArray("circuit_component", "selectable_canvas_group")]
+[node name="AttachmentPostiveOutlet" type="Area2D" parent="." unique_id=1919772877 node_paths=PackedStringArray("circuit_component")]
 position = Vector2(44, 16)
 script = ExtResource("7_07yqv")
 circuit_component = NodePath("../CircuitComponent")
-selectable_canvas_group = NodePath("../SelectableCanvasGroup")
 point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://brj1u83e5o6i6"
 metadata/_edit_group_ = true
@@ -238,12 +224,11 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_k6dxr")
 debug_color = Color(0.960415, 0, 0.51616, 0.42)
 
-[node name="AttachmentNegativeOutlet" type="Area2D" parent="." unique_id=107701177 node_paths=PackedStringArray("circuit_component", "selectable_canvas_group")]
+[node name="AttachmentNegativeOutlet" type="Area2D" parent="." unique_id=107701177 node_paths=PackedStringArray("circuit_component")]
 position = Vector2(26, 16)
 script = ExtResource("7_07yqv")
 circuit_component = NodePath("../CircuitComponent")
 terminal_side = 1
-selectable_canvas_group = NodePath("../SelectableCanvasGroup")
 point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://brj1u83e5o6i6"
 metadata/_edit_group_ = true
@@ -251,39 +236,6 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttachmentNegativeOutlet" unique_id=1332358116]
 shape = SubResource("CircleShape2D_7lagc")
 debug_color = Color(0.799247, 0.420694, 0.0500949, 0.42)
-
-[node name="ZoomSelectableArea" type="Node2D" parent="." unique_id=727419360 node_paths=PackedStringArray("click_area")]
-script = ExtResource("7_r5man")
-click_area = NodePath("ZoomArea")
-interact_info = SubResource("Resource_jn1hy")
-metadata/_custom_type_script = "uid://ciw88e6ajyksw"
-
-[node name="CombinedRegionProvider" type="Node2D" parent="ZoomSelectableArea" unique_id=850231634]
-script = ExtResource("9_hsrjq")
-
-[node name="GroupRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider" unique_id=1694491529]
-script = ExtResource("10_y7ksa")
-search_radius = 300.0
-groups = Array[StringName]([&"zoom:power_supply"])
-metadata/_custom_type_script = "uid://ccy0k2wrm316p"
-
-[node name="CameraRegionProvider" type="Node2D" parent="ZoomSelectableArea/CombinedRegionProvider" unique_id=945778159]
-script = ExtResource("11_y7ksa")
-
-[node name="ZoomCamera" type="Camera2D" parent="ZoomSelectableArea/CombinedRegionProvider/CameraRegionProvider" unique_id=534390558]
-enabled = false
-zoom = Vector2(4.5, 4.5)
-position_smoothing_speed = 20.0
-
-[node name="ZoomArea" type="Area2D" parent="ZoomSelectableArea" unique_id=1767641917]
-z_index = 1
-position = Vector2(-30, -44)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="ZoomSelectableArea/ZoomArea" unique_id=1543275109]
-visible = false
-position = Vector2(30, 30)
-shape = SubResource("RectangleShape2D_46x6c")
 
 [node name="PowerButton" type="Node2D" parent="." unique_id=2024675172]
 position = Vector2(-40, 16)
@@ -342,9 +294,10 @@ metadata/_custom_type_script = "uid://c2pro11bcd0sw"
 
 [node name="SevenSegmentDisplay" parent="Screen/VoltDisplay" unique_id=971294527 instance=ExtResource("16_cexob")]
 layout_mode = 0
+offset_bottom = 18.0
 scale = Vector2(0.7, 0.7)
-segment_bits = 123
-character = "9"
+segment_bits = 0
+character = " "
 
 [node name="SevenSegmentDisplay2" parent="Screen/VoltDisplay" unique_id=1436522646 instance=ExtResource("16_cexob")]
 layout_mode = 0
@@ -352,8 +305,8 @@ offset_left = 8.000004
 offset_right = 18.000004
 offset_bottom = 18.0
 scale = Vector2(0.7, 0.7)
-segment_bits = 123
-character = "9"
+segment_bits = 0
+character = " "
 
 [node name="SevenSegmentDisplay3" parent="Screen/VoltDisplay" unique_id=669918647 instance=ExtResource("16_cexob")]
 layout_mode = 0
@@ -404,9 +357,10 @@ metadata/_custom_type_script = "uid://c2pro11bcd0sw"
 
 [node name="SevenSegmentDisplay" parent="Screen/AmpDisplay" unique_id=1078073523 instance=ExtResource("16_cexob")]
 layout_mode = 0
+offset_bottom = 18.0
 scale = Vector2(0.7, 0.7)
-segment_bits = 123
-character = "9"
+segment_bits = 0
+character = " "
 
 [node name="SevenSegmentDisplay2" parent="Screen/AmpDisplay" unique_id=1698267282 instance=ExtResource("16_cexob")]
 layout_mode = 0
@@ -414,8 +368,8 @@ offset_left = 8.000004
 offset_right = 18.000004
 offset_bottom = 18.0
 scale = Vector2(0.7, 0.7)
-segment_bits = 123
-character = "9"
+segment_bits = 0
+character = " "
 
 [node name="SevenSegmentDisplay3" parent="Screen/AmpDisplay" unique_id=1988912972 instance=ExtResource("16_cexob")]
 layout_mode = 0
