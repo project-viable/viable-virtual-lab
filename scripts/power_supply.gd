@@ -114,6 +114,7 @@ func _on_time_toggle_button_pressed() -> void:
 			_update_timer_state(TimerState.ON)
 		TimerState.ON:
 			$LabTimer.stop()
+			$LabTimer.wait_time = 0.0
 			_update_timer_state(TimerState.OFF)
 	_update_timer_pause()
 
