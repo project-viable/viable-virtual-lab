@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bepsdcjab3t21" path="res://scripts/power_supply.gd" id="1_7lagc"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="1_80iu8"]
+[ext_resource type="Script" uid="uid://blk6q1chtrgqi" path="res://scripts/help_selectable_area.gd" id="2_w22cc"]
 [ext_resource type="Texture2D" uid="uid://bi5tvuv5gh5u" path="res://textures/lab_objects/powerbox.svg" id="3_7lagc"]
 [ext_resource type="Texture2D" uid="uid://xt04jdwgfgem" path="res://textures/lab_objects/power_supply_large_clean.svg" id="4_cexob"]
 [ext_resource type="Texture2D" uid="uid://dcr83ip704kyq" path="res://textures/lab_objects/tmp/power_supply_front_atlas.png" id="5_w22cc"]
@@ -19,7 +20,13 @@
 [ext_resource type="PackedScene" uid="uid://cpguc3tomsylp" path="res://scenes/seven_segment_display.tscn" id="16_cexob"]
 [ext_resource type="Script" uid="uid://cqtfwlewgwy21" path="res://scripts/dial_selectable_component.gd" id="18_w22cc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_80iu8"]
+[sub_resource type="Resource" id="Resource_w22cc"]
+script = ExtResource("8_vfgdq")
+kind = 6
+description = "Open help page for power supply"
+metadata/_custom_type_script = "uid://b810schxe1hne"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ifdxy"]
 size = Vector2(112, 86)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y7ksa"]
@@ -114,17 +121,20 @@ _data = {
 &"time_colon_blink": SubResource("Animation_w22cc")
 }
 
-[node name="PowerSupply" type="RigidBody2D" unique_id=1203067396]
-collision_layer = 0
+[node name="PowerSupply" type="Node2D" unique_id=1336655366]
 script = ExtResource("1_7lagc")
-hover_name = "power supply"
-help_page_path = "gel_rig.txt"
-metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1886831396]
-visible = false
+[node name="HelpSelectableArea" type="Node2D" parent="." unique_id=559801234]
+script = ExtResource("2_w22cc")
+help_page_path = "gel_rig.txt"
+interact_info = SubResource("Resource_w22cc")
+metadata/_custom_type_script = "uid://blk6q1chtrgqi"
+
+[node name="Area2D" type="Area2D" parent="HelpSelectableArea" unique_id=1619202329]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HelpSelectableArea/Area2D" unique_id=1660359829]
 position = Vector2(0, -14)
-shape = SubResource("RectangleShape2D_80iu8")
+shape = SubResource("RectangleShape2D_ifdxy")
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="." unique_id=1633304623]
 script = ExtResource("1_80iu8")

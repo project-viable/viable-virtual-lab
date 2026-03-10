@@ -1,4 +1,4 @@
-extends LabBody
+extends Node2D
 class_name PowerSupply
 
 
@@ -32,13 +32,10 @@ var _dial_voltage_accumulated: float = 0
 
 
 func _ready() -> void:
-	super()
 	_update_display()
 	_update_timer_state(_timer_state)
 
-func _physics_process(delta: float) -> void:
-	super(delta)
-
+func _physics_process(_delta: float) -> void:
 	var target: CircuitComponent = $CircuitComponent.get_connected_component()
 	if target:
 		if target.closed and _is_outputting:
@@ -51,10 +48,6 @@ func _physics_process(delta: float) -> void:
 		_output_current = 0.0
 
 	_update_display()
-
-func is_hovered() -> bool:
-	# Don't allow the power supply to be picked up while zoomed in, so the buttons can be pressed.
-	return super() and not Game.main.get_camera_focus_owner()
 
 func _update_display() -> void:
 	if _timer_state != TimerState.OFF:
