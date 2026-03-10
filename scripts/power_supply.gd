@@ -60,7 +60,10 @@ func _update_display() -> void:
 		var seconds: int = t % 60
 		%TimeDisplay.string = str(minutes * 100 + seconds)
 
-	var disp_voltage := _output_voltage + _volt_fluctuation if _is_outputting else _input_voltage
+	var disp_voltage := _output_voltage if _is_outputting else _input_voltage
+	# Don't fluctuate the voltage if the output is basically zero.
+	if _is_outputting and _output_voltage >= 1:
+		disp_voltage += _volt_fluctuation
 	disp_voltage = clamp(disp_voltage, min_voltage, max_voltage)
 	%VoltDisplay.string = str(roundi(disp_voltage))
 
