@@ -24,6 +24,10 @@ enum TerminalSide
 ## If set to [code]false[/code], then this component cannot form a full circuit.
 @export var closed: bool = true
 
+## The resistance of this component. This is used to calculate the displayed current on a power
+## supply, and is not set by the power supply.
+@export_custom(PROPERTY_HINT_NONE, "suffix:Ω") var resistance: float = 1
+
 ## Voltage running through this component. This is typically set by a power supply on the other end.
 @export_custom(PROPERTY_HINT_NONE, "suffix:V") var voltage: float = 0
 

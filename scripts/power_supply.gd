@@ -19,12 +19,16 @@ const MAX_INPUT_TIME := 60 * 99 + 59
 
 
 var _input_voltage: float = min_voltage
-var _output_voltage: float = 0.0
+var _output_current: float = 0.0
 var _is_outputting: bool = false
 # Amount added to the displayed output voltage to make it look like it's fluctuating a bit.
-var _volt_fluctuation: float = 0
+var _amp_fluctuation: float = 0
 var _timer_state := TimerState.OFF
 var _input_time: int = 0
+# We want integer voltages, but if we just round the value when the dial moves, then tiny movements
+# of the dial will not add enough to affect the voltage, which is very confusing when trying to
+# carefully adjust the voltage. To fix this, we keep track of the extra accumulated value here.
+var _dial_voltage_accumulated: float = 0
 
 
 func _ready() -> void:
@@ -42,9 +46,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			target.voltage = 0.0
 
-		_output_voltage = abs(target.voltage)
+		_output_current = abs(target.voltage / target.resistance)
 	else:
-		_output_voltage = 0.0
+		_output_current = 0.0
 
 	_update_display()
 
@@ -60,12 +64,14 @@ func _update_display() -> void:
 		var seconds: int = t % 60
 		%TimeDisplay.string = str(minutes * 100 + seconds)
 
-	var disp_voltage := _output_voltage if _is_outputting else _input_voltage
-	# Don't fluctuate the voltage if the output is basically zero.
-	if _is_outputting and _output_voltage >= 1:
-		disp_voltage += _volt_fluctuation
-	disp_voltage = clamp(disp_voltage, min_voltage, max_voltage)
-	%VoltDisplay.string = str(roundi(disp_voltage))
+	var disp_current := _output_current if _is_outputting else 0.0
+	# Don't fluctuate the current if the output is basically zero.
+	if _is_outputting and _output_current >= 1:
+		disp_current += _amp_fluctuation
+	disp_current = clamp(disp_current, min_voltage, max_voltage)
+
+	%AmpDisplay.string = ("%1.2f" % disp_current).remove_chars(".")
+	%VoltDisplay.string = ("%1.2f" % _input_voltage).remove_chars(".")
 
 	%OutputLightOff.visible = not _is_outputting
 	%OutputLightOn.visible = _is_outputting
@@ -89,8 +95,11 @@ func _on_circuit_component_disconnected(component: CircuitComponent) -> void:
 	component.voltage = 0.0
 
 func _on_dial_rotated(angle: float) -> void:
-	_input_voltage += angle * voltage_per_radian
-	_input_voltage = clamp(_input_voltage, min_voltage, max_voltage)
+	_dial_voltage_accumulated += angle * voltage_per_radian
+	var dial_input_voltage: float = _input_voltage + _dial_voltage_accumulated
+	dial_input_voltage = clamp(dial_input_voltage, min_voltage, max_voltage)
+	_input_voltage = floor(dial_input_voltage)
+	_dial_voltage_accumulated = dial_input_voltage - _input_voltage
 	_update_display()
 
 func _on_power_button_pressed() -> void:
@@ -98,8 +107,8 @@ func _on_power_button_pressed() -> void:
 	_update_display()
 	_update_timer_pause()
 
-func _on_volt_fluctuation_timer_timeout() -> void:
-	_volt_fluctuation = randf_range(-1.1, 1.1)
+func _on_amp_fluctuation_timer_timeout() -> void:
+	_amp_fluctuation = randf_range(-1.1, 1.1)
 
 func _on_time_toggle_button_pressed() -> void:
 	match _timer_state:

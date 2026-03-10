@@ -321,10 +321,10 @@ theme = ExtResource("14_jn1hy")
 unique_name_in_owner = true
 modulate = Color(0.7739972, 0.19601136, 0.2127015, 1)
 anchors_preset = 0
-offset_left = 4.0
-offset_top = 27.0
-offset_right = 37.0
-offset_bottom = 46.0
+offset_left = 5.0
+offset_top = 18.0
+offset_right = 38.0
+offset_bottom = 31.0
 mouse_filter = 2
 script = ExtResource("15_y7ksa")
 string = "999"
@@ -332,32 +332,130 @@ metadata/_custom_type_script = "uid://c2pro11bcd0sw"
 
 [node name="SevenSegmentDisplay" parent="Screen/VoltDisplay" unique_id=971294527 instance=ExtResource("16_cexob")]
 layout_mode = 0
+scale = Vector2(0.7, 0.7)
 segment_bits = 123
 character = "9"
 
 [node name="SevenSegmentDisplay2" parent="Screen/VoltDisplay" unique_id=1436522646 instance=ExtResource("16_cexob")]
 layout_mode = 0
-offset_left = 12.0
-offset_right = 22.0
+offset_left = 8.000004
+offset_right = 18.000004
 offset_bottom = 18.0
+scale = Vector2(0.7, 0.7)
 segment_bits = 123
 character = "9"
 
 [node name="SevenSegmentDisplay3" parent="Screen/VoltDisplay" unique_id=669918647 instance=ExtResource("16_cexob")]
 layout_mode = 0
-offset_left = 24.0
-offset_right = 34.0
+offset_left = 16.0
+offset_right = 26.0
 offset_bottom = 18.0
+scale = Vector2(0.7, 0.7)
+segment_bits = 123
+character = "9"
+
+[node name="Dot" type="Label" parent="Screen/VoltDisplay" unique_id=1411624514]
+layout_mode = 0
+offset_left = 23.0
+offset_right = 27.0
+offset_bottom = 15.0
+text = "."
+
+[node name="SevenSegmentDisplay4" parent="Screen/VoltDisplay" unique_id=565679564 instance=ExtResource("16_cexob")]
+layout_mode = 0
+offset_left = 26.0
+offset_right = 36.0
+offset_bottom = 18.0
+scale = Vector2(0.7, 0.7)
+segment_bits = 123
+character = "9"
+
+[node name="SevenSegmentDisplay5" parent="Screen/VoltDisplay" unique_id=378553925 instance=ExtResource("16_cexob")]
+layout_mode = 0
+offset_left = 34.0
+offset_right = 44.0
+offset_bottom = 18.0
+scale = Vector2(0.7, 0.7)
+segment_bits = 123
+character = "9"
+
+[node name="AmpDisplay" type="Control" parent="Screen" unique_id=904108813]
+unique_name_in_owner = true
+modulate = Color(0.7739972, 0.19601136, 0.2127015, 1)
+anchors_preset = 0
+offset_left = 5.0
+offset_top = 36.0
+offset_right = 38.0
+offset_bottom = 49.0
+mouse_filter = 2
+script = ExtResource("15_y7ksa")
+string = "999"
+metadata/_custom_type_script = "uid://c2pro11bcd0sw"
+
+[node name="SevenSegmentDisplay" parent="Screen/AmpDisplay" unique_id=1078073523 instance=ExtResource("16_cexob")]
+layout_mode = 0
+scale = Vector2(0.7, 0.7)
+segment_bits = 123
+character = "9"
+
+[node name="SevenSegmentDisplay2" parent="Screen/AmpDisplay" unique_id=1698267282 instance=ExtResource("16_cexob")]
+layout_mode = 0
+offset_left = 8.000004
+offset_right = 18.000004
+offset_bottom = 18.0
+scale = Vector2(0.7, 0.7)
+segment_bits = 123
+character = "9"
+
+[node name="SevenSegmentDisplay3" parent="Screen/AmpDisplay" unique_id=1988912972 instance=ExtResource("16_cexob")]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 26.0
+offset_bottom = 18.0
+scale = Vector2(0.7, 0.7)
+segment_bits = 123
+character = "9"
+
+[node name="Dot" type="Label" parent="Screen/AmpDisplay" unique_id=591831039]
+layout_mode = 0
+offset_left = 23.0
+offset_right = 27.0
+offset_bottom = 15.0
+text = "."
+
+[node name="SevenSegmentDisplay4" parent="Screen/AmpDisplay" unique_id=401970532 instance=ExtResource("16_cexob")]
+layout_mode = 0
+offset_left = 26.0
+offset_right = 36.0
+offset_bottom = 18.0
+scale = Vector2(0.7, 0.7)
+segment_bits = 123
+character = "9"
+
+[node name="SevenSegmentDisplay5" parent="Screen/AmpDisplay" unique_id=120525919 instance=ExtResource("16_cexob")]
+layout_mode = 0
+offset_left = 34.0
+offset_right = 44.0
+offset_bottom = 18.0
+scale = Vector2(0.7, 0.7)
 segment_bits = 123
 character = "9"
 
 [node name="Label" type="Label" parent="Screen" unique_id=588495221]
 layout_mode = 0
-offset_left = 42.0
-offset_top = 32.0
-offset_right = 50.0
-offset_bottom = 47.0
+offset_left = 50.0
+offset_top = 18.0
+offset_right = 58.0
+offset_bottom = 33.0
 text = "V"
+
+[node name="Label5" type="Label" parent="Screen" unique_id=2006956985]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 36.0
+offset_right = 58.0
+offset_bottom = 51.0
+text = "A"
 
 [node name="Label2" type="Label" parent="Screen" unique_id=1384185551]
 layout_mode = 0
@@ -447,8 +545,8 @@ offset_bottom = 13.0
 theme_override_font_sizes/font_size = 5
 text = "Timer"
 
-[node name="VoltFluctuationTimer" type="Timer" parent="." unique_id=1028421179]
-editor_description = "Each time this timer ends, there's a chance the displayed output voltage will fluctuate a bit (this does not affect the actual output voltage)"
+[node name="AmpFluctuationTimer" type="Timer" parent="." unique_id=1028421179]
+editor_description = "Each time this timer ends, there's a chance the displayed output current will fluctuate a bit (this does not affect the actual output voltage)"
 wait_time = 0.5
 autostart = true
 
@@ -469,5 +567,5 @@ libraries/ = SubResource("AnimationLibrary_ifdxy")
 [connection signal="disconnected" from="CircuitComponent" to="." method="_on_circuit_component_disconnected"]
 [connection signal="pressed" from="PowerButton" to="." method="_on_power_button_pressed"]
 [connection signal="rotated" from="Dial" to="." method="_on_dial_rotated"]
-[connection signal="timeout" from="VoltFluctuationTimer" to="." method="_on_volt_fluctuation_timer_timeout"]
+[connection signal="timeout" from="AmpFluctuationTimer" to="." method="_on_amp_fluctuation_timer_timeout"]
 [connection signal="timeout" from="LabTimer" to="." method="_on_lab_timer_timeout"]
