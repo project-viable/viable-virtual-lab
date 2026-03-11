@@ -17,6 +17,10 @@ class_name ContainerInteractableArea
 ## be set via [method Util.try_get_best_selectable_canvas_group].
 @export var interact_canvas_group: SelectableCanvasGroup
 
+## Object to zoom in on when this is poured into. If this is not set, then this will automatically
+## be set to this node's parent.
+@export var zoom_object: Node2D
+
 
 # We might get targeted both by a primary and secondary (for scooping and pouring), so we only
 # stop highlighting once we're not targeted at all.
@@ -27,6 +31,9 @@ func _ready() -> void:
 	super()
 	if not interact_canvas_group:
 		interact_canvas_group = Util.try_get_best_selectable_canvas_group(self)
+
+	if not zoom_object:
+		zoom_object = get_parent() as Node2D
 
 func start_targeting(_k: InteractInfo.Kind) -> void:
 	_num_targets += 1

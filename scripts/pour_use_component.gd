@@ -63,7 +63,7 @@ var _target_pos: Vector2 = Vector2.ZERO
 var _move_duration_left: float = 0.0
 var _target_container: ContainerComponent = null
 # Used to zoom in.
-var _target_body: CollisionObject2D = null
+var _target_body: Node2D = null
 
 
 func _enter_tree() -> void:
@@ -129,7 +129,7 @@ func start_use(area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 		# We only need to recompute this stuff if we're targeting a new object.
 		if body and spill_component and area:
 			_target_container = area.container_component
-			_target_body = area.get_parent() as CollisionObject2D
+			_target_body = area.zoom_object
 
 			_start_pos = body.get_global_hand_pos()
 

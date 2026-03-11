@@ -39,10 +39,11 @@ script = ExtResource("1_gl61q")
 [node name="FillRef" type="Node2D" parent="." unique_id=854354737]
 position = Vector2(0, -5)
 
-[node name="ContainerInteractableArea" type="Area2D" parent="." unique_id=1743705605 node_paths=PackedStringArray("container_component") groups=["container:pour"]]
+[node name="ContainerInteractableArea" type="Area2D" parent="." unique_id=1743705605 node_paths=PackedStringArray("container_component", "zoom_object") groups=["container:pour"]]
 position = Vector2(40, -24)
 script = ExtResource("2_gl61q")
 container_component = NodePath("../ContainerComponent")
+zoom_object = NodePath("../SelectableCanvasGroup/GelRig")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea" unique_id=774504756]
