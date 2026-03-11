@@ -289,15 +289,15 @@ offset_right = 38.0
 offset_bottom = 34.0
 mouse_filter = 2
 script = ExtResource("15_y7ksa")
-string = "999"
+string = "99999"
 metadata/_custom_type_script = "uid://c2pro11bcd0sw"
 
 [node name="SevenSegmentDisplay" parent="Screen/VoltDisplay" unique_id=971294527 instance=ExtResource("16_cexob")]
 layout_mode = 0
 offset_bottom = 18.0
 scale = Vector2(0.7, 0.7)
-segment_bits = 0
-character = " "
+segment_bits = 123
+character = "9"
 
 [node name="SevenSegmentDisplay2" parent="Screen/VoltDisplay" unique_id=1436522646 instance=ExtResource("16_cexob")]
 layout_mode = 0
@@ -305,8 +305,8 @@ offset_left = 8.000004
 offset_right = 18.000004
 offset_bottom = 18.0
 scale = Vector2(0.7, 0.7)
-segment_bits = 0
-character = " "
+segment_bits = 123
+character = "9"
 
 [node name="SevenSegmentDisplay3" parent="Screen/VoltDisplay" unique_id=669918647 instance=ExtResource("16_cexob")]
 layout_mode = 0
@@ -352,15 +352,15 @@ offset_right = 38.0
 offset_bottom = 52.0
 mouse_filter = 2
 script = ExtResource("15_y7ksa")
-string = "999"
+string = "99999"
 metadata/_custom_type_script = "uid://c2pro11bcd0sw"
 
 [node name="SevenSegmentDisplay" parent="Screen/AmpDisplay" unique_id=1078073523 instance=ExtResource("16_cexob")]
 layout_mode = 0
 offset_bottom = 18.0
 scale = Vector2(0.7, 0.7)
-segment_bits = 0
-character = " "
+segment_bits = 123
+character = "9"
 
 [node name="SevenSegmentDisplay2" parent="Screen/AmpDisplay" unique_id=1698267282 instance=ExtResource("16_cexob")]
 layout_mode = 0
@@ -368,13 +368,13 @@ offset_left = 8.000004
 offset_right = 18.000004
 offset_bottom = 18.0
 scale = Vector2(0.7, 0.7)
-segment_bits = 0
-character = " "
+segment_bits = 123
+character = "9"
 
 [node name="SevenSegmentDisplay3" parent="Screen/AmpDisplay" unique_id=1988912972 instance=ExtResource("16_cexob")]
 layout_mode = 0
-offset_left = 16.0
-offset_right = 26.0
+offset_left = 18.0
+offset_right = 28.0
 offset_bottom = 18.0
 scale = Vector2(0.7, 0.7)
 segment_bits = 123
@@ -382,8 +382,8 @@ character = "9"
 
 [node name="Dot" type="Label" parent="Screen/AmpDisplay" unique_id=591831039]
 layout_mode = 0
-offset_left = 23.0
-offset_right = 27.0
+offset_left = 15.0
+offset_right = 19.0
 offset_bottom = 15.0
 text = "."
 
@@ -512,7 +512,6 @@ text = "Timer"
 
 [node name="AmpFluctuationTimer" type="Timer" parent="." unique_id=1028421179]
 editor_description = "Each time this timer ends, there's a chance the displayed output current will fluctuate a bit (this does not affect the actual output voltage)"
-wait_time = 0.5
 autostart = true
 
 [node name="LabTimer" type="Node" parent="." unique_id=1866955426]

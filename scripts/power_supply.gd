@@ -13,8 +13,12 @@ enum TimerState
 const MAX_INPUT_TIME := 60 * 99 + 59
 
 
-@export var min_voltage: float = 0
-@export var max_voltage: float = 999
+@export_custom(PROPERTY_HINT_NONE, "suffix:V") var min_voltage: float = 0
+@export_custom(PROPERTY_HINT_NONE, "suffix:V") var max_voltage: float = 999
+## Standard deviation of random fluctuations in the displayed current. This doesn't affect the
+## actual current supplied, but it does make it look a bit more realistic. The fluctuations are
+## normally distributed because that sounds right to me somehow.
+@export_custom(PROPERTY_HINT_NONE, "suffix:A") var amp_fluctuation_std: float = 0.001
 @export_custom(PROPERTY_HINT_NONE, "suffix:V/rad") var voltage_per_radian: float = 60 / PI
 
 
@@ -60,11 +64,11 @@ func _update_display() -> void:
 
 	var disp_current := _output_current if _is_outputting else 0.0
 	# Don't fluctuate the current if the output is basically zero.
-	if _is_outputting and _output_current >= 1:
+	if _is_outputting and _output_current >= amp_fluctuation_std * 2:
 		disp_current += _amp_fluctuation
 	disp_current = clamp(disp_current, min_voltage, max_voltage)
 
-	%AmpDisplay.string = ("%1.2f" % disp_current).remove_chars(".")
+	%AmpDisplay.string = ("%1.3f" % disp_current).remove_chars(".")
 	%VoltDisplay.string = ("%1.2f" % _input_voltage).remove_chars(".")
 
 	%OutputLightOff.visible = not _is_outputting
@@ -102,7 +106,7 @@ func _on_power_button_pressed() -> void:
 	_update_timer_pause()
 
 func _on_amp_fluctuation_timer_timeout() -> void:
-	_amp_fluctuation = randf_range(-1.1, 1.1)
+	_amp_fluctuation = randfn(0, amp_fluctuation_std)
 
 func _on_time_toggle_button_pressed() -> void:
 	match _timer_state:

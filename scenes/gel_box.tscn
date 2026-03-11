@@ -74,7 +74,7 @@ texture = ExtResource("3_r7so7")
 
 [node name="CircuitComponent" type="Node" parent="." unique_id=1971808340]
 script = ExtResource("7_4jb1l")
-resistance = 3.0
+resistance = 300.0
 metadata/_custom_type_script = "uid://b3ambmyo5etar"
 
 [node name="PositiveAttachmentInteractableArea" type="Area2D" parent="." unique_id=1028091214 node_paths=PackedStringArray("circuit_component")]
