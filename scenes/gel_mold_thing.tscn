@@ -55,6 +55,15 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
+[node name="Label" type="Label" parent="Front2" unique_id=1893465842]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 7.0
+offset_right = 109.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0, 0, 0, 0.2784314)
+text = "Gel mold"
+
 [connection signal="object_placed" from="AttachmentInteractableArea" to="." method="_on_attachment_interactable_area_object_placed"]
 [connection signal="object_removed" from="AttachmentInteractableArea" to="." method="_on_attachment_interactable_area_object_removed"]
 [connection signal="object_placed" from="AttachmentInteractableArea2" to="." method="_on_attachment_interactable_area_object_placed"]

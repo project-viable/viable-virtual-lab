@@ -403,7 +403,7 @@ texture = ExtResource("22_kobiv")
 position = Vector2(1723, 487)
 
 [node name="GelMoldThing" parent="." unique_id=1646695503 instance=ExtResource("33_ompny")]
-position = Vector2(1824, 468)
+position = Vector2(1832, 479)
 
 [editable path="Objects/Flask"]
 [editable path="Objects/Flask2"]
