@@ -275,7 +275,7 @@ metadata/_edit_group_ = true
 position = Vector2(662, 395)
 
 [node name="PipetteStand" parent="Objects" unique_id=268434943 instance=ExtResource("4_5fdni")]
-position = Vector2(2066, 419)
+position = Vector2(2066, 422)
 metadata/_edit_group_ = true
 
 [node name="AttachmentInteractableArea" parent="Objects/PipetteStand" index="1" unique_id=738379239 node_paths=PackedStringArray("contained_object")]
@@ -286,9 +286,6 @@ position = Vector2(2065, 418)
 
 [node name="PipetteTipBox" parent="Objects" unique_id=1679121128 instance=ExtResource("5_vwsp8")]
 position = Vector2(2155, 457)
-
-[node name="WeighBoat" parent="Objects" unique_id=326374940 instance=ExtResource("6_vj1mp")]
-position = Vector2(802, 443)
 
 [node name="AgaroseBottle" parent="Objects" unique_id=746679624 instance=ExtResource("7_yik3d")]
 position = Vector2(927, 446)
@@ -306,23 +303,23 @@ position = Vector2(1645, 468)
 position = Vector2(1455, 466)
 
 [node name="GelImager" parent="Objects" unique_id=624465869 instance=ExtResource("14_eg6i0")]
-position = Vector2(2422, 396)
+position = Vector2(2422, 397)
 
 [node name="Scoopula" parent="Objects" unique_id=2052144478 instance=ExtResource("15_aby4o")]
 position = Vector2(1027, 430)
 
 [node name="ScoopulaHolder" parent="Objects" unique_id=2071736484 instance=ExtResource("14_82fmo")]
-position = Vector2(1020, 435)
+position = Vector2(1020, 439)
 metadata/_edit_group_ = true
 
 [node name="AttachmentInteractableArea" parent="Objects/ScoopulaHolder" index="0" unique_id=1010796996 node_paths=PackedStringArray("contained_object")]
 contained_object = NodePath("../../Scoopula")
 
 [node name="Scale" parent="Objects" unique_id=1390978317 instance=ExtResource("16_c15s6")]
-position = Vector2(801, 477)
+position = Vector2(801, 481)
 
 [node name="BiohazardBin" parent="Objects" unique_id=758099352 instance=ExtResource("17_6se67")]
-position = Vector2(2273, 454)
+position = Vector2(2273, 455)
 
 [node name="MicrocentrifugeTube" parent="Objects" unique_id=756292388 instance=ExtResource("10_bi7f4")]
 position = Vector2(1945, 472)
@@ -353,7 +350,7 @@ metadata/_edit_group_ = true
 substances = Array[ExtResource("24_c13rf")]([SubResource("Resource_pdbow")])
 
 [node name="MicrocentrifugeHolder" parent="Objects" unique_id=1765066719 instance=ExtResource("18_xe06v")]
-position = Vector2(1982, 481)
+position = Vector2(1982, 484)
 metadata/_edit_group_ = true
 
 [node name="AttachmentInteractableArea" parent="Objects/MicrocentrifugeHolder" index="0" unique_id=2131851507 node_paths=PackedStringArray("contained_object")]
@@ -396,6 +393,9 @@ texture = ExtResource("22_kobiv")
 unique_name_in_owner = true
 position = Vector2(711, 476)
 texture = ExtResource("22_kobiv")
+
+[node name="WeighBoat" parent="Objects" unique_id=326374940 instance=ExtResource("6_vj1mp")]
+position = Vector2(878, 481)
 
 [node name="GelMoldThing" parent="Objects" unique_id=1646695503 instance=ExtResource("33_ompny")]
 position = Vector2(1820, 480)
