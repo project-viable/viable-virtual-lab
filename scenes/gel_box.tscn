@@ -6,15 +6,14 @@
 [ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="2_xl5qd"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="3_8th0w"]
 [ext_resource type="Texture2D" uid="uid://diqycgd18toud" path="res://textures/lab_objects/gel_rig_empty.svg" id="3_r7so7"]
-[ext_resource type="Script" uid="uid://brj1u83e5o6i6" path="res://scripts/terminal_attachment.gd" id="5_r7so7"]
+[ext_resource type="Script" uid="uid://brj1u83e5o6i6" path="res://scripts/wire_attachment_interactable_area.gd" id="5_r7so7"]
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="6_r7so7"]
-[ext_resource type="Script" uid="uid://chvv2ne60otwi" path="res://scripts/wire_connection.gd" id="6_xl5qd"]
+[ext_resource type="Script" uid="uid://b3ambmyo5etar" path="res://scripts/circuit_component.gd" id="7_4jb1l"]
+[ext_resource type="Script" uid="uid://blk6q1chtrgqi" path="res://scripts/help_selectable_area.gd" id="10_5tltc"]
+[ext_resource type="Script" uid="uid://b810schxe1hne" path="res://scripts/interact_info.gd" id="11_ch7uj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qsq1u"]
 size = Vector2(92, 47)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t800u"]
-size = Vector2(94, 23)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r7so7"]
 radius = 8.0
@@ -25,23 +24,26 @@ radius = 8.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r7so7"]
 size = Vector2(94, 47)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xl5qd"]
-size = Vector2(12, 30)
+[sub_resource type="Resource" id="Resource_o0bv7"]
+script = ExtResource("11_ch7uj")
+kind = 6
+description = "Open help page for gel rig"
+metadata/_custom_type_script = "uid://b810schxe1hne"
 
-[node name="GelBox" type="RigidBody2D" unique_id=1610903139 groups=["zoom:power_supply"]]
-collision_layer = 0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ch7uj"]
+size = Vector2(94, 47)
+
+[node name="GelBox" type="Node2D" unique_id=1841318361 groups=["zoom:power_supply"]]
 script = ExtResource("1_gl61q")
-hover_name = "gel rig"
-help_page_path = "gel_rig.txt"
-metadata/_custom_type_script = "uid://b4dann3kdfg3k"
 
 [node name="FillRef" type="Node2D" parent="." unique_id=854354737]
 position = Vector2(0, -5)
 
-[node name="ContainerInteractableArea" type="Area2D" parent="." unique_id=1743705605 node_paths=PackedStringArray("container_component") groups=["container:pour"]]
+[node name="ContainerInteractableArea" type="Area2D" parent="." unique_id=1743705605 node_paths=PackedStringArray("container_component", "zoom_object") groups=["container:pour"]]
 position = Vector2(40, -24)
 script = ExtResource("2_gl61q")
 container_component = NodePath("../ContainerComponent")
+zoom_object = NodePath("../SelectableCanvasGroup/GelRig")
 metadata/_custom_type_script = "uid://dr7r4spi6qe72"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ContainerInteractableArea" unique_id=774504756]
@@ -71,15 +73,17 @@ modulate = Color(1, 1, 1, 0.776471)
 scale = Vector2(0.095, 0.095)
 texture = ExtResource("3_r7so7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1089900112]
-position = Vector2(0, 15.5)
-shape = SubResource("RectangleShape2D_t800u")
+[node name="CircuitComponent" type="Node" parent="." unique_id=1971808340]
+script = ExtResource("7_4jb1l")
+resistance = 300.0
+metadata/_custom_type_script = "uid://b3ambmyo5etar"
 
-[node name="PositiveAttachmentInteractableArea" type="Area2D" parent="." unique_id=1028091214 node_paths=PackedStringArray("selectable_canvas_group")]
+[node name="PositiveAttachmentInteractableArea" type="Area2D" parent="." unique_id=1028091214 node_paths=PackedStringArray("circuit_component")]
 z_index = 2
 position = Vector2(-38, 12)
 script = ExtResource("5_r7so7")
-selectable_canvas_group = NodePath("../SelectableCanvasGroup")
+circuit_component = NodePath("../CircuitComponent")
+place_prompt = "Connect"
 point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 metadata/_edit_group_ = true
@@ -88,11 +92,12 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_r7so7")
 debug_color = Color(0.927163, 0.143775, 0.567313, 0.42)
 
-[node name="NegativeAttachmentInteractableArea2" type="Area2D" parent="." unique_id=726295831]
+[node name="NegativeAttachmentInteractableArea2" type="Area2D" parent="." unique_id=726295831 node_paths=PackedStringArray("circuit_component")]
 z_index = 2
 position = Vector2(38, 12)
 script = ExtResource("5_r7so7")
-terminal_charge = 1
+circuit_component = NodePath("../CircuitComponent")
+terminal_side = 1
 place_prompt = "Connect"
 point_groups = Array[StringName]([&"attachment:contact_wire"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
@@ -102,12 +107,6 @@ metadata/_edit_group_ = true
 position = Vector2(-1, 0)
 shape = SubResource("CircleShape2D_xl5qd")
 debug_color = Color(0.74071, 0.462915, 0.148127, 0.42)
-
-[node name="WireConnectableComponent" type="Node2D" parent="." unique_id=114193620 node_paths=PackedStringArray("body", "target_container")]
-script = ExtResource("6_xl5qd")
-body = NodePath("..")
-target_container = NodePath("../ContainerComponent")
-metadata/_custom_type_script = "uid://chvv2ne60otwi"
 
 [node name="TrayAttachment" type="Area2D" parent="." unique_id=230654187]
 position = Vector2(0, 7)
@@ -120,19 +119,17 @@ position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_r7so7")
 debug_color = Color(3.46541e-06, 0.635788, 0.412943, 0.42)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1149645945]
-position = Vector2(-40, -5)
-shape = SubResource("RectangleShape2D_xl5qd")
+[node name="HelpSelectableArea" type="Node2D" parent="." unique_id=774377357]
+script = ExtResource("10_5tltc")
+help_page_path = "gel_rig.txt"
+interact_info = SubResource("Resource_o0bv7")
+metadata/_custom_type_script = "uid://blk6q1chtrgqi"
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=501426647]
-position = Vector2(41, -5)
-shape = SubResource("RectangleShape2D_xl5qd")
+[node name="Area2D" type="Area2D" parent="HelpSelectableArea" unique_id=1383763103]
 
-[connection signal="object_placed" from="PositiveAttachmentInteractableArea" to="PositiveAttachmentInteractableArea" method="_on_object_placed"]
-[connection signal="object_removed" from="PositiveAttachmentInteractableArea" to="WireConnectableComponent" method="unplug_handler"]
-[connection signal="wire_connected" from="PositiveAttachmentInteractableArea" to="WireConnectableComponent" method="on_wire_connected"]
-[connection signal="object_placed" from="NegativeAttachmentInteractableArea2" to="NegativeAttachmentInteractableArea2" method="_on_object_placed"]
-[connection signal="object_removed" from="NegativeAttachmentInteractableArea2" to="WireConnectableComponent" method="unplug_handler"]
-[connection signal="wire_connected" from="NegativeAttachmentInteractableArea2" to="WireConnectableComponent" method="on_wire_connected"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HelpSelectableArea/Area2D" unique_id=1492693642]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_ch7uj")
+
 [connection signal="object_placed" from="TrayAttachment" to="." method="_on_mold_attachment_object_placed"]
 [connection signal="object_removed" from="TrayAttachment" to="." method="_on_mold_attachment_object_removed"]

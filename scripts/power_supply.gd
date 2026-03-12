@@ -1,241 +1,141 @@
-extends LabBody
+extends Node2D
 class_name PowerSupply
 
-@export var increment_time_button: TextureButton
-@export var decrement_time_button: TextureButton
-@export var increment_volts_button: TextureButton
-@export var decrement_volts_button: TextureButton
-@export var time_line_edit: LineEdit
-@export var voltage_line_edit: LineEdit
-var closed_circut: bool = false
 
-
-@onready var button_function_dict: Dictionary = {
-	increment_time_button: {
-		"function": increment_time,
-		"type": ConfigType.TIME,
-	},
-	decrement_time_button: {
-		"function": decrement_time,
-		"type": ConfigType.TIME,
-	},
-	increment_volts_button: {
-		"function": increment_volts,
-		"type": ConfigType.VOLT,
-	},
-	decrement_volts_button: {
-		"function": decrement_volts,
-		"type": ConfigType.VOLT,
-	},
+enum TimerState
+{
+	OFF,
+	INPUTTING,
+	ON,
 }
 
-enum ConfigType{
-	TIME,
-	VOLT
-}
 
-enum CurrentDirection{
-	FORWARD,
-	REVERSE
-}
+const MAX_INPUT_TIME := 60 * 99 + 59
 
-var _should_increment: bool = false
-var _is_power_supply_connected: bool = false
-var _object_to_recieve_current: WireConnectableComponent
-var positive_terminal_wire: Wire
-var negative_terminal_wire: Wire
 
-var _current_pressed_button: TextureButton
-var time: int = 0 # Time in seconds
-var initial_time: int = 0
-var volts: int = 50
-var _delta_time: int = 1
-var _delta_volts: int = 1
+@export_custom(PROPERTY_HINT_NONE, "suffix:V") var min_voltage: float = 0
+@export_custom(PROPERTY_HINT_NONE, "suffix:V") var max_voltage: float = 999
+## Standard deviation of random fluctuations in the displayed current. This doesn't affect the
+## actual current supplied, but it does make it look a bit more realistic. The fluctuations are
+## normally distributed because that sounds right to me somehow.
+@export_custom(PROPERTY_HINT_NONE, "suffix:A") var amp_fluctuation_std: float = 0.001
+@export_custom(PROPERTY_HINT_NONE, "suffix:V/rad") var voltage_per_radian: float = 60 / PI
 
-# When the user is typing in a time like 1230, convert to 12:30 and convert time to seconds
-var time_string_input: String = "":
-	set(value):
-		time_string_input = value
-		@warning_ignore("integer_division")
-		var minutes: int = int(time_string_input) / 100
-		var seconds: int = int(time_string_input) % 100
-		time = minutes * 60 + seconds
-		update_timer_display()
 
-# How much it should increment by if the button is held down long enough
-var _time_increment: int = 60
-var _volts_increment: int = 50
+var _input_voltage: float = min_voltage
+var _output_current: float = 0.0
+var _is_outputting: bool = false
+# Amount added to the displayed output voltage to make it look like it's fluctuating a bit.
+var _amp_fluctuation: float = 0
+var _timer_state := TimerState.OFF
+var _input_time_mins: int = 0
+# We want integer voltages, but if we just round the value when the dial moves, then tiny movements
+# of the dial will not add enough to affect the voltage, which is very confusing when trying to
+# carefully adjust the voltage. To fix this, we keep track of the extra accumulated value here.
+var _dial_voltage_accumulated: float = 0
 
-var _wait_time_threshold: float = .05
 
 func _ready() -> void:
-	super()
-	voltage_line_edit.text = "%d" % [volts]
-	for button: TextureButton in find_children("", "TextureButton", true):
-		button.button_down.connect(_on_screen_button_pressed.bind(button))
-		button.button_up.connect(_on_screen_button_released.bind(button))
+	_update_display()
+	_update_timer_state(_timer_state)
 
-func _physics_process(delta: float) -> void:
-	super(delta)
-	# If the timer is still running, we are running current.
-	var prev_current_recipient := _object_to_recieve_current
-	# This changes state for some reason.
-	# TODO: Fix this hacky way of doing this.
-	if not _is_circuit_ready(): _object_to_recieve_current = null
-
-	if prev_current_recipient and prev_current_recipient != _object_to_recieve_current:
-		prev_current_recipient.voltage = 0
-
-	# If there is time left, we are still running.
-	var cur_voltage: float = float(volts) if $LabTimer.time_left > 0 else 0.0
-	if _object_to_recieve_current:
-		_object_to_recieve_current.voltage = cur_voltage
-		var dir := get_current_direction()
-		if dir == CurrentDirection.REVERSE: _object_to_recieve_current.voltage *= -1
-
-	if $LabTimer.time_left > 0:
-		time = round($LabTimer.time_left)
-		update_timer_display()
-
-func is_hovered() -> bool:
-	# Don't allow the power supply to be picked up while zoomed in, so the buttons can be pressed.
-	return super() and not Game.main.get_camera_focus_owner()
-
-func _on_start_button_pressed() -> void:
-	if _object_to_recieve_current.body.name == "GelBox":
-		if closed_circut and _object_to_recieve_current.target_container.get_total_volume() >0:
-			initial_time = time
-			$LabTimer.start(time)
+func _physics_process(_delta: float) -> void:
+	var target: CircuitComponent = $CircuitComponent.get_connected_component()
+	if target:
+		if target.closed and _is_outputting:
+			target.voltage = float(_input_voltage) * $CircuitComponent.get_connected_component_direction()
 		else:
-			%TimeLabel.text = "Err"
-			voltage_line_edit.text = "Err"
+			target.voltage = 0.0
 
-func _on_timer_timeout() -> void:
-	var is_pressed: bool = _current_pressed_button.button_pressed
-	var button_function: Callable = button_function_dict[_current_pressed_button]["function"]
-	var config_type: ConfigType = button_function_dict[_current_pressed_button]["type"]
-
-	if is_pressed and config_type == ConfigType.TIME:
-		gradually_change(button_function, config_type, _time_increment)
-
-	elif is_pressed and config_type == ConfigType.VOLT:
-		gradually_change(button_function, config_type, _volts_increment)
-
-func _on_screen_button_pressed(button: TextureButton) -> void:
-	_current_pressed_button = button
-	button_function_dict[_current_pressed_button]["function"].call() # Call once for single clicks
-	$Timer.start()
-
-func _on_screen_button_released(_button: TextureButton) -> void:
-	$Timer.stop()
-	$Timer.wait_time = 0.15
-	_delta_time = 1
-	_delta_volts = 1
-	_should_increment = false
-
-
-func gradually_change(button_func: Callable, type: ConfigType, increment_value: int) -> void:
-	# Get either _time or _volts
-	var target_var_value: int = button_func.call()
-
-	# Decrease the Timer's wait time to gradually increase the speed of changing values
-	if (target_var_value % increment_value != 0 or $Timer.wait_time > _wait_time_threshold) and not _should_increment:
-		$Timer.wait_time = max($Timer.wait_time - 0.0025, .05)
-
-	# Start incrementing the value by a set amount
+		_output_current = abs(target.voltage / target.resistance)
 	else:
-		_should_increment = true
-		$Timer.wait_time = .3 # Values change more slowly
-		$Timer.start() # Timer needs to start again to update the wait_time
-		change_delta_rate(type, increment_value)
+		_output_current = 0.0
 
-## Updates the delta for time or volts to a set increment
-func change_delta_rate(type: ConfigType, new_delta: int) -> void:
-	if type == ConfigType.TIME:
-		_delta_time = new_delta
+	_update_display()
 
-	elif type == ConfigType.VOLT:
-		_delta_volts = new_delta
+func _update_display() -> void:
+	if _timer_state != TimerState.OFF:
+		# Divide by 60 to get minutes.
+		var time_to_show: float = $LabTimer.time_left / 60.0 if _timer_state == TimerState.ON else _input_time_mins
+		var t: int = ceili(max(time_to_show, 0))
+		var hours: int = t / 60
+		var minutes: int = t % 60
+		%TimeDisplay.string = str(hours * 100 + minutes)
 
-func increment_time() -> int:
-	time += _delta_time
-	update_timer_display()
-	return time
+	var disp_current := _output_current if _is_outputting else 0.0
+	# Don't fluctuate the current if the output is basically zero.
+	if _is_outputting and _output_current >= amp_fluctuation_std * 2:
+		disp_current += _amp_fluctuation
+	disp_current = clamp(disp_current, min_voltage, max_voltage)
 
-func decrement_time() -> int:
-	if time > 0:
-		time -= _delta_time
-		update_timer_display()
+	%AmpDisplay.string = ("%1.3f" % disp_current).remove_chars(".")
+	%VoltDisplay.string = ("%1.2f" % _input_voltage).remove_chars(".")
 
-	return time
+	%OutputLightOff.visible = not _is_outputting
+	%OutputLightOn.visible = _is_outputting
 
-func update_timer_display() -> void:
-	@warning_ignore("integer_division")
-	var minutes: int = time / 60
-	var seconds: int = time % 60
-	%TimeLabel.text = "%02d:%02d" % [minutes, seconds]
-
-func increment_volts() -> int:
-	volts += _delta_volts
-	volts = min(volts, 999)
-	_update_volt_display()
-
-	return volts
-
-func decrement_volts() -> int:
-	if volts > 0:
-		volts -= _delta_volts
-		_update_volt_display()
-
-	return volts
-
-func _update_volt_display() -> void:
-	voltage_line_edit.text = "%d" % [volts]
-
-## Can be triggered from [signal WireConnectableComponent.terminals_connected] signal whenever a wire is
-## connected to a terminal.
-func _on_wire_connection(is_every_terminal_connected: bool) -> void:
-	_is_power_supply_connected = is_every_terminal_connected
-
-## Checks if both terminals of the power supply are connected
-## and if the other ends of those wires are both connected to
-## another object.
-func _is_circuit_ready() -> bool:
-	# Both terminals of the power supply must be connected
-	if not _is_power_supply_connected:
-		return false
-
-	positive_terminal_wire = $WireConnectableComponent.get_positive_terminal_wire()
-	negative_terminal_wire = $WireConnectableComponent.get_negative_terminal_wire()
-
-	var positive_wire_other_end_component: WireConnectableComponent = positive_terminal_wire.get_component_on_other_end()
-	var negative_wire_other_end_component: WireConnectableComponent = negative_terminal_wire.get_component_on_other_end()
-
-	# Both of the wires connected to the power supply must have their other ends
-	# be connected to the same target
-	if positive_wire_other_end_component == null \
-			or positive_wire_other_end_component != negative_wire_other_end_component:
-		return false
-
+# Update the appearance of the timer thing based on the state.
+func _update_timer_state(state: TimerState) -> void:
+	_timer_state = state
+	if state == TimerState.INPUTTING:
+		%ColonBlinkAnimationPlayer.play("time_colon_blink")
 	else:
-		_object_to_recieve_current = positive_wire_other_end_component
-		closed_circut = true
-		return true
+		%ColonBlinkAnimationPlayer.stop()
+	%TimeDisplay/Colon.visible = _timer_state != TimerState.OFF
+	if state == TimerState.OFF:
+		%TimeDisplay.string = "0FF"
+
+func _update_timer_pause() -> void:
+	$LabTimer.paused = not _is_outputting or _timer_state != TimerState.ON
 
 
-## Determines the direction of current based on wire connections.
-## Returns FORWARD if each wire connects matching terminals (positive to positive, negative to negative),
-## otherwise returns REVERSE.
-func get_current_direction() -> CurrentDirection:
-	var target: WireConnectableComponent = _object_to_recieve_current
-	var target_positive_terminal_wire: Wire = target.get_positive_terminal_wire()
-	var target_negative_terminal_wire: Wire = target.get_negative_terminal_wire()
+func _on_circuit_component_disconnected(component: CircuitComponent) -> void:
+	component.voltage = 0.0
 
-	# Both ends of a wire are connected to a positive terminal, resulting in a forward current direction
-	if target_positive_terminal_wire.other_end == positive_terminal_wire \
-		and target_negative_terminal_wire.other_end == negative_terminal_wire:
-			return CurrentDirection.FORWARD
+func _on_dial_rotated(angle: float) -> void:
+	_dial_voltage_accumulated += angle * voltage_per_radian
+	var dial_input_voltage: float = _input_voltage + _dial_voltage_accumulated
+	dial_input_voltage = clamp(dial_input_voltage, min_voltage, max_voltage)
+	_input_voltage = floor(dial_input_voltage)
+	_dial_voltage_accumulated = dial_input_voltage - _input_voltage
+	_update_display()
 
-	# Ends of a wire are connected to different terminal denotations, resulting in a reversed current direction
-	else:
-		return CurrentDirection.REVERSE
+func _on_power_button_pressed() -> void:
+	_is_outputting = not _is_outputting
+	_update_display()
+	_update_timer_pause()
+
+func _on_amp_fluctuation_timer_timeout() -> void:
+	_amp_fluctuation = randfn(0, amp_fluctuation_std)
+
+func _on_time_toggle_button_pressed() -> void:
+	match _timer_state:
+		TimerState.OFF:
+			_input_time_mins = 0
+			_update_timer_state(TimerState.INPUTTING)
+		TimerState.INPUTTING:
+			$LabTimer.start(_input_time_mins * 60.0)
+			_update_timer_state(TimerState.ON)
+		TimerState.ON:
+			$LabTimer.stop()
+			$LabTimer.wait_time = 0.0
+			_update_timer_state(TimerState.OFF)
+	_update_timer_pause()
+
+func _on_time_up_button_started_holding() -> void:
+	_input_time_mins = clamp(_input_time_mins + 1, 0, MAX_INPUT_TIME)
+
+func _on_time_up_button_stopped_holding() -> void:
+	pass # Replace with function body.
+
+func _on_time_down_button_started_holding() -> void:
+	_input_time_mins = clamp(_input_time_mins - 1, 0, MAX_INPUT_TIME)
+
+func _on_time_down_button_stopped_holding() -> void:
+	pass # Replace with function body.
+
+func _on_lab_timer_timeout() -> void:
+	_is_outputting = false
+	_update_display()
+	_update_timer_state(TimerState.OFF)
+	_update_timer_pause()

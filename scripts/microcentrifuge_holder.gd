@@ -1,4 +1,4 @@
-extends LabBody
+extends Node2D
 
 
 var _num_in_purview: int = 0

@@ -4,7 +4,7 @@ extends RegionProvider
 
 
 ## The region will include the bounding boxes of all objects in [member objects].
-@export var objects: Array[CollisionObject2D] = []
+@export var objects: Array[Node2D] = []
 
 
 func get_region() -> Rect2:

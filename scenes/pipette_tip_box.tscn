@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://b2owhv1drxs7p"]
 
-[ext_resource type="Script" uid="uid://b4dann3kdfg3k" path="res://scripts/lab_body.gd" id="1_f63uk"]
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_3s6eo"]
 [ext_resource type="Texture2D" uid="uid://dcwybereklqk1" path="res://textures/lab_objects/pipette_tip_box.svg" id="4_f63uk"]
 [ext_resource type="Script" uid="uid://c27s4q48kg7wa" path="res://scripts/pipette_box_interactable_area.gd" id="6_f63uk"]
@@ -9,16 +8,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gs6p0"]
 size = Vector2(106, 43)
 
-[node name="PipetteTipBox" type="RigidBody2D" unique_id=1876775352]
-collision_layer = 0
-script = ExtResource("1_f63uk")
-hover_name = "pipette tip box"
-help_page_path = "pipette.txt"
-metadata/_custom_type_script = "uid://b4dann3kdfg3k"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1391985142]
-position = Vector2(0, 15.5)
-shape = SubResource("RectangleShape2D_gs6p0")
+[node name="PipetteTipBox" type="Node2D" unique_id=1461519133]
 
 [node name="SelectableCanvasGroup" type="CanvasGroup" parent="." unique_id=56542452]
 script = ExtResource("2_3s6eo")
@@ -69,3 +59,23 @@ metadata/_custom_type_script = "uid://8jbti40eodk6"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea" unique_id=439612903]
 position = Vector2(0, 15.5)
 shape = SubResource("RectangleShape2D_gs6p0")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1721274061]
+offset_left = -30.0
+offset_top = 14.0
+offset_right = 30.0
+offset_bottom = 28.0
+mouse_filter = 2
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=1958785572]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 10
+text = "Pipette tips"
+horizontal_alignment = 1
+vertical_alignment = 1

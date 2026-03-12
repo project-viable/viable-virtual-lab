@@ -12,9 +12,12 @@ signal stopped_holding()
 ## will automatically be set to the first [SelectableCanvasGroup] child of this component.
 @export var interact_canvas_group: SelectableCanvasGroup
 @export var interact_info: InteractInfo = InteractInfo.new(InteractInfo.Kind.PRIMARY, "Activate")
+## If set to [code]true[/code], then this component will only be targetable when zoomed in.
+@export var target_only_when_zoomed: bool = false
 
 
-func is_hovered() -> bool: return interact_canvas_group.is_mouse_hovering()
+func is_hovered() -> bool:
+	return interact_canvas_group.is_mouse_hovering() and (not target_only_when_zoomed or Game.main.get_camera_focus_owner() != null)
 func get_draw_order() -> int: return interact_canvas_group.draw_order_this_frame
 func get_absolute_z_index() -> int: return Util.get_absolute_z_index(interact_canvas_group)
 

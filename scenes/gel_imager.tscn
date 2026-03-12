@@ -93,6 +93,21 @@ position = Vector2(0, 7.000001)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("8_0k0au")
 
+[node name="Label" type="Label" parent="ImagerDoorGroup/DoorClosed" unique_id=929022367]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -63.333332
+offset_top = 206.66666
+offset_right = -961.3333
+offset_bottom = -513.3334
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 35
+text = "Imager"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="DoorOpen" type="Sprite2D" parent="ImagerDoorGroup" unique_id=101369638]
 unique_name_in_owner = true
 position = Vector2(13, -13)

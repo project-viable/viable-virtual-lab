@@ -12,28 +12,37 @@ static func get_absolute_z_index(n: Node) -> int:
 	else:
 		return n.z_index
 
-# Get a bounding box for the full collision of a `CollisionObject2D`. This can be used, for
-# example, to automatically find where the "bottom" of an object is. The resulting bounding box is
-# in `obj`'s local coordinates.
-static func get_bounding_box(obj: CollisionObject2D) -> Rect2:
-	var rect := Rect2()
-	var first := true
-	for o in obj.get_shape_owners():
-		if obj.is_shape_owner_disabled(o): continue
-		var transform: Transform2D = obj.shape_owner_get_transform(o)
-		for i in range(0, obj.shape_owner_get_shape_count(o)):
-			var s := obj.shape_owner_get_shape(o, i)
-			if first:
-				rect = transform * s.get_rect()
-				first = false
-			else:
-				rect = rect.merge(transform * s.get_rect())
+# Get a bounding box for the node [param node] in [param node]'s local coordinates. This can be
+# used, for example, to automatically find where the "bottom" of an object is.
+#
+# This function is "smart" in that its behavior depends on the type of [param node]. If [param node]
+# is a [Sprite2D], then this will be the result of [method Sprite2D.get_rect]. If [param node] is a
+# [CollisionObject2D], then this will be the rectangle covering its collision shape.
+static func get_bounding_box(node: Node2D) -> Rect2:
+	if node is Sprite2D:
+		return node.get_rect()
+	elif node is CollisionObject2D:
+		var obj := node as CollisionObject2D
+		var rect := Rect2()
+		var first := true
+		for o in obj.get_shape_owners():
+			if obj.is_shape_owner_disabled(o): continue
+			var transform: Transform2D = obj.shape_owner_get_transform(o)
+			for i in range(0, obj.shape_owner_get_shape_count(o)):
+				var s := obj.shape_owner_get_shape(o, i)
+				if first:
+					rect = transform * s.get_rect()
+					first = false
+				else:
+					rect = rect.merge(transform * s.get_rect())
 
-	return rect
+		return rect
+	else:
+		return Rect2()
 
-# Get the bounding box for [param obj]'s collision in global coordinates, axis-aligned.
-static func get_global_bounding_box(obj: CollisionObject2D) -> Rect2:
-	return obj.get_global_transform() * get_bounding_box(obj)
+# Get the bounding box for [param node]'s collision in global coordinates, axis-aligned.
+static func get_global_bounding_box(node: Node2D) -> Rect2:
+	return node.get_global_transform() * get_bounding_box(node)
 
 # Find the first child of `n` that is of type `type`. If it doesn't exist, return null.
 static func find_child_of_type(n: Node, type: Variant) -> Node:
@@ -113,6 +122,11 @@ static func bitwise_set(value: int, mask: int, new_value: int) -> int:
 ## down direction in [code]n[/code]'s local coordinates.
 static func direction_to_local(node: Node2D, direction: Vector2) -> Vector2:
 	return node.to_local(node.global_position + direction)
+
+## Convert the direction [param direction] in [param node]'s local coordinates to a direction in
+## global coordinates.
+static func direction_to_global(node: Node2D, direction: Vector2) -> Vector2:
+	return node.to_global(direction) - node.global_position
 
 ## Attempt to get the best possible [SelectableCanvasGroup] to be highlighted by a component that
 ## does interaction. If [param component]'s parent is a [LabBody] and its

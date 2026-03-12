@@ -1,0 +1,16 @@
+#{h1:Power supply}#
+
+Leads can be plugged into the red positive and black negative sockets on the bottom right of the device (labeled "+" and "-", respectively).
+
+You must zoom in with #{prompt:interact_inspect}# to adjust the voltage and timer settings. Turn the knob with #{prompt:interact_primary}# to adjust the supplied voltage.
+
+Power will only be supplied when the output is enabled. You can determine whether output is enabled by checking the light in the bottom left labeled "output", and you can press the power button next to the output light to toggle output on or off.
+
+To set a timer:
+[ol]
+Press the button labeled "timer".
+Use the up and down arrow buttons to adjust the length of the timer in minutes.
+When the intended time has been selected, press the timer button again to start the timer.
+[/ol]
+
+The timer will only count down while output is enabled, and output will be disabled when the timer ends. You may also cancel the timer by pressing the timer button once.
