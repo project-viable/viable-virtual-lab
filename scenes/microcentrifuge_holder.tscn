@@ -4,7 +4,8 @@
 [ext_resource type="Script" uid="uid://p0x2f70nn1sy" path="res://scripts/selectable_canvas_group.gd" id="2_lhjef"]
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="2_ufhtq"]
 [ext_resource type="Texture2D" uid="uid://4gatp66jseq6" path="res://textures/lab_objects/microcentrifuge_holder.svg" id="3_ufhtq"]
-[ext_resource type="Script" uid="uid://tqglxdgoq1xk" path="res://scripts/exclusive_area_2d.gd" id="5_ufhtq"]
+[ext_resource type="Script" uid="uid://dewfln6yuchb6" path="res://scripts/zoom_exclusive_area.gd" id="5_5umuv"]
+[ext_resource type="Script" uid="uid://b15sd4jw5afoa" path="res://scripts/camera_region_provider.gd" id="6_8qy4f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0swob"]
 size = Vector2(8, 24)
@@ -117,21 +118,29 @@ patch_margin_top = 140
 patch_margin_right = 154
 patch_margin_bottom = 121
 
-[node name="ExclusiveArea2D" type="Area2D" parent="." unique_id=386136701 groups=["exclusive_area:pipette"]]
-script = ExtResource("5_ufhtq")
+[node name="ZoomExclusiveArea" type="Area2D" parent="." unique_id=292147435 groups=["exclusive_area:pipette"]]
+script = ExtResource("5_5umuv")
 require_entry_point_shapes = true
-metadata/_custom_type_script = "uid://tqglxdgoq1xk"
+metadata/_custom_type_script = "uid://dewfln6yuchb6"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExclusiveArea2D" unique_id=637130149 groups=["entry_point"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomExclusiveArea" unique_id=637130149 groups=["entry_point"]]
 position = Vector2(-24, -25.75)
 shape = SubResource("RectangleShape2D_710li")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="ExclusiveArea2D" unique_id=1617207052]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ZoomExclusiveArea" unique_id=1617207052]
 position = Vector2(-20, -10.5)
 shape = SubResource("RectangleShape2D_c24ns")
+
+[node name="CameraRegionProvider" type="Node2D" parent="ZoomExclusiveArea" unique_id=1245838359]
+script = ExtResource("6_8qy4f")
+metadata/_custom_type_script = "uid://b15sd4jw5afoa"
+
+[node name="Camera2D" type="Camera2D" parent="ZoomExclusiveArea/CameraRegionProvider" unique_id=1838462708]
+position = Vector2(-1, -2)
+zoom = Vector2(12, 15)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=973660351]
 libraries/ = SubResource("AnimationLibrary_uwuqn")
 
-[connection signal="object_entered_purview" from="ExclusiveArea2D" to="." method="_on_exclusive_area_2d_object_entered_purview"]
-[connection signal="object_left_purview" from="ExclusiveArea2D" to="." method="_on_exclusive_area_2d_object_left_purview"]
+[connection signal="object_entered_purview" from="ZoomExclusiveArea" to="." method="_on_exclusive_area_2d_object_entered_purview"]
+[connection signal="object_left_purview" from="ZoomExclusiveArea" to="." method="_on_exclusive_area_2d_object_left_purview"]

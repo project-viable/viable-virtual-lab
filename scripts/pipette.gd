@@ -121,12 +121,11 @@ func _on_exclusive_object_hitbox_entered_purview_of(area: ExclusiveArea2D) -> vo
 	DepthManager.stop_managing(self)
 	z_index = DepthManager.get_base_z_index(Util.get_absolute_z_index(area))
 
-	var object_to_zoom := area.get_parent() as CollisionObject2D
-	if object_to_zoom and is_active():
+	if area is ZoomExclusiveArea and area.region_provider and is_active():
 		# Zoom in on the object, with extra room above it for this pipette.
-		var rect := Util.get_global_bounding_box(object_to_zoom).grow_side(1, Util.get_global_bounding_box(self).size.y + 5)
+		var rect: Rect2 = area.region_provider.get_region().grow_side(1, Util.get_global_bounding_box(self).size.y + 5)
 
-		if area is SubsceneExclusiveArea:
+		if area.camera:
 			_cur_subscene_camera = area.camera
 			disable_follow_cursor = true
 			disable_drop = true

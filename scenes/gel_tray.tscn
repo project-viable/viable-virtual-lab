@@ -6,12 +6,13 @@
 [ext_resource type="Script" uid="uid://dr7r4spi6qe72" path="res://scripts/container_interactable_area.gd" id="2_5rd3r"]
 [ext_resource type="Script" uid="uid://06juxjpcn4yg" path="res://scripts/gel_state.gd" id="2_yypu3"]
 [ext_resource type="Texture2D" uid="uid://b3jxeuh2e6u2y" path="res://textures/lab_objects/gel_tray_empty.svg" id="3_u177l"]
-[ext_resource type="Script" uid="uid://dewfln6yuchb6" path="res://scripts/subscene_exclusive_area.gd" id="4_of7eg"]
+[ext_resource type="Script" uid="uid://dewfln6yuchb6" path="res://scripts/zoom_exclusive_area.gd" id="4_of7eg"]
 [ext_resource type="Script" uid="uid://sscbm7kfq4jj" path="res://scripts/container_component.gd" id="5_pmlyu"]
 [ext_resource type="Script" uid="uid://cs1o2bs2ponhi" path="res://scripts/subscene.gd" id="5_u177l"]
 [ext_resource type="Script" uid="uid://b0ywjj7uwvbji" path="res://scripts/substance_display_polygon.gd" id="7_mu26n"]
 [ext_resource type="Script" uid="uid://qeafyaxecqnu" path="res://scripts/substance_access_area.gd" id="8_ljbi8"]
 [ext_resource type="Script" uid="uid://b5a5765epdkf" path="res://scripts/subscene_camera.gd" id="9_xo6pi"]
+[ext_resource type="Script" uid="uid://bsaytgd1m2sxq" path="res://scripts/object_region_provider.gd" id="10_rwsvt"]
 [ext_resource type="Script" uid="uid://ul3h2acp7c3y" path="res://scripts/attachment_interactable_area.gd" id="10_xir2l"]
 [ext_resource type="Texture2D" uid="uid://ooipsq06efqf" path="res://textures/lab_objects/gel_zoomed/gel.svg" id="14_gcxvw"]
 [ext_resource type="Texture2D" uid="uid://b0lcbypdklq05" path="res://textures/lab_objects/gel_zoomed/wells_back.svg" id="15_4i1yu"]
@@ -123,6 +124,11 @@ debug_color = Color(0.553104, 0.562669, 3.85046e-07, 0.42)
 position = Vector2(-1, -16)
 shape = SubResource("RectangleShape2D_u177l")
 debug_color = Color(0.553104, 0.562669, 3.85046e-07, 0.42)
+
+[node name="ObjectRegionProvider" type="Node2D" parent="SubsceneExclusiveArea" unique_id=760026674 node_paths=PackedStringArray("objects")]
+script = ExtResource("10_rwsvt")
+objects = [NodePath("../..")]
+metadata/_custom_type_script = "uid://bsaytgd1m2sxq"
 
 [node name="ContainerComponent" type="Node2D" parent="." unique_id=590198316]
 script = ExtResource("5_pmlyu")
