@@ -140,6 +140,17 @@ func start_use(area: InteractableArea, _kind: InteractInfo.Kind) -> void:
 			_target_pos = area.global_position + pour_offset \
 					+ (hand_pos - spill_component.position).rotated(tilt_angle)
 
+			# Attempt to prevent the bottom of this container from going below the bottom of the
+			# target object so it doesn't get jammed into the table that the target object is
+			# sitting on.
+			if area.zoom_object:
+				var our_rect := Util.get_global_bounding_box(body)
+				var their_rect := Util.get_global_bounding_box(area.zoom_object)
+
+				var max_move_dist := their_rect.end.y - our_rect.end.y
+				if _target_pos.y - _start_pos.y > max_move_dist:
+					_target_pos.y = _start_pos.y + max_move_dist
+
 		_move_duration = _start_pos.distance_to(_target_pos) / move_speed
 		_move_duration_left = _move_duration
 
