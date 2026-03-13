@@ -1,0 +1,3 @@
+#{h1:Gel imager}#
+
+The door on the front can be opened and closed with #{prompt:interact_primary}#. Use #{prompt:interact_inspect}# to view the screen.

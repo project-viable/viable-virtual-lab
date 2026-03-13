@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://c105io6i6gmyg" path="res://textures/gel_bands/Gel_Well_Top_View_PERFECT_9slice.svg" id="10_v62sd"]
 [ext_resource type="Texture2D" uid="uid://71b12miprvm5" path="res://textures/gel_bands/Gel_Well_Top_View_SMUDGE.svg" id="11_hcb6o"]
 [ext_resource type="Texture2D" uid="uid://b5xwngj4j0aco" path="res://textures/gel_bands/Gel_Well_Top_View_SMUDGE_2.svg" id="12_ylekj"]
+[ext_resource type="Script" uid="uid://blk6q1chtrgqi" path="res://scripts/help_selectable_area.gd" id="13_0k0au"]
 [ext_resource type="Texture2D" uid="uid://coxjop7202awh" path="res://textures/gel_bands/Gel_Well_Top_View_WAVY.svg" id="13_deexq"]
 [ext_resource type="Script" uid="uid://cs1o2bs2ponhi" path="res://scripts/subscene.gd" id="14_hcb6o"]
 [ext_resource type="Texture2D" uid="uid://dqy8bu4f6vpyv" path="res://textures/gel_bands/Gel_Well_Top_View_WAVY_2.svg" id="14_r6ay8"]
@@ -37,6 +38,15 @@ metadata/_custom_type_script = "uid://b810schxe1hne"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_deexq"]
 size = Vector2(165, 195)
+
+[sub_resource type="Resource" id="Resource_0k0au"]
+script = ExtResource("6_u3h3s")
+kind = 6
+description = "Open help page for imager"
+metadata/_custom_type_script = "uid://b810schxe1hne"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7n6rl"]
+size = Vector2(168, 194)
 
 [node name="GelImager" type="Node2D" unique_id=808032401]
 script = ExtResource("1_7wmgd")
@@ -134,6 +144,18 @@ script = ExtResource("7_au8w4")
 position = Vector2(2, -7)
 enabled = false
 zoom = Vector2(5.5, 3)
+
+[node name="HelpSelectableArea" type="Node2D" parent="." unique_id=1375431375]
+script = ExtResource("13_0k0au")
+help_page_path = "gel_imager.txt"
+interact_info = SubResource("Resource_0k0au")
+metadata/_custom_type_script = "uid://blk6q1chtrgqi"
+
+[node name="Area2D" type="Area2D" parent="HelpSelectableArea" unique_id=2096292001]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HelpSelectableArea/Area2D" unique_id=57301236]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_7n6rl")
 
 [node name="GelWellTopViewLadderMultiple" type="Sprite2D" parent="." unique_id=1238052413]
 visible = false

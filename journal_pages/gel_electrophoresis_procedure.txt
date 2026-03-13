@@ -8,6 +8,7 @@
 [url="power_supply.txt"]Power supply[/url]
 [url="microwave.txt"]Microwave[/url]
 [url="scale.txt"]Measuring solids[/url]
+[url="gel_imager.txt"]Gel imager[/url]
 [/ul]
 
 #{h2:To make the gel}#
@@ -36,6 +37,7 @@ Press the start button on the power supply and wait 20 minutes for it to run.
 
 #{h2:To image the gel}#
 [ol]
-Once the gel running has finished, remove the gel tray with the gel from the electrolysis setup and place it into the gel imager.
-Press the button on the front of the imager to enable UV so that you can see the bands.
+Open the door on the front of the imager.
+Once the gel running has finished, remove the gel tray with the gel from the rig and place it into the gel imager.
+Close the imager door to turn on UV.
 [/ol]
