@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://vybd512eyhhs" path="res://textures/lab_objects/gel_mold_9slice.svg" id="4_s6q61"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oo5xd"]
-size = Vector2(61, 31)
+size = Vector2(23, 31)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_beqgl"]
 atlas = ExtResource("4_s6q61")
