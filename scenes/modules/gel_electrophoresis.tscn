@@ -400,35 +400,11 @@ position = Vector2(878, 481)
 [node name="GelMoldThing" parent="Objects" unique_id=1646695503 instance=ExtResource("33_ompny")]
 position = Vector2(1820, 480)
 
-[node name="AttachmentInteractableArea" parent="Objects/GelMoldThing" index="0" unique_id=654744687 node_paths=PackedStringArray("contained_object")]
-contained_object = NodePath("../GelTray")
+[node name="GelTray" parent="Objects" unique_id=346569152 instance=ExtResource("11_l4mh3")]
+position = Vector2(1735, 490)
 
-[node name="AttachmentInteractableArea2" parent="Objects/GelMoldThing" index="1" unique_id=1092635121 node_paths=PackedStringArray("contained_object")]
-contained_object = NodePath("../GelTray2")
-
-[node name="GelComb" parent="Objects/GelMoldThing" unique_id=1887527958 instance=ExtResource("30_bi4rt")]
-position = Vector2(-29, -2)
-
-[node name="GelTray" parent="Objects/GelMoldThing" unique_id=346569152 instance=ExtResource("11_l4mh3")]
-position = Vector2(-29, 5)
-
-[node name="AttachmentInteractableArea" parent="Objects/GelMoldThing/GelTray" index="5" unique_id=1231469035 node_paths=PackedStringArray("contained_object")]
-contained_object = NodePath("../../GelComb")
-
-[node name="Subscene" parent="Objects/GelMoldThing/GelTray" index="11" unique_id=823757223]
-visible = false
-
-[node name="GelComb2" parent="Objects/GelMoldThing" unique_id=887352500 instance=ExtResource("30_bi4rt")]
-position = Vector2(48, 0)
-
-[node name="GelTray2" parent="Objects/GelMoldThing" unique_id=783053783 instance=ExtResource("11_l4mh3")]
-position = Vector2(48, 5)
-
-[node name="AttachmentInteractableArea" parent="Objects/GelMoldThing/GelTray2" index="5" unique_id=1231469035 node_paths=PackedStringArray("contained_object")]
-contained_object = NodePath("../../GelComb2")
-
-[node name="Subscene" parent="Objects/GelMoldThing/GelTray2" index="11" unique_id=823757223]
-visible = false
+[node name="GelComb" parent="Objects" unique_id=1887527958 instance=ExtResource("30_bi4rt")]
+position = Vector2(1873, 484)
 
 [editable path="Objects/Flask"]
 [editable path="Objects/Flask2"]
@@ -439,6 +415,3 @@ visible = false
 [editable path="Objects/MicrocentrifugeTube3"]
 [editable path="Objects/MicrocentrifugeTube4"]
 [editable path="Objects/MicrocentrifugeHolder"]
-[editable path="Objects/GelMoldThing"]
-[editable path="Objects/GelMoldThing/GelTray"]
-[editable path="Objects/GelMoldThing/GelTray2"]

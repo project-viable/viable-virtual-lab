@@ -22,7 +22,7 @@ radius = 8.0
 radius = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r7so7"]
-size = Vector2(94, 47)
+size = Vector2(30, 27)
 
 [sub_resource type="Resource" id="Resource_o0bv7"]
 script = ExtResource("11_ch7uj")
@@ -115,7 +115,7 @@ point_groups = Array[StringName]([&"attachment:gel_tray"])
 metadata/_custom_type_script = "uid://ul3h2acp7c3y"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TrayAttachment" unique_id=1375073678]
-position = Vector2(0, -3.5)
+position = Vector2(0, -13.5)
 shape = SubResource("RectangleShape2D_r7so7")
 debug_color = Color(3.46541e-06, 0.635788, 0.412943, 0.42)
 

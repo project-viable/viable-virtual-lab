@@ -71,43 +71,6 @@ region = Rect2(9.999298, 89.332985, 176, 174.00003)
 atlas = ExtResource("5_w22cc")
 region = Rect2(0, 26.666313, 199.9993, 62)
 
-[sub_resource type="Animation" id="Animation_cexob"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Screen/TimeDisplay/Colon:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_w22cc"]
-resource_name = "time_colon_blink"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Screen/TimeDisplay/Colon:visible")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.033333335, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ifdxy"]
-_data = {
-&"RESET": SubResource("Animation_cexob"),
-&"time_colon_blink": SubResource("Animation_w22cc")
-}
-
 [node name="PowerSupply" type="Node2D" unique_id=1336655366]
 script = ExtResource("1_7lagc")
 
@@ -503,12 +466,15 @@ text = "Output"
 
 [node name="Label4" type="Label" parent="Screen" unique_id=12084244]
 layout_mode = 0
-offset_left = 82.0
+offset_left = 80.0
 offset_top = 6.0
-offset_right = 98.0
-offset_bottom = 13.0
+offset_right = 96.0
+offset_bottom = 23.0
+theme_override_constants/line_spacing = -1
 theme_override_font_sizes/font_size = 5
-text = "Timer"
+text = "Timer
+On/Off"
+horizontal_alignment = 1
 
 [node name="AmpFluctuationTimer" type="Timer" parent="." unique_id=1028421179]
 editor_description = "Each time this timer ends, there's a chance the displayed output current will fluctuate a bit (this does not affect the actual output voltage)"
@@ -516,12 +482,9 @@ autostart = true
 
 [node name="LabTimer" type="Node" parent="." unique_id=1866955426]
 script = ExtResource("12_7xsxk")
+wait_time = 0.001
 one_shot = true
 metadata/_custom_type_script = "uid://bk0s8v1tcwcmr"
-
-[node name="ColonBlinkAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1984008862]
-unique_name_in_owner = true
-libraries/ = SubResource("AnimationLibrary_ifdxy")
 
 [connection signal="started_holding" from="TimeUpButton" to="." method="_on_time_up_button_started_holding"]
 [connection signal="stopped_holding" from="TimeUpButton" to="." method="_on_time_up_button_stopped_holding"]
