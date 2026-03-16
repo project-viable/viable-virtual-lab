@@ -31,8 +31,7 @@ Use the pipette to move a DNA sample from one of the microcentrifuge tubes into 
 Drop the pipette tip into the waste bin.
 Repeat steps 3-5 for all DNA samples, using a different well each time.
 Hook up the color-coded positive and negative wires (red and black, respectively) to the power supply. Hook up the other ends of the wires to the gel rig.
-Set the power supply to 120 volts and a running time of 20 minutes.
-Press the start button on the power supply and wait 20 minutes for it to run.
+Run the power supply at 120 volts for 20 minutes (see the [url="power_supply.txt"]power supply help page[/url] for an explanation on how to set a timer).
 [/ol]
 
 #{h2:To image the gel}#
